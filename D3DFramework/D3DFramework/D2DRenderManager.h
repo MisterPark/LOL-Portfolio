@@ -59,6 +59,8 @@ namespace PKH
 		LPD3DXFONT	pFont = nullptr;
 		LPD3DXLINE pLine = nullptr;
 
+
+
 		map<SpriteType, Texture*> textureMap;
 	};
 

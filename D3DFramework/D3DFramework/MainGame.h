@@ -21,6 +21,8 @@ namespace PKH
 		static void Pause();
 		static void Resume();
 		static void Shutdown();
+
+		Triangle* tri = nullptr;
 	};
 }
 

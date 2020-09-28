@@ -34,6 +34,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{df649d77-5659-4738-9597-cb084172f1aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{1b8ffbc5-dc60-4a07-9e65-dd48a6108dc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -108,8 +111,17 @@
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +179,17 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
     <ClCompile Include="Color.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,9 @@
 #include "Vector3.h"
 #include "Transform.h"
 #include "Color.h"
+#include "Vertex.h"
+#include "Mesh.h"
+#include "Triangle.h"
 
 #include "SoundManager.h"
 #include "MainGame.h"

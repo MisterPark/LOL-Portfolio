@@ -116,9 +116,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
+   RECT rc{ 0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT };
+   constexpr int WIDOW_STYLE = WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX;
+   AdjustWindowRect(&rc, WIDOW_STYLE, false);
+   HWND hWnd = CreateWindowExW(0, szWindowClass, szTitle, WIDOW_STYLE,
+       CW_USEDEFAULT, 0, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance, nullptr);
    if (!hWnd)
    {
       return FALSE;
