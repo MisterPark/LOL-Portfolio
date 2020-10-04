@@ -1,14 +1,21 @@
 #pragma once
 #include "Mesh.h"
-class Triangle :
-    public Mesh
+
+namespace PKH
 {
-public:
-    Triangle();
-    virtual ~Triangle();
+    class Triangle :
+        public Mesh
+    {
+    public:
+        Triangle();
+        virtual ~Triangle();
 
-    // Mesh을(를) 통해 상속됨
-    virtual void Render() override;
+        // Mesh을(를) 통해 상속됨
 
-};
+        virtual void Update() override;
+        virtual void Render() override;
 
+    };
+
+
+}
