@@ -141,7 +141,7 @@ void PKH::D2DRenderManager::Release()
 
 void PKH::D2DRenderManager::Clear()
 {
-	pD2DRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Blue, 0.f, 0);
+	pD2DRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Gray, 1.f, 0);
 	pD2DRenderManager->pDevice->BeginScene();
 }
 

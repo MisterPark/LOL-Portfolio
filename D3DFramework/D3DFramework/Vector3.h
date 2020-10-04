@@ -69,30 +69,30 @@ namespace PKH
 		//=====================================
 
 		// (-1,0,0)
-		static const Vector3 left;
+		static const Vector3 LEFT;
 		// (1,0,0)
-		static const Vector3 right;
+		static const Vector3 RIGHT;
 		// (0,1,0)
-		static const Vector3 up;
+		static const Vector3 UP;
 		// (0,-1,0)
-		static const Vector3 down;
+		static const Vector3 DOWN;
 		// (0,0,1)
-		static const Vector3 forward;
+		static const Vector3 FORWARD;
 		// (0,0,-1)
-		static const Vector3 back;
+		static const Vector3 BACK;
 		// (1,1,1)
-		static const Vector3 one;
+		static const Vector3 ONE;
 		// (0,0,0)
-		static const Vector3 zero;
+		static const Vector3 ZERO;
 	};
-	const Vector3 Vector3::left		= Vector3(-1.f, 0.f, 0.f);
-	const Vector3 Vector3::right	= Vector3(1.f, 0.f, 0.f);
-	const Vector3 Vector3::up		= Vector3(0.f, 1.f, 0.f);
-	const Vector3 Vector3::down		= Vector3(0.f, -1.f, 0.f);
-	const Vector3 Vector3::forward	= Vector3(0.f, 0.f, 1.f);
-	const Vector3 Vector3::back		= Vector3(0.f, 0.f, -1.f);
-	const Vector3 Vector3::one		= Vector3(1.f, 1.f, 1.f);
-	const Vector3 Vector3::zero		= Vector3(0.f, 0.f, 0.f);
+	const Vector3 Vector3::LEFT		= Vector3(-1.f, 0.f, 0.f);
+	const Vector3 Vector3::RIGHT	= Vector3(1.f, 0.f, 0.f);
+	const Vector3 Vector3::UP		= Vector3(0.f, 1.f, 0.f);
+	const Vector3 Vector3::DOWN		= Vector3(0.f, -1.f, 0.f);
+	const Vector3 Vector3::FORWARD	= Vector3(0.f, 0.f, 1.f);
+	const Vector3 Vector3::BACK		= Vector3(0.f, 0.f, -1.f);
+	const Vector3 Vector3::ONE		= Vector3(1.f, 1.f, 1.f);
+	const Vector3 Vector3::ZERO		= Vector3(0.f, 0.f, 0.f);
 
 	class Matrix : public D3DXMATRIX
 	{
