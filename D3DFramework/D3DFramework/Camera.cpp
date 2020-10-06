@@ -11,14 +11,7 @@ PKH::Camera::Camera()
 	// ºä
 
 
-	// Åõ¿µ
-	D3DXMATRIX proj;
-	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
-		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
-		1.0f,
-		1000.f);
-
-	D2DRenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &proj);
+	
 }
 
 PKH::Camera::~Camera()
@@ -71,9 +64,22 @@ void PKH::Camera::Update()
 	}
 
 	
-	//Matrix view;
+	Matrix view;
 	//GetViewMatrix(&view);
-	//D2DRenderManager::GetDevice()->SetTransform(D3DTS_VIEW, &view);
+	Vector3 target = transform.position;
+	target.z += 3;
+	D3DXMatrixLookAtLH(&view, &transform.position, &target, &this->up);
+	D2DRenderManager::GetDevice()->SetTransform(D3DTS_VIEW, &view);
+
+	// Åõ¿µ
+	Matrix proj;
+	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
+		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
+		1.0f,
+		1000.f);
+
+	D2DRenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &proj);
+
 }
 
 void PKH::Camera::Render()

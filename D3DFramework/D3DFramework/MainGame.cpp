@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainGame.h"
+#include "TestScene.h"
 
 using namespace PKH;
 
@@ -51,8 +52,8 @@ void PKH::MainGame::Initialize()
 	SoundManager::GetInstance()->Initialize();
 
     // 리소스 로드
+	SceneManager::LoadScene<TestScene>();
 
-	pMainGame->tri = new Triangle;
 }
 
 void PKH::MainGame::Release()
@@ -78,7 +79,6 @@ void PKH::MainGame::Update()
 	Camera::GetInstance()->Update();
 	CollisionManager::Update();
 	ObjectManager::PostUpdate();
-	pMainGame->tri->Update();
 
 	if (!TimeManager::SkipFrame())
 	{
@@ -88,7 +88,6 @@ void PKH::MainGame::Update()
 		ObjectManager::Render();
 		ObjectManager::PostRender();
 
-		pMainGame->tri->Render();
 
 		D2DRenderManager::Present();
 	}

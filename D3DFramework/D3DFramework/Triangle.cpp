@@ -3,10 +3,12 @@
 
 Triangle::Triangle()
 {
+	this->vertexCount = 8;
+	this->triangleCount = 12;
 	this->transform.position.z = 2;
 
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		8 * sizeof(Vertex),
+		vertexCount * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
 		Vertex::FVF,
 		D3DPOOL_MANAGED,
@@ -14,7 +16,7 @@ Triangle::Triangle()
 		0);
 
 	D2DRenderManager::GetDevice()->CreateIndexBuffer(
-		36 * sizeof(WORD),
+		triangleCount * 3 * sizeof(WORD),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
@@ -68,35 +70,12 @@ Triangle::~Triangle()
 
 void Triangle::Update()
 {
-	if (InputManager::GetKey(VK_UP))
-	{
-		this->transform.position.y += 1.f * TimeManager::DeltaTime();
-	}
-	if (InputManager::GetKey(VK_DOWN))
-	{
-		this->transform.position.y -= 1.f * TimeManager::DeltaTime();
-	}
-	if (InputManager::GetKey(VK_LEFT))
-	{
-		this->transform.position.x -= 1.f * TimeManager::DeltaTime();
-	}
-	if (InputManager::GetKey(VK_RIGHT))
-	{
-		this->transform.position.x += 1.f * TimeManager::DeltaTime();
-	}
+	this->transform = gameObject->transform;
+}
 
-	if (InputManager::GetKey(VK_NUMPAD6))
-	{
-		this->transform.rotation.y -= 1.f * TimeManager::DeltaTime();
-	}
-	if (InputManager::GetKey(VK_NUMPAD8))
-	{
-		this->transform.rotation.x -= 1.f * TimeManager::DeltaTime();
-	}
-	if (InputManager::GetKey(VK_NUMPAD5))
-	{
-		this->transform.rotation.z -= 1.f * TimeManager::DeltaTime();
-	}
+PKH::IComponent * PKH::Triangle::Clone()
+{
+	return new Triangle(*this);
 }
 
 void Triangle::Render()
@@ -124,6 +103,6 @@ void Triangle::Render()
 		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_LIGHTING, false);
 		//device->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
 	}
 }

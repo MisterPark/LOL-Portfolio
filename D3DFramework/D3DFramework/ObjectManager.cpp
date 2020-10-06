@@ -24,6 +24,7 @@ ObjectManager * PKH::ObjectManager::GetInstance()
 }
 
 
+
 bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 {
 	auto& objList = pObjectManager->objectList;
@@ -55,7 +56,7 @@ void PKH::ObjectManager::Destroy()
 
 void PKH::ObjectManager::Update()
 {
-
+	
 	auto& objList = pObjectManager->objectList;
 	for (auto& iter : objList)
 	{

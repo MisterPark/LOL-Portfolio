@@ -1,20 +1,26 @@
 #pragma once
+#include "IComponent.h"
 
 namespace PKH
 {
-	class Mesh
+	class Mesh : public PKH::IComponent
 	{
 	public:
 		Mesh();
 		virtual ~Mesh();
 
-		virtual void Update() = 0;
-		virtual void Render() = 0;
+		virtual void Update() {};
+		virtual void Render() {};
 
 		IDirect3DVertexBuffer9* vb = nullptr;
 		IDirect3DIndexBuffer9* triangles = nullptr;
+		UINT vertexCount;
+		UINT triangleCount;
 
 		Transform transform;
+
+		// IComponent을(를) 통해 상속됨
+		virtual PKH::IComponent * Clone() override;
 	};
 }
 

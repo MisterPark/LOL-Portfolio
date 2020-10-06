@@ -12,8 +12,10 @@ namespace PKH
 		~ObjectManager();
 	public:
 		static ObjectManager* GetInstance();
+
 		template<class T>
 		GameObject* CreateObject();
+
 		static bool DeleteObject(GameObject* _target);
 		static void DestroyAll();
 
@@ -32,17 +34,21 @@ namespace PKH
 
 	private:
 
-		list<GameObject*>objectList;
+		list<GameObject*> objectList;
 		list<GameObject*> renderList;
 		bool isVisibleCollider = false;
 	};
 
-	template<class T>
-	inline GameObject* ObjectManager::CreateObject()
-	{
-		GameObject* pObj = new T;
 
-		objectList.push_back(pObj);
+	template<class T>
+	inline GameObject * ObjectManager::CreateObject()
+	{
+		T* pObj = new T;
+		if (dynamic_cast<GameObject*>(pObj) == nullptr)
+		{
+			return nullptr;
+		}
+		objectList.push_back((GameObject*)pObj);
 
 		return pObj;
 	}

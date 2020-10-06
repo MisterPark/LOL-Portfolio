@@ -2,6 +2,7 @@
 #include "SoundManager.h"
 #include "fmod.h"
 #include <io.h>
+#include <algorithm>
 
 using namespace PKH;
 
