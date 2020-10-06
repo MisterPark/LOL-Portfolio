@@ -3,19 +3,18 @@
 
 namespace PKH
 {
-    class Triangle :
+    class Rectangle :
         public Mesh
     {
     public:
-        Triangle();
-        virtual ~Triangle();
+        Rectangle();
+        virtual ~Rectangle();
 
         // Mesh을(를) 통해 상속됨
 
         virtual void Update() override;
+        virtual void Render() override;
 
-		virtual IComponent* Clone() override;
+        virtual IComponent* Clone() override;
     };
-
-
 }

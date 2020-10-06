@@ -36,5 +36,6 @@
 #include "Texture.h"
 
 using namespace std;
+using namespace PKH;
 //using namespace PKH;
 extern HWND g_hwnd;

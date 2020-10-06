@@ -10,7 +10,7 @@ namespace PKH
 		virtual ~Mesh();
 
 		virtual void Update() {};
-		virtual void Render() {};
+		virtual void Render();
 
 		IDirect3DVertexBuffer9* vb = nullptr;
 		IDirect3DIndexBuffer9* triangles = nullptr;

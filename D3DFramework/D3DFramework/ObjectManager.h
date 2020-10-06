@@ -19,6 +19,9 @@ namespace PKH
 		static bool DeleteObject(GameObject* _target);
 		static void DestroyAll();
 
+		template<class T>
+		GameObject* FindObject();
+
 
 		static void Destroy();
 		static void Update();
@@ -51,6 +54,19 @@ namespace PKH
 		objectList.push_back((GameObject*)pObj);
 
 		return pObj;
+	}
+
+	template<class T>
+	inline GameObject* ObjectManager::FindObject()
+	{
+		for (auto& iter : objectList)
+		{
+			if (dynamic_cast<T*>(iter) == nullptr) continue;
+
+			return iter;
+		}
+		
+		return nullptr;
 	}
 
 }

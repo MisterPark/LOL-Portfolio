@@ -7,7 +7,7 @@ using namespace PKH;
 
 PKH::Player::Player()
 {
-	transform.position.z = 3;
+	transform.position.z = 3.f;
 }
 
 PKH::Player::~Player()
@@ -18,20 +18,29 @@ void PKH::Player::Update()
 {
 	if (InputManager::GetKey(VK_UP))
 	{
-		this->transform.position.y += 1.f * TimeManager::DeltaTime();
+		this->transform.position.y += 3.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_DOWN))
 	{
-		this->transform.position.y -= 1.f * TimeManager::DeltaTime();
+		this->transform.position.y -= 3.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_LEFT))
 	{
-		this->transform.position.x -= 1.f * TimeManager::DeltaTime();
+		this->transform.position.x -= 3.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_RIGHT))
 	{
-		this->transform.position.x += 1.f * TimeManager::DeltaTime();
+		this->transform.position.x += 3.f * TimeManager::DeltaTime();
 	}
+	if (InputManager::GetKey('Z'))
+	{
+		this->transform.position.z -= 3.f * TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey('X'))
+	{
+		this->transform.position.z += 3.f * TimeManager::DeltaTime();
+	}
+
 
 	if (InputManager::GetKey(VK_NUMPAD6))
 	{
