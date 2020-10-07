@@ -5,6 +5,7 @@ using namespace PKH;
 
 Mesh::Mesh()
 {
+
 }
 
 Mesh::~Mesh()
@@ -13,6 +14,10 @@ Mesh::~Mesh()
 
 void PKH::Mesh::Render()
 {
+	if (gameObject == nullptr)return;
+
+	Transform* transform = (Transform*)gameObject->GetComponent(L"Transform");
+
 	LPDIRECT3DDEVICE9 device = D2DRenderManager::GetDevice();
 	if (device)
 	{
@@ -21,11 +26,11 @@ void PKH::Mesh::Render()
 		device->SetFVF(Vertex::FVF);
 
 		Matrix world, trans, rotX, rotY, rotZ, scale;
-		D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, transform.scale.z);
-		D3DXMatrixRotationX(&rotX, transform.rotation.x);
-		D3DXMatrixRotationY(&rotY, transform.rotation.y);
-		D3DXMatrixRotationZ(&rotZ, transform.rotation.z);
-		D3DXMatrixTranslation(&trans, transform.position.x, transform.position.y, transform.position.z);
+		D3DXMatrixScaling(&scale, transform->scale.x, transform->scale.y, transform->scale.z);
+		D3DXMatrixRotationX(&rotX, transform->rotation.x);
+		D3DXMatrixRotationY(&rotY, transform->rotation.y);
+		D3DXMatrixRotationZ(&rotZ, transform->rotation.z);
+		D3DXMatrixTranslation(&trans, transform->position.x, transform->position.y, transform->position.z);
 
 		world = scale * rotX * rotY * rotZ * trans;
 

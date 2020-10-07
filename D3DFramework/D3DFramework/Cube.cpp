@@ -5,7 +5,7 @@ PKH::Cube::Cube()
 {
 	this->vertexCount = 8;
 	this->triangleCount = 12;
-	this->transform.position.z = 2;
+	
 
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
 		vertexCount * sizeof(Vertex),
@@ -69,7 +69,6 @@ PKH::Cube::~Cube()
 
 void PKH::Cube::Update()
 {
-	this->transform = gameObject->transform;
 }
 
 

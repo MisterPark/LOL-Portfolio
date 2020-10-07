@@ -21,11 +21,17 @@ namespace PKH
 		virtual void Die();
 		virtual void OnCollision(GameObject* target);
 
+		void Move(Vector3 _target);
+
 		template<class T>
-		void AddComponent(const wstring& _key);
+		IComponent* AddComponent(const wstring& _key);
+
+		IComponent* GetComponent(const wstring& _key);
 
 	public:
-		Transform transform;
+		Transform* transform = nullptr;
+
+		float moveSpeed = 1.f;
 		bool isDead = false;
 		bool isVisible = true;
 		bool isEnable = true;
@@ -33,17 +39,19 @@ namespace PKH
 		map<wstring, PKH::IComponent*> components;
 	};
 	template<class T>
-	inline void GameObject::AddComponent(const wstring & _key)
+	inline IComponent* GameObject::AddComponent(const wstring & _key)
 	{
 		T* comp = new T;
 		if (dynamic_cast<IComponent*>(comp) == nullptr)
 		{
 			delete comp;
-			return;
+			return nullptr;
 		}
 
 		comp->gameObject = this;
 		components[_key] = comp;
+
+		return comp;
 	}
 }
 

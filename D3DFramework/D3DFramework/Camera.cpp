@@ -9,10 +9,10 @@ PKH::Camera* pCamera = nullptr;
 PKH::Camera::Camera()
 {
 	
-	this->transform.position = { 0,2,-1 };
+	this->transform->position = { 0,0,-3 };
 	Matrix view;
 	//GetViewMatrix(&view);
-	D3DXMatrixLookAtLH(&view, &transform.position, &look, &this->up);
+	D3DXMatrixLookAtLH(&view, &transform->position, &look, &this->up);
 	D2DRenderManager::GetDevice()->SetTransform(D3DTS_VIEW, &view);
 
 	// 투영
@@ -51,33 +51,33 @@ void PKH::Camera::Update()
 {
 	if (InputManager::GetKey('W'))
 	{
-		transform.position.y += 1.0f * TimeManager::DeltaTime();
+		transform->position.y += 1.0f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('A'))
 	{
-		transform.position.x -= 1.0f * TimeManager::DeltaTime();
+		transform->position.x -= 1.0f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('S'))
 	{
-		transform.position.y -= 1.0f * TimeManager::DeltaTime();
+		transform->position.y -= 1.0f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('D'))
 	{
-		transform.position.x += 1.0f * TimeManager::DeltaTime();
+		transform->position.x += 1.0f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('Q'))
 	{
-		transform.position.z += 1.0f * TimeManager::DeltaTime();
+		transform->position.z += 1.0f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('E'))
 	{
-		transform.position.z -= 1.0f * TimeManager::DeltaTime();
+		transform->position.z -= 1.0f * TimeManager::DeltaTime();
 	}
 
 	
 	Matrix view;
 	//GetViewMatrix(&view);
-	D3DXMatrixLookAtLH(&view, &transform.position, &look, &this->up);
+	D3DXMatrixLookAtLH(&view, &transform->position, &look, &this->up);
 	D2DRenderManager::GetDevice()->SetTransform(D3DTS_VIEW, &view);
 
 	// 투영
@@ -86,7 +86,7 @@ void PKH::Camera::Update()
 		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
 		1.0f,
 		1000.f);
-
+	
 	D2DRenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &proj);
 
 }
@@ -97,17 +97,17 @@ void PKH::Camera::Render()
 
 Vector3 PKH::Camera::GetPosition()
 {
-	return pCamera->transform.position;
+	return pCamera->transform->position;
 }
 
 float PKH::Camera::GetX()
 {
-	return pCamera->transform.position.x;
+	return pCamera->transform->position.x;
 }
 
 float PKH::Camera::GetY()
 {
-	return pCamera->transform.position.y;
+	return pCamera->transform->position.y;
 }
 
 void PKH::Camera::GetViewMatrix(Matrix* outView)
@@ -138,8 +138,8 @@ void PKH::Camera::GetViewMatrix(Matrix* outView)
 	outView->_33 = pCamera->right.z;
 	outView->_34 = 0.f;
 
-	outView->_41 = pCamera->transform.position.x;
-	outView->_42 = pCamera->transform.position.y;
-	outView->_43 = pCamera->transform.position.z;
+	outView->_41 = pCamera->transform->position.x;
+	outView->_42 = pCamera->transform->position.y;
+	outView->_43 = pCamera->transform->position.z;
 	outView->_44 = 1.f;
 }

@@ -5,7 +5,7 @@
 
 PKH::Monster::Monster()
 {
-	transform.position.z = 3;
+	transform->scale = { 3,3,3 };
 }
 
 PKH::Monster::~Monster()
@@ -14,18 +14,25 @@ PKH::Monster::~Monster()
 
 void PKH::Monster::Update()
 {
-	transform.rotation.x += 5.0f * TimeManager::DeltaTime();
-	transform.rotation.z += 5.f * TimeManager::DeltaTime();
-
+	
 	GameObject* player = ObjectManager::GetInstance()->FindObject<Player>();
 	if (player != nullptr)
 	{
-		Vector3 dir = player->transform.position - transform.position;
+		Vector3 dir = player->transform->position - transform->position;
 		Vector3::Normalize(&dir);
 
-		transform.position.x += dir.x * TimeManager::DeltaTime();
-		transform.position.y += dir.y * TimeManager::DeltaTime();
-		transform.position.z += dir.z * TimeManager::DeltaTime();
+		Move(player->transform->position);
+
+
+		float rotX = atan2f(dir.z, dir.y) + D3DXToRadian(180.f);
+		float rotY = atan2f(dir.x, dir.z) + D3DXToRadian(180.f);
+		float rotZ = atan2f(dir.y, dir.x) + D3DXToRadian(180.f);
+
+		transform->rotation.x = rotX;
+		transform->rotation.y = rotY;
+		transform->rotation.z = rotZ;
+		
+
 	}
 	
 

@@ -112,10 +112,10 @@ void PKH::ObjectManager::Render()
 	for (auto& iter : objList)
 	{
 		if (!iter->isVisible)continue;
-		if (iter->transform.position.x < camPos.x - dfCLIENT_WIDTH / 2) continue;
-		if (iter->transform.position.y < camPos.y - dfCLIENT_HEIGHT / 2) continue;
-		if (iter->transform.position.x > camPos.x + dfCLIENT_WIDTH + dfCLIENT_WIDTH / 2) continue;
-		if (iter->transform.position.y > camPos.y + dfCLIENT_HEIGHT + dfCLIENT_HEIGHT / 2) continue;
+		if (iter->transform->position.x < camPos.x - dfCLIENT_WIDTH / 2) continue;
+		if (iter->transform->position.y < camPos.y - dfCLIENT_HEIGHT / 2) continue;
+		if (iter->transform->position.x > camPos.x + dfCLIENT_WIDTH + dfCLIENT_WIDTH / 2) continue;
+		if (iter->transform->position.y > camPos.y + dfCLIENT_HEIGHT + dfCLIENT_HEIGHT / 2) continue;
 
 
 		pObjectManager->renderList.push_back(iter);
@@ -140,7 +140,7 @@ void PKH::ObjectManager::PostRender()
 
 bool PKH::ObjectManager::Compare(GameObject* a, GameObject* b)
 {
-	return a->transform.position.y < b->transform.position.y;
+	return a->transform->position.y < b->transform->position.y;
 }
 
 bool PKH::ObjectManager::IsVisibleCollider()

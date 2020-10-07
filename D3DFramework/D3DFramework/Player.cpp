@@ -7,7 +7,7 @@ using namespace PKH;
 
 PKH::Player::Player()
 {
-	transform.position.z = 3.f;
+	moveSpeed = 3.f;
 }
 
 PKH::Player::~Player()
@@ -18,41 +18,60 @@ void PKH::Player::Update()
 {
 	if (InputManager::GetKey(VK_UP))
 	{
-		this->transform.position.y += 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Vector3 target = trans->target + trans->position;
+		Move(target);
 	}
 	if (InputManager::GetKey(VK_DOWN))
 	{
-		this->transform.position.y -= 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Vector3 target = -trans->target + transform->position;
+		Move(target);
 	}
 	if (InputManager::GetKey(VK_LEFT))
 	{
-		this->transform.position.x -= 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Move(trans->position + PKH::Vector3(-1,0,0));
 	}
 	if (InputManager::GetKey(VK_RIGHT))
 	{
-		this->transform.position.x += 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Move(trans->position + PKH::Vector3(1, 0, 0));
 	}
 	if (InputManager::GetKey('Z'))
 	{
-		this->transform.position.z -= 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Move(trans->position + PKH::Vector3(0, 0, 1));
 	}
 	if (InputManager::GetKey('X'))
 	{
-		this->transform.position.z += 3.f * TimeManager::DeltaTime();
+		Transform* trans = (Transform*)GetComponent(L"Transform");
+		Move(trans->position + PKH::Vector3(0, 0, -1));
 	}
 
-
-	if (InputManager::GetKey(VK_NUMPAD6))
+	if (InputManager::GetKey(VK_NUMPAD7))
 	{
-		this->transform.rotation.x -= 1.f * TimeManager::DeltaTime();
+		transform->rotation.x += TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_NUMPAD4))
+	{
+		transform->rotation.x -= TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_NUMPAD8))
 	{
-		this->transform.rotation.y -= 1.f * TimeManager::DeltaTime();
+		transform->rotation.y += TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_NUMPAD5))
 	{
-		this->transform.rotation.z -= 1.f * TimeManager::DeltaTime();
+		transform->rotation.y -= TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_NUMPAD9))
+	{
+		transform->rotation.z += TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_NUMPAD6))
+	{
+		transform->rotation.z -= TimeManager::DeltaTime();
 	}
 
 	for (auto& comp : components)
