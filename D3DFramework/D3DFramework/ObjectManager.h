@@ -22,6 +22,10 @@ namespace PKH
 		template<class T>
 		GameObject* FindObject();
 
+		template<class T>
+		void FindObjectList(list<GameObject*>& outList);
+
+		static void AddObject(GameObject* _obj);
 
 		static void Destroy();
 		static void Update();
@@ -46,7 +50,7 @@ namespace PKH
 	template<class T>
 	inline GameObject * ObjectManager::CreateObject()
 	{
-		T* pObj = new T;
+		T* pObj = new T();
 		if (dynamic_cast<GameObject*>(pObj) == nullptr)
 		{
 			return nullptr;
@@ -67,6 +71,17 @@ namespace PKH
 		}
 		
 		return nullptr;
+	}
+
+	template<class T>
+	inline void ObjectManager::FindObjectList(list<GameObject*>& outList)
+	{
+		for (auto& iter : objectList)
+		{
+			if (dynamic_cast<T*>(iter) == nullptr) continue;
+
+			outList.push_back(iter);
+		}
 	}
 
 }

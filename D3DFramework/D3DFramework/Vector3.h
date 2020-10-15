@@ -28,6 +28,10 @@ namespace PKH
 		using D3DXVECTOR3::operator/=;
 		using D3DXVECTOR3::operator==;
 		using D3DXVECTOR3::operator!=;
+
+		bool operator==(const Vector3& other);
+		bool operator!=(const Vector3& other);
+		Vector3& operator=(const Vector3& rhs);
 		
 		//=====================================
 		// Public Function
@@ -85,36 +89,9 @@ namespace PKH
 		// (0,0,0)
 		static const Vector3 ZERO;
 	};
-	const Vector3 Vector3::LEFT		= Vector3(-1.f, 0.f, 0.f);
-	const Vector3 Vector3::RIGHT	= Vector3(1.f, 0.f, 0.f);
-	const Vector3 Vector3::UP		= Vector3(0.f, 1.f, 0.f);
-	const Vector3 Vector3::DOWN		= Vector3(0.f, -1.f, 0.f);
-	const Vector3 Vector3::FORWARD	= Vector3(0.f, 0.f, 1.f);
-	const Vector3 Vector3::BACK		= Vector3(0.f, 0.f, -1.f);
-	const Vector3 Vector3::ONE		= Vector3(1.f, 1.f, 1.f);
-	const Vector3 Vector3::ZERO		= Vector3(0.f, 0.f, 0.f);
+	
 
-	class Matrix : public D3DXMATRIX
-	{
-	public:
-		Matrix();
-		Matrix(const D3DXMATRIX& r);
-		~Matrix();
-
-		using D3DXMATRIX::operator const FLOAT*;
-		using D3DXMATRIX::operator FLOAT*;
-		using D3DXMATRIX::operator*;
-		using D3DXMATRIX::operator();
-		using D3DXMATRIX::operator*=;
-		using D3DXMATRIX::operator+;
-		using D3DXMATRIX::operator+=;
-		using D3DXMATRIX::operator-;
-		using D3DXMATRIX::operator-=;
-		using D3DXMATRIX::operator/;
-		using D3DXMATRIX::operator/=;
-		using D3DXMATRIX::operator==;
-		using D3DXMATRIX::operator!=;
-	};
+	
 }
 
 

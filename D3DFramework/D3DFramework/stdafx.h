@@ -15,11 +15,17 @@
 #include"MemoryPool.h"
 #include "Point.h"
 #include "Vector3.h"
+#include "Matrix.h"
+#include "Quaternion.h"
 #include "transform.h"
 #include "Color.h"
+#include "Texture.h"
+#include "Random.h"
+
 #include "Vertex.h"
 #include "Mesh.h"
 #include "Triangle.h"
+
 
 #include "SoundManager.h"
 #include "MainGame.h"
@@ -32,6 +38,7 @@
 #include "TimeManager.h"
 #include "SceneManager.h"
 
+#include "Cursor.h"
 #include "Camera.h"
 #include "Texture.h"
 

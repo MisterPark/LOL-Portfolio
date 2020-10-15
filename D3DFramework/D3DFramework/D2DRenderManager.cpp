@@ -141,7 +141,7 @@ void PKH::D2DRenderManager::Release()
 
 void PKH::D2DRenderManager::Clear()
 {
-	pD2DRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Gray, 1.f, 0);
+	pD2DRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Gray.value, 1.f, 0);
 	pD2DRenderManager->pDevice->BeginScene();
 }
 
@@ -161,7 +161,7 @@ LPD3DXSPRITE PKH::D2DRenderManager::GetSprite()
 	return pD2DRenderManager->pSprite;
 }
 
-Texture * PKH::D2DRenderManager::GetTexture(SpriteType _key)
+Texture * PKH::D2DRenderManager::GetTexture(TextureKey _key)
 {
 	auto find = pD2DRenderManager->textureMap.find(_key);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -178,7 +178,7 @@ LPD3DXLINE PKH::D2DRenderManager::GetLine()
 	return pD2DRenderManager->pLine;
 }
 
-HRESULT PKH::D2DRenderManager::LoadSprite(const wstring& filePath, SpriteType spriteKey, DWORD row, DWORD col)
+HRESULT PKH::D2DRenderManager::LoadSprite(TextureKey spriteKey, const wstring& filePath, DWORD row, DWORD col)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 
@@ -223,7 +223,46 @@ HRESULT PKH::D2DRenderManager::LoadSprite(const wstring& filePath, SpriteType sp
 	return S_OK;
 }
 
-void PKH::D2DRenderManager::DrawSprite(SpriteType spriteKey, Transform transform, int index)
+void PKH::D2DRenderManager::DrawSprite(TextureKey spriteKey, Vector3 pos, int index)
+{
+	auto find = pD2DRenderManager->textureMap.find(spriteKey);
+	if (find == pD2DRenderManager->textureMap.end())
+	{
+		// 로드되지 않은 스프라이트.
+		return;
+	}
+
+	const Texture* tex = find->second;
+
+	// 스프라이트 한장의 넓이와 높이, 위치
+	int w = tex->GetSpriteWidth();
+	int h = tex->GetSpriteHeight();
+
+	int row = index / tex->colCount;
+	int col = index % tex->colCount;
+
+	int x = col * w;
+	int y = row * h;
+	RECT area;
+	area.left = x;
+	area.top = y;
+	area.right = x + w;
+	area.bottom = y + h;
+
+	float centerX = float(w >> 1);
+	float centerY = float(h >> 1);
+
+	Matrix world, trans;
+	D3DXMatrixTranslation(&trans, pos.x, pos.y, 0.f);
+	world = trans;
+
+	pD2DRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	pD2DRenderManager->pSprite->SetTransform(&world);
+	pD2DRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(centerX, centerY, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pD2DRenderManager->pSprite->End();
+}
+
+void PKH::D2DRenderManager::DrawSprite(TextureKey spriteKey, Transform transform, int index)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -254,7 +293,7 @@ void PKH::D2DRenderManager::DrawSprite(SpriteType spriteKey, Transform transform
 
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
-	D3DXMatrixTranslation(&trans, transform.position.x - Camera::GetX(), transform.position.y - Camera::GetY(), 0.f);
+	D3DXMatrixTranslation(&trans, transform.position.x, transform.position.y, 0.f);
 	world = scale * trans;
 
 	pD2DRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
@@ -263,7 +302,7 @@ void PKH::D2DRenderManager::DrawSprite(SpriteType spriteKey, Transform transform
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawUI(SpriteType spriteKey, Transform transform, int index)
+void PKH::D2DRenderManager::DrawUI(TextureKey spriteKey, Transform transform, int index)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -300,7 +339,7 @@ void PKH::D2DRenderManager::DrawUI(SpriteType spriteKey, Transform transform, in
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawUI(SpriteType spriteKey, Vector3 pos, int index)
+void PKH::D2DRenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, int index)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -336,7 +375,7 @@ void PKH::D2DRenderManager::DrawUI(SpriteType spriteKey, Vector3 pos, int index)
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawCharacter(SpriteType spriteKey, Transform transform, DWORD row, DWORD col)
+void PKH::D2DRenderManager::DrawCharacter(TextureKey spriteKey, Transform transform, DWORD row, DWORD col)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -373,7 +412,7 @@ void PKH::D2DRenderManager::DrawCharacter(SpriteType spriteKey, Transform transf
 
 }
 
-void PKH::D2DRenderManager::DrawImage(SpriteType spriteKey, Transform transform)
+void PKH::D2DRenderManager::DrawImage(TextureKey spriteKey, Transform transform)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -399,7 +438,7 @@ void PKH::D2DRenderManager::DrawImage(SpriteType spriteKey, Transform transform)
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawImage(SpriteType spriteKey, float x, float y, float verticalPer)
+void PKH::D2DRenderManager::DrawImage(TextureKey spriteKey, float x, float y, float verticalPer)
 {
 	auto find = pD2DRenderManager->textureMap.find(spriteKey);
 	if (find == pD2DRenderManager->textureMap.end())
@@ -428,7 +467,7 @@ void PKH::D2DRenderManager::DrawImage(SpriteType spriteKey, float x, float y, fl
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawString(const string & text)
+void PKH::D2DRenderManager::DrawFont(const string & text)
 {
 	Matrix world;
 	D3DXMatrixIdentity(&world);
@@ -440,7 +479,7 @@ void PKH::D2DRenderManager::DrawString(const string & text)
 
 }
 
-void PKH::D2DRenderManager::DrawString(const wstring & text)
+void PKH::D2DRenderManager::DrawFont(const wstring & text)
 {
 	Matrix world;
 	D3DXMatrixIdentity(&world);
@@ -450,7 +489,7 @@ void PKH::D2DRenderManager::DrawString(const wstring & text)
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawString(const wstring & text, float x, float y, D3DXCOLOR color)
+void PKH::D2DRenderManager::DrawFont(const wstring & text, float x, float y, D3DXCOLOR color)
 {
 	Matrix world;
 	D3DXMatrixTranslation(&world, x, y, 0.f);
@@ -460,7 +499,7 @@ void PKH::D2DRenderManager::DrawString(const wstring & text, float x, float y, D
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawString(const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
+void PKH::D2DRenderManager::DrawFont(const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
 {
 	Matrix world;
 	D3DXMatrixTranslation(&world, x, y, 0.f);
@@ -470,7 +509,7 @@ void PKH::D2DRenderManager::DrawString(const wstring& text, float x, float y, D3
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawString(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color)
+void PKH::D2DRenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color)
 {
 	if (font == nullptr) return;
 	Matrix world;
@@ -481,7 +520,7 @@ void PKH::D2DRenderManager::DrawString(LPD3DXFONT font, const wstring& text, flo
 	pD2DRenderManager->pSprite->End();
 }
 
-void PKH::D2DRenderManager::DrawString(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
+void PKH::D2DRenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
 {
 	if (font == nullptr) return;
 	Matrix world;
@@ -517,4 +556,56 @@ void PKH::D2DRenderManager::DrawLine(float sx, float sy, float ex, float ey, D3D
 	pD2DRenderManager->pLine->Begin();
 	pD2DRenderManager->pLine->Draw(point, 2, color);
 	pD2DRenderManager->pLine->End();
+}
+
+HRESULT PKH::D2DRenderManager::LoadTexture(TextureKey key, const wstring& filePath)
+{
+	auto find = pD2DRenderManager->textureMap.find(key);
+
+	if (find != pD2DRenderManager->textureMap.end()) return S_OK;
+
+	Texture* tex = new Texture;
+
+	if (FAILED(D3DXGetImageInfoFromFile(filePath.c_str(), &tex->imageInfo)))
+	{
+		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
+		delete tex;
+		return E_FAIL;
+	}
+
+	if (FAILED(D3DXCreateTextureFromFileW(pD2DRenderManager->pDevice, filePath.c_str(), &tex->pTexture)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT PKH::D2DRenderManager::LoadCubeTexture(TextureKey key, const wstring& filePath)
+{
+	auto find = pD2DRenderManager->textureMap.find(key);
+
+	if (find != pD2DRenderManager->textureMap.end()) return S_OK;
+
+	Texture* tex = new Texture;
+
+	if (FAILED(D3DXGetImageInfoFromFile(filePath.c_str(), &tex->imageInfo)))
+	{
+		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
+		delete tex;
+		return E_FAIL;
+	}
+
+	// TODO : 큐브텍스쳐 로드하는거 마지막인자 수정해야할수도있음.
+	if (FAILED(D3DXCreateCubeTextureFromFileW(pD2DRenderManager->pDevice, filePath.c_str(), (LPDIRECT3DCUBETEXTURE9*)&tex->pTexture)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+void PKH::D2DRenderManager::DrawTexture(TextureKey key)
+{
+	auto find = pD2DRenderManager->textureMap.find(key);
+
+	if (find == pD2DRenderManager->textureMap.end()) return;
+
+	pD2DRenderManager->pDevice->SetTexture(0, find->second->pTexture);
 }

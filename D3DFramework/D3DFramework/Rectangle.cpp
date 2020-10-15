@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Rectangle.h"
+#include "Color.h"
 
 PKH::Rectangle::Rectangle()
 {
@@ -25,10 +26,10 @@ PKH::Rectangle::Rectangle()
 	Vertex* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = Vertex(-0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[1] = Vertex(-0.1f, 0.1f, -0.1f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[2] = Vertex(0.1f, 0.1f, -0.1f, D3DCOLOR_XRGB(0, 0, 255));
-	vertices[3] = Vertex(0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(255, 0, 255));
+	vertices[0] = Vertex(-1.f, -1.f, 0.f,PKH::Color::Red.value);
+	vertices[1] = Vertex(-1.f, 1.f, 0.f,PKH::Color::Green.value);
+	vertices[2] = Vertex(1.f, 1.f, 0.f, PKH::Color::Blue.value);
+	vertices[3] = Vertex(1.f, -1.f, 0.f, PKH::Color::Black.value);
 	vb->Unlock();
 
 	WORD* indices = nullptr;

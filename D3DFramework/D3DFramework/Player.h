@@ -1,19 +1,17 @@
 #pragma once
 #include "GameObject.h"
-
-namespace PKH
+class Player :
+    public GameObject
 {
-	class Player :
-		public GameObject
-	{
-	public:
-		Player();
-		virtual ~Player();
 
-		virtual void Update() override;
-		virtual void Render() override;
-
-	};
+public:
+    Player();
+    ~Player();
 
 
-}
+
+    // GameObject을(를) 통해 상속됨
+    virtual void Update() override;
+
+};
+

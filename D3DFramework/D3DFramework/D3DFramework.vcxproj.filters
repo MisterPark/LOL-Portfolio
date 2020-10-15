@@ -13,17 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{ed27685c-7f77-443b-85ef-797bca8acdf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lib">
-      <UniqueIdentifier>{9e576362-dfec-47dc-a23e-edae3800e429}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{c82e7fb9-29f7-4d45-bbd3-4f9e4e711bf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame">
-      <UniqueIdentifier>{c38811bd-fff9-4046-a675-91418121ce87}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{07b99388-aaa9-4b6f-afd7-74bb6c02322b}</UniqueIdentifier>
@@ -31,14 +22,26 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{8ca85b68-bdab-4c73-9f5b-2f1353ab79e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{df649d77-5659-4738-9597-cb084172f1aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{1b8ffbc5-dc60-4a07-9e65-dd48a6108dc5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{bbd383ed-dc02-4e36-a0dc-9981d706ad10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{9e576362-dfec-47dc-a23e-edae3800e429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Mesh">
+      <UniqueIdentifier>{1b8ffbc5-dc60-4a07-9e65-dd48a6108dc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Cursor">
+      <UniqueIdentifier>{bda8052a-9916-4274-b18c-0a5a529b869a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Camera">
+      <UniqueIdentifier>{df649d77-5659-4738-9597-cb084172f1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\MainGame">
+      <UniqueIdentifier>{c38811bd-fff9-4046-a675-91418121ce87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Manager">
+      <UniqueIdentifier>{ed27685c-7f77-443b-85ef-797bca8acdf2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,25 +64,25 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="D2DRenderManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Lib</Filter>
@@ -97,7 +100,7 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
-      <Filter>MainGame</Filter>
+      <Filter>Lib\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
@@ -106,13 +109,13 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Camera</Filter>
+      <Filter>GameObject\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Lib</Filter>
@@ -121,24 +124,45 @@
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Mesh</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>GameObject</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Rectangle.h">
-      <Filter>Mesh</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="IComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="Cube.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>GameObject\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
+    <ClInclude Include="Random.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestColor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -150,25 +174,25 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="D2DRenderManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Lib</Filter>
@@ -180,7 +204,7 @@
       <Filter>Texture</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>MainGame</Filter>
+      <Filter>Lib\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
@@ -189,13 +213,13 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Camera</Filter>
+      <Filter>GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib</Filter>
@@ -204,24 +228,48 @@
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="IComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
+    <ClCompile Include="Cube.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
+    <ClCompile Include="Random.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisCube.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>GameObject\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestColor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

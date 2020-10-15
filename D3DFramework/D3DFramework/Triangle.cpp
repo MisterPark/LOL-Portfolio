@@ -25,9 +25,9 @@ Triangle::Triangle()
 	Vertex* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = Vertex(-0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[1] = Vertex(0.f, 0.1f, -0.1f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[2] = Vertex(0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[0] = Vertex(-0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[1] = Vertex(0.f, 0.1f, 0.f, D3DCOLOR_XRGB(255, 0, 0));
+	vertices[2] = Vertex(0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
 	vb->Unlock();
 
 	WORD* indices = nullptr;

@@ -3,6 +3,15 @@
 
 using namespace PKH;
 
+const Vector3 Vector3::LEFT = Vector3(-1.f, 0.f, 0.f);
+const Vector3 Vector3::RIGHT = Vector3(1.f, 0.f, 0.f);
+const Vector3 Vector3::UP = Vector3(0.f, 1.f, 0.f);
+const Vector3 Vector3::DOWN = Vector3(0.f, -1.f, 0.f);
+const Vector3 Vector3::FORWARD = Vector3(0.f, 0.f, 1.f);
+const Vector3 Vector3::BACK = Vector3(0.f, 0.f, -1.f);
+const Vector3 Vector3::ONE = Vector3(1.f, 1.f, 1.f);
+const Vector3 Vector3::ZERO = Vector3(0.f, 0.f, 0.f);
+
 PKH::Vector3::Vector3()
 {
 }
@@ -21,6 +30,31 @@ PKH::Vector3::Vector3(float x, float y, float z) : D3DXVECTOR3(x,y,z)
 
 PKH::Vector3::~Vector3()
 {
+}
+
+bool PKH::Vector3::operator==(const Vector3& other)
+{
+	if (this->x != other.x) return false;
+	if (this->y != other.y) return false;
+	if (this->z != other.z) return false;
+	return true;
+}
+
+bool PKH::Vector3::operator!=(const Vector3& other)
+{
+	if (this->x != other.x) return true;
+	if (this->y != other.y) return true;
+	if (this->z != other.z) return true;
+	return false;
+}
+
+Vector3& PKH::Vector3::operator=(const Vector3& rhs)
+{
+	this->x = rhs.x;
+	this->y = rhs.y;
+	this->z = rhs.z;
+
+	return *this;
 }
 
 float PKH::Vector3::Magnitude() const
@@ -61,7 +95,8 @@ Vector3 PKH::Vector3::Cross(const Vector3* lhs, const Vector3* rhs)
 float PKH::Vector3::Distance(const Vector3& a, const Vector3& b)
 {
 	Vector3 distance = a - b;
-	return distance.Magnitude();
+	float dist = distance.Magnitude();
+	return dist;
 }
 
 float PKH::Vector3::Dot(const Vector3* lhs, const Vector3* rhs)
@@ -72,16 +107,4 @@ float PKH::Vector3::Dot(const Vector3* lhs, const Vector3* rhs)
 void PKH::Vector3::Normalize(Vector3* outV)
 {
 	D3DXVec3Normalize(outV, outV);
-}
-
-PKH::Matrix::Matrix() : D3DXMATRIX()
-{
-}
-
-PKH::Matrix::Matrix(const D3DXMATRIX& r) : D3DXMATRIX(r)
-{
-}
-
-PKH::Matrix::~Matrix()
-{
 }

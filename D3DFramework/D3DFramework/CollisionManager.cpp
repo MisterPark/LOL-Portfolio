@@ -93,5 +93,18 @@ bool PKH::CollisionManager::FindObject(GameObject* _pObj)
 
 bool PKH::CollisionManager::IsCollided(GameObject* _target, GameObject* _other)
 {
+	// 거리계산
+	float dist = Vector3::Distance(_target->transform->position, _other->transform->position);
+	// 반지름 = 반지름 * (스케일합/3)
+	float radius1 = ((_target->transform->scale.x + _target->transform->scale.y + _target->transform->scale.z) / 3.f);
+	float radius2 = ((_other->transform->scale.x + _other->transform->scale.y + _other->transform->scale.z) / 3.f);
+	
+	// 거리가 반지름의 합보다 작으면 충돌
+	if (dist < (radius1+radius2))
+	{
+		return true;
+	}
+
+
 	return false;
 }

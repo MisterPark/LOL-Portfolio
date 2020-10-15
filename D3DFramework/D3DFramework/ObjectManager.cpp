@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ObjectManager.h"
+#include "SkyBox.h"
+#include "Cursor.h"
 
 using namespace PKH;
 
@@ -8,10 +10,14 @@ int lastUid = 0;
 
 PKH::ObjectManager::ObjectManager()
 {
+	//SkyBox::GetInstance();
+	Cursor::GetInstance();
 }
 
 PKH::ObjectManager::~ObjectManager()
 {
+	//SkyBox::Destroy();
+	Cursor::Destroy();
 }
 
 ObjectManager * PKH::ObjectManager::GetInstance()
@@ -48,6 +54,11 @@ void PKH::ObjectManager::DestroyAll()
 	}
 }
 
+void PKH::ObjectManager::AddObject(GameObject* _obj)
+{
+	pObjectManager->objectList.push_back(_obj);
+}
+
 void PKH::ObjectManager::Destroy()
 {
 	delete pObjectManager;
@@ -63,6 +74,9 @@ void PKH::ObjectManager::Update()
 		if (!iter->isEnable) continue;
 		iter->Update();
 	}
+
+	//SkyBox::GetInstance()->Update();
+	Cursor::GetInstance()->Update();
 }
 
 void PKH::ObjectManager::PostUpdate()
@@ -129,13 +143,23 @@ void PKH::ObjectManager::Render()
 		obj->Render();
 	}
 	
-
+	//SkyBox::GetInstance()->Render();
+	
 	// 디버그용
 	//TimeManager::RenderFPS();
 }
 
 void PKH::ObjectManager::PostRender()
 {
+	auto& objList = pObjectManager->objectList;
+	for (auto& iter : objList)
+	{
+		if (!iter->isEnable) continue;
+		iter->PostRender();
+	}
+
+
+	Cursor::GetInstance()->Render();
 }
 
 bool PKH::ObjectManager::Compare(GameObject* a, GameObject* b)

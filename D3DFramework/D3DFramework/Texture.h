@@ -2,6 +2,26 @@
 
 namespace PKH
 {
+	enum class TextureKey
+	{
+		NONE,
+		SKY_U,
+		SKY_D,
+		SKY_L,
+		SKY_R,
+		SKY_F,
+		SKY_B,
+		CURSOR_TARGET,
+		LOCK_ON,
+
+	};
+
+	enum class TextureType
+	{
+		DEFAULT,
+		CUBE,
+	};
+	
 	class Texture
 	{
 	public:

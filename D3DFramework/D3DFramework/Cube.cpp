@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Cube.h"
+#include "Player4.h"
 
 PKH::Cube::Cube()
 {
@@ -60,7 +61,6 @@ PKH::Cube::Cube()
 	triangles->Unlock();
 
 
-
 }
 
 PKH::Cube::~Cube()
@@ -69,6 +69,7 @@ PKH::Cube::~Cube()
 
 void PKH::Cube::Update()
 {
+
 }
 
 

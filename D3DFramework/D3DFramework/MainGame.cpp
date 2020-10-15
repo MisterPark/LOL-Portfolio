@@ -35,23 +35,40 @@ void PKH::MainGame::Destroy()
 
 void PKH::MainGame::Initialize()
 {
+	Random::InitState();
+
     // 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(60.f);
 	D2DRenderManager::GetInstance();
 	CollisionManager::GetInstance();
 	InputManager::GetInstance();
-	ObjectManager::GetInstance();
+	
 	//RenderManager::GetInstance();
 
 	SceneManager::GetInstance();
 
 	Camera::GetInstance();
 	FileManager::GetInstance();
+	Cursor::GetInstance();
 
 	SoundManager::GetInstance()->Initialize();
 
     // 리소스 로드
+	D2DRenderManager::LoadSprite(TextureKey::SKY_U, L"Texture\\SKYBOX_U.png");
+	D2DRenderManager::LoadSprite(TextureKey::SKY_D, L"Texture\\SKYBOX_D.png");
+	D2DRenderManager::LoadSprite(TextureKey::SKY_L, L"Texture\\SKYBOX_L.png");
+	D2DRenderManager::LoadSprite(TextureKey::SKY_R, L"Texture\\SKYBOX_R.png");
+	D2DRenderManager::LoadSprite(TextureKey::SKY_F, L"Texture\\SKYBOX_F.png");
+	D2DRenderManager::LoadSprite(TextureKey::SKY_B, L"Texture\\SKYBOX_B.png");
+
+
+	D2DRenderManager::LoadSprite(TextureKey::CURSOR_TARGET, L"Texture\\HUD_TARGET.png");
+	D2DRenderManager::LoadSprite(TextureKey::LOCK_ON, L"Texture\\LOCK_ON.png");
+
+	ObjectManager::GetInstance();
+
+	// 씬로드
 	SceneManager::LoadScene<TestScene>();
 
 }
@@ -70,6 +87,7 @@ void PKH::MainGame::Release()
 	FileManager::Destroy();
 
 	SoundManager::Destroy();
+	Cursor::Destroy();
 }
 
 void PKH::MainGame::Update()
@@ -78,6 +96,7 @@ void PKH::MainGame::Update()
 	ObjectManager::Update();
 	Camera::GetInstance()->Update();
 	CollisionManager::Update();
+
 	ObjectManager::PostUpdate();
 
 	if (!TimeManager::SkipFrame())
@@ -105,4 +124,5 @@ void PKH::MainGame::Resume()
 
 void PKH::MainGame::Shutdown()
 {
+	PostQuitMessage(0);
 }
