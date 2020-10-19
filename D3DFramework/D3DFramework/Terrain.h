@@ -16,6 +16,8 @@ namespace PKH
 
         virtual IComponent* Clone() override;
 
+        void LoadHeightMap(const string& filePath);
+
         int width = 129;
         int height = 129;
     };

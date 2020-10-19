@@ -79,9 +79,18 @@ void PKH::Camera::Update()
 		transform->position.x += 10.f * TimeManager::DeltaTime();
 		transform->look.x += 10.f * TimeManager::DeltaTime();
 	}
+	if (InputManager::GetKey('R'))
+	{
+		transform->look.y -= 10.f * TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey('F'))
+	{
+		transform->look.y -= 10.f * TimeManager::DeltaTime();
+	}
 
-	//GetViewMatrix(&view);
-	D3DXMatrixLookAtLH(&viewMatrix, &transform->position, &transform->look, &transform->up);
+
+	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
+	//D3DXMatrixLookAtLH(&viewMatrix, &transform->position, &transform->look, &transform->up);
 	D2DRenderManager::GetDevice()->SetTransform(D3DTS_VIEW, &viewMatrix);
 
 	// Åõ¿µ
@@ -162,11 +171,14 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 
 void PKH::Camera::PerspectiveProjection() 
 {
-
-	D3DXMatrixPerspectiveFovLH(&pCamera->projectionMatrix, D3DX_PI * 0.5f,
+	pCamera->projectionMatrix = Matrix::PerspectiveFovLH(D3DXToRadian(90.f),
 		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
 		nearClipPlane,
 		farClipPlane);
+	//D3DXMatrixPerspectiveFovLH(&pCamera->projectionMatrix, D3DX_PI * 0.5f,
+	//	(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
+	//	nearClipPlane,
+	//	farClipPlane);
 	D2DRenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &pCamera->projectionMatrix);
 }
 

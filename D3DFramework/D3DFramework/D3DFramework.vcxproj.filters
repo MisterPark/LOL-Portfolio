@@ -156,14 +156,11 @@
     <ClInclude Include="Plane.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TestColor.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Terrain.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,23 +251,17 @@
     <ClCompile Include="Random.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="AxisCube.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>GameObject\Cursor</Filter>
     </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestColor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Terrain.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

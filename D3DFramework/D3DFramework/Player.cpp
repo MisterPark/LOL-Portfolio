@@ -9,7 +9,8 @@ Player::Player()
 {
 	
 	transform->scale = { 0.5f,0.5f,0.5f, };
-	AddComponent<PKH::Terrain>(L"Mesh");
+	Terrain* t = (Terrain*)AddComponent<PKH::Terrain>(L"Mesh");
+	t->LoadHeightMap("Texture\\Height2.bmp");
 }
 
 Player::~Player()

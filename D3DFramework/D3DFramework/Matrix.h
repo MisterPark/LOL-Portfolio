@@ -29,7 +29,9 @@ namespace PKH
 		// - 역행렬이 존재하지 않으면	0
 		// - 역행렬이 존재하면			0이 아닌 값을 반환
 		static Matrix Inverse(const Matrix& pMat, float* pOutDeterminant = nullptr);
-		
+		static Matrix LookAtLH(const Vector3& pos, const Vector3& target, const Vector3& up);
+		static Matrix PerspectiveFovLH(float fovY, float aspect, float zn, float zf);
+
 
 	public:
 		static const Matrix identity;

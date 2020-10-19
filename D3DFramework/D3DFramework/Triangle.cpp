@@ -7,9 +7,9 @@ Triangle::Triangle()
 	this->triangleCount = 2;
 
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(Vertex),
+		vertexCount * sizeof(VertexColor),
 		D3DUSAGE_WRITEONLY,
-		Vertex::FVF,
+		VertexColor::FVF,
 		D3DPOOL_MANAGED,
 		&vb,
 		0);
@@ -22,12 +22,12 @@ Triangle::Triangle()
 		&triangles,
 		0);
 
-	Vertex* vertices;
+	VertexColor* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = Vertex(-0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[1] = Vertex(0.f, 0.1f, 0.f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[2] = Vertex(0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[0] = VertexColor(-0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[1] = VertexColor(0.f, 0.1f, 0.f, D3DCOLOR_XRGB(255, 0, 0));
+	vertices[2] = VertexColor(0.1f, -0.1f, 0.f, D3DCOLOR_XRGB(0, 255, 0));
 	vb->Unlock();
 
 	WORD* indices = nullptr;

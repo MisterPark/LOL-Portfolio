@@ -75,7 +75,12 @@ float PKH::Vector3::SquareMagnitude() const
 Vector3 PKH::Vector3::Normalized() const
 {
 	Vector3 norm = *this;
-	D3DXVec3Normalize(&norm, &norm);
+
+	float len = norm.Length();
+	norm.x /= len;
+	norm.y /= len;
+	norm.z /= len;
+
 	return norm;
 }
 
@@ -85,10 +90,18 @@ float PKH::Vector3::Angle(const Vector3& from, const Vector3& to)
 	return D3DXToDegree(atan2f(v.y, v.x));
 }
 
-Vector3 PKH::Vector3::Cross(const Vector3* lhs, const Vector3* rhs)
+Vector3 PKH::Vector3::Cross(const Vector3& lhs, const Vector3& rhs)
 {
 	Vector3 result;
-	D3DXVec3Cross(&result, lhs, rhs);
+	//D3DXVec3Cross(&result, &lhs, &rhs);
+	// i  j  k
+	// ux uy uz
+	// vx vy vz
+
+	result.x = lhs.y * rhs.z - lhs.z * rhs.y;
+	result.y = lhs.z * rhs.x - lhs.x * rhs.z;
+	result.z = lhs.x * rhs.y - lhs.y * rhs.x;
+
 	return result;
 }
 
@@ -99,12 +112,14 @@ float PKH::Vector3::Distance(const Vector3& a, const Vector3& b)
 	return dist;
 }
 
-float PKH::Vector3::Dot(const Vector3* lhs, const Vector3* rhs)
+float PKH::Vector3::Dot(const Vector3& lhs, const Vector3& rhs)
 {
-	return D3DXVec3Dot(lhs, rhs);
+	//return D3DXVec3Dot(&lhs, &rhs);
+	return (lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z);
 }
 
 void PKH::Vector3::Normalize(Vector3* outV)
 {
-	D3DXVec3Normalize(outV, outV);
+	//D3DXVec3Normalize(outV, outV);
+	*outV = outV->Normalized();
 }

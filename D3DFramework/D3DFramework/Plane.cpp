@@ -9,7 +9,7 @@ PKH::Plane::Plane()
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
 		vertexCount * sizeof(VertexUV),
 		D3DUSAGE_WRITEONLY,
-		Vertex::FVF,
+		VertexColor::FVF,
 		D3DPOOL_MANAGED,
 		&vb,
 		0);
@@ -22,13 +22,13 @@ PKH::Plane::Plane()
 		&triangles,
 		0);
 
-	Vertex* vertices;
+	VertexColor* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = Vertex(-1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[1] = Vertex(-1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[2] = Vertex(1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[3] = Vertex(1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
+	vertices[0] = VertexColor(-1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
+	vertices[1] = VertexColor(-1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
+	vertices[2] = VertexColor(1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
+	vertices[3] = VertexColor(1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
 	vb->Unlock();
 
 	WORD* indices = nullptr;

@@ -59,11 +59,11 @@ namespace PKH
 		// 범위 -180 ~ 180
 		static float	Angle(const Vector3& from, const Vector3& to);
 		// 두 벡터의 외적
-		static Vector3	Cross(const Vector3* lhs, const Vector3* rhs);
+		static Vector3	Cross(const Vector3& lhs, const Vector3& rhs);
 		// a와 b사이의 거리를 반환합니다.
 		static float	Distance(const Vector3& a, const Vector3& b);
 		// 두 벡터의 내적
-		static float	Dot(const Vector3* lhs, const Vector3* rhs);
+		static float	Dot(const Vector3& lhs, const Vector3& rhs);
 		// 벡터를 Normalize 합니다.
 		static void		Normalize(Vector3* outV);
 

@@ -8,9 +8,9 @@ PKH::Rectangle::Rectangle()
 	this->triangleCount = 2;
 
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(Vertex),
+		vertexCount * sizeof(VertexColor),
 		D3DUSAGE_WRITEONLY,
-		Vertex::FVF,
+		VertexColor::FVF,
 		D3DPOOL_MANAGED,
 		&vb,
 		0);
@@ -23,13 +23,13 @@ PKH::Rectangle::Rectangle()
 		&triangles,
 		0);
 
-	Vertex* vertices;
+	VertexColor* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = Vertex(-1.f, -1.f, 0.f,PKH::Color::Red.value);
-	vertices[1] = Vertex(-1.f, 1.f, 0.f,PKH::Color::Green.value);
-	vertices[2] = Vertex(1.f, 1.f, 0.f, PKH::Color::Blue.value);
-	vertices[3] = Vertex(1.f, -1.f, 0.f, PKH::Color::Black.value);
+	vertices[0] = VertexColor(-1.f, -1.f, 0.f,PKH::Color::Red.value);
+	vertices[1] = VertexColor(-1.f, 1.f, 0.f,PKH::Color::Green.value);
+	vertices[2] = VertexColor(1.f, 1.f, 0.f, PKH::Color::Blue.value);
+	vertices[3] = VertexColor(1.f, -1.f, 0.f, PKH::Color::Black.value);
 	vb->Unlock();
 
 	WORD* indices = nullptr;

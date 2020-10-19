@@ -5,7 +5,21 @@ namespace PKH
 	class Vertex
 	{
 	public:
-		Vertex(float _x, float _y, float _z, D3DCOLOR _color);
+		Vertex(float _x, float _y, float _z, D3DCOLOR _color, float _u, float _v);
+
+		float x;
+		float y;
+		float z;
+		D3DCOLOR color;
+		float u;
+		float v;
+
+		static const DWORD FVF;
+	};
+	class VertexColor
+	{
+	public:
+		VertexColor(float _x, float _y, float _z, D3DCOLOR _color);
 
 		float x;
 		float y;

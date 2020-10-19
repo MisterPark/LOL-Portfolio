@@ -178,7 +178,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
-    <ClInclude Include="TestColor.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
@@ -216,7 +215,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="TestColor.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />

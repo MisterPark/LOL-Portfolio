@@ -29,8 +29,8 @@ void PKH::Mesh::Render()
 			device->SetTexture(0, texture->pTexture);
 		}
 
-		device->SetStreamSource(0, vb, 0, sizeof(Vertex));
-		device->SetFVF(Vertex::FVF);
+		device->SetStreamSource(0, vb, 0, sizeof(VertexColor));
+		device->SetFVF(VertexColor::FVF);
 		device->SetIndices(triangles);
 
 		Matrix world, matTrans, matScale, matRot;//, rotX, rotY, rotZ
@@ -67,7 +67,7 @@ UINT PKH::Mesh::GetVertexCount()
 
 void PKH::Mesh::SetColor(D3DCOLOR color)
 {
-	Vertex* vertices;
+	VertexColor* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 	for (int i = 0; i < vertexCount; i++)
 	{

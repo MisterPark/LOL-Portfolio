@@ -59,8 +59,8 @@ void PKH::Transform::LookAt(Transform _target, Vector3 _worldUp)
 	
 	Vector3 dir = _target.position - position;
 	Quaternion qRot;
-	Vector3 axis = Vector3::Cross(&dir, &_worldUp);
-	float angle = acosf(Vector3::Dot(&_worldUp.Normalized(), &dir.Normalized()));
+	Vector3 axis = Vector3::Cross(dir, _worldUp);
+	float angle = acosf(Vector3::Dot(_worldUp.Normalized(), dir.Normalized()));
 	D3DXQuaternionRotationAxis(&qRot, &axis, angle);
 	Vector3 euler = Quaternion::ToEulerAngles(qRot);
 	
@@ -72,8 +72,8 @@ void PKH::Transform::LookAt(Vector3 _target, Vector3 _worldUp)
 {
 	Vector3 dir = _target - position;
 	Quaternion qRot;
-	Vector3 axis = Vector3::Cross(&dir, &_worldUp);
-	float angle = acosf(Vector3::Dot(&_worldUp, &dir.Normalized()));
+	Vector3 axis = Vector3::Cross(dir, _worldUp);
+	float angle = acosf(Vector3::Dot(_worldUp, dir.Normalized()));
 	D3DXQuaternionRotationAxis(&qRot, &axis, angle);
 	Vector3 euler = Quaternion::ToEulerAngles(qRot);
 
