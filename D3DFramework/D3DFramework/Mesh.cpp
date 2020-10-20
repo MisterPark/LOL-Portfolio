@@ -65,6 +65,11 @@ UINT PKH::Mesh::GetVertexCount()
 	return this->vertexCount;
 }
 
+IDirect3DVertexBuffer9 * PKH::Mesh::GetVertexBuffer()
+{
+	return vb;
+}
+
 void PKH::Mesh::SetColor(D3DCOLOR color)
 {
 	VertexColor* vertices;

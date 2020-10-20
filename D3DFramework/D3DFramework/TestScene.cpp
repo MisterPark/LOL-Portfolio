@@ -5,10 +5,12 @@
 #include "Cube.h"
 #include "SkyBox.h"
 #include "Player.h"
+#include "CubeMan.h"
 
 void TestScene::OnLoaded()
 {
 	ObjectManager::GetInstance()->CreateObject<Player>();
+	ObjectManager::GetInstance()->CreateObject<CubeMan>();
 }
 
 void TestScene::OnUnloaded()

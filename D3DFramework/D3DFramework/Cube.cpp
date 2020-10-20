@@ -27,15 +27,15 @@ PKH::Cube::Cube()
 	VertexColor* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = VertexColor(-0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[1] = VertexColor(-0.1f, 0.1f, -0.1f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[2] = VertexColor(0.1f, 0.1f, -0.1f, D3DCOLOR_XRGB(0, 0, 255));
-	vertices[3] = VertexColor(0.1f, -0.1f, -0.1f, D3DCOLOR_XRGB(255, 0, 255));
+	vertices[0] = VertexColor(-1.f, -1.f, -1.f, D3DCOLOR_XRGB(255, 0, 0));
+	vertices[1] = VertexColor(-1.0f, 1.f, -1.f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[2] = VertexColor(1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(0, 0, 255));
+	vertices[3] = VertexColor(1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(255, 0, 255));
 
-	vertices[4] = VertexColor(-0.1f, -0.1f, 0.1f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[5] = VertexColor(-0.1f, 0.1f, 0.1f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[6] = VertexColor(0.1f, 0.1f, 0.1f, D3DCOLOR_XRGB(0, 0, 255));
-	vertices[7] = VertexColor(0.1f, -0.1f, 0.1f, D3DCOLOR_XRGB(255, 0, 255));
+	vertices[4] = VertexColor(-1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0));
+	vertices[5] = VertexColor(-1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+	vertices[6] = VertexColor(1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255));
+	vertices[7] = VertexColor(1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 255));
 	vb->Unlock();
 
 	WORD* indices = nullptr;

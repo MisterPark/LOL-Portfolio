@@ -17,6 +17,7 @@ namespace PKH
 
 		//====
 		UINT GetVertexCount();
+		IDirect3DVertexBuffer9* GetVertexBuffer();
 
 		void SetColor(D3DCOLOR color);
 		void SetTexture(TextureKey key);
