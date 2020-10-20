@@ -2,10 +2,11 @@
 #include "CubeMan.h"
 #include "Cube.h"
 #include "Player.h"
+#include "Terrain.h"
 
 PKH::CubeMan::CubeMan()
 {
-	
+	//transform->scale = { 0.5f,0.5f, 0.5f };
 	AddComponent<Cube>(L"Mesh");
 }
 
@@ -15,12 +16,28 @@ PKH::CubeMan::~CubeMan()
 
 void PKH::CubeMan::Update()
 {
+	if (InputManager::GetKey(VK_UP))
+	{
+		transform->position.z += 10.f *TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_DOWN))
+	{
+		transform->position.z -= 10.f * TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_LEFT))
+	{
+		transform->position.x -= 10.f * TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_RIGHT))
+	{
+		transform->position.x += 10.f * TimeManager::DeltaTime();
+	}
+
 	GameObject* obj = ObjectManager::GetInstance()->FindObject<Player>();
-	Mesh* mesh = (Mesh*)obj->GetComponent(L"Mesh");
-	VertexColor* vertices;
-	mesh->GetVertexBuffer()->Lock(0, 0, (void**)&vertices, 0);
+	Terrain* mesh = (Terrain*)obj->GetComponent(L"Mesh");
 
-	
+	float y;
+	mesh->GetYFromPoint(&y, transform->position.x, transform->position.z);
 
-	mesh->GetVertexBuffer()->Unlock();
+	transform->position.y = y;
 }

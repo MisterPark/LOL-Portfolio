@@ -24,10 +24,10 @@ PKH::Terrain::Terrain()
 
 
 	// 높이맵 로드
-
-
+	vertexInfo = new Vector3[width * height];
 
 	VertexColor* vertices;
+	int index = 0;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
 	
@@ -35,7 +35,12 @@ PKH::Terrain::Terrain()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			vertices[i * width + j] = VertexColor(j, 0.f, i, D3DCOLOR_XRGB(j*20,i*20,0));
+			index = i * width + j;
+			vertices[index] = VertexColor(j, 0.f, i, D3DCOLOR_XRGB(j*20,i*20,0));
+			vertexInfo[index].x = j;
+			vertexInfo[index].y = 0.f;
+			vertexInfo[index].z = i;
+
 		}
 	}
 	
@@ -102,6 +107,8 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 
 	VertexColor* vertices;
 	int k = 0;
+	int h = 0;
+	int index = 0;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
 
@@ -109,11 +116,60 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			vertices[i * width + j].y = buffer[k] / 25.f;
+			index = i * width + j;
+			h = buffer[k] / 25.f;
+			vertices[index].y = h;
+			vertexInfo[index].y = h;
 			k += byteCount;
 		}
 	}
 
 
 	vb->Unlock();
+}
+
+bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
+{
+	if (_outY == nullptr)return false;
+	if (_x < 0)return false;
+	if (_z < 0)return false;
+
+	int x = (int)_x;
+	int z = (int)_z;
+	float fx = _x - x;
+	float fz = _z - z;
+	float fx2 = 1.f - fx;
+	float fz2 = 1.f - fz;
+
+	Vector3 points[3];
+	float len = sqrtf(fx * fx + fz * fz); // 좌표 대각선 길이
+	float len2 = sqrtf(fx2 * fx2 + fz2 * fz2); // 대각선길이의 반
+	if (len < len2) // 왼쪽 아래 삼각
+	{
+		points[0] = vertexInfo[z * width + x]; // 0,0
+		points[1] = vertexInfo[(z + 1) * width + x]; //1,0
+		points[2] = vertexInfo[z * width + (x + 1)]; //0,1
+	}
+	else // 오른쪽 위 삼각
+	{
+		points[0] = vertexInfo[(z + 1) * width + (x + 1)]; //1,1
+		points[1] = vertexInfo[z * width + (x + 1)]; // 0,1
+		points[2] = vertexInfo[(z + 1) * width + x]; // 1,0
+	}
+
+	Vector3 dir1 = points[1] - points[0];
+	Vector3 dir2 = points[2] - points[0];
+	Vector3 normal = Vector3::Cross(dir1, dir2).Normalized();
+
+	// ax + by + cz + d = 0
+
+	// d = -ax -by -cz;
+	float d = -normal.x * points[0].x - normal.y * points[0].y - normal.z * points[0].z;
+	// by = -ax-cz-d
+	// y = (-ax-cz-d)/b
+	*_outY = (-normal.x * _x - normal.z * _z - d)/normal.y;
+
+
+
+	return false;
 }
