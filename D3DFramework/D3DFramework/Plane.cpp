@@ -9,7 +9,7 @@ PKH::Plane::Plane()
 	D2DRenderManager::GetDevice()->CreateVertexBuffer(
 		vertexCount * sizeof(VertexUV),
 		D3DUSAGE_WRITEONLY,
-		VertexColor::FVF,
+		VertexUV::FVF,
 		D3DPOOL_MANAGED,
 		&vb,
 		0);
@@ -22,13 +22,13 @@ PKH::Plane::Plane()
 		&triangles,
 		0);
 
-	VertexColor* vertices;
+	VertexUV* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = VertexColor(-1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[1] = VertexColor(-1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[2] = VertexColor(1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[3] = VertexColor(1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
+	vertices[0] = VertexUV(-1.f, 0.f, -1.f, 0,1);
+	vertices[1] = VertexUV(-1.f, 0.f, 1.f, 0,0);
+	vertices[2] = VertexUV(1.f, 0.f, 1.f, 1,0);
+	vertices[3] = VertexUV(1.f, 0.f, -1.f, 1,1);
 	vb->Unlock();
 
 	WORD* indices = nullptr;
@@ -40,4 +40,34 @@ PKH::Plane::Plane()
 
 PKH::Plane::~Plane()
 {
+}
+
+void PKH::Plane::Render()
+{
+	if (gameObject == nullptr)return;
+
+	Transform* transform = (Transform*)gameObject->GetComponent(L"Transform");
+
+	LPDIRECT3DDEVICE9 device = D2DRenderManager::GetDevice();
+	if (device)
+	{
+		Texture* texture = D2DRenderManager::GetTexture(textureKey);
+		if (texture != nullptr)
+		{
+			device->SetTexture(0, texture->pTexture);
+		}
+
+		device->SetStreamSource(0, vb, 0, sizeof(VertexUV));
+		device->SetFVF(VertexUV::FVF);
+		device->SetIndices(triangles);
+
+		device->SetTransform(D3DTS_WORLD, &transform->world);
+
+		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_LIGHTING, false);
+
+		//device->DrawPrimitive(D3DPT_TRIANGLELIST, 0, triangleCount);
+		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
+	}
 }

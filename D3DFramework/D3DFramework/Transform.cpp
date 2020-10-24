@@ -13,7 +13,7 @@ PKH::Transform::~Transform()
 
 void PKH::Transform::Update()
 {
-
+	world = world.identity;
 	// 오일러 각 360도 보정
 	eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(360.f));
 	eulerAngles.y = fmodf(eulerAngles.y, D3DXToRadian(360.f));
@@ -39,6 +39,17 @@ void PKH::Transform::Update()
 	Vector3::Normalize(&right);
 	Vector3::Normalize(&up);
 	Vector3::Normalize(&look);
+
+	Matrix matTrans, matScale, matRotation;//, rotX, rotY, rotZ
+	D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
+	//D3DXMatrixRotationX(&rotX, transform->eulerAngles.x);
+	//D3DXMatrixRotationY(&rotY, transform->eulerAngles.y);
+	//D3DXMatrixRotationZ(&rotZ, transform->eulerAngles.z);
+	D3DXMatrixRotationQuaternion(&matRotation, &rotation);
+	D3DXMatrixTranslation(&matTrans, position.x, position.y, position.z);
+
+	//world = matScale * rotX * rotY * rotZ * matTrans;
+	world = matScale * matRotation * matTrans;
 }
 
 IComponent* PKH::Transform::Clone()

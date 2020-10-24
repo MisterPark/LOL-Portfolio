@@ -40,4 +40,6 @@ void PKH::CubeMan::Update()
 	mesh->GetYFromPoint(&y, transform->position.x, transform->position.z);
 
 	transform->position.y = y;
+
+	GameObject::Update();
 }

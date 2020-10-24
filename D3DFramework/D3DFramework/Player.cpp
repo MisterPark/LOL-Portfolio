@@ -19,4 +19,5 @@ Player::~Player()
 
 void Player::Update()
 {
+	GameObject::Update();
 }

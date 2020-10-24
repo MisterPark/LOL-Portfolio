@@ -72,12 +72,12 @@ void PKH::Camera::Update()
 	if (InputManager::GetKey('A'))
 	{
 		transform->position.x -= 10.f * TimeManager::DeltaTime();
-		transform->look.x -= 10.f * TimeManager::DeltaTime();
+		//transform->look.x -= 10.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('D'))
 	{
 		transform->position.x += 10.f * TimeManager::DeltaTime();
-		transform->look.x += 10.f * TimeManager::DeltaTime();
+		//transform->look.x += 10.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey('R'))
 	{

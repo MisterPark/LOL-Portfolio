@@ -6,11 +6,13 @@
 #include "SkyBox.h"
 #include "Player.h"
 #include "CubeMan.h"
+#include "Monster.h"
 
 void TestScene::OnLoaded()
 {
 	ObjectManager::GetInstance()->CreateObject<Player>();
 	ObjectManager::GetInstance()->CreateObject<CubeMan>();
+	ObjectManager::GetInstance()->CreateObject<Monster>();
 }
 
 void TestScene::OnUnloaded()

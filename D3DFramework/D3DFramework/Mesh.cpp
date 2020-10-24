@@ -33,18 +33,9 @@ void PKH::Mesh::Render()
 		device->SetFVF(VertexColor::FVF);
 		device->SetIndices(triangles);
 
-		Matrix world, matTrans, matScale, matRot;//, rotX, rotY, rotZ
-		D3DXMatrixScaling(&matScale, transform->scale.x, transform->scale.y, transform->scale.z);
-		//D3DXMatrixRotationX(&rotX, transform->eulerAngles.x);
-		//D3DXMatrixRotationY(&rotY, transform->eulerAngles.y);
-		//D3DXMatrixRotationZ(&rotZ, transform->eulerAngles.z);
-		D3DXMatrixRotationQuaternion(&matRot, &transform->rotation);
-		D3DXMatrixTranslation(&matTrans, transform->position.x, transform->position.y, transform->position.z);
 		
-		//world = matScale * rotX * rotY * rotZ * matTrans;
-		world = matScale * matRot * matTrans;
 
-		device->SetTransform(D3DTS_WORLD, &world);
+		device->SetTransform(D3DTS_WORLD, &transform->world);
 
 		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
