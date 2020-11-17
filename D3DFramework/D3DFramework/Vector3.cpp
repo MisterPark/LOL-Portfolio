@@ -84,7 +84,19 @@ Vector3 PKH::Vector3::Normalized() const
 	return norm;
 }
 
-float PKH::Vector3::Angle(const Vector3& from, const Vector3& to)
+float PKH::Vector3::AngleX(const Vector3 & from, const Vector3 & to)
+{
+	Vector3 v = to - from;
+	return D3DXToDegree(atan2f(v.z, v.y));
+}
+
+float PKH::Vector3::AngleY(const Vector3 & from, const Vector3 & to)
+{
+	Vector3 v = to - from;
+	return D3DXToDegree(atan2f(v.x, v.z));
+}
+
+float PKH::Vector3::AngleZ(const Vector3& from, const Vector3& to)
 {
 	Vector3 v = to - from;
 	return D3DXToDegree(atan2f(v.y, v.x));

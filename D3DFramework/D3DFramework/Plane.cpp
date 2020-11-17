@@ -6,30 +6,32 @@ PKH::Plane::Plane()
 	this->vertexCount = 4;
 	this->triangleCount = 2;
 
-	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(VertexUV),
+	RenderManager::LockDevice();
+	RenderManager::GetDevice()->CreateVertexBuffer(
+		vertexCount * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
-		VertexColor::FVF,
+		Vertex::FVF,
 		D3DPOOL_MANAGED,
-		&vb,
+		&vertexBuffer,
 		0);
 
-	D2DRenderManager::GetDevice()->CreateIndexBuffer(
+	RenderManager::GetDevice()->CreateIndexBuffer(
 		triangleCount * 3 * sizeof(WORD),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
 		&triangles,
 		0);
+	RenderManager::UnlockDevice();
 
-	VertexColor* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	Vertex* vertices;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = VertexColor(-1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[1] = VertexColor(-1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[2] = VertexColor(1.f, 0.f, 1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vertices[3] = VertexColor(1.f, 0.f, -1.f, D3DCOLOR_XRGB(255, 255, 255));
-	vb->Unlock();
+	vertices[0] = Vertex(Vector3(-1.f, 0.f, -1.f), 0xFFFFFFFF, 0, 1);
+	vertices[1] = Vertex(Vector3(-1.f, 0.f, 1.f), 0xFFFFFFFF, 0, 0);
+	vertices[2] = Vertex(Vector3(1.f, 0.f, 1.f), 0xFFFFFFFF, 1, 0);
+	vertices[3] = Vertex(Vector3(1.f, 0.f, -1.f), 0xFFFFFFFF, 1, 1);
+	vertexBuffer->Unlock();
 
 	WORD* indices = nullptr;
 	triangles->Lock(0, 0, (void**)&indices, 0);

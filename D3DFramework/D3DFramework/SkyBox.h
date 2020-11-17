@@ -15,10 +15,10 @@ namespace PKH
 		static void Show();
 		static void Hide();
 
-		virtual void Update() override;
+		static void SetTexture(TextureKey upTexture);
 
-	public:
+		virtual void Update() override;
+		virtual void Initialize() override;
+		virtual void Release() override;
 	};
 }
-
-

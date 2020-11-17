@@ -2,6 +2,7 @@
 #include "ObjectManager.h"
 #include "SkyBox.h"
 #include "Cursor.h"
+#include "Inventory.h"
 
 using namespace PKH;
 
@@ -10,14 +11,16 @@ int lastUid = 0;
 
 PKH::ObjectManager::ObjectManager()
 {
-	//SkyBox::GetInstance();
 	Cursor::GetInstance();
+	Inventory::GetInstance();
 }
 
 PKH::ObjectManager::~ObjectManager()
 {
-	//SkyBox::Destroy();
+	
+	Release();
 	Cursor::Destroy();
+	Inventory::Destroy();
 }
 
 ObjectManager * PKH::ObjectManager::GetInstance()
@@ -29,6 +32,25 @@ ObjectManager * PKH::ObjectManager::GetInstance()
 	return pObjectManager;
 }
 
+void PKH::ObjectManager::Destroy()
+{
+	delete pObjectManager;
+	pObjectManager = nullptr;
+}
+
+void PKH::ObjectManager::Release()
+{
+	auto& objList = pObjectManager->objectList;
+
+	auto iter = objList.begin();
+	auto end = objList.end();
+	for (;iter!=end;++iter)
+	{
+		delete (*iter);
+		*iter = nullptr;
+	}
+	objList.clear();
+}
 
 
 bool PKH::ObjectManager::DeleteObject(GameObject * _target)
@@ -59,15 +81,15 @@ void PKH::ObjectManager::AddObject(GameObject* _obj)
 	pObjectManager->objectList.push_back(_obj);
 }
 
-void PKH::ObjectManager::Destroy()
+void PKH::ObjectManager::RemoveObject(GameObject* _obj)
 {
-	delete pObjectManager;
-	pObjectManager = nullptr;
+	pObjectManager->objectList.remove(_obj);
 }
+
+
 
 void PKH::ObjectManager::Update()
 {
-	
 	auto& objList = pObjectManager->objectList;
 	for (auto& iter : objList)
 	{
@@ -75,8 +97,9 @@ void PKH::ObjectManager::Update()
 		iter->Update();
 	}
 
-	//SkyBox::GetInstance()->Update();
+	
 	Cursor::GetInstance()->Update();
+	Inventory::Update();
 }
 
 void PKH::ObjectManager::PostUpdate()
@@ -89,19 +112,22 @@ void PKH::ObjectManager::PostUpdate()
 	for (; iter != end;)
 	{
 		target = *iter;
-		if (target->isDead)
+		
+
+		if (target->IsDead())
 		{
+			if (target->dontDestroy)
+			{
+
+				++iter;
+				continue;
+			}
 			iter = objList.erase(iter);
-
-			/*		if (dynamic_cast<Character*>(target) != nullptr)
-					{
-						CollisionManager::DisregisterObject(target);
-					}*/
-
 			delete target;
 		}
 		else
 		{
+			target->PostUpdate();
 			++iter;
 		}
 	}
@@ -118,6 +144,8 @@ void PKH::ObjectManager::PreRender()
 
 void PKH::ObjectManager::Render()
 {
+	
+
 	pObjectManager->renderList.clear();
 
 	Vector3 camPos = Camera::GetPosition();
@@ -135,15 +163,15 @@ void PKH::ObjectManager::Render()
 		pObjectManager->renderList.push_back(iter);
 	}
 
-	// y값으로 정렬
-	pObjectManager->renderList.sort(Compare);
+	// z값으로 정렬
+	pObjectManager->renderList.sort(CompareZ);
 	// 오브젝트 렌더링
 	for (auto& obj : pObjectManager->renderList)
 	{
 		obj->Render();
 	}
 	
-	//SkyBox::GetInstance()->Render();
+	
 	
 	// 디버그용
 	//TimeManager::RenderFPS();
@@ -158,13 +186,18 @@ void PKH::ObjectManager::PostRender()
 		iter->PostRender();
 	}
 
-
+	Inventory::Render();
 	Cursor::GetInstance()->Render();
 }
 
-bool PKH::ObjectManager::Compare(GameObject* a, GameObject* b)
+bool PKH::ObjectManager::CompareY(GameObject* a, GameObject* b)
 {
 	return a->transform->position.y < b->transform->position.y;
+}
+
+bool PKH::ObjectManager::CompareZ(GameObject* a, GameObject* b)
+{
+	return a->transform->zOrder > b->transform->zOrder;
 }
 
 bool PKH::ObjectManager::IsVisibleCollider()

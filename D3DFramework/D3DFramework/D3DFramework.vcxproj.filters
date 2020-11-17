@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{c82e7fb9-29f7-4d45-bbd3-4f9e4e711bf6}</UniqueIdentifier>
     </Filter>
@@ -43,30 +31,36 @@
     <Filter Include="Lib\Manager">
       <UniqueIdentifier>{ed27685c-7f77-443b-85ef-797bca8acdf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Animation">
+      <UniqueIdentifier>{8f5f6826-86f7-4bed-9621-98d62a4610b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{ada1f413-2b4a-4d3c-aad1-eb43b9b3577e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\SkyBox">
+      <UniqueIdentifier>{c45ec730-8842-4b52-b2c8-607d5b9417df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{02e7ca7e-8b76-4a8a-9a01-564058887fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Defaults">
+      <UniqueIdentifier>{b8a71775-02dc-4334-a429-7a0840044527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{6256dccd-0b4d-4f31-b432-2a6b3d8573e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Inventory">
+      <UniqueIdentifier>{3c5e9bdc-0eba-4712-912a-e5e5f9c2101e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Light">
+      <UniqueIdentifier>{e5a5d110-ce28-4e07-8a85-b29492dc268f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Environment">
+      <UniqueIdentifier>{28f50581-9192-4f77-9d55-6a780514f28b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DFramework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Define.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="D2DRenderManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
@@ -87,17 +81,11 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="MemoryPool.h">
       <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>Lib\MainGame</Filter>
@@ -147,9 +135,6 @@
     <ClInclude Include="Cursor.h">
       <Filter>GameObject\Cursor</Filter>
     </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Lib</Filter>
     </ClInclude>
@@ -159,24 +144,106 @@
     <ClInclude Include="Terrain.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>GameObject</Filter>
+    <ClInclude Include="Functions.h">
+      <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="CubeMan.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Animation2D.h">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>GameObject\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Title.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CPacket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CRingBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyWindow.h">
+      <Filter>Lib\MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DFramework.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AllMeshs.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>99. Defaults</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>GameObject\UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>GameObject\UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>GameObject\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadManager.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Environment.h">
+      <Filter>GameObject\Environment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D3DFramework.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="D2DRenderManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
@@ -195,9 +262,6 @@
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -248,9 +312,6 @@
     <ClCompile Include="Quaternion.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
@@ -263,24 +324,201 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Animation2D.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>GameObject\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Title.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CRingBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CubeMan.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation2D.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CPacket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CRingBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>GameObject\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>Lib\MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyWindow.cpp">
+      <Filter>Lib\MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>GameObject\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Title.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DFramework.cpp">
+      <Filter>99. Defaults</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99. Defaults</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DFramework.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>GameObject\UI\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>GameObject\UI\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>GameObject\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Environment.cpp">
+      <Filter>GameObject\Environment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D3DFramework.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
+    <Image Include="D3DFramework.ico">
+      <Filter>99. Defaults</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>99. Defaults</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="D3DFramework.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
+    <ResourceCompile Include="D3DFramework.rc">
+      <Filter>99. Defaults</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

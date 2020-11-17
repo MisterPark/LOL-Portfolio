@@ -2,78 +2,91 @@
 #include "Terrain.h"
 
 PKH::Terrain::Terrain()
+	: width(dfTERRAIN_WIDTH), height(dfTERRAIN_WIDTH)
 {
 	this->vertexCount = width * height;
 	this->triangleCount = (width-1) * (height-1) * 2;
 
-	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(VertexColor),
+	RenderManager::LockDevice();
+	RenderManager::GetDevice()->CreateVertexBuffer(
+		vertexCount * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
-		VertexColor::FVF,
+		Vertex::FVF,
 		D3DPOOL_MANAGED,
-		&vb,
+		&vertexBuffer,
 		0);
 
-	D2DRenderManager::GetDevice()->CreateIndexBuffer(
-		triangleCount * 3 * sizeof(WORD),
+	RenderManager::GetDevice()->CreateIndexBuffer(
+		triangleCount * 3 * sizeof(INDEX16),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
 		&triangles,
 		0);
-
+	RenderManager::UnlockDevice();
 
 	// 높이맵 로드
 	vertexInfo = new Vector3[width * height];
 
-	VertexColor* vertices;
+	Vertex* vertices;
 	int index = 0;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
 	
 	for (int i = 0; i < height;i++)
 	{
+		float v = i/ float(height - 1);
+
 		for (int j = 0; j < width; j++)
 		{
 			index = i * width + j;
-			vertices[index] = VertexColor(j, 0.f, i, D3DCOLOR_XRGB(j*20,i*20,0));
-			vertexInfo[index].x = j;
+			float u = j / float(width - 1);
+			
+			vertices[index] = Vertex(Vector3(j, 0.f, i), D3DCOLOR_XRGB(255,255,255),u*30,v*30);
+			vertexInfo[index].x = j;	
 			vertexInfo[index].y = 0.f;
 			vertexInfo[index].z = i;
 
 		}
 	}
 	
-	
-	vb->Unlock();
+	vertexBuffer->Unlock();
+	//int count = 0;
+	//WORD* indices = nullptr;
+	//triangles->Lock(0, 0, (void**)&indices, 0);
 
-	int count = 0;
-	WORD* indices = nullptr;
-	triangles->Lock(0, 0, (void**)&indices, 0);
+	//for (int i = 0; i < height-1; i++)
+	//{
+	//	for (int j = 0; j < width-1; j++)
+	//	{
+	//		int index = i * width + j;
+	//		indices[count] = i * width + j;
+	//		indices[count+1] = (i+1) * width + j;
+	//		indices[count+2] = i * width + j + 1;
 
-	for (int i = 0; i < height-1; i++)
-	{
-		for (int j = 0; j < width-1; j++)
-		{
-			int index = i * width + j;
-			indices[count] = i * width + j;
-			indices[count+1] = (i+1) * width + j;
-			indices[count+2] = i * width + j + 1;
+	//		indices[count+3] = i * width + j + 1;
+	//		indices[count+4] = (i + 1) * width + j;
+	//		indices[count+5] = (i + 1) * width + j + 1;
 
-			indices[count+3] = i * width + j + 1;
-			indices[count+4] = (i + 1) * width + j;
-			indices[count+5] = (i + 1) * width + j + 1;
+	//		count += 6;
+	//	}
+	//}
+	//
+	//
+	//triangles->Unlock();
 
-			count += 6;
-		}
-	}
-	
-	
-	triangles->Unlock();
+	SetNormalVector();
 }
 
 PKH::Terrain::~Terrain()
 {
+	if (vertexInfo)
+	{
+		delete[] vertexInfo;
+		vertexInfo = nullptr;
+	}
+	
+		
 }
 
 void PKH::Terrain::Update()
@@ -105,11 +118,11 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 	FileManager::CloseFile();
 
 
-	VertexColor* vertices;
+	Vertex* vertices;
 	int k = 0;
 	int h = 0;
 	int index = 0;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
 
 	for (int i = 0; i < height; i++)
@@ -117,15 +130,19 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 		for (int j = 0; j < width; j++)
 		{
 			index = i * width + j;
-			h = buffer[k] / 25.f;
-			vertices[index].y = h;
+			h = buffer[k] / 10.f;
+			vertices[index].pos.y = h;
 			vertexInfo[index].y = h;
 			k += byteCount;
 		}
 	}
 
 
-	vb->Unlock();
+	vertexBuffer->Unlock();
+
+	delete[] buffer;
+
+	SetNormalVector();
 }
 
 bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
@@ -133,6 +150,8 @@ bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
 	if (_outY == nullptr)return false;
 	if (_x < 0)return false;
 	if (_z < 0)return false;
+	if (_x >= width-1)return false;
+	if (_z >= height-1)return false;
 
 	int x = (int)_x;
 	int z = (int)_z;
@@ -171,5 +190,60 @@ bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
 
 
 
-	return false;
+	return true;
+}
+
+void PKH::Terrain::SetNormalVector()
+{
+	Vertex* vertices;
+	int index = 0;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
+
+	int count = 0;
+	INDEX16* indices = nullptr;
+	triangles->Lock(0, 0, (void**)&indices, 0);
+
+	for (unsigned long i = 0; i < height - 1; ++i)
+	{
+		for (unsigned long j = 0; j < width - 1; ++j)
+		{
+			index = i * width + j;
+
+			// 오른쪽 위
+			indices[count]._0 = index + width;
+			indices[count]._1 = index + width + 1;
+			indices[count]._2 = index + 1;
+
+			Vector3	vDest, vSour, vNormal;
+
+			vDest = vertices[indices[count]._1].pos - vertices[indices[count]._0].pos;
+			vSour = vertices[indices[count]._2].pos - vertices[indices[count]._1].pos;
+
+			D3DXVec3Cross(&vNormal, &vDest, &vSour);
+			vertices[indices[count]._0].normal += vNormal;
+			vertices[indices[count]._1].normal += vNormal;
+			vertices[indices[count]._2].normal += vNormal;
+			++count;
+
+			// 왼쪽 아래
+			indices[count]._0 = index + width;
+			indices[count]._1 = index + 1;
+			indices[count]._2 = index;
+
+			vDest = vertices[indices[count]._1].pos - vertices[indices[count]._0].pos;
+			vSour = vertices[indices[count]._2].pos - vertices[indices[count]._1].pos;
+
+			D3DXVec3Cross(&vNormal, &vDest, &vSour);
+			vertices[indices[count]._0].normal += vNormal;
+			vertices[indices[count]._1].normal += vNormal;
+			vertices[indices[count]._2].normal += vNormal;
+			++count;
+		}
+	}
+	for (unsigned long i = 0; i < vertexCount; ++i)
+		D3DXVec3Normalize(&vertices[i].normal, &vertices[i].normal);
+
+
+	triangles->Unlock();
+	vertexBuffer->Unlock();
 }

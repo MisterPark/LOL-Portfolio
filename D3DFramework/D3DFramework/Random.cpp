@@ -25,8 +25,8 @@ int PKH::Random::Range(int min, int max)
 
 float PKH::Random::Range(float min, float max)
 {
-    int iMin = (int)min * 100;
-    int iMax = (int)max * 100;
+    int iMin = (int)(min * 100);
+    int iMax = (int)(max * 100);
     int range = iMax - iMin + 1;
     int random = rand() % range;
     float fRandom = random / 100.f + min;

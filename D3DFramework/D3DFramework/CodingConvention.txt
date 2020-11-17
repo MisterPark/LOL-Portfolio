@@ -1,0 +1,64 @@
+
+
+
+================= Class (Enum Class, Struct)====================
+
+- 이름 -
+
+대문자 시작				예) class Character
+카멜 표기법				예) class CameraController
+언더스코어 사용금지
+
+명사					예) class Calculator
+
+----------------- Interface --------------------------
+
+접두사 I (아이) 붙이기			예) class IScene
+
+
+
+================== Function  =====================
+
+- 이름 -
+
+대문자 시작				예) void Update();
+카멜 표기법				예) float GetAngleFromCamera();
+언더스코어 사용금지			
+
+동사 시작					예) void MakeDirectory();
+
+무슨 동작을 하는지 최대한 알기 쉽게 작성
+
+클래스 멤버 함수의 경우
+
+클래스명과 겹치는 이름인 경우 최대한 생략
+
+예)
+
+Camera::GetCameraPosition()	X
+Camera::GetPosition()		O
+
+Character::UpdateCharacter()	X
+Character::Update()		O
+
+
+================== Variable =====================
+
+- 이름 -
+
+소문자 시작				예) int damage = 150;
+카멜 표기법				예) float moveSpeed = 15.5f;
+
+명사					예) float buffDuration = 1.2f;
+예외)
+bool 타입의 경우 is, can, able 가능		예) bool isMonster = false;
+
+----------------- 매개변수의 경우 ---------------
+
+추천사항(필수아님) : 이름 시작때 언더스코어(_) 붙이기
+(이유 : 멤버변수와의 이름 충돌은 없지만 this를 붙여야 하는 번거로움 줄이기) 
+
+예) float _Aspect
+----------------- 멤버의 경우 -------------------
+m_ 표기 금지
+(이유 : 어차피 이름 충돌 안남)

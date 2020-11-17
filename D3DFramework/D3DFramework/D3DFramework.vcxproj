@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -72,19 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>FMOD;$(DXSDK_DIR)include;$(IncludePath)</IncludePath>
-    <LibraryPath>FMOD;$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>FMOD;$(DXSDK_DIR)include;$(IncludePath)</IncludePath>
-    <LibraryPath>FMOD;$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,6 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,6 +113,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -123,6 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,6 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,72 +155,107 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllMeshs.h" />
+    <ClInclude Include="Animation2D.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Environment.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LoadManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="CPacket.h" />
+    <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Cube.h" />
-    <ClInclude Include="CubeMan.h" />
     <ClInclude Include="Cursor.h" />
-    <ClInclude Include="D2DRenderManager.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="LobbyWindow.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Panel.h" />
     <ClInclude Include="Plane.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Protocol.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="Slot.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation2D.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LoadManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CPacket.cpp" />
+    <ClCompile Include="CRingBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="CubeMan.cpp" />
     <ClCompile Include="Cursor.cpp" />
-    <ClCompile Include="D2DRenderManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Panel.cpp" />
     <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -220,8 +264,11 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>

@@ -5,11 +5,10 @@ namespace PKH
 	class Vertex
 	{
 	public:
-		Vertex(float _x, float _y, float _z, D3DCOLOR _color, float _u, float _v);
+		Vertex(Vector3 _pos, D3DCOLOR _color, float _u, float _v);
 
-		float x;
-		float y;
-		float z;
+		Vector3 pos;
+		Vector3 normal;
 		D3DCOLOR color;
 		float u;
 		float v;
@@ -44,4 +43,15 @@ namespace PKH
 		static const DWORD FVF; 
 	};
 
+	typedef	struct tagIndex16
+	{
+		unsigned short	_0, _1, _2;
+
+	}INDEX16;
+
+	typedef	struct tagIndex32
+	{
+		unsigned long	_0, _1, _2;
+
+	}INDEX32;
 }

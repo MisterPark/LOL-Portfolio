@@ -5,54 +5,141 @@ using namespace PKH;
 
 Mesh::Mesh()
 {
+	// 머테리얼
+	ZeroMemory(&material, sizeof(D3DMATERIAL9));
 
+
+	material.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	material.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	material.Ambient = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.5f);
+	material.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
+	material.Power = 0.f;
 }
 
 Mesh::~Mesh()
 {
-	vb->Release();
+	vertexBuffer->Release();
 	triangles->Release();
 }
 
 void PKH::Mesh::Render()
 {
 	if (gameObject == nullptr)return;
-
+	
 	Transform* transform = (Transform*)gameObject->GetComponent(L"Transform");
 
-	LPDIRECT3DDEVICE9 device = D2DRenderManager::GetDevice();
+	LPDIRECT3DDEVICE9 device = RenderManager::GetDevice();
+	RenderManager::LockDevice();
 	if (device)
 	{
-		Texture* texture = D2DRenderManager::GetTexture(textureKey);
+		Texture* texture = RenderManager::GetTexture(textureKey);
 		if (texture != nullptr)
 		{
 			device->SetTexture(0, texture->pTexture);
 		}
 
-		device->SetStreamSource(0, vb, 0, sizeof(VertexColor));
-		device->SetFVF(VertexColor::FVF);
+		device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
+		device->SetFVF(Vertex::FVF);
 		device->SetIndices(triangles);
 
-		Matrix world, matTrans, matScale, matRot;//, rotX, rotY, rotZ
-		D3DXMatrixScaling(&matScale, transform->scale.x, transform->scale.y, transform->scale.z);
-		//D3DXMatrixRotationX(&rotX, transform->eulerAngles.x);
-		//D3DXMatrixRotationY(&rotY, transform->eulerAngles.y);
-		//D3DXMatrixRotationZ(&rotZ, transform->eulerAngles.z);
-		D3DXMatrixRotationQuaternion(&matRot, &transform->rotation);
-		D3DXMatrixTranslation(&matTrans, transform->position.x, transform->position.y, transform->position.z);
+
+		device->SetTransform(D3DTS_WORLD, &transform->world);
+
+		// Z Read 모드
+		switch (zReadMode)
+		{
+		case PKH::ZReadMode::ON:
+			device->SetRenderState(D3DRS_ZENABLE, TRUE);
+			break;
+		case PKH::ZReadMode::OFF:
+			device->SetRenderState(D3DRS_ZENABLE, FALSE);
+			break;
+		default:
+			break;
+		}
+
+		// Z Write 모드
+		switch (zWriteMode)
+		{
+		case PKH::ZWriteMode::ON:
+			device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+			break;
+		case PKH::ZWriteMode::OFF:
+			device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+			break;
+		default:
+			break;
+		}
+
+		// 블렌드 모드
+		switch (blendMode)
+		{
+		case PKH::BlendMode::NONE:
+			break;
+		case PKH::BlendMode::ALPHA_BLEND:
+			device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+
+			device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+			break;
+		case PKH::BlendMode::ALPHA_TEST:
+			device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+
+			device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+			device->SetRenderState(D3DRS_ALPHAREF, 0x00000088);
+			device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+			break;
+		default:
+			break;
+		}
 		
-		//world = matScale * rotX * rotY * rotZ * matTrans;
-		world = matScale * matRot * matTrans;
+		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-		device->SetTransform(D3DTS_WORLD, &world);
+		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+		device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 
-		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
-		D2DRenderManager::GetDevice()->SetRenderState(D3DRS_LIGHTING, false);
-
-		//device->DrawPrimitive(D3DPT_TRIANGLELIST, 0, triangleCount);
+		switch (lightMode)
+		{
+		case LightMode::ON:
+			device->SetRenderState(D3DRS_LIGHTING, true);
+			device->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
+			device->SetMaterial(&material);
+			break;
+		case LightMode::OFF:
+			device->SetRenderState(D3DRS_LIGHTING, false);
+			break;
+		default:
+			break;
+		}
+		
+		// 렌더
 		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
+
+		device->SetRenderState(D3DRS_LIGHTING, false);
+	
+		device->SetTexture(0, NULL);
+
+		switch (blendMode)
+		{
+		case PKH::BlendMode::NONE:
+			break;
+		case PKH::BlendMode::ALPHA_BLEND:
+			device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+			break;
+		case PKH::BlendMode::ALPHA_TEST:
+			device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+			device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+			break;
+		default:
+			break;
+		}
+
+		device->SetRenderState(D3DRS_ZENABLE, TRUE);
+		device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+		
+	
 	}
+	RenderManager::UnlockDevice();
 }
 
 PKH::IComponent * PKH::Mesh::Clone()
@@ -67,44 +154,61 @@ UINT PKH::Mesh::GetVertexCount()
 
 IDirect3DVertexBuffer9 * PKH::Mesh::GetVertexBuffer()
 {
-	return vb;
+	return vertexBuffer;
 }
 
 void PKH::Mesh::SetColor(D3DCOLOR color)
 {
-	VertexColor* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	Vertex* vertices;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 	for (int i = 0; i < vertexCount; i++)
 	{
 		vertices[i].color = color;
 	}
 	
-	vb->Unlock();
+	vertexBuffer->Unlock();
 }
 
 void PKH::Mesh::SetTexture(PKH::TextureKey key)
 {
-	Texture* tx = D2DRenderManager::GetTexture(key);
-	if (tx == nullptr) return;
-
 	textureKey = key;
 }
 
 void PKH::Mesh::SetVertexPos(UINT index, const Vector3& pos)
 {
-	VertexUV* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
-	vertices[index].x = pos.x;
-	vertices[index].y = pos.y;
-	vertices[index].z = pos.z;
-	vb->Unlock();
+	Vertex* vertices;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
+	vertices[index].pos.x = pos.x;
+	vertices[index].pos.y = pos.y;
+	vertices[index].pos.z = pos.z;
+	vertexBuffer->Unlock();
 }
 
 void PKH::Mesh::SetUV(UINT index, float u, float v)
 {
-	VertexUV* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	Vertex* vertices;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 	vertices[index].u = u;
 	vertices[index].v = v;
-	vb->Unlock();
+	vertexBuffer->Unlock();
+}
+
+void PKH::Mesh::SetBlendMode(BlendMode _mode)
+{
+	this->blendMode = _mode;
+}
+
+void PKH::Mesh::SetZReadMode(ZReadMode _mode)
+{
+	zReadMode = _mode;
+}
+
+void PKH::Mesh::SetZWriteMode(ZWriteMode _mode)
+{
+	zWriteMode = _mode;
+}
+
+void PKH::Mesh::SetLightMode(LightMode _mode)
+{
+	lightMode = _mode;
 }

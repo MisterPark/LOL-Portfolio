@@ -34,6 +34,7 @@ namespace PKH
 		// 월드 Z축 회전
 		void RotateZ(float _angle);
 
+		Vector3 GetPos() { return position; }
 		Vector3* Get_Pos() { return &position; } //수정
 
 	public:
@@ -46,6 +47,8 @@ namespace PKH
 		Vector3 up = Vector3::UP;
 		Vector3 look = Vector3::FORWARD;
 		Matrix world;
+
+		float zOrder = 0.f;
 	};
 }
 
