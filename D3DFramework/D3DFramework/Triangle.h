@@ -1,16 +1,16 @@
 #pragma once
-#include "Mesh.h"
+#include "CustomMesh.h"
 
 namespace PKH
 {
     class Triangle :
-        public Mesh
+        public CustomMesh
     {
     public:
         Triangle();
         virtual ~Triangle();
 
-        // Mesh을(를) 통해 상속됨
+        // CustomMesh을(를) 통해 상속됨
 
         virtual void Update() override;
 

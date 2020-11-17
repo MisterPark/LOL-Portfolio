@@ -73,7 +73,7 @@ using namespace std;
 #include "Random.h"
 
 #include "Vertex.h"
-#include "Mesh.h"
+#include "CustomMesh.h"
 #include "Triangle.h"
 
 

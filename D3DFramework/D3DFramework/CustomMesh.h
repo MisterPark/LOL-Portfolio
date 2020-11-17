@@ -27,11 +27,11 @@ namespace PKH
 		OFF
 	};
 
-	class Mesh : public PKH::IComponent
+	class CustomMesh : public PKH::IComponent
 	{
 	public:
-		Mesh();
-		virtual ~Mesh();
+		CustomMesh();
+		virtual ~CustomMesh();
 
 		virtual void Update() {};
 		virtual void Render();

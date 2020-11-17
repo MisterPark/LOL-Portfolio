@@ -10,7 +10,7 @@ PKH::SkyBox::SkyBox()
 	transform->scale = { 3,3,3 };
 	transform->position = { 0,0,0 };
 
-	Mesh* mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"F");
+	CustomMesh* mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"F");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -21,7 +21,7 @@ PKH::SkyBox::SkyBox()
 	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, 1.0f));
 	mesh->SetVertexPos(3, Vector3(1.0f, -1.0f, 1.0f));
 	
-	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"B");
+	mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"B");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -32,7 +32,7 @@ PKH::SkyBox::SkyBox()
 	mesh->SetVertexPos(2, Vector3(-1.0f, 1.0f, -1.0f));
 	mesh->SetVertexPos(3, Vector3(-1.0f, -1.0f, -1.0f));
 
-	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"L");
+	mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"L");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -43,7 +43,7 @@ PKH::SkyBox::SkyBox()
 	mesh->SetVertexPos(2, Vector3(-1.0f, 1.0f, 1.0f));
 	mesh->SetVertexPos(3, Vector3(-1.0f, -1.0f, 1.0f));
 
-	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"R");
+	mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"R");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -54,7 +54,7 @@ PKH::SkyBox::SkyBox()
 	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, -1.0f));
 	mesh->SetVertexPos(3, Vector3(1.0f, -1.0f, -1.0f));
 
-	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"U");
+	mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"U");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -65,7 +65,7 @@ PKH::SkyBox::SkyBox()
 	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, -1.0f));
 	mesh->SetVertexPos(3, Vector3(1.0f, 1.0f, 1.0f));
 
-	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"D");
+	mesh = (CustomMesh*)AddComponent<PKH::Rectangle>(L"D");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 	mesh->SetZReadMode(ZReadMode::OFF);
 	mesh->SetZWriteMode(ZWriteMode::OFF);
@@ -113,22 +113,22 @@ void PKH::SkyBox::Hide()
 void PKH::SkyBox::SetTexture(TextureKey upTexture)
 {
 	int key = (int)upTexture;
-	Mesh* mesh = (Mesh*)pSkyBox->GetComponent(L"U");
+	CustomMesh* mesh = (CustomMesh*)pSkyBox->GetComponent(L"U");
 	mesh->SetTexture((TextureKey)key);
 	key++;
-	mesh = (Mesh*)pSkyBox->GetComponent(L"D");
+	mesh = (CustomMesh*)pSkyBox->GetComponent(L"D");
 	mesh->SetTexture((TextureKey)key);
 	key++;
-	mesh = (Mesh*)pSkyBox->GetComponent(L"L");
+	mesh = (CustomMesh*)pSkyBox->GetComponent(L"L");
 	mesh->SetTexture((TextureKey)key);
 	key++;
-	mesh = (Mesh*)pSkyBox->GetComponent(L"R");
+	mesh = (CustomMesh*)pSkyBox->GetComponent(L"R");
 	mesh->SetTexture((TextureKey)key);
 	key++;
-	mesh = (Mesh*)pSkyBox->GetComponent(L"F");
+	mesh = (CustomMesh*)pSkyBox->GetComponent(L"F");
 	mesh->SetTexture((TextureKey)key);
 	key++;
-	mesh = (Mesh*)pSkyBox->GetComponent(L"B");
+	mesh = (CustomMesh*)pSkyBox->GetComponent(L"B");
 	mesh->SetTexture((TextureKey)key);
 }
 

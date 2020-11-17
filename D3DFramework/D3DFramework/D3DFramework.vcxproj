@@ -187,7 +187,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MemoryPool.h" />
-    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="CustomMesh.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Panel.h" />
@@ -245,7 +245,7 @@
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="CustomMesh.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Panel.cpp" />

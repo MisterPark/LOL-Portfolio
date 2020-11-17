@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "Mesh.h"
+#include "CustomMesh.h"
 
 using namespace PKH;
 
-Mesh::Mesh()
+CustomMesh::CustomMesh()
 {
 	// 머테리얼
 	ZeroMemory(&material, sizeof(D3DMATERIAL9));
@@ -16,13 +16,13 @@ Mesh::Mesh()
 	material.Power = 0.f;
 }
 
-Mesh::~Mesh()
+CustomMesh::~CustomMesh()
 {
 	vertexBuffer->Release();
 	triangles->Release();
 }
 
-void PKH::Mesh::Render()
+void PKH::CustomMesh::Render()
 {
 	if (gameObject == nullptr)return;
 	
@@ -142,22 +142,22 @@ void PKH::Mesh::Render()
 	RenderManager::UnlockDevice();
 }
 
-PKH::IComponent * PKH::Mesh::Clone()
+PKH::IComponent * PKH::CustomMesh::Clone()
 {
-	return new Mesh(*this);
+	return new CustomMesh(*this);
 }
 
-UINT PKH::Mesh::GetVertexCount()
+UINT PKH::CustomMesh::GetVertexCount()
 {
 	return this->vertexCount;
 }
 
-IDirect3DVertexBuffer9 * PKH::Mesh::GetVertexBuffer()
+IDirect3DVertexBuffer9 * PKH::CustomMesh::GetVertexBuffer()
 {
 	return vertexBuffer;
 }
 
-void PKH::Mesh::SetColor(D3DCOLOR color)
+void PKH::CustomMesh::SetColor(D3DCOLOR color)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -169,12 +169,12 @@ void PKH::Mesh::SetColor(D3DCOLOR color)
 	vertexBuffer->Unlock();
 }
 
-void PKH::Mesh::SetTexture(PKH::TextureKey key)
+void PKH::CustomMesh::SetTexture(PKH::TextureKey key)
 {
 	textureKey = key;
 }
 
-void PKH::Mesh::SetVertexPos(UINT index, const Vector3& pos)
+void PKH::CustomMesh::SetVertexPos(UINT index, const Vector3& pos)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -184,7 +184,7 @@ void PKH::Mesh::SetVertexPos(UINT index, const Vector3& pos)
 	vertexBuffer->Unlock();
 }
 
-void PKH::Mesh::SetUV(UINT index, float u, float v)
+void PKH::CustomMesh::SetUV(UINT index, float u, float v)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -193,22 +193,22 @@ void PKH::Mesh::SetUV(UINT index, float u, float v)
 	vertexBuffer->Unlock();
 }
 
-void PKH::Mesh::SetBlendMode(BlendMode _mode)
+void PKH::CustomMesh::SetBlendMode(BlendMode _mode)
 {
 	this->blendMode = _mode;
 }
 
-void PKH::Mesh::SetZReadMode(ZReadMode _mode)
+void PKH::CustomMesh::SetZReadMode(ZReadMode _mode)
 {
 	zReadMode = _mode;
 }
 
-void PKH::Mesh::SetZWriteMode(ZWriteMode _mode)
+void PKH::CustomMesh::SetZWriteMode(ZWriteMode _mode)
 {
 	zWriteMode = _mode;
 }
 
-void PKH::Mesh::SetLightMode(LightMode _mode)
+void PKH::CustomMesh::SetLightMode(LightMode _mode)
 {
 	lightMode = _mode;
 }

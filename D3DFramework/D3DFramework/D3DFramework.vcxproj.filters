@@ -111,9 +111,6 @@
     <ClInclude Include="Color.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
@@ -241,8 +238,8 @@
     <ClInclude Include="Environment.h">
       <Filter>GameObject\Environment</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="CustomMesh.h">
+      <Filter>Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +290,6 @@
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Component\Mesh</Filter>
@@ -352,9 +346,6 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeMan.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
@@ -510,8 +501,8 @@
     <ClCompile Include="Environment.cpp">
       <Filter>GameObject\Environment</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CustomMesh.cpp">
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

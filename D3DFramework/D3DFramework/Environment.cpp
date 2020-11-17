@@ -4,7 +4,7 @@
 
 Environment::Environment()
 {
-	Mesh* mesh = (Mesh*)AddComponent<Terrain>(L"Mesh");
+	CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");
 	mesh->SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
 	mesh->SetTexture(TextureKey::GRASS);
 }

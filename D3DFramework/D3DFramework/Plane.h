@@ -1,10 +1,10 @@
 #pragma once
-#include "Mesh.h"
+#include "CustomMesh.h"
 
 namespace PKH
 {
 	class Plane :
-		public Mesh
+		public CustomMesh
 	{
 	public:
 		Plane();

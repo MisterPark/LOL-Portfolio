@@ -1,19 +1,18 @@
 #pragma once
-#include "Mesh.h"
+#include "CustomMesh.h"
 
 namespace PKH
 {
     class Rectangle :
-        public Mesh
+        public CustomMesh
     {
     public:
         Rectangle();
         virtual ~Rectangle();
 
-        // Mesh을(를) 통해 상속됨
+        // CustomMesh을(를) 통해 상속됨
 
         virtual void Update() override;
-        virtual void Render() override;
 
         virtual IComponent* Clone() override;
     };
