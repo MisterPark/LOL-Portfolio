@@ -29,6 +29,7 @@ void PKH::SoundManager::Destroy()
 PKH::SoundManager::SoundManager()
 {
 	pSystem = nullptr; 
+	volume = 0.5f;
 }
 
 
@@ -46,6 +47,23 @@ void PKH::SoundManager::Initialize()
 
 	LoadSoundFile(); 
 }
+void PKH::SoundManager::Update()
+{
+	for (auto& pair : pSoundManager->soundTimeMap)
+	{
+		if (pair.second.first)
+		{
+			pair.second.second -= TimeManager::DeltaTime();
+
+			if (0.f > pair.second.second)
+			{
+				pair.second.first = false;
+				pair.second.second = 0.f;
+			}
+		}
+	}
+}
+
 void PKH::SoundManager::Release()
 {
 	for (auto& Mypair : pSoundManager->soundMap)
@@ -61,7 +79,7 @@ void PKH::SoundManager::Release()
 
 
 
-void PKH::SoundManager::PlaySound(TCHAR * pSoundKey, SoundChannel eID)
+void PKH::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter; 
 
@@ -77,11 +95,58 @@ void PKH::SoundManager::PlaySound(TCHAR * pSoundKey, SoundChannel eID)
 	if (FMOD_Channel_IsPlaying(pSoundManager->channels[eID], &bPlay))
 	{
 		FMOD_System_PlaySound(pSoundManager->pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &pSoundManager->channels[eID]);
+		FMOD_Channel_SetVolume(pSoundManager->channels[eID], pSoundManager->volume);
 	}
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
-void PKH::SoundManager::PlayBGM(TCHAR * pSoundKey)
+void PKH::SoundManager::PlayOverlapSound(const TCHAR * pSoundKey, SoundChannel eID, float offsetVolume, float duration)
+{
+	map<TCHAR*, FMOD_SOUND*>::iterator iter;
+
+	iter = find_if(pSoundManager->soundMap.begin(), pSoundManager->soundMap.end(), [&](auto& iter)
+	{
+		return !lstrcmp(pSoundKey, iter.first);
+	});
+
+	if (iter == pSoundManager->soundMap.end())
+		return;
+
+	auto timeIter = find_if(pSoundManager->soundTimeMap.begin(), pSoundManager->soundTimeMap.end(), [&](auto& elem)
+	{
+		return !lstrcmp(pSoundKey, elem.first);
+	});
+
+	if (timeIter->second.first) return;
+
+	FMOD_System_PlaySound(pSoundManager->pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &pSoundManager->channels[eID]);
+	FMOD_Channel_SetVolume(pSoundManager->channels[eID], pSoundManager->volume * offsetVolume);
+
+	timeIter->second.first = true;
+	timeIter->second.second = duration;
+
+	FMOD_System_Update(pSoundManager->pSystem);
+}
+
+void PKH::SoundManager::PlayOverlapSoundWithAmp(const TCHAR * pSoundKey, SoundChannel eID)
+{
+	map<TCHAR*, FMOD_SOUND*>::iterator iter;
+
+	iter = find_if(pSoundManager->soundMap.begin(), pSoundManager->soundMap.end(), [&](auto& iter)
+	{
+		return !lstrcmp(pSoundKey, iter.first);
+	});
+
+	if (iter == pSoundManager->soundMap.end())
+		return;
+
+	FMOD_System_PlaySound(pSoundManager->pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &pSoundManager->channels[eID]);
+	FMOD_Channel_SetVolume(pSoundManager->channels[eID], pSoundManager->volume);
+
+	FMOD_System_Update(pSoundManager->pSystem);
+}
+
+void PKH::SoundManager::PlayBGM(const TCHAR * pSoundKey)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -95,6 +160,7 @@ void PKH::SoundManager::PlayBGM(TCHAR * pSoundKey)
 
 	FMOD_System_PlaySound(pSoundManager->pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &pSoundManager->channels[BGM]);
 	FMOD_Channel_SetMode(pSoundManager->channels[BGM], FMOD_LOOP_NORMAL);
+	FMOD_Channel_SetVolume(pSoundManager->channels[BGM], 0.1f);
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
@@ -148,6 +214,7 @@ void PKH::SoundManager::LoadSoundFile()
 			MultiByteToWideChar(CP_ACP, 0, fd.name, iLength, pSoundKey, iLength);
 
 			pSoundManager->soundMap.emplace(pSoundKey, pSound);
+			pSoundManager->soundTimeMap.emplace(pSoundKey, make_pair(false, 0.f));
 		}
 		iResult = _findnext(handle, &fd);
 	}

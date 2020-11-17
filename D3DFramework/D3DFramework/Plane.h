@@ -10,7 +10,6 @@ namespace PKH
 		Plane();
 		virtual ~Plane();
 
-		virtual void Render() override;
 	};
 }
 

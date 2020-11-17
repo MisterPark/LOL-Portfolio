@@ -63,7 +63,15 @@ void PKH::InputManager::ClearMouseState()
 	int count = MaxOfEnum<Keys>();
 	for (int i = 2; i < count; i++)
 	{
-		pInputManager->mouse[i] = false;
+		if (pInputManager->mouse[i])
+		{
+			pInputManager->mouseFrameCount[i]++;
+			if (pInputManager->mouseFrameCount[i] == dfINPUT_LIFE_FRAME)
+			{
+				pInputManager->mouseFrameCount[i] = 0;
+				pInputManager->mouse[i] = false;
+			}
+		}
 	}
 		
 
@@ -122,6 +130,16 @@ bool PKH::InputManager::GetMouseRButtonDown()
 bool PKH::InputManager::GetMouseRButtonDouble()
 {
 	return pInputManager->mouse[(int)Keys::RBUTTON_DOUBLE];
+}
+
+bool PKH::InputManager::GetMouseWheelUp()
+{
+	return pInputManager->mouse[(int)Keys::WHEEL_UP];
+}
+
+bool PKH::InputManager::GetMouseWheelDown()
+{
+	return pInputManager->mouse[(int)Keys::WHEEL_DOWN];
 }
 
 

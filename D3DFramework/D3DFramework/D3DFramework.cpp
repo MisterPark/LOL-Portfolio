@@ -5,6 +5,18 @@
 #include "framework.h"
 #include "D3DFramework.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -12,6 +24,7 @@ HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND g_hwnd;
+HINSTANCE g_hInstance;
 
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
@@ -28,7 +41,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -70,6 +82,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MainGame::Release();
     MainGame::Destroy();
+
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     return (int) msg.wParam;
 }
@@ -127,6 +141,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    g_hwnd = hWnd;
+   g_hInstance = hInstance;
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -152,7 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+           
             EndPaint(hWnd, &ps);
         }
         break;
@@ -179,10 +194,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_RBUTTONDBLCLK:
         InputManager::GetInstance()->mouse[(int)Keys::RBUTTON_DOUBLE] = true;
         break;
+	case WM_MOUSEWHEEL:
+		if ((SHORT)HIWORD(wParam) > 0)
+		{
+			InputManager::GetInstance()->mouse[(int)Keys::WHEEL_UP] = true;
+		}
+		else
+		{
+			InputManager::GetInstance()->mouse[(int)Keys::WHEEL_DOWN] = true;
+		}
+		
+
+		break;
+
+	case WM_KEYDOWN:
+		break;
 
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    case UM_NETWORK:
+        if (!Network::NetProc(wParam, lParam))
+        {
+            MessageBoxW(NULL, L"서버로 부터 연결 종료", L"Network Message", MB_OK);
+            DestroyWindow(g_hwnd);
+        }
+        break;
+
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

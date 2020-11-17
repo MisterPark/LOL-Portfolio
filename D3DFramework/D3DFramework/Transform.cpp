@@ -13,6 +13,12 @@ PKH::Transform::~Transform()
 
 void PKH::Transform::Update()
 {
+	Matrix matView = Camera::GetViewMatrix();
+
+	Vector3 coord;
+	D3DXVec3TransformCoord(&coord, &position, &matView);
+	zOrder = coord.z;
+
 	world = world.identity;
 	// 오일러 각 360도 보정
 	eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(360.f));
@@ -25,7 +31,7 @@ void PKH::Transform::Update()
 	D3DXQuaternionRotationYawPitchRoll(&rotation, eulerAngles.y, eulerAngles.x, eulerAngles.z);
 	D3DXQuaternionNormalize(&rotation, &rotation);
 
-	// 로컬 좌표 세팅
+	// 로컬 좌표계 세팅
 	right = Vector3::RIGHT;
 	up = Vector3::UP;
 	look = Vector3::FORWARD;
@@ -40,6 +46,7 @@ void PKH::Transform::Update()
 	Vector3::Normalize(&up);
 	Vector3::Normalize(&look);
 
+	// 월드 행렬 세팅
 	Matrix matTrans, matScale, matRotation;//, rotX, rotY, rotZ
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
 	//D3DXMatrixRotationX(&rotX, transform->eulerAngles.x);

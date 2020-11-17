@@ -5,11 +5,13 @@ PKH::Cursor* pCursor = nullptr;
 
 PKH::Cursor::Cursor()
 {
-    isVisible = false;
+   
+    //ShowCursor(FALSE);
 }
 
 PKH::Cursor::~Cursor()
 {
+    //ShowCursor(TRUE);
 }
 
 Cursor* PKH::Cursor::GetInstance()
@@ -43,16 +45,23 @@ Vector3 PKH::Cursor::GetMousePos()
 
 void PKH::Cursor::Show()
 {
-    if (pCursor->isShow) return;
+    if (pCursor->isVisible) return;
 
-    ShowCursor(TRUE);
+    pCursor->isVisible = true;
+    
+}
+
+void PKH::Cursor::Show(bool on)
+{
+    pCursor->isVisible = on;
 }
 
 void PKH::Cursor::Hide()
 {
-    if (pCursor->isShow == false) return;
+    if (pCursor->isVisible == false) return;
 
-    ShowCursor(FALSE);
+    pCursor->isVisible = false;
+    
 }
 
 void PKH::Cursor::Update()
@@ -64,5 +73,18 @@ void PKH::Cursor::Update()
 void PKH::Cursor::Render()
 {
     if (isVisible == false)return;
-    D2DRenderManager::DrawSprite(TextureKey::CURSOR_TARGET, *transform, 0);
+    RenderManager::DrawUI(TextureKey::UI_CURSOR, *transform, 0);
+}
+
+void PKH::Cursor::Initialize()
+{
+}
+
+void PKH::Cursor::Release()
+{
+}
+
+bool PKH::Cursor::IsVisible()
+{
+    return pCursor->isVisible;
 }

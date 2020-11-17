@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MainGame.h"
 #include "TestScene.h"
+#include "SkyBox.h"
+#include "TitleScene.h"
 
 using namespace PKH;
 
@@ -35,15 +37,22 @@ void PKH::MainGame::Destroy()
 
 void PKH::MainGame::Initialize()
 {
+	Network::GetInstance();
+	Network::Initialize();
+	LobbyWindow::GetInstance();
 	Random::InitState();
 
-    // 다른 모든 매니저 초기화
+	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(60.f);
-	D2DRenderManager::GetInstance();
-	CollisionManager::GetInstance();
-	InputManager::GetInstance();
 	
+	RenderManager::GetInstance();
+	ObjectManager::GetInstance();
+	CollisionManager::GetInstance();
+	LightManager::GetInstance();
+	InputManager::GetInstance();
+	SkyBox::GetInstance();
+
 	//RenderManager::GetInstance();
 
 	SceneManager::GetInstance();
@@ -53,65 +62,70 @@ void PKH::MainGame::Initialize()
 	Cursor::GetInstance();
 
 	SoundManager::GetInstance()->Initialize();
+	LoadManager::GetInstance();
 
-    // 리소스 로드
-	D2DRenderManager::LoadSprite(TextureKey::SKY_U, L"Texture\\SKYBOX_U.png");
-	D2DRenderManager::LoadSprite(TextureKey::SKY_D, L"Texture\\SKYBOX_D.png");
-	D2DRenderManager::LoadSprite(TextureKey::SKY_L, L"Texture\\SKYBOX_L.png");
-	D2DRenderManager::LoadSprite(TextureKey::SKY_R, L"Texture\\SKYBOX_R.png");
-	D2DRenderManager::LoadSprite(TextureKey::SKY_F, L"Texture\\SKYBOX_F.png");
-	D2DRenderManager::LoadSprite(TextureKey::SKY_B, L"Texture\\SKYBOX_B.png");
+	LoadUISprite();
 
-
-	D2DRenderManager::LoadSprite(TextureKey::CURSOR_TARGET, L"Texture\\HUD_TARGET.png");
-	D2DRenderManager::LoadSprite(TextureKey::LOCK_ON, L"Texture\\LOCK_ON.png");
-
-	ObjectManager::GetInstance();
+	
+	//SkillManager::GetInstance();
 
 	// 씬로드
 	SceneManager::LoadScene<TestScene>();
-
-}
-
-void PKH::MainGame::Release()
-{
-    // 다른 모든 매니저 해제
-	SceneManager::Destroy();
-	TimeManager::Destroy();
-	ObjectManager::Destroy();
-	//RenderManager::Release();
-	D2DRenderManager::Destroy();
-	InputManager::Destroy();
-	CollisionManager::Destroy();
-	Camera::Destroy();
-	FileManager::Destroy();
-
-	SoundManager::Destroy();
-	Cursor::Destroy();
 }
 
 void PKH::MainGame::Update()
 {
+	// 1. 인풋 먼저
 	InputManager::Update();
-	ObjectManager::Update();
-	Camera::GetInstance()->Update();
-	CollisionManager::Update();
 
+	// 2. 씬 매니저 업데이트
+	SceneManager::Update();
+
+	// 3. Player 업데이트
+
+	// 4. Obj 업데이트
+	ObjectManager::Update();
+
+	Camera::GetInstance()->Update();
+	SkyBox::GetInstance()->Update();
+	
+	CollisionManager::GetInstance()->Update();
 	ObjectManager::PostUpdate();
+	SoundManager::Update();
 
 	if (!TimeManager::SkipFrame())
 	{
-		D2DRenderManager::Clear();
+		RenderManager::Clear();
 
+		SkyBox::GetInstance()->Render();
 		ObjectManager::PreRender();
 		ObjectManager::Render();
 		ObjectManager::PostRender();
 
 
-		D2DRenderManager::Present();
+		RenderManager::Present();
 	}
+}
 
-	SceneManager::Update();
+void PKH::MainGame::Release()
+{
+	// 다른 모든 매니저 해제
+	LoadManager::Destroy();
+	SceneManager::Destroy();
+	TimeManager::Destroy();
+	ObjectManager::Destroy();
+	CollisionManager::Destroy();
+	SkyBox::Destroy();
+	//RenderManager::Release();
+	RenderManager::Destroy();
+	InputManager::Destroy();
+	Camera::Destroy();
+	FileManager::Destroy();
+	LightManager::Destroy();
+	SoundManager::Destroy();
+	Cursor::Destroy();
+	LobbyWindow::Destroy();
+	Network::Destroy();
 }
 
 void PKH::MainGame::Pause()
@@ -126,3 +140,15 @@ void PKH::MainGame::Shutdown()
 {
 	PostQuitMessage(0);
 }
+
+
+void PKH::MainGame::LoadUISprite()
+{
+	// 리소스 로드
+	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
+	RenderManager::LoadSprite(TextureKey::GRASS, L"Texture\\grassTexture.png");
+
+
+
+
+}										

@@ -7,48 +7,75 @@ SkyBox* pSkyBox = nullptr;
 PKH::SkyBox::SkyBox()
 {
 	isVisible = false;
+	transform->scale = { 3,3,3 };
+	transform->position = { 0,0,0 };
 
 	Mesh* mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"F");
-	mesh->SetTexture(TextureKey::SKY_F);
-	mesh->SetVertexPos(0, Vector3(-350, -350, 350));
-	mesh->SetVertexPos(1, Vector3(-350, 350, 350));
-	mesh->SetVertexPos(2, Vector3(350, 350, 350));
-	mesh->SetVertexPos(3, Vector3(350, -350, 350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+//	mesh->SetTexture(TextureKey::SKY_F);
+	mesh->SetVertexPos(0, Vector3(-1.0f, -1.0f, 1.0f));
+	mesh->SetVertexPos(1, Vector3(-1.0f, 1.0f, 1.0f));
+	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, 1.0f));
+	mesh->SetVertexPos(3, Vector3(1.0f, -1.0f, 1.0f));
 	
 	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"B");
-	mesh->SetTexture(TextureKey::SKY_B);
-	mesh->SetVertexPos(0, Vector3(350, -350, -350));
-	mesh->SetVertexPos(1, Vector3(350, 350, -350));
-	mesh->SetVertexPos(2, Vector3(-350, 350, -350));
-	mesh->SetVertexPos(3, Vector3(-350, -350, -350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+	//mesh->SetTexture(TextureKey::SKY_B);
+	mesh->SetVertexPos(0, Vector3(1.0f, -1.0f, -1.0f));
+	mesh->SetVertexPos(1, Vector3(1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(2, Vector3(-1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(3, Vector3(-1.0f, -1.0f, -1.0f));
 
 	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"L");
-	mesh->SetTexture(TextureKey::SKY_L);
-	mesh->SetVertexPos(0, Vector3(-350, -350, -350));
-	mesh->SetVertexPos(1, Vector3(-350, 350, -350));
-	mesh->SetVertexPos(2, Vector3(-350, 350, 350));
-	mesh->SetVertexPos(3, Vector3(-350, -350, 350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+	//mesh->SetTexture(TextureKey::SKY_L);
+	mesh->SetVertexPos(0, Vector3(-1.0f, -1.0f, -1.0f));
+	mesh->SetVertexPos(1, Vector3(-1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(2, Vector3(-1.0f, 1.0f, 1.0f));
+	mesh->SetVertexPos(3, Vector3(-1.0f, -1.0f, 1.0f));
 
 	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"R");
-	mesh->SetTexture(TextureKey::SKY_R);
-	mesh->SetVertexPos(0, Vector3(350, -350, 350));
-	mesh->SetVertexPos(1, Vector3(350, 350, 350));
-	mesh->SetVertexPos(2, Vector3(350, 350, -350));
-	mesh->SetVertexPos(3, Vector3(350, -350, -350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+	//mesh->SetTexture(TextureKey::SKY_R);
+	mesh->SetVertexPos(0, Vector3(1.0f, -1.0f, 1.0f));
+	mesh->SetVertexPos(1, Vector3(1.0f, 1.0f, 1.0f));
+	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(3, Vector3(1.0f, -1.0f, -1.0f));
 
 	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"U");
-	mesh->SetTexture(TextureKey::SKY_U);
-	mesh->SetVertexPos(0, Vector3(-350, 350, 350));
-	mesh->SetVertexPos(1, Vector3(-350, 350, -350));
-	mesh->SetVertexPos(2, Vector3(350, 350, -350));
-	mesh->SetVertexPos(3, Vector3(350, 350, 350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+	//mesh->SetTexture(TextureKey::SKY_U);
+	mesh->SetVertexPos(0, Vector3(-1.0f, 1.0f, 1.0f));
+	mesh->SetVertexPos(1, Vector3(-1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(2, Vector3(1.0f, 1.0f, -1.0f));
+	mesh->SetVertexPos(3, Vector3(1.0f, 1.0f, 1.0f));
 
 	mesh = (Mesh*)AddComponent<PKH::Rectangle>(L"D");
-	mesh->SetTexture(TextureKey::SKY_D);
-	mesh->SetVertexPos(0, Vector3(-350, -350, -350));
-	mesh->SetVertexPos(1, Vector3(-350, -350, 350));
-	mesh->SetVertexPos(2, Vector3(350, -350, 350));
-	mesh->SetVertexPos(3, Vector3(350, -350, -350));
+	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
+
+	//mesh->SetTexture(TextureKey::SKY_D);
+	mesh->SetVertexPos(0, Vector3(-1.0f, -1.0f, -1.0f));
+	mesh->SetVertexPos(1, Vector3(-1.0f, -1.0f, 1.0f));
+	mesh->SetVertexPos(2, Vector3(1.0f, -1.0f, 1.0f));
+	mesh->SetVertexPos(3, Vector3(1.0f, -1.0f, -1.0f));
+
 }
 
 PKH::SkyBox::~SkyBox()
@@ -83,7 +110,40 @@ void PKH::SkyBox::Hide()
 	pSkyBox->isVisible = false;
 }
 
+void PKH::SkyBox::SetTexture(TextureKey upTexture)
+{
+	int key = (int)upTexture;
+	Mesh* mesh = (Mesh*)pSkyBox->GetComponent(L"U");
+	mesh->SetTexture((TextureKey)key);
+	key++;
+	mesh = (Mesh*)pSkyBox->GetComponent(L"D");
+	mesh->SetTexture((TextureKey)key);
+	key++;
+	mesh = (Mesh*)pSkyBox->GetComponent(L"L");
+	mesh->SetTexture((TextureKey)key);
+	key++;
+	mesh = (Mesh*)pSkyBox->GetComponent(L"R");
+	mesh->SetTexture((TextureKey)key);
+	key++;
+	mesh = (Mesh*)pSkyBox->GetComponent(L"F");
+	mesh->SetTexture((TextureKey)key);
+	key++;
+	mesh = (Mesh*)pSkyBox->GetComponent(L"B");
+	mesh->SetTexture((TextureKey)key);
+}
+
 void PKH::SkyBox::Update()
 {
-	//transform->position = Camera::GetPosition();
+
+	transform->position = Camera::GetInstance()->transform->position;
+
+	GameObject::Update();
+}
+
+void PKH::SkyBox::Initialize()
+{
+}
+
+void PKH::SkyBox::Release()
+{
 }

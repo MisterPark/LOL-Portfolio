@@ -54,10 +54,12 @@ namespace PKH
 		// Static Function
 		//=====================================
 
-		// from 부터 to 사이의 각을 구합니다.
+		// from 부터 to 사이의 각을 구합니다.(★위치벡터)
 		// 단위 Degree
 		// 범위 -180 ~ 180
-		static float	Angle(const Vector3& from, const Vector3& to);
+		static float	AngleX(const Vector3& from, const Vector3& to);
+		static float	AngleY(const Vector3& from, const Vector3& to);
+		static float	AngleZ(const Vector3& from, const Vector3& to);
 		// 두 벡터의 외적
 		static Vector3	Cross(const Vector3& lhs, const Vector3& rhs);
 		// a와 b사이의 거리를 반환합니다.

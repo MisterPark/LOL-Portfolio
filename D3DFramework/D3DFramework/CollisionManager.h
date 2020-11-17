@@ -1,5 +1,7 @@
 #pragma once
 
+enum COLTYPE{PLAYER, ENEMY, PLAYER_ATTACK, PLAYER_MULTI_ATTACK, ENEMY_MULTI_ATTACK, ENEMY_ATTACK,TRIGGERBOX,ITEM, COIN, COL_NPC, END};
+
 namespace PKH
 {
 	class CollisionManager
@@ -12,16 +14,20 @@ namespace PKH
 		static CollisionManager* GetInstance();
 		static void Destroy();
 
-		static void Update();
-		static void RegisterObject(GameObject* _pObj);
-		static void DisregisterObject(GameObject* _pObj);
-		static bool FindObject(GameObject* _pObj);
+	public:
+		void Update();
+		void ObjectDeadCheck();
+		void CollisionCheck(COLTYPE srcType, COLTYPE dstType);
+		void Release();
 
+	public:
+		static void RegisterObject(COLTYPE colType, GameObject* _pObj);
+		void DisregisterObject(GameObject* obj);
+		static void DisregisterObject(COLTYPE colType, GameObject* _pObj);
+		static bool FindObject(COLTYPE colType, GameObject* _pObj);
 		static bool IsCollided(GameObject* target, GameObject* other);
 
-		vector<GameObject*> objectList;
+		list<GameObject*> objectList[COLTYPE::END];
 	};
-
-
 }
 

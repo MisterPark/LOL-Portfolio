@@ -15,6 +15,8 @@ namespace PKH
 		RBUTTON_DOWN,
 		LBUTTON_DOUBLE,
 		RBUTTON_DOUBLE,
+		WHEEL_UP,
+		WHEEL_DOWN,
 
 		END
 	};
@@ -50,6 +52,8 @@ namespace PKH
 		static bool GetMouseRButtonUp();
 		static bool GetMouseRButtonDown();
 		static bool GetMouseRButtonDouble();
+		static bool GetMouseWheelUp();
+		static bool GetMouseWheelDown();
 
 		static POINT GetMousePosOnClient();
 		static POINT GetMousePosOnWorld();
@@ -60,6 +64,8 @@ namespace PKH
 		bool keyDowns[RANGE_OF_KEYS] = {};
 		bool keyUps[RANGE_OF_KEYS] = {};
 
+		// 마우스 버튼의 눌림상태를 유지하는 프레임 수
+		int mouseFrameCount[MaxOfEnum<Keys>()] = {};
 	public:
 		bool mouse[MaxOfEnum<Keys>()] = {};
 

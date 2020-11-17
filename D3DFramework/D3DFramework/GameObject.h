@@ -3,6 +3,19 @@
 
 using namespace PKH;
 
+enum class State
+{
+	IDLE, WALK, ATTACK, SKILL, SKILL2, SKILL3, HURT, READY, END
+};
+enum class Direction
+{
+	D, LD, L, LU, U, RU, R, RD, END
+};
+
+enum class Team
+{
+	NEUTRAL,PLAYERTEAM,MONSTERTEAM,END
+};
 
 namespace PKH
 {
@@ -14,9 +27,11 @@ namespace PKH
 	public:
 		GameObject();
 		virtual ~GameObject();
-
-
+		
+		virtual void Initialize() = 0;
+		virtual void Release() = 0;
 		virtual void Update() = 0;
+		virtual void PostUpdate();
 		virtual void Render();
 		virtual void Die();
 		virtual void OnCollision(GameObject* target);
@@ -35,29 +50,42 @@ namespace PKH
 		void FaceTarget(const GameObject* _target);
 		void FaceTarget(const Transform& _targetTransform);
 		void FaceTarget(const Vector3& _targetPos);
+		// 빌보드
+		// GameObject::Update() 호출 후에 호출
+		void Billboard();
+		void BillboardYaw();
 
+		void AddToCollideList(GameObject* object);
+		bool IsInCollideList(const GameObject* object) const;
 
 		void SetPosition(Vector3 _vPos);
 
 		template<class T>
 		IComponent* AddComponent(const wstring& _key);
+		void ReleaseComponents();
 
 		IComponent* GetComponent(const wstring& _key);
-		Transform* GetTransform() { return transform; } //수정
+		Transform* GetTransform() const { return transform; } //수정
+		STAT GetStat() const { return stat; }
 
-
+		bool IsDead();
+		
+		void MinusHp(float _damage);
+		void SetHp(float _hp);
 	public:
+		wstring name;
 		Transform* transform = nullptr;
-
-		float moveSpeed = 1.f;
-		bool isDead = false;
+		STAT stat;
+		Team team = Team::NEUTRAL;
+		
 		bool isVisible = true;
 		bool isEnable = true;
-		bool isAlliance = true;
-
-		map<wstring, PKH::IComponent*> components;
-
+		bool dontDestroy = false;
 		
+		map<wstring, PKH::IComponent*> components;
+		list<GameObject*> collideList;
+	protected:
+		bool isDead = false;
 	};
 	template<class T>
 	inline IComponent* GameObject::AddComponent(const wstring & _key)

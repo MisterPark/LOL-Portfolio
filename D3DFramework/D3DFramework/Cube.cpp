@@ -1,42 +1,44 @@
 #include "stdafx.h"
 #include "Cube.h"
-#include "Player4.h"
 
 PKH::Cube::Cube()
 {
 	this->vertexCount = 8;
 	this->triangleCount = 12;
 	
-
-	D2DRenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(VertexColor),
+	RenderManager::LockDevice();
+	RenderManager::GetDevice()->CreateVertexBuffer(
+		vertexCount * sizeof(Vertex),
 		D3DUSAGE_WRITEONLY,
-		VertexColor::FVF,
+		Vertex::FVF,
 		D3DPOOL_MANAGED,
-		&vb,
+		&vertexBuffer,
 		0);
 
-	D2DRenderManager::GetDevice()->CreateIndexBuffer(
+	RenderManager::GetDevice()->CreateIndexBuffer(
 		triangleCount * 3 * sizeof(WORD),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,
 		&triangles,
 		0);
+	RenderManager::UnlockDevice();
 
-	VertexColor* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
+	Vertex* vertices;
+	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
-	vertices[0] = VertexColor(-1.f, -1.f, -1.f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[1] = VertexColor(-1.0f, 1.f, -1.f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[2] = VertexColor(1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(0, 0, 255));
-	vertices[3] = VertexColor(1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(255, 0, 255));
+	// 전면
+	vertices[0] = Vertex(Vector3(-1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 0),0,1);
+	vertices[1] = Vertex(Vector3(-1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 255, 0),0,0);
+	vertices[2] = Vertex(Vector3(1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 0, 255),1,0);
+	vertices[3] = Vertex(Vector3(1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 255),1,1);
 
-	vertices[4] = VertexColor(-1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0));
-	vertices[5] = VertexColor(-1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
-	vertices[6] = VertexColor(1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255));
-	vertices[7] = VertexColor(1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 255));
-	vb->Unlock();
+	// 후면
+	vertices[4] = Vertex(Vector3(-1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 0),1,1);
+	vertices[5] = Vertex(Vector3(-1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 255, 0),1,0);
+	vertices[6] = Vertex(Vector3(1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 0, 255),0,0);
+	vertices[7] = Vertex(Vector3(1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 255),0,1);
+	vertexBuffer->Unlock();
 
 	WORD* indices = nullptr;
 	triangles->Lock(0, 0, (void**)&indices, 0);
