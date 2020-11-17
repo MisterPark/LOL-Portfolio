@@ -1,4 +1,6 @@
 
+2020-11-18
+
 현재 X파일을 로드하는 구간을 게임오브젝트 만들때마다 하게 되는데
 
 그거 RenderManager 에서 Texture Map 처럼 Mesh Map 만들고 거기다 로드 박아놓기
