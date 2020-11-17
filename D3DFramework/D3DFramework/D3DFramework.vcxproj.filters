@@ -241,6 +241,9 @@
     <ClInclude Include="Environment.h">
       <Filter>GameObject\Environment</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -506,6 +509,9 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Environment.cpp">
       <Filter>GameObject\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
