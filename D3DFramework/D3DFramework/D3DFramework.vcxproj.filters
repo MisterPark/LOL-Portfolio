@@ -58,6 +58,12 @@
     <Filter Include="GameObject\Environment">
       <UniqueIdentifier>{28f50581-9192-4f77-9d55-6a780514f28b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Item">
+      <UniqueIdentifier>{5d08472c-1c9f-418b-a5cf-e6c93c95fe25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Character">
+      <UniqueIdentifier>{7620e2db-40b0-49b5-b9e8-85759fd43e8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -116,9 +122,6 @@
     </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Cube.h">
       <Filter>Component\Mesh</Filter>
@@ -234,13 +237,25 @@
     <ClInclude Include="Label.h">
       <Filter>GameObject\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h" />
     <ClInclude Include="Environment.h">
       <Filter>GameObject\Environment</Filter>
     </ClInclude>
     <ClInclude Include="CustomMesh.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>GameObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TestMan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -296,9 +311,6 @@
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="IComponent.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Cube.cpp">
       <Filter>Component\Mesh</Filter>
@@ -382,9 +394,6 @@
       <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Plane.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
@@ -497,13 +506,25 @@
     <ClCompile Include="Label.cpp">
       <Filter>GameObject\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Environment.cpp">
       <Filter>GameObject\Environment</Filter>
     </ClCompile>
     <ClCompile Include="CustomMesh.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="IComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>GameObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TestMan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">
@@ -517,5 +538,9 @@
     <ResourceCompile Include="D3DFramework.rc">
       <Filter>99. Defaults</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CodingConvention.txt" />
+    <Text Include="TODO.txt" />
   </ItemGroup>
 </Project>

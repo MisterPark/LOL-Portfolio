@@ -146,7 +146,7 @@ void PKH::MainGame::LoadUISprite()
 {
 	// 리소스 로드
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
-	RenderManager::LoadSprite(TextureKey::GRASS, L"Texture\\grassTexture.png");
+	RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 
 
 

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "IComponent.h"
 #include "transform.h"
+#include "StaticMesh.h"
 
 using namespace PKH;
 
@@ -35,10 +36,19 @@ void PKH::GameObject::Render()
 	for (auto& comp : components)
 	{
 		CustomMesh* mesh = dynamic_cast<CustomMesh*>(comp.second);
-		if (mesh == nullptr) continue;
+		if (mesh != nullptr)
+		{
+			mesh->Render();
+			continue;
+		}
 
+		StaticMesh* smesh = dynamic_cast<StaticMesh*>(comp.second);
+		if (smesh != nullptr)
+		{
+			smesh->Render();
+			continue;
+		}
 		
-		mesh->Render();
 	}
 }
 

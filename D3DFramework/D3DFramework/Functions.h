@@ -6,19 +6,55 @@ constexpr int MaxOfEnum()
 	return (int)T::END;
 }
 
-static int GetPokemonGeneration(Pokemon number)
+template <typename T>
+DWORD Safe_Release(T& pointer)
 {
-	int num = (int)number;
-	if (num > (int)Pokemon::Celebi)
+	DWORD	dwRefCnt = 0;
+	if (NULL != pointer)
 	{
-		return 3;
+		dwRefCnt = pointer->Release();
+		if (dwRefCnt == 0)
+			pointer = NULL;
 	}
-	else if (num > (int)Pokemon::Mew)
+	return dwRefCnt;
+}
+
+template <typename T>
+DWORD Safe_AddRef(T& pointer)
+{
+	DWORD	dwRefCnt = 0;
+	if (NULL != pointer)
+		dwRefCnt = pointer->AddRef();
+
+	return dwRefCnt;
+}
+
+template <typename T>
+void Safe_Single_Destory(T& pointer)
+{
+	if (NULL != pointer)
 	{
-		return 2;
+		pointer->DestroyInstance();
+		pointer = NULL;
 	}
-	else
+}
+
+template <typename T>
+void Safe_Delete(T& pointer)
+{
+	if (NULL != pointer)
 	{
-		return 1;
+		delete pointer;
+		pointer = NULL;
+	}
+}
+
+template <typename T>
+void Safe_Delete_Array(T& pointer)
+{
+	if (NULL != pointer)
+	{
+		delete[] pointer;
+		pointer = NULL;
 	}
 }
