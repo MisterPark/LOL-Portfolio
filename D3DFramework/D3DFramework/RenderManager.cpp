@@ -813,3 +813,41 @@ HRESULT PKH::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D3DM
 	LeaveCriticalSection(&pRenderManager->csDevice);
 	return E_NOTIMPL;
 }
+
+HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+{
+
+	StaticMesh* smesh = new StaticMesh();
+	HRESULT result = smesh->LoadMesh(pFilePath, pFileName);
+	if (result != S_OK)
+	{
+		delete smesh;
+		return result;
+	}
+	
+	// 키생성
+	wstring key = L"";
+	wstring fileName = pFileName;
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		key += fileName[i];
+	}
+
+
+	pRenderManager->staticMeshMap[key] = smesh;
+
+	return S_OK;
+}
+
+StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& key)
+{
+	auto smesh = pRenderManager->staticMeshMap.find(key);
+	if (smesh == pRenderManager->staticMeshMap.end())
+	{
+		MessageBoxW(g_hwnd, L"로드되지 않은 스태틱 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
+		return nullptr;
+	}
+
+	return (StaticMesh*)smesh->second->Clone();
+}

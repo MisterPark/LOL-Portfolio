@@ -3,6 +3,7 @@
 #include "TestScene.h"
 #include "SkyBox.h"
 #include "TitleScene.h"
+#include "LoadingScene.h"
 
 using namespace PKH;
 
@@ -70,7 +71,7 @@ void PKH::MainGame::Initialize()
 	//SkillManager::GetInstance();
 
 	// ¾À·Îµå
-	SceneManager::LoadScene<TestScene>();
+	SceneManager::LoadScene<LoadingScene>();
 }
 
 void PKH::MainGame::Update()

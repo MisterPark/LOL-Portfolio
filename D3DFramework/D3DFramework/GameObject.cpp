@@ -200,6 +200,15 @@ void PKH::GameObject::SetPosition(Vector3 _vPos)
 	transform->position = _vPos;
 }
 
+IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)
+{
+	if (_component == nullptr) return nullptr;
+	_component->gameObject = this;
+	
+	components[_key] = _component;
+	return _component;
+}
+
 void PKH::GameObject::ReleaseComponents()
 {
 	auto iter = components.begin();

@@ -164,6 +164,7 @@
     <ClInclude Include="Label.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="LoadManager.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Color.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="LoadManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Color.cpp" />

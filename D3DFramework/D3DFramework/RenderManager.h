@@ -1,5 +1,8 @@
 #pragma once
 #include "Texture.h"
+#include "Mesh.h"
+#include "StaticMesh.h"
+
 
 namespace PKH
 {
@@ -69,6 +72,13 @@ namespace PKH
 
 		//==================================================
 
+		//======================= 3D =======================
+
+		static HRESULT LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+		static StaticMesh* CloneStaticMesh(const wstring& key);
+
+		//==================================================
+
 	private:
 		// 실질적으로 장치를 다룰 객체. 
 		LPDIRECT3DDEVICE9 pDevice = nullptr;
@@ -80,6 +90,7 @@ namespace PKH
 
 
 		map<TextureKey, Texture*> textureMap;
+		map<wstring, StaticMesh*> staticMeshMap;
 
 		CRITICAL_SECTION csDevice;
 		
