@@ -3,6 +3,36 @@
 							TODO
 ====================================================================
 
+예제코드 (이 코드가 정상동작 하도록 필요한걸 모두 만들기)
+// left mouse
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    SetFocus(interactable);
+                }
+            }
+        }
+        // right mouse
+        if (Input.GetMouseButton(1))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray,out hit,100,movementMask))
+            {
+                motor.MoveToPoint(hit.point);
+                RemoveFocus();
+            }
+        }
+---------------------------------------
+
 Static Mesh 클래스
 다이나믹 메쉬 수업 이후에 구조 파악하고 합리적인 코드로 변경해야함.
 

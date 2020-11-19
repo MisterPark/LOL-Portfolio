@@ -33,5 +33,5 @@ void PlayerController::Update()
 
 IComponent* PlayerController::Clone()
 {
-    return nullptr;
+    return new PlayerController(*this);
 }
