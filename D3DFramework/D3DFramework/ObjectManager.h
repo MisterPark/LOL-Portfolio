@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 namespace PKH
 {
 	class ObjectManager
@@ -16,7 +17,7 @@ namespace PKH
 		static void Release();
 
 		template<class T>
-		GameObject* CreateObject();
+		GameObject* CreateObject(Layer layer = Layer::Default);
 
 		static bool DeleteObject(GameObject* _target);
 		static void DestroyAll();
@@ -32,7 +33,7 @@ namespace PKH
 		template<class TargetType>
 		TargetType* GetNearestObject( GameObject* _self, bool (*Func)(GameObject*, GameObject*));
 
-		static void AddObject(GameObject* _obj);
+		static void AddObject(GameObject* _obj, Layer _layer = Layer::Default);
 		static void RemoveObject(GameObject* _obj);
 
 		
@@ -50,14 +51,14 @@ namespace PKH
 
 	private:
 
-		list<GameObject*> objectList;
+		list<GameObject*> objectTable[MaxOfEnum<Layer>()];
 		list<GameObject*> renderList;
 		bool isVisibleCollider = false;
 	};
 
 
 	template<class T>
-	inline GameObject * ObjectManager::CreateObject()
+	inline GameObject * ObjectManager::CreateObject(Layer layer)
 	{
 		T* pObj = new T();
 		GameObject* obj = dynamic_cast<GameObject*>(pObj);
@@ -65,15 +66,17 @@ namespace PKH
 		{
 			return nullptr;
 		}
-		objectList.push_back(obj);
+		obj->SetLayer(layer);
+		objectTable[(int)layer].push_back(obj);
 
 		return obj;
 	}
 
+
 	template<class T>
 	inline GameObject* ObjectManager::FindObject()
 	{
-		for (auto& iter : objectList)
+		for (auto& iter : objectTable)
 		{
 			if (dynamic_cast<T*>(iter) == nullptr) continue;
 
@@ -86,7 +89,7 @@ namespace PKH
 	template<class T>
 	inline void ObjectManager::FindObjectList(list<GameObject*>& outList)
 	{
-		for (auto& iter : objectList)
+		for (auto& iter : objectTable)
 		{
 			if (dynamic_cast<T*>(iter) == nullptr) continue;
 
@@ -100,7 +103,7 @@ namespace PKH
 		TargetType* target = nullptr;
 		TargetType* comparand = nullptr;
 
-		for (auto& iter : objectList)
+		for (auto& iter : objectTable)
 		{
 			if (dynamic_cast<TargetType*>(iter) == nullptr) continue;
 
@@ -132,7 +135,7 @@ namespace PKH
 		TargetType* target = nullptr;
 		TargetType* comparand = nullptr;
 
-		for (auto iter : objectList)
+		for (auto iter : objectTable)
 		{
 			if (dynamic_cast<TargetType*>(iter) == nullptr) continue;
 			GameObject* iterObj = iter;

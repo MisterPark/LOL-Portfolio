@@ -129,9 +129,9 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	{
 		pVertices[i] = *((Vector3*)(((UCHAR*)pVertex) + (i * vertexSize + byOffset)));
 	}
-
+	
 	pMesh->UnlockVertexBuffer();
-
+	
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
 	//==============================

@@ -4,7 +4,7 @@
 namespace PKH
 {
 	class GameObject;
-
+	class Transform;
 
 	class IComponent
 	{

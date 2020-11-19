@@ -61,7 +61,7 @@ using namespace std;
 #include "Define.h"
 #include "Struct.h"
 #include "Functions.h"
-
+// DirectX 변형 자료
 #include"MemoryPool.h"
 #include "Point.h"
 #include "Vector3.h"
@@ -71,12 +71,13 @@ using namespace std;
 #include "Color.h"
 #include "Texture.h"
 #include "Random.h"
-
+// 매쉬
 #include "Vertex.h"
 #include "CustomMesh.h"
 #include "Triangle.h"
-
-
+// 레이어
+#include "Layer.h"
+// 매니저
 #include "SoundManager.h"
 #include "MainGame.h"
 #include "ObjectManager.h"
@@ -89,7 +90,9 @@ using namespace std;
 #include "SceneManager.h"
 #include "LightManager.h"
 #include "LoadManager.h"
-
+// 물리
+#include "Physics.h"
+// 게임 오브젝트
 #include "GameObject.h"
 #include "Cursor.h"
 #include "Camera.h"
@@ -97,6 +100,8 @@ using namespace std;
 #include "Animation2D.h"
 
 #include "SkillManager.h"
+
+
 
 using namespace std;
 using namespace PKH;

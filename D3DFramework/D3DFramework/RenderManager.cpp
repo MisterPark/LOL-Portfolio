@@ -117,6 +117,12 @@ void PKH::RenderManager::Release()
 	{
 		delete pair.second;
 	}
+
+	for (auto pair : pRenderManager->staticMeshMap)
+	{
+		delete pair.second;
+	}
+
 	pRenderManager->textureMap.clear();
 
 	if (pRenderManager->pLine)

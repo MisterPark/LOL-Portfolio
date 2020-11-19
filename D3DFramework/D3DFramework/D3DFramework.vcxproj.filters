@@ -67,6 +67,18 @@
     <Filter Include="Component\Mesh\CustomMesh">
       <UniqueIdentifier>{137ac20c-4975-4835-98b8-adca7e67614a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\PlayerController">
+      <UniqueIdentifier>{1ee7943b-2491-4e0a-8cba-54695dbcb1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Layer">
+      <UniqueIdentifier>{a22d41a4-2c61-4c62-a2a7-27f33c384b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Physics">
+      <UniqueIdentifier>{c7edbdff-5630-4c37-823a-b77b1bf1144f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{6afc8c8c-325a-4276-a6fc-a988679304bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -261,6 +273,18 @@
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Component\PlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Lib\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Lib\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -533,6 +557,18 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Component\PlayerController</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Lib\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Lib\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

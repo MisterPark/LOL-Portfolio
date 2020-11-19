@@ -159,9 +159,11 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LoadingScene.h" />
@@ -173,6 +175,8 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -225,9 +229,11 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
@@ -239,6 +245,8 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
     <ClCompile Include="Debug.cpp" />

@@ -139,6 +139,11 @@ void PKH::Camera::SetProjection3D(bool ProjectionSet)
 	pCamera->isProjection3D = ProjectionSet;
 }
 
+bool PKH::Camera::GetProjection3D()
+{
+	return pCamera->isProjection3D;
+}
+
 Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 {
 	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
@@ -156,11 +161,6 @@ Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 	return pos;
 }
 
-bool PKH::Camera::GetProjection3D()
-{
-	return pCamera->isProjection3D;
-}
-
 Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 {
 	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
@@ -172,6 +172,33 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 	pos.y = (pos.y - 1.f) * -0.5f * dfCLIENT_HEIGHT;
 
 	return pos;
+}
+
+Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
+{
+	// TODO : 이거 정상작동 안할지도 모름 테스트해봐야함
+	// 비정상일시 : ScreenToWorld 에서 포지션 가져온 뒤
+	// 포지션 - 카메라 포지션 = 방향.노말라이즈 이렇게 바꾸셈
+
+	Ray ray;
+	ray.origin = pCamera->transform->position;
+
+	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
+
+	// Screen To Projection
+	Vector3 direction;
+	direction.x = (pos.x * 2.f / dfCLIENT_WIDTH) - 1.f;
+	direction.y = -(pos.y * 2.f / dfCLIENT_HEIGHT) + 1.f;
+	direction.z = pCamera->nearClipPlane;
+
+	// Projection To World
+	Matrix inverseMat = Matrix::Inverse(viewProj);
+	D3DXVec3TransformNormal(&direction, &direction, &inverseMat);
+	Vector3::Normalize(&direction);
+
+	ray.direction = direction;
+
+	return ray;
 }
 
 void PKH::Camera::SlowChaseTarget(GameObject * tar)
