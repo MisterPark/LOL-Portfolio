@@ -256,6 +256,9 @@
       <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="TestMan.h" />
+    <ClInclude Include="DynamicMesh.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -525,6 +528,9 @@
       <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="TestMan.cpp" />
+    <ClCompile Include="DynamicMesh.cpp">
+      <Filter>Component\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">
