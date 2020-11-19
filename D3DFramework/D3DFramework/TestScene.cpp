@@ -3,6 +3,7 @@
 #include "SkyBox.h"
 #include "Environment.h"
 #include "TestMan.h"
+#include "PlayerController.h"
 
 void TestScene::OnLoaded()
 {
@@ -22,7 +23,7 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
 	obj->transform->scale = { 0.003f,0.003f, 0.003f };
 	obj->transform->position = { 0,0,0 };
-	
+	obj->AddComponent<PlayerController>(L"PlayerController");
 
 	//obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
 	//obj->transform->scale = { 0.1f,0.1f, 0.1f };
