@@ -286,6 +286,9 @@
     <ClInclude Include="Collider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicMesh.h">
+      <Filter>Component\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -569,6 +572,9 @@
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicMesh.cpp">
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
