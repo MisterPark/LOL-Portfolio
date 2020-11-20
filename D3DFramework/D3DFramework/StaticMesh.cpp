@@ -54,6 +54,7 @@ IComponent* PKH::StaticMesh::Clone()
 	return new StaticMesh(*this);
 }
 
+
 HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
@@ -128,9 +129,9 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	{
 		pVertices[i] = *((Vector3*)(((UCHAR*)pVertex) + (i * vertexSize + byOffset)));
 	}
-
+	
 	pMesh->UnlockVertexBuffer();
-
+	
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
 	//==============================
@@ -169,8 +170,13 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 
 void PKH::StaticMesh::Render()
 {
+	if (gameObject == nullptr) return;
+
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
+
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{
 		device->SetTexture(0, ppTextures[i]);

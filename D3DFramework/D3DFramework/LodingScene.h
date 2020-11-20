@@ -1,8 +1,9 @@
 #pragma once
 #include "IScene.h"
 
+using namespace PKH;
 
-class LoadingScene :
+class LodingScene :
     public IScene
 {
 public:
@@ -12,6 +13,5 @@ public:
     virtual void Update() override;
 
     static void Count();
-
 };
 

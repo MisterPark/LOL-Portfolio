@@ -64,6 +64,21 @@
     <Filter Include="GameObject\Character">
       <UniqueIdentifier>{7620e2db-40b0-49b5-b9e8-85759fd43e8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Mesh\CustomMesh">
+      <UniqueIdentifier>{137ac20c-4975-4835-98b8-adca7e67614a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PlayerController">
+      <UniqueIdentifier>{1ee7943b-2491-4e0a-8cba-54695dbcb1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Layer">
+      <UniqueIdentifier>{a22d41a4-2c61-4c62-a2a7-27f33c384b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Physics">
+      <UniqueIdentifier>{c7edbdff-5630-4c37-823a-b77b1bf1144f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{6afc8c8c-325a-4276-a6fc-a988679304bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -117,15 +132,6 @@
     <ClInclude Include="Color.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>Lib</Filter>
     </ClInclude>
@@ -137,12 +143,6 @@
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>Lib</Filter>
@@ -240,9 +240,6 @@
     <ClInclude Include="Environment.h">
       <Filter>GameObject\Environment</Filter>
     </ClInclude>
-    <ClInclude Include="CustomMesh.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="IComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -256,8 +253,38 @@
       <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="TestMan.h" />
-    <ClInclude Include="DynamicMesh.h">
-      <Filter>Component\Mesh</Filter>
+    <ClInclude Include="Triangle.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMesh.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Component\PlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Lib\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Lib\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,15 +336,6 @@
     <ClCompile Include="Color.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Matrix.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
@@ -329,12 +347,6 @@
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>GameObject\Cursor</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Animation2D.cpp">
       <Filter>Component\Animation</Filter>
@@ -512,9 +524,6 @@
     <ClCompile Include="Environment.cpp">
       <Filter>GameObject\Environment</Filter>
     </ClCompile>
-    <ClCompile Include="CustomMesh.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="IComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -528,8 +537,38 @@
       <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="TestMan.cpp" />
-    <ClCompile Include="DynamicMesh.cpp">
-      <Filter>Component\Mesh</Filter>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomMesh.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Component\PlayerController</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Lib\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Lib\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

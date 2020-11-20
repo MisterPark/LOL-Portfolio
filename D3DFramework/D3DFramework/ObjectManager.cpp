@@ -40,22 +40,28 @@ void PKH::ObjectManager::Destroy()
 
 void PKH::ObjectManager::Release()
 {
-	auto& objList = pObjectManager->objectList;
-
-	auto iter = objList.begin();
-	auto end = objList.end();
-	for (;iter!=end;++iter)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		delete (*iter);
-		*iter = nullptr;
+		auto& objList = objTable[i];
+
+		auto iter = objList.begin();
+		auto end = objList.end();
+		for (; iter != end; ++iter)
+		{
+			delete (*iter);
+			*iter = nullptr;
+		}
+		objList.clear();
 	}
-	objList.clear();
+	
 }
 
 
 bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 {
-	auto& objList = pObjectManager->objectList;
+	auto& objList = pObjectManager->objectTable[(int)_target->GetLayer()];
 	
 	auto target = find(objList.begin(), objList.end(), _target);
 	if (target != objList.end())
@@ -68,33 +74,44 @@ bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 
 void PKH::ObjectManager::DestroyAll()
 {
-	auto& objList = pObjectManager->objectList;
-
-	for (auto& iter : objList)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		iter->Die();
+		auto& objList = objTable[i];
+
+		for (auto& iter : objList)
+		{
+			iter->Die();
+		}
 	}
 }
 
-void PKH::ObjectManager::AddObject(GameObject* _obj)
+void PKH::ObjectManager::AddObject(GameObject* _obj, Layer _layer)
 {
-	pObjectManager->objectList.push_back(_obj);
+	_obj->SetLayer(_layer);
+	pObjectManager->objectTable[(int)_layer].push_back(_obj);
 }
 
 void PKH::ObjectManager::RemoveObject(GameObject* _obj)
 {
-	pObjectManager->objectList.remove(_obj);
+	pObjectManager->objectTable[(int)_obj->GetLayer()].remove(_obj);
 }
 
 
 
 void PKH::ObjectManager::Update()
 {
-	auto& objList = pObjectManager->objectList;
-	for (auto& iter : objList)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		if (!iter->isEnable) continue;
-		iter->Update();
+		auto& objList = objTable[i];
+		for (auto& iter : objList)
+		{
+			if (!iter->isEnable) continue;
+			iter->Update();
+		}
 	}
 
 	
@@ -106,33 +123,37 @@ void PKH::ObjectManager::PostUpdate()
 {
 	GameObject* target = nullptr;
 
-	auto& objList = pObjectManager->objectList;
-	auto iter = objList.begin();
-	auto end = objList.end();
-	for (; iter != end;)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		target = *iter;
-		
-
-		if (target->IsDead())
+		auto& objList = objTable[i];
+		auto iter = objList.begin();
+		auto end = objList.end();
+		for (; iter != end;)
 		{
-			if (target->dontDestroy)
+			target = *iter;
+
+
+			if (target->IsDead())
 			{
+				if (target->dontDestroy)
+				{
 
-				++iter;
-				continue;
+					++iter;
+					continue;
+				}
+				iter = objList.erase(iter);
+				delete target;
 			}
-			iter = objList.erase(iter);
-			delete target;
+			else
+			{
+				target->PostUpdate();
+				++iter;
+			}
 		}
-		else
-		{
-			target->PostUpdate();
-			++iter;
-		}
-	}
 
-	
+	}
 	
 	
 }
@@ -150,19 +171,17 @@ void PKH::ObjectManager::Render()
 
 	Vector3 camPos = Camera::GetPosition();
 	
-	auto& objList = pObjectManager->objectList;
-	for (auto& iter : objList)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		if (!iter->isVisible)continue;
-		if (iter->transform->position.x < camPos.x - dfCLIENT_WIDTH / 2) continue;
-		if (iter->transform->position.y < camPos.y - dfCLIENT_HEIGHT / 2) continue;
-		if (iter->transform->position.x > camPos.x + dfCLIENT_WIDTH + dfCLIENT_WIDTH / 2) continue;
-		if (iter->transform->position.y > camPos.y + dfCLIENT_HEIGHT + dfCLIENT_HEIGHT / 2) continue;
-
-
-		pObjectManager->renderList.push_back(iter);
+		auto& objList = objTable[i];
+		for (auto& iter : objList)
+		{
+			if (!iter->isVisible)continue;
+			pObjectManager->renderList.push_back(iter);
+		}
 	}
-
 	// z값으로 정렬
 	pObjectManager->renderList.sort(CompareZ);
 	// 오브젝트 렌더링
@@ -179,11 +198,16 @@ void PKH::ObjectManager::Render()
 
 void PKH::ObjectManager::PostRender()
 {
-	auto& objList = pObjectManager->objectList;
-	for (auto& iter : objList)
+	auto objTable = pObjectManager->objectTable;
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		if (!iter->isEnable) continue;
-		iter->PostRender();
+		auto& objList = objTable[i];
+		for (auto& iter : objList)
+		{
+			if (!iter->isEnable) continue;
+			iter->PostRender();
+		}
 	}
 
 	Inventory::Render();

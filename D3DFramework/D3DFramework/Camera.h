@@ -27,6 +27,7 @@ namespace PKH
 
 		static Vector3 ScreenToWorldPoint(const Vector3& position, float zPos = 1.f);
 		static Vector3 WorldToScreenPoint(const Vector3& position);
+		static Ray ScreenPointToRay(Vector3 pos);
 
 		void SetTarget(GameObject* tar) { target = tar; }
 		void SlowChaseTarget(GameObject* tar);

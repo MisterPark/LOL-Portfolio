@@ -60,16 +60,7 @@ void PKH::GameObject::Die()
 
 void PKH::GameObject::OnCollision(GameObject* target)
 {
-	//switch (target->GetObjId()) {
-	//case OBJ::BULLET: {
 
-	//	}
-	//	break;
-	//}
-
-	//default:
-	//	break;
-	//}
 
 }
 
@@ -200,6 +191,15 @@ void PKH::GameObject::SetPosition(Vector3 _vPos)
 	transform->position = _vPos;
 }
 
+IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)
+{
+	if (_component == nullptr) return nullptr;
+	_component->gameObject = this;
+	
+	components[_key] = _component;
+	return _component;
+}
+
 void PKH::GameObject::ReleaseComponents()
 {
 	auto iter = components.begin();
@@ -231,6 +231,15 @@ void PKH::GameObject::MinusHp(float _damage)
 void PKH::GameObject::SetHp(float _hp)
 {
 	stat.hp = _hp;
+}
+
+void PKH::GameObject::SetLayer(Layer _layer)
+{
+	if (this->layer == _layer) return;
+
+	this->layer = _layer;
+	ObjectManager::RemoveObject(this);
+	ObjectManager::AddObject(this, _layer);
 }
 
 
