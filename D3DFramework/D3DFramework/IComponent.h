@@ -20,6 +20,7 @@ namespace PKH
 
 	public:
 		GameObject* gameObject = nullptr;
+		Transform* transform = nullptr;
 	};
 
 

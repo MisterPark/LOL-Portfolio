@@ -14,7 +14,6 @@ PKH::GameObject::GameObject()
 PKH::GameObject::~GameObject()
 {
 	ReleaseComponents();
-	collideList.clear();
 }
 
 void PKH::GameObject::Update()
@@ -164,27 +163,6 @@ void PKH::GameObject::BillboardYaw()
 
 }
 
-void PKH::GameObject::AddToCollideList(GameObject * object)
-{
-	if (IsInCollideList(object)) return;
-
-	collideList.emplace_back(object);
-}
-
-bool PKH::GameObject::IsInCollideList(const GameObject * object) const
-{
-	bool ret = false;
-
-	for (const auto& elem : collideList)
-	{
-		if (elem == object)
-		{
-			ret = true;
-		}
-	}
-
-	return ret;
-}
 
 void PKH::GameObject::SetPosition(Vector3 _vPos)
 {
@@ -195,7 +173,7 @@ IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _comp
 {
 	if (_component == nullptr) return nullptr;
 	_component->gameObject = this;
-	
+	_component->transform = this->transform;
 	components[_key] = _component;
 	return _component;
 }

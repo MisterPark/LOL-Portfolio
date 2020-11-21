@@ -31,6 +31,7 @@ namespace PKH
 	class Physics
 	{
 	public:
+		static bool Raycast(Ray ray, RaycastHit* outHit, float maxDistance = INFINITY, int layerMask = 0);
 		static bool Raycast(Vector3 origin, Vector3 direction, float maxDistance = INFINITY, int layerMask = 0);
 	};
 

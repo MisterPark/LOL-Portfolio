@@ -1,33 +1,33 @@
 #pragma once
 
-enum COLTYPE{PLAYER, ENEMY, PLAYER_ATTACK, PLAYER_MULTI_ATTACK, ENEMY_MULTI_ATTACK, ENEMY_ATTACK,TRIGGERBOX,ITEM, COIN, COL_NPC, END};
-
 namespace PKH
 {
+	class Collider;
+
 	class CollisionManager
 	{
 	private:
 		CollisionManager();
 		~CollisionManager();
 
+		void Release();
 	public:
 		static CollisionManager* GetInstance();
 		static void Destroy();
 
 	public:
 		void Update();
-		void ObjectDeadCheck();
-		void CollisionCheck(COLTYPE srcType, COLTYPE dstType);
-		void Release();
+		void CollisionCheck(Layer srcType, Layer dstType);
+		
 
 	public:
-		static void RegisterObject(COLTYPE colType, GameObject* _pObj);
-		void DisregisterObject(GameObject* obj);
-		static void DisregisterObject(COLTYPE colType, GameObject* _pObj);
-		static bool FindObject(COLTYPE colType, GameObject* _pObj);
-		static bool IsCollided(GameObject* target, GameObject* other);
+		static void RegisterObject(Layer colType, Collider* _pObj);
+		void DisregisterObject(Collider* obj);
+		static void DisregisterObject(Layer colType, Collider* _pObj);
+		static bool FindObject(Layer colType, Collider* _pObj);
+		static bool IsCollided(Collider* target, Collider* other);
 
-		list<GameObject*> objectList[COLTYPE::END];
+		list<Collider*> objectList[MaxOfEnum<Layer>()];
 	};
 }
 

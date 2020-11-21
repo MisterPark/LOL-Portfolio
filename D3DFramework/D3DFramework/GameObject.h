@@ -55,8 +55,6 @@ namespace PKH
 		void Billboard();
 		void BillboardYaw();
 
-		void AddToCollideList(GameObject* object);
-		bool IsInCollideList(const GameObject* object) const;
 
 		void SetPosition(Vector3 _vPos);
 
@@ -91,7 +89,6 @@ namespace PKH
 		bool dontDestroy = false;
 		
 		map<wstring, PKH::IComponent*> components;
-		list<GameObject*> collideList;
 	protected:
 		bool isDead = false;
 	private:
@@ -109,6 +106,7 @@ namespace PKH
 		}
 
 		comp->gameObject = this;
+		comp->transform = this->transform;
 		components[_key] = comp;
 
 		return comp;

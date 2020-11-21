@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CollisionManager.h"
+#include "Collider.h"
 
 using namespace PKH;
 
@@ -14,6 +15,15 @@ PKH::CollisionManager::~CollisionManager()
 	Release();
 }
 
+void PKH::CollisionManager::Release()
+{
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; ++i)
+	{
+		objectList[i].clear();
+	}
+}
+
 PKH::CollisionManager* CollisionManager::GetInstance()
 {
 	if (pCollisionManager == nullptr)
@@ -26,78 +36,58 @@ PKH::CollisionManager* CollisionManager::GetInstance()
 
 void PKH::CollisionManager::Destroy()
 {
-	delete pCollisionManager;
+	if (pCollisionManager)
+	{
+		delete pCollisionManager;
+		pCollisionManager = nullptr;
+	}
+	
 }
 
 void PKH::CollisionManager::Update()
 {
-	ObjectDeadCheck();
-	CollisionCheck(COLTYPE::PLAYER_ATTACK, COLTYPE::ENEMY);
-	CollisionCheck(COLTYPE::PLAYER, COLTYPE::TRIGGERBOX);
-	CollisionCheck(COLTYPE::PLAYER, COLTYPE::COIN);
-	CollisionCheck(COLTYPE::PLAYER, COLTYPE::ITEM);
-	CollisionCheck(COLTYPE::PLAYER, COLTYPE::COL_NPC);
-	CollisionCheck(COLTYPE::PLAYER_MULTI_ATTACK, COLTYPE::ENEMY);
-	CollisionCheck(COLTYPE::ENEMY_ATTACK, COLTYPE::PLAYER);
-	CollisionCheck(COLTYPE::ENEMY_MULTI_ATTACK, COLTYPE::PLAYER);
-}
-
-void PKH::CollisionManager::ObjectDeadCheck()
-{
-	for (int i = 0; i < COLTYPE::END; ++i)
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
 	{
-		auto iter = objectList[i].begin();
-		auto iterEnd = objectList[i].end();
-
-		for (;iter != iterEnd;)
+		for (int j = i; j < layerCount; j++)
 		{
-			if ((*iter)->IsDead())
-			{
-				iter = objectList[i].erase(iter);
-			}
-			else ++iter;
+			CollisionCheck((Layer)i, (Layer)j);
 		}
 	}
 }
 
-void PKH::CollisionManager::CollisionCheck(COLTYPE srcType, COLTYPE dstType)
+
+void PKH::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
 {
-	for (auto& srcElem : objectList[srcType])
+	for (auto& srcElem : objectList[(int)srcType])
 	{
-		for (auto& dstElem : objectList[dstType])
+		for (auto& dstElem : objectList[(int)dstType])
 		{
 			if (IsCollided(srcElem, dstElem))
 			{
-				if (!srcElem->IsInCollideList(dstElem))
-				{
-					srcElem->OnCollision(dstElem);
-					dstElem->OnCollision(srcElem);
-				}
+				srcElem->OnCollisionEnter(dstElem);
+				dstElem->OnCollisionEnter(srcElem);
 			}
 		}
 	}
 }
 
-void PKH::CollisionManager::Release()
-{
-	for (int i = 0; i < COLTYPE::END; ++i) objectList[i].clear();
-}
-
-void PKH::CollisionManager::RegisterObject(COLTYPE colType, GameObject * _pObj)
+void PKH::CollisionManager::RegisterObject(Layer colType, Collider* _pObj)
 {
 	if (FindObject(colType, _pObj))
 	{
 		return;
 	}
 
-	pCollisionManager->objectList[colType].push_back(_pObj);
+	pCollisionManager->objectList[(int)colType].push_back(_pObj);
 }
 
-void PKH::CollisionManager::DisregisterObject(GameObject * obj)
+void PKH::CollisionManager::DisregisterObject(Collider* obj)
 {
-	for (int i = 0; i < COLTYPE::END; ++i)
+	int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; ++i)
 	{
-		auto iter = find_if(objectList[i].begin(), objectList[i].end(), [obj](GameObject* elem)
+		auto iter = find_if(objectList[i].begin(), objectList[i].end(), [obj](Collider* elem)
 		{
 			return elem == obj;
 		});
@@ -106,26 +96,26 @@ void PKH::CollisionManager::DisregisterObject(GameObject * obj)
 	}
 }
 
-void PKH::CollisionManager::DisregisterObject(COLTYPE colType, GameObject * _pObj)
+void PKH::CollisionManager::DisregisterObject(Layer colType, Collider* _pObj)
 {
 	if (_pObj == nullptr) return;
 
-	auto iter = pCollisionManager->objectList[colType].begin();
-	auto end = pCollisionManager->objectList[colType].end();
+	auto iter = pCollisionManager->objectList[(int)colType].begin();
+	auto end = pCollisionManager->objectList[(int)colType].end();
 
 	for (; iter != end; ++iter)
 	{
 		if ((*iter) != _pObj) continue;
 
-		pCollisionManager->objectList[colType].erase(iter);
+		pCollisionManager->objectList[(int)colType].erase(iter);
 		return;
 	}
 }
 
-bool PKH::CollisionManager::FindObject(COLTYPE colType, GameObject * _pObj)
+bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 {
 	if (_pObj == nullptr) return false;
-	for (auto iter : pCollisionManager->objectList[colType])
+	for (auto iter : pCollisionManager->objectList[(int)colType])
 	{
 		if (iter != _pObj) continue;
 
@@ -134,7 +124,7 @@ bool PKH::CollisionManager::FindObject(COLTYPE colType, GameObject * _pObj)
 	return false;
 }
 
-bool PKH::CollisionManager::IsCollided(GameObject* _target, GameObject* _other)
+bool PKH::CollisionManager::IsCollided(Collider* _target, Collider* _other)
 {
 	// 거리계산
 	float dist = Vector3::Distance(_target->transform->position, _other->transform->position);
