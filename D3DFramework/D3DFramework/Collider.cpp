@@ -17,8 +17,13 @@ PKH::Collider::Collider(const Collider& rhs)
 
 PKH::Collider::~Collider()
 {
-	if (gameObject == nullptr)return;
-	CollisionManager::DisregisterObject(gameObject->GetLayer(), this);
+	
+	if (gameObject != nullptr)
+	{
+		CollisionManager::DisregisterObject(gameObject->GetLayer(), this);
+	}
+	
+	Safe_Release(pMesh);
 }
 
 void PKH::Collider::Render()

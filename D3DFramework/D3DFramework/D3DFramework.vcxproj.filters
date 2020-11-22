@@ -79,6 +79,9 @@
     <Filter Include="Component\Collider">
       <UniqueIdentifier>{6afc8c8c-325a-4276-a6fc-a988679304bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Test">
+      <UniqueIdentifier>{9d902650-2533-4759-8bb4-32a907039059}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -252,7 +255,6 @@
     <ClInclude Include="StaticMesh.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="TestMan.h" />
     <ClInclude Include="Triangle.h">
       <Filter>Component\Mesh\CustomMesh</Filter>
     </ClInclude>
@@ -292,7 +294,12 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="TestMan.h">
+      <Filter>GameObject\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -528,7 +535,6 @@
     <ClCompile Include="StaticMesh.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="Terrain.cpp">
       <Filter>Component\Mesh\CustomMesh</Filter>
     </ClCompile>
@@ -583,7 +589,12 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="TestMan.cpp">
+      <Filter>GameObject\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

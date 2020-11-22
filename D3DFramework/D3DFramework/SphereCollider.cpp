@@ -4,6 +4,7 @@
 SphereCollider::SphereCollider(GameObject* owner)
     :Collider(owner)
 {
+    type = ColliderType::Sphere;
     LPD3DXMESH mesh;
     radius = 100.f;
     auto device = RenderManager::GetDevice();
@@ -68,7 +69,7 @@ void SphereCollider::OnCollisionEnter(const Collider* other)
 {
 }
 
-bool SphereCollider::Raycast(Ray ray, RaycastHit hitInfo, float maxDistance)
+bool SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
     return false;
 }

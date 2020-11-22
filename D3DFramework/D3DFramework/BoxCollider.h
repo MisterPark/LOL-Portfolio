@@ -10,7 +10,7 @@ public:
 
     virtual IComponent* Clone() override;
     virtual void OnCollisionEnter(const Collider* other) override;
-    virtual bool Raycast(Ray ray, RaycastHit hitInfo, float maxDistance) override;
+    virtual bool Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance) override;
 
 public:
     // 각축의 길이

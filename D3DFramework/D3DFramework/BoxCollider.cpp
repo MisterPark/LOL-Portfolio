@@ -4,6 +4,7 @@
 BoxCollider::BoxCollider(GameObject* owner)
     :Collider(owner)
 {
+    type = ColliderType::Box;
     LPD3DXMESH mesh;
     size = { 100,100,100 };
     auto device = RenderManager::GetDevice();
@@ -60,7 +61,6 @@ BoxCollider::BoxCollider(const BoxCollider& rhs)
 
 BoxCollider::~BoxCollider()
 {
-    Safe_Release(pMesh);
 }
 
 IComponent* BoxCollider::Clone()
@@ -72,7 +72,7 @@ void BoxCollider::OnCollisionEnter(const Collider* other)
 {
 }
 
-bool BoxCollider::Raycast(Ray ray, RaycastHit hitInfo, float maxDistance)
+bool BoxCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
     return false;
 }
