@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Layer.h"
 
 using namespace PKH;
 
@@ -20,7 +20,7 @@ enum class Team
 namespace PKH
 {
 	class IComponent;
-
+	class Transform;
 
 	class GameObject
 	{
@@ -35,7 +35,7 @@ namespace PKH
 		virtual void Render();
 		virtual void Die();
 		virtual void OnCollision(GameObject* target);
-		virtual void PostRender() {};
+		virtual void PostRender();
 
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.
@@ -98,7 +98,7 @@ namespace PKH
 	template<class T>
 	inline IComponent* GameObject::AddComponent(const wstring & _key)
 	{
-		T* comp = new T;
+		T* comp = new T(this);
 		if (dynamic_cast<IComponent*>(comp) == nullptr)
 		{
 			delete comp;

@@ -165,7 +165,6 @@ void PKH::ObjectManager::PreRender()
 
 void PKH::ObjectManager::Render()
 {
-	
 
 	pObjectManager->renderList.clear();
 
@@ -198,17 +197,21 @@ void PKH::ObjectManager::Render()
 
 void PKH::ObjectManager::PostRender()
 {
-	auto objTable = pObjectManager->objectTable;
-	int layerCount = MaxOfEnum<Layer>();
-	for (int i = 0; i < layerCount; i++)
+	
+	if (pObjectManager->isVisibleCollider)
 	{
-		auto& objList = objTable[i];
-		for (auto& iter : objList)
+		auto objTable = pObjectManager->objectTable;
+		int layerCount = MaxOfEnum<Layer>();
+		for (int i = 0; i < layerCount; i++)
 		{
-			if (!iter->isEnable) continue;
-			iter->PostRender();
+			auto& objList = objTable[i];
+			for (auto& iter : objList)
+			{
+				iter->PostRender();
+			}
 		}
 	}
+	
 
 	Inventory::Render();
 	Cursor::GetInstance()->Render();

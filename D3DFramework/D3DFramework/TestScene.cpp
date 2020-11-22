@@ -4,6 +4,8 @@
 #include "Environment.h"
 #include "TestMan.h"
 #include "PlayerController.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 void TestScene::OnLoaded()
 {
@@ -24,6 +26,7 @@ void TestScene::OnLoaded()
 	obj->transform->scale = { 0.003f,0.003f, 0.003f };
 	obj->transform->position = { 0,0,0 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
+	obj->AddComponent<SphereCollider>(L"SphereCollider");
 
 	//obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
 	//obj->transform->scale = { 0.1f,0.1f, 0.1f };

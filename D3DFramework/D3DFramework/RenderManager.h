@@ -32,15 +32,15 @@ namespace PKH
 		//================== 2D ======================
 		static HRESULT LoadSprite(TextureKey spriteKey, const wstring& filePath, DWORD row=1, DWORD col=1);
 		static void DrawSprite(TextureKey spriteKey, Vector3 pos, int index);
-		static void DrawSprite(TextureKey spriteKey, Transform transform, int index);
-		static void DrawUI(TextureKey spriteKey, Transform transform, int index);
+		static void DrawSprite(TextureKey spriteKey, const Transform& transform, int index);
+		static void DrawUI(TextureKey spriteKey, const Transform& transform, int index);
 		static void DrawUI(TextureKey spriteKey, Vector3 pos, int index);
 		static void DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index);
 		static void DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer);
 		static void DrawUIHorizontal(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer);
-		static void DrawCharacter(TextureKey spriteKey, Transform transform, DWORD row = 0, DWORD col = 0);
+		static void DrawCharacter(TextureKey spriteKey, const Transform& transform, DWORD row = 0, DWORD col = 0);
 
-		static void DrawImage(TextureKey spriteKey, Transform transform);
+		static void DrawImage(TextureKey spriteKey, const Transform& transform);
 		static void DrawImage(TextureKey spriteKey, float x, float y, float verticalPer);
 
 		static void DrawFont(const string& text);

@@ -4,7 +4,8 @@ class PlayerController :
     public IComponent
 {
 public:
-    PlayerController();
+    explicit PlayerController(GameObject* owner);
+    explicit PlayerController(const PlayerController& rhs);
     virtual ~PlayerController();
 
     virtual void Update() override;

@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-PKH::Mesh::Mesh()
-	:isClone(false)
+PKH::Mesh::Mesh(GameObject* owner)
+	:IComponent(owner)
+	,isClone(false)
 {
 }
 
 PKH::Mesh::Mesh(const Mesh& rhs)
-	:isClone(true)
+	:IComponent(rhs)
+	,isClone(true)
 {
 }
 

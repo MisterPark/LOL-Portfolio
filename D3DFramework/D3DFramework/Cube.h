@@ -7,14 +7,18 @@ namespace PKH
         public CustomMesh
     {
     public:
-        Cube();
+        explicit Cube(GameObject* owner);
+        explicit Cube(const Cube& rhs);
         virtual ~Cube();
 
-        // CustomMesh을(를) 통해 상속됨
+        virtual void CreateCustomMesh() override;
 
         virtual void Update() override;
         
         virtual IComponent* Clone() override;
+
+
+       
 
     };
 }

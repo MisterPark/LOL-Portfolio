@@ -3,18 +3,20 @@
 
 namespace PKH
 {
-    class Triangle :
-        public CustomMesh
+    class Triangle : public CustomMesh
     {
     public:
-        Triangle();
+        explicit Triangle(GameObject* owner);
+        explicit Triangle(const Triangle& rhs);
         virtual ~Triangle();
 
-        // CustomMesh을(를) 통해 상속됨
+        virtual void CreateCustomMesh() override;
 
         virtual void Update() override;
 
 		virtual IComponent* Clone() override;
+
+        
     };
 
 

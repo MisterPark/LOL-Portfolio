@@ -3,7 +3,8 @@
 
 using namespace PKH;
 
-CustomMesh::CustomMesh()
+PKH::CustomMesh::CustomMesh(GameObject* owner)
+	:Mesh(owner)
 {
 	// 머테리얼
 	ZeroMemory(&material, sizeof(D3DMATERIAL9));
@@ -14,6 +15,12 @@ CustomMesh::CustomMesh()
 	material.Ambient = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.5f);
 	material.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 	material.Power = 0.f;
+}
+
+PKH::CustomMesh::CustomMesh(const CustomMesh& rhs)
+	:Mesh(rhs)
+{
+
 }
 
 CustomMesh::~CustomMesh()
@@ -140,11 +147,6 @@ void PKH::CustomMesh::Render()
 	
 	}
 	RenderManager::UnlockDevice();
-}
-
-PKH::IComponent * PKH::CustomMesh::Clone()
-{
-	return new CustomMesh(*this);
 }
 
 UINT PKH::CustomMesh::GetVertexCount()

@@ -1,11 +1,37 @@
 #include "stdafx.h"
 #include "Terrain.h"
 
-PKH::Terrain::Terrain()
-	: width(dfTERRAIN_WIDTH), height(dfTERRAIN_WIDTH)
+
+PKH::Terrain::Terrain(GameObject* owner)
+	:CustomMesh(owner)
 {
+	CreateCustomMesh();
+}
+
+PKH::Terrain::Terrain(const Terrain& rhs)
+	:CustomMesh(rhs)
+{
+	CreateCustomMesh();
+}
+
+PKH::Terrain::~Terrain()
+{
+	if (vertexInfo)
+	{
+		delete[] vertexInfo;
+		vertexInfo = nullptr;
+	}
+	
+		
+}
+
+void PKH::Terrain::CreateCustomMesh()
+{
+	width = dfTERRAIN_WIDTH;
+	height = dfTERRAIN_HEIGHT;
+
 	this->vertexCount = width * height;
-	this->triangleCount = (width-1) * (height-1) * 2;
+	this->triangleCount = (width - 1) * (height - 1) * 2;
 
 	RenderManager::LockDevice();
 	RenderManager::GetDevice()->CreateVertexBuffer(
@@ -32,61 +58,26 @@ PKH::Terrain::Terrain()
 	int index = 0;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
-	
-	for (int i = 0; i < height;i++)
+
+	for (int i = 0; i < height; i++)
 	{
-		float v = i/ float(height - 1);
+		float v = i / float(height - 1);
 
 		for (int j = 0; j < width; j++)
 		{
 			index = i * width + j;
 			float u = j / float(width - 1);
-			
-			vertices[index] = Vertex(Vector3(j, 0.f, i), D3DCOLOR_XRGB(255,255,255),u*30,v*30);
-			vertexInfo[index].x = j;	
+
+			vertices[index] = Vertex(Vector3(j, 0.f, i), D3DCOLOR_XRGB(255, 255, 255), u * 30, v * 30);
+			vertexInfo[index].x = j;
 			vertexInfo[index].y = 0.f;
 			vertexInfo[index].z = i;
 
 		}
 	}
-	
+
 	vertexBuffer->Unlock();
-	//int count = 0;
-	//WORD* indices = nullptr;
-	//triangles->Lock(0, 0, (void**)&indices, 0);
-
-	//for (int i = 0; i < height-1; i++)
-	//{
-	//	for (int j = 0; j < width-1; j++)
-	//	{
-	//		int index = i * width + j;
-	//		indices[count] = i * width + j;
-	//		indices[count+1] = (i+1) * width + j;
-	//		indices[count+2] = i * width + j + 1;
-
-	//		indices[count+3] = i * width + j + 1;
-	//		indices[count+4] = (i + 1) * width + j;
-	//		indices[count+5] = (i + 1) * width + j + 1;
-
-	//		count += 6;
-	//	}
-	//}
-	//
-	//
-	//triangles->Unlock();
-
 	SetNormalVector();
-}
-
-PKH::Terrain::~Terrain()
-{
-	if (vertexInfo)
-	{
-		delete[] vertexInfo;
-		vertexInfo = nullptr;
-	}
-	
-		
 }
 
 void PKH::Terrain::Update()
@@ -247,3 +238,5 @@ void PKH::Terrain::SetNormalVector()
 	triangles->Unlock();
 	vertexBuffer->Unlock();
 }
+
+

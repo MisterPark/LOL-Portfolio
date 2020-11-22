@@ -1,16 +1,15 @@
 #pragma once
-
+#include "GameObject.h"
 
 namespace PKH
 {
-	class GameObject;
 	class Transform;
 
 	class IComponent
 	{
 	public:
-		IComponent();
-		IComponent(const IComponent& rhs);
+		explicit IComponent(GameObject* owner);
+		explicit IComponent(const IComponent& rhs);
 		virtual ~IComponent();
 
 		virtual void Update();

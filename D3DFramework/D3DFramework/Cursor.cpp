@@ -73,7 +73,7 @@ void PKH::Cursor::Update()
 void PKH::Cursor::Render()
 {
     if (isVisible == false)return;
-    RenderManager::DrawUI(TextureKey::UI_CURSOR, *transform, 0);
+    RenderManager::DrawUI(TextureKey::UI_CURSOR, (*transform), 0);
 }
 
 void PKH::Cursor::Initialize()

@@ -1,7 +1,15 @@
 #include "stdafx.h"
 #include "Animation2D.h"
 
-PKH::Animation2D::Animation2D()
+
+PKH::Animation2D::Animation2D(GameObject* owner)
+	:IComponent(owner)
+{
+
+}
+
+PKH::Animation2D::Animation2D(const Animation2D& rhs)
+	:IComponent(rhs)
 {
 }
 

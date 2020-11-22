@@ -1,11 +1,39 @@
 #include "stdafx.h"
 #include "Cube.h"
 
-PKH::Cube::Cube()
+
+PKH::Cube::Cube(GameObject* owner)
+	:CustomMesh(owner)
+{
+	CreateCustomMesh();
+}
+
+PKH::Cube::Cube(const Cube& rhs)
+	:CustomMesh(rhs)
+{
+	CreateCustomMesh();
+}
+
+PKH::Cube::~Cube()
+{
+}
+
+void PKH::Cube::Update()
+{
+
+}
+
+
+IComponent* PKH::Cube::Clone()
+{
+	return new Cube(*this);
+}
+
+void PKH::Cube::CreateCustomMesh()
 {
 	this->vertexCount = 8;
 	this->triangleCount = 12;
-	
+
 	RenderManager::LockDevice();
 	RenderManager::GetDevice()->CreateVertexBuffer(
 		vertexCount * sizeof(Vertex),
@@ -28,16 +56,16 @@ PKH::Cube::Cube()
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
 	// 전면
-	vertices[0] = Vertex(Vector3(-1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 0),0,1);
-	vertices[1] = Vertex(Vector3(-1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 255, 0),0,0);
-	vertices[2] = Vertex(Vector3(1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 0, 255),1,0);
-	vertices[3] = Vertex(Vector3(1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 255),1,1);
+	vertices[0] = Vertex(Vector3(-1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 0), 0, 1);
+	vertices[1] = Vertex(Vector3(-1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 255, 0), 0, 0);
+	vertices[2] = Vertex(Vector3(1.0f, 1.0f, -1.0f), D3DCOLOR_XRGB(0, 0, 255), 1, 0);
+	vertices[3] = Vertex(Vector3(1.0f, -1.0f, -1.0f), D3DCOLOR_XRGB(255, 0, 255), 1, 1);
 
 	// 후면
-	vertices[4] = Vertex(Vector3(-1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 0),1,1);
-	vertices[5] = Vertex(Vector3(-1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 255, 0),1,0);
-	vertices[6] = Vertex(Vector3(1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 0, 255),0,0);
-	vertices[7] = Vertex(Vector3(1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 255),0,1);
+	vertices[4] = Vertex(Vector3(-1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 0), 1, 1);
+	vertices[5] = Vertex(Vector3(-1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 255, 0), 1, 0);
+	vertices[6] = Vertex(Vector3(1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 0, 255), 0, 0);
+	vertices[7] = Vertex(Vector3(1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 255), 0, 1);
 	vertexBuffer->Unlock();
 
 	WORD* indices = nullptr;
@@ -61,21 +89,4 @@ PKH::Cube::Cube()
 	indices[30] = 4; indices[31] = 0; indices[32] = 7;
 	indices[33] = 0; indices[34] = 3; indices[35] = 7;
 	triangles->Unlock();
-
-
-}
-
-PKH::Cube::~Cube()
-{
-}
-
-void PKH::Cube::Update()
-{
-
-}
-
-
-IComponent* PKH::Cube::Clone()
-{
-	return new Cube(*this);
 }

@@ -6,8 +6,8 @@ namespace PKH
 	class Mesh : public IComponent
 	{
 	public:
-		Mesh();
-		Mesh(const Mesh& rhs);
+		explicit Mesh(GameObject* owner);
+		explicit Mesh(const Mesh& rhs);
 		virtual ~Mesh();
 
 

@@ -7,9 +7,9 @@ namespace PKH
 	class Transform : public IComponent
 	{
 	public:
-		Transform();
-
-		~Transform();
+		explicit Transform(GameObject* owner);
+		explicit Transform(const Transform& rhs);
+		virtual ~Transform();
 
 		virtual void Update();
 		virtual IComponent* Clone() override;

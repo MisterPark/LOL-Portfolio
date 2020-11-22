@@ -1,7 +1,23 @@
 #include "stdafx.h"
 #include "Triangle.h"
 
-Triangle::Triangle()
+PKH::Triangle::Triangle(GameObject* owner)
+	:CustomMesh(owner)
+{
+	CreateCustomMesh();
+}
+
+PKH::Triangle::Triangle(const Triangle& rhs)
+	:CustomMesh(rhs)
+{
+	CreateCustomMesh();
+}
+
+Triangle::~Triangle()
+{
+}
+
+void PKH::Triangle::CreateCustomMesh()
 {
 	this->vertexCount = 3;
 	this->triangleCount = 2;
@@ -37,12 +53,6 @@ Triangle::Triangle()
 	indices[0] = 0; indices[1] = 1; indices[2] = 2;
 	indices[3] = 2; indices[4] = 1; indices[5] = 0;
 	triangles->Unlock();
-
-
-}
-
-Triangle::~Triangle()
-{
 }
 
 void Triangle::Update()
@@ -53,3 +63,4 @@ PKH::IComponent * PKH::Triangle::Clone()
 {
 	return new Triangle(*this);
 }
+

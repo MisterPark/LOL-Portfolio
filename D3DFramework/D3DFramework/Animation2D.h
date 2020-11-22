@@ -6,7 +6,8 @@ class Animation2D :
     public IComponent
 {
 public:
-    Animation2D();
+    explicit Animation2D(GameObject* owner);
+    explicit Animation2D(const Animation2D& rhs);
     virtual ~Animation2D();
     virtual void Update();
 

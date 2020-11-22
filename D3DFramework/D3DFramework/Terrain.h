@@ -7,10 +7,12 @@ namespace PKH
         public CustomMesh
     {
     public:
-        Terrain();
+        explicit Terrain(GameObject* owner);
+        explicit Terrain(const Terrain& rhs);
         virtual ~Terrain();
 
-        // CustomMesh을(를) 통해 상속됨
+        virtual void CreateCustomMesh() override;
+
 
         virtual void Update() override;
 
@@ -29,6 +31,8 @@ namespace PKH
         int height = dfTERRAIN_WIDTH;
 
         Vector3* vertexInfo = nullptr;
+
+       
     };
 
 

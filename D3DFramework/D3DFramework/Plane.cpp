@@ -1,7 +1,23 @@
 #include "stdafx.h"
 #include "Plane.h"
 
-PKH::Plane::Plane()
+PKH::Plane::Plane(GameObject* owner)
+	:CustomMesh(owner)
+{
+	CreateCustomMesh();
+}
+
+PKH::Plane::Plane(const Plane& rhs)
+	:CustomMesh(rhs)
+{
+	CreateCustomMesh();
+}
+
+PKH::Plane::~Plane()
+{
+}
+
+void PKH::Plane::CreateCustomMesh()
 {
 	this->vertexCount = 4;
 	this->triangleCount = 2;
@@ -38,8 +54,4 @@ PKH::Plane::Plane()
 	indices[0] = 0; indices[1] = 1; indices[2] = 3;
 	indices[3] = 1; indices[4] = 2; indices[5] = 3;
 	triangles->Unlock();
-}
-
-PKH::Plane::~Plane()
-{
 }

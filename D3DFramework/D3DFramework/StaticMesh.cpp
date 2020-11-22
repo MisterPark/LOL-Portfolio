@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "StaticMesh.h"
 
-PKH::StaticMesh::StaticMesh()
-	:Mesh()
+PKH::StaticMesh::StaticMesh(GameObject* owner)
+	:Mesh(owner)
 {
 }
 

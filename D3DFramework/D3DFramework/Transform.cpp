@@ -3,7 +3,22 @@
 
 using namespace PKH;
 
-PKH::Transform::Transform()
+PKH::Transform::Transform(GameObject* owner)
+	:IComponent(owner)
+{
+}
+
+PKH::Transform::Transform(const Transform& rhs)
+	:IComponent(rhs)
+	,position(rhs.position)
+	,eulerAngles(rhs.eulerAngles)
+	,scale(rhs.scale)
+	,rotation(rhs.rotation)
+	,right(rhs.right)
+	,up(rhs.up)
+	,look(rhs.look)
+	,world(rhs.world)
+	,zOrder(rhs.zOrder)
 {
 }
 

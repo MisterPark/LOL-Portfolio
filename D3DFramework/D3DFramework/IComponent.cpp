@@ -4,8 +4,12 @@
 
 using namespace PKH;
 
-PKH::IComponent::IComponent()
+
+PKH::IComponent::IComponent(GameObject* owner)
 {
+	gameObject = owner;
+	if(owner != nullptr)
+		transform = owner->transform;
 }
 
 PKH::IComponent::IComponent(const PKH::IComponent & rhs)

@@ -1,5 +1,5 @@
 #pragma once
-#include "IComponent.h"
+#include "Mesh.h"
 
 namespace PKH
 {
@@ -27,17 +27,20 @@ namespace PKH
 		OFF
 	};
 
-	class CustomMesh : public PKH::IComponent
+	class CustomMesh : public Mesh
 	{
 	public:
-		CustomMesh();
+		explicit CustomMesh(GameObject* owner);
+		explicit CustomMesh(const CustomMesh& rhs);
 		virtual ~CustomMesh();
+	protected:
+		virtual void CreateCustomMesh() = 0;
+	public:
 
 		virtual void Update() {};
 		virtual void Render();
 
-		// IComponent을(를) 통해 상속됨
-		virtual PKH::IComponent* Clone() override;
+		virtual PKH::IComponent* Clone() = 0;
 
 		//====
 		UINT GetVertexCount();

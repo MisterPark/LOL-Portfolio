@@ -7,7 +7,6 @@ enum class Layer
 	END
 };
 
-#define ALL_LAYER MaxOfEnum<Layer>()
 
 class LayerMask
 {

@@ -289,6 +289,10 @@
     <ClInclude Include="DynamicMesh.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -402,18 +406,6 @@
     <ClCompile Include="Animation2D.cpp">
       <Filter>Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
@@ -461,9 +453,6 @@
     </ClCompile>
     <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Lib</Filter>
@@ -576,6 +565,25 @@
     <ClCompile Include="DynamicMesh.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

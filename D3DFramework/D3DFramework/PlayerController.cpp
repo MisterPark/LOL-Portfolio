@@ -1,7 +1,14 @@
 #include "stdafx.h"
 #include "PlayerController.h"
 
-PlayerController::PlayerController()
+
+PlayerController::PlayerController(GameObject* owner)
+    :IComponent(owner)
+{
+}
+
+PlayerController::PlayerController(const PlayerController& rhs)
+    :IComponent(rhs)
 {
 }
 

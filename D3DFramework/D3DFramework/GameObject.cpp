@@ -3,6 +3,7 @@
 #include "IComponent.h"
 #include "transform.h"
 #include "StaticMesh.h"
+#include "Collider.h"
 
 using namespace PKH;
 
@@ -61,6 +62,20 @@ void PKH::GameObject::OnCollision(GameObject* target)
 {
 
 
+}
+
+void PKH::GameObject::PostRender()
+{
+	for (auto& comp : components)
+	{
+		Collider* collider = dynamic_cast<Collider*>(comp.second);
+		if (collider != nullptr)
+		{
+			collider->Render();
+			continue;
+		}
+
+	}
 }
 
 

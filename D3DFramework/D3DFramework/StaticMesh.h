@@ -6,8 +6,8 @@ namespace PKH
     class StaticMesh : public Mesh
     {
     public:
-        StaticMesh();
-        StaticMesh(const StaticMesh& rhs);
+        explicit StaticMesh(GameObject* owner);
+        explicit StaticMesh(const StaticMesh& rhs);
         virtual ~StaticMesh();
 
     public:

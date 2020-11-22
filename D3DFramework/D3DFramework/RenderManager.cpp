@@ -285,7 +285,7 @@ void PKH::RenderManager::DrawSprite(TextureKey spriteKey, Vector3 pos, int index
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawSprite(TextureKey spriteKey, Transform transform, int index)
+void PKH::RenderManager::DrawSprite(TextureKey spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -327,7 +327,7 @@ void PKH::RenderManager::DrawSprite(TextureKey spriteKey, Transform transform, i
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(TextureKey spriteKey, Transform transform, int index)
+void PKH::RenderManager::DrawUI(TextureKey spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -521,7 +521,7 @@ void PKH::RenderManager::DrawUIHorizontal(TextureKey spriteKey, Vector3 pos, Vec
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, Transform transform, DWORD row, DWORD col)
+void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, const Transform& transform, DWORD row, DWORD col)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -560,7 +560,7 @@ void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, Transform transform
 
 }
 
-void PKH::RenderManager::DrawImage(TextureKey spriteKey, Transform transform)
+void PKH::RenderManager::DrawImage(TextureKey spriteKey, const Transform& transform)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -823,7 +823,7 @@ HRESULT PKH::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D3DM
 HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 
-	StaticMesh* smesh = new StaticMesh();
+	StaticMesh* smesh = new StaticMesh(nullptr);
 	HRESULT result = smesh->LoadMesh(pFilePath, pFileName);
 	if (result != S_OK)
 	{
