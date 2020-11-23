@@ -52,16 +52,10 @@ void PKH::GameObject::Render()
 	}
 }
 
-void PKH::GameObject::Die()
+void PKH::GameObject::Destroy()
 {
 	if (dontDestroy) return;
 	isDead = true;
-}
-
-void PKH::GameObject::OnCollision(GameObject* target)
-{
-
-
 }
 
 void PKH::GameObject::PostRender()
@@ -78,6 +72,11 @@ void PKH::GameObject::PostRender()
 	}
 }
 
+void PKH::GameObject::OnCollisionEnter(const Collider* target)
+{
+
+
+}
 
 void PKH::GameObject::Move(Vector3 _direction)
 {

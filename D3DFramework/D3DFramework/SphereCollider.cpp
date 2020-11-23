@@ -1,17 +1,19 @@
 #include "stdafx.h"
 #include "SphereCollider.h"
 
+using namespace PKH;
+
 SphereCollider::SphereCollider(GameObject* owner)
     :Collider(owner)
 {
     type = ColliderType::Sphere;
     LPD3DXMESH mesh;
-    radius = 100.f;
+    radius = 0.5f;
     auto device = RenderManager::GetDevice();
     RenderManager::LockDevice();
-    D3DXCreateSphere(device, radius, 8, 8, &mesh, nullptr);
+    D3DXCreateSphere(device, radius, 16, 16, &mesh, nullptr);
 
-    DWORD fvf = mesh->GetFVF();
+    fvf = mesh->GetFVF();
     if (!(fvf & D3DFVF_DIFFUSE))
     {
         mesh->CloneMeshFVF(mesh->GetOptions(), fvf |= D3DFVF_DIFFUSE, device, &pMesh);
@@ -63,10 +65,6 @@ SphereCollider::~SphereCollider()
 IComponent* SphereCollider::Clone()
 {
     return new SphereCollider(*this);
-}
-
-void SphereCollider::OnCollisionEnter(const Collider* other)
-{
 }
 
 bool SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)

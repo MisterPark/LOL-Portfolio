@@ -1,18 +1,20 @@
 #include "stdafx.h"
 #include "BoxCollider.h"
 
+using namespace PKH;
+
 BoxCollider::BoxCollider(GameObject* owner)
     :Collider(owner)
 {
     type = ColliderType::Box;
     LPD3DXMESH mesh;
-    size = { 100,100,100 };
+    size = { 1,1,1 };
     auto device = RenderManager::GetDevice();
     RenderManager::LockDevice();
     D3DXCreateBox(device, size.x, size.y, size.z, &mesh, nullptr);
     
     
-    DWORD fvf = mesh->GetFVF();
+    fvf = mesh->GetFVF();
     if (!(fvf & D3DFVF_DIFFUSE))
     {
         mesh->CloneMeshFVF(mesh->GetOptions(), fvf |= D3DFVF_DIFFUSE, device, &pMesh);
@@ -66,10 +68,6 @@ BoxCollider::~BoxCollider()
 IComponent* BoxCollider::Clone()
 {
     return new BoxCollider(*this);
-}
-
-void BoxCollider::OnCollisionEnter(const Collider* other)
-{
 }
 
 bool BoxCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)

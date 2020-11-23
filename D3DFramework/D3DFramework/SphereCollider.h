@@ -1,21 +1,25 @@
 #pragma once
 #include "Collider.h"
-class SphereCollider :
-    public Collider
+
+namespace PKH
 {
-public:
-    explicit SphereCollider(GameObject* owner);
-    explicit SphereCollider(const SphereCollider& rhs);
-    virtual ~SphereCollider();
+    class SphereCollider :
+        public Collider
+    {
+    public:
+        explicit SphereCollider(GameObject* owner);
+        explicit SphereCollider(const SphereCollider& rhs);
+        virtual ~SphereCollider();
 
-    virtual IComponent* Clone() override;
-    virtual void OnCollisionEnter(const Collider* other) override;
-    virtual bool Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance) override;
+        virtual IComponent* Clone() override;
+        virtual bool Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance) override;
 
-public:
-    // 구 반경
-    float radius;
+    public:
+        // 구 반경
+        float radius;
 
-    
-};
 
+    };
+
+
+}

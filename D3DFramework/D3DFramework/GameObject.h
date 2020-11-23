@@ -21,6 +21,7 @@ namespace PKH
 {
 	class IComponent;
 	class Transform;
+	class Collider;
 
 	class GameObject
 	{
@@ -33,9 +34,9 @@ namespace PKH
 		virtual void Update() = 0;
 		virtual void PostUpdate();
 		virtual void Render();
-		virtual void Die();
-		virtual void OnCollision(GameObject* target);
+		virtual void Destroy();
 		virtual void PostRender();
+		virtual void OnCollisionEnter(const Collider* target);
 
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.

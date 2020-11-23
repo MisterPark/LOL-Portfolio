@@ -66,7 +66,7 @@ bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 	auto target = find(objList.begin(), objList.end(), _target);
 	if (target != objList.end())
 	{
-		_target->Die();
+		_target->Destroy();
 		return true;
 	}
 	return false;
@@ -82,7 +82,7 @@ void PKH::ObjectManager::DestroyAll()
 
 		for (auto& iter : objList)
 		{
-			iter->Die();
+			iter->Destroy();
 		}
 	}
 }

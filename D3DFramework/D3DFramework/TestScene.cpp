@@ -26,7 +26,11 @@ void TestScene::OnLoaded()
 	obj->transform->scale = { 0.003f,0.003f, 0.003f };
 	obj->transform->position = { 0,0,0 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
-	obj->AddComponent<SphereCollider>(L"SphereCollider");
+
+	obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
+	obj->transform->scale = { 0.003f,0.003f, 0.003f };
+	obj->transform->position = { 2,0,2 };
+	
 
 	//obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
 	//obj->transform->scale = { 0.1f,0.1f, 0.1f };

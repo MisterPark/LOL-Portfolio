@@ -103,7 +103,7 @@ void PKH::CustomMesh::Render()
 		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+		//device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 
 		switch (lightMode)
 		{
@@ -140,7 +140,7 @@ void PKH::CustomMesh::Render()
 		default:
 			break;
 		}
-
+		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 		device->SetRenderState(D3DRS_ZENABLE, TRUE);
 		device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 		

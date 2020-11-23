@@ -99,7 +99,7 @@ bool Inventory::Push(Item* item)
         {
             if (iter->type != item->type) continue;
             
-            item->Die();
+            item->Destroy();
             //타입이 같으면 수량 증가
             iter->count++;
             return true;

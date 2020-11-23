@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CollisionManager.h"
 #include "Collider.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 using namespace PKH;
 
@@ -63,6 +65,7 @@ void PKH::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
 	{
 		for (auto& dstElem : objectList[(int)dstType])
 		{
+			if (srcElem == dstElem)continue;
 			if (IsCollided(srcElem, dstElem))
 			{
 				srcElem->OnCollisionEnter(dstElem);
@@ -124,19 +127,85 @@ bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 	return false;
 }
 
-bool PKH::CollisionManager::IsCollided(Collider* _target, Collider* _other)
+bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
 {
-	// 거리계산
-	float dist = Vector3::Distance(_target->transform->position, _other->transform->position);
-	// 반지름 = 반지름 * (스케일합/3)
-	float radius1 = ((_target->transform->scale.x + _target->transform->scale.y + _target->transform->scale.z) / 3.f);
-	float radius2 = ((_other->transform->scale.x + _other->transform->scale.y + _other->transform->scale.z) / 3.f);
 	
-	// 거리가 반지름의 합보다 작으면 충돌
-	if (dist < (radius1+radius2))
+	// 콜라이더 타입 판별
+	BoxCollider* srcBox = nullptr;
+	SphereCollider* srcSphere = nullptr;
+	switch (src->type)
 	{
-		return true;
+	case ColliderType::Box:
+		srcBox = dynamic_cast<BoxCollider*>(src);
+		if (srcBox == nullptr) return false;
+		break;
+	case ColliderType::Sphere:
+		srcSphere = dynamic_cast<SphereCollider*>(src);
+		if (srcSphere == nullptr) return false;
+		break;
+	default:
+		return false;
 	}
+
+	BoxCollider* destBox = nullptr;
+	SphereCollider* destSphere = nullptr;
+	switch (dst->type)
+	{
+	case ColliderType::Box:
+		destBox = dynamic_cast<BoxCollider*>(dst);
+		if (destBox == nullptr) return false;
+		break;
+	case ColliderType::Sphere:
+		destSphere = dynamic_cast<SphereCollider*>(dst);
+		if (destSphere == nullptr) return false;
+		break;
+	default:
+		return false;
+	}
+
+	if (src->type == ColliderType::Sphere && dst->type == ColliderType::Sphere)
+	{
+		return CheckSphereCollision(srcSphere, destSphere);
+	}
+	else if (src->type == ColliderType::Box && dst->type == ColliderType::Box)
+	{
+		return CheckAABBCollision(srcBox, destBox);
+	}
+
+
+	return false;
+}
+
+bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereCollider* dest)
+{
+	// 거리 계산
+	Vector3 srcWorldPos = src->GetWorldPosition();
+	Vector3 destWorldPos = dest->GetWorldPosition();
+	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
+	float radiusSum = src->radius + dest->radius;
+
+	// 거리가 반지름합보다 크면 충돌X
+	if (distance > radiusSum) return false;
+
+	return true;
+}
+
+bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* dest)
+{
+	// 거리 계산
+	Vector3 srcWorldPos = src->GetWorldPosition();
+	Vector3 destWorldPos = dest->GetWorldPosition();
+	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
+
+	return false;
+}
+
+bool PKH::CollisionManager::CheckOBBCollision(BoxCollider* src, BoxCollider* dest)
+{
+	// 거리 계산
+	Vector3 srcWorldPos = src->GetWorldPosition();
+	Vector3 destWorldPos = dest->GetWorldPosition();
+	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
 
 
 	return false;
