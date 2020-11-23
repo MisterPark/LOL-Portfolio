@@ -66,6 +66,8 @@ namespace PKH
 
 		// getter
 		IComponent* GetComponent(const wstring& _key);
+		template<class T>
+		IComponent* GetComponent();
 		Transform* GetTransform() const { return transform; } //¼öÁ¤
 		STAT GetStat() const { return stat; }
 		Layer GetLayer() { return this->layer; }
@@ -111,6 +113,18 @@ namespace PKH
 		components[_key] = comp;
 
 		return comp;
+	}
+	template<class T>
+	inline IComponent* GameObject::GetComponent()
+	{
+		for (auto& iter : components)
+		{
+			if (dynamic_cast<T*>(iter.second))
+			{
+				return iter.second;
+			}
+		}
+		return nullptr;
 	}
 }
 

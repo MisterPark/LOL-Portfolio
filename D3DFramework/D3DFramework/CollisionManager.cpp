@@ -195,9 +195,43 @@ bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* de
 	// 거리 계산
 	Vector3 srcWorldPos = src->GetWorldPosition();
 	Vector3 destWorldPos = dest->GetWorldPosition();
-	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
+	
+	Vector3 srcMin, srcMax, dstMin, dstMax;
+	float min, max;
+	
+	srcMin = Vector3(srcWorldPos.x - (src->size.x * 0.5f)
+					,srcWorldPos.y - (src->size.y * 0.5f)
+					,srcWorldPos.z - (src->size.z * 0.5f));
+	srcMax = Vector3(srcWorldPos.x + (src->size.x * 0.5f)
+					,srcWorldPos.y + (src->size.y * 0.5f)
+					,srcWorldPos.z + (src->size.z * 0.5f));
+	dstMin = Vector3(destWorldPos.x - (dest->size.x * 0.5f)
+					,destWorldPos.y - (dest->size.y * 0.5f)
+					,destWorldPos.z - (dest->size.z * 0.5f));
+	dstMax = Vector3(destWorldPos.x + (dest->size.x * 0.5f)
+					,destWorldPos.y + (dest->size.y * 0.5f)
+					,destWorldPos.z + (dest->size.z * 0.5f));
 
-	return false;
+	// x축
+	min = max(dstMin.x, srcMin.x);
+	max = min(dstMax.x, srcMax.x);
+
+	if (max < min) return false;
+
+	// y축
+	min = max(dstMin.y, srcMin.y);
+	max = min(dstMax.y, srcMax.y);
+
+	if (max < min) return false;
+
+	// z축
+	min = max(dstMin.z, srcMin.z);
+	max = min(dstMax.z, srcMax.z);
+
+	if (max < min) return false;
+	
+
+	return true;
 }
 
 bool PKH::CollisionManager::CheckOBBCollision(BoxCollider* src, BoxCollider* dest)

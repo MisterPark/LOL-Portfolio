@@ -13,8 +13,8 @@ TestMan::TestMan()
 	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"malp");
 	
 	AddComponent(L"StaticMesh", smesh);
-	AddComponent<SphereCollider>(L"SphereCollider");
-	//obj->AddComponent<BoxCollider>(L"BoxCollider");
+	//AddComponent<SphereCollider>(L"SphereCollider");
+	AddComponent<BoxCollider>(L"BoxCollider");
 	
 }
 
@@ -37,7 +37,7 @@ void TestMan::Update()
 
 void TestMan::OnCollisionEnter(const Collider* target)
 {
-	SphereCollider* collider = (SphereCollider*)GetComponent(L"SphereCollider");
+	Collider* collider = (Collider*)GetComponent<Collider>();
 	if (collider == nullptr) return;
 
 	collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));

@@ -14,6 +14,8 @@ namespace PKH
         virtual IComponent* Clone() override;
         virtual bool Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance) override;
 
+
+
     public:
         // 각축의 길이
         Vector3 size;
