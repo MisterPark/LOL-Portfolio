@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PlayerController.h"
+#include "Collider.h"
 
 
 PlayerController::PlayerController(GameObject* owner)
@@ -35,6 +36,16 @@ void PlayerController::Update()
     if (InputManager::GetKey('D'))
     {
         gameObject->transform->position.x +=  TimeManager::DeltaTime();
+    }
+
+    if (InputManager::GetMouseLButton())
+    {
+        Ray ray = Camera::ScreenPointToRay(InputManager::GetMousePosition());
+        RaycastHit hit;
+        if (Physics::Raycast(ray, &hit))
+        {
+            hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
+        }
     }
 }
 

@@ -55,8 +55,8 @@ namespace PKH
 		static bool GetMouseWheelUp();
 		static bool GetMouseWheelDown();
 
-		static POINT GetMousePosOnClient();
-		static POINT GetMousePosOnWorld();
+		// 윈도우 좌표상의 마우스 위치
+		static Vector3 GetMousePosition();
 
 
 	private:

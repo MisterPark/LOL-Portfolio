@@ -142,23 +142,12 @@ bool PKH::InputManager::GetMouseWheelDown()
 	return pInputManager->mouse[(int)Keys::WHEEL_DOWN];
 }
 
-
-POINT PKH::InputManager::GetMousePosOnClient()
+Vector3 PKH::InputManager::GetMousePosition()
 {
 	POINT pt;
 	GetCursorPos(&pt);
 	ScreenToClient(g_hwnd, &pt);
-	return pt;
-}
-
-POINT PKH::InputManager::GetMousePosOnWorld()
-{
-	POINT pt;
-	GetCursorPos(&pt);
-	ScreenToClient(g_hwnd, &pt);
-
-	pt.x += Camera::GetX();
-	pt.y += Camera::GetY();
-
-	return pt;
+	
+	Vector3 point = { (float)pt.x,(float)pt.y,0 };
+	return point;
 }

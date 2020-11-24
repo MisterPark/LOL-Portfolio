@@ -193,7 +193,9 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 
 	// Projection To World
 	Matrix inverseMat = Matrix::Inverse(viewProj);
-	D3DXVec3TransformNormal(&direction, &direction, &inverseMat);
+	D3DXVec3TransformCoord(&direction, &direction, &inverseMat);
+
+	direction = direction - ray.origin;
 	Vector3::Normalize(&direction);
 
 	ray.direction = direction;
