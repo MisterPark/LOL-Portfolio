@@ -24,6 +24,8 @@ PKH::Collider::~Collider()
 	}
 	
 	Safe_Release(pMesh);
+	Safe_Delete_Array(vertexPositions);
+	Safe_Delete_Array(indices);
 }
 
 void PKH::Collider::Update()
@@ -74,6 +76,13 @@ Vector3 PKH::Collider::GetWorldPosition()
 	return worldPos;
 }
 
+Matrix PKH::Collider::GetWorldMatrix()
+{
+	if (transform == nullptr)return Matrix::identity;
+
+	return transform->world;
+}
+
 void PKH::Collider::SetColor(D3DCOLOR color)
 {
 	if (pMesh == nullptr)return;
@@ -103,4 +112,71 @@ void PKH::Collider::SetColor(D3DCOLOR color)
 	}
 
 	pMesh->UnlockVertexBuffer();
+}
+
+void PKH::Collider::SetMeshInformation()
+{
+	if (pMesh == nullptr)return;
+	void* pVertex = nullptr;
+	pMesh->LockVertexBuffer(0, &pVertex);
+	// 버텍스 위치 정보 찾기
+	D3DVERTEXELEMENT9 decl[MAX_FVF_DECL_SIZE];
+	ZeroMemory(decl, sizeof(D3DVERTEXELEMENT9) * MAX_FVF_DECL_SIZE);
+
+	pMesh->GetDeclaration(decl);
+
+	BYTE offset = 0;
+	for (int i = 0; i < MAX_FVF_DECL_SIZE; i++)
+	{
+		if (decl[i].Usage == D3DDECLUSAGE_POSITION)
+		{
+			offset = (BYTE)decl[i].Offset;
+			break;
+		}
+	}
+	// 버텍스 카운트 세팅
+	vertexCount = pMesh->GetNumVertices();
+	// 버텍스 포지션 배열 생성
+	vertexPositions = new Vector3[vertexCount];
+
+	int vertexSize = D3DXGetFVFVertexSize(fvf);
+	for (int i = 0; i < vertexCount; ++i)
+	{
+		Vector3* pos = ((Vector3*)(((BYTE*)pVertex) + (i * vertexSize + offset)));
+		vertexPositions[i] = *pos;
+	}
+
+	pMesh->UnlockVertexBuffer();
+
+	// 인덱스 버퍼
+	LPDIRECT3DINDEXBUFFER9 pIB;
+	pMesh->GetIndexBuffer(&pIB);
+
+	//==================================
+	// TODO :(매우낮음) 만약 IndexBuffer의 단위가 32비트면 주석풀고 바꿔줘야함
+	//D3DINDEXBUFFER_DESC desc;
+	//pIB->GetDesc(&desc);
+	//D3DFORMAT format = desc.Format;
+	//UINT indexSize = 2; // INDEX16
+	//if (format == D3DFORMAT::D3DFMT_INDEX32)
+	//{
+	//	indexSize = 4;
+	//}
+
+
+	// 삼각형 갯수 세팅
+	faceCount = pMesh->GetNumFaces();
+	int indexCount = faceCount * 3;
+	indices = new WORD[indexCount];
+
+	WORD* dummyIndices = nullptr;
+	pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
+	for (int i = 0; i < indexCount; i++)
+	{
+		WORD idx = dummyIndices[i];
+		indices[i] = idx;
+	}
+	pMesh->UnlockIndexBuffer();
+
+
 }

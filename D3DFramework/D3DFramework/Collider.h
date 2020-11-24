@@ -28,9 +28,13 @@ namespace PKH
     public:
         // getter
         Vector3 GetWorldPosition();
+        Matrix GetWorldMatrix();
     public:
         // setter
         void SetColor(D3DCOLOR color);
+    protected:
+        // Mesh 생성 후에 반드시 호출할 것 (VB,IB 등등의 정보 세팅)
+        void SetMeshInformation();
 
 
         //----------------
@@ -40,10 +44,18 @@ namespace PKH
         // 로컬 포지션
         Vector3 center;
         ColliderType type = ColliderType::None;
+
     protected:
+        // Mesh Informations
         LPD3DXMESH pMesh = nullptr;
         DWORD fvf;
         Matrix world = Matrix::identity;
+        // 로컬 포지션 주의
+        Vector3* vertexPositions = nullptr;
+        UINT vertexCount = 0;
+
+        WORD* indices = nullptr;
+        UINT faceCount = 0;
     };
 
 }

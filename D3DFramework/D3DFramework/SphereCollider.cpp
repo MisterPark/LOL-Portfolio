@@ -51,6 +51,8 @@ SphereCollider::SphereCollider(GameObject* owner)
     pMesh->UnlockVertexBuffer();
 
     RenderManager::UnlockDevice();
+
+    SetMeshInformation();
 }
 
 SphereCollider::SphereCollider(const SphereCollider& rhs)

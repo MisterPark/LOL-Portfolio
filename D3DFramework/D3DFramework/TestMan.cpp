@@ -13,8 +13,8 @@ TestMan::TestMan()
 	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"malp");
 	
 	AddComponent(L"StaticMesh", smesh);
-	AddComponent<SphereCollider>(L"SphereCollider");
-	//AddComponent<BoxCollider>(L"BoxCollider");
+	//AddComponent<SphereCollider>(L"SphereCollider");
+	AddComponent<BoxCollider>(L"BoxCollider");
 	
 }
 
