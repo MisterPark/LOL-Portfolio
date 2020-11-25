@@ -26,6 +26,9 @@
 
 #include "FMOD/fmod.h"
 
+#include <d3d9.h>
+#include <d3dx9.h>
+
 //=======================================
 //  DEBUG
 //=======================================
@@ -59,8 +62,8 @@ using namespace std;
 
 #include "Debug.h"
 #include "Define.h"
-#include "Struct.h"
-#include "Functions.h"
+
+
 // DirectX 변형 자료
 #include"MemoryPool.h"
 #include "Point.h"
@@ -71,6 +74,13 @@ using namespace std;
 #include "Color.h"
 #include "Texture.h"
 #include "Random.h"
+
+#include "Struct.h"
+#include "Functions.h"
+
+// Base
+#include "BaseObject.h"
+
 // 매쉬
 #include "Vertex.h"
 #include "CustomMesh.h"
@@ -101,6 +111,9 @@ using namespace std;
 
 #include "SkillManager.h"
 
+// 
+#include "HierarchyLoader.h"
+#include "AnimationController.h"
 
 
 using namespace std;

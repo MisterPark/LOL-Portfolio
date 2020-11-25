@@ -82,6 +82,15 @@
     <Filter Include="GameObject\Test">
       <UniqueIdentifier>{9d902650-2533-4759-8bb4-32a907039059}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Mesh\DynamicMesh">
+      <UniqueIdentifier>{0c4d810f-bcbe-49f4-9317-d8ea0791a7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Mesh\StaticMesh">
+      <UniqueIdentifier>{ee0fff28-54bc-4985-b651-7221fe570061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseObject">
+      <UniqueIdentifier>{18c61410-f6ed-4d31-952b-9d5d3321f181}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -252,9 +261,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Component\Mesh\CustomMesh</Filter>
     </ClInclude>
@@ -288,9 +294,6 @@
     <ClInclude Include="Collider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicMesh.h">
-      <Filter>Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="SphereCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
@@ -299,6 +302,21 @@
     </ClInclude>
     <ClInclude Include="TestMan.h">
       <Filter>GameObject\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicMesh.h">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>Component\Mesh\StaticMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyLoader.h">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>BaseObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -532,9 +550,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>Component\Mesh\CustomMesh</Filter>
     </ClCompile>
@@ -568,9 +583,6 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicMesh.cpp">
-      <Filter>Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>Component\Mesh\CustomMesh</Filter>
     </ClCompile>
@@ -595,6 +607,18 @@
     <ClCompile Include="TestMan.cpp">
       <Filter>GameObject\Test</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicMesh.cpp">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>Component\Mesh\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyLoader.cpp">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">
@@ -612,5 +636,10 @@
   <ItemGroup>
     <Text Include="CodingConvention.txt" />
     <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BaseObject.inl">
+      <Filter>BaseObject</Filter>
+    </None>
   </ItemGroup>
 </Project>

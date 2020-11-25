@@ -69,21 +69,17 @@ namespace PKH
 		template<class T>
 		IComponent* GetComponent();
 		Transform* GetTransform() const { return transform; } //¼öÁ¤
-		STAT GetStat() const { return stat; }
 		Layer GetLayer() { return this->layer; }
 
 		bool IsDead();
 		
 		// setter
-		void MinusHp(float _damage);
-		void SetHp(float _hp);
 		void SetLayer(Layer _layer);
 		
 
 	public:
 		wstring name;
 		Transform* transform = nullptr;
-		STAT stat;
 		Team team = Team::NEUTRAL;
 		
 		

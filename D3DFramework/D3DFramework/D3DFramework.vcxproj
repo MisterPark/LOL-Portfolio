@@ -157,12 +157,15 @@
   <ItemGroup>
     <ClInclude Include="AllMeshs.h" />
     <ClInclude Include="Animation2D.h" />
+    <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layer.h" />
@@ -230,12 +233,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation2D.cpp" />
+    <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer.cpp" />
@@ -304,6 +309,9 @@
   <ItemGroup>
     <Text Include="CodingConvention.txt" />
     <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BaseObject.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -200,6 +200,7 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 
 	ray.direction = direction;
 
+
 	return ray;
 }
 

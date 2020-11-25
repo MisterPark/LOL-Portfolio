@@ -81,18 +81,18 @@ void PKH::GameObject::OnCollisionEnter(const Collider* target)
 void PKH::GameObject::Move(Vector3 _direction)
 {
 	Vector3::Normalize(&_direction);
-	transform->position.x += _direction.x * stat.moveSpeed * TimeManager::DeltaTime();
-	transform->position.y += _direction.y * stat.moveSpeed * TimeManager::DeltaTime();
-	transform->position.z += _direction.z * stat.moveSpeed * TimeManager::DeltaTime();
+	transform->position.x += _direction.x * TimeManager::DeltaTime();
+	transform->position.y += _direction.y * TimeManager::DeltaTime();
+	transform->position.z += _direction.z * TimeManager::DeltaTime();
 }
 
 void PKH::GameObject::MoveToTarget(Vector3 _target)
 {
 	Vector3 dir = _target - transform->position;
 	Vector3::Normalize(&dir);
-	transform->position.x += dir.x * stat.moveSpeed * TimeManager::DeltaTime();
-	transform->position.y += dir.y * stat.moveSpeed * TimeManager::DeltaTime();
-	transform->position.z += dir.z * stat.moveSpeed * TimeManager::DeltaTime();
+	transform->position.x += dir.x * TimeManager::DeltaTime();
+	transform->position.y += dir.y * TimeManager::DeltaTime();
+	transform->position.z += dir.z * TimeManager::DeltaTime();
 }
 
 void PKH::GameObject::FollowTarget(const GameObject* _target)
@@ -213,16 +213,6 @@ IComponent* PKH::GameObject::GetComponent(const wstring& _key)
 bool PKH::GameObject::IsDead()
 {
 	return isDead;
-}
-
-void PKH::GameObject::MinusHp(float _damage)
-{
-	 stat.hp -= _damage * TimeManager::DeltaTime();
-}
-
-void PKH::GameObject::SetHp(float _hp)
-{
-	stat.hp = _hp;
 }
 
 void PKH::GameObject::SetLayer(Layer _layer)

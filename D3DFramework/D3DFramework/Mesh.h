@@ -16,6 +16,7 @@ namespace PKH
 
 	protected:
 		bool isClone;
+		LPDIRECT3DDEVICE9 device = nullptr;
 	};
 }
 

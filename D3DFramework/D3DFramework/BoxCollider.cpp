@@ -73,38 +73,34 @@ IComponent* BoxCollider::Clone()
 
 bool BoxCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
-    // TODO : 여기서부터 시작
-    // 수정해야함 
-    Matrix matWorld = GetWorldMatrix();
-    Matrix::Inverse(matWorld);
-
-    Ray localRay = ray;
-    D3DXVec3TransformCoord(&localRay.origin, &ray.origin, &matWorld);
-    D3DXVec3TransformNormal(&localRay.direction, &ray.direction, &matWorld);
-    Vector3::Normalize(&localRay.direction);
-
+    // TODO : (약함)로컬에서 충돌검사를 해야 빠르겠지...?
+    Matrix matWorld = Matrix::identity;
+    matWorld._41 = transform->position.x;
+    matWorld._42 = transform->position.y;
+    matWorld._43 = transform->position.z;
+    
     float u, v, dist;
     WORD index;
     for (int i = 0; i < faceCount; i++)
     {
-        // V1 + U(V2 - V1) + V(V3 - V1)
-        index = indices[i * 3];
-        if (D3DXIntersectTri(&vertexPositions[index],
-            &vertexPositions[index + 1], &vertexPositions[index + 2],
-            &localRay.origin, &localRay.direction, &u, &v, &dist))
+        index = i * 3;
+        Vector3 v1 = vertexPositions[indices[index]];
+        Vector3 v2 = vertexPositions[indices[index + 1]];
+        Vector3 v3 = vertexPositions[indices[index + 2]];
+
+        D3DXVec3TransformCoord(&v1, &v1, &matWorld);
+        D3DXVec3TransformCoord(&v2, &v2, &matWorld);
+        D3DXVec3TransformCoord(&v3, &v3, &matWorld);
+        
+
+        if (D3DXIntersectTri(&v1,&v2, &v3,
+            &ray.origin, &ray.direction, &u, &v, &dist))
         {
             if (outHitInfo != nullptr)
             {
-                Vector3 v1 = vertexPositions[index];
-                Vector3 v2 = vertexPositions[index+1];
-                Vector3 v3 = vertexPositions[index+2];
-
-                outHitInfo->point.x = v1.x + u * (v2.x - v1.x) + v * (v3.x - v1.x);
-                outHitInfo->point.y = v1.y + u * (v2.y - v1.y) + v * (v3.y - v1.y);
-                outHitInfo->point.z = v1.z + u * (v2.z - v1.z) + v * (v3.z - v1.z);
-
+                // V1 + U(V2 - V1) + V(V3 - V1)
+                outHitInfo->point = v1 + u * (v2 - v1) + v * (v3 - v1);
                 outHitInfo->distance = dist;
-
                 outHitInfo->collider = this;
             }
 

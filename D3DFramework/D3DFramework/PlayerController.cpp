@@ -38,12 +38,23 @@ void PlayerController::Update()
         gameObject->transform->position.x +=  TimeManager::DeltaTime();
     }
 
+    if (InputManager::GetKey('Q'))
+    {
+        Camera::GetInstance()->transform->position.x -= TimeManager::DeltaTime();
+    }
+    if (InputManager::GetKey('E'))
+    {
+        Camera::GetInstance()->transform->position.x += TimeManager::DeltaTime();
+    }
+
+
     if (InputManager::GetMouseLButton())
     {
         Ray ray = Camera::ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         if (Physics::Raycast(ray, &hit))
         {
+            printf("%f\n", hit.distance);
             hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
         }
     }
