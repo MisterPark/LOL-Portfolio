@@ -123,6 +123,11 @@ void PKH::RenderManager::Release()
 		delete pair.second;
 	}
 
+	for (auto pair : pRenderManager->dynamicMeshMap)
+	{
+		delete pair.second;
+	}
+
 	pRenderManager->textureMap.clear();
 
 	if (pRenderManager->pLine)
@@ -856,4 +861,41 @@ StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& key)
 	}
 
 	return (StaticMesh*)smesh->second->Clone();
+}
+
+HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+{
+	DynamicMesh* mesh = new DynamicMesh(nullptr);
+	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring key = L"";
+	wstring fileName = pFileName;
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		key += fileName[i];
+	}
+
+
+	pRenderManager->dynamicMeshMap[key] = mesh;
+
+	return S_OK;
+}
+
+DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& key)
+{
+	auto dmesh = pRenderManager->dynamicMeshMap.find(key);
+	if (dmesh == pRenderManager->dynamicMeshMap.end())
+	{
+		MessageBoxW(g_hwnd, L"로드되지 않은 다이나믹 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
+		return nullptr;
+	}
+
+	return (DynamicMesh*)dmesh->second->Clone();
 }

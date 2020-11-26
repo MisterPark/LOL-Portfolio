@@ -41,6 +41,7 @@ namespace PKH
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.
 		void Move(Vector3 _direction);
+		void Move(Vector3 _direction, float _speed);
 		// 위치로 이동
 		void MoveToTarget(Vector3 _target);
 		// 타겟 따라가기

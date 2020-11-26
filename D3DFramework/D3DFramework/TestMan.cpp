@@ -11,8 +11,11 @@ TestMan::TestMan()
 	//smesh->LoadMesh(L"Resource/Mesh/malphite/", L"malp.X");
 
 	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"malp");
-	
 	AddComponent(L"StaticMesh", smesh);
+
+	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen_test");
+	AddComponent(L"DynamicMesh", dmesh);
+
 	//AddComponent<SphereCollider>(L"SphereCollider");
 	AddComponent<BoxCollider>(L"BoxCollider");
 	

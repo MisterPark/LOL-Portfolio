@@ -47,6 +47,16 @@ void PlayerController::Update()
         Camera::GetInstance()->transform->position.x += TimeManager::DeltaTime();
     }
 
+    if (InputManager::GetMouseWheelUp())
+    {
+        Camera* cam = Camera::GetInstance();
+        cam->Move(cam->transform->look ,10.f);
+    }
+    else if (InputManager::GetMouseWheelDown())
+    {
+        Camera* cam = Camera::GetInstance();
+        cam->Move(-cam->transform->look ,10.f);
+    }
 
     if (InputManager::GetMouseLButton())
     {

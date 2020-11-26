@@ -48,6 +48,13 @@ void PKH::GameObject::Render()
 			smesh->Render();
 			continue;
 		}
+
+		DynamicMesh* dmesh = dynamic_cast<DynamicMesh*>(comp.second);
+		if (dmesh != nullptr)
+		{
+			dmesh->Render();
+			continue;
+		}
 		
 	}
 }
@@ -84,6 +91,14 @@ void PKH::GameObject::Move(Vector3 _direction)
 	transform->position.x += _direction.x * TimeManager::DeltaTime();
 	transform->position.y += _direction.y * TimeManager::DeltaTime();
 	transform->position.z += _direction.z * TimeManager::DeltaTime();
+}
+
+void PKH::GameObject::Move(Vector3 _direction, float _speed)
+{
+	Vector3::Normalize(&_direction);
+	transform->position.x += _direction.x * _speed * TimeManager::DeltaTime();
+	transform->position.y += _direction.y * _speed * TimeManager::DeltaTime();
+	transform->position.z += _direction.z * _speed * TimeManager::DeltaTime();
 }
 
 void PKH::GameObject::MoveToTarget(Vector3 _target)

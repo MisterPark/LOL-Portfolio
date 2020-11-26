@@ -11,6 +11,9 @@ void LoadingScene::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/malphite/", L"malp.X", Count);
+
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/garen/", L"garen_test.X", Count);
+
 }
 
 void LoadingScene::OnUnloaded()
@@ -21,7 +24,7 @@ void LoadingScene::OnUnloaded()
 void LoadingScene::Update()
 {
 	
-	if (loadCount == 1)
+	if (loadCount == 2)
 	{
 		SceneManager::LoadScene<TestScene>();
 	}

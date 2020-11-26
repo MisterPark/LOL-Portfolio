@@ -5,6 +5,7 @@
 enum class LoadType
 {
 	STATIC_MESH,
+	DYNAMIC_MESH,
 };
 
 class LoadManager
@@ -46,6 +47,7 @@ public:
 	// 놀고있는 or 일이 적은 쓰레드 찾기
 	static UINT FindUnemployedThread();
 	static void LoadStaticMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
+	static void LoadDynamicMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
 
 private:
 	ThreadInfo threadInfo[dfMaxThreadCount] = {};

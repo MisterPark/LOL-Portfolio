@@ -3,6 +3,9 @@
 
 namespace PKH
 {
+	class HierarchyLoader;
+	class AnimationController;
+	
 	class DynamicMesh : public Mesh
 	{
 	public:
@@ -12,8 +15,8 @@ namespace PKH
 		// Mesh을(를) 통해 상속됨
 		virtual IComponent * Clone() override;
 	public:
-		HRESULT			Ready_Meshes(const WCHAR* pFilePath, const WCHAR* pFileName);
-		void			Render_Meshes(void);
+		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+		void			Render(void);
 		const  D3DXFRAME_DERIVED* Get_FrameByName(const char* pFrameName);
 		bool							Is_AnimationSetEnd(void);
 	public:

@@ -106,6 +106,11 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
             RenderManager::LoadStaticMesh(elem.filePath.c_str(), elem.fileName.c_str());
             break;
         }
+        case LoadType::DYNAMIC_MESH:
+        {
+            RenderManager::LoadDynamicMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            break;
+        }
             
         default:
             break;
@@ -164,6 +169,23 @@ void LoadManager::LoadStaticMeshAsync(const wstring& filePath, const wstring& fi
     elem.filePath = filePath;
     elem.fileName = fileName;
     elem.type = LoadType::STATIC_MESH;
+    elem.Callback = Callback;
+
+    EnterCriticalSection(&pLoadManager->csQ[index]);
+
+    pLoadManager->jobQ[index].push(elem);
+
+    LeaveCriticalSection(&pLoadManager->csQ[index]);
+}
+
+void LoadManager::LoadDynamicMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+{
+    UINT index = FindUnemployedThread();
+
+    LoadingElement elem;
+    elem.filePath = filePath;
+    elem.fileName = fileName;
+    elem.type = LoadType::DYNAMIC_MESH;
     elem.Callback = Callback;
 
     EnterCriticalSection(&pLoadManager->csQ[index]);

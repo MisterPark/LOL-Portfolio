@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "DynamicMesh.h"
+#include "HierarchyLoader.h"
+#include "AnimationController.h"
 
 PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 	:Mesh(owner)
@@ -7,6 +9,7 @@ PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 	, m_pLoader(nullptr)
 	, m_pAniCtrl(nullptr)
 {
+	
 }
 
 PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
@@ -35,13 +38,14 @@ IComponent * PKH::DynamicMesh::Clone()
 	return new DynamicMesh(*this);
 }
 
-HRESULT DynamicMesh::Ready_Meshes(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[256] = L"";
 
 	lstrcpy(szFullPath, pFilePath);
 	lstrcat(szFullPath, pFileName);
 
+	device = RenderManager::GetDevice();
 	m_pLoader = HierarchyLoader::Create(device, pFilePath);
 	NULL_CHECK_RETURN(m_pLoader, E_FAIL);
 
@@ -70,7 +74,7 @@ HRESULT DynamicMesh::Ready_Meshes(const WCHAR* pFilePath, const WCHAR* pFileName
 	return S_OK;
 }
 
-void DynamicMesh::Render_Meshes(void)
+void DynamicMesh::Render(void)
 {
 	for (auto& iter : m_MeshContainerList)
 	{
@@ -94,12 +98,14 @@ void DynamicMesh::Render_Meshes(void)
 			pSrcVtx,						// 변하지 않는 원본 메쉬의 정점 정보
 			pDestVtx);						// 변환된 정보를 담기 위한 메쉬의 정점 정보
 
-
+		device = RenderManager::GetDevice();
+		RenderManager::LockDevice();
 		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
 		{
 			device->SetTexture(0, pMeshContainer->ppTexture[i]);
 			pMeshContainer->MeshData.pMesh->DrawSubset(i);
 		}
+		RenderManager::UnlockDevice();
 
 		pMeshContainer->pOriMesh->UnlockVertexBuffer();
 		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
