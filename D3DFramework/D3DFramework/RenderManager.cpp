@@ -80,7 +80,7 @@ HRESULT PKH::RenderManager::Initialize()
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
 	//3. 조사하고 세팅한 데이터를 가지고 이제 장치를 제어할 컴객체를 생성하자!
-	if (FAILED(pRenderManager->pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hwnd, vp, &d3dpp, &pRenderManager->pDevice)))
+	if (FAILED(pRenderManager->pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hwnd, vp | D3DCREATE_MULTITHREADED, &d3dpp, &pRenderManager->pDevice)))
 	{
 		MessageBoxW(g_hwnd, L"Failed Creating Device", nullptr, MB_OK);
 		return E_FAIL;

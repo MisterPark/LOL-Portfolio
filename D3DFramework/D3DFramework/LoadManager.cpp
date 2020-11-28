@@ -142,6 +142,7 @@ UINT LoadManager::FindUnemployedThread()
         {
             index = i;
             findUnemplement = true;
+            break;
         }
     }
 

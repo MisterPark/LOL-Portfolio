@@ -137,7 +137,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	//==============================
 	// 메쉬가 지닌 재질 정보 중 첫 번째 주소를 반환하여 저장
 	pMaterial = (D3DXMATERIAL*)pSubset->GetBufferPointer();
-
+	
 	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
 
 	for (ULONG i = 0; i < subsetCount; ++i)
@@ -155,12 +155,15 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 
 		lstrcat(szFullPath, szFileName);
 
+		HRESULT res = E_FAIL;
 		RenderManager::LockDevice();
-		if (FAILED(D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i])))
+		res = D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i]);
+		if (res != S_OK)
 		{
 			RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
+		
 
 		RenderManager::UnlockDevice();
 	}
@@ -177,10 +180,17 @@ void PKH::StaticMesh::Render()
 
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
+	device->SetRenderState(D3DRS_LIGHTING, false);
+	// TODO : 바꿔야함 컬모드
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{
 		device->SetTexture(0, ppTextures[i]);
 		pMesh->DrawSubset(i);
 	}
+
+	device->SetRenderState(D3DRS_LIGHTING, false);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	RenderManager::UnlockDevice();
 }

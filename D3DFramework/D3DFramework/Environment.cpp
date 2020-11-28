@@ -4,9 +4,14 @@
 
 Environment::Environment()
 {
-	CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");
-	mesh->SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-	mesh->SetTexture(TextureKey::GRASS);
+	//CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");
+	//mesh->SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+	//mesh->SetTexture(TextureKey::GRASS);
+
+	transform->scale = { 0.01f,0.01f, 0.01f };
+	transform->eulerAngles.y = D3DXToRadian(180.f);
+	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"summoner_rift");
+	AddComponent(L"StaticMesh", smesh);
 }
 
 Environment::~Environment()

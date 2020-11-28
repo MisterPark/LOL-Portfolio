@@ -14,6 +14,9 @@ void LoadingScene::OnLoaded()
 
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/garen/", L"garen_test.X", Count);
 
+	//LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/sr/", L"sr.x", Count);
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x",Count);
+
 }
 
 void LoadingScene::OnUnloaded()
@@ -24,8 +27,9 @@ void LoadingScene::OnUnloaded()
 void LoadingScene::Update()
 {
 	
-	if (loadCount == 2)
+	if (loadCount == 3)
 	{
+
 		SceneManager::LoadScene<TestScene>();
 	}
 }

@@ -53,49 +53,24 @@ void PKH::Camera::Destroy()
 
 void PKH::Camera::Update()
 {
+	if (InputManager::GetKey(VK_UP))
+	{
+		transform->position.y += 10.f * TimeManager::DeltaTime();
+	}
+	if (InputManager::GetKey(VK_DOWN))
+	{
+		transform->position.y -= 10.f * TimeManager::DeltaTime();
+	}
 	if (nullptr != target)
 	{
-		if (isSlowChase)
-		{
-			Vector3 dst = target->transform->position - (target->GetTransform()->look * target->GetTransform()->scale.y * 6.f);
-			dst.y += target->GetTransform()->scale.y * 5.f;
+		transform->position = target->GetTransform()->position - (target->GetTransform()->look * target->GetTransform()->scale.y * 6.f);
+		//transform->position.y += 1.f;
+		transform->position.y += target->GetTransform()->scale.y * 5.f;
 
-			Vector3 dir = dst - transform->position;
-
-			float distance = D3DXVec3Length(&dir);
-
-			if (0.1f > distance)
-			{
-				isSlowChase = false;
-			}
-			else
-			{
-				D3DXVec3Normalize(&dir, &dir);
-
-				float speed = 10.f;
-
-				transform->position += dir * TimeManager::DeltaTime() * (speed + slowTime);
-
-				slowTime += TimeManager::DeltaTime();
-
-				//transform->look = target->GetTransform()->position;
-				transform->look = target->GetTransform()->position + (target->GetTransform()->look * 10.f);
-			}
-		}
-		else
-		{
-			transform->position = target->GetTransform()->position - (target->GetTransform()->look * target->GetTransform()->scale.y * 6.f);
-			//transform->position.y += 1.f;
-			transform->position.y += target->GetTransform()->scale.y * 5.f;
-
-			transform->look = target->GetTransform()->position + (target->GetTransform()->look * 10.f);
-		}
+		transform->look = target->GetTransform()->position + (target->GetTransform()->look * 10.f);
 	}
 
-	UpdateShake();
-
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
-	//D3DXMatrixLookAtLH(&viewMatrix, &transform->position, &transform->look, &transform->up);
 	RenderManager::SetTransform(D3DTS_VIEW, &viewMatrix);
 
 	// Åõ¿µ
