@@ -218,6 +218,24 @@ void PKH::GameObject::ReleaseComponents()
 	components.clear();
 }
 
+void PKH::GameObject::RemoveComponent(IComponent* _target)
+{
+	auto iter = components.begin();
+	auto end = components.end();
+	for (; iter != end;++iter)
+	{
+		if (iter->second == _target)
+		{
+			delete _target;
+			components.erase(iter);
+			break;
+		}
+
+		
+
+	}
+}
+
 IComponent* PKH::GameObject::GetComponent(const wstring& _key)
 {
 	auto f = components.find(_key);

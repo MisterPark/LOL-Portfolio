@@ -20,13 +20,15 @@ PKH::CustomMesh::CustomMesh(GameObject* owner)
 PKH::CustomMesh::CustomMesh(const CustomMesh& rhs)
 	:Mesh(rhs)
 {
-
+	
 }
 
 CustomMesh::~CustomMesh()
 {
 	vertexBuffer->Release();
 	triangles->Release();
+	Safe_Delete_Array(&pVertices);
+	Safe_Delete_Array(&pIndices);
 }
 
 void PKH::CustomMesh::Render()
@@ -149,14 +151,35 @@ void PKH::CustomMesh::Render()
 	RenderManager::UnlockDevice();
 }
 
-UINT PKH::CustomMesh::GetVertexCount()
-{
-	return this->vertexCount;
-}
 
 IDirect3DVertexBuffer9 * PKH::CustomMesh::GetVertexBuffer()
 {
 	return vertexBuffer;
+}
+
+Vector3* PKH::CustomMesh::GetVertices()
+{
+	return pVertices;
+}
+
+DWORD* PKH::CustomMesh::GetIndices()
+{
+	return pIndices;
+}
+
+ULONG PKH::CustomMesh::GetVertexCount()
+{
+	return this->vertexCount;
+}
+
+ULONG PKH::CustomMesh::GetVertexSize()
+{
+	return this->vertexSize;
+}
+
+ULONG PKH::CustomMesh::GetFaceCount()
+{
+	return this->triangleCount;
 }
 
 void PKH::CustomMesh::SetColor(D3DCOLOR color)
@@ -214,3 +237,5 @@ void PKH::CustomMesh::SetLightMode(LightMode _mode)
 {
 	lightMode = _mode;
 }
+
+

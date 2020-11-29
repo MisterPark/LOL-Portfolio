@@ -3,6 +3,7 @@
 #include "StaticMesh.h"
 #include "SphereCollider.h"
 #include "BoxCollider.h"
+#include "MeshCollider.h"
 
 TestMan::TestMan()
 {
@@ -13,11 +14,12 @@ TestMan::TestMan()
 	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"malp");
 	AddComponent(L"StaticMesh", smesh);
 
-	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen_test");
-	AddComponent(L"DynamicMesh", dmesh);
+	//DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen_test");
+	//AddComponent(L"DynamicMesh", dmesh);
 
 	//AddComponent<SphereCollider>(L"SphereCollider");
-	AddComponent<BoxCollider>(L"BoxCollider");
+	//AddComponent<BoxCollider>(L"BoxCollider");
+	AddComponent<MeshCollider>(L"MeshCollider");
 	
 }
 

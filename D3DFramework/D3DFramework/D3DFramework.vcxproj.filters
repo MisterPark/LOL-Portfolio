@@ -318,6 +318,9 @@
     <ClInclude Include="BaseObject.h">
       <Filter>BaseObject</Filter>
     </ClInclude>
+    <ClInclude Include="MeshCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -618,6 +621,9 @@
     </ClCompile>
     <ClCompile Include="AnimationController.cpp">
       <Filter>Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCollider.cpp">
+      <Filter>Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

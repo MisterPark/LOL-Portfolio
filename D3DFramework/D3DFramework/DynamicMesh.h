@@ -30,6 +30,13 @@ namespace PKH
 
 		// CombinedTransformationMatrix의 주소값을 얻어와서 채워주는 함수
 		void			SetUp_FrameMatrixPointer(D3DXFRAME_DERIVED* pFrame);
+	public:
+		// TODO : 이것들 세팅해줘야 할 경우가 생기려나?
+		virtual ULONG GetVertexCount() override { return 0; }
+		virtual ULONG GetVertexSize() override { return 0; }
+		virtual Vector3* GetVertices() override { return nullptr; }
+		virtual DWORD* GetIndices() override { return nullptr; }
+		virtual ULONG GetFaceCount() override { return 0; }
 
 	private:
 		D3DXFRAME* m_pRootFrame;

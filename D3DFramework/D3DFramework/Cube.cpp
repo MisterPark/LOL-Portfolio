@@ -32,11 +32,12 @@ IComponent* PKH::Cube::Clone()
 void PKH::Cube::CreateCustomMesh()
 {
 	this->vertexCount = 8;
+	this->vertexSize = sizeof(Vertex);
 	this->triangleCount = 12;
 
 	RenderManager::LockDevice();
 	RenderManager::GetDevice()->CreateVertexBuffer(
-		vertexCount * sizeof(Vertex),
+		vertexCount * vertexSize,
 		D3DUSAGE_WRITEONLY,
 		Vertex::FVF,
 		D3DPOOL_MANAGED,
@@ -52,6 +53,9 @@ void PKH::Cube::CreateCustomMesh()
 		0);
 	RenderManager::UnlockDevice();
 
+	pVertices = new Vector3[vertexCount];
+	pIndices = new DWORD[triangleCount * 3];
+
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
@@ -66,6 +70,12 @@ void PKH::Cube::CreateCustomMesh()
 	vertices[5] = Vertex(Vector3(-1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 255, 0), 1, 0);
 	vertices[6] = Vertex(Vector3(1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 0, 255), 0, 0);
 	vertices[7] = Vertex(Vector3(1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 255), 0, 1);
+
+	for (int i = 0; i < vertexCount; i++)
+	{
+		pVertices[i] = vertices[i].pos;
+	}
+
 	vertexBuffer->Unlock();
 
 	WORD* indices = nullptr;
@@ -88,5 +98,13 @@ void PKH::Cube::CreateCustomMesh()
 	// го
 	indices[30] = 4; indices[31] = 0; indices[32] = 7;
 	indices[33] = 0; indices[34] = 3; indices[35] = 7;
+
+	int indexCount = triangleCount * 3;
+	for (int i = 0; i < indexCount; i++)
+	{
+		pIndices[0] = indices[i];
+	}
+	
+
 	triangles->Unlock();
 }

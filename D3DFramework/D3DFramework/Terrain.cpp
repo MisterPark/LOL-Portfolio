@@ -43,7 +43,7 @@ void PKH::Terrain::CreateCustomMesh()
 		0);
 
 	RenderManager::GetDevice()->CreateIndexBuffer(
-		triangleCount * 3 * sizeof(INDEX16),
+		triangleCount * sizeof(INDEX16),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX16,
 		D3DPOOL_MANAGED,

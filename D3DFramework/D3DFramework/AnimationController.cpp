@@ -98,7 +98,7 @@ AnimationController* AnimationController::Create(LPD3DXANIMATIONCONTROLLER pAniC
 	AnimationController* pInstance = new AnimationController(pAniCtrl);
 
 	if (FAILED(pInstance->Ready_AnimationCtrl()))
-		Safe_Release(pInstance);
+		Safe_Release(&pInstance);
 
 	return pInstance;
 }
@@ -108,7 +108,7 @@ AnimationController* AnimationController::Create(const AnimationController& rhs)
 	AnimationController* pInstance = new AnimationController(rhs);
 
 	if (FAILED(pInstance->Ready_AnimationCtrl()))
-		Safe_Release(pInstance);
+		Safe_Release(&pInstance);
 
 	return pInstance;
 }
@@ -116,7 +116,7 @@ AnimationController* AnimationController::Create(const AnimationController& rhs)
 void AnimationController::Free(void)
 {
 	
-	Safe_Release(m_pAniCtrl);
+	Safe_Release(&m_pAniCtrl);
 }
 
 bool AnimationController::Is_AnimationSetEnd(void)

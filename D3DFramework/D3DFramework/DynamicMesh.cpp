@@ -23,12 +23,12 @@ PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
 
 PKH::DynamicMesh::~DynamicMesh()
 {
-	Safe_Release(m_pAniCtrl);
+	Safe_Release(&m_pAniCtrl);
 
 	if (false == isClone)
 	{
 		m_pLoader->DestroyFrame(m_pRootFrame);
-		Safe_Release(m_pLoader);
+		Safe_Release(&m_pLoader);
 	}
 	m_MeshContainerList.clear();
 }
@@ -63,7 +63,7 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 	m_pAniCtrl = AnimationController::Create(pAniCtrl);
 	NULL_CHECK_RETURN(m_pAniCtrl, E_FAIL);
 
-	Safe_Release(pAniCtrl);
+	Safe_Release(&pAniCtrl);
 
 	Matrix		matTemp;
 	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));

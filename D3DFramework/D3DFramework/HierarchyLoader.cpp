@@ -137,7 +137,7 @@ STDMETHODIMP HierarchyLoader::CreateMeshContainer(THIS_ LPCSTR Name,
 
 STDMETHODIMP HierarchyLoader::DestroyFrame(THIS_ LPD3DXFRAME pFrameToFree)
 {
-	Safe_Delete_Array(pFrameToFree->Name);
+	Safe_Delete_Array(&pFrameToFree->Name);
 
 	if (nullptr != pFrameToFree->pMeshContainer)
 		DestroyMeshContainer(pFrameToFree->pMeshContainer);
@@ -148,7 +148,7 @@ STDMETHODIMP HierarchyLoader::DestroyFrame(THIS_ LPD3DXFRAME pFrameToFree)
 	if (nullptr != pFrameToFree->pFrameFirstChild)
 		DestroyFrame(pFrameToFree->pFrameFirstChild);
 
-	Safe_Delete(pFrameToFree);
+	Safe_Delete(&pFrameToFree);
 
 	return S_OK;
 }
@@ -158,21 +158,21 @@ STDMETHODIMP HierarchyLoader::DestroyMeshContainer(THIS_ LPD3DXMESHCONTAINER pMe
 	D3DXMESHCONTAINER_DERIVED* pMeshContainer = (D3DXMESHCONTAINER_DERIVED*)pMeshContainerToFree;
 
 	for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
-		Safe_Release(pMeshContainer->ppTexture[i]);
+		Safe_Release(&pMeshContainer->ppTexture[i]);
 
-	Safe_Delete_Array(pMeshContainer->ppTexture);
-	Safe_Delete_Array(pMeshContainer->Name);
-	Safe_Delete_Array(pMeshContainer->pAdjacency);
-	Safe_Delete_Array(pMeshContainer->pFrameOffsetMatrix);
-	Safe_Delete_Array(pMeshContainer->pMaterials);
-	Safe_Delete_Array(pMeshContainer->ppFrameCombinedMatrix);
-	Safe_Delete_Array(pMeshContainer->pRenderingMatrix);
+	Safe_Delete_Array(&pMeshContainer->ppTexture);
+	Safe_Delete_Array(&pMeshContainer->Name);
+	Safe_Delete_Array(&pMeshContainer->pAdjacency);
+	Safe_Delete_Array(&pMeshContainer->pFrameOffsetMatrix);
+	Safe_Delete_Array(&pMeshContainer->pMaterials);
+	Safe_Delete_Array(&pMeshContainer->ppFrameCombinedMatrix);
+	Safe_Delete_Array(&pMeshContainer->pRenderingMatrix);
 
-	Safe_Release(pMeshContainer->MeshData.pMesh);
-	Safe_Release(pMeshContainer->pOriMesh);
-	Safe_Release(pMeshContainer->pSkinInfo);
+	Safe_Release(&pMeshContainer->MeshData.pMesh);
+	Safe_Release(&pMeshContainer->pOriMesh);
+	Safe_Release(&pMeshContainer->pSkinInfo);
 
-	Safe_Delete(pMeshContainer);
+	Safe_Delete(&pMeshContainer);
 
 	return S_OK;
 }
@@ -197,7 +197,7 @@ HierarchyLoader* HierarchyLoader::Create(LPDIRECT3DDEVICE9 pGraphicDev, const WC
 
 ULONG HierarchyLoader::Release(void)
 {
-	Safe_Release(m_pGraphicDev);
+	Safe_Release(&m_pGraphicDev);
 
 	delete this;
 

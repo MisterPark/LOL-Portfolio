@@ -64,6 +64,8 @@ namespace PKH
 		IComponent* AddComponent(const wstring& _key);
 		IComponent* AddComponent(const wstring& _key, IComponent* _component);
 		void ReleaseComponents();
+		void RemoveComponent(IComponent* _target);
+
 
 		// getter
 		IComponent* GetComponent(const wstring& _key);

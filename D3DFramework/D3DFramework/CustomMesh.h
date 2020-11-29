@@ -42,10 +42,17 @@ namespace PKH
 
 		virtual PKH::IComponent* Clone() = 0;
 
-		//====
-		UINT GetVertexCount();
+		// getter
+		
 		IDirect3DVertexBuffer9* GetVertexBuffer();
+		// Mesh을(를) 통해 상속됨
+		virtual Vector3* GetVertices() override;
+		virtual DWORD* GetIndices() override;
+		virtual ULONG GetVertexCount() override;
+		virtual ULONG GetVertexSize() override;
+		virtual ULONG GetFaceCount() override;
 
+		// setter
 		void SetColor(D3DCOLOR color);
 		void SetTexture(TextureKey key);
 		void SetVertexPos(UINT index, const Vector3& pos);
@@ -59,16 +66,23 @@ namespace PKH
 		IDirect3DVertexBuffer9* vertexBuffer = nullptr;
 		IDirect3DIndexBuffer9* triangles = nullptr;
 		UINT vertexCount;
+		UINT vertexSize;
 		UINT triangleCount;
 		BlendMode blendMode = BlendMode::NONE;
 		ZReadMode zReadMode = ZReadMode::ON;
 		ZWriteMode zWriteMode = ZWriteMode::ON;
 		LightMode lightMode = LightMode::OFF;
 		D3DMATERIAL9 material;
+
+		Vector3* pVertices = nullptr;
+		DWORD* pIndices = nullptr;
 	public:
 		TextureKey textureKey = TextureKey::NONE;
 
 		
+
+		
+
 	};
 }
 

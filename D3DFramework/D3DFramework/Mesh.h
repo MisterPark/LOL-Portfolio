@@ -12,7 +12,12 @@ namespace PKH
 
 
 	public:
-		virtual IComponent* Clone() = 0;
+		virtual IComponent* Clone()		PURE;
+		virtual Vector3* GetVertices()	PURE;
+		virtual DWORD* GetIndices()		PURE;
+		virtual ULONG GetVertexCount()	PURE;
+		virtual ULONG GetVertexSize()	PURE;
+		virtual ULONG GetFaceCount()	PURE;
 
 	protected:
 		bool isClone;

@@ -65,7 +65,8 @@ void PlayerController::Update()
         if (Physics::Raycast(ray, &hit))
         {
             printf("%f\n", hit.distance);
-            hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
+            //hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
+            hit.collider->gameObject->Destroy();
         }
     }
 }

@@ -14,9 +14,11 @@ namespace PKH
         virtual IComponent* Clone() override;
 
     public:
-        const ULONG& GetVertexCount() { return this->vertexCount; }
-        const ULONG& GetVertexSize() { return this->vertexSize; }
-        const Vector3* GetVertices() { return this->pVertices; }
+        virtual ULONG GetVertexCount() override { return this->vertexCount; }
+        virtual ULONG GetVertexSize() override { return this->vertexSize; }
+        virtual Vector3* GetVertices() override { return this->pVertices; }
+        virtual DWORD* GetIndices() override { return this->pIndices; }
+        virtual ULONG GetFaceCount() override { return this->triangleCount; }
 
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
@@ -31,12 +33,15 @@ namespace PKH
         D3DXMATERIAL*       pMaterial;
         ULONG				subsetCount;
 
-        // VertexSize (정점 메모리 크기)
-        ULONG				vertexSize;
-        ULONG				vertexCount;
-        Vector3*            pVertices;
-
         LPDIRECT3DTEXTURE9* ppTextures;
+
+        // VertexSize (정점 메모리 크기)
+        ULONG				vertexSize = 0;
+        ULONG				vertexCount = 0;
+        Vector3* pVertices;// = nullptr;
+        DWORD* pIndices;// = nullptr;
+        ULONG triangleCount = 0;
+
     };
 
 }

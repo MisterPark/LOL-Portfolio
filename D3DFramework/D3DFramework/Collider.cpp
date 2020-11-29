@@ -23,9 +23,11 @@ PKH::Collider::~Collider()
 		CollisionManager::DisregisterObject(gameObject->GetLayer(), this);
 	}
 	
-	Safe_Release(pMesh);
-	Safe_Delete_Array(vertexPositions);
-	Safe_Delete_Array(indices);
+	Safe_Release(&pMesh);
+	Safe_Delete_Array(&vertexPositions);
+	Safe_Delete_Array(&indices);
+	vertexPositions = nullptr;
+	indices = nullptr;
 }
 
 void PKH::Collider::Update()
@@ -154,6 +156,7 @@ void PKH::Collider::SetMeshInformation()
 
 	//==================================
 	// TODO :(매우낮음) 만약 IndexBuffer의 단위가 32비트면 주석풀고 바꿔줘야함
+	// TODO : 인덱스버퍼 크기 찾는 코드
 	//D3DINDEXBUFFER_DESC desc;
 	//pIB->GetDesc(&desc);
 	//D3DFORMAT format = desc.Format;
@@ -165,9 +168,9 @@ void PKH::Collider::SetMeshInformation()
 
 
 	// 삼각형 갯수 세팅
-	faceCount = pMesh->GetNumFaces();
-	int indexCount = faceCount * 3;
-	indices = new WORD[indexCount];
+	triangleCount = pMesh->GetNumFaces();
+	int indexCount = triangleCount * 3;
+	indices = new DWORD[indexCount];
 
 	WORD* dummyIndices = nullptr;
 	pMesh->LockIndexBuffer(0, (void**)&dummyIndices);

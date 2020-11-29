@@ -80,8 +80,8 @@ bool BoxCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
     matWorld._43 = transform->position.z;
     
     float u, v, dist;
-    WORD index;
-    for (int i = 0; i < faceCount; i++)
+    DWORD index;
+    for (int i = 0; i < triangleCount; i++)
     {
         index = i * 3;
         Vector3 v1 = vertexPositions[indices[index]];

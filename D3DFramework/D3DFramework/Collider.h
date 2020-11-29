@@ -54,8 +54,8 @@ namespace PKH
         Vector3* vertexPositions = nullptr;
         UINT vertexCount = 0;
 
-        WORD* indices = nullptr;
-        UINT faceCount = 0;
+        DWORD* indices = nullptr;
+        UINT triangleCount = 0;
     };
 
 }

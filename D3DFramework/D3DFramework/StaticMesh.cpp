@@ -15,37 +15,51 @@ PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	, pMaterial(rhs.pMaterial)
 	, subsetCount(rhs.subsetCount)
 	, vertexCount(rhs.vertexCount)
-	, pVertices(rhs.pVertices)
 	, vertexSize(rhs.vertexSize)
+	, triangleCount(rhs.triangleCount)
+	//, pVertices(rhs.pVertices)
+	//, pIndices(rhs.pIndices)
 {
 	ppTextures = new LPDIRECT3DTEXTURE9[rhs.subsetCount];
 
 	for (ULONG i = 0; i < rhs.subsetCount; ++i)
 	{
 		ppTextures[i] = rhs.ppTextures[i];
-		Safe_AddRef(ppTextures[i]);
+		Safe_AddRef(&ppTextures[i]);
 	}
-	Safe_AddRef(pMesh);
-	Safe_AddRef(pOriginMesh);
-	Safe_AddRef(pAdjacency);
-	Safe_AddRef(pSubset);
+	pVertices = rhs.pVertices;
+	pIndices = rhs.pIndices;
+	//pVertices = new Vector3[vertexCount];
+	//memcpy(pVertices, rhs.pVertices, sizeof(Vector3) * vertexCount);
+	//pIndices = new DWORD[triangleCount * 3];
+	//memcpy(pIndices, rhs.pIndices, sizeof(DWORD) * triangleCount * 3);
+
+	Safe_AddRef(&pMesh);
+	Safe_AddRef(&pOriginMesh);
+	Safe_AddRef(&pAdjacency);
+	Safe_AddRef(&pSubset);
 }
 
 PKH::StaticMesh::~StaticMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
-		Safe_Release(ppTextures[i]);
+		Safe_Release(&ppTextures[i]);
 
-	Safe_Delete_Array(ppTextures);
+	Safe_Delete_Array(&ppTextures);
+	ppTextures = nullptr;
 
 	if (isClone == false)
-		Safe_Delete_Array(pVertices);
-
-
-	Safe_Release(pSubset);
-	Safe_Release(pAdjacency);
-	Safe_Release(pOriginMesh);
-	Safe_Release(pMesh);
+	{
+		Safe_Delete_Array(&pVertices);
+		Safe_Delete_Array(&pIndices);
+	}
+	
+	
+	
+	Safe_Release(&pSubset);
+	Safe_Release(&pAdjacency);
+	Safe_Release(&pOriginMesh);
+	Safe_Release(&pMesh);
 
 }
 
@@ -131,6 +145,27 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	}
 	
 	pMesh->UnlockVertexBuffer();
+
+	//==============================
+	// 인덱스 정보 저장
+	//==============================
+
+	this->triangleCount = pMesh->GetNumFaces();
+	int indexCount = triangleCount * 3;
+	pIndices = new DWORD[indexCount];
+
+	WORD* indices;
+	pMesh->LockIndexBuffer(0, (void**)&indices);
+
+	
+	for (int i = 0; i < indexCount; i++)
+	{
+		DWORD ind = indices[i];
+		pIndices[i] = indices[i];
+
+	}
+
+	pMesh->UnlockIndexBuffer();
 	
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
@@ -182,7 +217,7 @@ void PKH::StaticMesh::Render()
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{
