@@ -19,8 +19,8 @@ void TestScene::OnLoaded()
 
 
 	GameObject* obj = nullptr;
-	//obj = ObjectManager::GetInstance()->CreateObject<Environment>();
-	//obj->transform->position = { 0,0,0 };
+	obj = ObjectManager::GetInstance()->CreateObject<Environment>();
+	obj->transform->position = { 0,0,0 };
 
 	obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
 	obj->transform->scale = { 0.003f,0.003f, 0.003f };

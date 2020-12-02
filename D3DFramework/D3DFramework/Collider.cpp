@@ -150,21 +150,12 @@ void PKH::Collider::SetMeshInformation()
 
 	pMesh->UnlockVertexBuffer();
 
-	// 인덱스 버퍼
-	LPDIRECT3DINDEXBUFFER9 pIB;
-	pMesh->GetIndexBuffer(&pIB);
+	
 
 	//==================================
 	// TODO :(매우낮음) 만약 IndexBuffer의 단위가 32비트면 주석풀고 바꿔줘야함
 	// TODO : 인덱스버퍼 크기 찾는 코드
-	//D3DINDEXBUFFER_DESC desc;
-	//pIB->GetDesc(&desc);
-	//D3DFORMAT format = desc.Format;
-	//UINT indexSize = 2; // INDEX16
-	//if (format == D3DFORMAT::D3DFMT_INDEX32)
-	//{
-	//	indexSize = 4;
-	//}
+	
 
 
 	// 삼각형 갯수 세팅
@@ -172,14 +163,38 @@ void PKH::Collider::SetMeshInformation()
 	int indexCount = triangleCount * 3;
 	indices = new DWORD[indexCount];
 
-	WORD* dummyIndices = nullptr;
-	pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
-	for (int i = 0; i < indexCount; i++)
+	// 인덱스 버퍼 세팅
+	LPDIRECT3DINDEXBUFFER9 pIB;
+	pMesh->GetIndexBuffer(&pIB);
+
+	D3DINDEXBUFFER_DESC desc;
+	pIB->GetDesc(&desc);
+	D3DFORMAT format = desc.Format;
+	UINT indexSize = 2; // INDEX16
+	if (format == D3DFORMAT::D3DFMT_INDEX16)
 	{
-		WORD idx = dummyIndices[i];
-		indices[i] = idx;
+		WORD* dummyIndices = nullptr;
+		pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
+		for (int i = 0; i < indexCount; i++)
+		{
+			WORD idx = dummyIndices[i];
+			indices[i] = idx;
+		}
+		pMesh->UnlockIndexBuffer();
 	}
-	pMesh->UnlockIndexBuffer();
+	else
+	{
+		DWORD* dummyIndices = nullptr;
+		pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
+		for (int i = 0; i < indexCount; i++)
+		{
+			DWORD idx = dummyIndices[i];
+			indices[i] = idx;
+		}
+		pMesh->UnlockIndexBuffer();
+	}
+
+	
 
 
 }

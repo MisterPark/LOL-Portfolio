@@ -154,18 +154,37 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	int indexCount = triangleCount * 3;
 	pIndices = new DWORD[indexCount];
 
-	WORD* indices;
-	pMesh->LockIndexBuffer(0, (void**)&indices);
+	// TODO : 인덱스16 or 32 찾는 코드
+	// 인덱스 버퍼 세팅
+	LPDIRECT3DINDEXBUFFER9 pIB;
+	pMesh->GetIndexBuffer(&pIB);
 
-	
-	for (int i = 0; i < indexCount; i++)
+	D3DINDEXBUFFER_DESC desc;
+	pIB->GetDesc(&desc);
+	D3DFORMAT format = desc.Format;
+	UINT indexSize = 2; // INDEX16
+	if (format == D3DFORMAT::D3DFMT_INDEX16)
 	{
-		DWORD ind = indices[i];
-		pIndices[i] = indices[i];
-
+		WORD* dummyIndices = nullptr;
+		pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
+		for (int i = 0; i < indexCount; i++)
+		{
+			WORD idx = dummyIndices[i];
+			pIndices[i] = idx;
+		}
+		pMesh->UnlockIndexBuffer();
 	}
-
-	pMesh->UnlockIndexBuffer();
+	else
+	{
+		DWORD* dummyIndices = nullptr;
+		pMesh->LockIndexBuffer(0, (void**)&dummyIndices);
+		for (int i = 0; i < indexCount; i++)
+		{
+			DWORD idx = dummyIndices[i];
+			pIndices[i] = idx;
+		}
+		pMesh->UnlockIndexBuffer();
+	}
 	
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
