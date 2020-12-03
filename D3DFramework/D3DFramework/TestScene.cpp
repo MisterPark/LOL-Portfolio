@@ -6,6 +6,7 @@
 #include "PlayerController.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
+#include "NavMeshMap.h"
 
 void TestScene::OnLoaded()
 {
@@ -23,13 +24,18 @@ void TestScene::OnLoaded()
 	obj->transform->position = { 0,0,0 };
 
 	obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
-	obj->transform->scale = { 0.003f,0.003f, 0.003f };
-	obj->transform->position = { 0,0,0 };
+	obj->transform->scale = { 0.01f,0.01f, 0.01f };
+	obj->transform->position = { 47,68,41 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
 
+	Camera::GetInstance()->SetTarget(obj);
+
 	obj = ObjectManager::GetInstance()->CreateObject<TestMan>();
-	obj->transform->scale = { 0.003f,0.003f, 0.003f };
+	obj->transform->scale = { 0.01f,0.01f, 0.01f };
 	obj->transform->position = { 2,0,2 };
+
+	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
+
 	
 
 	//obj = ObjectManager::GetInstance()->CreateObject<TestMan>();

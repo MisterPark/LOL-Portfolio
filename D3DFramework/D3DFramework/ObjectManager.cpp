@@ -89,7 +89,6 @@ void PKH::ObjectManager::DestroyAll()
 
 void PKH::ObjectManager::AddObject(GameObject* _obj, Layer _layer)
 {
-	_obj->SetLayer(_layer);
 	pObjectManager->objectTable[(int)_layer].push_back(_obj);
 }
 

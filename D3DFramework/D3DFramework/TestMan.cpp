@@ -45,5 +45,5 @@ void TestMan::OnCollisionEnter(const Collider* target)
 	Collider* collider = (Collider*)GetComponent<Collider>();
 	if (collider == nullptr) return;
 
-	collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
+	//collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
 }

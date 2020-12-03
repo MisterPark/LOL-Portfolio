@@ -66,8 +66,12 @@ namespace PKH
 		{
 			return nullptr;
 		}
-		obj->SetLayer(layer);
-		objectTable[(int)layer].push_back(obj);
+
+		if (obj->SetLayer(layer) == false)
+		{
+			objectTable[(int)layer].push_back(obj);
+		}
+			
 
 		return obj;
 	}

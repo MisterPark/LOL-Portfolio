@@ -116,6 +116,12 @@ void PKH::Collider::SetColor(D3DCOLOR color)
 	pMesh->UnlockVertexBuffer();
 }
 
+void PKH::Collider::SetLayer(Layer layer)
+{
+	CollisionManager::GetInstance()->DisregisterObject(this);
+	CollisionManager::RegisterObject(layer, this);
+}
+
 void PKH::Collider::SetMeshInformation()
 {
 	if (pMesh == nullptr)return;

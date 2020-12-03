@@ -110,6 +110,15 @@ void PKH::GameObject::MoveToTarget(Vector3 _target)
 	transform->position.z += dir.z * TimeManager::DeltaTime();
 }
 
+void PKH::GameObject::MoveToTarget(Vector3 _target, float _speed)
+{
+	Vector3 dir = _target - transform->position;
+	Vector3::Normalize(&dir);
+	transform->position.x += dir.x * _speed * TimeManager::DeltaTime();
+	transform->position.y += dir.y * _speed * TimeManager::DeltaTime();
+	transform->position.z += dir.z * _speed * TimeManager::DeltaTime();
+}
+
 void PKH::GameObject::FollowTarget(const GameObject* _target)
 {
 	MoveToTarget(_target->transform->position);
@@ -248,13 +257,23 @@ bool PKH::GameObject::IsDead()
 	return isDead;
 }
 
-void PKH::GameObject::SetLayer(Layer _layer)
+bool PKH::GameObject::SetLayer(Layer _layer)
 {
-	if (this->layer == _layer) return;
+	if (this->layer == _layer) return false;
 
 	this->layer = _layer;
 	ObjectManager::RemoveObject(this);
 	ObjectManager::AddObject(this, _layer);
+	for (auto iter : components)
+	{
+		IComponent* comp = iter.second;
+		Collider* collider = dynamic_cast<Collider*>(comp);
+		if (collider == nullptr) continue;
+
+		collider->SetLayer(_layer);
+	}
+
+	return true;
 }
 
 

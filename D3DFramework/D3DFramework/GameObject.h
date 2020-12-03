@@ -44,6 +44,7 @@ namespace PKH
 		void Move(Vector3 _direction, float _speed);
 		// 위치로 이동
 		void MoveToTarget(Vector3 _target);
+		void MoveToTarget(Vector3 _target, float _speed);
 		// 타겟 따라가기
 		void FollowTarget(const GameObject* _target);
 		void FollowTarget(const Transform& _targetTransform);
@@ -77,7 +78,7 @@ namespace PKH
 		bool IsDead();
 		
 		// setter
-		void SetLayer(Layer _layer);
+		bool SetLayer(Layer _layer);
 		
 
 	public:

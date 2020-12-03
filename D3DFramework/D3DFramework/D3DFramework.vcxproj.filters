@@ -91,6 +91,9 @@
     <Filter Include="BaseObject">
       <UniqueIdentifier>{18c61410-f6ed-4d31-952b-9d5d3321f181}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\NavMeshMap">
+      <UniqueIdentifier>{b51fdb6e-b7f9-4ee7-925a-d319f500d3a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -321,6 +324,7 @@
     <ClInclude Include="MeshCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="NavMeshMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -625,6 +629,7 @@
     <ClCompile Include="MeshCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="NavMeshMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

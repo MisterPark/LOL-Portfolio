@@ -236,7 +236,7 @@ void PKH::StaticMesh::Render()
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{

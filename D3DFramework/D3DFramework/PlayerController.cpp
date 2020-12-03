@@ -23,19 +23,19 @@ void PlayerController::Update()
     
     if (InputManager::GetKey('W'))
     {
-        gameObject->transform->position.z +=  TimeManager::DeltaTime();
+        gameObject->transform->position.z += 10.f* TimeManager::DeltaTime();
     }
     if (InputManager::GetKey('A'))
     {
-        gameObject->transform->position.x -=  TimeManager::DeltaTime();
+        gameObject->transform->position.x -= 10.f * TimeManager::DeltaTime();
     }
     if (InputManager::GetKey('S'))
     {
-        gameObject->transform->position.z -=  TimeManager::DeltaTime();
+        gameObject->transform->position.z -= 10.f * TimeManager::DeltaTime();
     }
     if (InputManager::GetKey('D'))
     {
-        gameObject->transform->position.x +=  TimeManager::DeltaTime();
+        gameObject->transform->position.x += 10.f * TimeManager::DeltaTime();
     }
 
     if (InputManager::GetKey('Q'))
@@ -64,9 +64,22 @@ void PlayerController::Update()
         RaycastHit hit;
         if (Physics::Raycast(ray, &hit))
         {
-            printf("%f\n", hit.distance);
+            printf("%d,%d,%d\n", (int)hit.point.x, (int)hit.point.y, (int)hit.point.z);
+
             //hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
-            hit.collider->gameObject->Destroy();
+            //hit.collider->gameObject->Destroy();
+
+        }
+    }
+    else if (InputManager::GetMouseRButton())
+    {
+        Ray ray = Camera::ScreenPointToRay(InputManager::GetMousePosition());
+        RaycastHit hit;
+        int mask = LayerMask::GetMask(Layer::Ground);
+        if (Physics::Raycast(ray, &hit, INFINITY, mask))
+        {
+            gameObject->MoveToTarget(hit.point,10.f);
+
         }
     }
 }

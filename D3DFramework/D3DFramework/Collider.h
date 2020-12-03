@@ -32,6 +32,8 @@ namespace PKH
     public:
         // setter
         void SetColor(D3DCOLOR color);
+        void SetLayer(Layer layer);
+
     protected:
         // Mesh 생성 후에 반드시 호출할 것 (VB,IB 등등의 정보 세팅)
         void SetMeshInformation();

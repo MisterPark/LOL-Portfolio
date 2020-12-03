@@ -55,19 +55,19 @@ void PKH::Camera::Update()
 {
 	if (InputManager::GetKey(VK_UP))
 	{
-		transform->position.y += 10.f * TimeManager::DeltaTime();
+		transform->position.y += 100.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_DOWN))
 	{
-		transform->position.y -= 10.f * TimeManager::DeltaTime();
+		transform->position.y -= 100.f * TimeManager::DeltaTime();
 	}
 	if (nullptr != target)
 	{
-		transform->position = target->GetTransform()->position - (target->GetTransform()->look * target->GetTransform()->scale.y * 6.f);
-		//transform->position.y += 1.f;
-		transform->position.y += target->GetTransform()->scale.y * 5.f;
+		transform->position = target->GetTransform()->position;
+		transform->position.y += 6.f;
+		transform->position.z -= 3.f;
 
-		transform->look = target->GetTransform()->position + (target->GetTransform()->look * 10.f);
+		transform->look = target->GetTransform()->position;
 	}
 
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
