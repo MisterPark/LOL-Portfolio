@@ -11,14 +11,14 @@ namespace PKH
 
 	public:
 		LPD3DXANIMATIONCONTROLLER		Get_AnimationCtrl(void) { return m_pAniCtrl; }
-		bool							Is_AnimationSetEnd(void);
+		bool							IsAnimationSetEnd(void);
 
 	public:
 		HRESULT			Ready_AnimationCtrl(void);
 
-		void			Set_AnimationSet(const UINT& iIndex);
+		void			SetAnimationSet(const UINT& iIndex);
 
-		void			Play_Animation(const float& fTimeDelta);
+		void			PlayAnimation(const float& fTimeDelta);
 
 	private:
 		LPD3DXANIMATIONCONTROLLER			m_pAniCtrl;

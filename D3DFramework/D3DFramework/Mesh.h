@@ -19,6 +19,8 @@ namespace PKH
 		virtual ULONG GetVertexSize()	PURE;
 		virtual ULONG GetFaceCount()	PURE;
 
+		virtual void Render() PURE;
+
 	protected:
 		bool isClone;
 		LPDIRECT3DDEVICE9 device = nullptr;

@@ -94,6 +94,12 @@
     <Filter Include="GameObject\NavMeshMap">
       <UniqueIdentifier>{b51fdb6e-b7f9-4ee7-925a-d319f500d3a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Mesh\TerrainMesh">
+      <UniqueIdentifier>{40c7cdf5-c873-4113-ae4c-a561ab058815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Mesh\NavMesh">
+      <UniqueIdentifier>{1567c2d1-90f1-4141-907f-b0ca59195874}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -325,6 +331,9 @@
       <Filter>Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="NavMeshMap.h" />
+    <ClInclude Include="TerrainMesh.h">
+      <Filter>Component\Mesh\TerrainMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -630,6 +639,9 @@
       <Filter>Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="NavMeshMap.cpp" />
+    <ClCompile Include="TerrainMesh.cpp">
+      <Filter>Component\Mesh\TerrainMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

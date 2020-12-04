@@ -3,15 +3,18 @@
 
 namespace PKH
 {
-    class StaticMesh : public Mesh
-    {
-    public:
-        explicit StaticMesh(GameObject* owner);
-        explicit StaticMesh(const StaticMesh& rhs);
-        virtual ~StaticMesh();
+	class HierarchyLoader;
+	class AnimationController;
 
-    public:
-        virtual IComponent* Clone() override;
+	class TerrainMesh : public Mesh
+	{
+	public:
+		explicit TerrainMesh(GameObject* owner);
+		explicit TerrainMesh(const TerrainMesh& rhs);
+		virtual ~TerrainMesh();
+
+		// Mesh을(를) 통해 상속됨
+		virtual IComponent* Clone() override;
 
     public:
         virtual Vector3* GetVertices() override { return this->pVertices; }
@@ -30,7 +33,7 @@ namespace PKH
 
         LPD3DXBUFFER		pAdjacency; // 인접한 이웃의 정보를 접근하기 위해 첫번째 주소를 보관하려는 멤버 변수
         LPD3DXBUFFER		pSubset; // 서브셋 개수 == 텍스쳐의 개수 == 재질의 개수
-        D3DXMATERIAL*       pMaterial;
+        D3DXMATERIAL* pMaterial;
         ULONG				subsetCount;
 
         LPDIRECT3DTEXTURE9* ppTextures;
@@ -42,7 +45,7 @@ namespace PKH
         DWORD* pIndices;// = nullptr;
         ULONG triangleCount = 0;
 
-    };
-
+	};
 }
+
 

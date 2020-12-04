@@ -35,25 +35,10 @@ void PKH::GameObject::Render()
 
 	for (auto& comp : components)
 	{
-		CustomMesh* mesh = dynamic_cast<CustomMesh*>(comp.second);
+		Mesh* mesh = dynamic_cast<Mesh*>(comp.second);
 		if (mesh != nullptr)
 		{
 			mesh->Render();
-			continue;
-		}
-
-		StaticMesh* smesh = dynamic_cast<StaticMesh*>(comp.second);
-		if (smesh != nullptr)
-		{
-			smesh->Render();
-			continue;
-		}
-
-		DynamicMesh* dmesh = dynamic_cast<DynamicMesh*>(comp.second);
-		if (dmesh != nullptr)
-		{
-			dmesh->Render();
-			continue;
 		}
 		
 	}

@@ -33,11 +33,9 @@ void LoadManager::Destroy()
 
 void LoadManager::Initialize()
 {
-    InitializeCriticalSection(&csQ[0]);
-    InitializeCriticalSection(&csQ[1]);
-    InitializeCriticalSection(&csQ[2]);
-    for (int i = 0; i < dfMaxThreadCount; i++)
+    for (int i = 0; i < dfMaxThreadCount; i++)   
     {
+        InitializeCriticalSection(&csQ[i]);
         threadInfo[i].number = i;
         threadInfo[i].pLoad = this;
         threadInfo[i].shutdownFlag = false;
@@ -56,10 +54,9 @@ void LoadManager::Release()
     for (int i = 0; i < dfMaxThreadCount; i++)
     {
         CloseHandle(pLoadManager->hThread[i]);
+        DeleteCriticalSection(&csQ[i]);
     }
-    DeleteCriticalSection(&csQ[0]);
-    DeleteCriticalSection(&csQ[1]);
-    DeleteCriticalSection(&csQ[2]);
+    
     
 }
 
@@ -109,6 +106,11 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
         case LoadType::DYNAMIC_MESH:
         {
             RenderManager::LoadDynamicMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            break;
+        }
+        case LoadType::TERRAIN_MESH:
+        {
+            RenderManager::LoadTerrainMesh(elem.filePath.c_str(), elem.fileName.c_str());
             break;
         }
             
@@ -187,6 +189,23 @@ void LoadManager::LoadDynamicMeshAsync(const wstring& filePath, const wstring& f
     elem.filePath = filePath;
     elem.fileName = fileName;
     elem.type = LoadType::DYNAMIC_MESH;
+    elem.Callback = Callback;
+
+    EnterCriticalSection(&pLoadManager->csQ[index]);
+
+    pLoadManager->jobQ[index].push(elem);
+
+    LeaveCriticalSection(&pLoadManager->csQ[index]);
+}
+
+void LoadManager::LoadTerrainMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+{
+    UINT index = FindUnemployedThread();
+
+    LoadingElement elem;
+    elem.filePath = filePath;
+    elem.fileName = fileName;
+    elem.type = LoadType::TERRAIN_MESH;
     elem.Callback = Callback;
 
     EnterCriticalSection(&pLoadManager->csQ[index]);

@@ -1,11 +1,12 @@
 #pragma once
 #include <process.h>
-#define dfMaxThreadCount 3
+#define dfMaxThreadCount 1
 
 enum class LoadType
 {
 	STATIC_MESH,
 	DYNAMIC_MESH,
+	TERRAIN_MESH,
 };
 
 class LoadManager
@@ -48,6 +49,7 @@ public:
 	static UINT FindUnemployedThread();
 	static void LoadStaticMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
 	static void LoadDynamicMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
+	static void LoadTerrainMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
 
 private:
 	ThreadInfo threadInfo[dfMaxThreadCount] = {};

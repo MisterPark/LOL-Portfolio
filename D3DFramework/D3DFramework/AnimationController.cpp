@@ -34,7 +34,7 @@ HRESULT AnimationController::Ready_AnimationCtrl(void)
 	return S_OK;
 }
 
-void AnimationController::Set_AnimationSet(const UINT& iIndex)
+void AnimationController::SetAnimationSet(const UINT& iIndex)
 {
 	if (m_iOldAniIdx == iIndex)
 		return;
@@ -85,7 +85,7 @@ void AnimationController::Set_AnimationSet(const UINT& iIndex)
 	m_iCurrentTrack = m_iNewTrack;
 }
 
-void AnimationController::Play_Animation(const float& fTimeDelta)
+void AnimationController::PlayAnimation(const float& fTimeDelta)
 {
 	m_pAniCtrl->AdvanceTime(fTimeDelta, NULL);	// 2인자 : 애니메이션 재생에 따라 사운드나, 이펙트를 구동 가능, 하지만 안씀.
 	// AdvanceTime 호출 시 내부적으로 누적되는 시간 값이 있음
@@ -119,7 +119,7 @@ void AnimationController::Free(void)
 	Safe_Release(&m_pAniCtrl);
 }
 
-bool AnimationController::Is_AnimationSetEnd(void)
+bool AnimationController::IsAnimationSetEnd(void)
 {
 	D3DXTRACK_DESC		tTrackInfo;
 	ZeroMemory(&tTrackInfo, sizeof(D3DXTRACK_DESC));

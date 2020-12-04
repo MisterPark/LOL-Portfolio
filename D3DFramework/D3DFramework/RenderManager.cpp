@@ -128,7 +128,15 @@ void PKH::RenderManager::Release()
 		delete pair.second;
 	}
 
+	for (auto pair : pRenderManager->terrainMeshMap)
+	{
+		delete pair.second;
+	}
+
 	pRenderManager->textureMap.clear();
+	pRenderManager->staticMeshMap.clear();
+	pRenderManager->dynamicMeshMap.clear();
+	pRenderManager->terrainMeshMap.clear();
 
 	if (pRenderManager->pLine)
 	{
@@ -898,4 +906,41 @@ DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& key)
 	}
 
 	return (DynamicMesh*)dmesh->second->Clone();
+}
+
+HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+{
+	TerrainMesh* mesh = new TerrainMesh(nullptr);
+	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring key = L"";
+	wstring fileName = pFileName;
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		key += fileName[i];
+	}
+
+
+	pRenderManager->terrainMeshMap[key] = mesh;
+
+	return S_OK;
+}
+
+TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& key)
+{
+	auto mesh = pRenderManager->terrainMeshMap.find(key);
+	if (mesh == pRenderManager->terrainMeshMap.end())
+	{
+		MessageBoxW(g_hwnd, L"로드되지 않은 터레인 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
+		return nullptr;
+	}
+
+	return (TerrainMesh*)mesh->second->Clone();
 }

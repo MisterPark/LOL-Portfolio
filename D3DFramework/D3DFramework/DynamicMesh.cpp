@@ -67,9 +67,9 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 	Matrix		matTemp;
 	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
-	Update_FrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
+	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 
-	SetUp_FrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
+	SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
 
 	return S_OK;
 }
@@ -112,31 +112,31 @@ void DynamicMesh::Render(void)
 	}
 }
 
-const D3DXFRAME_DERIVED* DynamicMesh::Get_FrameByName(const char* pFrameName)
+const D3DXFRAME_DERIVED* DynamicMesh::GetFrameByName(const char* pFrameName)
 {
 	return (D3DXFRAME_DERIVED*)D3DXFrameFind(m_pRootFrame, pFrameName);
 }
 
-bool DynamicMesh::Is_AnimationSetEnd(void)
+bool DynamicMesh::IsAnimationSetEnd(void)
 {
-	return m_pAniCtrl->Is_AnimationSetEnd();
+	return m_pAniCtrl->IsAnimationSetEnd();
 }
 
-void DynamicMesh::Set_AnimationSet(const UINT& iIndex)
+void DynamicMesh::SetAnimationSet(const UINT& iIndex)
 {
-	m_pAniCtrl->Set_AnimationSet(iIndex);
+	m_pAniCtrl->SetAnimationSet(iIndex);
 }
 
-void DynamicMesh::Play_Animation(const float& fTimeDelta)
+void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 {
-	m_pAniCtrl->Play_Animation(fTimeDelta);
+	m_pAniCtrl->PlayAnimation(fTimeDelta);
 
 	Matrix		matTemp;
 	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
-	Update_FrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
+	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 }
 
-void DynamicMesh::Update_FrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix)
+void DynamicMesh::UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix)
 {
 	if (nullptr == pFrame)
 		return;
@@ -144,14 +144,14 @@ void DynamicMesh::Update_FrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* 
 	pFrame->CombinedTransformationMatrix = pFrame->TransformationMatrix * (*pParentMatrix);
 
 	if (nullptr != pFrame->pFrameSibling)
-		Update_FrameMatrices((D3DXFRAME_DERIVED*)pFrame->pFrameSibling, pParentMatrix);
+		UpdateFrameMatrices((D3DXFRAME_DERIVED*)pFrame->pFrameSibling, pParentMatrix);
 
 	if (nullptr != pFrame->pFrameFirstChild)
-		Update_FrameMatrices((D3DXFRAME_DERIVED*)pFrame->pFrameFirstChild, &pFrame->CombinedTransformationMatrix);
+		UpdateFrameMatrices((D3DXFRAME_DERIVED*)pFrame->pFrameFirstChild, &pFrame->CombinedTransformationMatrix);
 
 }
 
-void DynamicMesh::SetUp_FrameMatrixPointer(D3DXFRAME_DERIVED* pFrame)
+void DynamicMesh::SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame)
 {
 	if (nullptr != pFrame->pMeshContainer)
 	{
@@ -169,10 +169,10 @@ void DynamicMesh::SetUp_FrameMatrixPointer(D3DXFRAME_DERIVED* pFrame)
 	}
 
 	if (nullptr != pFrame->pFrameSibling)
-		SetUp_FrameMatrixPointer((D3DXFRAME_DERIVED*)pFrame->pFrameSibling);
+		SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)pFrame->pFrameSibling);
 
 	if (nullptr != pFrame->pFrameFirstChild)
-		SetUp_FrameMatrixPointer((D3DXFRAME_DERIVED*)pFrame->pFrameFirstChild);
+		SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)pFrame->pFrameFirstChild);
 
 }
 

@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "StaticMesh.h"
 #include "DynamicMesh.h"
+#include "TerrainMesh.h"
 
 namespace PKH
 {
@@ -78,6 +79,8 @@ namespace PKH
 		static StaticMesh* CloneStaticMesh(const wstring& key);
 		static HRESULT LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static DynamicMesh* CloneDynamicMesh(const wstring& key);
+		static HRESULT LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+		static TerrainMesh* CloneTerrainMesh(const wstring& key);
 
 		//==================================================
 
@@ -94,6 +97,7 @@ namespace PKH
 		map<TextureKey, Texture*> textureMap;
 		map<wstring, StaticMesh*> staticMeshMap;
 		map<wstring, DynamicMesh*> dynamicMeshMap;
+		map<wstring, TerrainMesh*> terrainMeshMap;
 
 		CRITICAL_SECTION csDevice;
 		

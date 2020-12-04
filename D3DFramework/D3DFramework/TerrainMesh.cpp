@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "StaticMesh.h"
+#include "TerrainMesh.h"
 
-PKH::StaticMesh::StaticMesh(GameObject* owner)
-	:Mesh(owner)
+PKH::TerrainMesh::TerrainMesh(GameObject* owner)
+    :Mesh(owner)
 {
 }
 
-PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
+PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	: Mesh(rhs)
 	, pAdjacency(rhs.pAdjacency)
 	, pSubset(rhs.pSubset)
@@ -34,7 +34,7 @@ PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	Safe_AddRef(&pSubset);
 }
 
-PKH::StaticMesh::~StaticMesh()
+PKH::TerrainMesh::~TerrainMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
 		Safe_Release(&ppTextures[i]);
@@ -47,21 +47,19 @@ PKH::StaticMesh::~StaticMesh()
 		Safe_Delete_Array(&pVertices);
 		Safe_Delete_Array(&pIndices);
 	}
-	
+
 	Safe_Release(&pSubset);
 	Safe_Release(&pAdjacency);
 	Safe_Release(&pOriginMesh);
 	Safe_Release(&pMesh);
-
 }
 
-IComponent* PKH::StaticMesh::Clone()
+IComponent* PKH::TerrainMesh::Clone()
 {
-	return new StaticMesh(*this);
+    return new TerrainMesh(*this);
 }
 
-
-HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
 
@@ -74,14 +72,14 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	// X파일 메쉬 로드
 	//==============================
 	RenderManager::LockDevice();
-	if (FAILED(D3DXLoadMeshFromX(szFullPath, D3DXMESH_MANAGED, device,
+	if (FAILED(D3DXLoadMeshFromXW(szFullPath, D3DXMESH_MANAGED, device,
 		&pAdjacency, &pSubset, NULL, &subsetCount, &pOriginMesh)))
 	{
 		RenderManager::UnlockDevice();
 		return E_FAIL;
 	}
 	RenderManager::UnlockDevice();
-
+	
 	//==============================
 	// FVF & 노말 세팅
 	//==============================
@@ -135,7 +133,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	{
 		pVertices[i] = *((Vector3*)(((UCHAR*)pVertex) + (i * vertexSize + byOffset)));
 	}
-	
+
 	pMesh->UnlockVertexBuffer();
 
 	//==============================
@@ -177,13 +175,15 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 		}
 		pMesh->UnlockIndexBuffer();
 	}
+
 	
+
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
 	//==============================
 	// 메쉬가 지닌 재질 정보 중 첫 번째 주소를 반환하여 저장
 	pMaterial = (D3DXMATERIAL*)pSubset->GetBufferPointer();
-	
+
 	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
 
 	for (ULONG i = 0; i < subsetCount; ++i)
@@ -209,7 +209,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 			RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
-		
+
 
 		RenderManager::UnlockDevice();
 	}
@@ -217,7 +217,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	return S_OK;
 }
 
-void PKH::StaticMesh::Render()
+void PKH::TerrainMesh::Render()
 {
 	if (gameObject == nullptr) return;
 
@@ -228,7 +228,7 @@ void PKH::StaticMesh::Render()
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{

@@ -16,20 +16,20 @@ namespace PKH
 		virtual IComponent * Clone() override;
 	public:
 		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		void			Render(void);
-		const  D3DXFRAME_DERIVED* Get_FrameByName(const char* pFrameName);
-		bool							Is_AnimationSetEnd(void);
+		virtual void Render(void) override;
+		const  D3DXFRAME_DERIVED* GetFrameByName(const char* pFrameName);
+		bool							IsAnimationSetEnd(void);
 	public:
-		void			Set_AnimationSet(const UINT& iIndex);
-		void			Play_Animation(const float& fTimeDelta);
+		void			SetAnimationSet(const UINT& iIndex);
+		void			PlayAnimation(const float& fTimeDelta);
 
 	private:
 
 		// 모든 뼈들을 순회하면서 뼈들이 갖고 있는 TransformationMatrix와 pParentMatrix를 결합하여 CombinedTransformationMatrix를 만들어주는 함수
-		void			Update_FrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix);
+		void			UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix);
 
 		// CombinedTransformationMatrix의 주소값을 얻어와서 채워주는 함수
-		void			SetUp_FrameMatrixPointer(D3DXFRAME_DERIVED* pFrame);
+		void			SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame);
 	public:
 		// TODO : 이것들 세팅해줘야 할 경우가 생기려나?
 		virtual ULONG GetVertexCount() override { return 0; }
