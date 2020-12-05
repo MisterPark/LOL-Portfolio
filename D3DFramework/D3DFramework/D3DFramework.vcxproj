@@ -194,6 +194,7 @@
     <ClInclude Include="Optimization.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -274,6 +275,7 @@
     <ClCompile Include="Optimization.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
     <ClCompile Include="Debug.cpp" />

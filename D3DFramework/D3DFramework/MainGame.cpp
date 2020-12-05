@@ -45,7 +45,7 @@ void PKH::MainGame::Initialize()
 
 	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
-	TimeManager::SetFPS(60);
+	TimeManager::SetFPS(300);
 	
 	RenderManager::GetInstance();
 	ObjectManager::GetInstance();
@@ -101,9 +101,9 @@ void PKH::MainGame::Update()
 		RenderManager::Clear();
 
 		SkyBox::GetInstance()->Render();
-		ObjectManager::PreRender();
+		//ObjectManager::PreRender();
 		ObjectManager::Render();
-		ObjectManager::PostRender();
+		//ObjectManager::PostRender();
 
 
 		RenderManager::Present();

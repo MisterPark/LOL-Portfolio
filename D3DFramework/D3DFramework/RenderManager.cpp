@@ -162,18 +162,18 @@ void PKH::RenderManager::Release()
 
 void PKH::RenderManager::Clear()
 {
-	EnterCriticalSection(&pRenderManager->csDevice);
+	//EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Gray.value, 1.f, 0);
 	pRenderManager->pDevice->BeginScene();
-	LeaveCriticalSection(&pRenderManager->csDevice);
+	//LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
 void PKH::RenderManager::Present(HWND renderTarget)
 {
-	EnterCriticalSection(&pRenderManager->csDevice);
+	//EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pDevice->EndScene();
 	pRenderManager->pDevice->Present(nullptr, nullptr, renderTarget, nullptr);
-	LeaveCriticalSection(&pRenderManager->csDevice);
+	//LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
 LPDIRECT3DDEVICE9 PKH::RenderManager::GetDevice()
@@ -221,11 +221,11 @@ HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& file
 	{
 		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
 		delete tex;
-		LeaveCriticalSection(&pRenderManager->csDevice);
+		//LeaveCriticalSection(&pRenderManager->csDevice);
 		return E_FAIL;
 	}
 
-	EnterCriticalSection(&pRenderManager->csDevice);
+	//EnterCriticalSection(&pRenderManager->csDevice);
 	if (FAILED(D3DXCreateTextureFromFileExW(
 		pRenderManager->pDevice,
 		filePath.c_str(),
@@ -245,10 +245,10 @@ HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& file
 		wstring errMsg = filePath + L"Create Texture Failed";
 		MessageBox(g_hwnd, errMsg.c_str(), nullptr, MB_OK);
 		delete tex;
-		LeaveCriticalSection(&pRenderManager->csDevice);
+		//LeaveCriticalSection(&pRenderManager->csDevice);
 		return E_FAIL;
 	}
-	LeaveCriticalSection(&pRenderManager->csDevice);
+	//LeaveCriticalSection(&pRenderManager->csDevice);
 
 	tex->rowCount = row;
 	tex->colCount = col;

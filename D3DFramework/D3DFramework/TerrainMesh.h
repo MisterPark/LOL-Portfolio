@@ -45,14 +45,23 @@ namespace PKH
 
         LPDIRECT3DTEXTURE9* ppTextures;
 
+        LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
+        LPDIRECT3DINDEXBUFFER9 indexBuffer;
+
         // VertexSize (정점 메모리 크기)
         ULONG				vertexSize = 0;
         ULONG				vertexCount = 0;
         Vector3* pVertices;// = nullptr;
         DWORD* pIndices;// = nullptr;
         ULONG triangleCount = 0;
+
+        DWORD fvf;
+
     public:
         BoundingBox* subsetBoxArray;
+
+        D3DXATTRIBUTERANGE* pAttributeTable;
+        DWORD attributeCount;
 
 	};
 }

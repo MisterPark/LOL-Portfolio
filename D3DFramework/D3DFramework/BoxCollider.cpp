@@ -10,7 +10,7 @@ BoxCollider::BoxCollider(GameObject* owner)
     LPD3DXMESH mesh;
     size = { 1,1,1 };
     auto device = RenderManager::GetDevice();
-    RenderManager::LockDevice();
+    //RenderManager::LockDevice();
     D3DXCreateBox(device, size.x, size.y, size.z, &mesh, nullptr);
     
     

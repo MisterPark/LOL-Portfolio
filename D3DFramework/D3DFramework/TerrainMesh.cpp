@@ -20,6 +20,9 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	, pVertices(rhs.pVertices)
 	, pIndices(rhs.pIndices)
 	, subsetBoxArray(rhs.subsetBoxArray)
+	, vertexBuffer(rhs.vertexBuffer)
+	, indexBuffer(rhs.indexBuffer)
+	, pAttributeTable(rhs.pAttributeTable)
 {
 	ppTextures = new LPDIRECT3DTEXTURE9[rhs.subsetCount];
 
@@ -33,7 +36,8 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	Safe_AddRef(&pOriginMesh);
 	Safe_AddRef(&pAdjacency);
 	Safe_AddRef(&pSubset);
-
+	Safe_AddRef(&vertexBuffer);
+	Safe_AddRef(&indexBuffer);
 }
 
 PKH::TerrainMesh::~TerrainMesh()
@@ -49,12 +53,15 @@ PKH::TerrainMesh::~TerrainMesh()
 		Safe_Delete_Array(&pVertices);
 		Safe_Delete_Array(&pIndices);
 		Safe_Delete_Array(&subsetBoxArray);
+		Safe_Delete_Array(&pAttributeTable);
 	}
 
 	Safe_Release(&pSubset);
 	Safe_Release(&pAdjacency);
 	Safe_Release(&pOriginMesh);
 	Safe_Release(&pMesh);
+	Safe_Release(&vertexBuffer);
+	Safe_Release(&indexBuffer);
 }
 
 IComponent* PKH::TerrainMesh::Clone()
@@ -82,26 +89,30 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		return E_FAIL;
 	}
 	RenderManager::UnlockDevice();
+
+	
 	
 	//==============================
 	// FVF & 노말 세팅
 	//==============================
-	ULONG	dwFVF = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
+	fvf = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
 
 	RenderManager::LockDevice();
-	if (!(dwFVF & D3DFVF_NORMAL))
+	if (!(fvf & D3DFVF_NORMAL))
 	{
 		// 노말 값이 없는 경우
-		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), dwFVF | D3DFVF_NORMAL, device, &pMesh);
+		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf |= D3DFVF_NORMAL, device, &pMesh);
 		// 노말계산
 		D3DXComputeNormals(pMesh, (ULONG*)pAdjacency->GetBufferPointer());
 	}
 	else
 	{
-		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), dwFVF, device, &pMesh);
+		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	}
 	RenderManager::UnlockDevice();
 
+	HRESULT res = pMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
+		(DWORD*)pAdjacency->GetBufferPointer(), NULL, NULL, NULL);
 
 	//==============================
 	// 버텍스들의 포지션 정보 저장
@@ -130,7 +141,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		}
 	}
 	// FVF 정보를 토대로 정점의 크기를 반환하는 함수
-	vertexSize = D3DXGetFVFVertexSize(dwFVF);
+	vertexSize = D3DXGetFVFVertexSize(fvf);
 	// 버텍스의 포지션정보만 저장
 	for (ULONG i = 0; i < vertexCount; ++i)
 	{
@@ -192,18 +203,35 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		subsetBoxArray[i].minPos.z = FLT_MAX;
 	}
 
+	pAttributeTable = new D3DXATTRIBUTERANGE[subsetCount];
+	memset(pAttributeTable, 0, sizeof(D3DXATTRIBUTERANGE)* subsetCount);
+	attributeCount = subsetCount;
+
 	DWORD* attributeBuffer = 0;
 
 	pMesh->LockAttributeBuffer(0, &attributeBuffer);
 
 	//attribute buffer을 read/write
 	DWORD attID = 0;
+	int oldID = -1;
 
 	for (int i = 0; i < triangleCount; i++)
 	{
 		
 		attID = attributeBuffer[i];
 		DWORD index = i * 3;
+
+		pAttributeTable[attID].AttribId = attID;
+		pAttributeTable[attID].FaceCount++;
+		if (oldID != attID)
+		{
+			pAttributeTable[attID].FaceStart = i;
+			pAttributeTable[attID].VertexStart = i * 3;
+			oldID = attID;
+		}
+		pAttributeTable[attID].VertexCount += 3;
+		
+			
 
 		// 서브셋의 최대 x,y,z 포지션 구하기
 		subsetBoxArray[attID].maxPos.x = max(subsetBoxArray[attID].maxPos.x, pVertices[pIndices[index]].x);
@@ -229,10 +257,18 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		subsetBoxArray[attID].minPos.z = min(subsetBoxArray[attID].minPos.z, pVertices[pIndices[index + 1]].z);
 		subsetBoxArray[attID].minPos.z = min(subsetBoxArray[attID].minPos.z, pVertices[pIndices[index + 2]].z);
 
+
+		
 	}
 
 	pMesh->UnlockAttributeBuffer();
 
+	//==============================
+	// 속성 테이블 세팅
+	//==============================
+	
+
+	// 서브셋당 센터포지션과 반경 구하기
 	for (int i = 0; i < subsetCount; i++)
 	{
 		subsetBoxArray[i].center =  subsetBoxArray[i].minPos + (subsetBoxArray[i].maxPos - subsetBoxArray[i].minPos) * 0.5f;
@@ -240,6 +276,10 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 
 		
 	}
+
+	DWORD attCount;
+	D3DXATTRIBUTERANGE a;
+	pMesh->GetAttributeTable(&a, &attCount);
 
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
@@ -277,6 +317,10 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		RenderManager::UnlockDevice();
 	}
 
+	pMesh->GetVertexBuffer(&vertexBuffer);
+	pMesh->GetIndexBuffer(&indexBuffer);
+
+
 	return S_OK;
 }
 
@@ -288,6 +332,10 @@ void PKH::TerrainMesh::Render()
 	RenderManager::LockDevice();
 
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+
+	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
+	device->SetFVF(fvf);
+	device->SetIndices(indexBuffer);
 
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
@@ -308,7 +356,8 @@ void PKH::TerrainMesh::Render()
 			continue;
 		}
 		device->SetTexture(0, ppTextures[i]);
-		pMesh->DrawSubset(i);
+		//pMesh->DrawSubset(i);
+		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
 	}
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
