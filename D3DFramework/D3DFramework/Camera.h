@@ -17,29 +17,33 @@ namespace PKH
 		virtual void Initialize() override;
 		virtual void Release() override;
 
-		static Vector3 GetPosition();
-		static float GetX();
-		static float GetY();
-		static Matrix GetViewMatrix();
-		static Matrix GetProjectionMatrix();
-		static bool GetProjection3D();
-		static void SetProjection3D(bool ProjectionSet);
+		Vector3 GetPosition();
+		float GetX();
+		float GetY();
+		Matrix GetViewMatrix();
+		Matrix GetProjectionMatrix();
+		bool GetProjection3D();
+		void SetProjection3D(bool ProjectionSet);
 
-		static Vector3 ScreenToWorldPoint(const Vector3& position, float zPos = 1.f);
-		static Vector3 WorldToScreenPoint(const Vector3& position);
-		static Ray ScreenPointToRay(Vector3 pos);
+		Vector3 ScreenToWorldPoint(const Vector3& position, float zPos = 1.f);
+		Vector3 WorldToScreenPoint(const Vector3& position);
+		Ray ScreenPointToRay(Vector3 pos);
 
-		void SetTarget(GameObject* tar) { target = tar; }
+		void SetTarget(GameObject* _target);
 		void SlowChaseTarget(GameObject* tar);
 
 		// Ä«¸Þ¶ó Èçµé±â
 		void Shake(float _duration = 0.05f, float _magnitude = 0.03f);
 		void UpdateShake();
-		static void SetShakeDuration(float _duration);
+		void SetShakeDuration(float _duration);
 
 	private:
 		void PerspectiveProjection();
 		void OrthogonalProjection();
+
+	public:
+		static Camera* CreateCamera(wstring key);
+		static void DeleteCamera(wstring key);
 
 	private:
 		float nearClipPlane = 1.f;
@@ -58,5 +62,12 @@ namespace PKH
 		float shakeDuration;
 		float shakeMagnitude;
 		Vector3 originCamPos;
+
+		// Ä«¸Þ¶ó ÁÜÀÎ ¾Æ¿ô
+		float zoomSpeed = 3.f;
+		Vector3 offset = { 0,6,-3 };
+	public:
+		static map<wstring, Camera*> cams;
+		static Camera* main;
 	};
 }

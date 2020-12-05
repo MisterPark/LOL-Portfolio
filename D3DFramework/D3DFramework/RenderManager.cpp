@@ -561,7 +561,7 @@ void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, const Transform& tr
 
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
-	D3DXMatrixTranslation(&trans, transform.position.x - Camera::GetX(), transform.position.y - Camera::GetY(), 0.f);
+	D3DXMatrixTranslation(&trans, transform.position.x - Camera::main->GetX(), transform.position.y - Camera::main->GetY(), 0.f);
 	world = scale * trans;
 
 	EnterCriticalSection(&pRenderManager->csDevice);

@@ -28,7 +28,7 @@ PKH::Transform::~Transform()
 
 void PKH::Transform::Update()
 {
-	Matrix matView = Camera::GetViewMatrix();
+	Matrix matView = Camera::main->GetViewMatrix();
 
 	Vector3 coord;
 	D3DXVec3TransformCoord(&coord, &position, &matView);

@@ -19,6 +19,7 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	, triangleCount(rhs.triangleCount)
 	, pVertices(rhs.pVertices)
 	, pIndices(rhs.pIndices)
+	, subsetBoxArray(rhs.subsetBoxArray)
 {
 	ppTextures = new LPDIRECT3DTEXTURE9[rhs.subsetCount];
 
@@ -32,6 +33,7 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	Safe_AddRef(&pOriginMesh);
 	Safe_AddRef(&pAdjacency);
 	Safe_AddRef(&pSubset);
+
 }
 
 PKH::TerrainMesh::~TerrainMesh()
@@ -46,6 +48,7 @@ PKH::TerrainMesh::~TerrainMesh()
 	{
 		Safe_Delete_Array(&pVertices);
 		Safe_Delete_Array(&pIndices);
+		Safe_Delete_Array(&subsetBoxArray);
 	}
 
 	Safe_Release(&pSubset);
@@ -176,7 +179,67 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		pMesh->UnlockIndexBuffer();
 	}
 
-	
+	//==============================
+	// Attribute ID 찾기 & Bounding Box Setting
+	//==============================
+
+	subsetBoxArray = new BoundingBox[subsetCount];
+	for (int i = 0; i < subsetCount; i++)
+	{
+		// 최소값 초기화 
+		subsetBoxArray[i].minPos.x = FLT_MAX;
+		subsetBoxArray[i].minPos.y = FLT_MAX;
+		subsetBoxArray[i].minPos.z = FLT_MAX;
+	}
+
+	DWORD* attributeBuffer = 0;
+
+	pMesh->LockAttributeBuffer(0, &attributeBuffer);
+
+	//attribute buffer을 read/write
+	DWORD attID = 0;
+
+	for (int i = 0; i < triangleCount; i++)
+	{
+		
+		attID = attributeBuffer[i];
+		DWORD index = i * 3;
+
+		// 서브셋의 최대 x,y,z 포지션 구하기
+		subsetBoxArray[attID].maxPos.x = max(subsetBoxArray[attID].maxPos.x, pVertices[pIndices[index]].x);
+		subsetBoxArray[attID].maxPos.x = max(subsetBoxArray[attID].maxPos.x, pVertices[pIndices[index + 1]].x);
+		subsetBoxArray[attID].maxPos.x = max(subsetBoxArray[attID].maxPos.x, pVertices[pIndices[index + 2]].x);
+
+		subsetBoxArray[attID].maxPos.y = max(subsetBoxArray[attID].maxPos.y, pVertices[pIndices[index]].y);
+		subsetBoxArray[attID].maxPos.y = max(subsetBoxArray[attID].maxPos.y, pVertices[pIndices[index + 1]].y);
+		subsetBoxArray[attID].maxPos.y = max(subsetBoxArray[attID].maxPos.y, pVertices[pIndices[index + 2]].y);
+
+		subsetBoxArray[attID].maxPos.z = max(subsetBoxArray[attID].maxPos.z, pVertices[pIndices[index]].z);
+		subsetBoxArray[attID].maxPos.z = max(subsetBoxArray[attID].maxPos.z, pVertices[pIndices[index + 1]].z);
+		subsetBoxArray[attID].maxPos.z = max(subsetBoxArray[attID].maxPos.z, pVertices[pIndices[index + 2]].z);
+
+		// 서브셋의 최대 x,y,z 포지션 구하기
+		subsetBoxArray[attID].minPos.x = min(subsetBoxArray[attID].minPos.x, pVertices[pIndices[index]].x);
+		subsetBoxArray[attID].minPos.x = min(subsetBoxArray[attID].minPos.x, pVertices[pIndices[index + 1]].x);
+		subsetBoxArray[attID].minPos.x = min(subsetBoxArray[attID].minPos.x, pVertices[pIndices[index + 2]].x);
+		subsetBoxArray[attID].minPos.y = min(subsetBoxArray[attID].minPos.y, pVertices[pIndices[index]].y);
+		subsetBoxArray[attID].minPos.y = min(subsetBoxArray[attID].minPos.y, pVertices[pIndices[index + 1]].y);
+		subsetBoxArray[attID].minPos.y = min(subsetBoxArray[attID].minPos.y, pVertices[pIndices[index + 2]].y);
+		subsetBoxArray[attID].minPos.z = min(subsetBoxArray[attID].minPos.z, pVertices[pIndices[index]].z);
+		subsetBoxArray[attID].minPos.z = min(subsetBoxArray[attID].minPos.z, pVertices[pIndices[index + 1]].z);
+		subsetBoxArray[attID].minPos.z = min(subsetBoxArray[attID].minPos.z, pVertices[pIndices[index + 2]].z);
+
+	}
+
+	pMesh->UnlockAttributeBuffer();
+
+	for (int i = 0; i < subsetCount; i++)
+	{
+		subsetBoxArray[i].center =  subsetBoxArray[i].minPos + (subsetBoxArray[i].maxPos - subsetBoxArray[i].minPos) * 0.5f;
+		subsetBoxArray[i].radius = Vector3(subsetBoxArray[i].maxPos - subsetBoxArray[i].center).Length();
+
+		
+	}
 
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
@@ -220,23 +283,37 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 void PKH::TerrainMesh::Render()
 {
 	if (gameObject == nullptr) return;
-
+	
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
 
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
+	device->SetRenderState(D3DRS_ALPHAREF, 0x00000088);
+	device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
 	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
+	int cullcount = 0;
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{
+		Vector3 worldCenter;
+		D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->world);
+		if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
+		{
+			cullcount++;
+			continue;
+		}
 		device->SetTexture(0, ppTextures[i]);
 		pMesh->DrawSubset(i);
 	}
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
 	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	RenderManager::UnlockDevice();
 }

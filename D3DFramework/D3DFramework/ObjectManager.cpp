@@ -167,7 +167,7 @@ void PKH::ObjectManager::Render()
 
 	pObjectManager->renderList.clear();
 
-	Vector3 camPos = Camera::GetPosition();
+	Vector3 camPos = Camera::main->GetPosition();
 	
 	auto objTable = pObjectManager->objectTable;
 	int layerCount = MaxOfEnum<Layer>();

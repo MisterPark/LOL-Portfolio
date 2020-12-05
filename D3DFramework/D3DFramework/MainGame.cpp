@@ -45,7 +45,7 @@ void PKH::MainGame::Initialize()
 
 	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
-	TimeManager::SetFPS(60.f);
+	TimeManager::SetFPS(60);
 	
 	RenderManager::GetInstance();
 	ObjectManager::GetInstance();
@@ -64,6 +64,7 @@ void PKH::MainGame::Initialize()
 
 	SoundManager::GetInstance()->Initialize();
 	LoadManager::GetInstance();
+	Frustum::GetInstance();
 
 	LoadUISprite();
 
@@ -89,6 +90,7 @@ void PKH::MainGame::Update()
 
 	Camera::GetInstance()->Update();
 	SkyBox::GetInstance()->Update();
+	Frustum::Update();
 	
 	CollisionManager::GetInstance()->Update();
 	ObjectManager::PostUpdate();
@@ -105,6 +107,8 @@ void PKH::MainGame::Update()
 
 
 		RenderManager::Present();
+
+		
 	}
 }
 
@@ -127,6 +131,7 @@ void PKH::MainGame::Release()
 	Cursor::Destroy();
 	LobbyWindow::Destroy();
 	Network::Destroy();
+	Frustum::Destroy();
 }
 
 void PKH::MainGame::Pause()

@@ -3,6 +3,13 @@
 
 namespace PKH
 {
+    struct BoundingBox
+    {
+        Vector3 minPos;
+        Vector3 maxPos;
+        Vector3 center;
+        float radius;
+    };
 	class HierarchyLoader;
 	class AnimationController;
 
@@ -44,6 +51,8 @@ namespace PKH
         Vector3* pVertices;// = nullptr;
         DWORD* pIndices;// = nullptr;
         ULONG triangleCount = 0;
+    public:
+        BoundingBox* subsetBoxArray;
 
 	};
 }

@@ -42,6 +42,8 @@ namespace PKH
         DWORD* pIndices;// = nullptr;
         ULONG triangleCount = 0;
 
+
+
     };
 
 }

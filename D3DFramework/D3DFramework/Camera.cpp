@@ -3,17 +3,15 @@
 
 using namespace PKH;
 
-PKH::Camera* pCamera = nullptr;
-
+PKH::Camera* PKH::Camera::main = nullptr;
+map<wstring, Camera*> Camera::cams;
 
 PKH::Camera::Camera()
 {
 	
 	this->transform->position = { 0,0,-3 };
 	Matrix view;
-	//GetViewMatrix(&view);
 	D3DXMatrixLookAtLH(&view, &transform->position, &transform->look, &transform->up);
-
 
 	RenderManager::SetTransform(D3DTS_VIEW, &view);
 
@@ -35,24 +33,41 @@ PKH::Camera::~Camera()
 
 PKH::Camera* PKH::Camera::GetInstance()
 {
-	if (pCamera == nullptr)
+	if (main == nullptr)
 	{
-		pCamera = new PKH::Camera;
+		main = new PKH::Camera;
+		cams[L"MainCamera"] = main;
 	}
-	return pCamera;
+	return main;
 }
 
 void PKH::Camera::Destroy()
 {
-	if (pCamera)
+	if (main)
 	{
-		delete pCamera;
-		pCamera = nullptr;
+		cams.erase(L"MainCamera");
+		delete main;
+		main = nullptr;
 	}
+	
+	for (auto iter : cams)
+	{
+		delete iter.second;
+	}
+
+	cams.clear();
 }
 
 void PKH::Camera::Update()
 {
+	if (nullptr != target)
+	{
+		transform->position = target->transform->position;
+		transform->position += offset;
+
+		transform->look = target->GetTransform()->position;
+	}
+
 	if (InputManager::GetKey(VK_UP))
 	{
 		transform->position.y += 100.f * TimeManager::DeltaTime();
@@ -61,14 +76,26 @@ void PKH::Camera::Update()
 	{
 		transform->position.y -= 100.f * TimeManager::DeltaTime();
 	}
-	if (nullptr != target)
+	if (InputManager::GetMouseWheelUp())
 	{
-		transform->position = target->GetTransform()->position;
-		transform->position.y += 6.f;
-		transform->position.z -= 3.f;
-
-		transform->look = target->GetTransform()->position;
+		if (target != nullptr)
+		{
+			Vector3 direction = transform->look - transform->position;
+			Vector3::Normalize(&direction);
+			offset += direction * zoomSpeed;
+			
+		}
 	}
+	else if (InputManager::GetMouseWheelDown())
+	{
+		if (target != nullptr)
+		{
+			Vector3 direction = transform->look - transform->position;
+			Vector3::Normalize(&direction);
+			offset -= direction * zoomSpeed;
+		}
+	}
+	
 
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
 	RenderManager::SetTransform(D3DTS_VIEW, &viewMatrix);
@@ -84,50 +111,58 @@ void PKH::Camera::Render()
 {
 }
 
+void PKH::Camera::Initialize()
+{
+}
+
+void PKH::Camera::Release()
+{
+}
+
 Vector3 PKH::Camera::GetPosition()
 {
-	return pCamera->transform->position;
+	return transform->position;
 }
 
 float PKH::Camera::GetX()
 {
-	return pCamera->transform->position.x;
+	return transform->position.x;
 }
 
 float PKH::Camera::GetY()
 {
-	return pCamera->transform->position.y;
+	return transform->position.y;
 }
 
 Matrix PKH::Camera::GetViewMatrix()
 {
-	return pCamera->viewMatrix;
+	return viewMatrix;
 }
 
 Matrix PKH::Camera::GetProjectionMatrix()
 {
-	return pCamera->projectionMatrix;
+	return projectionMatrix;
 }
 
 void PKH::Camera::SetProjection3D(bool ProjectionSet)
 {
-	pCamera->isProjection3D = ProjectionSet;
+	isProjection3D = ProjectionSet;
 }
 
 bool PKH::Camera::GetProjection3D()
 {
-	return pCamera->isProjection3D;
+	return isProjection3D;
 }
 
 Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 {
-	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
+	Matrix viewProj = viewMatrix * projectionMatrix;
 	
 	// Screen To Projection
 	Vector3 pos;
 	pos.x = (position.x * 2.f / dfCLIENT_WIDTH) - 1.f;
 	pos.y = -(position.y * 2.f / dfCLIENT_HEIGHT) + 1.f;
-	if(1.f == zPos) pos.z =  pCamera->nearClipPlane;
+	if(1.f == zPos) pos.z =  nearClipPlane;
 	else pos.z = zPos;
 
 	// Projection To World
@@ -138,7 +173,7 @@ Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 
 Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 {
-	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
+	Matrix viewProj = viewMatrix * projectionMatrix;
 
 	Vector3 pos; 
 	D3DXVec3TransformCoord(&pos, &position, &viewProj);
@@ -156,15 +191,15 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 	// 포지션 - 카메라 포지션 = 방향.노말라이즈 이렇게 바꾸셈
 
 	Ray ray;
-	ray.origin = pCamera->transform->position;
+	ray.origin = transform->position;
 
-	Matrix viewProj = pCamera->viewMatrix * pCamera->projectionMatrix;
+	Matrix viewProj = viewMatrix * projectionMatrix;
 
 	// Screen To Projection
 	Vector3 direction;
 	direction.x = (pos.x * 2.f / dfCLIENT_WIDTH) - 1.f;
 	direction.y = -(pos.y * 2.f / dfCLIENT_HEIGHT) + 1.f;
-	direction.z = pCamera->nearClipPlane;
+	direction.z = nearClipPlane;
 
 	// Projection To World
 	Matrix inverseMat = Matrix::Inverse(viewProj);
@@ -177,6 +212,17 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 
 
 	return ray;
+}
+
+void PKH::Camera::SetTarget(GameObject* _target)
+{
+	target = _target;
+	if (target != nullptr)
+	{
+		transform->position = target->transform->position;
+		transform->position.y += 6.f;
+		transform->position.z += 3.f;
+	}
 }
 
 void PKH::Camera::SlowChaseTarget(GameObject * tar)
@@ -223,35 +269,49 @@ void PKH::Camera::UpdateShake()
 
 void PKH::Camera::SetShakeDuration(float _duration)
 {
-	pCamera->shakeDuration = _duration;
+	shakeDuration = _duration;
 }
 
 void PKH::Camera::PerspectiveProjection()
 {
-	pCamera->projectionMatrix = Matrix::PerspectiveFovLH(D3DXToRadian(90.f),
+	projectionMatrix = Matrix::PerspectiveFovLH(D3DXToRadian(90.f),
 		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
 		nearClipPlane,
 		farClipPlane);
-	//D3DXMatrixPerspectiveFovLH(&pCamera->projectionMatrix, D3DX_PI * 0.5f,
+	//D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI * 0.5f,
 	//	(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
 	//	nearClipPlane,
 	//	farClipPlane);
-	RenderManager::SetTransform(D3DTS_PROJECTION, &pCamera->projectionMatrix);
+	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
 void PKH::Camera::OrthogonalProjection() 
 {
 
 	//D3DXMatrixOrthoLH(&proj, (float)7.6f, (float)5.7f, 0.0f, 10.f);
-	D3DXMatrixOrthoLH(&pCamera->projectionMatrix, (float)dfCLIENT_WIDTH * 0.01f - dfCLIENT_WIDTH * 0.0005f,
+	D3DXMatrixOrthoLH(&projectionMatrix, (float)dfCLIENT_WIDTH * 0.01f - dfCLIENT_WIDTH * 0.0005f,
 		(float)dfCLIENT_HEIGHT * 0.01f - dfCLIENT_HEIGHT * 0.0005f, 0.0f, 10.f);
-	RenderManager::SetTransform(D3DTS_PROJECTION, &pCamera->projectionMatrix);
+	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
-void PKH::Camera::Initialize()
+Camera* PKH::Camera::CreateCamera(wstring key)
 {
+	auto find = cams.find(key);
+	if (find != cams.end()) return find->second; // 이미 존재하면 리턴
+	
+	Camera* cam = new Camera();
+	cams[key] = cam;
+	return cam;
 }
 
-void PKH::Camera::Release()
+void PKH::Camera::DeleteCamera(wstring key)
 {
+	auto find = cams.find(key);
+	if (find == cams.end()) return;
+
+	Camera* cam = find->second;
+	cams.erase(key);
+	delete cam;
+
 }
+

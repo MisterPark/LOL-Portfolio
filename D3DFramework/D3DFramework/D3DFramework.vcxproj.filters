@@ -100,6 +100,12 @@
     <Filter Include="Component\Mesh\NavMesh">
       <UniqueIdentifier>{1567c2d1-90f1-4141-907f-b0ca59195874}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Optimization">
+      <UniqueIdentifier>{0e3b9727-251c-47fe-a784-a84f138d54a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Frustum">
+      <UniqueIdentifier>{82b62616-ca65-461a-8219-07c041a2de5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -330,9 +336,17 @@
     <ClInclude Include="MeshCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="NavMeshMap.h" />
     <ClInclude Include="TerrainMesh.h">
       <Filter>Component\Mesh\TerrainMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Optimization.h">
+      <Filter>Lib\Optimization</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>Lib\Frustum</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshMap.h">
+      <Filter>GameObject\NavMeshMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -638,9 +652,17 @@
     <ClCompile Include="MeshCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="NavMeshMap.cpp" />
     <ClCompile Include="TerrainMesh.cpp">
       <Filter>Component\Mesh\TerrainMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Optimization.cpp">
+      <Filter>Lib\Optimization</Filter>
+    </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>Lib\Frustum</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshMap.cpp">
+      <Filter>GameObject\NavMeshMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -60,7 +60,7 @@ void PlayerController::Update()
 
     if (InputManager::GetMouseLButton())
     {
-        Ray ray = Camera::ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         if (Physics::Raycast(ray, &hit))
         {
@@ -73,7 +73,7 @@ void PlayerController::Update()
     }
     else if (InputManager::GetMouseRButton())
     {
-        Ray ray = Camera::ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))

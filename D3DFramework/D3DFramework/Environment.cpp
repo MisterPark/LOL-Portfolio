@@ -10,8 +10,10 @@ Environment::Environment()
 
 	transform->scale = { 0.1f,0.1f, 0.1f };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
-	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"summoner_rift");
-	AddComponent(L"StaticMesh", smesh);
+	TerrainMesh* mesh = RenderManager::CloneTerrainMesh(L"summoner_rift");
+	AddComponent(L"TerrainMesh", mesh);
+
+	
 }
 
 Environment::~Environment()

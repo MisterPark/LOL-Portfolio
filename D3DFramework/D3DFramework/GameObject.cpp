@@ -138,7 +138,7 @@ void PKH::GameObject::Billboard()
 {
 	D3DXMATRIX matScale, matView;
 	D3DXMatrixIdentity(&matView);
-	matView = Camera::GetViewMatrix();
+	matView = Camera::main->GetViewMatrix();
 
 	memset(&matView._41, 0, sizeof(D3DXVECTOR3));
 	D3DXMatrixInverse(&matView, 0, &matView);
@@ -161,7 +161,7 @@ void PKH::GameObject::BillboardYaw()
 	D3DXMATRIX matScale, matView, matBill;
 	
 	matView = Matrix::identity;
-	matView = Camera::GetViewMatrix();
+	matView = Camera::main->GetViewMatrix();
 	memset(&matBill._41, 0, sizeof(D3DXVECTOR3));
 
 	matBill = Matrix::identity;

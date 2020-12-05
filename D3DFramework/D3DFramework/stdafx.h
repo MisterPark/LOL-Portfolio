@@ -115,6 +115,8 @@ using namespace std;
 #include "HierarchyLoader.h"
 #include "AnimationController.h"
 
+#include "Frustum.h"
+
 
 using namespace std;
 using namespace PKH;

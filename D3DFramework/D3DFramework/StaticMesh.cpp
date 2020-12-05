@@ -177,6 +177,8 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 		}
 		pMesh->UnlockIndexBuffer();
 	}
+
+	
 	
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
@@ -228,7 +230,7 @@ void PKH::StaticMesh::Render()
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{

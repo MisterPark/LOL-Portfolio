@@ -59,7 +59,7 @@ namespace PKH
 		static Vector3 GetMousePosition();
 
 
-	private:
+	public:
 		bool keys[RANGE_OF_KEYS] = {};
 		bool keyDowns[RANGE_OF_KEYS] = {};
 		bool keyUps[RANGE_OF_KEYS] = {};

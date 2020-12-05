@@ -203,12 +203,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			InputManager::GetInstance()->mouse[(int)Keys::WHEEL_DOWN] = true;
 		}
-		
-
-		break;
+        break;
+    
 
 	case WM_KEYDOWN:
+        if (wParam < 0)break;
+        if (wParam > 256)break;
+        InputManager::GetInstance()->keyDowns[wParam] = true;
+        InputManager::GetInstance()->keys[wParam] = true;
 		break;
+    case WM_KEYUP:
+        if (wParam < 0)break;
+        if (wParam > 256)break;
+        InputManager::GetInstance()->keyUps[wParam] = true;
+        InputManager::GetInstance()->keys[wParam] = false;
+        break;
 
     case WM_DESTROY:
         PostQuitMessage(0);
