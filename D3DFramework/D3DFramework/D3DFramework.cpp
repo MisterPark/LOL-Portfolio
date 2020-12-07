@@ -25,6 +25,8 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND g_hwnd;
 HINSTANCE g_hInstance;
+int screenWidth = 1024;
+int screenHeight = 768;
 
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
@@ -47,6 +49,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_D3DFRAMEWORK, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
+	screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	screenHeight = GetSystemMetrics(SM_CYSCREEN);
+
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -59,7 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     msg.message = WM_NULL;
 
     MainGame::GetInstance();
-    MainGame::Initialize();
+	MainGame::Initialize(screenWidth, screenHeight);
 
     // 기본 메시지 루프입니다:
     while (msg.message != WM_QUIT)
@@ -130,7 +135,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   RECT rc{ 0, 0, dfCLIENT_WIDTH, dfCLIENT_HEIGHT };
+   RECT rc{ 0, 0, screenWidth, screenHeight };
    constexpr int WIDOW_STYLE = WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX;
    AdjustWindowRect(&rc, WIDOW_STYLE, false);
    HWND hWnd = CreateWindowExW(0, szWindowClass, szTitle, WIDOW_STYLE,
@@ -207,6 +212,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     
 
 	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE)
+		{
+			MainGame::Shutdown();
+			break;
+		}
         if (wParam < 0)break;
         if (wParam > 256)break;
         InputManager::GetInstance()->keyDowns[wParam] = true;

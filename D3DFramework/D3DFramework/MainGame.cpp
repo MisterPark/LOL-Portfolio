@@ -36,8 +36,11 @@ void PKH::MainGame::Destroy()
     }
 }
 
-void PKH::MainGame::Initialize()
+void PKH::MainGame::Initialize(int screenW, int screenH)
 {
+	pMainGame->width = screenW;
+	pMainGame->height = screenH;
+	
 	Network::GetInstance();
 	Network::Initialize();
 	LobbyWindow::GetInstance();
@@ -48,6 +51,7 @@ void PKH::MainGame::Initialize()
 	TimeManager::SetFPS(300);
 	
 	RenderManager::GetInstance();
+	RenderManager::Initialize(screenW, screenH);
 	ObjectManager::GetInstance();
 	CollisionManager::GetInstance();
 	LightManager::GetInstance();
@@ -145,6 +149,16 @@ void PKH::MainGame::Resume()
 void PKH::MainGame::Shutdown()
 {
 	PostQuitMessage(0);
+}
+
+int PKH::MainGame::GetWidth()
+{
+	return pMainGame->width;
+}
+
+int PKH::MainGame::GetHeight()
+{
+	return pMainGame->height;
 }
 
 

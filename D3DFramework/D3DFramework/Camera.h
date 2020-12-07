@@ -66,6 +66,10 @@ namespace PKH
 		// 카메라 줌인 아웃
 		float zoomSpeed = 1.f;
 		Vector3 offset = { 0,6,3 };
+
+		// 윈도우 사이즈
+		int screenW = 1024;
+		int screenH = 768;
 	public:
 		static map<wstring, Camera*> cams;
 		static Camera* main;

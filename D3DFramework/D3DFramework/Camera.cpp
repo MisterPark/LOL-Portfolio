@@ -8,17 +8,18 @@ map<wstring, Camera*> Camera::cams;
 
 PKH::Camera::Camera()
 {
-	
+	screenW = MainGame::GetWidth();
+	screenH = MainGame::GetHeight();
+
 	this->transform->position = { 0,0,-3 };
 	Matrix view;
 	D3DXMatrixLookAtLH(&view, &transform->position, &transform->look, &transform->up);
 
 	RenderManager::SetTransform(D3DTS_VIEW, &view);
-
 	// Åõ¿µ
 	Matrix proj;
 	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
-		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
+		(float)screenW / screenH,
 		nearClipPlane,
 		farClipPlane);
 
@@ -160,8 +161,8 @@ Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 	
 	// Screen To Projection
 	Vector3 pos;
-	pos.x = (position.x * 2.f / dfCLIENT_WIDTH) - 1.f;
-	pos.y = -(position.y * 2.f / dfCLIENT_HEIGHT) + 1.f;
+	pos.x = (position.x * 2.f / screenW) - 1.f;
+	pos.y = -(position.y * 2.f / screenH) + 1.f;
 	if(1.f == zPos) pos.z =  nearClipPlane;
 	else pos.z = zPos;
 
@@ -178,8 +179,8 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 	Vector3 pos; 
 	D3DXVec3TransformCoord(&pos, &position, &viewProj);
 
-	pos.x = (pos.x + 1.f) * 0.5f * dfCLIENT_WIDTH;
-	pos.y = (pos.y - 1.f) * -0.5f * dfCLIENT_HEIGHT;
+	pos.x = (pos.x + 1.f) * 0.5f * screenW;
+	pos.y = (pos.y - 1.f) * -0.5f * screenH;
 
 	return pos;
 }
@@ -197,8 +198,8 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 
 	// Screen To Projection
 	Vector3 direction;
-	direction.x = (pos.x * 2.f / dfCLIENT_WIDTH) - 1.f;
-	direction.y = -(pos.y * 2.f / dfCLIENT_HEIGHT) + 1.f;
+	direction.x = (pos.x * 2.f / screenW) - 1.f;
+	direction.y = -(pos.y * 2.f / screenH) + 1.f;
 	direction.z = nearClipPlane;
 
 	// Projection To World
@@ -275,7 +276,7 @@ void PKH::Camera::SetShakeDuration(float _duration)
 void PKH::Camera::PerspectiveProjection()
 {
 	projectionMatrix = Matrix::PerspectiveFovLH(D3DXToRadian(90.f),
-		(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
+		(float)screenW / screenH,
 		nearClipPlane,
 		farClipPlane);
 	//D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI * 0.5f,
@@ -289,8 +290,8 @@ void PKH::Camera::OrthogonalProjection()
 {
 
 	//D3DXMatrixOrthoLH(&proj, (float)7.6f, (float)5.7f, 0.0f, 10.f);
-	D3DXMatrixOrthoLH(&projectionMatrix, (float)dfCLIENT_WIDTH * 0.01f - dfCLIENT_WIDTH * 0.0005f,
-		(float)dfCLIENT_HEIGHT * 0.01f - dfCLIENT_HEIGHT * 0.0005f, 0.0f, 10.f);
+	D3DXMatrixOrthoLH(&projectionMatrix, (float)screenW * 0.01f - screenW * 0.0005f,
+		(float)screenH * 0.01f - screenH * 0.0005f, 0.0f, 10.f);
 	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
