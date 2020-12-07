@@ -233,6 +233,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainMesh.h" />
+    <ClInclude Include="TestGaren.h" />
     <ClInclude Include="TestMan.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
@@ -307,6 +308,7 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
+    <ClCompile Include="TestGaren.cpp" />
     <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />

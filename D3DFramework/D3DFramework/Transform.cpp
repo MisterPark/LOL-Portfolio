@@ -36,9 +36,10 @@ void PKH::Transform::Update()
 
 	world = world.identity;
 	// 오일러 각 360도 보정
-	eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(360.f));
-	eulerAngles.y = fmodf(eulerAngles.y, D3DXToRadian(360.f));
-	eulerAngles.z = fmodf(eulerAngles.z, D3DXToRadian(360.f));
+	
+	//eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(180.f));
+	//eulerAngles.y = fmodf(eulerAngles.y, D3DXToRadian(180.f));
+	//eulerAngles.z = fmodf(eulerAngles.z, D3DXToRadian(180.f));
 	
 	
 

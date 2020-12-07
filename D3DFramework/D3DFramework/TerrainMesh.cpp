@@ -327,7 +327,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 void PKH::TerrainMesh::Render()
 {
 	if (gameObject == nullptr) return;
-	
+	//return;
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
 
@@ -342,8 +342,6 @@ void PKH::TerrainMesh::Render()
 	device->SetRenderState(D3DRS_ALPHAREF, 0x00000088);
 	device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	device->SetRenderState(D3DRS_LIGHTING, false);
-	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	int cullcount = 0;
 	for (ULONG i = 0; i < subsetCount; ++i)
@@ -356,13 +354,11 @@ void PKH::TerrainMesh::Render()
 			continue;
 		}
 		device->SetTexture(0, ppTextures[i]);
-		//pMesh->DrawSubset(i);
 		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
 	}
 
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	RenderManager::UnlockDevice();
 }

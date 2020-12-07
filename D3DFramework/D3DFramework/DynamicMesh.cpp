@@ -65,8 +65,8 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 	Safe_Release(&pAniCtrl);
 
-	Matrix		matTemp;
-	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
+	Matrix		matTemp = Matrix::identity;
+	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
 	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 
 	SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
@@ -76,6 +76,11 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 void DynamicMesh::Render(void)
 {
+	if (gameObject == nullptr) return;
+	//Matrix		matTemp = ;
+	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
+	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &gameObject->transform->world);
+
 	for (auto& iter : m_MeshContainerList)
 	{
 		D3DXMESHCONTAINER_DERIVED* pMeshContainer = iter;
@@ -100,11 +105,19 @@ void DynamicMesh::Render(void)
 
 		device = RenderManager::GetDevice();
 		RenderManager::LockDevice();
+
+		device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+		device->SetRenderState(D3DRS_LIGHTING, false);
+		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
 		{
 			device->SetTexture(0, pMeshContainer->ppTexture[i]);
 			pMeshContainer->MeshData.pMesh->DrawSubset(i);
 		}
+		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+		device->SetRenderState(D3DRS_LIGHTING, false);
+
 		RenderManager::UnlockDevice();
 
 		pMeshContainer->pOriMesh->UnlockVertexBuffer();
@@ -131,9 +144,7 @@ void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 {
 	m_pAniCtrl->PlayAnimation(fTimeDelta);
 
-	Matrix		matTemp;
-	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
-	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
+	
 }
 
 void DynamicMesh::UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix)

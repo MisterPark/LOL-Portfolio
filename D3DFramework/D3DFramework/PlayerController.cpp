@@ -78,7 +78,13 @@ void PlayerController::Update()
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
-            gameObject->MoveToTarget(hit.point,10.f);
+            //Vector3 direction = hit.point - transform->position;
+            //Vector3::Normalize(&direction);
+
+            //float angle = Vector3::AngleY(transform->look, direction);
+            //angle = D3DXToRadian(angle);
+            //gameObject->transform->eulerAngles.y -= angle *TimeManager::DeltaTime();
+            gameObject->MoveToTarget(hit.point,5.f);
 
         }
     }

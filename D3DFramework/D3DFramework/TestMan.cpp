@@ -16,10 +16,11 @@ TestMan::TestMan()
 
 	//DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen_test");
 	//AddComponent(L"DynamicMesh", dmesh);
+	//dmesh->SetAnimationSet(0);
 
-	//AddComponent<SphereCollider>(L"SphereCollider");
+	AddComponent<SphereCollider>(L"SphereCollider");
 	//AddComponent<BoxCollider>(L"BoxCollider");
-	AddComponent<MeshCollider>(L"MeshCollider");
+	//AddComponent<MeshCollider>(L"MeshCollider");
 	
 }
 

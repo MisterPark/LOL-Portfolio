@@ -82,7 +82,7 @@ void PKH::Camera::Update()
 		{
 			Vector3 direction = transform->look - transform->position;
 			Vector3::Normalize(&direction);
-			offset += direction * zoomSpeed;
+			offset += direction * zoomSpeed;// *TimeManager::DeltaTime();
 			
 		}
 	}
@@ -92,7 +92,7 @@ void PKH::Camera::Update()
 		{
 			Vector3 direction = transform->look - transform->position;
 			Vector3::Normalize(&direction);
-			offset -= direction * zoomSpeed;
+			offset -= direction * zoomSpeed;// *TimeManager::DeltaTime();
 		}
 	}
 	

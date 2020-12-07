@@ -9,7 +9,7 @@ Environment::Environment()
 	//mesh->SetTexture(TextureKey::GRASS);
 
 	transform->scale = { 0.1f,0.1f, 0.1f };
-	transform->eulerAngles.y = D3DXToRadian(180.f);
+	//transform->eulerAngles.y = D3DXToRadian(180.f);
 	TerrainMesh* mesh = RenderManager::CloneTerrainMesh(L"summoner_rift");
 	AddComponent(L"TerrainMesh", mesh);
 

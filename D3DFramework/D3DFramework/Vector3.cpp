@@ -93,7 +93,15 @@ float PKH::Vector3::AngleX(const Vector3 & from, const Vector3 & to)
 float PKH::Vector3::AngleY(const Vector3 & from, const Vector3 & to)
 {
 	Vector3 v = to - from;
-	return D3DXToDegree(atan2f(v.x, v.z));
+	return atan2f(v.x, v.z);
+
+	//Vector3 a = from.Normalized();
+	//Vector3 b = to.Normalized();
+	//a.y = 0;
+	//b.y = 0;
+	//float angle = acosf(Vector3::Dot(a, b));
+
+	//return angle;
 }
 
 float PKH::Vector3::AngleZ(const Vector3& from, const Vector3& to)

@@ -12,7 +12,7 @@ void LoadingScene::OnLoaded()
 
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/malphite/", L"malp.X", Count);
 
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/garen/", L"garen_test.X", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/garen/", L"garen.X", Count);
 
 	//LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/sr/", L"sr.x", Count);
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x",Count);

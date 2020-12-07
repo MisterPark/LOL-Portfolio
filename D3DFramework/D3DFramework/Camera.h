@@ -64,8 +64,8 @@ namespace PKH
 		Vector3 originCamPos;
 
 		// Ä«¸Þ¶ó ÁÜÀÎ ¾Æ¿ô
-		float zoomSpeed = 3.f;
-		Vector3 offset = { 0,6,-3 };
+		float zoomSpeed = 1.f;
+		Vector3 offset = { 0,6,3 };
 	public:
 		static map<wstring, Camera*> cams;
 		static Camera* main;
