@@ -18,7 +18,7 @@ namespace PKH
 		static RenderManager* GetInstance();
 		static void Destroy();
 
-		static HRESULT Initialize();
+		static HRESULT Initialize(int screenW, int screenH);
 		static void Release();
 
 		static void Clear();

@@ -13,7 +13,7 @@ namespace PKH
 		static MainGame* GetInstance();
 		static void Destroy();
 
-		static void Initialize();
+		static void Initialize(int screenW, int screenH);
 
 		static void Update();
 		static void Release();
@@ -22,10 +22,16 @@ namespace PKH
 		static void Resume();
 		static void Shutdown();
 
+		static int GetWidth();
+		static int GetHeight();
+
 		
 		static void LoadUISprite();
 
 		Triangle* tri = nullptr;
+	public:
+		int width = 800;
+		int height = 600;
 	};
 }
 

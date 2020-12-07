@@ -22,7 +22,6 @@ RenderManager* PKH::RenderManager::GetInstance()
 	if (pRenderManager == nullptr)
 	{
 		pRenderManager = new RenderManager();
-		Initialize();
 	}
 	return pRenderManager;
 }
@@ -36,7 +35,7 @@ void PKH::RenderManager::Destroy()
 	}
 }
 
-HRESULT PKH::RenderManager::Initialize()
+HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 {
 	D3DCAPS9 DeviceCaps;
 	ZeroMemory(&DeviceCaps, sizeof(D3DCAPS9));
@@ -60,9 +59,10 @@ HRESULT PKH::RenderManager::Initialize()
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 
+	
 	//백 버퍼의 가로 세로 크기. 
-	d3dpp.BackBufferWidth = dfCLIENT_WIDTH;
-	d3dpp.BackBufferHeight = dfCLIENT_HEIGHT;
+	d3dpp.BackBufferWidth = screenW;
+	d3dpp.BackBufferHeight = screenH;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 	d3dpp.BackBufferCount = 1;
 
@@ -73,7 +73,7 @@ HRESULT PKH::RenderManager::Initialize()
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = g_hwnd;
 	// 거짓이면 전체화면, 참이면  창모드을 사용하겠다. 
-	d3dpp.Windowed = TRUE;
+	d3dpp.Windowed = FALSE;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
