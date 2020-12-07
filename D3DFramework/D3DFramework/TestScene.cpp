@@ -25,7 +25,6 @@ void TestScene::OnLoaded()
 	obj->transform->position = { 0,0,0 };
 
 	obj = ObjectManager::GetInstance()->CreateObject<TestGaren>();
-	obj->transform->scale = { 0.015f, 0.015f, 0.015f };
 	obj->transform->position = { 41,68,46 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
 
