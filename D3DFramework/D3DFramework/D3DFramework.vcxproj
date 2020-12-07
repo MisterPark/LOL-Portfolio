@@ -168,9 +168,12 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Building.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Champion.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Frustum.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="NavMeshMap.h" />
     <ClInclude Include="Optimization.h" />
+    <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="QuadTree.h" />
@@ -243,6 +247,7 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Title.h" />
+    <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
@@ -250,9 +255,12 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Building.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Champion.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Frustum.cpp" />
@@ -274,6 +282,7 @@
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="NavMeshMap.cpp" />
     <ClCompile Include="Optimization.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="QuadTree.cpp" />
@@ -318,6 +327,7 @@
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Title.cpp" />
+    <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>

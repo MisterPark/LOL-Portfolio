@@ -109,6 +109,30 @@
     <Filter Include="Lib\Optimization\QuadTree">
       <UniqueIdentifier>{b7c76fc2-c15a-4b24-a8fa-34f97a2c70d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Unit">
+      <UniqueIdentifier>{a93c336d-ec53-40d7-bc21-aa9bdd91e49d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion">
+      <UniqueIdentifier>{be087875-16c4-4722-9130-9a2a776c103c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Building">
+      <UniqueIdentifier>{733425f6-6812-4e67-aa8c-1ca64dcbcb68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Building\Turret">
+      <UniqueIdentifier>{b0ae6e36-39b3-4770-8710-a589d203bdb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Building\Nexus">
+      <UniqueIdentifier>{bdf55829-ead1-4033-a866-389e2d366f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Building\Inhibitor">
+      <UniqueIdentifier>{06e8c3cd-7115-499a-80b8-7eb32e682f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\PathFinder">
+      <UniqueIdentifier>{858d6d39-3ede-4ba5-99a3-d41ebd52ccfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\PathFinder\Dijkstra">
+      <UniqueIdentifier>{ad94ff98-397a-4bcb-aec2-66cbe64fa620}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -351,9 +375,26 @@
     <ClInclude Include="NavMeshMap.h">
       <Filter>GameObject\NavMeshMap</Filter>
     </ClInclude>
-    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="TestGaren.h">
       <Filter>GameObject\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Champion.h">
+      <Filter>GameObject\Unit\Champion</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>GameObject\Unit\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>Lib\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="Dijkstra.h">
+      <Filter>Lib\PathFinder\Dijkstra</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Lib\Optimization\QuadTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -671,9 +712,26 @@
     <ClCompile Include="NavMeshMap.cpp">
       <Filter>GameObject\NavMeshMap</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="TestGaren.cpp">
       <Filter>GameObject\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Champion.cpp">
+      <Filter>GameObject\Unit\Champion</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>GameObject\Unit\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>Lib\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="Dijkstra.cpp">
+      <Filter>Lib\PathFinder\Dijkstra</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Lib\Optimization\QuadTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

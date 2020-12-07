@@ -4,7 +4,7 @@
 TestGaren::TestGaren()
 {
 	transform->position = { 0,0,0 };
-	transform->scale = { 0.01f, 0.01f, 0.01f, };
+	transform->scale = { 0.014f, 0.014f, 0.014f, };
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
 }
