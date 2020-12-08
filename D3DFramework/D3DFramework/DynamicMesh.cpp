@@ -65,8 +65,8 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 	Safe_Release(&pAniCtrl);
 
-	Matrix		matTemp = Matrix::identity;
-	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
+	Matrix		matTemp;// = Matrix::identity;
+	D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
 	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 
 	SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
@@ -76,10 +76,17 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 void DynamicMesh::Render(void)
 {
-	if (gameObject == nullptr) return;
-	//Matrix		matTemp = ;
+	if (gameObject == nullptr)return;
+	
+	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+
+	Matrix		matTemp = gameObject->transform->world;
 	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
-	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &gameObject->transform->world);
+	matTemp._41 = 0.f;
+	matTemp._42 = 0.f;
+	matTemp._43 = 0.f;
+	//UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &);
+	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 
 	for (auto& iter : m_MeshContainerList)
 	{

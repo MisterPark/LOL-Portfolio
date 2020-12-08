@@ -23,11 +23,13 @@ void PlayerController::Update()
     
     if (InputManager::GetKey('W'))
     {
-        gameObject->transform->position.z += 10.f* TimeManager::DeltaTime();
+        //gameObject->transform->position.z += 10.f* TimeManager::DeltaTime();
+        transform->position += transform->look * 10.f * TimeManager::DeltaTime();
     }
     if (InputManager::GetKey('A'))
     {
-        gameObject->transform->position.x -= 10.f * TimeManager::DeltaTime();
+        //gameObject->transform->position.x -= 10.f * TimeManager::DeltaTime();
+        gameObject->transform->eulerAngles.y -= D3DXToRadian(10);// *TimeManager::DeltaTime();
     }
     if (InputManager::GetKey('S'))
     {
@@ -35,7 +37,8 @@ void PlayerController::Update()
     }
     if (InputManager::GetKey('D'))
     {
-        gameObject->transform->position.x += 10.f * TimeManager::DeltaTime();
+        //gameObject->transform->position.x += 10.f * TimeManager::DeltaTime();
+        gameObject->transform->eulerAngles.y += D3DXToRadian(10);// *TimeManager::DeltaTime();
     }
 
     if (InputManager::GetKey('Q'))
@@ -84,6 +87,19 @@ void PlayerController::Update()
             //float angle = Vector3::AngleY(transform->look, direction);
             //angle = D3DXToRadian(angle);
             //gameObject->transform->eulerAngles.y -= angle *TimeManager::DeltaTime();
+
+            // È¸Àü
+            Vector3 direction = hit.point - transform->position;
+            Vector3::Normalize(&direction);
+
+            //float angle = Vector3::Dot(transform->look, direction); // == cos@
+            //angle = acosf(angle);
+            float angle = Vector3::AngleY(Vector3(0,0,1), direction);
+            //angle = D3DXToRadian(angle);
+            
+
+            gameObject->transform->eulerAngles.y = angle;
+            
             gameObject->MoveToTarget(hit.point,5.f);
 
         }
