@@ -16,7 +16,7 @@ void LoadingScene::OnLoaded()
 
 	//LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/sr/", L"sr.x", Count);
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x",Count);
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
+	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
 }
 
 void LoadingScene::OnUnloaded()

@@ -80,11 +80,17 @@ namespace PKH
 	template<class T>
 	inline GameObject* ObjectManager::FindObject()
 	{
-		for (auto& iter : objectTable)
+		auto objTable = objectTable;
+		int layerCount = MaxOfEnum<Layer>();
+		for (int i = 0; i < layerCount; i++)
 		{
-			if (dynamic_cast<T*>(iter) == nullptr) continue;
+			auto& objList = objTable[i];
+			for (auto& iter : objList)
+			{
+				if (dynamic_cast<T*>(iter) == nullptr) continue;
 
-			return iter;
+				return iter;
+			}
 		}
 		
 		return nullptr;
@@ -93,11 +99,17 @@ namespace PKH
 	template<class T>
 	inline void ObjectManager::FindObjectList(list<GameObject*>& outList)
 	{
-		for (auto& iter : objectTable)
+		auto objTable = objectTable;
+		int layerCount = MaxOfEnum<Layer>();
+		for (int i = 0; i < layerCount; i++)
 		{
-			if (dynamic_cast<T*>(iter) == nullptr) continue;
+			auto& objList = objTable[i];
+			for (auto& iter : objList)
+			{
+				if (dynamic_cast<T*>(iter) == nullptr) continue;
 
-			outList.push_back(iter);
+				outList.push_back(iter);
+			}
 		}
 	}
 

@@ -105,9 +105,9 @@ void PKH::MainGame::Update()
 		RenderManager::Clear();
 
 		SkyBox::GetInstance()->Render();
-		//ObjectManager::PreRender();
+		ObjectManager::PreRender();
 		ObjectManager::Render();
-		//ObjectManager::PostRender();
+		ObjectManager::PostRender();
 
 
 		RenderManager::Present();

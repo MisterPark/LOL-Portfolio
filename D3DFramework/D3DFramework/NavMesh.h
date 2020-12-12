@@ -3,12 +3,21 @@
 
 namespace PKH
 {
-    class StaticMesh : public Mesh
+    struct AdjacencyInfo
+    {
+        DWORD a = ULONG_MAX;
+        DWORD b = ULONG_MAX;
+        DWORD c = ULONG_MAX;
+    };
+
+    
+
+    class NavMesh : public Mesh
     {
     public:
-        explicit StaticMesh(GameObject* owner);
-        explicit StaticMesh(const StaticMesh& rhs);
-        virtual ~StaticMesh();
+        explicit NavMesh(GameObject* owner);
+        explicit NavMesh(const NavMesh& rhs);
+        virtual ~NavMesh();
 
     public:
         virtual IComponent* Clone() override;
@@ -20,9 +29,13 @@ namespace PKH
         virtual ULONG GetVertexSize() override { return this->vertexSize; }
         virtual ULONG GetFaceCount() override { return this->triangleCount; }
 
+        AdjacencyInfo* GetAdjacencyInfo() { return this->pAdjacencyInfo; }
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+    
         virtual void Render() override;
+
+
 
     private:
         LPD3DXMESH			pOriginMesh;	// 최초 로드 시점에 생성하는 메쉬 컴객체
@@ -30,7 +43,7 @@ namespace PKH
 
         LPD3DXBUFFER		pAdjacency; // 인접한 이웃의 정보를 접근하기 위해 첫번째 주소를 보관하려는 멤버 변수
         LPD3DXBUFFER		pSubset; // 서브셋 개수 == 텍스쳐의 개수 == 재질의 개수
-        D3DXMATERIAL*       pMaterial;
+        D3DXMATERIAL* pMaterial;
         ULONG				subsetCount;
 
         LPDIRECT3DTEXTURE9* ppTextures;
@@ -43,8 +56,11 @@ namespace PKH
         ULONG triangleCount = 0;
         DWORD fvf;
 
-
-
+        //=====================
+        // 네비메쉬 전용
+        //=====================
+        // 인접폴리곤 정보
+        AdjacencyInfo* pAdjacencyInfo = nullptr;
     };
 
 }

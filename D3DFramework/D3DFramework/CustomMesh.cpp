@@ -15,6 +15,8 @@ PKH::CustomMesh::CustomMesh(GameObject* owner)
 	material.Ambient = D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.5f);
 	material.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 	material.Power = 0.f;
+
+	type = MeshType::CUSTOM_MESH;
 }
 
 PKH::CustomMesh::CustomMesh(const CustomMesh& rhs)

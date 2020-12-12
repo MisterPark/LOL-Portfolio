@@ -4,31 +4,22 @@
 PKH::MeshCollider::MeshCollider(GameObject* owner)
     :Collider(owner)
 {
-    // 참조하는 메쉬 지정 (다이나믹 메쉬의 정점 정보를 얻기 힘드므로 이런 코드가 불가피)
-    StaticMesh* smesh = (StaticMesh*)owner->GetComponent<StaticMesh>();
-    if (smesh != nullptr)
-    {
-        sharedMesh = smesh;
-    }
-    else
-    {
-        CustomMesh* cmesh = (CustomMesh*)owner->GetComponent<CustomMesh>();
-        if (cmesh != nullptr)
-        {
-            sharedMesh = cmesh;
-        }
-    }
+    SetSharedMesh();
 }
 
 PKH::MeshCollider::MeshCollider(const MeshCollider& rhs)
     :Collider(rhs)
 {
-   
+    
 }
 
 PKH::MeshCollider::~MeshCollider()
 {
     sharedMesh = nullptr;
+}
+
+void PKH::MeshCollider::Render()
+{
 }
 
 IComponent* PKH::MeshCollider::Clone()
@@ -38,20 +29,7 @@ IComponent* PKH::MeshCollider::Clone()
 
 bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
-    Mesh* sharedMesh = nullptr;
-    StaticMesh* smesh = (StaticMesh*)gameObject->GetComponent<StaticMesh>();
-    if (smesh != nullptr)
-    {
-        sharedMesh = smesh;
-    }
-    else
-    {
-        CustomMesh* cmesh = (CustomMesh*)gameObject->GetComponent<CustomMesh>();
-        if (cmesh != nullptr)
-        {
-            sharedMesh = cmesh;
-        }
-    }
+    Mesh* sharedMesh = GetSharedMesh();
     if (sharedMesh == nullptr) return false;
     Vector3* vertexPositions = nullptr;
     DWORD* indices = nullptr;
@@ -103,4 +81,30 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
 
 
     return false;
+}
+
+void PKH::MeshCollider::SetSharedMesh()
+{
+    // 참조하는 메쉬 지정 (다이나믹 메쉬의 정점 정보를 얻기 힘드므로 이런 코드가 불가피)
+    StaticMesh* smesh = (StaticMesh*)gameObject->GetComponent<StaticMesh>();
+    NavMesh* navMesh = (NavMesh*)gameObject->GetComponent<NavMesh>();
+    CustomMesh* cmesh = (CustomMesh*)gameObject->GetComponent<CustomMesh>();
+
+    if (smesh != nullptr)
+    {
+        sharedMesh = smesh;
+    }
+    else if (navMesh != nullptr)
+    {
+        sharedMesh = navMesh;
+    }
+    else if (cmesh != nullptr)
+    {
+        sharedMesh = cmesh;
+    }
+}
+
+Mesh* PKH::MeshCollider::GetSharedMesh()
+{
+    return sharedMesh;
 }

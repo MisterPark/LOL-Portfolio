@@ -47,21 +47,29 @@ void PKH::Collider::Render()
 	if (pMesh == nullptr)return;
 	if (gameObject == nullptr)return;
 	if (transform == nullptr)return;
-
+	//return;
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
 	
+	DWORD originFVF;
+	//device->GetFVF(&originFVF);
+	
 	device->SetTransform(D3DTS_WORLD, &world);
+	//device->SetFVF(fvf);
+	
+	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	
+	device->SetTexture(0,0);
 	pMesh->DrawSubset(0);
 
 	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-
+	device->SetRenderState(D3DRS_LIGHTING, false);
+	//device->SetFVF(originFVF);
 	RenderManager::UnlockDevice();
 
 	// TODO : 반드시 지워야함 DEBUG코드
-	SetColor(D3DCOLOR_ARGB(255, 0, 255, 0));
+	//SetColor(D3DCOLOR_ARGB(255, 0, 255, 0));
 }
 
 void PKH::Collider::OnCollisionEnter(const Collider* other)
@@ -159,7 +167,6 @@ void PKH::Collider::SetMeshInformation()
 	
 
 	//==================================
-	// TODO :(매우낮음) 만약 IndexBuffer의 단위가 32비트면 주석풀고 바꿔줘야함
 	// TODO : 인덱스버퍼 크기 찾는 코드
 	
 

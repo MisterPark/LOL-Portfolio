@@ -187,10 +187,6 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 
 Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 {
-	// TODO : 이거 정상작동 안할지도 모름 테스트해봐야함
-	// 비정상일시 : ScreenToWorld 에서 포지션 가져온 뒤
-	// 포지션 - 카메라 포지션 = 방향.노말라이즈 이렇게 바꾸셈
-
 	Ray ray;
 	ray.origin = transform->position;
 

@@ -9,7 +9,7 @@ PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 	, m_pLoader(nullptr)
 	, m_pAniCtrl(nullptr)
 {
-	
+	type = MeshType::DYNAMIC_MESH;
 }
 
 PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)

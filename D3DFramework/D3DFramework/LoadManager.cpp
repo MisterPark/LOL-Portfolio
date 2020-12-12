@@ -113,6 +113,11 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
             RenderManager::LoadTerrainMesh(elem.filePath.c_str(), elem.fileName.c_str());
             break;
         }
+        case LoadType::NAV_MESH:
+        {
+            RenderManager::LoadNavMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            break;
+        }
             
         default:
             break;
@@ -206,6 +211,23 @@ void LoadManager::LoadTerrainMeshAsync(const wstring& filePath, const wstring& f
     elem.filePath = filePath;
     elem.fileName = fileName;
     elem.type = LoadType::TERRAIN_MESH;
+    elem.Callback = Callback;
+
+    EnterCriticalSection(&pLoadManager->csQ[index]);
+
+    pLoadManager->jobQ[index].push(elem);
+
+    LeaveCriticalSection(&pLoadManager->csQ[index]);
+}
+
+void LoadManager::LoadNavMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+{
+    UINT index = FindUnemployedThread();
+
+    LoadingElement elem;
+    elem.filePath = filePath;
+    elem.fileName = fileName;
+    elem.type = LoadType::NAV_MESH;
     elem.Callback = Callback;
 
     EnterCriticalSection(&pLoadManager->csQ[index]);

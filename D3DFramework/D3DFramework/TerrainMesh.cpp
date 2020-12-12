@@ -4,6 +4,7 @@
 PKH::TerrainMesh::TerrainMesh(GameObject* owner)
     :Mesh(owner)
 {
+	type = MeshType::TERRAIN_MESH;
 }
 
 PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
@@ -23,6 +24,7 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	, vertexBuffer(rhs.vertexBuffer)
 	, indexBuffer(rhs.indexBuffer)
 	, pAttributeTable(rhs.pAttributeTable)
+	, fvf(rhs.fvf)
 {
 	ppTextures = new LPDIRECT3DTEXTURE9[rhs.subsetCount];
 
@@ -158,7 +160,6 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	int indexCount = triangleCount * 3;
 	pIndices = new DWORD[indexCount];
 
-	// TODO : 인덱스16 or 32 찾는 코드
 	// 인덱스 버퍼 세팅
 	LPDIRECT3DINDEXBUFFER9 pIB;
 	pMesh->GetIndexBuffer(&pIB);
@@ -273,13 +274,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	{
 		subsetBoxArray[i].center =  subsetBoxArray[i].minPos + (subsetBoxArray[i].maxPos - subsetBoxArray[i].minPos) * 0.5f;
 		subsetBoxArray[i].radius = Vector3(subsetBoxArray[i].maxPos - subsetBoxArray[i].center).Length();
-
-		
 	}
-
-	DWORD attCount;
-	D3DXATTRIBUTERANGE a;
-	pMesh->GetAttributeTable(&a, &attCount);
 
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
@@ -357,6 +352,7 @@ void PKH::TerrainMesh::Render()
 		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
 	}
 
+	device->SetTexture(0, 0);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);

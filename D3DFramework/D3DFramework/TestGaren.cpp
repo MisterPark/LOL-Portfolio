@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "TestGaren.h"
+#include "SphereCollider.h"
+#include "NavMeshAgent.h"
 
 TestGaren::TestGaren()
 {
@@ -8,10 +10,17 @@ TestGaren::TestGaren()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
+
+	SphereCollider* collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
+	collider->radius = 1.5f;
+	collider->center = { 0,1.f,0 };
+
+	AddComponent< NavMeshAgent>(L"NavMeshAgent");
 }
 
 TestGaren::~TestGaren()
 {
+	
 }
 
 void TestGaren::Initialize()

@@ -61,9 +61,6 @@
     <Filter Include="GameObject\Item">
       <UniqueIdentifier>{5d08472c-1c9f-418b-a5cf-e6c93c95fe25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Character">
-      <UniqueIdentifier>{7620e2db-40b0-49b5-b9e8-85759fd43e8c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Mesh\CustomMesh">
       <UniqueIdentifier>{137ac20c-4975-4835-98b8-adca7e67614a}</UniqueIdentifier>
     </Filter>
@@ -132,6 +129,15 @@
     </Filter>
     <Filter Include="Lib\PathFinder\Dijkstra">
       <UniqueIdentifier>{ad94ff98-397a-4bcb-aec2-66cbe64fa620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\UnitState">
+      <UniqueIdentifier>{9263e39b-7a03-4111-960f-21e3057fc70f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\PathFinder\Astar">
+      <UniqueIdentifier>{24b1aea9-2c11-4357-96dc-7f20b1aa0ab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\NavMeshAgent">
+      <UniqueIdentifier>{acfe4bfa-2ecf-46e6-9a79-67634b6a336f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +402,14 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Lib\Optimization\QuadTree</Filter>
     </ClInclude>
+    <ClInclude Include="NavMesh.h">
+      <Filter>Component\Mesh\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitState.h" />
+    <ClInclude Include="Astar.h">
+      <Filter>Lib\PathFinder\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshAgent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -733,6 +747,14 @@
     <ClCompile Include="QuadTree.cpp">
       <Filter>Lib\Optimization\QuadTree</Filter>
     </ClCompile>
+    <ClCompile Include="NavMesh.cpp">
+      <Filter>Component\Mesh\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitState.cpp" />
+    <ClCompile Include="Astar.cpp">
+      <Filter>Lib\PathFinder\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

@@ -5,11 +5,13 @@ PKH::Mesh::Mesh(GameObject* owner)
 	:IComponent(owner)
 	,isClone(false)
 {
+	type = MeshType::NONE;
 }
 
 PKH::Mesh::Mesh(const Mesh& rhs)
 	:IComponent(rhs)
 	,isClone(true)
+	,type(rhs.type)
 {
 }
 

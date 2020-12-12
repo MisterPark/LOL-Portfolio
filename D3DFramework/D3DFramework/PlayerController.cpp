@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "PlayerController.h"
 #include "Collider.h"
-
+#include "NavMeshAgent.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
 {
+    agent = (NavMeshAgent*)owner->GetComponent<NavMeshAgent>();
 }
 
 PlayerController::PlayerController(const PlayerController& rhs)
@@ -15,6 +16,7 @@ PlayerController::PlayerController(const PlayerController& rhs)
 
 PlayerController::~PlayerController()
 {
+    agent = nullptr;
 }
 
 void PlayerController::Update()
@@ -81,26 +83,14 @@ void PlayerController::Update()
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
-            //Vector3 direction = hit.point - transform->position;
-            //Vector3::Normalize(&direction);
-
-            //float angle = Vector3::AngleY(transform->look, direction);
-            //angle = D3DXToRadian(angle);
-            //gameObject->transform->eulerAngles.y -= angle *TimeManager::DeltaTime();
-
             // 회전
             Vector3 direction = hit.point - transform->position;
             Vector3::Normalize(&direction);
-
-            //float angle = Vector3::Dot(transform->look, direction); // == cos@
-            //angle = acosf(angle);
             float angle = Vector3::AngleY(Vector3(0,0,1), direction);
-            //angle = D3DXToRadian(angle);
-            
-
             gameObject->transform->eulerAngles.y = angle;
-            
-            gameObject->MoveToTarget(hit.point,5.f);
+            // 이동
+            //gameObject->MoveToTarget(hit.point,5.f);
+            agent->SetDestination(hit.point);
 
         }
     }

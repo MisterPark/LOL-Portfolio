@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <queue>
 #include <tchar.h>
+#include <stack>
 
 //=======================================
 //  FMOD
@@ -77,6 +78,9 @@ using namespace std;
 
 #include "Struct.h"
 #include "Functions.h"
+
+#include "PathFinder.h"
+#include "Astar.h"
 
 // Base
 #include "BaseObject.h"

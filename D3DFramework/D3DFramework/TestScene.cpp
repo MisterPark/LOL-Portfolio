@@ -24,6 +24,9 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<Environment>();
 	obj->transform->position = { 0,0,0 };
 
+	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
+
+
 	obj = ObjectManager::GetInstance()->CreateObject<TestGaren>();
 	obj->transform->position = { 41,68,46 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
@@ -34,7 +37,7 @@ void TestScene::OnLoaded()
 	//obj->transform->scale = { 0.01f,0.01f, 0.01f };
 	//obj->transform->position = { 2,0,2 };
 
-	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
+	
 
 	
 

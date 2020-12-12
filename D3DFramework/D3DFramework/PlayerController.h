@@ -1,5 +1,10 @@
 #pragma once
 #include "IComponent.h"
+#include "NavMeshAgent.h"
+
+using namespace PKH;
+
+
 class PlayerController :
     public IComponent
 {
@@ -13,5 +18,6 @@ public:
     virtual IComponent* Clone() override;
 
 
+    PKH::NavMeshAgent* agent = nullptr;
 };
 

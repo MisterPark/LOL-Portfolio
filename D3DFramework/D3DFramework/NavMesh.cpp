@@ -1,14 +1,16 @@
 #include "stdafx.h"
-#include "StaticMesh.h"
+#include "NavMesh.h"
 
-PKH::StaticMesh::StaticMesh(GameObject* owner)
-	:Mesh(owner)
+using namespace PKH;
+
+PKH::NavMesh::NavMesh(GameObject* owner)
+    :Mesh(owner)
 {
-	type = MeshType::STATIC_MESH;
+	type = MeshType::NAV_MESH;
 }
 
-PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
-	: Mesh(rhs)
+PKH::NavMesh::NavMesh(const NavMesh& rhs)
+    :Mesh(rhs)
 	, pAdjacency(rhs.pAdjacency)
 	, pSubset(rhs.pSubset)
 	, pMesh(rhs.pMesh)
@@ -21,6 +23,7 @@ PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	, pVertices(rhs.pVertices)
 	, pIndices(rhs.pIndices)
 	, fvf(rhs.fvf)
+	, pAdjacencyInfo(rhs.pAdjacencyInfo)
 {
 	ppTextures = new LPDIRECT3DTEXTURE9[rhs.subsetCount];
 
@@ -36,7 +39,7 @@ PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	Safe_AddRef(&pSubset);
 }
 
-PKH::StaticMesh::~StaticMesh()
+PKH::NavMesh::~NavMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
 		Safe_Release(&ppTextures[i]);
@@ -48,22 +51,21 @@ PKH::StaticMesh::~StaticMesh()
 	{
 		Safe_Delete_Array(&pVertices);
 		Safe_Delete_Array(&pIndices);
+		Safe_Delete_Array(&pAdjacencyInfo);
 	}
-	
+
 	Safe_Release(&pSubset);
 	Safe_Release(&pAdjacency);
 	Safe_Release(&pOriginMesh);
 	Safe_Release(&pMesh);
-
 }
 
-IComponent* PKH::StaticMesh::Clone()
+IComponent* PKH::NavMesh::Clone()
 {
-	return new StaticMesh(*this);
+	return new NavMesh(*this);
 }
 
-
-HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT PKH::NavMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
 
@@ -88,7 +90,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	// FVF & 노말 세팅
 	//==============================
 	fvf = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
-	
+
 	RenderManager::LockDevice();
 	if (!(fvf & D3DFVF_NORMAL))
 	{
@@ -137,7 +139,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	{
 		pVertices[i] = *((Vector3*)(((UCHAR*)pVertex) + (i * vertexSize + byOffset)));
 	}
-	
+
 	pMesh->UnlockVertexBuffer();
 
 	//==============================
@@ -148,6 +150,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	int indexCount = triangleCount * 3;
 	pIndices = new DWORD[indexCount];
 
+	// TODO : 인덱스16 or 32 찾는 코드
 	// 인덱스 버퍼 세팅
 	LPDIRECT3DINDEXBUFFER9 pIB;
 	pMesh->GetIndexBuffer(&pIB);
@@ -179,14 +182,14 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 		pMesh->UnlockIndexBuffer();
 	}
 
-	
-	
+
+
 	//==============================
 	// 머티리얼 & 텍스처 정보 저장
 	//==============================
 	// 메쉬가 지닌 재질 정보 중 첫 번째 주소를 반환하여 저장
 	pMaterial = (D3DXMATERIAL*)pSubset->GetBufferPointer();
-	
+
 	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
 
 	for (ULONG i = 0; i < subsetCount; ++i)
@@ -212,15 +215,25 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 			RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
-		
+
 
 		RenderManager::UnlockDevice();
 	}
 
+	//==============================
+	// 인접폴리곤 정보 저장
+	//==============================
+	pAdjacencyInfo = new AdjacencyInfo[triangleCount];
+	pMesh->GenerateAdjacency(0.001f, (DWORD*)pAdjacencyInfo);
+
+
+
 	return S_OK;
 }
 
-void PKH::StaticMesh::Render()
+
+
+void PKH::NavMesh::Render()
 {
 	if (gameObject == nullptr) return;
 
@@ -230,8 +243,7 @@ void PKH::StaticMesh::Render()
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 	device->SetFVF(fvf);
 	device->SetRenderState(D3DRS_LIGHTING, false);
-	// TODO : 바꿔야함 컬모드
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{

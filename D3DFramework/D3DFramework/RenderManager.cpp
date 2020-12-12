@@ -133,10 +133,16 @@ void PKH::RenderManager::Release()
 		delete pair.second;
 	}
 
+	for (auto pair : pRenderManager->navMeshMap)
+	{
+		delete pair.second;
+	}
+
 	pRenderManager->textureMap.clear();
 	pRenderManager->staticMeshMap.clear();
 	pRenderManager->dynamicMeshMap.clear();
 	pRenderManager->terrainMeshMap.clear();
+	pRenderManager->navMeshMap.clear();
 
 	if (pRenderManager->pLine)
 	{
@@ -943,4 +949,41 @@ TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& key)
 	}
 
 	return (TerrainMesh*)mesh->second->Clone();
+}
+
+HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+{
+	NavMesh* mesh = new NavMesh(nullptr);
+	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring key = L"";
+	wstring fileName = pFileName;
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		key += fileName[i];
+	}
+
+
+	pRenderManager->navMeshMap[key] = mesh;
+
+	return S_OK;
+}
+
+NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& key)
+{
+	auto mesh = pRenderManager->navMeshMap.find(key);
+	if (mesh == pRenderManager->navMeshMap.end())
+	{
+		MessageBoxW(g_hwnd, L"로드되지 않은 네비 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
+		return nullptr;
+	}
+
+	return (NavMesh*)mesh->second->Clone();
 }
