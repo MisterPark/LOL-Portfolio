@@ -8,6 +8,7 @@
 #include "SphereCollider.h"
 #include "NavMeshMap.h"
 #include "TestGaren.h"
+#include "Wall.h"
 
 void TestScene::OnLoaded()
 {
@@ -25,6 +26,8 @@ void TestScene::OnLoaded()
 	obj->transform->position = { 0,0,0 };
 
 	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
+
+	obj = ObjectManager::GetInstance()->CreateObject<Wall>(Layer::Wall);
 
 
 	obj = ObjectManager::GetInstance()->CreateObject<TestGaren>();

@@ -61,22 +61,43 @@ void PKH::Camera::Destroy()
 
 void PKH::Camera::Update()
 {
-	if (nullptr != target)
+	if (topViewFlag)
 	{
-		transform->position = target->transform->position;
-		transform->position += offset;
+		//transform->look = Vector3(40, 50, 40);
+		//transform->position = Vector3(40, 100, 40);
 
-		transform->look = target->GetTransform()->position;
+		transform->look = Vector3(0, 68, 1);
+		transform->position = topViewPos;
 	}
+	else
+	{
+		if (nullptr != target)
+		{
+			transform->position = target->transform->position;
+			transform->position += offset;
+
+			transform->look = target->GetTransform()->position;
+		}
+	}
+	
 
 	if (InputManager::GetKey(VK_UP))
 	{
-		transform->position.y += 100.f * TimeManager::DeltaTime();
+		//transform->position.y += 100.f * TimeManager::DeltaTime();
+		topViewPos.y += 10.f * TimeManager::DeltaTime();
 	}
 	if (InputManager::GetKey(VK_DOWN))
 	{
-		transform->position.y -= 100.f * TimeManager::DeltaTime();
+		//transform->position.y -= 100.f * TimeManager::DeltaTime();
+		topViewPos.y -= 10.f * TimeManager::DeltaTime();
 	}
+	if (InputManager::GetKeyDown('U'))
+	{
+		printf("look :%d,%d,%d\n", (int)transform->look.x, (int)transform->look.y, (int)transform->look.z);
+		printf("pos :%d,%d,%d\n", (int)transform->position.x, (int)transform->position.y, (int)transform->position.z);
+		topViewFlag = !topViewFlag;
+	}
+
 	if (InputManager::GetMouseWheelUp())
 	{
 		if (target != nullptr)

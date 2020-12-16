@@ -38,11 +38,6 @@ void Debug::Release()
 {
 }
 
-void Debug::Print(const char* _text)
-{
-	printf(_text);
-}
-
 void Debug::Print(const char* _text, ...)
 {
 	va_list ap;

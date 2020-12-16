@@ -129,7 +129,7 @@ bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 
 bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
 {
-	
+	// TODO : 이거 각자의 콜라이더에서 상대 콜라이더 타입에 따른 충돌처리로 변경해야함
 	// 콜라이더 타입 판별
 	BoxCollider* srcBox = nullptr;
 	SphereCollider* srcSphere = nullptr;

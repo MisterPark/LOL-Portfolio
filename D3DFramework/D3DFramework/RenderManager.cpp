@@ -760,6 +760,28 @@ void PKH::RenderManager::DrawLine(float sx, float sy, float ex, float ey, D3DXCO
 	pRenderManager->pLine->End();
 }
 
+void PKH::RenderManager::DrawLine(Vector3 start, Vector3 end, D3DCOLOR color)
+{
+	Vector3 point[2];
+	Matrix matView, matProj;
+	pRenderManager->pDevice->GetTransform(D3DTS_VIEW, &matView);
+	pRenderManager->pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+
+	D3DXVec3TransformCoord(&point[0], &start, &matView);
+	D3DXVec3TransformCoord(&point[1], &end, &matView);
+	if (point[0].z < 1e-5f)
+	{
+		point[0].z = 1e-5f;
+	}
+	if (point[1].z < 1e-5f)
+	{
+		point[1].z = 1e-5f;
+	}
+	pRenderManager->pLine->Begin();
+	pRenderManager->pLine->DrawTransform(point, 2, &matProj, color);
+	pRenderManager->pLine->End();
+}
+
 HRESULT PKH::RenderManager::LoadTexture(TextureKey key, const wstring& filePath)
 {
 	auto find = pRenderManager->textureMap.find(key);

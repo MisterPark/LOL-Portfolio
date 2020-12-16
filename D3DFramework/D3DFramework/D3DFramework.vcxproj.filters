@@ -88,9 +88,6 @@
     <Filter Include="BaseObject">
       <UniqueIdentifier>{18c61410-f6ed-4d31-952b-9d5d3321f181}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\NavMeshMap">
-      <UniqueIdentifier>{b51fdb6e-b7f9-4ee7-925a-d319f500d3a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Mesh\TerrainMesh">
       <UniqueIdentifier>{40c7cdf5-c873-4113-ae4c-a561ab058815}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,15 @@
     </Filter>
     <Filter Include="Component\NavMeshAgent">
       <UniqueIdentifier>{acfe4bfa-2ecf-46e6-9a79-67634b6a336f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\NavNode">
+      <UniqueIdentifier>{551d6800-afd7-4423-b905-5bba7b2f1f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Environment\NavMeshMap">
+      <UniqueIdentifier>{b51fdb6e-b7f9-4ee7-925a-d319f500d3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Environment\Wall">
+      <UniqueIdentifier>{445d4cd0-b4f3-4566-bcef-2b8c3df2c4b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -379,7 +385,7 @@
       <Filter>Lib\Optimization\Frustum</Filter>
     </ClInclude>
     <ClInclude Include="NavMeshMap.h">
-      <Filter>GameObject\NavMeshMap</Filter>
+      <Filter>GameObject\Environment\NavMeshMap</Filter>
     </ClInclude>
     <ClInclude Include="TestGaren.h">
       <Filter>GameObject\Test</Filter>
@@ -405,11 +411,20 @@
     <ClInclude Include="NavMesh.h">
       <Filter>Component\Mesh\NavMesh</Filter>
     </ClInclude>
-    <ClInclude Include="UnitState.h" />
     <ClInclude Include="Astar.h">
       <Filter>Lib\PathFinder\Astar</Filter>
     </ClInclude>
-    <ClInclude Include="NavMeshAgent.h" />
+    <ClInclude Include="NavNode.h">
+      <Filter>GameObject\NavNode</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshAgent.h">
+      <Filter>Component\NavMeshAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitState.h">
+      <Filter>GameObject\Unit\UnitState</Filter>
+    </ClInclude>
+    <ClInclude Include="NavNodeManager.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -724,7 +739,7 @@
       <Filter>Lib\Optimization\Frustum</Filter>
     </ClCompile>
     <ClCompile Include="NavMeshMap.cpp">
-      <Filter>GameObject\NavMeshMap</Filter>
+      <Filter>GameObject\Environment\NavMeshMap</Filter>
     </ClCompile>
     <ClCompile Include="TestGaren.cpp">
       <Filter>GameObject\Test</Filter>
@@ -750,11 +765,20 @@
     <ClCompile Include="NavMesh.cpp">
       <Filter>Component\Mesh\NavMesh</Filter>
     </ClCompile>
-    <ClCompile Include="UnitState.cpp" />
     <ClCompile Include="Astar.cpp">
       <Filter>Lib\PathFinder\Astar</Filter>
     </ClCompile>
-    <ClCompile Include="NavMeshAgent.cpp" />
+    <ClCompile Include="NavNode.cpp">
+      <Filter>GameObject\NavNode</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshAgent.cpp">
+      <Filter>Component\NavMeshAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitState.cpp">
+      <Filter>GameObject\Unit\UnitState</Filter>
+    </ClCompile>
+    <ClCompile Include="NavNodeManager.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

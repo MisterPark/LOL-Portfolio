@@ -73,5 +73,9 @@ namespace PKH
 	public:
 		static map<wstring, Camera*> cams;
 		static Camera* main;
+
+		// 디버그용
+		bool topViewFlag = false;
+		Vector3 topViewPos = { 0,100,0 };
 	};
 }

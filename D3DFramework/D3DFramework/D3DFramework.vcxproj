@@ -197,6 +197,8 @@
     <ClInclude Include="NavMesh.h" />
     <ClInclude Include="NavMeshAgent.h" />
     <ClInclude Include="NavMeshMap.h" />
+    <ClInclude Include="NavNode.h" />
+    <ClInclude Include="NavNodeManager.h" />
     <ClInclude Include="Optimization.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Physics.h" />
@@ -254,6 +256,7 @@
     <ClInclude Include="UnitState.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation2D.cpp" />
@@ -288,6 +291,8 @@
     <ClCompile Include="NavMesh.cpp" />
     <ClCompile Include="NavMeshAgent.cpp" />
     <ClCompile Include="NavMeshMap.cpp" />
+    <ClCompile Include="NavNode.cpp" />
+    <ClCompile Include="NavNodeManager.cpp" />
     <ClCompile Include="Optimization.cpp" />
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Physics.cpp" />
@@ -338,6 +343,7 @@
     <ClCompile Include="UnitState.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3DFramework.rc" />

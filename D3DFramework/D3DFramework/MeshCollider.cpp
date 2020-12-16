@@ -51,6 +51,7 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
     Vector3 v1;
     Vector3 v2;
     Vector3 v3;
+
     for (int i = 0; i < triangleCount; i++)
     {
         index = i * 3;
@@ -67,6 +68,8 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
         if (D3DXIntersectTri(&v1, &v2, &v3,
             &ray.origin, &ray.direction, &u, &v, &dist))
         {
+            if (dist > maxDistance) continue;
+
             if (outHitInfo != nullptr)
             {
                 // V1 + U(V2 - V1) + V(V3 - V1)

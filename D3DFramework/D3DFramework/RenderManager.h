@@ -55,6 +55,7 @@ namespace PKH
 
 		static void DrawLine(float sx, float sy, float ex, float ey);
 		static void DrawLine(float sx, float sy, float ex, float ey, D3DXCOLOR color);
+		static void DrawLine(Vector3 start, Vector3 end, D3DCOLOR color);
 		//=========================================
 
 		//=================== SR ==================

@@ -241,7 +241,7 @@ void PKH::NavMesh::Render()
 	RenderManager::LockDevice();
 
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
-	device->SetFVF(fvf);
+	//device->SetFVF(fvf);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

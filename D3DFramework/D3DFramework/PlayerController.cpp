@@ -2,6 +2,7 @@
 #include "PlayerController.h"
 #include "Collider.h"
 #include "NavMeshAgent.h"
+#include "NavNode.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -51,6 +52,20 @@ void PlayerController::Update()
     {
         Camera::GetInstance()->transform->position.x += TimeManager::DeltaTime();
     }
+    // TODO : (DEBUG CODE) 나중에 삭제해야함
+    if (InputManager::GetKey('L'))
+    {
+        NavNodeManager::LinkNode();
+    }
+    if (InputManager::GetKey(VK_F5))
+    {
+        NavNodeManager::Save();
+    }
+    if (InputManager::GetKey(VK_F6))
+    {
+        NavNodeManager::LoadDebug();
+    }
+
 
     if (InputManager::GetMouseWheelUp())
     {
@@ -63,7 +78,7 @@ void PlayerController::Update()
         cam->Move(-cam->transform->look ,10.f);
     }
 
-    if (InputManager::GetMouseLButton())
+    if (InputManager::GetMouseLButtonDown())
     {
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
@@ -71,15 +86,41 @@ void PlayerController::Update()
         {
             printf("%d,%d,%d\n", (int)hit.point.x, (int)hit.point.y, (int)hit.point.z);
 
-            //hit.collider->SetColor(D3DCOLOR_ARGB(255, 255, 0, 0));
-            //hit.collider->gameObject->Destroy();
-
+            if (InputManager::GetKey(VK_CONTROL))
+            {
+                GameObject* obj = ObjectManager::GetInstance()->CreateObject<NavNode>(Layer::Node);
+                obj->transform->position = hit.point;
+                NavNodeManager::AddNode((NavNode*)obj);
+            }
         }
+
+        // TODO : (DEBUG CODE) 네비메쉬 길찾기 끝나면 지울것
+        RaycastHit info;
+        int mask = LayerMask::GetMask(Layer::Node);
+        if (Physics::Raycast(ray, &info, INFINITY, mask))
+        {
+            
+            if (InputManager::GetKey(VK_LSHIFT))
+            {
+                NavNode* node = (NavNode*)info.collider->gameObject;
+                NavNodeManager::SelectNode(node);
+            }
+            
+        }
+        else
+        {
+            NavNodeManager::ClearSelectedNodes();
+        }
+
+        
+        
+        
     }
-    else if (InputManager::GetMouseRButton())
+    else if (InputManager::GetMouseRButtonDown())
     {
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
+
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
@@ -88,11 +129,25 @@ void PlayerController::Update()
             Vector3::Normalize(&direction);
             float angle = Vector3::AngleY(Vector3(0,0,1), direction);
             gameObject->transform->eulerAngles.y = angle;
+            
             // 이동
-            //gameObject->MoveToTarget(hit.point,5.f);
-            agent->SetDestination(hit.point);
-
+            ray.origin = gameObject->transform->position;
+            ray.direction = direction;
+            float dist = Vector3(hit.point - ray.origin).Length();
+            int mask2 = LayerMask::GetMask(Layer::Wall);
+            if (Physics::Raycast(ray, &hit, dist, mask2))
+            {
+                // 직선상에 벽이 있을 경우
+                Debug::Print("직선상에 벽이있음\n");
+                agent->SetDestination(hit.point);
+            }
+            else
+            {
+                // 직선상에 벽이 없을 경우
+                agent->SetDestination(hit.point,true);
+            }
         }
+        
     }
 }
 

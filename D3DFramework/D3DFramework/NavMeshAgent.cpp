@@ -45,6 +45,9 @@ void PKH::NavMeshAgent::Update()
         }
         else // 남은 거리가 있다면
         {
+            // 회전
+            float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
+            gameObject->transform->eulerAngles.y = angle;
             // 이동
             transform->position += direction * speed * TimeManager::DeltaTime();
         }
@@ -56,34 +59,47 @@ IComponent* PKH::NavMeshAgent::Clone()
     return new NavMeshAgent(*this);
 }
 
-bool PKH::NavMeshAgent::SetDestination(const Vector3& target)
+bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
 {
-    // 길찾기 새로 수행
-    bool result = navMeshMap->Search(transform->position, target);
-    if (result == true)
+    bool result = false;
+    ResetPath();
+
+    if (noSearch)
     {
-        ResetPath();
-        // 길찾기 결과 저장
-        PathFinder::Node* resNode = navMeshMap->GetResultNode();
-        if (resNode == nullptr) return false;
-
-        // destination 세팅
-        destination = resNode->position;
-        
-
-        // path 세팅
-        PathFinder::Node* iter = resNode;
-        while (iter != nullptr)
-        {
-            // 도착지부터 시작지까지니까 앞에서 넣어줘서 순서를 맞춤
-            path.push(iter->position);
-            iter = iter->parent;
-        }
-
-        // nextPosition 세팅
-        nextPosition = path.top();
+        destination = target;
+        path.push(target);
+        nextPosition = target;
         isDestination = false;
     }
+    else
+    {
+        // 길찾기 새로 수행
+        result = navMeshMap->Search(transform->position, target);
+        if (result == true)
+        {
+            // 길찾기 결과 저장
+            PathFinder::Node* resNode = navMeshMap->GetResultNode();
+            if (resNode == nullptr) return false;
+
+            // destination 세팅
+            destination = resNode->position;
+            path.push(target);
+
+            // path 세팅
+            PathFinder::Node* iter = resNode;
+            while (iter != nullptr)
+            {
+                // 도착지부터 시작지까지니까 앞에서 넣어줘서 순서를 맞춤
+                path.push(iter->position);
+                iter = iter->parent;
+            }
+
+            // nextPosition 세팅
+            nextPosition = path.top();
+            isDestination = false;
+        }
+    }
+   
 
     return result;
 }
@@ -100,6 +116,7 @@ void PKH::NavMeshAgent::Resume()
 
 void PKH::NavMeshAgent::Move(const Vector3& offset)
 {
+
 }
 
 void PKH::NavMeshAgent::ResetPath()

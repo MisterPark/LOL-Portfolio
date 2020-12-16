@@ -20,7 +20,7 @@ namespace PKH
 		virtual IComponent* Clone() override;
 
 	public:
-		bool SetDestination(const Vector3& target);
+		bool SetDestination(const Vector3& target, bool noSearch = false);
 		void Stop();
 		void Resume();
 		void Move(const Vector3& offset);

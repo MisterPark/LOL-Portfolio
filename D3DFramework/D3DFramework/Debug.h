@@ -14,7 +14,6 @@ public:
 	static void Initialize();
 	static void Release();
 
-	static void Print(const char* _text);
 	static void Print(const char* _text, ...);
 
 };

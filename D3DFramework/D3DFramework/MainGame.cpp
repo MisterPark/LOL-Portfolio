@@ -69,6 +69,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	SoundManager::GetInstance()->Initialize();
 	LoadManager::GetInstance();
 	Frustum::GetInstance();
+	NavNodeManager::GetInstance();
 
 	LoadUISprite();
 
@@ -136,6 +137,7 @@ void PKH::MainGame::Release()
 	LobbyWindow::Destroy();
 	Network::Destroy();
 	Frustum::Destroy();
+	NavNodeManager::Destroy();
 }
 
 void PKH::MainGame::Pause()

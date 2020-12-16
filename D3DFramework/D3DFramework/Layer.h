@@ -3,7 +3,9 @@
 enum class Layer
 {
 	Default,
+	Node,
 	Ground,
+	Wall,
 	END
 };
 

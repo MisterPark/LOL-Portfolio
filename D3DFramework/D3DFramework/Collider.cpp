@@ -51,17 +51,25 @@ void PKH::Collider::Render()
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
 	
-	DWORD originFVF;
-	//device->GetFVF(&originFVF);
 	
 	device->SetTransform(D3DTS_WORLD, &world);
+
+	LPDIRECT3DVERTEXBUFFER9 vb;
+	pMesh->GetVertexBuffer(&vb);
+	LPDIRECT3DINDEXBUFFER9 ib;
+	pMesh->GetIndexBuffer(&ib);
+
+	//device->SetStreamSource(0, vb, 0, pMesh->GetNumVertices());
 	//device->SetFVF(fvf);
-	
+	//device->SetIndices(ib);
+
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	
 	device->SetTexture(0,0);
 	pMesh->DrawSubset(0);
+	//device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, pMesh->GetNumVertices(), 0, pMesh->GetNumFaces());
+
 
 	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	device->SetRenderState(D3DRS_LIGHTING, false);

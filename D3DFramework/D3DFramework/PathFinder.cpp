@@ -55,6 +55,15 @@ PKH::PathFinder::PathFinder()
 
 PKH::PathFinder::~PathFinder()
 {
+	auto iter = nodes.begin();
+	auto end = nodes.end();
+	for (; iter != end; ++iter)
+	{
+		delete (*iter);
+	}
+
+	nodes.clear();
+	nodes.shrink_to_fit();
 }
 
 PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos)

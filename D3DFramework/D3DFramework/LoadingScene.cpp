@@ -17,6 +17,7 @@ void LoadingScene::OnLoaded()
 	//LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/sr/", L"sr.x", Count);
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x",Count);
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"nav_wall.x", Count);
 }
 
 void LoadingScene::OnUnloaded()
@@ -27,7 +28,7 @@ void LoadingScene::OnUnloaded()
 void LoadingScene::Update()
 {
 	
-	if (loadCount == 4)
+	if (loadCount == 5)
 	{
 
 		SceneManager::LoadScene<TestScene>();

@@ -104,6 +104,7 @@ using namespace std;
 #include "SceneManager.h"
 #include "LightManager.h"
 #include "LoadManager.h"
+#include "NavNodeManager.h"
 // 물리
 #include "Physics.h"
 // 게임 오브젝트
