@@ -55,15 +55,12 @@ PKH::PathFinder::PathFinder()
 
 PKH::PathFinder::~PathFinder()
 {
-	auto iter = nodes.begin();
-	auto end = nodes.end();
-	for (; iter != end; ++iter)
+	for (auto node : nodes)
 	{
-		delete (*iter);
+		delete node.second;
 	}
 
 	nodes.clear();
-	nodes.shrink_to_fit();
 }
 
 PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos)
@@ -74,25 +71,25 @@ PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos)
 
 	for (auto node : nodes)
 	{
-		if (node->position == startPos)
+		if (node.second->position == startPos)
 		{
 			// 포지션이 같으면 그냥 리턴
-			return node;
+			return node.second;
 		}
 
 		// 가장 가까운 포지션의 노드 찾기
 		if (result == nullptr)
 		{
 			//비교를 위해서 일단 하나 넣음
-			result = node;
+			result = node.second;
 			continue;
 		}
 
 		float oldLen = Vector3(startPos - result->position).Length();
-		float curLen = Vector3(startPos - node->position).Length();
+		float curLen = Vector3(startPos - node.second->position).Length();
 		if (curLen < oldLen)
 		{
-			result = node;
+			result = node.second;
 		}
 	}
 	return result;
@@ -106,25 +103,25 @@ PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destP
 
 	for (auto node : nodes)
 	{
-		if (node->position == destPos)
+		if (node.second->position == destPos)
 		{
 			// 포지션이 같으면 그냥 리턴
-			return node;
+			return node.second;
 		}
 
 		// 가장 가까운 포지션의 노드 찾기
 		if (result == nullptr)
 		{
 			//비교를 위해서 일단 하나 넣음
-			result = node;
+			result = node.second;
 			continue;
 		}
 
 		float oldLen = Vector3(destPos - result->position).Length();
-		float curLen = Vector3(destPos - node->position).Length();
+		float curLen = Vector3(destPos - node.second->position).Length();
 		if (curLen < oldLen)
 		{
-			result = node;
+			result = node.second;
 		}
 	}
 	return result;
@@ -135,13 +132,13 @@ void PKH::PathFinder::SetDestination(PKH::PathFinder::Node* dest)
 	// nodes의 모든 노드의 도착지 변경
 	for (auto node : nodes)
 	{
-		node->destination = dest;
+		node.second->destination = dest;
 	}
 }
 
-void PKH::PathFinder::AddNode(PKH::PathFinder::Node* pNode)
+void PKH::PathFinder::AddNode(DWORD index, PKH::PathFinder::Node* pNode)
 {
-	nodes.emplace_back(pNode);
+	nodes[index] = pNode;
 }
 
 void PKH::PathFinder::LinkNode(DWORD srcIndex, DWORD destIndex)

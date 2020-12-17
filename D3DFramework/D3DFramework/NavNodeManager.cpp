@@ -49,7 +49,7 @@ void NavNodeManager::Save()
 
     for (auto node : pNavNodeManager->nodes)
     {
-        FileManager::WriteFile(&node.first, sizeof(float), 1);
+        FileManager::WriteFile(&node.first, sizeof(int), 1);
         FileManager::WriteFile(&node.second->transform->position.x, sizeof(float), 1);
         FileManager::WriteFile(&node.second->transform->position.y, sizeof(float), 1);
         FileManager::WriteFile(&node.second->transform->position.z, sizeof(float), 1);
@@ -68,12 +68,41 @@ void NavNodeManager::Save()
 
 void NavNodeManager::Load()
 {
-    
+    FileManager::SetDirectory("Data/Nav/Nav.dat");
+    FileManager::OpenFile("rb");
+
+    int lastID = 0;
+    FileManager::ReadFile(&lastID, sizeof(int), 1);
+    int count = 0;
+    FileManager::ReadFile(&count, sizeof(int), 1);
+
+    for (int i = 0; i < count; i++)
+    {
+        NavNode* node = (NavNode*)ObjectManager::GetInstance()->CreateObject<NavNode>(Layer::Node);
+        FileManager::ReadFile(&node->uniqueID, sizeof(int), 1);
+        FileManager::ReadFile(&node->transform->position.x, sizeof(float), 1);
+        FileManager::ReadFile(&node->transform->position.y, sizeof(float), 1);
+        FileManager::ReadFile(&node->transform->position.z, sizeof(float), 1);
+
+        int adjCount = 0;
+        FileManager::ReadFile(&adjCount, sizeof(int), 1);
+        for (int j = 0; j < adjCount; j++)
+        {
+            int adj;
+            FileManager::ReadFile(&adj, sizeof(int), 1);
+            node->adjacencyArr.push_back(adj);
+        }
+
+        pNavNodeManager->nodes[node->uniqueID] = node;
+    }
+
+    FileManager::CloseFile();
     
 }
 
 void NavNodeManager::LoadDebug()
 {
+    ClearAll();
     FileManager::SetDirectory("Data/Nav/Nav.dat");
     FileManager::OpenFile("rb");
 
@@ -84,7 +113,7 @@ void NavNodeManager::LoadDebug()
     for (int i = 0; i < count; i++)
     {
         NavNode* node = (NavNode*)ObjectManager::GetInstance()->CreateObject<NavNode>(Layer::Node);
-        FileManager::ReadFile(&node->uniqueID, sizeof(float), 1);
+        FileManager::ReadFile(&node->uniqueID, sizeof(int), 1);
         FileManager::ReadFile(&node->transform->position.x, sizeof(float), 1);
         FileManager::ReadFile(&node->transform->position.y, sizeof(float), 1);
         FileManager::ReadFile(&node->transform->position.z, sizeof(float), 1);
@@ -133,6 +162,16 @@ void NavNodeManager::DeleteNode(NavNode* node)
     }
 
     pNavNodeManager->nodes.erase(node->uniqueID);
+    node->Destroy();
+}
+
+void NavNodeManager::DeleteSelectedNodes()
+{
+    for (auto node : pNavNodeManager->selectedNodes)
+    {
+        DeleteNode(node);
+    }
+    ClearSelectedNodes();
 }
 
 NavNode* NavNodeManager::FindNode(int id)
@@ -185,4 +224,15 @@ void NavNodeManager::ClearSelectedNodes()
         node->collider->SetColor(D3DCOLOR_ARGB(255, 0, 255, 0));
     }
     pNavNodeManager->selectedNodes.clear();
+}
+
+void NavNodeManager::ClearAll()
+{
+    for (auto node : pNavNodeManager->nodes)
+    {
+        node.second->Destroy();
+    }
+    pNavNodeManager->nodes.clear();
+    pNavNodeManager->selectedNodes.clear();
+    uniqueNavNodeID = 0;
 }

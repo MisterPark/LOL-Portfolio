@@ -61,35 +61,38 @@ void PKH::Camera::Destroy()
 
 void PKH::Camera::Update()
 {
-	if (topViewFlag)
-	{
-		//transform->look = Vector3(40, 50, 40);
-		//transform->position = Vector3(40, 100, 40);
-
-		transform->look = Vector3(0, 68, 1);
-		transform->position = topViewPos;
-	}
-	else
-	{
-		if (nullptr != target)
-		{
-			transform->position = target->transform->position;
-			transform->position += offset;
-
-			transform->look = target->GetTransform()->position;
-		}
-	}
+	float dt = TimeManager::DeltaTime();
 	
 
-	if (InputManager::GetKey(VK_UP))
+	if (InputManager::GetKey(VK_NUMPAD7))
 	{
-		//transform->position.y += 100.f * TimeManager::DeltaTime();
-		topViewPos.y += 10.f * TimeManager::DeltaTime();
+		//transform->position.y += 100.f * dt;
+		topViewPos.y += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_DOWN))
+	if (InputManager::GetKey(VK_NUMPAD9))
 	{
-		//transform->position.y -= 100.f * TimeManager::DeltaTime();
-		topViewPos.y -= 10.f * TimeManager::DeltaTime();
+		//transform->position.y -= 100.f * dt;
+		topViewPos.y -= 10.f * dt;
+	}
+	if (InputManager::GetKey(VK_NUMPAD8)) // À§
+	{
+		topViewPos.z += 10.f * dt;
+		topViewLook.z += 10.f * dt;
+	}
+	if (InputManager::GetKey(VK_NUMPAD5)) // ¾Æ·¡
+	{
+		topViewPos.z -= 10.f * dt;
+		topViewLook.z -= 10.f * dt;
+	}
+	if (InputManager::GetKey(VK_NUMPAD4)) // ¿Þ
+	{
+		topViewPos.x -= 10.f * dt;
+		topViewLook.x -= 10.f * dt;
+	}
+	if (InputManager::GetKey(VK_NUMPAD6)) // ¿À¸¥
+	{
+		topViewPos.x += 10.f * dt;
+		topViewLook.x += 10.f * dt;
 	}
 	if (InputManager::GetKeyDown('U'))
 	{
@@ -104,7 +107,7 @@ void PKH::Camera::Update()
 		{
 			Vector3 direction = transform->look - transform->position;
 			Vector3::Normalize(&direction);
-			offset += direction * zoomSpeed;// *TimeManager::DeltaTime();
+			offset += direction * zoomSpeed;// *dt;
 			
 		}
 	}
@@ -114,11 +117,28 @@ void PKH::Camera::Update()
 		{
 			Vector3 direction = transform->look - transform->position;
 			Vector3::Normalize(&direction);
-			offset -= direction * zoomSpeed;// *TimeManager::DeltaTime();
+			offset -= direction * zoomSpeed;// *dt;
 		}
 	}
 	
+	// Æ÷Áî, ·è ¼¼ÆÃ
+	if (topViewFlag)
+	{
+		transform->look = topViewLook;
+		transform->position = topViewPos;
+	}
+	else
+	{
+		if (nullptr != target)
+		{
+			transform->position = target->transform->position;
+			transform->position += offset;
 
+			transform->look = target->GetTransform()->position;
+		}
+	}
+
+	// ºä
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
 	RenderManager::SetTransform(D3DTS_VIEW, &viewMatrix);
 

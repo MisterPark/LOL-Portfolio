@@ -16,7 +16,8 @@ PKH::NavMeshMap::NavMeshMap()
 	AddComponent<MeshCollider>(L"MeshCollider");
 
 	pPathFinder = new Astar();
-	SetNavigationInfo();
+	//SetNavigationInfo();
+	LoadNavigationInfo();
 }
 
 PKH::NavMeshMap::~NavMeshMap()
@@ -73,7 +74,7 @@ void PKH::NavMeshMap::SetNavigationInfo()
 
 		PathFinder::Node* node = new PathFinder::Node();
 		node->position = barycentricCoord;
-		pPathFinder->AddNode(node);
+		pPathFinder->AddNode(i,node);
 	}
 
 	for (int i = 0; i < triangleCount; i++)
@@ -87,6 +88,56 @@ void PKH::NavMeshMap::SetNavigationInfo()
 
 	}
 	
+}
+
+void PKH::NavMeshMap::LoadNavigationInfo()
+{
+	map<int, vector<int>> adjacencyInfo;
+
+	FileManager::SetDirectory("Data/Nav/Nav.dat");
+	FileManager::OpenFile("rb");
+
+	int lastID = 0;
+	FileManager::ReadFile(&lastID, sizeof(int), 1);
+	int count = 0;
+	FileManager::ReadFile(&count, sizeof(int), 1);
+
+	for (int i = 0; i < count; i++)
+	{
+		PathFinder::Node* node = new PathFinder::Node();
+		
+		int id;
+		FileManager::ReadFile(&id, sizeof(int), 1);
+		FileManager::ReadFile(&node->position.x, sizeof(float), 1);
+		FileManager::ReadFile(&node->position.y, sizeof(float), 1);
+		FileManager::ReadFile(&node->position.z, sizeof(float), 1);
+
+		int adjCount = 0;
+		FileManager::ReadFile(&adjCount, sizeof(int), 1);
+		for (int j = 0; j < adjCount; j++)
+		{
+			int adj;
+			FileManager::ReadFile(&adj, sizeof(int), 1);
+			adjacencyInfo[id].push_back(adj);
+		}
+
+		pPathFinder->AddNode(id, node);
+	}
+
+	for (auto iter : adjacencyInfo)
+	{
+		int srcID = iter.first;
+		int adjCount = iter.second.size();
+		for (int i = 0; i < adjCount; i++)
+		{
+			int destID = iter.second[i];
+			pPathFinder->LinkNode(srcID, destID);
+
+		}
+	}
+	
+
+	FileManager::CloseFile();
 }
 
 bool PKH::NavMeshMap::Search(const Vector3& start, const Vector3& dest)

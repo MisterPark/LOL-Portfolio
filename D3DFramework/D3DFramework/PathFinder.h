@@ -45,7 +45,7 @@ namespace PKH
 		
 	public:
 		// 외부에서 세팅 해줄것 (한번만)
-		void AddNode(PathFinder::Node* pNode);
+		void AddNode(DWORD index, PathFinder::Node* pNode);
 		void LinkNode(DWORD srcIndex, DWORD destIndex);
 
 	public:
@@ -61,7 +61,7 @@ namespace PKH
 		
 	protected:
 		// 멤버
-		vector<Node*> nodes;
+		map<int, Node*> nodes;
 		PathFinderType type = PathFinderType::None;
 		
 		

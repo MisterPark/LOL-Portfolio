@@ -97,7 +97,7 @@ void PKH::MainGame::Update()
 	SkyBox::GetInstance()->Update();
 	Frustum::Update();
 	
-	CollisionManager::GetInstance()->Update();
+	//CollisionManager::GetInstance()->Update();
 	ObjectManager::PostUpdate();
 	SoundManager::Update();
 

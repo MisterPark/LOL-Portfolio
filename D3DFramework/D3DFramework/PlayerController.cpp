@@ -65,6 +65,10 @@ void PlayerController::Update()
     {
         NavNodeManager::LoadDebug();
     }
+    if (InputManager::GetKeyDown(VK_DELETE))
+    {
+        NavNodeManager::DeleteSelectedNodes();
+    }
 
 
     if (InputManager::GetMouseWheelUp())
@@ -131,11 +135,14 @@ void PlayerController::Update()
             gameObject->transform->eulerAngles.y = angle;
             
             // 이동
-            ray.origin = gameObject->transform->position;
-            ray.direction = direction;
-            float dist = Vector3(hit.point - ray.origin).Length();
+            Ray ray2;
+            RaycastHit hit2;
+            ray2.origin = gameObject->transform->position;
+            ray2.origin.y += 0.1f;
+            ray2.direction = direction;
+            float dist = Vector3(hit.point - ray2.origin).Length();
             int mask2 = LayerMask::GetMask(Layer::Wall);
-            if (Physics::Raycast(ray, &hit, dist, mask2))
+            if (Physics::Raycast(ray2, &hit2, dist, mask2))
             {
                 // 직선상에 벽이 있을 경우
                 Debug::Print("직선상에 벽이있음\n");
