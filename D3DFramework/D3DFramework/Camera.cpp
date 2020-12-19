@@ -63,7 +63,14 @@ void PKH::Camera::Update()
 {
 	float dt = TimeManager::DeltaTime();
 	
-
+	if (InputManager::GetKey(VK_UP))
+	{
+		offset.y += 10.f * dt;
+	}
+	if (InputManager::GetKey(VK_DOWN))
+	{
+		offset.y -= 10.f * dt;
+	}
 	if (InputManager::GetKey(VK_NUMPAD7))
 	{
 		//transform->position.y += 100.f * dt;

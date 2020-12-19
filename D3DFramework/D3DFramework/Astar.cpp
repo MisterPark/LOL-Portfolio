@@ -14,7 +14,7 @@ PKH::Astar::~Astar()
 
 bool PKH::Astar::Search(const Vector3& start, const Vector3& dest)
 {
-    
+    path.clear();
     // 오픈리스트
     priority_queue<Node*, vector<Node*>, ComparePFNode> openList;
     set<Node*> closeList;
@@ -39,9 +39,16 @@ bool PKH::Astar::Search(const Vector3& start, const Vector3& dest)
         PathFinder::Node* current = openList.top();
         openList.pop();
 
-        // 현재 노드가 도착 노드가 맞으면 return ture;
+        // 현재 노드가 도착 노드가 맞으면 return true;
         if (current == eNode)
         {
+            // 끝내기 전에 중간경로에 시작 후보가 있는지 확인
+            OptimizeStartNode();
+            
+            SetPath();
+            OptimizeDestinationNode(dest);
+            Optimize();
+
             return true;
         }
 
@@ -59,7 +66,8 @@ bool PKH::Astar::Search(const Vector3& start, const Vector3& dest)
                 adjNode->parent = current;
                 openList.push(adjNode);
             }
-             
+            
+            // 인접노드중에 도착노드가 있다면?
         }
 
 

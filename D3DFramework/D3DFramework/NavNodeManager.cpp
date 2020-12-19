@@ -236,3 +236,37 @@ void NavNodeManager::ClearAll()
     pNavNodeManager->selectedNodes.clear();
     uniqueNavNodeID = 0;
 }
+
+void NavNodeManager::LinkAll()
+{
+    for (auto src : pNavNodeManager->nodes)
+    {
+        for (auto dest : pNavNodeManager->nodes)
+        {
+            if (src == dest)continue;
+
+            Vector3 to = dest.second->transform->position - src.second->transform->position;
+            Ray ray;
+            ray.origin = src.second->transform->position;
+            ray.origin.y += 0.5f;
+            ray.direction = to.Normalized();
+            float dist = to.Length();
+            RaycastHit hit;
+            int mask = LayerMask::GetMask(Layer::Wall);
+            if (Physics::Raycast(ray, &hit, INFINITY, mask)) continue;
+
+            bool alreadyExist = false;
+            for (auto iter : src.second->adjacencyArr)
+            {
+                if (iter == dest.second->uniqueID)
+                {
+                    alreadyExist = true;
+                    break;
+                }
+            }
+
+            if (alreadyExist == false)
+                src.second->adjacencyArr.push_back(dest.second->uniqueID);
+        }
+    }
+}

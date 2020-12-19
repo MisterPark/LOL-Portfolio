@@ -34,6 +34,46 @@ HRESULT AnimationController::Ready_AnimationCtrl(void)
 	return S_OK;
 }
 
+bool PKH::AnimationController::GetAnimationName(char** outName, UINT index)
+{
+	LPD3DXANIMATIONSET pAS = NULL;
+	HRESULT res = m_pAniCtrl->GetAnimationSet(index, &pAS);
+	if (res == S_OK)
+	{
+		*outName = (char*)pAS->GetName();
+		return true;
+	}
+
+	return false;
+}
+
+bool PKH::AnimationController::GetAnimationIndex(UINT* outIndex, const char* name)
+{
+	LPD3DXANIMATIONSET pAS = NULL;
+	UINT animCount = m_pAniCtrl->GetNumAnimationSets();
+	
+	HRESULT res = m_pAniCtrl->GetAnimationSetByName(name, &pAS);
+	if (res == S_OK)
+	{
+		LPD3DXANIMATIONSET pAnim;
+		for (UINT i = 0; i < animCount; i++)
+		{
+			m_pAniCtrl->GetAnimationSet(i, &pAnim);
+			if (pAS == pAnim)
+			{
+				*outIndex = i;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+UINT PKH::AnimationController::GetNumAnimations()
+{
+	return m_pAniCtrl->GetNumAnimationSets();
+}
+
 void AnimationController::SetAnimationSet(const UINT& iIndex)
 {
 	if (m_iOldAniIdx == iIndex)
@@ -45,8 +85,7 @@ void AnimationController::SetAnimationSet(const UINT& iIndex)
 
 	// 인덱스 값에 해당하는 애니메이션 셋을 얻어는 함수
 	m_pAniCtrl->GetAnimationSet(iIndex, &pAS);
-
-	// m_pAniCtrl->GetAnimationSetByName()
+	//m_pAniCtrl->GetAnimationSetByName()
 
 	//m_dPeriod = pAS->GetPeriod(); // 애니메이션 셋의 재생 시간을 반환하는 함수
 

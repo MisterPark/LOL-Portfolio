@@ -39,6 +39,8 @@ namespace PKH
 	public:
 		static bool Raycast(Ray ray, RaycastHit* outHit, float maxDistance = INFINITY, int layerMask = 0xFFFFFFFF);
 		static bool Raycast(Vector3 origin, Vector3 direction, float maxDistance = INFINITY, int layerMask = 0xFFFFFFFF);
+		
+	
 	};
 
 }

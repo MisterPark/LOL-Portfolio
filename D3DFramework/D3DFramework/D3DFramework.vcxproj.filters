@@ -127,9 +127,6 @@
     <Filter Include="Lib\PathFinder\Dijkstra">
       <UniqueIdentifier>{ad94ff98-397a-4bcb-aec2-66cbe64fa620}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Unit\UnitState">
-      <UniqueIdentifier>{9263e39b-7a03-4111-960f-21e3057fc70f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lib\PathFinder\Astar">
       <UniqueIdentifier>{24b1aea9-2c11-4357-96dc-7f20b1aa0ab4}</UniqueIdentifier>
     </Filter>
@@ -420,11 +417,15 @@
     <ClInclude Include="NavMeshAgent.h">
       <Filter>Component\NavMeshAgent</Filter>
     </ClInclude>
-    <ClInclude Include="UnitState.h">
-      <Filter>GameObject\Unit\UnitState</Filter>
+    <ClInclude Include="Animation.h">
+      <Filter>Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="NavNodeManager.h" />
-    <ClInclude Include="Wall.h" />
+    <ClInclude Include="Wall.h">
+      <Filter>GameObject\Environment\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="NavNodeManager.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -774,11 +775,15 @@
     <ClCompile Include="NavMeshAgent.cpp">
       <Filter>Component\NavMeshAgent</Filter>
     </ClCompile>
-    <ClCompile Include="UnitState.cpp">
-      <Filter>GameObject\Unit\UnitState</Filter>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="NavNodeManager.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Wall.cpp">
+      <Filter>GameObject\Environment\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="NavNodeManager.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D3DFramework.ico">

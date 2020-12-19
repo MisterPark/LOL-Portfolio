@@ -18,10 +18,12 @@ namespace PKH
 		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		virtual void Render(void) override;
 		const  D3DXFRAME_DERIVED* GetFrameByName(const char* pFrameName);
-		bool							IsAnimationSetEnd(void);
+		bool			IsAnimationSetEnd(void);
 	public:
 		void			SetAnimationSet(const UINT& iIndex);
 		void			PlayAnimation(const float& fTimeDelta);
+
+		bool			GetAnimationIndex(UINT* outIndex, const char* name);
 
 	private:
 
@@ -43,6 +45,8 @@ namespace PKH
 		HierarchyLoader* m_pLoader;
 		AnimationController* m_pAniCtrl;
 		list<D3DXMESHCONTAINER_DERIVED*>			m_MeshContainerList;
+
+		map<string, UINT> m_AnimKeys;
 
 	};
 }

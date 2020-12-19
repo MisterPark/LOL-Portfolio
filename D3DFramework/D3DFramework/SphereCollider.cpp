@@ -3,7 +3,7 @@
 
 using namespace PKH;
 
-SphereCollider::SphereCollider(GameObject* owner)
+PKH::SphereCollider::SphereCollider(GameObject* owner)
     :Collider(owner)
 {
     type = ColliderType::Sphere;
@@ -55,21 +55,21 @@ SphereCollider::SphereCollider(GameObject* owner)
     SetMeshInformation();
 }
 
-SphereCollider::SphereCollider(const SphereCollider& rhs)
+PKH::SphereCollider::SphereCollider(const SphereCollider& rhs)
     :Collider(rhs)
 {
 }
 
-SphereCollider::~SphereCollider()
+PKH::SphereCollider::~SphereCollider()
 {
 }
 
-IComponent* SphereCollider::Clone()
+IComponent* PKH::SphereCollider::Clone()
 {
     return new SphereCollider(*this);
 }
 
-bool SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
+bool PKH::SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
     // c = center of Sphere
     Vector3 worldCenter = GetWorldPosition();

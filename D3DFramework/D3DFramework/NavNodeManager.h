@@ -28,6 +28,8 @@ public:
 	static void ClearSelectedNodes();
 	static void ClearAll();
 
+	// 모든 노드 자동링크 (벽감지)
+	static void LinkAll();
 private:
 	map<int,NavNode*> nodes;
 	list<NavNode*> selectedNodes;

@@ -149,3 +149,8 @@ PathFinder::Node* PKH::NavMeshMap::GetResultNode()
 {
 	return pPathFinder->GetResultNode();
 }
+
+list<PathFinder::Node*>* PKH::NavMeshMap::GetPath()
+{
+	return pPathFinder->GetPath();
+}

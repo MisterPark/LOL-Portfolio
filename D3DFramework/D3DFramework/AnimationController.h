@@ -16,6 +16,9 @@ namespace PKH
 	public:
 		HRESULT			Ready_AnimationCtrl(void);
 
+		bool			GetAnimationName(char** outName, UINT index);
+		bool			GetAnimationIndex(UINT* outIndex, const char* name);
+		UINT			GetNumAnimations();
 		void			SetAnimationSet(const UINT& iIndex);
 
 		void			PlayAnimation(const float& fTimeDelta);

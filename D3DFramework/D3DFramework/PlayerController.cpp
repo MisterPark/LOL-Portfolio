@@ -53,9 +53,13 @@ void PlayerController::Update()
         Camera::GetInstance()->transform->position.x += TimeManager::DeltaTime();
     }
     // TODO : (DEBUG CODE) 나중에 삭제해야함
-    if (InputManager::GetKey('L'))
+    if (InputManager::GetKeyDown('L'))
     {
         NavNodeManager::LinkNode();
+    }
+    if (InputManager::GetKeyDown('K'))
+    {
+        NavNodeManager::LinkAll();
     }
     if (InputManager::GetKey(VK_F5))
     {

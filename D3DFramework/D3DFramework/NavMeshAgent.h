@@ -28,7 +28,7 @@ namespace PKH
 
 	private:
 		NavMeshMap* navMeshMap = nullptr;
-		stack<Vector3> path;
+		list<Vector3> path;
 		Vector3 nextPosition;
 		bool isDestination = true;
 

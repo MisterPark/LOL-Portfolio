@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "PathFinder.h"
 
-using namespace PKH;
 
 //=======================================================
 //	PathFinderNode
@@ -63,66 +62,74 @@ PKH::PathFinder::~PathFinder()
 	nodes.clear();
 }
 
-PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos)
+PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos, float radius)
 {
 	// nodes 중에서 startPos와 가장 가까운 포지션의 노드 찾기
+	//  +  인접노드리스트도 추가
+	candidatesStart.clear();
 
 	PathFinder::Node* result = nullptr;
 
+	int mask = LayerMask::GetMask(Layer::Wall);
+
+	// nodes 중에서
 	for (auto node : nodes)
 	{
-		if (node.second->position == startPos)
-		{
-			// 포지션이 같으면 그냥 리턴
-			return node.second;
-		}
+		Vector3 to = node.second->position - startPos;
+		Ray ray;
+		ray.origin = startPos;
+		ray.direction = to.Normalized();
+		float dist = to.Length();
+		// 거리가 기준반경 안에 없으면 continue;
+		if (dist > radius) continue;
 
-		// 가장 가까운 포지션의 노드 찾기
-		if (result == nullptr)
-		{
-			//비교를 위해서 일단 하나 넣음
-			result = node.second;
-			continue;
-		}
+		// 시작지점과 노드사이에 벽이 있으면 continue;
+		RaycastHit hit;
+		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
-		float oldLen = Vector3(startPos - result->position).Length();
-		float curLen = Vector3(startPos - node.second->position).Length();
-		if (curLen < oldLen)
-		{
-			result = node.second;
-		}
+		// 기준반경 안에 있으면서, 사이에 벽이 없는 노드.
+		int key = dist * 100; // 정밀도를 위한 곱셈
+		candidatesStart[key]= node.second;
+	}
+
+	if (candidatesStart.size() > 0)
+	{
+		result = candidatesStart.begin()->second;
 	}
 	return result;
 }
 
-PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destPos)
+PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destPos, float radius)
 {
-	// nodes 중에서 startPos와 가장 가까운 포지션의 노드 찾기
+	candidatesDest.clear();
 
 	PathFinder::Node* result = nullptr;
 
+	int mask = LayerMask::GetMask(Layer::Wall);
+
+	// nodes 중에서
 	for (auto node : nodes)
 	{
-		if (node.second->position == destPos)
-		{
-			// 포지션이 같으면 그냥 리턴
-			return node.second;
-		}
+		Vector3 to = node.second->position - destPos;
+		Ray ray;
+		ray.origin = destPos;
+		ray.direction = to.Normalized();
+		float dist = to.Length();
+		// 거리가 기준반경 안에 없으면 continue;
+		if (dist > radius) continue;
 
-		// 가장 가까운 포지션의 노드 찾기
-		if (result == nullptr)
-		{
-			//비교를 위해서 일단 하나 넣음
-			result = node.second;
-			continue;
-		}
+		// 시작지점과 노드사이에 벽이 있으면 continue;
+		RaycastHit hit;
+		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
-		float oldLen = Vector3(destPos - result->position).Length();
-		float curLen = Vector3(destPos - node.second->position).Length();
-		if (curLen < oldLen)
-		{
-			result = node.second;
-		}
+		// 기준반경 안에 있으면서, 사이에 벽이 없는 노드.
+		int key = dist * 100; // 정밀도를 위한 곱셈
+		candidatesDest[key] = node.second;
+	}
+
+	if (candidatesDest.size() > 0)
+	{
+		result = candidatesDest.begin()->second;
 	}
 	return result;
 }
@@ -136,6 +143,109 @@ void PKH::PathFinder::SetDestination(PKH::PathFinder::Node* dest)
 	}
 }
 
+void PKH::PathFinder::SetPath()
+{
+	PathFinder::Node* iter = resultNode;
+	while (iter != nullptr)
+	{
+		path.push_back(iter);
+		iter = iter->parent;
+	}
+	path.reverse();
+}
+
+void PKH::PathFinder::OptimizeStartNode()
+{
+	// 중간경로에 시작후보가 있으면
+	// 시작노드를 바꾸기
+	// stack이니 역순으로 가다가 만나면 위에꺼 다날리면됨 parent = nullptr
+
+	PKH::PathFinder::Node* iter = resultNode;
+	while (iter != nullptr)
+	{
+		for (auto candidate : candidatesStart)
+		{
+			if (candidate.second == iter)
+			{
+				iter->parent = nullptr;
+				return;
+			}
+		}
+
+		iter = iter->parent;
+	}
+
+
+}
+
+void PKH::PathFinder::OptimizeDestinationNode(const Vector3& destPos)
+{
+	auto iter = path.begin();
+	auto end = path.end();
+	bool isFound = false;
+
+	for (; iter != end; ++iter)
+	{
+		if (isFound) break;
+		for (auto node : candidatesDest)
+		{
+			if (node.second == (*iter))
+			{
+				isFound = true;
+				break;
+			}
+		}
+	}
+
+	for (; iter != end;)
+	{
+		iter = path.erase(iter);
+	}
+
+
+}
+
+void PKH::PathFinder::Optimize()
+{
+	list<PKH::PathFinder::Node*>::iterator head1, head2, iter, end;
+	int mask = LayerMask::GetMask(Layer::Wall);
+
+	iter = path.begin();
+	end = path.end();
+	
+	for (; iter != end; ++iter)
+	{
+		head1 = iter;
+		head1++;
+		if (head1 == end) return;
+
+		for (head2 = head1; head2 != end; ++head2)
+		{
+			Ray ray;
+			ray.origin = (*iter)->position;
+			ray.origin.y += 0.5f;
+			Vector3 to = (*head2)->position;
+			to.y += 0.5f;
+			to -= ray.origin;
+			ray.direction = to.Normalized();
+			float dist = to.Length();
+			RaycastHit hit;
+			if (Physics::Raycast(ray, &hit, dist, mask))
+			{
+				continue;
+			}
+
+			while (head1 != head2)
+			{
+				head1 = path.erase(head1);
+			}
+			
+		}
+		
+		
+	}
+}
+
 void PKH::PathFinder::AddNode(DWORD index, PKH::PathFinder::Node* pNode)
 {
 	nodes[index] = pNode;
@@ -146,6 +256,7 @@ void PKH::PathFinder::LinkNode(DWORD srcIndex, DWORD destIndex)
 	nodes[srcIndex]->adjacency.push_back(nodes[destIndex]);
 }
 
+
 PathFinderType PKH::PathFinder::GetType()
 {
 	return type;
@@ -154,4 +265,9 @@ PathFinderType PKH::PathFinder::GetType()
 PKH::PathFinder::Node* PKH::PathFinder::GetResultNode()
 {
 	return resultNode;
+}
+
+list<PKH::PathFinder::Node*>* PKH::PathFinder::GetPath()
+{
+	return &path;
 }

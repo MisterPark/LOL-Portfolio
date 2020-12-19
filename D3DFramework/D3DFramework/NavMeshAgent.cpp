@@ -29,13 +29,12 @@ void PKH::NavMeshAgent::Update()
         // 남은 거리가 멈출 거리보다 작거나 같으면(경유지or 목적지에 도착)
         if (remainDist <= stoppingDistance)
         {
-            path.pop();
-
             // 가야할 경로가 있다면
             if (path.empty() == false)
             {
                 // nextPosition 새로 세팅
-                nextPosition = path.top();
+                nextPosition = path.front();
+                path.erase(path.begin());
             }
             else // 최종경로에 도착했다면
             {
@@ -67,7 +66,7 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
     if (noSearch)
     {
         destination = target;
-        path.push(target);
+        path.push_back(target);
         nextPosition = target;
         isDestination = false;
     }
@@ -78,24 +77,19 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
         if (result == true)
         {
             // 길찾기 결과 저장
-            PathFinder::Node* resNode = navMeshMap->GetResultNode();
-            if (resNode == nullptr) return false;
-
-            // destination 세팅
-            destination = resNode->position;
-            path.push(target);
-
-            // path 세팅
-            PathFinder::Node* iter = resNode;
-            while (iter != nullptr)
+            list<PathFinder::Node*>* resultPath = navMeshMap->GetPath();
+            auto iter = resultPath->begin();
+            auto end = resultPath->end();
+            for (; iter != end; ++iter)
             {
-                // 도착지부터 시작지까지니까 앞에서 넣어줘서 순서를 맞춤
-                path.push(iter->position);
-                iter = iter->parent;
+                path.push_back((*iter)->position);
             }
-
+            // destination 세팅
+            destination = target;
+            path.push_back(target);
             // nextPosition 세팅
-            nextPosition = path.top();
+            nextPosition = path.front();
+            path.erase(path.begin());
             isDestination = false;
         }
     }
@@ -121,9 +115,6 @@ void PKH::NavMeshAgent::Move(const Vector3& offset)
 
 void PKH::NavMeshAgent::ResetPath()
 {
-    while (!path.empty())
-    {
-        path.pop();
-    }
+    path.clear();
     
 }

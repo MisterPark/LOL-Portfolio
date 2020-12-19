@@ -10,6 +10,7 @@ PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 	, m_pAniCtrl(nullptr)
 {
 	type = MeshType::DYNAMIC_MESH;
+
 }
 
 PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
@@ -70,6 +71,17 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 
 	SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
+
+	UINT animCount = m_pAniCtrl->GetNumAnimations();
+	for (UINT i = 0; i < animCount; i++)
+	{
+		char* name;
+
+		if (m_pAniCtrl->GetAnimationName(&name, i))
+		{
+			m_AnimKeys[name] = i;
+		}
+	}
 
 	return S_OK;
 }
@@ -152,6 +164,18 @@ void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 	m_pAniCtrl->PlayAnimation(fTimeDelta);
 
 	
+}
+
+bool PKH::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
+{
+	auto end = m_AnimKeys.end();
+	auto find = m_AnimKeys.find(name);
+	if (find != end)
+	{
+		*outIndex = find->second;
+		return true;
+	}
+	return false;
 }
 
 void DynamicMesh::UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix)

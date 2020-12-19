@@ -23,6 +23,7 @@ namespace PKH
     public:
         bool Search(const Vector3& start, const Vector3& dest);
         PathFinder::Node* GetResultNode();
+        list< PathFinder::Node*>* GetPath();
 
     private:
         NavMesh* navMesh = nullptr;
