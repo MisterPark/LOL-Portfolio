@@ -163,26 +163,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ahri.h" />
     <ClInclude Include="AllMeshs.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Blitzcrank.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Champion.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Darius.h" />
+    <ClInclude Include="Diana.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Frustum.h" />
+    <ClInclude Include="Garen.h" />
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Jinx.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="Leesin.h" />
+    <ClInclude Include="Leona.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LoadingScene.h" />
@@ -195,6 +203,7 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
+    <ClInclude Include="Missfortune.h" />
     <ClInclude Include="NavMesh.h" />
     <ClInclude Include="NavMeshAgent.h" />
     <ClInclude Include="NavMeshMap.h" />
@@ -251,6 +260,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Turret.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
@@ -259,24 +269,32 @@
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ahri.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Blitzcrank.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Champion.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Darius.cpp" />
+    <ClCompile Include="Diana.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="Garen.cpp" />
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Jinx.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Leesin.cpp" />
+    <ClCompile Include="Leona.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
@@ -289,6 +307,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
+    <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="NavMesh.cpp" />
     <ClCompile Include="NavMeshAgent.cpp" />
     <ClCompile Include="NavMeshMap.cpp" />
@@ -338,6 +357,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />

@@ -8,3 +8,19 @@ Champion::Champion()
 Champion::~Champion()
 {
 }
+
+void Champion::Initialize()
+{
+	Unit::Initialize();
+
+}
+
+void Champion::Release()
+{
+	Unit::Initialize();
+}
+
+void Champion::Update()
+{
+	Unit::Update();
+}

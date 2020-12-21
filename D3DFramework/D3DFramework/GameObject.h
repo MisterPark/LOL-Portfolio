@@ -3,19 +3,8 @@
 
 using namespace PKH;
 
-enum class State
-{
-	IDLE, WALK, ATTACK, SKILL, SKILL2, SKILL3, HURT, READY, END
-};
-enum class Direction
-{
-	D, LD, L, LU, U, RU, R, RD, END
-};
 
-enum class Team
-{
-	NEUTRAL,PLAYERTEAM,MONSTERTEAM,END
-};
+
 
 namespace PKH
 {
@@ -84,8 +73,6 @@ namespace PKH
 	public:
 		wstring name;
 		Transform* transform = nullptr;
-		Team team = Team::NEUTRAL;
-		
 		
 		bool isVisible = true;
 		bool isEnable = true;

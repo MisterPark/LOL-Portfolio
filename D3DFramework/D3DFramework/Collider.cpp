@@ -6,6 +6,7 @@ PKH::Collider::Collider(GameObject* owner)
 	:IComponent(owner)
 {
 	if (owner == nullptr)return;
+	
 	CollisionManager::RegisterObject(owner->GetLayer(), this);
 }
 

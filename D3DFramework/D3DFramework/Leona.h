@@ -1,12 +1,11 @@
 #pragma once
-#include "Unit.h"
-class Champion :
-    public Unit
+#include "Champion.h"
+class Leona :
+    public Champion
 {
 public:
-
-    Champion();
-    virtual ~Champion();
+    Leona();
+    virtual ~Leona();
 
     virtual void Initialize() override;
     virtual void Release() override;

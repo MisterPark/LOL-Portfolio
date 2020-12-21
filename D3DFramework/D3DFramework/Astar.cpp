@@ -19,13 +19,13 @@ bool PKH::Astar::Search(const Vector3& start, const Vector3& dest)
     priority_queue<Node*, vector<Node*>, ComparePFNode> openList;
     set<Node*> closeList;
     // 시작 노드 세팅
-    PathFinder::Node* sNode = FindStartNode(start);
+    PathFinder::Node* sNode = FindStartNode(start, 5.f);
     if (sNode == nullptr) return false;
     sNode->parent = nullptr;
     openList.push(sNode);
     
     // 도착지 세팅
-    PathFinder::Node* eNode = FindDestinationNode(dest);
+    PathFinder::Node* eNode = FindDestinationNode(dest, 5.f);
     if (eNode == nullptr) return false;
     eNode->parent = nullptr;
     // 이전 결과 초기화

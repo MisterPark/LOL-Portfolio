@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 
-
+class Unit;
 
 namespace PKH
 {
@@ -27,6 +27,7 @@ namespace PKH
 		void ResetPath();
 
 	private:
+		Unit* unit = nullptr;
 		NavMeshMap* navMeshMap = nullptr;
 		list<Vector3> path;
 		Vector3 nextPosition;

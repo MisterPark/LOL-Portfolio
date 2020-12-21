@@ -24,6 +24,11 @@ void LoadingScene::OnLoaded()
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x",Count);
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"nav_wall.x", Count);
+
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/", L"turret_order.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break1.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break2.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break3.x", Count);
 }
 
 void LoadingScene::OnUnloaded()
@@ -34,7 +39,7 @@ void LoadingScene::OnUnloaded()
 void LoadingScene::Update()
 {
 	
-	if (loadCount == 10)
+	if (loadCount == 14)
 	{
 
 		SceneManager::LoadScene<TestScene>();

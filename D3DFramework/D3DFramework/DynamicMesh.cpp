@@ -18,6 +18,7 @@ PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
 	, m_pRootFrame(rhs.m_pRootFrame)
 	, m_pLoader(rhs.m_pLoader)
 	, m_MeshContainerList(rhs.m_MeshContainerList)
+	, m_AnimKeys(rhs.m_AnimKeys)
 {
 	m_pAniCtrl = AnimationController::Create(*rhs.m_pAniCtrl);
 }
@@ -72,14 +73,46 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 	SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
 
+
 	UINT animCount = m_pAniCtrl->GetNumAnimations();
 	for (UINT i = 0; i < animCount; i++)
 	{
 		char* name;
+		string str;
 
 		if (m_pAniCtrl->GetAnimationName(&name, i))
 		{
-			m_AnimKeys[name] = i;
+			str = name;
+			if (str == "w_go")
+			{
+				str = "w2";
+			}
+			else if (str == "q_go")
+			{
+				str = "q2";
+			}
+			else if (str == "spell1")
+			{
+				str = "q";
+			}
+			else if (str == "spell2")
+			{
+				str = "w";
+			}
+			else if (str == "spell3")
+			{
+				str = "e";
+			}
+			else if (str == "spell4")
+			{
+				str = "q";
+			}
+			else if (str == "recall1")
+			{
+				str = "recall";
+			}
+
+			m_AnimKeys[str] = i;
 		}
 	}
 
@@ -159,6 +192,20 @@ void DynamicMesh::SetAnimationSet(const UINT& iIndex)
 	m_pAniCtrl->SetAnimationSet(iIndex);
 }
 
+void PKH::DynamicMesh::SetAnimationSet(const char* name)
+{
+	auto end = m_AnimKeys.end();
+	auto find = m_AnimKeys.find(name);
+	if (find != end)
+	{
+		m_pAniCtrl->SetAnimationSet(find->second);
+	}
+	else
+	{
+		m_pAniCtrl->SetAnimationSet(0);
+	}
+}
+
 void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 {
 	m_pAniCtrl->PlayAnimation(fTimeDelta);
@@ -175,6 +222,7 @@ bool PKH::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
 		*outIndex = find->second;
 		return true;
 	}
+	*outIndex = 0;
 	return false;
 }
 

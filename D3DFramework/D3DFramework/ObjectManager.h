@@ -53,7 +53,7 @@ namespace PKH
 
 		list<GameObject*> objectTable[MaxOfEnum<Layer>()];
 		list<GameObject*> renderList;
-		bool isVisibleCollider = true;
+		bool isVisibleCollider = false;
 	};
 
 

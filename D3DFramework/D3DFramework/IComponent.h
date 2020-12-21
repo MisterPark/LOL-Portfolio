@@ -13,6 +13,7 @@ namespace PKH
 		virtual ~IComponent();
 
 		virtual void Update();
+		virtual void PostUpdate();
 
 		virtual IComponent* Clone() = 0;
 

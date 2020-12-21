@@ -3,6 +3,7 @@
 #include "Collider.h"
 #include "NavMeshAgent.h"
 #include "NavNode.h"
+#include "Unit.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -23,6 +24,7 @@ PlayerController::~PlayerController()
 void PlayerController::Update()
 {
     if (gameObject == nullptr)return;
+
     
     if (InputManager::GetKey('W'))
     {
@@ -53,25 +55,29 @@ void PlayerController::Update()
         Camera::GetInstance()->transform->position.x += TimeManager::DeltaTime();
     }
     // TODO : (DEBUG CODE) 나중에 삭제해야함
+    //if (InputManager::GetKeyDown('L'))
+    //{
+    //    NavNodeManager::LinkNode();
+    //}
+    //if (InputManager::GetKeyDown('K'))
+    //{
+    //    NavNodeManager::LinkAll();
+    //}
+    //if (InputManager::GetKey(VK_F5))
+    //{
+    //    NavNodeManager::Save();
+    //}
+    //if (InputManager::GetKey(VK_F6))
+    //{
+    //    NavNodeManager::LoadDebug();
+    //}
+    //if (InputManager::GetKeyDown(VK_DELETE))
+    //{
+    //    NavNodeManager::DeleteSelectedNodes();
+    //}
     if (InputManager::GetKeyDown('L'))
     {
-        NavNodeManager::LinkNode();
-    }
-    if (InputManager::GetKeyDown('K'))
-    {
-        NavNodeManager::LinkAll();
-    }
-    if (InputManager::GetKey(VK_F5))
-    {
-        NavNodeManager::Save();
-    }
-    if (InputManager::GetKey(VK_F6))
-    {
-        NavNodeManager::LoadDebug();
-    }
-    if (InputManager::GetKeyDown(VK_DELETE))
-    {
-        NavNodeManager::DeleteSelectedNodes();
+        ObjectManager::SetVisibleCollider(!ObjectManager::IsVisibleCollider());
     }
 
 
@@ -92,7 +98,7 @@ void PlayerController::Update()
         RaycastHit hit;
         if (Physics::Raycast(ray, &hit))
         {
-            printf("%d,%d,%d\n", (int)hit.point.x, (int)hit.point.y, (int)hit.point.z);
+            printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
 
             if (InputManager::GetKey(VK_CONTROL))
             {
@@ -103,22 +109,22 @@ void PlayerController::Update()
         }
 
         // TODO : (DEBUG CODE) 네비메쉬 길찾기 끝나면 지울것
-        RaycastHit info;
-        int mask = LayerMask::GetMask(Layer::Node);
-        if (Physics::Raycast(ray, &info, INFINITY, mask))
-        {
-            
-            if (InputManager::GetKey(VK_LSHIFT))
-            {
-                NavNode* node = (NavNode*)info.collider->gameObject;
-                NavNodeManager::SelectNode(node);
-            }
-            
-        }
-        else
-        {
-            NavNodeManager::ClearSelectedNodes();
-        }
+        //RaycastHit info;
+        //int mask = LayerMask::GetMask(Layer::Node);
+        //if (Physics::Raycast(ray, &info, INFINITY, mask))
+        //{
+        //    
+        //    if (InputManager::GetKey(VK_LSHIFT))
+        //    {
+        //        NavNode* node = (NavNode*)info.collider->gameObject;
+        //        NavNodeManager::SelectNode(node);
+        //    }
+        //    
+        //}
+        //else
+        //{
+        //    NavNodeManager::ClearSelectedNodes();
+        //}
 
         
         

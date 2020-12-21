@@ -142,6 +142,33 @@
     <Filter Include="GameObject\Environment\Wall">
       <UniqueIdentifier>{445d4cd0-b4f3-4566-bcef-2b8c3df2c4b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Unit\Champion\Garen">
+      <UniqueIdentifier>{3c071cca-8a9d-4cc8-9d11-23a88b552bc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Darius">
+      <UniqueIdentifier>{43e9f780-3900-49e8-8044-108837966287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Leesin">
+      <UniqueIdentifier>{f2512602-92ed-4d10-93e7-fb3f26756240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Diana">
+      <UniqueIdentifier>{6eec912d-f143-4da6-87c9-277c9cf34dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Ahri">
+      <UniqueIdentifier>{028d3dd2-aa8d-4a78-bf37-c411125535bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Missfortune">
+      <UniqueIdentifier>{6fabfae0-eb0c-47d3-a93a-40c7853baf2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Jinx">
+      <UniqueIdentifier>{3c03bb96-70ac-4eb5-a39f-d7e2adcaab8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Blitzcrank">
+      <UniqueIdentifier>{7f14bba9-f62d-46eb-a6c4-05ab066650c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Champion\Leona">
+      <UniqueIdentifier>{235842bd-28a8-4b90-b5ce-f8554f23b14d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -425,6 +452,36 @@
     </ClInclude>
     <ClInclude Include="NavNodeManager.h">
       <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="Garen.h">
+      <Filter>GameObject\Unit\Champion\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Leona.h">
+      <Filter>GameObject\Unit\Champion\Leona</Filter>
+    </ClInclude>
+    <ClInclude Include="Ahri.h">
+      <Filter>GameObject\Unit\Champion\Ahri</Filter>
+    </ClInclude>
+    <ClInclude Include="Darius.h">
+      <Filter>GameObject\Unit\Champion\Darius</Filter>
+    </ClInclude>
+    <ClInclude Include="Leesin.h">
+      <Filter>GameObject\Unit\Champion\Leesin</Filter>
+    </ClInclude>
+    <ClInclude Include="Blitzcrank.h">
+      <Filter>GameObject\Unit\Champion\Blitzcrank</Filter>
+    </ClInclude>
+    <ClInclude Include="Diana.h">
+      <Filter>GameObject\Unit\Champion\Diana</Filter>
+    </ClInclude>
+    <ClInclude Include="Jinx.h">
+      <Filter>GameObject\Unit\Champion\Jinx</Filter>
+    </ClInclude>
+    <ClInclude Include="Missfortune.h">
+      <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -783,6 +840,36 @@
     </ClCompile>
     <ClCompile Include="NavNodeManager.cpp">
       <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="Garen.cpp">
+      <Filter>GameObject\Unit\Champion\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Leona.cpp">
+      <Filter>GameObject\Unit\Champion\Leona</Filter>
+    </ClCompile>
+    <ClCompile Include="Ahri.cpp">
+      <Filter>GameObject\Unit\Champion\Ahri</Filter>
+    </ClCompile>
+    <ClCompile Include="Darius.cpp">
+      <Filter>GameObject\Unit\Champion\Darius</Filter>
+    </ClCompile>
+    <ClCompile Include="Leesin.cpp">
+      <Filter>GameObject\Unit\Champion\Leesin</Filter>
+    </ClCompile>
+    <ClCompile Include="Blitzcrank.cpp">
+      <Filter>GameObject\Unit\Champion\Blitzcrank</Filter>
+    </ClCompile>
+    <ClCompile Include="Diana.cpp">
+      <Filter>GameObject\Unit\Champion\Diana</Filter>
+    </ClCompile>
+    <ClCompile Include="Jinx.cpp">
+      <Filter>GameObject\Unit\Champion\Jinx</Filter>
+    </ClCompile>
+    <ClCompile Include="Missfortune.cpp">
+      <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

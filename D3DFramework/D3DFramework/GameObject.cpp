@@ -27,6 +27,10 @@ void PKH::GameObject::Update()
 
 void PKH::GameObject::PostUpdate()
 {
+	for (auto& comp : components)
+	{
+		comp.second->PostUpdate();
+	}
 }
 
 void PKH::GameObject::Render()

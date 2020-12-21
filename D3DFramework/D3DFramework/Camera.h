@@ -46,6 +46,7 @@ namespace PKH
 		static void DeleteCamera(wstring key);
 
 	private:
+		float fovY = D3DXToRadian(90.f);
 		float nearClipPlane = 1.f;
 		float farClipPlane = 1000.f;
 		bool isProjection3D;

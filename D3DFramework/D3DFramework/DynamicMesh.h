@@ -21,6 +21,7 @@ namespace PKH
 		bool			IsAnimationSetEnd(void);
 	public:
 		void			SetAnimationSet(const UINT& iIndex);
+		void			SetAnimationSet(const char* name);
 		void			PlayAnimation(const float& fTimeDelta);
 
 		bool			GetAnimationIndex(UINT* outIndex, const char* name);

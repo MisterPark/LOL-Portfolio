@@ -26,3 +26,7 @@ PKH::IComponent::~IComponent()
 void PKH::IComponent::Update()
 {
 }
+
+void PKH::IComponent::PostUpdate()
+{
+}

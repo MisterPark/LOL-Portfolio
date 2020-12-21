@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "NavMeshAgent.h"
 #include "NavMeshMap.h"
+#include "Unit.h"
 
 PKH::NavMeshAgent::NavMeshAgent(GameObject* owner)
     :IComponent(owner)
 {
+    unit = dynamic_cast<Unit*>(owner);
     navMeshMap = (NavMeshMap*)ObjectManager::GetInstance()->FindObject<NavMeshMap>();
 }
 
@@ -44,6 +46,8 @@ void PKH::NavMeshAgent::Update()
         }
         else // 남은 거리가 있다면
         {
+            // 상태
+            unit->state = UnitState::RUN;
             // 회전
             float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
             gameObject->transform->eulerAngles.y = angle;

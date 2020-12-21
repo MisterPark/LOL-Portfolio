@@ -10,6 +10,7 @@ PKH::Camera::Camera()
 {
 	screenW = MainGame::GetWidth();
 	screenH = MainGame::GetHeight();
+	fovY = D3DXToRadian(60.f);
 
 	this->transform->position = { 0,0,-3 };
 	Matrix view;
@@ -18,7 +19,7 @@ PKH::Camera::Camera()
 	RenderManager::SetTransform(D3DTS_VIEW, &view);
 	// Åõ¿µ
 	Matrix proj;
-	D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI * 0.5f,
+	D3DXMatrixPerspectiveFovLH(&proj, fovY,
 		(float)screenW / screenH,
 		nearClipPlane,
 		farClipPlane);
@@ -319,7 +320,7 @@ void PKH::Camera::SetShakeDuration(float _duration)
 
 void PKH::Camera::PerspectiveProjection()
 {
-	projectionMatrix = Matrix::PerspectiveFovLH(D3DXToRadian(90.f),
+	projectionMatrix = Matrix::PerspectiveFovLH(fovY,
 		(float)screenW / screenH,
 		nearClipPlane,
 		farClipPlane);

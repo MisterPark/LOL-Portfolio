@@ -1,6 +1,11 @@
 #pragma once
 #include "GameObject.h"
+#include "Animation.h"
 
+enum class Team
+{
+	NEUTRAL, BLUE, RED, END
+};
 
 enum class UnitState
 {
@@ -9,6 +14,8 @@ enum class UnitState
 	IDLE3,
 	DEATH,
 	RECALL,
+	RECALL2,
+	RECALL3,
 	RUN,
 	RUN_HASTE,
 	ATTACK1,
@@ -24,6 +31,7 @@ enum class UnitState
 	W2,
 	E2,
 	R2,
+	END
 };
 
 class Unit : public GameObject
@@ -38,5 +46,7 @@ public:
 
 public:
 	UnitState state = UnitState::IDLE1;
+	Team team = Team::NEUTRAL;
+	Animation* anim = nullptr;
 };
 
