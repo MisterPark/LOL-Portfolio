@@ -88,8 +88,8 @@ PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos, f
 		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
 		// 기준반경 안에 있으면서, 사이에 벽이 없는 노드.
-		int key = dist * 100; // 정밀도를 위한 곱셈
-		candidatesStart[key]= node.second;
+		int id = dist * 100; // 정밀도를 위한 곱셈
+		candidatesStart[id]= node.second;
 	}
 
 	if (candidatesStart.size() > 0)
@@ -123,8 +123,8 @@ PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destP
 		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
 		// 기준반경 안에 있으면서, 사이에 벽이 없는 노드.
-		int key = dist * 100; // 정밀도를 위한 곱셈
-		candidatesDest[key] = node.second;
+		int id = dist * 100; // 정밀도를 위한 곱셈
+		candidatesDest[id] = node.second;
 	}
 
 	if (candidatesDest.size() > 0)

@@ -1,7 +1,7 @@
 #pragma once
 
-//#define dfCLIENT_WIDTH 1024
-//#define dfCLIENT_HEIGHT 768
+#define dfCLIENT_WIDTH 1280
+#define dfCLIENT_HEIGHT 720
 
 #define dfTERRAIN_WIDTH 48
 #define dfTERRAIN_HEIGHT 48

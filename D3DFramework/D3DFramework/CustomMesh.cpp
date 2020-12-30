@@ -196,9 +196,9 @@ void PKH::CustomMesh::SetColor(D3DCOLOR color)
 	vertexBuffer->Unlock();
 }
 
-void PKH::CustomMesh::SetTexture(PKH::TextureKey key)
+void PKH::CustomMesh::SetTexture(const wstring& id)
 {
-	textureKey = key;
+	textureKey = id;
 }
 
 void PKH::CustomMesh::SetVertexPos(UINT index, const Vector3& pos)

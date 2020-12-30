@@ -47,15 +47,16 @@ void PKH::Animation2D::Update()
 		int i = int(currentTexture);
 		i++;
 		
-		currentTexture = (TextureKey)i;
+		currentTexture = (TextureID)i;
 		
 	}
 	CustomMesh* mesh = (CustomMesh*)gameObject->GetComponent(L"CustomMesh");
-	mesh->SetTexture(currentTexture);
+	wstring key = RenderManager::GetTextureKey(currentTexture);
+	mesh->SetTexture(key.c_str());
 
 }
 
-void PKH::Animation2D::SetSprite(TextureKey _startTexture, TextureKey _endTexture)
+void PKH::Animation2D::SetSprite(TextureID _startTexture, TextureID _endTexture)
 {
 	startTexture = _startTexture;
 	endTexture = _endTexture;
@@ -67,7 +68,7 @@ void PKH::Animation2D::SetSprite(TextureKey _startTexture, TextureKey _endTextur
 	
 }
 
-void PKH::Animation2D::SetCurrentSprite(TextureKey _currentTexture)
+void PKH::Animation2D::SetCurrentSprite(TextureID _currentTexture)
 {
 	currentTexture = _currentTexture;
 }
@@ -87,17 +88,17 @@ void PKH::Animation2D::SetTick(float _tick)
 	tick = _tick;
 }
 
-TextureKey PKH::Animation2D::GetCurrentSprite()
+TextureID PKH::Animation2D::GetCurrentSprite()
 {
 	return currentTexture;
 }
 
-TextureKey PKH::Animation2D::GetStartSprite()
+TextureID PKH::Animation2D::GetStartSprite()
 {
 	return startTexture;
 }
 
-TextureKey PKH::Animation2D::GetEndSprite()
+TextureID PKH::Animation2D::GetEndSprite()
 {
 	return endTexture;
 }

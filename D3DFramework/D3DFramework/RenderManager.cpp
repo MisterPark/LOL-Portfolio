@@ -5,6 +5,7 @@
 using namespace PKH;
 
 PKH::RenderManager* pRenderManager = nullptr;
+TextureID uniqueTextureID = 0;
 
 PKH::RenderManager::RenderManager()
 {
@@ -73,7 +74,7 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = g_hwnd;
 	// 거짓이면 전체화면, 참이면  창모드을 사용하겠다. 
-	d3dpp.Windowed = TRUE;
+	d3dpp.Windowed = FALSE;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
@@ -96,7 +97,7 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	fontInfo.Width = 0;
 	fontInfo.Weight = FW_HEAVY;
 	fontInfo.CharSet = HANGUL_CHARSET;
-	lstrcpy(fontInfo.FaceName, L"배달의민족 주아");
+	lstrcpy(fontInfo.FaceName, L"으뜸돋움");
 	if (FAILED(D3DXCreateFontIndirect(pRenderManager->pDevice, &fontInfo, &pRenderManager->pFont)))
 	{
 		MessageBoxW(g_hwnd, L"폰트 생성 실패", nullptr, MB_OK);
@@ -192,7 +193,7 @@ LPD3DXSPRITE PKH::RenderManager::GetSprite()
 	return pRenderManager->pSprite;
 }
 
-Texture * PKH::RenderManager::GetTexture(TextureKey _key)
+Texture * PKH::RenderManager::GetTexture(const wstring& _key)
 {
 	auto find = pRenderManager->textureMap.find(_key);
 	if (find == pRenderManager->textureMap.end())
@@ -209,11 +210,44 @@ LPD3DXLINE PKH::RenderManager::GetLine()
 	return pRenderManager->pLine;
 }
 
+TextureID PKH::RenderManager::GetTextureID(const wstring& _key)
+{
+	auto find = pRenderManager->textureMap.find(_key);
+	if (find == pRenderManager->textureMap.end())
+	{
+		return 0;
+	}
 
-HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& filePath, DWORD row, DWORD col)
+	return find->second->id;
+}
+
+wstring PKH::RenderManager::GetTextureKey(TextureID id)
+{
+	auto find = pRenderManager->textureIDMap.find(id);
+	if (find == pRenderManager->textureIDMap.end())
+	{
+		return wstring();
+	}
+	return find->second;
+}
+
+
+HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& fileName, DWORD row, DWORD col)
 {
 	
-	auto find = pRenderManager->textureMap.find(spriteKey);
+	WCHAR fullName[MAX_PATH] = {};
+	lstrcpy(fullName, filePath.c_str());
+	lstrcat(fullName, fileName.c_str());
+
+	// 키생성
+	wstring id = L"";
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		id += fileName[i];
+	}
+
+	auto find = pRenderManager->textureMap.find(id);
 
 	if (find != pRenderManager->textureMap.end())
 	{
@@ -223,7 +257,8 @@ HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& file
 
 	Texture* tex = new Texture;
 
-	if (FAILED(D3DXGetImageInfoFromFile(filePath.c_str(), &tex->imageInfo)))
+	HRESULT res = D3DXGetImageInfoFromFile(fullName, &tex->imageInfo);
+	if (FAILED(res))
 	{
 		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
 		delete tex;
@@ -234,7 +269,7 @@ HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& file
 	//EnterCriticalSection(&pRenderManager->csDevice);
 	if (FAILED(D3DXCreateTextureFromFileExW(
 		pRenderManager->pDevice,
-		filePath.c_str(),
+		fullName,
 		tex->imageInfo.Width,
 		tex->imageInfo.Height,
 		tex->imageInfo.MipLevels,
@@ -259,11 +294,14 @@ HRESULT PKH::RenderManager::LoadSprite(TextureKey spriteKey, const wstring& file
 	tex->rowCount = row;
 	tex->colCount = col;
 
-	pRenderManager->textureMap[spriteKey] = tex;
+	pRenderManager->textureMap[id] = tex;
+	tex->id = uniqueTextureID++;
+	pRenderManager->textureIDMap[tex->id] = id;
+
 	return S_OK;
 }
 
-void PKH::RenderManager::DrawSprite(TextureKey spriteKey, Vector3 pos, int index)
+void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -304,7 +342,7 @@ void PKH::RenderManager::DrawSprite(TextureKey spriteKey, Vector3 pos, int index
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawSprite(TextureKey spriteKey, const Transform& transform, int index)
+void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -346,7 +384,7 @@ void PKH::RenderManager::DrawSprite(TextureKey spriteKey, const Transform& trans
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(TextureKey spriteKey, const Transform& transform, int index)
+void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -385,7 +423,7 @@ void PKH::RenderManager::DrawUI(TextureKey spriteKey, const Transform& transform
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, int index)
+void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -423,7 +461,7 @@ void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, int index)
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index)
+void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -462,7 +500,7 @@ void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
+void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -501,7 +539,7 @@ void PKH::RenderManager::DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUIHorizontal(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer)
+void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -540,7 +578,7 @@ void PKH::RenderManager::DrawUIHorizontal(TextureKey spriteKey, Vector3 pos, Vec
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, const Transform& transform, DWORD row, DWORD col)
+void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform& transform, DWORD row, DWORD col)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -579,7 +617,7 @@ void PKH::RenderManager::DrawCharacter(TextureKey spriteKey, const Transform& tr
 
 }
 
-void PKH::RenderManager::DrawImage(TextureKey spriteKey, const Transform& transform)
+void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& transform)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -607,9 +645,9 @@ void PKH::RenderManager::DrawImage(TextureKey spriteKey, const Transform& transf
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawImage(TextureKey spriteKey, float x, float y, float verticalPer)
+void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float verticalPer)
 {
-	auto find = pRenderManager->textureMap.find(spriteKey);
+	auto find = pRenderManager->textureMap.find(id);
 	if (find == pRenderManager->textureMap.end())
 	{
 		// 로드되지 않은 스프라이트.
@@ -782,40 +820,68 @@ void PKH::RenderManager::DrawLine(Vector3 start, Vector3 end, D3DCOLOR color)
 	pRenderManager->pLine->End();
 }
 
-HRESULT PKH::RenderManager::LoadTexture(TextureKey key, const wstring& filePath)
+HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& fileName)
 {
-	auto find = pRenderManager->textureMap.find(key);
+	WCHAR fullName[MAX_PATH] = {};
+	lstrcpy(fullName, filePath.c_str());
+	lstrcat(fullName, fileName.c_str());
+
+	// 키생성
+	wstring id = L"";
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		id += fileName[i];
+	}
+
+	auto find = pRenderManager->textureMap.find(id);
 
 	if (find != pRenderManager->textureMap.end()) return S_OK;
 
 	Texture* tex = new Texture;
 
-	if (FAILED(D3DXGetImageInfoFromFile(filePath.c_str(), &tex->imageInfo)))
+	if (FAILED(D3DXGetImageInfoFromFile(fullName, &tex->imageInfo)))
 	{
 		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
 		delete tex;
 		return E_FAIL;
 	}
 	EnterCriticalSection(&pRenderManager->csDevice);
-	if (FAILED(D3DXCreateTextureFromFileW(pRenderManager->pDevice, filePath.c_str(), &tex->pTexture)))
+	if (FAILED(D3DXCreateTextureFromFileW(pRenderManager->pDevice, fullName, &tex->pTexture)))
 	{
 		LeaveCriticalSection(&pRenderManager->csDevice);
 		return E_FAIL;
 	}
 	LeaveCriticalSection(&pRenderManager->csDevice);
 	
+	pRenderManager->textureMap[id] = tex;
+	tex->id = uniqueTextureID++;
+	pRenderManager->textureIDMap[tex->id] = id;
+
 	return S_OK;
 }
 
-HRESULT PKH::RenderManager::LoadCubeTexture(TextureKey key, const wstring& filePath)
+HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstring& fileName)
 {
-	auto find = pRenderManager->textureMap.find(key);
+	WCHAR fullName[MAX_PATH] = {};
+	lstrcpy(fullName, filePath.c_str());
+	lstrcat(fullName, fileName.c_str());
+
+	// 키생성
+	wstring id = L"";
+	for (int i = 0; i < fileName.length(); i++)
+	{
+		if (fileName[i] == '.') break;
+		id += fileName[i];
+	}
+
+	auto find = pRenderManager->textureMap.find(id);
 
 	if (find != pRenderManager->textureMap.end()) return S_OK;
 
 	Texture* tex = new Texture;
 
-	if (FAILED(D3DXGetImageInfoFromFile(filePath.c_str(), &tex->imageInfo)))
+	if (FAILED(D3DXGetImageInfoFromFile(fullName, &tex->imageInfo)))
 	{
 		MessageBox(g_hwnd, L"이미지 정보 불러오기 실패", nullptr, MB_OK);
 		delete tex;
@@ -824,18 +890,22 @@ HRESULT PKH::RenderManager::LoadCubeTexture(TextureKey key, const wstring& fileP
 
 	// TODO : 큐브텍스쳐 로드하는거 마지막인자 수정해야할수도있음.
 	EnterCriticalSection(&pRenderManager->csDevice);
-	if (FAILED(D3DXCreateCubeTextureFromFileW(pRenderManager->pDevice, filePath.c_str(), (LPDIRECT3DCUBETEXTURE9*)&tex->pTexture)))
+	if (FAILED(D3DXCreateCubeTextureFromFileW(pRenderManager->pDevice, fullName, (LPDIRECT3DCUBETEXTURE9*)&tex->pTexture)))
 	{
 		LeaveCriticalSection(&pRenderManager->csDevice);
 		return E_FAIL;
 	}
 	LeaveCriticalSection(&pRenderManager->csDevice);
+
+	pRenderManager->textureMap[id] = tex;
+	tex->id = uniqueTextureID++;
+	pRenderManager->textureIDMap[tex->id] = id;
 	return S_OK;
 }
 
-void PKH::RenderManager::DrawTexture(TextureKey key)
+void PKH::RenderManager::SetTexture(const wstring& id)
 {
-	auto find = pRenderManager->textureMap.find(key);
+	auto find = pRenderManager->textureMap.find(id);
 
 	if (find == pRenderManager->textureMap.end()) return;
 	EnterCriticalSection(&pRenderManager->csDevice);
@@ -873,23 +943,23 @@ HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* 
 	}
 	
 	// 키생성
-	wstring key = L"";
+	wstring id = L"";
 	wstring fileName = pFileName;
 	for (int i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
-		key += fileName[i];
+		id += fileName[i];
 	}
 
 
-	pRenderManager->staticMeshMap[key] = smesh;
+	pRenderManager->staticMeshMap[id] = smesh;
 
 	return S_OK;
 }
 
-StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& key)
+StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& id)
 {
-	auto smesh = pRenderManager->staticMeshMap.find(key);
+	auto smesh = pRenderManager->staticMeshMap.find(id);
 	if (smesh == pRenderManager->staticMeshMap.end())
 	{
 		MessageBoxW(g_hwnd, L"로드되지 않은 스태틱 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
@@ -910,23 +980,23 @@ HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR*
 	}
 
 	// 키생성
-	wstring key = L"";
+	wstring id = L"";
 	wstring fileName = pFileName;
 	for (int i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
-		key += fileName[i];
+		id += fileName[i];
 	}
 
 
-	pRenderManager->dynamicMeshMap[key] = mesh;
+	pRenderManager->dynamicMeshMap[id] = mesh;
 
 	return S_OK;
 }
 
-DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& key)
+DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& id)
 {
-	auto dmesh = pRenderManager->dynamicMeshMap.find(key);
+	auto dmesh = pRenderManager->dynamicMeshMap.find(id);
 	if (dmesh == pRenderManager->dynamicMeshMap.end())
 	{
 		MessageBoxW(g_hwnd, L"로드되지 않은 다이나믹 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
@@ -947,23 +1017,23 @@ HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR*
 	}
 
 	// 키생성
-	wstring key = L"";
+	wstring id = L"";
 	wstring fileName = pFileName;
 	for (int i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
-		key += fileName[i];
+		id += fileName[i];
 	}
 
 
-	pRenderManager->terrainMeshMap[key] = mesh;
+	pRenderManager->terrainMeshMap[id] = mesh;
 
 	return S_OK;
 }
 
-TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& key)
+TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& id)
 {
-	auto mesh = pRenderManager->terrainMeshMap.find(key);
+	auto mesh = pRenderManager->terrainMeshMap.find(id);
 	if (mesh == pRenderManager->terrainMeshMap.end())
 	{
 		MessageBoxW(g_hwnd, L"로드되지 않은 터레인 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
@@ -984,23 +1054,23 @@ HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFi
 	}
 
 	// 키생성
-	wstring key = L"";
+	wstring id = L"";
 	wstring fileName = pFileName;
 	for (int i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
-		key += fileName[i];
+		id += fileName[i];
 	}
 
 
-	pRenderManager->navMeshMap[key] = mesh;
+	pRenderManager->navMeshMap[id] = mesh;
 
 	return S_OK;
 }
 
-NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& key)
+NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& id)
 {
-	auto mesh = pRenderManager->navMeshMap.find(key);
+	auto mesh = pRenderManager->navMeshMap.find(id);
 	if (mesh == pRenderManager->navMeshMap.end())
 	{
 		MessageBoxW(g_hwnd, L"로드되지 않은 네비 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);

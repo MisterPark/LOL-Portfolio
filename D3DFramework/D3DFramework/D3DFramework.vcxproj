@@ -79,6 +79,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <TargetName>LOLClient</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -213,6 +214,7 @@
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="PlayerInfoPanel.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
@@ -317,6 +319,7 @@
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PlayerInfoPanel.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
@@ -369,8 +372,7 @@
     <ResourceCompile Include="D3DFramework.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D3DFramework.ico" />
-    <Image Include="small.ico" />
+    <Image Include="Resource\Icon\league_of_legends.live.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CodingConvention.txt" />

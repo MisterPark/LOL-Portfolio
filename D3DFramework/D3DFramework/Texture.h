@@ -2,13 +2,7 @@
 
 namespace PKH
 {
-	enum class TextureKey
-	{
-		NONE,
-		GRASS,
-		UI_CURSOR,
-		UI_BUTTON,
-	};
+	typedef DWORD TextureID;
 
 	enum class TextureType
 	{
@@ -29,6 +23,7 @@ namespace PKH
 		D3DXIMAGE_INFO imageInfo;
 		DWORD rowCount = 1;
 		DWORD colCount = 1;
+		TextureID id = 0;
 	};
 
 

@@ -28,7 +28,7 @@ public:
     virtual void OnChangedText();
 
     virtual void SetSize(int w, int h);
-    void SetTexture(TextureKey _key);
+    void SetTexture(const wstring& _key);
     
 
 public:
@@ -39,7 +39,7 @@ public:
     Vector3 textOffsetPosition;
     // 텍스트를 출력할 UI인가? (RW)
     bool textRenderFlag = false;
-    TextureKey textureKey = TextureKey::NONE;
+    wstring textureKey;
     // 넓이 높이 (R)
     int width = 0;
     int height = 0;

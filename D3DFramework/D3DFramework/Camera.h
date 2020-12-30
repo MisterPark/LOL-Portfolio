@@ -42,8 +42,8 @@ namespace PKH
 		void OrthogonalProjection();
 
 	public:
-		static Camera* CreateCamera(wstring key);
-		static void DeleteCamera(wstring key);
+		static Camera* CreateCamera(wstring id);
+		static void DeleteCamera(wstring id);
 
 	private:
 		float fovY = D3DXToRadian(90.f);
@@ -69,8 +69,8 @@ namespace PKH
 		Vector3 offset = { 0,6,3 };
 
 		// 윈도우 사이즈
-		int screenW = 1024;
-		int screenH = 768;
+		int screenW = dfCLIENT_WIDTH;
+		int screenH = dfCLIENT_HEIGHT;
 	public:
 		static map<wstring, Camera*> cams;
 		static Camera* main;

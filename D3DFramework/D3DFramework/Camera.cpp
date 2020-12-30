@@ -340,23 +340,23 @@ void PKH::Camera::OrthogonalProjection()
 	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
-Camera* PKH::Camera::CreateCamera(wstring key)
+Camera* PKH::Camera::CreateCamera(wstring id)
 {
-	auto find = cams.find(key);
+	auto find = cams.find(id);
 	if (find != cams.end()) return find->second; // 이미 존재하면 리턴
 	
 	Camera* cam = new Camera();
-	cams[key] = cam;
+	cams[id] = cam;
 	return cam;
 }
 
-void PKH::Camera::DeleteCamera(wstring key)
+void PKH::Camera::DeleteCamera(wstring id)
 {
-	auto find = cams.find(key);
+	auto find = cams.find(id);
 	if (find == cams.end()) return;
 
 	Camera* cam = find->second;
-	cams.erase(key);
+	cams.erase(id);
 	delete cam;
 
 }

@@ -24,10 +24,11 @@ namespace PKH
 		virtual void Release() override;
 
 		static bool IsVisible();
+		static void SetTexture(const wstring& key);
 
 	private:
 		bool isVisible = true;
-
+		wstring textureKey;
 		
 	};
 }

@@ -169,6 +169,9 @@
     <Filter Include="GameObject\Unit\Champion\Leona">
       <UniqueIdentifier>{235842bd-28a8-4b90-b5ce-f8554f23b14d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\HUD">
+      <UniqueIdentifier>{35af94a1-c4a2-4e77-94d6-b88348a11b1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -483,6 +486,7 @@
     <ClInclude Include="Missfortune.h">
       <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerInfoPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -871,12 +875,10 @@
     <ClCompile Include="Missfortune.cpp">
       <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerInfoPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D3DFramework.ico">
-      <Filter>99. Defaults</Filter>
-    </Image>
-    <Image Include="small.ico">
+    <Image Include="Resource\Icon\league_of_legends.live.ico">
       <Filter>99. Defaults</Filter>
     </Image>
   </ItemGroup>

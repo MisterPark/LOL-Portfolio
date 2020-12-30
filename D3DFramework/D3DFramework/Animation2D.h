@@ -11,23 +11,23 @@ public:
     virtual ~Animation2D();
     virtual void Update();
 
-    void SetSprite(TextureKey _startTexture, TextureKey _endTexture);
-	void SetCurrentSprite(TextureKey _currentTexture);
+    void SetSprite(TextureID _startTexture, TextureID _endTexture);
+	void SetCurrentSprite(TextureID _currentTexture);
 	void SetLoop(bool _isLoop);
     void SetDelay(float _delay);
 	void SetTick(float _tick);
-	TextureKey GetCurrentSprite();
-	TextureKey GetStartSprite();
-	TextureKey GetEndSprite();
+    TextureID GetCurrentSprite();
+    TextureID GetStartSprite();
+    TextureID GetEndSprite();
 	bool IsEndFrame();
     // IComponent을(를) 통해 상속됨
     virtual IComponent* Clone() override;
     
 private:
 
-    TextureKey startTexture;
-    TextureKey currentTexture;
-    TextureKey endTexture;
+    TextureID startTexture;
+    TextureID currentTexture;
+    TextureID endTexture;
 
     float delay = 0.2f;
     float tick = 0.f;

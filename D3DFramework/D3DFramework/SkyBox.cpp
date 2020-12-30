@@ -110,26 +110,26 @@ void PKH::SkyBox::Hide()
 	pSkyBox->isVisible = false;
 }
 
-void PKH::SkyBox::SetTexture(TextureKey upTexture)
+void PKH::SkyBox::SetTexture(TextureID upTexture)
 {
-	int key = (int)upTexture;
-	CustomMesh* mesh = (CustomMesh*)pSkyBox->GetComponent(L"U");
-	mesh->SetTexture((TextureKey)key);
-	key++;
-	mesh = (CustomMesh*)pSkyBox->GetComponent(L"D");
-	mesh->SetTexture((TextureKey)key);
-	key++;
-	mesh = (CustomMesh*)pSkyBox->GetComponent(L"L");
-	mesh->SetTexture((TextureKey)key);
-	key++;
-	mesh = (CustomMesh*)pSkyBox->GetComponent(L"R");
-	mesh->SetTexture((TextureKey)key);
-	key++;
-	mesh = (CustomMesh*)pSkyBox->GetComponent(L"F");
-	mesh->SetTexture((TextureKey)key);
-	key++;
-	mesh = (CustomMesh*)pSkyBox->GetComponent(L"B");
-	mesh->SetTexture((TextureKey)key);
+	int id = (int)upTexture;
+	//CustomMesh* mesh = (CustomMesh*)pSkyBox->GetComponent(L"U");
+	//mesh->SetTexture((TextureID)id);
+	//id++;
+	//mesh = (CustomMesh*)pSkyBox->GetComponent(L"D");
+	//mesh->SetTexture((TextureID)id);
+	//id++;
+	//mesh = (CustomMesh*)pSkyBox->GetComponent(L"L");
+	//mesh->SetTexture((TextureID)id);
+	//id++;
+	//mesh = (CustomMesh*)pSkyBox->GetComponent(L"R");
+	//mesh->SetTexture((TextureID)id);
+	//id++;
+	//mesh = (CustomMesh*)pSkyBox->GetComponent(L"F");
+	//mesh->SetTexture((TextureID)id);
+	//id++;
+	//mesh = (CustomMesh*)pSkyBox->GetComponent(L"B");
+	//mesh->SetTexture((TextureID)id);
 }
 
 void PKH::SkyBox::Update()

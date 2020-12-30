@@ -55,7 +55,6 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
     for (int i = 0; i < triangleCount; i++)
     {
         index = i * 3;
-        ind = indices[index];
         v1 = vertexPositions[indices[index]];
         v2 = vertexPositions[indices[index + 1]];
         v3 = vertexPositions[indices[index + 2]];

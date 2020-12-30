@@ -3,6 +3,7 @@
 #include "SkyBox.h"
 #include "Cursor.h"
 #include "Inventory.h"
+#include "PlayerInfoPanel.h"
 
 using namespace PKH;
 
@@ -113,7 +114,6 @@ void PKH::ObjectManager::Update()
 		}
 	}
 
-	
 	Cursor::GetInstance()->Update();
 	Inventory::Update();
 }
@@ -211,7 +211,6 @@ void PKH::ObjectManager::PostRender()
 		}
 	}
 	
-
 	//Inventory::Render();
 	//Cursor::GetInstance()->Render();
 }

@@ -6,6 +6,7 @@ enum class Layer
 	Node,
 	Ground,
 	Wall,
+	UI,
 	END
 };
 

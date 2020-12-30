@@ -24,7 +24,7 @@ public:
 	
 public:
 	// Getter
-	TextureKey GetSkillIcon();
+	TextureID GetSkillIcon();
 	float GetCoolTime();
 	float GetMaxCoolTime();
 	float GetActiveTime();
@@ -35,7 +35,7 @@ public:
 	bool GetCanMove();
 
 protected:
-	TextureKey skillIcon;
+	TextureID skillIcon;
 	Character* character;
 	float coolTime;
 	float maxCoolTime;

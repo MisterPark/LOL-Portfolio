@@ -30,8 +30,8 @@ namespace PKH
 
 		Triangle* tri = nullptr;
 	public:
-		int width = 800;
-		int height = 600;
+		int width = dfCLIENT_WIDTH;
+		int height = dfCLIENT_HEIGHT;
 	};
 }
 

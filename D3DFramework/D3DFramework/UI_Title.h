@@ -18,7 +18,7 @@ public:
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
 
-    virtual void SetTexture(TextureKey _key);
+    virtual void SetTexture(TextureID _key);
     
 };
 

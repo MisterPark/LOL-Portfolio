@@ -168,9 +168,96 @@ void PKH::MainGame::LoadUISprite()
 {
 	// 리소스 로드
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
-	RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
+	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big4.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_exp.png");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (5).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (6).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (7).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (8).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (9).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (10).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_small (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_small (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_small (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_small (4).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_tip (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_tip (2).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (5).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (6).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (7).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_float (8).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (5).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"border_skill (6).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_gold (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_gold (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_gold (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_gold (4).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (4).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (4).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"map11.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"minimapBorder.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (5).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (5).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (6).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (7).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (8).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (9).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (10).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (11).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (12).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (13).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (14).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (15).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (16).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (2).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (3).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
 
 
 }										

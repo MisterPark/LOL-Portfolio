@@ -73,7 +73,7 @@ void PKH::Cursor::Update()
 void PKH::Cursor::Render()
 {
     if (isVisible == false)return;
-    RenderManager::DrawUI(TextureKey::UI_CURSOR, (*transform), 0);
+    RenderManager::DrawUI(textureKey, (*transform), 0);
 }
 
 void PKH::Cursor::Initialize()
@@ -87,4 +87,9 @@ void PKH::Cursor::Release()
 bool PKH::Cursor::IsVisible()
 {
     return pCursor->isVisible;
+}
+
+void PKH::Cursor::SetTexture(const wstring& key)
+{
+    pCursor->textureKey = key.c_str();
 }

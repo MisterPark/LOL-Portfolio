@@ -17,6 +17,7 @@
 #include "Diana.h"
 #include "Leesin.h"
 #include "Missfortune.h"
+#include "PlayerInfoPanel.h"
 
 void TestScene::OnLoaded()
 {
@@ -43,16 +44,25 @@ void TestScene::OnLoaded()
 	obj->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(obj);
 
+	obj = PlayerInfoPanel::GetInstance();
+	ObjectManager::GetInstance()->AddObject(obj, Layer::UI);
+	
+
 	obj = ObjectManager::GetInstance()->CreateObject<Blitzcrank>();
 	obj->transform->position = { 32,68,29 };
+	obj->AddComponent<PlayerController>(L"PlayerController");
 	obj = ObjectManager::GetInstance()->CreateObject<Darius>();
 	obj->transform->position = { 29,68,30 };
+	obj->AddComponent<PlayerController>(L"PlayerController");
 	obj = ObjectManager::GetInstance()->CreateObject<Diana>();
 	obj->transform->position = { 26,68,32 };
+	obj->AddComponent<PlayerController>(L"PlayerController");
 	obj = ObjectManager::GetInstance()->CreateObject<Leesin>();
 	obj->transform->position = { 24,68,34 };
+	obj->AddComponent<PlayerController>(L"PlayerController");
 	obj = ObjectManager::GetInstance()->CreateObject<Missfortune>();
 	obj->transform->position = { 23,68,37 };
+	obj->AddComponent<PlayerController>(L"PlayerController");
 
 	// ÆÛÇÃÆÀ
 	obj = ObjectManager::GetInstance()->CreateObject<Turret>();

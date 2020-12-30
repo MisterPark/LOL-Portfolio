@@ -15,6 +15,7 @@ void UI::Update()
 {
 	UpdateUI();
 	UpdateEvent();
+	GameObject::Update();
 }
 
 void UI::Render()
@@ -181,10 +182,9 @@ void UI::SetSize(int w, int h)
 	height = h;
 }
 
-void UI::SetTexture(TextureKey _key)
+void UI::SetTexture(const wstring& _key)
 {
 	textureKey = _key;
-
 
 	Texture* texture = RenderManager::GetTexture(textureKey);
 	if (texture != nullptr)

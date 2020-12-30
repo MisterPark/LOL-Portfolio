@@ -27,23 +27,24 @@ namespace PKH
 
 		static LPDIRECT3DDEVICE9 GetDevice();
 		static LPD3DXSPRITE GetSprite();
-		static Texture* GetTexture(TextureKey _key);
+		static Texture* GetTexture(const wstring& _key);
 		static LPD3DXLINE GetLine();
-
+		static TextureID GetTextureID(const wstring& _key);
+		static wstring GetTextureKey(TextureID id);
 
 		//================== 2D ======================
-		static HRESULT LoadSprite(TextureKey spriteKey, const wstring& filePath, DWORD row=1, DWORD col=1);
-		static void DrawSprite(TextureKey spriteKey, Vector3 pos, int index);
-		static void DrawSprite(TextureKey spriteKey, const Transform& transform, int index);
-		static void DrawUI(TextureKey spriteKey, const Transform& transform, int index);
-		static void DrawUI(TextureKey spriteKey, Vector3 pos, int index);
-		static void DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index);
-		static void DrawUI(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer);
-		static void DrawUIHorizontal(TextureKey spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer);
-		static void DrawCharacter(TextureKey spriteKey, const Transform& transform, DWORD row = 0, DWORD col = 0);
+		static HRESULT LoadSprite(const wstring& filePath, const wstring& fileName, DWORD row=1, DWORD col=1);
+		static void DrawSprite(const wstring& spriteKey, Vector3 pos, int index);
+		static void DrawSprite(const wstring& spriteKey, const Transform& transform, int index);
+		static void DrawUI(const wstring& spriteKey, const Transform& transform, int index=0);
+		static void DrawUI(const wstring& spriteKey, Vector3 pos, int index = 0);
+		static void DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index=0);
+		static void DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer);
+		static void DrawUIHorizontal(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer);
+		static void DrawCharacter(const wstring& spriteKey, const Transform& transform, DWORD row = 0, DWORD col = 0);
 
-		static void DrawImage(TextureKey spriteKey, const Transform& transform);
-		static void DrawImage(TextureKey spriteKey, float x, float y, float verticalPer);
+		static void DrawImage(const wstring& spriteKey, const Transform& transform);
+		static void DrawImage(const wstring& spriteKey, float x, float y, float verticalPer);
 
 		static void DrawFont(const string& text);
 		static void DrawFont(const wstring& text);
@@ -60,9 +61,9 @@ namespace PKH
 
 		//=================== SR ==================
 
-		static HRESULT LoadTexture(TextureKey key, const wstring& filePath);
-		static HRESULT LoadCubeTexture(TextureKey key, const wstring& filePath);
-		static void DrawTexture(TextureKey key);
+		static HRESULT LoadTexture( const wstring& filePath, const wstring& fileName);
+		static HRESULT LoadCubeTexture(const wstring& filePath, const wstring& fileName);
+		static void SetTexture(const wstring& id);
 
 		//=========================================
 
@@ -78,13 +79,13 @@ namespace PKH
 		//======================= 3D =======================
 
 		static HRESULT LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		static StaticMesh* CloneStaticMesh(const wstring& key);
+		static StaticMesh* CloneStaticMesh(const wstring& id);
 		static HRESULT LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		static DynamicMesh* CloneDynamicMesh(const wstring& key);
+		static DynamicMesh* CloneDynamicMesh(const wstring& id);
 		static HRESULT LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		static TerrainMesh* CloneTerrainMesh(const wstring& key);
+		static TerrainMesh* CloneTerrainMesh(const wstring& id);
 		static HRESULT LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		static NavMesh* CloneNavMesh(const wstring& key);
+		static NavMesh* CloneNavMesh(const wstring& id);
 
 		//==================================================
 
@@ -98,7 +99,8 @@ namespace PKH
 
 
 
-		map<TextureKey, Texture*> textureMap;
+		map<wstring, Texture*> textureMap;
+		map<TextureID, wstring> textureIDMap;
 		map<wstring, StaticMesh*> staticMeshMap;
 		map<wstring, DynamicMesh*> dynamicMeshMap;
 		map<wstring, TerrainMesh*> terrainMeshMap;

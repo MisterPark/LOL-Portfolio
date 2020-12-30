@@ -54,7 +54,7 @@ namespace PKH
 
 		// setter
 		void SetColor(D3DCOLOR color);
-		void SetTexture(TextureKey key);
+		void SetTexture(const wstring& id);
 		void SetVertexPos(UINT index, const Vector3& pos);
 		void SetUV(UINT index, float u, float v);
 		void SetBlendMode(BlendMode _mode);
@@ -77,7 +77,7 @@ namespace PKH
 		Vector3* pVertices = nullptr;
 		DWORD* pIndices = nullptr;
 	public:
-		TextureKey textureKey = TextureKey::NONE;
+		wstring textureKey;
 
 		
 

@@ -36,7 +36,8 @@ void Slot::Render()
 
     if (item)
     {
-        RenderManager::DrawUI(item->anim->GetCurrentSprite(), Vector3(transform->position.x + 3, transform->position.y + 3, 0), 0);
+		wstring key = RenderManager::GetTextureKey(item->anim->GetCurrentSprite());
+        RenderManager::DrawUI(key.c_str(), Vector3(transform->position.x + 3, transform->position.y + 3, 0), 0);
 		WCHAR wstr[8] = {};
 		wsprintf(wstr, L"%d", item->count);
 		RenderManager::DrawFont(wstr,
