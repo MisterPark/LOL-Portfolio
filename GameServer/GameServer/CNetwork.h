@@ -17,6 +17,8 @@ class CNetwork
 public:
 	CNetwork();
 	virtual ~CNetwork();
+public:
+	virtual void Shutdown();
 
 private:
 	bool InitializeNetwork();
@@ -49,6 +51,7 @@ private:
 	// 쓰레드 관련
 	HANDLE hThread[dfMAX_THREAD];
 	unsigned ID[dfMAX_THREAD];
+	bool shutdownFlag = false;
 	// 세션 관련
 	SessionList sessionList;
 	// 네트워크 관련

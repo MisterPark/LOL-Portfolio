@@ -22,11 +22,17 @@ namespace PKH
 		float GetY();
 		Matrix GetViewMatrix();
 		Matrix GetProjectionMatrix();
+		Matrix GetPerspectiveMatrix();
+		Matrix GetOrthogonalMatrix();
 		bool GetProjection3D();
 		void SetProjection3D(bool ProjectionSet);
 
 		Vector3 ScreenToWorldPoint(const Vector3& position, float zPos = 1.f);
 		Vector3 WorldToScreenPoint(const Vector3& position);
+
+		Vector3 ScreenToWorldPointOrtho(const Vector3& position, float zPos = 1.f);
+		Vector3 WorldToScreenPointOrtho(const Vector3& position);
+
 		Ray ScreenPointToRay(Vector3 pos);
 
 		void SetTarget(GameObject* _target);
@@ -52,6 +58,8 @@ namespace PKH
 		bool isProjection3D;
 		Matrix viewMatrix;
 		Matrix projectionMatrix;
+		Matrix perspectiveMatrix;
+		Matrix orthogonalMatrix;
 		GameObject* target = nullptr;
 
 		// 카메라 천천히 따라가기

@@ -1,117 +1,110 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Network">
+      <UniqueIdentifier>{66a9cc3a-b67b-4009-a8ed-07161096b3a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="GameLogic">
+      <UniqueIdentifier>{31252abd-7dbc-48db-9f85-fe46109bf4db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Common">
+      <UniqueIdentifier>{021830ff-8b9c-4001-9292-339012ce25c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protocol">
+      <UniqueIdentifier>{272dc3ed-1994-4d8e-897f-cb69acc885c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\DataStructure">
+      <UniqueIdentifier>{1a927398-ce7f-4cbe-adfa-78be9f8b9625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Job">
+      <UniqueIdentifier>{426007da-5a9b-4d5a-9176-711366094060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{75339390-58f1-42d7-8ca7-2bdaf2a34550}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CGameServer.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="CNetwork.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CPacket.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CRingBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CGameServer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="IJob.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CJobOnRecv.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SessionList.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CJob.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PacketPool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CLanClient.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CLanLoginClient.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CLanGameLogicClient.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CPacket.cpp">
+      <Filter>Network\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="CRingBuffer.cpp">
+      <Filter>Network\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionList.cpp">
+      <Filter>Network\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketPool.cpp">
+      <Filter>Network\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="IJob.cpp">
+      <Filter>Network\Job</Filter>
+    </ClCompile>
+    <ClCompile Include="CJobOnRecv.cpp">
+      <Filter>Network\Job</Filter>
+    </ClCompile>
+    <ClCompile Include="CJob.cpp">
+      <Filter>Network\Job</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Default</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CNetwork.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CPacket.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CRingBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CGameServer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Protocol.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="IJob.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CJobOnRecv.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SessionList.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CircularList.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryPool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CJob.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketPool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CLanClient.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CLanLoginClient.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CLanGameLogicClient.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Debug.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameServer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Network\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="CRingBuffer.h">
+      <Filter>Network\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="CPacket.h">
+      <Filter>Network\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionList.h">
+      <Filter>Network\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketPool.h">
+      <Filter>Network\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="IJob.h">
+      <Filter>Network\Job</Filter>
+    </ClInclude>
+    <ClInclude Include="CJobOnRecv.h">
+      <Filter>Network\Job</Filter>
+    </ClInclude>
+    <ClInclude Include="CJob.h">
+      <Filter>Network\Job</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="GameRoom.h" />
   </ItemGroup>
 </Project>

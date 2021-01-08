@@ -12,6 +12,11 @@ CNetwork::~CNetwork()
 	ReleaseNetwork();
 }
 
+void CNetwork::Shutdown()
+{
+	ReleaseNetwork();
+}
+
 //================================================================
 // 초기화 관련
 //================================================================
@@ -70,11 +75,16 @@ bool CNetwork::InitializeNetwork()
 
 void CNetwork::ReleaseNetwork()
 {
+	shutdownFlag = true;
+
 	for (int i = 0; i < dfMAX_THREAD; i++)
 	{
+		if (hThread[i] == INVALID_HANDLE_VALUE) continue;
 		CloseHandle(hThread[i]);
+		hThread[i] = INVALID_HANDLE_VALUE;
 	}
 	CloseHandle(hIOCP);
+	hIOCP = INVALID_HANDLE_VALUE;
 	timeEndPeriod(1);
 	WSACleanup();
 }
@@ -91,7 +101,7 @@ unsigned __stdcall CNetwork::WorkerThread(void* arg)
 	Session* pSession;
 	OVERLAPPED* pOverlapped;
 
-	for (;;)
+	for (;!pNet->shutdownFlag;)
 	{
 		pNet->threadLoopCount++;
 		transferred = 0;
@@ -157,7 +167,7 @@ unsigned __stdcall CNetwork::AcceptThread(void* arg)
 	DWORD size;
 	int addrlen;
 
-	for (;;)
+	for (;!pNet->shutdownFlag;)
 	{
 		SOCKADDR_IN sockaddr;
 		char ipbuf[32] = { 0, };
@@ -199,7 +209,7 @@ unsigned __stdcall CNetwork::SendThread(void* arg)
 	printf("SendThread Start\n");
 	SessionList sessionList = pNet->sessionList;
 
-	for (;;)
+	for (;!pNet->shutdownFlag;)
 	{
 		for (int i = 0; i < dfMAX_SESSION_SIZE; i++)
 		{
@@ -262,7 +272,7 @@ int CNetwork::PostSend(Session* pSession)
 			}
 			else
 			{
-				shutdown(pSession->sock, SD_BOTH);
+				//shutdown(pSession->sock, SD_BOTH);
 			}
 		}
 	}
@@ -308,7 +318,7 @@ int CNetwork::PostRecv(Session* pSession)
 			}
 			else
 			{
-				shutdown(pSession->sock, SD_BOTH);
+				//shutdown(pSession->sock, SD_BOTH);
 			}
 		}
 	}

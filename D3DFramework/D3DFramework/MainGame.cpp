@@ -4,6 +4,7 @@
 #include "SkyBox.h"
 #include "TitleScene.h"
 #include "LoadingScene.h"
+#include "TestLoadingScene.h"
 
 using namespace PKH;
 
@@ -43,7 +44,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	
 	Network::GetInstance();
 	Network::Initialize();
-	LobbyWindow::GetInstance();
+	//LobbyWindow::GetInstance();
 	Random::InitState();
 
 	// 다른 모든 매니저 초기화
@@ -77,7 +78,9 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//SkillManager::GetInstance();
 
 	// 씬로드
+	//SceneManager::LoadScene<TestLoadingScene>();
 	SceneManager::LoadScene<LoadingScene>();
+	//SceneManager::LoadScene<TestScene>();
 }
 
 void PKH::MainGame::Update()
@@ -169,7 +172,38 @@ void PKH::MainGame::LoadUISprite()
 	// 리소스 로드
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
+	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
+	//로딩씬
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingscreen_spinner_atlas.dds",8,4);
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingFrameBlue.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingFrameRed.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadScreen.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"ahriloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"amumuloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"blitzcrankloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"dariusloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"dianaloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"garenloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"jinxloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"leesinloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"leonaloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"missfortuneloadscreen.dds");
+
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_barrier.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_boost.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_exhaust.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_flash.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_haste.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_heal.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_ignite.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_mana.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
+	
+	// 인게임
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");

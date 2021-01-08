@@ -1,7 +1,7 @@
 #pragma once
 // 게임서버 33333
 #define dfSERVER_PORT 1222
-#define dfROOM_MAX_USER_COUNT 10
+
 
 enum LoginResult
 {
@@ -14,6 +14,8 @@ enum LoginResult
 
 enum PROTOCOL
 {
+	TEST_REQ=11,
+	TEST_RES,
 	//=================================
 	// ★ 게임 서버 ★
 	//=================================
@@ -87,6 +89,8 @@ enum PROTOCOL
 	// 준비 요청(게임서버 <- 클라이언트)
 	//
 	//	WORD	type
+	//	INT		spell1
+	//	INT		spell2
 	//---------------------------------
 	GAME_REQ_READY,
 	//---------------------------------
@@ -96,129 +100,62 @@ enum PROTOCOL
 	//---------------------------------
 	GAME_RES_READY,
 	//---------------------------------
-	// 캐릭터 생성 응답(게임서버 -> 클라이언트)
+	// 시작 응답(게임서버 -> 클라이언트)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// WCHAR	nickName[20]	// NULL포함
-	// float	x
-	// float	y
-	// float	z
+	//	WORD	type
 	//---------------------------------
-	GAME_RES_CREATE_PLAYER,
+	GAME_RES_START,
+	//================================================================
 	//---------------------------------
-	// 캐릭터 삭제 응답(게임서버 -> 클라이언트)
+	// 인게임 접속 요청 (게임서버 <- 클라이언트)
 	//
-	// WORD	type
-	// INT64	accountNo
+	//	WORD	type
+	//	WCHAR	nickName[20]	// NULL포함
 	//---------------------------------
-	GAME_RES_DELETE_PLAYER,
+	GAME_REQ_ENTER_GAME,
 	//---------------------------------
-	// 캐릭터 이동 요청(게임서버 <- 클라이언트)
+	// 인게임 접속 응답 (게임서버 -> 클라이언트)
+	// (로딩씬에 표시할 정보들)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// float	x
-	// float	y
-	// float	z
+	//	WORD	type
+	//	INT		userCount
+	//	{
+	//		WCHAR	nickName[20]	// NULL포함
+	//		INT		numInRoom
+	//		BYTE	champ
+	//		BYTE	spell1
+	//		BYTE	spell2
+	//	}
 	//---------------------------------
-	GAME_REQ_MOVE_MY_PLAYER,
+	GAME_RES_ENTER_GAME,
 	//---------------------------------
-	// 캐릭터 이동 응답(게임서버 -> 클라이언트)
+	// 로딩 진행률 요청 (게임서버 <- 클라이언트)
+	// (해당 진행률이 1이면 완료)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// float	x
-	// float	y
-	// float	z
+	//	WORD	type
+	//	INT	progress
 	//---------------------------------
-	GAME_RES_MOVE_PLAYER,
+	GAME_REQ_LOADING,
 	//---------------------------------
-	// 따라가기 요청(게임서버 <- 클라이언트)
+	// 로딩 진행률 응답 (게임서버 -> 클라이언트)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// INT64	targetNo
+	//	WORD	type
+	//	INT		userNumber
+	//	INT	progress
 	//---------------------------------
-	GAME_REQ_FOLLOW_TARGET,
+	GAME_RES_LOADING,
 	//---------------------------------
-	// 따라가기 응답(게임서버 -> 클라이언트)
+	// 로딩 완료 요청 (게임서버 <- 클라이언트)
+	// (해당 진행률이 1이면 완료)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// INT64	targetNo
+	//	WORD	type
 	//---------------------------------
-	GAME_RES_FOLLOW_TARGET,
+	GAME_REQ_COMPLETE_LOADING,
 	//---------------------------------
-	// 공격 요청(게임서버 <- 클라이언트)
+	// 로딩 완료 응답 (게임서버 -> 클라이언트)
 	//
-	// WORD	type
-	// INT64	accountNo
-	// INT64	targetNo
+	//	WORD	type
 	//---------------------------------
-	GAME_REQ_ATTACK,
-	//---------------------------------
-	// 데미지 응답(게임서버 -> 클라이언트)
-	//
-	// WORD	type
-	// INT64	targetNo
-	// int		hp
-	//---------------------------------
-	GAME_RES_DAMAGE,
+	GAME_RES_COMPLETE_LOADING,
 
-
-	//=================================
-	// ★ 랜로그인 서버 ★
-	//=================================
-	LAN_LOGIN_SERVER = 10000,
-	//---------------------------------
-	// 서버용 로그인 ( 랜로그인서버 <- 랜로그인클라 )
-	//
-	//	WORD	Type
-	//	WORD	ServerType	// 프로토콜 내 서버타입
-	//
-	//---------------------------------
-	LAN_LOGIN_REQ_SERVER_LOGIN,
-	//---------------------------------
-	// 클라이언트 생성 요청 ( 랜로그인서버 -> 랜로그인 클라 )
-	//
-	//	WORD	Type
-	//
-	//	INT64	AccountNo
-	//	CHAR	SessionKey[64]
-	//	INT64	Parameter
-	//
-	//---------------------------------
-	LAN_LOGIN_REQ_NEW_CLIENT,
-	//---------------------------------
-	// 클라이언트 생성 응답 ( 랜로그인서버 <- 클라이언트 )
-	//
-	//	WORD	Type
-	//	WORD	serverType
-	//	INT64	AccountNo
-	//	INT64	Parameter
-	//---------------------------------
-	LAN_LOGIN_RES_NEW_CLIENT,
-	//---------------------------------
-	// 계정 로그아웃 요청 ( 랜로그인서버 <- 게임랜로그인클라 )
-	//
-	// WORD	Type
-	// INT64	AccountNo
-	//---------------------------------
-	LAN_LOGIN_REQ_ACCOUNT_LOGOUT,
-
-	//=================================
-	// ★ 랜게임로직 서버 ★
-	//=================================
-	LAN_GAMELOGIC_SERVER = 20000,
-	//---------------------------------
-	// 서버용 로그인 ( 랜로그인서버 <- 랜로그인클라 )
-	//
-	//	WORD	Type
-	//	WORD	ServerType	// 프로토콜 내 서버타입
-	//
-	//---------------------------------
-	LAN_GAMELOGIC_REQ_SERVER_LOGIN,
-	LAN_GAMELOGIC_REQ_CREATE_PLAYER,
-	LAN_GAMELOGIC_REQ_DELETE_PLAYER,
 };

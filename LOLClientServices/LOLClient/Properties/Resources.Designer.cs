@@ -353,6 +353,16 @@ namespace LOLClient.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap summoner_barrier {
+            get {
+                object obj = ResourceManager.GetObject("summoner_barrier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap summoner_boost {
             get {
                 object obj = ResourceManager.GetObject("summoner_boost", resourceCulture);
@@ -403,6 +413,26 @@ namespace LOLClient.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap summoner_ignite {
+            get {
+                object obj = ResourceManager.GetObject("summoner_ignite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap summoner_mana {
+            get {
+                object obj = ResourceManager.GetObject("summoner_mana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap summoner_smite {
             get {
                 object obj = ResourceManager.GetObject("summoner_smite", resourceCulture);
@@ -416,36 +446,6 @@ namespace LOLClient.Properties {
         internal static System.Drawing.Bitmap summoner_teleport {
             get {
                 object obj = ResourceManager.GetObject("summoner_teleport", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap summonerbarrier {
-            get {
-                object obj = ResourceManager.GetObject("summonerbarrier", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap summonerignite {
-            get {
-                object obj = ResourceManager.GetObject("summonerignite", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap summonermana {
-            get {
-                object obj = ResourceManager.GetObject("summonermana", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

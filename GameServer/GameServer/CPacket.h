@@ -25,7 +25,7 @@ public:
 	virtual ~CPacket();
 
 protected:
-	void Initial(int iBufferSize = dfPACKET_DEFAULT_SIZE);
+	void Initialize(int iBufferSize = dfPACKET_DEFAULT_SIZE);
 	void Release(void);
 	bool Resize(unsigned int resize);
 

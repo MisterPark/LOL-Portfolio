@@ -2,8 +2,10 @@
 #include "CNetwork.h"
 #include "CLanLoginClient.h"
 #include "CLanGameLogicClient.h"
+#include "GameRoom.h"
 
 #define dfMAX_THREAD_GAMESERVER 1
+#define dfROOM_MAX_USER_COUNT 1
 
 using namespace std;
 
@@ -14,16 +16,25 @@ struct Client
 {
 	SESSION_ID	sessionID = -1;
 	SOCKADDR_IN	sockaddr;
-	INT64		accountNo = -1;
 	wstring		nickname;
 	INT			roomNum = -1; // 방번호
-	INT			numInRoom = 0; // 방안에서 번호(0~9)
+	INT			numInRoom = -1; // 방안에서 번호(0~9)
 	BYTE		loginStatus = false;
-	float		x = 0;
-	float		y = 0;
-	float		z = 0;
-	int			hp = 100;
-	int			damage = 10;
+	BYTE		champ;
+	INT			progress = 0;
+	bool		isCompleteLoading = false;
+	BYTE		spell1 = 6;
+	BYTE		spell2 = 3;
+};
+
+struct Account
+{
+	wstring nickname;
+	INT		roomNum = -1;
+	INT		number = -1;
+	BYTE	champ = 0;
+	BYTE	spell1 = 6;
+	BYTE	spell2 = 3;
 };
 
 struct Room
@@ -38,6 +49,8 @@ class CGameServer : public CNetwork
 public:
 	CGameServer();
 	virtual ~CGameServer();
+public:
+	virtual void Shutdown();
 private:
 	void InitializeGameServer();
 	void ReleaseGameServer();
@@ -58,11 +71,12 @@ public:
 	Client* CreateClient(SESSION_ID sessionID, SOCKADDR_IN sockaddr);
 	void	DeleteClient(SESSION_ID sessionID);
 	Client* FindClient(SESSION_ID sessionID);
-	Client* FindClientByAccountNO(INT64 accountNo);
 
 	void PacketProc(SESSION_ID sessionID, CPacket* pPacket);
 
+	void ReqTest(Client* pClient, CPacket* pPacket);
 	void ResTest(Client* pClient);
+
 	void ReqNick(Client* pClient, CPacket* pPacket);
 	void ResNick(Client* pClient);
 	void ReqLogin(Client* pClient, CPacket* pPacket);
@@ -70,18 +84,18 @@ public:
 	void ReqJoinGame(Client* pClient, CPacket* pPacket);
 	void ResJoinGame(Client* pClient, Room* room);
 	void ReqSelectChamp(Client* pClient, CPacket* pPacket);
-	void ResSelectChamp(Client* pClinet, INT userNum, BYTE champ);
+	void ResSelectChamp(Client* pClient, INT userNum, BYTE champ);
 	void ReqReady(Client* pClient, CPacket* pPacket);
 	void ResReady(Client* pClient);
-	void ResCreatePlayer(Client* pClient);
-	void ResCreateOtherPlayer(Client* pClient);
-	void ResDeletePlayerToClients(INT64 accountNo);
-	void ReqMovePlayer(Client* pClient, CPacket* pPacket);
-	void ResMovePlayer(Client* pClient);
-	void ReqFollowTarget(Client* pClient, CPacket* pPacket);
-	void ResFollowTarget(INT64 accountNo, INT64 targetNo);
-	void ReqAttack(Client* pClient, CPacket* pPacket);
-	void ResDamage(INT64 targetNo, int hp);
+	void ResStart(Client* pClient);
+	// 여기부터 인게임 관련
+	void ReqEnterGame(Client* pClient, CPacket* pPacket);
+	void ResEnterGame(Client* pClient, GameRoom* pRoom);
+	void ReqLoading(Client* pClient, CPacket* pPacket);
+	void ResLoading(Client* pClient, int progress);
+	void ReqCompleteLoading(Client* pClient, CPacket* pPacket);
+	void ResCompleteLoading(Client* pClient);
+
 
 public:
 	void Monitor();
@@ -89,8 +103,8 @@ public:
 private:
 	
 	// 쓰레드 관련
-	HANDLE hThread[dfMAX_THREAD_GAMESERVER];
-	unsigned ID[dfMAX_THREAD_GAMESERVER];
+	HANDLE hLogicThread[dfMAX_THREAD_GAMESERVER];
+	unsigned threadID[dfMAX_THREAD_GAMESERVER];
 	bool releaseFlag = false;
 
 	// 클라이언트 관련
@@ -98,19 +112,24 @@ private:
 	SRWLOCK clientLocker;
 	map<wstring, SESSION_ID> nickMap;
 	SRWLOCK nickLocker;
+	// 닉네임에 따른 계정정보
+	// 초기접속시 생성
+	// 이후 접속이 종료되어도 남음(서버종료시 삭제)
+	map<wstring, Account> accountMap;
+	SRWLOCK accountLocker;
 	// 룸
 	// 대기열
 	queue<Client*> readyQ;
-	map<long, Room*> roomMap;
+	map<INT, Room*> roomMap;
 	SRWLOCK roomLocker;
+
+	map<INT, GameRoom*> gameroomMap;
+	SRWLOCK gameroomLocker;
+
 
 	// 잡 관련
 	MemoryPool<CJob>* jobPool;
 	CircularList<IJob*>* jobQueue;
-	// 랜 로그인 클라이언트
-	//CLanLoginClient* lanLoginClient;
-	// 랜 게임로직 클라이언트
-	//CLanGameLogicClient* lanGameLogicClient;
 
 public:
 

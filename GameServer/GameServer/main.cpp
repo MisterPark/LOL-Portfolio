@@ -7,14 +7,15 @@ CGameServer server;
 int main()
 {
 	_wsetlocale(LC_ALL, L"korean");
-
+	
 	for (;;)
 	{
-		if (GetAsyncKeyState(VK_ESCAPE))
-		{
-			printf("서버 종료\n");
-			break;
-		}
+		//if (GetAsyncKeyState(VK_ESCAPE))
+		//{
+		//	printf("서버 종료\n");
+		//	server.Shutdown();
+		//	break;
+		//}
 
 		//server.Monitor();
 		Sleep(10);

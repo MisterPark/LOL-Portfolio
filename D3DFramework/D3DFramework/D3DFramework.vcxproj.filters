@@ -172,6 +172,9 @@
     <Filter Include="GameObject\UI\HUD">
       <UniqueIdentifier>{35af94a1-c4a2-4e77-94d6-b88348a11b1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Loading">
+      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -486,7 +489,39 @@
     <ClInclude Include="Missfortune.h">
       <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInfoPanel.h" />
+    <ClInclude Include="PacketPool.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularList.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfoPanel.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLoadingScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingBar.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingBackGround.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Spell.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingPanel.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingChampScreen.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingChampPanel.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingBorder.h">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -875,7 +910,36 @@
     <ClCompile Include="Missfortune.cpp">
       <Filter>GameObject\Unit\Champion\Missfortune</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerInfoPanel.cpp" />
+    <ClCompile Include="PacketPool.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfoPanel.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLoadingScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingBar.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingBackGround.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Spell.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingPanel.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingChampScreen.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingChampPanel.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingBorder.cpp">
+      <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

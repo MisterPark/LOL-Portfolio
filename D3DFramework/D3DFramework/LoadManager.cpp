@@ -95,6 +95,7 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
         EnterCriticalSection(&info->pLoad->csQ[number]);
         LoadingElement elem = info->pLoad->jobQ[number].front();
         info->pLoad->jobQ[number].pop();
+        LeaveCriticalSection(&info->pLoad->csQ[number]);
 
         switch (elem.type)
         {
@@ -123,7 +124,7 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
             break;
         }
         
-        LeaveCriticalSection(&info->pLoad->csQ[number]);
+        
         
         if (elem.Callback != nullptr)
         {

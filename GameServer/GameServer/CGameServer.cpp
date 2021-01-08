@@ -15,16 +15,24 @@ CGameServer::~CGameServer()
 	ReleaseGameServer();
 }
 
+void CGameServer::Shutdown()
+{
+	ReleaseGameServer();
+	CNetwork::Shutdown();
+}
+
 void CGameServer::InitializeGameServer()
 {
 	InitializeSRWLock(&clientLocker);
 	InitializeSRWLock(&roomLocker);
 	InitializeSRWLock(&nickLocker);
+	InitializeSRWLock(&gameroomLocker);
+	InitializeSRWLock(&accountLocker);
 
 	jobPool = new MemoryPool<CJob>(500, 500, FALSE);
 	jobQueue = new CircularList<IJob*>(1000);
 
-	hThread[0] = (HANDLE)_beginthreadex(NULL, 0, UpdateThread, this, 0, &ID[0]);
+	hLogicThread[0] = (HANDLE)_beginthreadex(NULL, 0, UpdateThread, this, 0, &threadID[0]);
 
 	//lanLoginClient = new CLanLoginClient("127.0.0.1", 17000);
 	//lanGameLogicClient = new CLanGameLogicClient("127.0.0.1", 18000);
@@ -32,11 +40,14 @@ void CGameServer::InitializeGameServer()
 
 void CGameServer::ReleaseGameServer()
 {
+	printf("게임서버 해제\n");
 	releaseFlag = true;
 
 	for (int i = 0; i < dfMAX_THREAD_GAMESERVER; i++)
 	{
-		CloseHandle(hThread[i]);
+		if (hLogicThread[i] == INVALID_HANDLE_VALUE) continue;
+		CloseHandle(hLogicThread[i]);
+		hLogicThread[i] = INVALID_HANDLE_VALUE;
 	}
 
 	for (auto iter : roomMap)
@@ -44,6 +55,7 @@ void CGameServer::ReleaseGameServer()
 		delete iter.second;
 	}
 	roomMap.clear();
+	accountMap.clear();
 }
 
 void CGameServer::OnRecv(SESSION_ID sessionID, CPacket* pPacket)
@@ -169,23 +181,6 @@ Client* CGameServer::FindClient(SESSION_ID sessionID)
 	return client;
 }
 
-Client* CGameServer::FindClientByAccountNO(INT64 accountNo)
-{
-	map<SESSION_ID, Client*>::iterator iter;
-	Client* client = nullptr;
-	AcquireSRWLockExclusive(&clientLocker);
-	for (iter = clientMap.begin(); iter != clientMap.end(); ++iter)
-	{
-		if (iter->second->accountNo == accountNo)
-		{
-			client = iter->second;
-			break;
-		}
-	}
-	ReleaseSRWLockExclusive(&clientLocker);
-	return client;
-}
-
 void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 {
 	Client* pClient = FindClient(sessionID);
@@ -200,6 +195,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	*pPacket >> type;
 	switch (type)
 	{
+	case TEST_REQ:
+		ReqTest(pClient, pPacket);
+		break;
 	case GAME_REQ_NICK:
 		ReqNick(pClient, pPacket);
 		break;
@@ -215,14 +213,14 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	case GAME_REQ_READY:
 		ReqReady(pClient, pPacket);
 		break;
-	case GAME_REQ_MOVE_MY_PLAYER:
-		ReqMovePlayer(pClient, pPacket);
+	case GAME_REQ_ENTER_GAME:
+		ReqEnterGame(pClient, pPacket);
 		break;
-	case GAME_REQ_FOLLOW_TARGET:
-		ReqFollowTarget(pClient, pPacket);
+	case GAME_REQ_LOADING:
+		ReqLoading(pClient, pPacket);
 		break;
-	case GAME_REQ_ATTACK:
-		ReqAttack(pClient, pPacket);
+	case GAME_REQ_COMPLETE_LOADING:
+		ReqCompleteLoading(pClient, pPacket);
 		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
@@ -230,9 +228,19 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	}
 }
 
+void CGameServer::ReqTest(Client* pClient, CPacket* pPacket)
+{
+	wprintf(L"[INFO] 테스트 요청 [Nick : %s]\n");
+	ResTest(pClient);
+}
 
 void CGameServer::ResTest(Client* pClient)
 {
+	wprintf(L"[INFO] 테스트 응답 [Nick : %s]\n");
+	CPacket* pPacket = PacketPool::Alloc();
+	*pPacket << (WORD)TEST_RES;
+
+	SendUnicast(pClient->sessionID, pPacket);
 
 }
 
@@ -288,11 +296,15 @@ void CGameServer::ReqLogin(Client* pClient, CPacket* pPacket)
 	nickMap[pClient->nickname.c_str()] = pClient->sessionID;
 	ReleaseSRWLockExclusive(&nickLocker);
 
+	// 계정기록
+	AcquireSRWLockExclusive(&accountLocker);
+	accountMap[pClient->nickname.c_str()].nickname = pClient->nickname.c_str();
+	ReleaseSRWLockExclusive(&accountLocker);
+
 	pClient->loginStatus = LoginResult::SUCCEED;
 	wprintf(L"[INFO] 로그인 세션 :[ID : %lld] [닉네임 : %s]\n", pClient->sessionID, pClient->nickname.c_str());
 	
 	ResLogin(pClient);
-	// TODO : 방목록 보내줘야함
 }
 
 void CGameServer::ResLogin(Client* pClient)
@@ -309,7 +321,7 @@ void CGameServer::ReqJoinGame(Client* pClient, CPacket* pPacket)
 {
 	// 대기열에 추가
 	readyQ.push(pClient);
-	wprintf(L"대기열 추가 Count : %d\n", readyQ.size());
+	wprintf(L"대기열 추가 Count : %lld\n", readyQ.size());
 
 	// 대기열이 10명 이상이면
 	while (readyQ.size() >= dfROOM_MAX_USER_COUNT)
@@ -346,14 +358,13 @@ void CGameServer::ReqJoinGame(Client* pClient, CPacket* pPacket)
 void CGameServer::ResJoinGame(Client* pClient, Room* room)
 {
 	CPacket* pack = PacketPool::Alloc();
-	*pack << (WORD)GAME_RES_JOIN_GAME;
+	*pack << (WORD)GAME_RES_JOIN_GAME << (UINT)dfROOM_MAX_USER_COUNT;
+	
 	for (UINT i = 0; i < dfROOM_MAX_USER_COUNT; i++)
 	{
 		Client* user = room->users[i];
 		pack->Enqueue((char*)user->nickname.c_str(), 40);
 		*pack << i;
-
-		
 	}
 
 	SendUnicast(pClient->sessionID, pack);
@@ -374,6 +385,7 @@ void CGameServer::ReqSelectChamp(Client* pClient, CPacket* pPacket)
 		return;
 	}
 
+	pClient->champ = champ;
 	Room* room = find->second;
 	for (int i = 0; i < dfROOM_MAX_USER_COUNT; i++)
 	{
@@ -389,8 +401,16 @@ void CGameServer::ResSelectChamp(Client* pClient, INT userNum, BYTE champ)
 	SendUnicast(pClient->sessionID, pack);
 }
 
+
 void CGameServer::ReqReady(Client* pClient, CPacket* pPacket)
 {
+	int spell1, spell2;
+
+	*pPacket >> spell1 >> spell2;
+
+	pClient->spell1 = spell1;
+	pClient->spell2 = spell2;
+
 	AcquireSRWLockExclusive(&roomLocker);
 	auto find = roomMap.find(pClient->roomNum);
 	if (find == roomMap.end())
@@ -401,17 +421,34 @@ void CGameServer::ReqReady(Client* pClient, CPacket* pPacket)
 	}
 
 	Room* room = find->second;
-	room->ready[pClient->roomNum] = true;
+	room->ready[pClient->numInRoom] = true;
 	ReleaseSRWLockExclusive(&roomLocker);
+
+	AcquireSRWLockExclusive(&accountLocker);
+	accountMap[pClient->nickname.c_str()].roomNum = pClient->roomNum;
+	accountMap[pClient->nickname.c_str()].number = pClient->numInRoom;
+	accountMap[pClient->nickname.c_str()].champ = pClient->champ;
+	accountMap[pClient->nickname.c_str()].spell1 = pClient->spell1;
+	accountMap[pClient->nickname.c_str()].spell2 = pClient->spell2;
+	ReleaseSRWLockExclusive(&accountLocker);
+
+	ResReady(room->users[pClient->numInRoom]);
 
 	for (int i = 0; i < dfROOM_MAX_USER_COUNT; i++)
 	{
 		if (room->ready[i] == false) return;
 	}
 	// 모두 레디 상태면 게임 시작
+	// 게임방 생성
+	GameRoom* gameRoom = new GameRoom();
+	AcquireSRWLockExclusive(&gameroomLocker);
+	gameroomMap[room->number] = gameRoom;
+	ReleaseSRWLockExclusive(&gameroomLocker);
+
+	// 레디 인원 모두한테 게임시작 패킷 던지기
 	for (int i = 0; i < dfROOM_MAX_USER_COUNT; i++)
 	{
-		ResReady(room->users[i]);
+		ResStart(room->users[i]);
 	}
 }
 
@@ -423,133 +460,164 @@ void CGameServer::ResReady(Client* pClient)
 	SendUnicast(pClient->sessionID, pack);
 }
 
-void CGameServer::ResCreatePlayer(Client* pClient)
+void CGameServer::ResStart(Client* pClient)
 {
 	CPacket* pack = PacketPool::Alloc();
-	//TODO : 나중에 디비에서 플레이어 위치 받아와야 함
-	*pack << (WORD)GAME_RES_CREATE_PLAYER << pClient->accountNo;
-	pack->Enqueue((char*)pClient->nickname.c_str(), sizeof(pClient->nickname));
-	*pack << pClient->x << pClient->y << pClient->z;
+	*pack << (WORD)GAME_RES_START;
 
-	SendBroadcast(pack);
+	SendUnicast(pClient->sessionID, pack);
 }
 
-void CGameServer::ResCreateOtherPlayer(Client* pClient)
+void CGameServer::ReqEnterGame(Client* pClient, CPacket* pPacket)
 {
-	map<SESSION_ID, Client*>::iterator iter;
-	for (iter = clientMap.begin(); iter != clientMap.end(); ++iter)
+	WCHAR nick[20] = {};
+
+	pPacket->Dequeue((char*)nick, 40);
+	wprintf(L"[INFO] 인게임 접속 요청 [Nick : %s]\n", nick);
+	// 닉네임으로 세션 아이디 찾고
+	AcquireSRWLockExclusive(&accountLocker);
+	auto findNick = accountMap.find(nick);
+	if (findNick == accountMap.end())
 	{
-		Client* other = iter->second;
-		if (other == pClient) continue;
-		CPacket* pack = PacketPool::Alloc();
-		*pack << (WORD)GAME_RES_CREATE_PLAYER << other->accountNo;
-		pack->Enqueue((char*)other->nickname.c_str(), sizeof(other->nickname));
-		*pack << other->x << other->y << other->z;
-		SendUnicast(pClient->sessionID, pack);
-	}
-}
-
-void CGameServer::ResDeletePlayerToClients(INT64 accountNo)
-{
-	CPacket* pack = PacketPool::Alloc();
-	*pack << (WORD)GAME_RES_DELETE_PLAYER << accountNo;
-
-	SendBroadcast(pack);
-}
-
-void CGameServer::ReqMovePlayer(Client* pClient, CPacket* pPacket)
-{
-	//printf("[이동요청][AccountNo : %lld]\n", pClient->accountNo);
-	// TODO : 여기서 랜게임로직클라이언트로 이동가능 여부 확인해야함
-	INT64 accountNo;
-	float x, y, z;
-	*pPacket >> accountNo >> x >> y >> z;
-
-	if (pClient->accountNo != accountNo)
-	{
-		printf("[Warning] AccountNo 불일치\n");
-		Disconnect(pClient->sessionID);
+		wprintf(L"[Warning] 존재하지 않는 닉네임(call : ReqEnterGame())\n");
+		ReleaseSRWLockExclusive(&accountLocker);
 		return;
 	}
-	pClient->x = x;
-	pClient->y = y;
-	pClient->z = z;
 
-	ResMovePlayer(pClient);
+	// 새로운 세션의 정보 세팅
+	pClient->nickname = nick;
+	pClient->roomNum = accountMap[nick].roomNum;
+	pClient->numInRoom = accountMap[nick].number;
+	pClient->champ = accountMap[nick].champ;
+	pClient->spell1 = accountMap[nick].spell1;
+	pClient->spell2 = accountMap[nick].spell2;
+	ReleaseSRWLockExclusive(&accountLocker);
+
+	// 방번호로 인게임방 찾고
+	AcquireSRWLockExclusive(&gameroomLocker);
+	auto find = gameroomMap.find(pClient->roomNum);
+	if (find == gameroomMap.end())
+	{
+		ReleaseSRWLockExclusive(&gameroomLocker);
+		wprintf(L"[Warning] 없는 방번호 (call :ReqEnterGame())\n");
+		return;
+	}
+	ReleaseSRWLockExclusive(&gameroomLocker);
+
+	// 인게임 방에서 새로운 세션 정보 삽입
+	GameRoom* room = find->second;
+	room->LockUser();
+	auto user = room->users.find(pClient->numInRoom);
+	if (user == room->users.end())
+	{
+		room->users[pClient->numInRoom] = pClient;
+
+	}
+	wprintf(L"[INFO] 인게임 접속 요청 성공 [Nick : %s]\n", nick);
+	// 인게임 방의 모든 인원이 이 패킷을 날렸다면
+	// 이 방의 모든 인원에게 방의 정보를 넘김
+	if (room->users.size() == dfROOM_MAX_USER_COUNT)
+	{
+		for (auto iter : room->users)
+		{
+			Client* user = iter.second;
+			ResEnterGame(user, room);
+		}
+	}
+
+	room->UnlockUser();
+
+
 }
 
-void CGameServer::ResMovePlayer(Client* pClient)
+void CGameServer::ResEnterGame(Client* pClient, GameRoom* pRoom)
 {
-	//printf("[이동응답][AccountNo : %lld]\n", pClient->accountNo);
 	CPacket* pack = PacketPool::Alloc();
-	*pack << (WORD)GAME_RES_MOVE_PLAYER << pClient->accountNo << pClient->x << pClient->y << pClient->z;
+	*pack << (WORD)GAME_RES_ENTER_GAME;
+	*pack << (INT)pRoom->users.size();
+	for (auto iter : pRoom->users)
+	{
+		pack->Enqueue((char*)iter.second->nickname.c_str(), 40);
+		*pack << iter.second->numInRoom;
+		*pack << iter.second->champ;
+		*pack << iter.second->spell1;
+		*pack << iter.second->spell2;
+	}
 	
-	// TODO : 섹터 브로드 캐스트로 바꿔야함
-	SendBroadcast(pack);
+	SendUnicast(pClient->sessionID, pack);
 }
 
-void CGameServer::ReqFollowTarget(Client* pClient, CPacket* pPacket)
+void CGameServer::ReqLoading(Client* pClient, CPacket* pPacket)
 {
-	INT64 accountNo;
-	INT64 targetNo;
-	*pPacket >> accountNo >> targetNo;
+	int progress;
+	*pPacket >> progress;
 
-	if (pClient->accountNo != accountNo)
-	{
-		printf("[Warning]따라가기 AccountNo 불일치[S:%lld][C:%lld]\n",pClient->accountNo,accountNo);
-		Disconnect(pClient->sessionID);
-		return;
-	}
+	pClient->progress = progress;
 
-	ResFollowTarget(accountNo, targetNo);
+	ResLoading(pClient, progress);
 }
 
-void CGameServer::ResFollowTarget(INT64 accountNo, INT64 targetNo)
+void CGameServer::ResLoading(Client* pClient, int progress)
 {
 	CPacket* pack = PacketPool::Alloc();
-	*pack << (WORD)GAME_RES_FOLLOW_TARGET << accountNo << targetNo;
-
-	// TODO : 섹터 브로드 캐스트로 바꿔야함
-	SendBroadcast(pack);
-}
-
-void CGameServer::ReqAttack(Client* pClient, CPacket* pPacket)
-{
-	INT64 accountNo;
-	INT64 targetNo;
-	*pPacket >> accountNo >> targetNo;
-
-	if (pClient->accountNo != accountNo)
+	*pack << (WORD)GAME_RES_LOADING << pClient->numInRoom << progress;
+	AcquireSRWLockExclusive(&gameroomLocker);
+	auto find = gameroomMap.find(pClient->roomNum);
+	if (find == gameroomMap.end())
 	{
-		printf("[Warning]공격 AccountNo 불일치[S:%lld][C:%lld]\n", pClient->accountNo, accountNo);
-		Disconnect(pClient->sessionID);
+		ReleaseSRWLockExclusive(&gameroomLocker);
+		wprintf(L"[Warning] 없는 방번호 (call :ReqEnterGame())\n");
 		return;
 	}
+	ReleaseSRWLockExclusive(&gameroomLocker);
 
-	Client* target = FindClientByAccountNO(targetNo);
-	if (target == nullptr)
+	GameRoom* room = find->second;
+	for (auto iter : room->users)
 	{
-		printf("[Warning] 없는 대상에 공격시도\n");
-		return;
+		Client* user = iter.second;
+		SendUnicast(user->sessionID, pack);
 	}
-	target->hp -= pClient->damage;
-	if (target->hp < 0)
-	{
-		target->hp = 100;
-	}
-
-	ResDamage(targetNo, target->hp);
 }
 
-void CGameServer::ResDamage(INT64 targetNo, int hp)
+void CGameServer::ReqCompleteLoading(Client* pClient, CPacket* pPacket)
 {
+	wprintf(L"[INFO] 인게임 로딩 완료 요청 [Nick : %s]\n",pClient->nickname.c_str());
+	pClient->isCompleteLoading = true;
+	
+	// 방찾고
+	AcquireSRWLockExclusive(&gameroomLocker);
+	auto find = gameroomMap.find(pClient->roomNum);
+	if (find == gameroomMap.end())
+	{
+		ReleaseSRWLockExclusive(&gameroomLocker);
+		wprintf(L"[Warning] 없는 방번호 (call :ReqEnterGame())\n");
+		return;
+	}
+	ReleaseSRWLockExclusive(&gameroomLocker);
+
+	GameRoom* room = find->second;
+
+	for (auto iter : room->users)
+	{
+		Client* user = iter.second;
+		if (user->isCompleteLoading == false) return;
+	}
+
+	for (auto iter : room->users)
+	{
+		Client* user = iter.second;
+		ResCompleteLoading(user);
+	}
+}
+
+void CGameServer::ResCompleteLoading(Client* pClient)
+{
+	wprintf(L"[INFO] 인게임 로딩 완료 응답 [Nick : %s]\n", pClient->nickname.c_str());
+
 	CPacket* pack = PacketPool::Alloc();
-	*pack << (WORD)GAME_RES_DAMAGE << targetNo << hp;
-
-	// TODO : 섹터 브로드 캐스트로 바꿔야함
-	SendBroadcast(pack);
+	*pack << (WORD)GAME_RES_COMPLETE_LOADING;
+	SendUnicast(pClient->sessionID, pack);
 }
-
 
 
 

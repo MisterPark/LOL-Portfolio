@@ -23,5 +23,7 @@
 #include "CJob.h"
 #include "CJobOnRecv.h"
 #include "PacketPool.h"
+#include "CNetwork.h"
+#include "CGameServer.h"
 
 using namespace std;

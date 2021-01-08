@@ -10,15 +10,11 @@ public:
     virtual void Initialize() override;
     virtual void Release() override;
 
-    virtual void UpdateUI() override;
-
     virtual void OnHover() override;
     virtual void OnLeave() override;
     virtual void OnLButtonDown() override;
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
-
-    virtual void SetTexture(TextureID _key);
     
 };
 

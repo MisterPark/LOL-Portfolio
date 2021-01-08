@@ -16,6 +16,7 @@ SessionList::SessionList(UINT maxSessionSize)
 SessionList::~SessionList()
 {
 	delete[] sessionArray;
+	delete indexStack;
 }
 
 Session* SessionList::operator [](unsigned int index)

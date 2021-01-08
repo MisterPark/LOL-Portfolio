@@ -1,4 +1,10 @@
 #pragma once
+
+struct NetUser
+{
+
+};
+
 class Network
 {
 private:
@@ -15,12 +21,14 @@ public:
 
 	static bool NetProc(WPARAM wParam, LPARAM lParam);
 
-	static bool SendPacket(PACKET_HEADER* pHeader, CPacket* pPacket);
+	static bool SendPacket(CPacket* pPacket);
 	bool SendProc();
 
 	bool RecvProc();
-	void PacketProc(BYTE type, CPacket* pPacket);
+	void PacketProc(CPacket* pPacket);
 
+
+	static void SetNickname(const wstring& nick);
 
 
 	void err_quit(const WCHAR* msg);
@@ -31,10 +39,17 @@ private:
 	SOCKET sock = INVALID_SOCKET;
 	SOCKADDR_IN serveraddr;
 	int addrlen = sizeof(serveraddr);
-	WCHAR serverIPtext[64] = L"192.168.0.48";
+	WCHAR serverIPtext[64] = L"1.236.172.67";
 	CRingBuffer recvQ;
 	CRingBuffer sendQ;
 	bool sendFlag = false;
+
+public:
+	queue<CPacket*> packQ;
+public:
+	bool isConnected = false;
+	wstring nick;
+	map<INT, NetUser*> users;
 
 };
 

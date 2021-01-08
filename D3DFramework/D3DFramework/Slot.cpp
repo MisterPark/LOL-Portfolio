@@ -32,8 +32,8 @@ void Slot::Update()
 
 void Slot::Render()
 {
-    RenderManager::DrawUI(textureKey, transform->position, 0);
-
+    //RenderManager::DrawUI(textureKey, transform->position, 0);
+	GameObject::Render();
     if (item)
     {
 		wstring key = RenderManager::GetTextureKey(item->anim->GetCurrentSprite());
@@ -94,19 +94,4 @@ void Slot::Initialize()
 
 void Slot::Release()
 {
-}
-
-void Slot::UpdateUI()
-{
-	Texture* texture = RenderManager::GetTexture(textureKey);
-	if (texture != nullptr)
-	{
-		width = transform->scale.x * texture->GetSpriteWidth();
-		height = transform->scale.y * texture->GetSpriteHeight();
-	}
-	else
-	{
-		width = transform->scale.x * 32;
-		height = transform->scale.y * 32;
-	}
 }

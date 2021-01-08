@@ -43,6 +43,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    int num;
+    LPWSTR* argv = CommandLineToArgvW(lpCmdLine, &num);
+    if (argv == NULL) return 1;
+
+    for (int i = 0; i < num; i++)
+    {
+        wprintf(L"%ws \n", argv[i]);
+    }
+    wstring nick = argv[0];
+    
+    Network::GetInstance();
+    Network::SetNickname(nick);
+    
+
+    LocalFree(argv);
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -63,8 +78,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
     msg.message = WM_NULL;
 
+
     MainGame::GetInstance();
 	MainGame::Initialize(screenWidth, screenHeight);
+
+    Network::Initialize();
+    Network::Connect();
+
+    
 
     // 기본 메시지 루프입니다:
     while (msg.message != WM_QUIT)

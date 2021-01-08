@@ -48,6 +48,10 @@ void PKH::CustomMesh::Render()
 		{
 			device->SetTexture(0, texture->pTexture);
 		}
+		else
+		{
+			device->SetTexture(0, 0);
+		}
 
 		device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
 		device->SetFVF(Vertex::FVF);

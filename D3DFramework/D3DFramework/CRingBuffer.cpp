@@ -4,40 +4,43 @@
 
 CRingBuffer::CRingBuffer()
 {
-	Initial(DEFALT_SIZE);
+	Initialize(DEFALT_SIZE);
 }
 
 CRingBuffer::CRingBuffer(int iBufferSize)
 {
-	Initial(iBufferSize);
+	Initialize(iBufferSize);
 }
 
 CRingBuffer::~CRingBuffer()
 {
-	if (buffer != nullptr)
-	{
-		delete buffer;
-	}
+	delete buffer;
 }
 
-void CRingBuffer::Initial(int iBufferSize)
+void CRingBuffer::Initialize(int iBufferSize)
 {
-	buffer = new char[iBufferSize];
-	memset(buffer, 0, iBufferSize);
 	size = iBufferSize;
+	buffer = new char[size];
+	memset(buffer, 0, size);
+	front = rear = 0;
+	InitializeCriticalSection(&cs);
+}
+
+void CRingBuffer::Clear()
+{
 	front = rear = 0;
 }
 
 bool CRingBuffer::isEmpty()
 {
-	return (front==rear);
+	return (front == rear);
 }
 
-bool CRingBuffer::Resize(int resize)
+bool CRingBuffer::Resize(unsigned int resize)
 {
 	char* rebuf = new char[resize];
 	if (rebuf == NULL) { return false; }
-	for (int i = 0; i < resize; i++)
+	for (unsigned int i = 0; i < resize; i++)
 	{
 		if (i < size)
 		{
@@ -64,18 +67,21 @@ int CRingBuffer::GetBufferSize(void)
 
 int CRingBuffer::GetUseSize(void)
 {
-	if (front > rear)
+	int r = rear;
+	int f = front;
+	if (f > r)
 	{
-		return (size -(front-rear));
+		return (size - (f - r));
 
 	}
-	return (rear - front);
+	return (r - f);
 }
 
 int CRingBuffer::GetFreeSize(void)
 {
-	int re = 0;
-	re = (size - 1) - GetUseSize();
+	int re = size - 1;
+	int use = GetUseSize();
+	re -= use;
 	return re;
 }
 
@@ -83,7 +89,7 @@ int CRingBuffer::GetDeqSize(void) // 디큐사이즈
 {
 	int re = size - front;
 	int use = GetUseSize();
-	
+
 	if (use > re)
 	{
 		return re;
@@ -96,47 +102,70 @@ int CRingBuffer::GetDeqSize(void) // 디큐사이즈
 
 int CRingBuffer::GetEnqSize(void) // 인큐사이즈
 {
-	int re = size - rear;
-	int free = GetFreeSize();
+	int re = 0;
+	int lSize = size;
+	int lRear = rear;
+	int lFront = front;
 
-	if (free > re)
+	if (lFront == 0)
 	{
-		return re;
+		lSize -= 1;
+	}
+
+	if (lFront > lRear)
+	{
+		re = lFront - lRear - 1;
 	}
 	else
 	{
-		return free;
+		re = lSize - lRear;
 	}
+
+	if (re < 0)
+	{
+		return 0;
+	}
+	return re;
+
+	// 이거 변경해야할듯 GetFreeEnqSize()에서 참고.
+	//int re = size - rear;
+	//int free = GetFreeSize();
+
+	//if (free > re)
+	//{
+	//	return re;
+	//}
+	//else
+	//{
+	//	return free;
+	//}
 }
 
-int CRingBuffer::Enqueue(char * chpData, int iSize)
+int CRingBuffer::Enqueue(char* chpData, int iSize)
 {
-	int len = iSize;
-	int free = GetFreeSize();
-	if (free < iSize)
-	{
-		Resize(iSize + 1);
-		free = GetFreeSize();
+	if (iSize <= 0) { return 0; }
 
-	}
-	int part = GetEnqSize();
 	char* pData = chpData;
-	char* ptr = GetRearBufferPtr();
+	char* pRear = GetRearBufferPtr();
+	char* pBuff = GetBufferPtr();
+	int len = iSize;
+	int free = 0;
+	int part = 0;
 
-	if (iSize == 0) { return 0; }
+	GetFreeEnqSize(&free, &part);
+
+	if (free <= 0) { return 0; }
+
 	if (free < iSize) { len = free; }
 
 	if (len > part)
 	{
-		memcpy_s(ptr, part, pData, part);
-		pData += part;
-		ptr = buffer;
-		part = len - part;
-		memcpy_s(ptr, part, pData, part);
+		memcpy(pRear, pData, part);
+		memcpy(pBuff, &pData[part], int(len - part));
 	}
 	else
 	{
-		memcpy_s(ptr, len, chpData, len);
+		memcpy(pRear, pData, len);
 	}
 
 	MoveRear(len);
@@ -144,28 +173,30 @@ int CRingBuffer::Enqueue(char * chpData, int iSize)
 	return len;
 }
 
-int CRingBuffer::Dequeue(char * chpDest, int iSize)
+int CRingBuffer::Dequeue(char* chpDest, int iSize)
 {
-	int len = iSize;
-	int use = GetUseSize();
-	int part = GetDeqSize();
-	char* pDest = chpDest;
-	char* ptr = GetFrontBufferPtr();
+	if (iSize <= 0) { return 0; }
 
-	if (iSize == 0) { return 0; }
+	int len = iSize;
+	int use = 0;
+	int part = 0;
+
+	char* pDest = chpDest;
+	char* pFront = GetFrontBufferPtr();
+	char* pBuff = GetBufferPtr();
+
+	GetUseDeqSize(&use, &part);
+
 	if (use < iSize) { len = use; }
 
 	if (len > part)
 	{
-		memcpy_s(pDest, part, ptr, part);
-		pDest += part;
-		ptr = buffer;
-		part = len - part;
-		memcpy_s(pDest, part, ptr, part);
+		memcpy(pDest, pFront, part);
+		memcpy(&pDest[part], pBuff, int(len - part));
 	}
 	else
 	{
-		memcpy_s(pDest, len, ptr, len);
+		memcpy(pDest, pFront, len);
 	}
 
 	MoveFront(len);
@@ -173,28 +204,30 @@ int CRingBuffer::Dequeue(char * chpDest, int iSize)
 	return len;
 }
 
-int CRingBuffer::Peek(char * chpDest, int iSize)
+int CRingBuffer::Peek(char* chpDest, int iSize)
 {
-	int len = iSize;
-	int use = GetUseSize();
-	int part = GetDeqSize();
-	char* pDest = chpDest;
-	char* ptr = GetFrontBufferPtr();
+	if (iSize <= 0) { return 0; }
 
-	if (iSize == 0) { return 0; }
+	int len = iSize;
+	int use = 0;
+	int part = 0;
+
+	char* pDest = chpDest;
+	char* pFront = GetFrontBufferPtr();
+	char* pBuff = GetBufferPtr();
+
+	GetUseDeqSize(&use, &part);
+
 	if (use < iSize) { len = use; }
 
 	if (len > part)
 	{
-		memcpy_s(pDest, part, ptr, part);
-		pDest += part;
-		ptr = buffer;
-		part = len - part;
-		memcpy_s(pDest, part, ptr, part);
+		memcpy(pDest, pFront, part);
+		memcpy(&pDest[part], pBuff, len - part);
 	}
 	else
 	{
-		memcpy_s(pDest, len, ptr, len);
+		memcpy(pDest, pFront, len);
 	}
 
 	return len;
@@ -202,16 +235,14 @@ int CRingBuffer::Peek(char * chpDest, int iSize)
 
 void CRingBuffer::MoveRear(int iSize)
 {
-	int re = rear + iSize;
-	
+	int re = rear += iSize;
 	rear = re % size;
 }
 
-int CRingBuffer::MoveFront(int iSize)
+void CRingBuffer::MoveFront(int iSize)
 {
-	int re = front + iSize;
+	int re = front += iSize;
 	front = re % size;
-	return front;
 }
 
 void CRingBuffer::ClearBuffer(void)
@@ -219,12 +250,106 @@ void CRingBuffer::ClearBuffer(void)
 	front = rear = 0;
 }
 
-char * CRingBuffer::GetFrontBufferPtr(void)
+char* CRingBuffer::GetFrontBufferPtr(void)
 {
 	return &buffer[front];
 }
 
-char * CRingBuffer::GetRearBufferPtr(void)
+char* CRingBuffer::GetRearBufferPtr(void)
 {
 	return &buffer[rear];
+}
+
+char* CRingBuffer::GetBufferPtr(void)
+{
+	return buffer;
+}
+
+void CRingBuffer::Lock()
+{
+	EnterCriticalSection(&cs);
+}
+
+void CRingBuffer::Unlock()
+{
+	LeaveCriticalSection(&cs);
+}
+
+void CRingBuffer::GetFreeEnqSize(int* outFree, int* outEnq)
+{
+	int lRear = rear;
+	int lFront = front;
+	int use = 0;
+	int enq = 0;
+	int free = 0;
+
+	// use
+	if (lFront > lRear)
+	{
+		use = (size - (lFront - lRear));
+	}
+	else
+	{
+		use = (lRear - lFront);
+	}
+
+	//free
+	free = (size - 1) - use;
+
+	// enq
+	int temp = size;
+
+	if (lFront == 0)
+	{
+		temp -= 1;
+	}
+
+	if (lFront > lRear)
+	{
+		enq = lFront - lRear - 1;
+	}
+	else
+	{
+		enq = temp - lRear;
+	}
+
+	if (enq <= 0)
+	{
+		enq = 0;
+	}
+
+	*outFree = free;
+	*outEnq = enq;
+
+}
+
+void CRingBuffer::GetUseDeqSize(int* outUse, int* outDeq)
+{
+	int lRear = rear;
+	int lFront = front;
+	int use = 0;
+	int deq = 0;
+
+	if (lFront > lRear)
+	{
+		use = (size - (lFront - lRear));
+	}
+	else
+	{
+		use = (lRear - lFront);
+	}
+
+	int temp = size - lFront;
+
+	if (use > temp)
+	{
+		deq = temp;
+	}
+	else
+	{
+		deq = use;
+	}
+
+	*outUse = use;
+	*outDeq = deq;
 }

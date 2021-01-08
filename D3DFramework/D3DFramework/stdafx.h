@@ -52,10 +52,12 @@ using namespace std;
 
 #include "LobbyWindow.h"
 
+#include"MemoryPool.h"
 #include "Protocol.h"
 #include "CRingBuffer.h"
 #include "CPacket.h"
 #include "Network.h"
+#include "PacketPool.h"
 
 //=======================================
 //  My Lib
@@ -66,7 +68,7 @@ using namespace std;
 
 
 // DirectX 변형 자료
-#include"MemoryPool.h"
+
 #include "Point.h"
 #include "Vector3.h"
 #include "Matrix.h"

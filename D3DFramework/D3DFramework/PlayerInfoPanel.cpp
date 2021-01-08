@@ -56,10 +56,6 @@ void PlayerInfoPanel::Release()
 {
 }
 
-void PlayerInfoPanel::UpdateUI()
-{
-}
-
 void PlayerInfoPanel::Render()
 {
     RenderManager::DrawUI(L"panel (4)", miniPanelPos);

@@ -87,6 +87,7 @@ bool Network::NetProc(WPARAM wParam, LPARAM lParam)
 	{
 	case FD_CONNECT:
 		// 연결 성공 처리
+		pNetwork->isConnected = true;
 		return true;
 	case FD_READ:
 		if (!pNetwork->RecvProc())
@@ -99,6 +100,7 @@ bool Network::NetProc(WPARAM wParam, LPARAM lParam)
 		pNetwork->sendFlag = true;
 		if (!pNetwork->SendProc())
 		{
+			MessageBox(NULL, L"보내기 실패", NULL, MB_OK);
 			return false;
 		}
 		return true;
@@ -110,23 +112,13 @@ bool Network::NetProc(WPARAM wParam, LPARAM lParam)
 	return true;
 }
 
-bool Network::SendPacket(PACKET_HEADER* pHeader, CPacket* pPacket)
+bool Network::SendPacket(CPacket* pPacket)
 {
 	if (pNetwork->sock == INVALID_SOCKET) { return false; }
 	if (!pNetwork->sendFlag) { return false; }
 
-	PACKET_HEADER header = *pHeader;
-	CPacket* pack = pPacket;
-	ENDCODE endcode = dfNETWORK_PACKET_END;
-	int retval = 0;
-
-	//차후 직렬화 버퍼를 사용하여 해결할 것임
-	retval = pNetwork->sendQ.Enqueue((char*)&header, sizeof(header));
-	if (retval != sizeof(header)) { pNetwork->err_quit(L"센드큐 꽉참"); }
-	retval = pNetwork->sendQ.Enqueue(pack->GetReadPtr(), header.bySize);
-	if (retval != header.bySize) { pNetwork->err_quit(L"센드큐 꽉참"); }
-	retval = pNetwork->sendQ.Enqueue((char*)&endcode, sizeof(endcode));
-	if (retval != sizeof(endcode)) { pNetwork->err_quit(L"센드큐 꽉참"); }
+	pPacket->Encryption();
+	pNetwork->sendQ.Enqueue(pPacket->GetBufferPtr(), pPacket->GetUseSize());
 
 	pNetwork->SendProc();
 	return true;
@@ -162,10 +154,10 @@ bool Network::SendProc()
 
 bool Network::RecvProc()
 {
-	st_NETWORK_PACKET_HEADER header;
-	CPacket pack;
-	ENDCODE endcode;
+	NetHeader header;
+	CPacket* pack;
 	int retval = 0;
+	int size = 0;
 
 	retval = recv(sock, recvQ.GetRearBufferPtr(), recvQ.GetEnqSize(), 0);
 	if (retval == SOCKET_ERROR)
@@ -174,7 +166,7 @@ bool Network::RecvProc()
 	}
 	else if (retval == 0)
 	{
-		MessageBoxW(NULL, L"리시브 0", NULL, MB_OK);
+		//MessageBoxW(NULL, L"리시브 0", NULL, MB_OK);
 		return true;
 	}
 
@@ -182,39 +174,47 @@ bool Network::RecvProc()
 
 	for(;;)
 	{
-		// 헤더 이상 받았는가
-		if (recvQ.GetUseSize() < sizeof(header) + 1) { break; }
-		// 헤더 뽑아보기
-		retval = recvQ.Peek((char*)&header, sizeof(header));
-		if (retval != sizeof(header))
-		{
-			err_quit(L"recvQ peek err");
-		}
-		// 매직넘버 확인
-		if (header.byCode != dfNETWORK_PACKET_CODE) { err_quit(L"잘못된 패킷헤더 recv"); }
-		// 전체 패킷이 받아졌는가
-		if ((unsigned int)recvQ.GetUseSize() < (sizeof(header) + header.bySize + sizeof(endcode))) { break; }
-		// 헤더 제외하고
-		recvQ.MoveFront(sizeof(header));
-		// 직렬화에 디큐
-		retval = recvQ.Dequeue(pack.GetWritePtr(), header.bySize);
-		if (retval != header.bySize) { err_quit(L"디큐 에러"); }
-		// 직렬화 쓰기위치 이동
-		pack.MoveWritePos(header.bySize);
-		// 엔드코드 디큐
-		retval = recvQ.Dequeue((char*)&endcode, sizeof(endcode));
-		if (retval != sizeof(endcode)) { err_quit(L"디큐 에러"); }
-		if (endcode != dfNETWORK_PACKET_END) { err_quit(L"잘못된 엔드코드 recv"); }
+		size = recvQ.GetUseSize();
+		if (size < sizeof(NetHeader)) break;
+		recvQ.Peek((char*)&header, sizeof(NetHeader));
+		if (size < sizeof(NetHeader) + header.len) break;
+		recvQ.MoveFront(sizeof(NetHeader));
 
-		PacketProc(header.byType, &pack);
+		pack = new CPacket();
+		pack->Clear();
+
+		recvQ.Dequeue(pack->GetBufferPtr(), header.len);
+		pack->MoveWritePos(header.len);
+		if (!pack->Decryption(header))
+		{
+			err_quit(L"패킷 복호화 실패");
+			break;
+		}
+
+		// 큐에 넣고 활성화된 씬에서 pop하는걸로
+		packQ.push(pack);
+		//PacketProc(&pack);
 	}
 
 
 	return true;
 }
 
-void Network::PacketProc(BYTE type, CPacket* pPacket)
+void Network::PacketProc(CPacket* pPacket)
 {
+	WORD type;
+	*pPacket >> type;
+	switch (type)
+	{
+	default:
+		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
+		break;
+	}
+}
+
+void Network::SetNickname(const wstring& nick)
+{
+	pNetwork->nick = nick;
 }
 
 

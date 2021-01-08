@@ -18,6 +18,7 @@
 #include "Leesin.h"
 #include "Missfortune.h"
 #include "PlayerInfoPanel.h"
+#include "FloatingBar.h"
 
 void TestScene::OnLoaded()
 {
@@ -43,6 +44,9 @@ void TestScene::OnLoaded()
 	obj->transform->position = { 41,68,46 };
 	obj->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(obj);
+
+	FloatingBar* bar = (FloatingBar*)ObjectManager::GetInstance()->CreateObject<FloatingBar>(Layer::UI);
+	bar->SetTarget(obj);
 
 	obj = PlayerInfoPanel::GetInstance();
 	ObjectManager::GetInstance()->AddObject(obj, Layer::UI);

@@ -13,7 +13,7 @@ public:
 	~CRingBuffer();
 
 private:
-	void Initial(int iBufferSize);
+	void Initialize(int iBufferSize);
 public:
 	void Clear();
 	bool isEmpty();

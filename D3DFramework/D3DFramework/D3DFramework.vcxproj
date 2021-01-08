@@ -74,6 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <TargetName>LeagueOfLegends</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -177,12 +178,14 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Champion.h" />
+    <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="Diana.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="HierarchyLoader.h" />
@@ -194,6 +197,11 @@
     <ClInclude Include="Leona.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LoadingBackGround.h" />
+    <ClInclude Include="LoadingBorder.h" />
+    <ClInclude Include="LoadingChampPanel.h" />
+    <ClInclude Include="LoadingChampScreen.h" />
+    <ClInclude Include="LoadingPanel.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="LoadManager.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -211,6 +219,7 @@
     <ClInclude Include="NavNode.h" />
     <ClInclude Include="NavNodeManager.h" />
     <ClInclude Include="Optimization.h" />
+    <ClInclude Include="PacketPool.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayerController.h" />
@@ -255,6 +264,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainMesh.h" />
     <ClInclude Include="TestGaren.h" />
+    <ClInclude Include="TestLoadingScene.h" />
     <ClInclude Include="TestMan.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
@@ -264,6 +274,7 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Vector3.h" />
@@ -288,6 +299,7 @@
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="HierarchyLoader.cpp" />
@@ -299,6 +311,11 @@
     <ClCompile Include="Leona.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LoadingBackGround.cpp" />
+    <ClCompile Include="LoadingBorder.cpp" />
+    <ClCompile Include="LoadingChampPanel.cpp" />
+    <ClCompile Include="LoadingChampScreen.cpp" />
+    <ClCompile Include="LoadingPanel.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="LoadManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -316,6 +333,7 @@
     <ClCompile Include="NavNode.cpp" />
     <ClCompile Include="NavNodeManager.cpp" />
     <ClCompile Include="Optimization.cpp" />
+    <ClCompile Include="PacketPool.cpp" />
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -353,6 +371,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="TestGaren.cpp" />
+    <ClCompile Include="TestLoadingScene.cpp" />
     <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -362,6 +381,7 @@
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Turret.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Vector3.cpp" />

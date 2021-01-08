@@ -5,17 +5,17 @@
 
 CPacket::CPacket()
 {
-	Initial();
+	Initialize();
 }
 
 CPacket::CPacket(int iBufferSize)
 {
-	Initial(iBufferSize);
+	Initialize(iBufferSize);
 }
 
 CPacket::CPacket(const CPacket& clSrcPacket)
 {
-	Initial(clSrcPacket.size);
+	Initialize(clSrcPacket.size);
 	memcpy_s(buffer, clSrcPacket.size, clSrcPacket.buffer, clSrcPacket.size);
 	write = clSrcPacket.write;
 	read = clSrcPacket.read;
@@ -27,7 +27,7 @@ CPacket::~CPacket()
 	if (buffer != nullptr) { delete buffer; }
 }
 
-void CPacket::Initial(int iBufferSize)
+void CPacket::Initialize(int iBufferSize)
 {
 	buffer = new char[iBufferSize];
 	memset(buffer, 0, iBufferSize);
@@ -247,7 +247,7 @@ CPacket& CPacket::operator=(const CPacket& pack)
 	}
 
 	int len = pack.size;
-	Initial(len);
+	Initialize(len);
 	memcpy_s(buffer, len, pack.buffer, len);
 	read = pack.read;
 	write = pack.write;

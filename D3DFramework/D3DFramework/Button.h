@@ -11,15 +11,12 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    virtual void UpdateUI() override;
-
     virtual void OnHover() override;
     virtual void OnLeave() override;
     virtual void OnLButtonDown() override;
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
 
-    virtual void SetSize(int w, int h);
 
 private:
     // hover 이벤트 전용

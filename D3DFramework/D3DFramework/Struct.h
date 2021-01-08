@@ -22,3 +22,13 @@ typedef struct D3DXMESHCONTAINER_DERIVED : public D3DXMESHCONTAINER
 
 
 }D3DXMESHCONTAINER_DERIVED;
+
+enum class ChampionType : char
+{
+	Garen,Darius,Diana,Leona,Leesin,Missfortune,Blitzcrank,Ahri,Amumu,Jinx
+};
+
+enum class SpellType : char
+{
+	Barrier,Boost,Exhaust,Flash,Haste,Heal,Ignite,Mana,Smite,Teleport
+};

@@ -108,7 +108,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.panel2);
+            //this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.button_Exit);
             this.panel1.Controls.Add(this.label_waitTime);
@@ -373,7 +373,7 @@
             // 
             // button_spell1
             // 
-            this.button_spell1.Image = global::LOLClient.Properties.Resources.summonerignite;
+            this.button_spell1.Image = global::LOLClient.Properties.Resources.summoner_ignite;
             this.button_spell1.Location = new System.Drawing.Point(673, 666);
             this.button_spell1.Name = "button_spell1";
             this.button_spell1.Size = new System.Drawing.Size(35, 35);
@@ -631,7 +631,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(14)))), ((int)(((byte)(25)))));
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panel1);
-            //this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -151,10 +151,20 @@ void PKH::Camera::Update()
 	RenderManager::SetTransform(D3DTS_VIEW, &viewMatrix);
 
 	// Åõ¿µ
+	
+	PerspectiveProjection();
+	OrthogonalProjection();
+
 	if (isProjection3D)
-		PerspectiveProjection();
+	{
+		projectionMatrix = perspectiveMatrix;
+	}
 	else
-		OrthogonalProjection();
+	{
+		projectionMatrix = orthogonalMatrix;
+	}
+
+	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
 void PKH::Camera::Render()
@@ -194,6 +204,16 @@ Matrix PKH::Camera::GetProjectionMatrix()
 	return projectionMatrix;
 }
 
+Matrix PKH::Camera::GetPerspectiveMatrix()
+{
+	return perspectiveMatrix;
+}
+
+Matrix PKH::Camera::GetOrthogonalMatrix()
+{
+	return orthogonalMatrix;
+}
+
 void PKH::Camera::SetProjection3D(bool ProjectionSet)
 {
 	isProjection3D = ProjectionSet;
@@ -212,8 +232,7 @@ Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 	Vector3 pos;
 	pos.x = (position.x * 2.f / screenW) - 1.f;
 	pos.y = -(position.y * 2.f / screenH) + 1.f;
-	if(1.f == zPos) pos.z =  nearClipPlane;
-	else pos.z = zPos;
+	pos.z = zPos;
 
 	// Projection To World
 	Matrix inverseMat = Matrix::Inverse(viewProj);
@@ -226,6 +245,35 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 	Matrix viewProj = viewMatrix * projectionMatrix;
 
 	Vector3 pos; 
+	D3DXVec3TransformCoord(&pos, &position, &viewProj);
+
+	pos.x = (pos.x + 1.f) * 0.5f * screenW;
+	pos.y = (pos.y - 1.f) * -0.5f * screenH;
+
+	return pos;
+}
+
+Vector3 PKH::Camera::ScreenToWorldPointOrtho(const Vector3& position, float zPos)
+{
+	Matrix viewProj = viewMatrix * orthogonalMatrix;
+
+	// Screen To Projection
+	Vector3 pos;
+	pos.x = (position.x * 2.f / screenW) - 1.f;
+	pos.y = -(position.y * 2.f / screenH) + 1.f;
+	pos.z = zPos;
+
+	// Projection To World
+	Matrix inverseMat = Matrix::Inverse(viewProj);
+	D3DXVec3TransformCoord(&pos, &pos, &inverseMat);
+	return pos;
+}
+
+Vector3 PKH::Camera::WorldToScreenPointOrtho(const Vector3& position)
+{
+	Matrix viewProj = viewMatrix * orthogonalMatrix;
+
+	Vector3 pos;
 	D3DXVec3TransformCoord(&pos, &position, &viewProj);
 
 	pos.x = (pos.x + 1.f) * 0.5f * screenW;
@@ -320,7 +368,7 @@ void PKH::Camera::SetShakeDuration(float _duration)
 
 void PKH::Camera::PerspectiveProjection()
 {
-	projectionMatrix = Matrix::PerspectiveFovLH(fovY,
+	perspectiveMatrix = Matrix::PerspectiveFovLH(fovY,
 		(float)screenW / screenH,
 		nearClipPlane,
 		farClipPlane);
@@ -328,15 +376,18 @@ void PKH::Camera::PerspectiveProjection()
 	//	(float)dfCLIENT_WIDTH / dfCLIENT_HEIGHT,
 	//	nearClipPlane,
 	//	farClipPlane);
-	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
+	
+	
 }
 
 void PKH::Camera::OrthogonalProjection() 
 {
 
 	//D3DXMatrixOrthoLH(&proj, (float)7.6f, (float)5.7f, 0.0f, 10.f);
-	D3DXMatrixOrthoLH(&projectionMatrix, (float)screenW * 0.01f - screenW * 0.0005f,
-		(float)screenH * 0.01f - screenH * 0.0005f, 0.0f, 10.f);
+	//D3DXMatrixOrthoLH(&orthogonalMatrix, (float)screenW * 0.01f - screenW * 0.0005f,
+	//	(float)screenH * 0.01f - screenH * 0.0005f, 0.0f, 10.f);
+	D3DXMatrixOrthoLH(&orthogonalMatrix, (float)screenW,
+		(float)screenH, nearClipPlane, farClipPlane);
 	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 

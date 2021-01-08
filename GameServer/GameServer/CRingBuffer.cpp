@@ -4,20 +4,20 @@
 
 CRingBuffer::CRingBuffer()
 {
-	Initial(DEFALT_SIZE);
+	Initialize(DEFALT_SIZE);
 }
 
 CRingBuffer::CRingBuffer(int iBufferSize)
 {
-	Initial(iBufferSize);
+	Initialize(iBufferSize);
 }
 
 CRingBuffer::~CRingBuffer()
 {
-	delete buffer;
+	delete[] buffer;
 }
 
-void CRingBuffer::Initial(int iBufferSize)
+void CRingBuffer::Initialize(int iBufferSize)
 {
 	size = iBufferSize;
 	buffer = new char[size];
