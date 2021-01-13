@@ -28,7 +28,16 @@ void UI::Render()
 	RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &ortho);
 
 	//RenderManager::DrawUI(textureKey, *transform, 0);
+	Vector3 originCamPos = Camera::main->transform->position;
+	Vector3 originCamLook = Camera::main->transform->look;
+
+	Camera::main->transform->position = Vector3(0, 0, -1);
+	Camera::main->transform->look = Vector3(0, 0, 1);
+
 	GameObject::Render();
+
+	Camera::main->transform->position = originCamPos;
+	Camera::main->transform->look = originCamLook;
 
 	if (textRenderFlag)
 	{
@@ -206,6 +215,12 @@ void UI::SetSize(int w, int h)
 	transform->scale.y = h * 0.5f;
 }
 
+void PKH::UI::SetSizeByTexture()
+{
+	if (texture == nullptr)return;
+	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
+}
+
 void PKH::UI::SetLocation(int x, int y)
 {
 	int screenW = MainGame::GetWidth();
@@ -217,5 +232,6 @@ void PKH::UI::SetLocation(int x, int y)
 void UI::SetTexture(const wstring& _key)
 {
 	texture = RenderManager::GetTexture(_key);
+
 	mesh->SetTexture(_key);
 }

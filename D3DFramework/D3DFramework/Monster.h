@@ -1,16 +1,14 @@
 #pragma once
-#include "GameObject.h"
+#include "Unit.h"
 
-class Monster :
-    public GameObject
+class Monster : public Unit
 {
 public:
     Monster();
     virtual ~Monster();
-    // GameObject을(를) 통해 상속됨
+
+    virtual void Initialize() override;
+    virtual void Release() override;
     virtual void Update() override;
-    virtual void Render() override;
 
-    void Billboard();
 };
-

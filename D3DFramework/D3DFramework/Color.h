@@ -17,12 +17,12 @@ namespace PKH
 		D3DCOLOR value = 0;
 
 
-		static const Color Red;
+		static const Color RedMonster;
 		static const Color Green;
 		static const Color White;
 		static const Color Black;
 		static const Color Gray;
-		static const Color Blue;
+		static const Color BlueMonster;
 	};
 	
 }

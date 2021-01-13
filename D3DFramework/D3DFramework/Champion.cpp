@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "Champion.h"
+#include "FloatingBar.h"
 
 Champion::Champion()
 {
+	bar = (FloatingBar*)ObjectManager::GetInstance()->CreateObject<FloatingBar>(Layer::UI);
+	bar->SetTarget(this);
 }
 
 Champion::~Champion()
 {
+	bar = nullptr;
 }
 
 void Champion::Initialize()
@@ -17,7 +21,7 @@ void Champion::Initialize()
 
 void Champion::Release()
 {
-	Unit::Initialize();
+	Unit::Release();
 }
 
 void Champion::Update()

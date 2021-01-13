@@ -1,6 +1,7 @@
 #pragma once
-#include "Panel.h"
-class PlayerInfoPanel : public UI
+#include "GameObject.h"
+#include "HUD.h"
+class PlayerInfoPanel : public GameObject
 {
 private:
 	PlayerInfoPanel();
@@ -14,6 +15,7 @@ public:
 	virtual void Initialize() override;
 	virtual void Release() override;
 
+	virtual void Update() override;
 	virtual void Render() override;
 
 
@@ -30,5 +32,7 @@ public:
 	Texture* miniPanelTex = nullptr;
 	Texture* faceBorderTex = nullptr;
 	Texture* invenPanelTex = nullptr;
+
+	UI* mainPanel = nullptr;
 };
 

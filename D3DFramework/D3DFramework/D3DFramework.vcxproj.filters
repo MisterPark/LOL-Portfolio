@@ -175,6 +175,24 @@
     <Filter Include="GameObject\UI\Loading">
       <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Unit\Minion">
+      <UniqueIdentifier>{e864066a-1ec0-4e68-b4cf-6e9e0ca6a6fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Minion\Order">
+      <UniqueIdentifier>{4cd9cd6c-c75e-4490-9d50-ad6cd223747e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Minion\Chaos">
+      <UniqueIdentifier>{8ae2c58b-9c8b-41d4-a959-fdc4d6c482cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Bush">
+      <UniqueIdentifier>{6a667306-33a1-42d7-bb6a-2960e2285a60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Monster">
+      <UniqueIdentifier>{b8875451-e817-42f9-ad25-e05a0f3dc4e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Monster\Jungle">
+      <UniqueIdentifier>{bd927f06-e47b-40ab-a0ca-8dc182a07194}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -521,6 +539,70 @@
     </ClInclude>
     <ClInclude Include="LoadingBorder.h">
       <Filter>GameObject\UI\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="Minion.h">
+      <Filter>GameObject\Unit\Minion</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderMinionSuper.h">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderMinionCaster.h">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderMinionMelee.h">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderMinionSiege.h">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaosMinionCaster.h">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaosMinionSiege.h">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaosMinionSuper.h">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaosMinionMelee.h">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClInclude>
+    <ClInclude Include="Bush.h">
+      <Filter>GameObject\Unit\Bush</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>GameObject\Unit\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Scuttleracer.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueMonster.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="Gromp.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="Krug.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="KrugMini.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="Murkwolf.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="MurkwolfMini.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="Razorbeak.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="RazorbeakMini.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMonster.h">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -939,6 +1021,70 @@
     </ClCompile>
     <ClCompile Include="LoadingBorder.cpp">
       <Filter>GameObject\UI\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Minion.cpp">
+      <Filter>GameObject\Unit\Minion</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderMinionMelee.cpp">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderMinionSiege.cpp">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderMinionSuper.cpp">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderMinionCaster.cpp">
+      <Filter>GameObject\Unit\Minion\Order</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaosMinionCaster.cpp">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaosMinionSiege.cpp">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaosMinionSuper.cpp">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaosMinionMelee.cpp">
+      <Filter>GameObject\Unit\Minion\Chaos</Filter>
+    </ClCompile>
+    <ClCompile Include="Bush.cpp">
+      <Filter>GameObject\Unit\Bush</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>GameObject\Unit\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueMonster.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="Gromp.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="Krug.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="KrugMini.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="Murkwolf.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="MurkwolfMini.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="Razorbeak.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="RazorbeakMini.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMonster.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="Scuttleracer.cpp">
+      <Filter>GameObject\Unit\Monster\Jungle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

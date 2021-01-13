@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "PlayerInfoPanel.h"
+#include "Rectangle.h"
+#include "UI.h"
 
 PlayerInfoPanel* pPlayerInfoPanel = nullptr;
 
@@ -13,9 +15,14 @@ PlayerInfoPanel::PlayerInfoPanel()
     faceBorderTex = RenderManager::GetTexture(L"panel (1)");
     invenPanelTex = RenderManager::GetTexture(L"panel (2)");
 
-    mainPanelPos = { (screenW - mainPanelTex->GetSpriteWidth()) *0.5f,
-                     float(screenH - mainPanelTex->GetSpriteHeight()),
-                     0 };
+    mainPanel = new HUD();
+    mainPanel->SetTexture(L"panel (5)");
+
+    
+    mainPanel->SetSizeByTexture();
+    mainPanel->SetLocation((screenW - mainPanelTex->GetSpriteWidth()) * 0.5f,
+        100);// float(screenH - mainPanelTex->GetSpriteHeight()));
+
     miniPanelPos = { float(screenW - miniPanelTex->GetSpriteWidth()),
                     0.f,0.f };
     invenPanelPos = { mainPanelPos.x + mainPanelTex->GetSpriteWidth()-25,
@@ -27,6 +34,7 @@ PlayerInfoPanel::PlayerInfoPanel()
 
 PlayerInfoPanel::~PlayerInfoPanel()
 {
+    delete mainPanel;
     pPlayerInfoPanel = nullptr;
 }
 
@@ -56,10 +64,17 @@ void PlayerInfoPanel::Release()
 {
 }
 
+void PlayerInfoPanel::Update()
+{
+    GameObject::Update();
+    mainPanel->Update();
+}
+
 void PlayerInfoPanel::Render()
 {
-    RenderManager::DrawUI(L"panel (4)", miniPanelPos);
-    RenderManager::DrawUI(L"panel (2)", invenPanelPos);
-    RenderManager::DrawUI(L"panel (5)", mainPanelPos);
-    RenderManager::DrawUI(L"panel (1)", faceBorderPos);
+    GameObject::Render();
+    mainPanel->Render();
+    //RenderManager::DrawUI(L"panel (2)", invenPanelPos);
+    //RenderManager::DrawUI(L"panel (5)", mainPanelPos);
+    //RenderManager::DrawUI(L"panel (1)", faceBorderPos);
 }

@@ -102,6 +102,9 @@ string PKH::Animation::GetNameByState(UnitState state)
     case UnitState::RUN:
         name = "run";
         break;
+    case UnitState::RUN2:
+        name = "run2";
+        break;
     case UnitState::RUN_HASTE:
         name = "run_haste";
         break;
@@ -143,6 +146,9 @@ string PKH::Animation::GetNameByState(UnitState state)
         break;
     case UnitState::R2:
         name = "r2";
+        break;
+    case UnitState::SPAWN:
+        name = "spawn";
         break;
     default:
         name = "";

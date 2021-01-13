@@ -17,6 +17,7 @@ enum class UnitState
 	RECALL2,
 	RECALL3,
 	RUN,
+	RUN2,
 	RUN_HASTE,
 	ATTACK1,
 	ATTACK2,
@@ -31,6 +32,7 @@ enum class UnitState
 	W2,
 	E2,
 	R2,
+	SPAWN,
 	END
 };
 

@@ -30,6 +30,7 @@ namespace PKH
         Vector3 GetLocation();
 
         void SetSize(int w, int h);
+        void SetSizeByTexture();
         // 좌상단 기준
 
         void SetLocation(int x, int y);

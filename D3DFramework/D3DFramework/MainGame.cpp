@@ -78,8 +78,8 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//SkillManager::GetInstance();
 
 	// ¾À·Îµå
-	//SceneManager::LoadScene<TestLoadingScene>();
-	SceneManager::LoadScene<LoadingScene>();
+	SceneManager::LoadScene<TestLoadingScene>();
+	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
 }
 
