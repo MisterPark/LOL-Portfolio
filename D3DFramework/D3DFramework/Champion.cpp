@@ -15,16 +15,16 @@ Champion::~Champion()
 
 void Champion::Initialize()
 {
-	Unit::Initialize();
+	EnemyUnit::Initialize();
 
 }
 
 void Champion::Release()
 {
-	Unit::Release();
+	EnemyUnit::Release();
 }
 
 void Champion::Update()
 {
-	Unit::Update();
+	EnemyUnit::Update();
 }

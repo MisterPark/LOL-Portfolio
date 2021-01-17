@@ -3,6 +3,8 @@
 
 namespace PKH
 {
+	enum class CursorMode { Normal, SingleTarget };
+
 	class Cursor : public GameObject
 	{
 	private:
@@ -25,11 +27,15 @@ namespace PKH
 
 		static bool IsVisible();
 		static void SetTexture(const wstring& key);
+		static void SetRenderCenter(bool isCenter);
+
+		static void SetMode(CursorMode _mode);
+		static void ChangeMode();
 
 	private:
-		bool isVisible = true;
 		wstring textureKey;
-		
+		bool isRenderCenter = false;
+		CursorMode mode = CursorMode::Normal;
 	};
 }
 

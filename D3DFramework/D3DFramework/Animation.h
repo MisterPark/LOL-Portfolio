@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 
-class Unit;
+class EnemyUnit;
 enum class UnitState;
 
 namespace PKH
@@ -31,7 +31,7 @@ namespace PKH
 		void SetLoop(UnitState state, bool loop);
 
 	private:
-		Unit* unit = nullptr;
+		EnemyUnit* unit = nullptr;
 		DynamicMesh* dmesh = nullptr;
 		
 		UINT currentAnim = 0;

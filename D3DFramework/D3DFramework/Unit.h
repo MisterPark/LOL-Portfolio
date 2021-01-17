@@ -36,19 +36,41 @@ enum class UnitState
 	END
 };
 
-class Unit : public GameObject
+class EnemyUnit : public GameObject
 {
 public:
-    Unit();
-    virtual ~Unit();
+    EnemyUnit();
+    virtual ~EnemyUnit();
 
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
 
+	void UpdateAttack();
+
+	void LookRotation(Vector3 _direction);
+	void SetDestination(Vector3 _target);
+	virtual void Attack(EnemyUnit* _target);
+	virtual void Spell1();
+	virtual void Spell2();
+	virtual void Spell3();
+	virtual void Spell4();
+
+
+
 public:
 	UnitState state = UnitState::IDLE1;
 	Team team = Team::NEUTRAL;
 	Animation* anim = nullptr;
+	NavMeshAgent* agent = nullptr;
+
+	// 기본공격 관련
+	bool attackFlag = false;
+	EnemyUnit* attackTarget = nullptr;
+	float attackRange = 1.25f;
+	float attackTick = 0.f;
+	float attackPerSec = 0.625f;
+	UnitState attackState = UnitState::ATTACK1;
+	bool canAttack = false;
 };
 

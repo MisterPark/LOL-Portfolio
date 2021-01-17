@@ -15,16 +15,16 @@ Monster::~Monster()
 
 void Monster::Initialize()
 {
-	Unit::Initialize();
+	EnemyUnit::Initialize();
 }
 
 void Monster::Release()
 {
-	Unit::Release();
+	EnemyUnit::Release();
 }
 
 void Monster::Update()
 {
-	Unit::Update();
+	EnemyUnit::Update();
 	
 }

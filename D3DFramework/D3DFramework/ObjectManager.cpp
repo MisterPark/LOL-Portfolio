@@ -212,7 +212,7 @@ void PKH::ObjectManager::PostRender()
 	}
 	
 	//Inventory::Render();
-	//Cursor::GetInstance()->Render();
+	Cursor::GetInstance()->Render();
 }
 
 bool PKH::ObjectManager::CompareY(GameObject* a, GameObject* b)

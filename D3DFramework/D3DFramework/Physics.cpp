@@ -30,7 +30,7 @@ bool PKH::Physics::Raycast(Vector3 origin, Vector3 direction, float maxDistance,
     Ray ray;
     ray.origin = origin;
     ray.direction = direction;
-
+    
     auto colliderTable = CollisionManager::GetInstance()->objectList;
     int beginLayer = (int)Layer::Default;
     int endLayer = (int)Layer::END;

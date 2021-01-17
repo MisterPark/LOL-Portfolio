@@ -124,6 +124,9 @@ using namespace std;
 
 #include "Frustum.h"
 
+#include "NavMesh.h"
+#include "NavMeshAgent.h"
+
 
 using namespace std;
 using namespace PKH;

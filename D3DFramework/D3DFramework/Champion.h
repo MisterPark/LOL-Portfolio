@@ -4,7 +4,7 @@
 class FloatingBar;
 
 class Champion :
-    public Unit
+    public EnemyUnit
 {
 public:
 

@@ -22,6 +22,15 @@
     <Filter Include="Default">
       <UniqueIdentifier>{75339390-58f1-42d7-8ca7-2bdaf2a34550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameLogic\GameObject">
+      <UniqueIdentifier>{b6961d8b-e05b-485e-836e-8e1fc0be14da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Manager">
+      <UniqueIdentifier>{ac30488b-3d53-4dcf-8dfb-b14e9e6247be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Layer">
+      <UniqueIdentifier>{9eaced4b-3018-406e-901b-fa8140dd0078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGameServer.cpp">
@@ -61,6 +70,15 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="GameRoom.cpp" />
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameLogic\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>GameLogic\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>GameLogic\Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircularList.h">
@@ -106,5 +124,17 @@
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="GameRoom.h" />
+    <ClInclude Include="Function.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameLogic\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>GameLogic\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>GameLogic\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

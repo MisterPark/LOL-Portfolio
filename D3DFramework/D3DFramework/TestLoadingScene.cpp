@@ -36,6 +36,8 @@ void TestLoadingScene::OnLoaded()
 	Camera::GetInstance()->SetPosition(Vector3(0, 0, -1));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
+	Cursor::GetInstance()->Show();
+
 	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
 
 	CreateChampPanel(borderW, borderH, padding);
@@ -177,6 +179,7 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;
+		//screens[i]->isVisible = false;
 	}
 	
 }

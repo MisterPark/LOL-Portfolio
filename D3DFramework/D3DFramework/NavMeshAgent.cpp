@@ -6,7 +6,7 @@
 PKH::NavMeshAgent::NavMeshAgent(GameObject* owner)
     :IComponent(owner)
 {
-    unit = dynamic_cast<Unit*>(owner);
+    unit = dynamic_cast<EnemyUnit*>(owner);
     navMeshMap = (NavMeshMap*)ObjectManager::GetInstance()->FindObject<NavMeshMap>();
 }
 
@@ -49,8 +49,9 @@ void PKH::NavMeshAgent::Update()
             // 상태
             unit->state = UnitState::RUN;
             // 회전
-            float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
-            gameObject->transform->eulerAngles.y = angle;
+            //float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
+            //gameObject->transform->eulerAngles.y = angle;
+            unit->LookRotation(direction);
             // 이동
             transform->position += direction * speed * TimeManager::DeltaTime();
         }
@@ -65,6 +66,7 @@ IComponent* PKH::NavMeshAgent::Clone()
 bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
 {
     bool result = false;
+    isDestination = false;
     ResetPath();
 
     if (noSearch)
@@ -72,7 +74,6 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
         destination = target;
         path.push_back(target);
         nextPosition = target;
-        isDestination = false;
     }
     else
     {
@@ -94,7 +95,7 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
             // nextPosition 세팅
             nextPosition = path.front();
             path.erase(path.begin());
-            isDestination = false;
+            
         }
     }
    
@@ -121,4 +122,9 @@ void PKH::NavMeshAgent::ResetPath()
 {
     path.clear();
     
+}
+
+void PKH::NavMeshAgent::SetStoppingDistance(float _dist)
+{
+    stoppingDistance = _dist;
 }

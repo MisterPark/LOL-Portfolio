@@ -5,7 +5,7 @@
 PKH::Animation::Animation(GameObject* owner)
     :IComponent(owner)
 {
-    unit = dynamic_cast<Unit*>(owner);
+    unit = dynamic_cast<EnemyUnit*>(owner);
     
 }
 

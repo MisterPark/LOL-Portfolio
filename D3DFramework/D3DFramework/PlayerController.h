@@ -4,6 +4,7 @@
 
 using namespace PKH;
 
+class EnemyUnit;
 
 class PlayerController :
     public IComponent
@@ -17,7 +18,11 @@ public:
     // IComponent을(를) 통해 상속됨
     virtual IComponent* Clone() override;
 
+    void SetTargetMode(bool _mode);
 
+public:
     PKH::NavMeshAgent* agent = nullptr;
+    bool targetMode = false;
+    EnemyUnit* unit = nullptr;
 };
 

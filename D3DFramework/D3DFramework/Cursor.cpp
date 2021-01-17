@@ -1,17 +1,20 @@
 #include "stdafx.h"
 #include "Cursor.h"
+#include "Rectangle.h"
 
 PKH::Cursor* pCursor = nullptr;
 
 PKH::Cursor::Cursor()
 {
-   
-    //ShowCursor(FALSE);
+    textureKey = L"hover_precise";
+    transform->scale.x *= 0.8f;
+    transform->scale.y *= 0.8f;
+    ShowCursor(FALSE);
 }
 
 PKH::Cursor::~Cursor()
 {
-    //ShowCursor(TRUE);
+    ShowCursor(TRUE);
 }
 
 Cursor* PKH::Cursor::GetInstance()
@@ -67,13 +70,30 @@ void PKH::Cursor::Hide()
 void PKH::Cursor::Update()
 {
     if (isEnable == false)return;
-    transform->position = GetMousePos();
+    Vector3 mousePos = GetMousePos();
+
+    transform->position = mousePos;
+    GameObject::Update();
+
+    //Billboard();
 }
 
 void PKH::Cursor::Render()
 {
     if (isVisible == false)return;
-    RenderManager::DrawUI(textureKey, (*transform), 0);
+
+    switch (mode)
+    {
+    case PKH::CursorMode::Normal:
+        RenderManager::DrawUI(L"hover_precise", *transform, 0);
+        break;
+    case PKH::CursorMode::SingleTarget:
+        RenderManager::DrawSprite(L"singletarget", *transform, 0);
+        break;
+    default:
+        break;
+    }
+    
 }
 
 void PKH::Cursor::Initialize()
@@ -92,4 +112,29 @@ bool PKH::Cursor::IsVisible()
 void PKH::Cursor::SetTexture(const wstring& key)
 {
     pCursor->textureKey = key.c_str();
+}
+
+void PKH::Cursor::SetRenderCenter(bool isCenter)
+{
+    pCursor->isRenderCenter = isCenter;
+}
+
+void PKH::Cursor::SetMode(CursorMode _mode)
+{
+    pCursor->mode = _mode;
+}
+
+void PKH::Cursor::ChangeMode()
+{
+    switch (pCursor->mode)
+    {
+    case PKH::CursorMode::Normal:
+        pCursor->mode = CursorMode::SingleTarget;
+        break;
+    case PKH::CursorMode::SingleTarget:
+        pCursor->mode = CursorMode::Normal;
+        break;
+    default:
+        break;
+    }
 }

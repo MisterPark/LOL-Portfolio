@@ -6,6 +6,11 @@ enum class Layer
 	Node,
 	Ground,
 	Wall,
+	Bush,
+	EnemyUnit,
+	TeamUnit,
+	EnemyBuilding,
+	TeamBulilding,
 	UI,
 	END
 };

@@ -13,6 +13,12 @@
 #include <list>
 #include <queue>
 
+#include "Function.h"
+
+#include "Layer.h"
+#include "GameObject.h"
+#include "ObjectManager.h"
+
 #include "CRingBuffer.h"
 #include "CPacket.h"
 #include "Protocol.h"

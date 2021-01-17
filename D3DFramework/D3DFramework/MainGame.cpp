@@ -53,6 +53,9 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
+
+	LoadUISprite();
+
 	ObjectManager::GetInstance();
 	CollisionManager::GetInstance();
 	LightManager::GetInstance();
@@ -72,7 +75,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	Frustum::GetInstance();
 	NavNodeManager::GetInstance();
 
-	LoadUISprite();
+	
 
 	
 	//SkillManager::GetInstance();
@@ -173,6 +176,8 @@ void PKH::MainGame::LoadUISprite()
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
+	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
 	//·Îµù¾À
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 

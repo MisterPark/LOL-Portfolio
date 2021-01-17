@@ -146,9 +146,12 @@
     <ClCompile Include="CPacket.cpp" />
     <ClCompile Include="CRingBuffer.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameRoom.cpp" />
     <ClCompile Include="IJob.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PacketPool.cpp" />
     <ClCompile Include="SessionList.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -164,9 +167,13 @@
     <ClInclude Include="CPacket.h" />
     <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameRoom.h" />
     <ClInclude Include="IJob.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="MemoryPool.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PacketPool.h" />
     <ClInclude Include="Protocol.h" />
     <ClInclude Include="SessionList.h" />
