@@ -5,7 +5,7 @@
 PKH::Animation::Animation(GameObject* owner)
     :IComponent(owner)
 {
-    unit = dynamic_cast<EnemyUnit*>(owner);
+    unit = dynamic_cast<Unit*>(owner);
     
 }
 
@@ -37,9 +37,9 @@ void PKH::Animation::PostUpdate()
         }
     }
     
+    float animSpeed = dt * animsets[(int)unit->state].period * animsets[(int)unit->state].speed;
     
-    dmesh->PlayAnimation(dt);
-
+    dmesh->PlayAnimation(animSpeed);
 }
 
 IComponent* PKH::Animation::Clone()
@@ -62,11 +62,14 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
         if (dmesh->GetAnimationIndex(&idx, name.c_str()))
         {
             animsets[i].index = idx;
+            animsets[i].period = dmesh->GetPeriod(idx);
         }
         else
         {
             animsets[i].index = idleIndex;
+            animsets[i].period = dmesh->GetPeriod(idleIndex);
         }
+        animsets[i].speed = 1.f / animsets[i].period;
         animsets[i].name = name;
     }
 
@@ -160,4 +163,15 @@ string PKH::Animation::GetNameByState(UnitState state)
 void PKH::Animation::SetLoop(UnitState state, bool loop)
 {
     animsets[(int)state].isLoop = loop;
+}
+
+void PKH::Animation::SetSpeed(UnitState state, float speed)
+{
+    animsets[(int)state].speed = speed;
+}
+
+bool PKH::Animation::IsFrameEnd()
+{
+    if (dmesh == nullptr) return false;
+    return dmesh->IsAnimationSetEnd();
 }

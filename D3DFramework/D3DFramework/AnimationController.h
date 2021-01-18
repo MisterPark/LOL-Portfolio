@@ -19,6 +19,7 @@ namespace PKH
 		bool			GetAnimationName(char** outName, UINT index);
 		bool			GetAnimationIndex(UINT* outIndex, const char* name);
 		UINT			GetNumAnimations();
+		double			GetPeriod(const UINT& index);
 		void			SetAnimationSet(const UINT& iIndex);
 
 		void			PlayAnimation(const float& fTimeDelta);

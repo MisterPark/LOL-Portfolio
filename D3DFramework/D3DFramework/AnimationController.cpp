@@ -74,6 +74,14 @@ UINT PKH::AnimationController::GetNumAnimations()
 	return m_pAniCtrl->GetNumAnimationSets();
 }
 
+double PKH::AnimationController::GetPeriod(const UINT& index)
+{
+	LPD3DXANIMATIONSET		pAS = NULL;
+
+	m_pAniCtrl->GetAnimationSet(index, &pAS);
+	return pAS->GetPeriod();
+}
+
 void AnimationController::SetAnimationSet(const UINT& iIndex)
 {
 	if (m_iOldAniIdx == iIndex)
@@ -87,7 +95,7 @@ void AnimationController::SetAnimationSet(const UINT& iIndex)
 	m_pAniCtrl->GetAnimationSet(iIndex, &pAS);
 	//m_pAniCtrl->GetAnimationSetByName()
 
-	//m_dPeriod = pAS->GetPeriod(); // 애니메이션 셋의 재생 시간을 반환하는 함수
+	m_dPeriod = pAS->GetPeriod(); // 애니메이션 셋의 재생 시간을 반환하는 함수
 
 
 	// 0번 트랙에 애니메이션 셋 세팅
@@ -164,7 +172,7 @@ bool AnimationController::IsAnimationSetEnd(void)
 	ZeroMemory(&tTrackInfo, sizeof(D3DXTRACK_DESC));
 
 	m_pAniCtrl->GetTrackDesc(m_iCurrentTrack, &tTrackInfo);
-
+	
 	if (tTrackInfo.Position >= m_dPeriod - 0.1)
 		return true;
 

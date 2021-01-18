@@ -4,7 +4,7 @@
 #include "NavMeshAgent.h"
 #include "Animation.h"
 
-EnemyUnit::EnemyUnit()
+Unit::Unit()
 {
 	anim = (Animation*)AddComponent<Animation>(L"Animation");
 	SphereCollider* collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
@@ -14,30 +14,31 @@ EnemyUnit::EnemyUnit()
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
 }
 
-EnemyUnit::~EnemyUnit()
+Unit::~Unit()
 {
 	anim = nullptr;
 	agent = nullptr;
 }
 
-void EnemyUnit::Initialize()
+void Unit::Initialize()
 {
 }
 
-void EnemyUnit::Release()
+void Unit::Release()
 {
 }
 
-void EnemyUnit::Update()
+void Unit::Update()
 {
 	state = UnitState::IDLE1;
 
 	UpdateAttack();
 
 	GameObject::Update();
+
 }
 
-void EnemyUnit::UpdateAttack()
+void Unit::UpdateAttack()
 {
 	float dt = TimeManager::DeltaTime();
 	attackTick += dt;
@@ -49,6 +50,11 @@ void EnemyUnit::UpdateAttack()
 	{
 		attackTick = 0.f;
 		canAttack = true;
+		
+	}
+
+	if (anim->IsFrameEnd())
+	{
 		int rand = Random::Range(0, 9);
 		if (rand < 5)
 		{
@@ -77,7 +83,7 @@ void EnemyUnit::UpdateAttack()
 	}
 }
 
-void EnemyUnit::LookRotation(Vector3 _direction)
+void Unit::LookRotation(Vector3 _direction)
 {
 	float angle = Vector3::AngleY(Vector3(0, 0, 1), _direction);
 	transform->eulerAngles.y = angle;
@@ -85,7 +91,7 @@ void EnemyUnit::LookRotation(Vector3 _direction)
 
 }
 
-void EnemyUnit::SetDestination(Vector3 _target)
+void Unit::SetDestination(Vector3 _target)
 {
 	Vector3 direction = _target - transform->position;
 	Vector3::Normalize(&direction);
@@ -111,7 +117,7 @@ void EnemyUnit::SetDestination(Vector3 _target)
 	}
 }
 
-void EnemyUnit::Attack(EnemyUnit* target)
+void Unit::Attack(Unit* target)
 {
 	if (target == nullptr) return;
 
@@ -121,18 +127,32 @@ void EnemyUnit::Attack(EnemyUnit* target)
 	SetDestination(attackTarget->transform->position);
 }
 
-void EnemyUnit::Spell1()
+void Unit::Spell1()
 {
 }
 
-void EnemyUnit::Spell2()
+void Unit::Spell2()
 {
 }
 
-void EnemyUnit::Spell3()
+void Unit::Spell3()
 {
 }
 
-void EnemyUnit::Spell4()
+void Unit::Spell4()
 {
+}
+
+void Unit::SetAttackTarget(Unit* _target)
+{
+	attackTarget = _target;
+}
+
+void Unit::SetAttackSpeed(float _attackPerSec)
+{
+	attackPerSec = _attackPerSec;
+	anim->SetSpeed(UnitState::ATTACK1, _attackPerSec);
+	anim->SetSpeed(UnitState::ATTACK2, _attackPerSec);
+	anim->SetSpeed(UnitState::ATTACK3, _attackPerSec);
+	anim->SetSpeed(UnitState::ATTACK4, _attackPerSec);
 }

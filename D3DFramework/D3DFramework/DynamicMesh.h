@@ -25,7 +25,7 @@ namespace PKH
 		void			PlayAnimation(const float& fTimeDelta);
 
 		bool			GetAnimationIndex(UINT* outIndex, const char* name);
-
+		double			GetPeriod(const UINT& index);
 	private:
 
 		// 모든 뼈들을 순회하면서 뼈들이 갖고 있는 TransformationMatrix와 pParentMatrix를 결합하여 CombinedTransformationMatrix를 만들어주는 함수

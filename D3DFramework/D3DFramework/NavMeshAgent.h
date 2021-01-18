@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 
-class EnemyUnit;
+class Unit;
 
 namespace PKH
 {
@@ -28,7 +28,7 @@ namespace PKH
 		void SetStoppingDistance(float _dist);
 
 	private:
-		EnemyUnit* unit = nullptr;
+		Unit* unit = nullptr;
 		NavMeshMap* navMeshMap = nullptr;
 		list<Vector3> path;
 		Vector3 nextPosition;

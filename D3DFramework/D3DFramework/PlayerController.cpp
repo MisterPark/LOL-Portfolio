@@ -8,7 +8,7 @@
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
 {
-    unit = (EnemyUnit*)owner;
+    unit = (Unit*)owner;
     agent = (NavMeshAgent*)owner->GetComponent<NavMeshAgent>();
 }
 
@@ -88,7 +88,7 @@ void PlayerController::Update()
             if (targetMode)
             {
                 SetTargetMode(false);
-                unit->Attack((EnemyUnit*)info.collider->gameObject);
+                unit->Attack((Unit*)info.collider->gameObject);
             }
         }
         else
@@ -108,7 +108,7 @@ void PlayerController::Update()
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
             SetTargetMode(false);
-            unit->attackTarget = nullptr;
+            unit->SetAttackTarget(nullptr);
             agent->SetStoppingDistance(0.03f);
             unit->SetDestination(hit.point);
         }

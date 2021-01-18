@@ -1,7 +1,7 @@
 #pragma once
 #include "Unit.h"
 class Building :
-    public EnemyUnit
+    public Unit
 {
 public:
     Building();

@@ -6,7 +6,7 @@
 PKH::NavMeshAgent::NavMeshAgent(GameObject* owner)
     :IComponent(owner)
 {
-    unit = dynamic_cast<EnemyUnit*>(owner);
+    unit = dynamic_cast<Unit*>(owner);
     navMeshMap = (NavMeshMap*)ObjectManager::GetInstance()->FindObject<NavMeshMap>();
 }
 

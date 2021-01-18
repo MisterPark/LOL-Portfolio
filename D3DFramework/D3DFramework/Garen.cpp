@@ -10,6 +10,7 @@ Garen::Garen()
 	AddComponent(L"DynamicMesh", dmesh);
 
 	anim->AttachToDynamicMesh(dmesh);
+	SetAttackSpeed(2.f);
 }
 
 Garen::~Garen()

@@ -1,7 +1,7 @@
 #pragma once
 #include "Unit.h"
 class Minion :
-    public EnemyUnit
+    public Unit
 {
 public:
     Minion();

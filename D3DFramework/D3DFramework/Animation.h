@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 
-class EnemyUnit;
+class Unit;
 enum class UnitState;
 
 namespace PKH
@@ -15,6 +15,8 @@ namespace PKH
 			UINT index = 0;
 			string name;
 			bool isLoop = false;
+			float period = 0.f;
+			float speed = 1.f;
 		};
 
 		explicit Animation(GameObject* owner);
@@ -29,12 +31,15 @@ namespace PKH
 		string GetNameByState(UnitState state);
 
 		void SetLoop(UnitState state, bool loop);
+		void SetSpeed(UnitState state, float speed);
+		bool IsFrameEnd();
 
 	private:
-		EnemyUnit* unit = nullptr;
+		Unit* unit = nullptr;
 		DynamicMesh* dmesh = nullptr;
 		
 		UINT currentAnim = 0;
+	public:
 		map<UINT, Animation::Node> animsets;
 	};
 }

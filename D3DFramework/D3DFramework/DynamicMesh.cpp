@@ -226,6 +226,11 @@ bool PKH::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
 	return false;
 }
 
+double PKH::DynamicMesh::GetPeriod(const UINT& index)
+{
+	return m_pAniCtrl->GetPeriod(index);
+}
+
 void DynamicMesh::UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix)
 {
 	if (nullptr == pFrame)

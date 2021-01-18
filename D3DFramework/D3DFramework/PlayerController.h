@@ -4,7 +4,7 @@
 
 using namespace PKH;
 
-class EnemyUnit;
+class Unit;
 
 class PlayerController :
     public IComponent
@@ -23,6 +23,6 @@ public:
 public:
     PKH::NavMeshAgent* agent = nullptr;
     bool targetMode = false;
-    EnemyUnit* unit = nullptr;
+    Unit* unit = nullptr;
 };
 
