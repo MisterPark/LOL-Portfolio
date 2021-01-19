@@ -519,9 +519,6 @@
     <ClInclude Include="TestLoadingScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="FloatingBar.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="LoadingBackGround.h">
       <Filter>GameObject\UI\Loading</Filter>
     </ClInclude>
@@ -540,7 +537,6 @@
     <ClInclude Include="LoadingBorder.h">
       <Filter>GameObject\UI\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h" />
     <ClInclude Include="Minion.h">
       <Filter>GameObject\Unit\Minion</Filter>
     </ClInclude>
@@ -603,6 +599,15 @@
     </ClInclude>
     <ClInclude Include="RedMonster.h">
       <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingBar.h">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingHPBar.h">
+      <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1001,9 +1006,6 @@
     <ClCompile Include="TestLoadingScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="FloatingBar.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingBackGround.cpp">
       <Filter>GameObject\UI\Loading</Filter>
     </ClCompile>
@@ -1022,7 +1024,6 @@
     <ClCompile Include="LoadingBorder.cpp">
       <Filter>GameObject\UI\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Minion.cpp">
       <Filter>GameObject\Unit\Minion</Filter>
     </ClCompile>
@@ -1085,6 +1086,15 @@
     </ClCompile>
     <ClCompile Include="Scuttleracer.cpp">
       <Filter>GameObject\Unit\Monster\Jungle</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingBar.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingHPBar.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

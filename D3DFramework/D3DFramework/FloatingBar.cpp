@@ -3,23 +3,23 @@
 
 FloatingBar::FloatingBar()
 {
+	offset = { 0,2,-0.5f };
+
 	mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetTexture(L"border_float (1)");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
-	
-	offset = { 0,2,-0.5f };
 
 	Texture* tex = RenderManager::GetTexture(L"border_float (1)");
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 	float scaleY = (float)h / w;
 	transform->scale = { 1,scaleY,1 };
+
 }
 
 FloatingBar::~FloatingBar()
 {
 	target = nullptr;
-	mesh = nullptr;
 }
 
 void FloatingBar::Initialize()
@@ -39,15 +39,28 @@ void FloatingBar::Update()
 
 	if (target != nullptr)
 	{
-		transform->position = target->transform->position + offset;
+		//Vector3 pos = target->transform->position;// +offset;
+
+		//Vector3 screenPos = Camera::main->WorldToScreenPoint(pos);
+
+		//transform->position = screenPos;
+		//Vector3 screenPos = target->transform->position + offset;
+		//SetLocation(screenPos.x, screenPos.y);
+		
+		//transform->position = target->transform->position;
 	}
 	
-	
-	GameObject::Update();
+	UI::Update();
+	//GameObject::Update();
 
-	Billboard();
+	//Billboard();
 
 	
+}
+
+void FloatingBar::Render()
+{
+	UI::Render();
 }
 
 void FloatingBar::SetTarget(GameObject* target)

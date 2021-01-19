@@ -2,6 +2,7 @@
 #include "Unit.h"
 
 class FloatingBar;
+class FloatingHPBar;
 
 class Champion :
     public Unit
@@ -18,5 +19,6 @@ public:
 
 public:
     FloatingBar* bar = nullptr;
+	FloatingHPBar* hpBar = nullptr;
 };
 

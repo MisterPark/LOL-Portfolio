@@ -46,6 +46,7 @@ void UI::Render()
 	}
 
 	RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &perspective);
+
 }
 
 void UI::UpdateEvent()

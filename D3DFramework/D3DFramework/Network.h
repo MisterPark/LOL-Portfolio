@@ -39,7 +39,7 @@ private:
 	SOCKET sock = INVALID_SOCKET;
 	SOCKADDR_IN serveraddr;
 	int addrlen = sizeof(serveraddr);
-	WCHAR serverIPtext[64] = L"1.236.172.67";
+	WCHAR serverIPtext[64] = L"192.168.0.4";
 	CRingBuffer recvQ;
 	CRingBuffer sendQ;
 	bool sendFlag = false;

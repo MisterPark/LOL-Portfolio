@@ -192,6 +192,7 @@
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="FloatingBar.h" />
+    <ClInclude Include="FloatingHPBar.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="Gromp.h" />
@@ -328,6 +329,7 @@
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="FloatingBar.cpp" />
+    <ClCompile Include="FloatingHPBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="Gromp.cpp" />
