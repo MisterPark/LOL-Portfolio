@@ -222,6 +222,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	case GAME_REQ_COMPLETE_LOADING:
 		ReqCompleteLoading(pClient, pPacket);
 		break;
+	case GAME_REQ_TIME:
+		ReqTime(pClient, pPacket);
+		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
@@ -616,6 +619,20 @@ void CGameServer::ResCompleteLoading(Client* pClient)
 
 	CPacket* pack = PacketPool::Alloc();
 	*pack << (WORD)GAME_RES_COMPLETE_LOADING;
+	SendUnicast(pClient->sessionID, pack);
+}
+
+void CGameServer::ReqTime(Client* pClient, CPacket* pPacket)
+{
+	DWORD time;
+	*pPacket >> time;
+	ResTime(pClient, time);
+}
+
+void CGameServer::ResTime(Client* pClient, DWORD time)
+{
+	CPacket* pack = PacketPool::Alloc();
+	*pack << (WORD)GAME_RES_TIME << time;
 	SendUnicast(pClient->sessionID, pack);
 }
 

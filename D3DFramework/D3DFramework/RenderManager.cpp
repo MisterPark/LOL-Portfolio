@@ -562,12 +562,51 @@ void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos,
 	RECT area;
 	area.left = x;
 	area.top = y;
-	area.right = (x + w);
-	area.bottom = (y + h) * horizontalPer;
+	area.right = x + w * horizontalPer;
+	area.bottom = (y + h);
 
 	Matrix matWorld, matPos, matScale;
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
-	D3DXMatrixTranslation(&matPos, pos.x, pos.y+h-h*horizontalPer, 0.f);
+	D3DXMatrixTranslation(&matPos, pos.x, pos.y, 0.f);
+	matWorld = matScale * matPos;
+
+	EnterCriticalSection(&pRenderManager->csDevice);
+	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	pRenderManager->pSprite->SetTransform(&matWorld);
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->End();
+	LeaveCriticalSection(&pRenderManager->csDevice);
+}
+
+void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
+{
+	auto find = pRenderManager->textureMap.find(spriteKey);
+	if (find == pRenderManager->textureMap.end())
+	{
+		// 로드되지 않은 스프라이트.
+		return;
+	}
+
+	const Texture* tex = find->second;
+
+	// 스프라이트 한장의 넓이와 높이, 위치
+	int w = tex->GetSpriteWidth();
+	int h = tex->GetSpriteHeight();
+
+	int row = index / tex->colCount;
+	int col = index % tex->colCount;
+
+	int x = col * w;
+	int y = row * h;
+	RECT area;
+	area.left = x;
+	area.top = y;
+	area.right = (x + w);
+	area.bottom = (y + h) * verticalPer;
+
+	Matrix matWorld, matPos, matScale;
+	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
+	D3DXMatrixTranslation(&matPos, pos.x, pos.y + h - h * verticalPer, 0.f);
 	matWorld = matScale * matPos;
 
 	EnterCriticalSection(&pRenderManager->csDevice);

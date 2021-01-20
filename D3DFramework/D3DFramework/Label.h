@@ -23,7 +23,7 @@ public:
     virtual void Update() override;
     virtual void Render() override;
 private:
-    void MakeFont(int fontSize = 10);
+    void MakeFont(int fontSize = 20);
 
 public:
     Label::Align align = Label::Align::Left;

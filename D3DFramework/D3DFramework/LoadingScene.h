@@ -32,6 +32,7 @@ public:
     void CreateChampPanel(int borderW, int borderH, int padding);
     
 public:
+    Network* net = nullptr;
     bool isConnected = false;
     float connectDelay = 0.3f;
     float connectTick = 0.f;

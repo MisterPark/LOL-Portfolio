@@ -194,6 +194,7 @@
     <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="FloatingHPBar.h" />
     <ClInclude Include="Frustum.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="Gromp.h" />
     <ClInclude Include="HierarchyLoader.h" />
@@ -233,6 +234,7 @@
     <ClInclude Include="NavMeshMap.h" />
     <ClInclude Include="NavNode.h" />
     <ClInclude Include="NavNodeManager.h" />
+    <ClInclude Include="NetPlayerController.h" />
     <ClInclude Include="Optimization.h" />
     <ClInclude Include="OrderMinionCaster.h" />
     <ClInclude Include="OrderMinionMelee.h" />
@@ -331,6 +333,7 @@
     <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="FloatingHPBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="Gromp.cpp" />
     <ClCompile Include="HierarchyLoader.cpp" />
@@ -370,6 +373,7 @@
     <ClCompile Include="NavMeshMap.cpp" />
     <ClCompile Include="NavNode.cpp" />
     <ClCompile Include="NavNodeManager.cpp" />
+    <ClCompile Include="NetPlayerController.cpp" />
     <ClCompile Include="Optimization.cpp" />
     <ClCompile Include="OrderMinionCaster.cpp" />
     <ClCompile Include="OrderMinionMelee.cpp" />

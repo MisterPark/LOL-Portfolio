@@ -5,7 +5,7 @@
 #include "GameRoom.h"
 
 #define dfMAX_THREAD_GAMESERVER 1
-#define dfROOM_MAX_USER_COUNT 2
+#define dfROOM_MAX_USER_COUNT 1
 
 using namespace std;
 
@@ -95,7 +95,9 @@ public:
 	void ResLoading(Client* pClient, int progress);
 	void ReqCompleteLoading(Client* pClient, CPacket* pPacket);
 	void ResCompleteLoading(Client* pClient);
-
+	// ∞‘¿”æ¿
+	void ReqTime(Client* pClient, CPacket* pPacket);
+	void ResTime(Client* pClient, DWORD time);
 
 public:
 	void Monitor();

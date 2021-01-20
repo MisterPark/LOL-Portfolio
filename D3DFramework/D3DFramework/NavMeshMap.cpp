@@ -50,7 +50,6 @@ void PKH::NavMeshMap::SetNavigationInfo()
 	Vector3* pVertices = navMesh->GetVertices();
 	DWORD* pIndices = navMesh->GetIndices();
 	AdjacencyInfo* pAdjacencyInfo = navMesh->GetAdjacencyInfo();
-	// TODO : ★★★★★여기서부터 해야함
 	// 인접 삼각형 정보를 통해서
 	// 삼각형의 중점
 	// 

@@ -1,10 +1,10 @@
 #pragma once
-#include "UI.h"
-#include "Rectangle.h"
+#include "GameObject.h"
+#include "Unit.h"
 
 using namespace PKH;
 
-class FloatingBar : public UI
+class FloatingBar : public GameObject
 {
 public:
     FloatingBar();
@@ -15,13 +15,25 @@ public:
     virtual void Update() override;
 	virtual void Render() override;
 
-    void SetTarget(GameObject* target);
+    void SetTarget(Unit* target);
+    void SetTexture(const wstring& _textureKey);
+    void SetTextureHP(const wstring& _textureKey);
+    void SetTextureMP(const wstring& _textureKey);
 
 protected:
-    GameObject* target = nullptr;
+    Unit* target = nullptr;
 
     Vector3 offset;
-    PKH::Rectangle* mesh = nullptr;
+    wstring textureKey;
+    //HP
+    wstring textureKeyHP;
+    Vector3 offset2;
+    Vector3 scaleHP;
+    //MP
+    wstring textureKeyMP;
+    Vector3 offsetMP;
+    Vector3 scaleMP;
+    //PKH::Rectangle* mesh = nullptr;
 
     //bool isHover = false;
 };

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TestScene.h"
 
+#include "Label.h"
+
 #include "SkyBox.h"
 #include "Environment.h"
 #include "TestMan.h"
@@ -55,6 +57,9 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
+	testLabel = (Label*)ObjectManager::GetInstance()->CreateObject<Label>(Layer::UI);
+	testLabel->text = L"123123";
+	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
 
 	GameObject* obj = nullptr;
 	// 오브젝트

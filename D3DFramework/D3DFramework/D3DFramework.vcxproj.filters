@@ -609,6 +609,8 @@
     <ClInclude Include="FloatingHPBar.h">
       <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="NetPlayerController.h" />
+    <ClInclude Include="GameScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1096,6 +1098,8 @@
     <ClCompile Include="HUD.cpp">
       <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="NetPlayerController.cpp" />
+    <ClCompile Include="GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

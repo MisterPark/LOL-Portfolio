@@ -41,6 +41,7 @@ namespace PKH
 		static void DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index=0);
 		static void DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer);
 		static void DrawUIHorizontal(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer);
+		static void DrawUIVertical(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer);
 		static void DrawCharacter(const wstring& spriteKey, const Transform& transform, DWORD row = 0, DWORD col = 0);
 
 		static void DrawImage(const wstring& spriteKey, const Transform& transform);

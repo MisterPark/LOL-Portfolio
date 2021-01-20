@@ -41,17 +41,7 @@ void Unit::Update()
 void Unit::UpdateAttack()
 {
 	float dt = TimeManager::DeltaTime();
-	attackTick += dt;
-
-
-	float attackDelay = 1.f / attackPerSec;
-
-	if (attackTick > attackDelay)
-	{
-		attackTick = 0.f;
-		canAttack = true;
-		
-	}
+	
 
 	if (anim->IsFrameEnd())
 	{
@@ -72,15 +62,39 @@ void Unit::UpdateAttack()
 		float dist = direction.Length();
 		if (dist <= attackRange) // 공격 거리 이내
 		{
+			LookRotation(direction.Normalized());
+			state = attackState;
+
+			attackTick += dt;
+			float attackDelay = 1.f / attackPerSec;
+			if (attackTick > attackDelay)
+			{
+				attackTick = 0.f;
+				canAttack = true;
+			}
+			float damageDelay = attackDelay * 0.1f;
+			if (attackTick > damageDelay)
+			{
+				if (isDamaged == false)
+				{
+					isDamaged = true;
+					attackTarget->hp -= attackDamege;
+				}
+			}
+			
+
 			if (canAttack == false) return;
 
-			LookRotation(direction.Normalized());
-			
-			state = attackState;
-			
-			
+
+			canAttack = false;
+			isDamaged = false;
 		}
 	}
+	else
+	{
+		isDamaged = false;
+	}
+	
 }
 
 void Unit::LookRotation(Vector3 _direction)
@@ -93,6 +107,7 @@ void Unit::LookRotation(Vector3 _direction)
 
 void Unit::SetDestination(Vector3 _target)
 {
+	
 	Vector3 direction = _target - transform->position;
 	Vector3::Normalize(&direction);
 
@@ -141,6 +156,11 @@ void Unit::Spell3()
 
 void Unit::Spell4()
 {
+}
+
+void Unit::SetTeam(Team _team)
+{
+	team = _team;
 }
 
 void Unit::SetAttackTarget(Unit* _target)

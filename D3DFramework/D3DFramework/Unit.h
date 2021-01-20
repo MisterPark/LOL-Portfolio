@@ -56,8 +56,11 @@ public:
 	virtual void Spell3();
 	virtual void Spell4();
 
+	virtual void SetTeam(Team _team);
 	void SetAttackTarget(Unit* _target);
 	void SetAttackSpeed(float _attackPerSec);
+
+
 
 
 public:
@@ -76,11 +79,19 @@ protected:
 	UnitState attackState = UnitState::ATTACK1;
 	bool canAttack = false;
 
-	int hp;
-	int maxHp;
-	int mp;
-	int maxMp;
-	int exp;
-	int maxExp;
+	bool isDamaged = false;
+	
+public:
+	float attackDamege = 5;
+	float armor = 1;
+	float magicResistance = 1;
+	float movementSpeed = 5.f;
+
+	float hp = 100;
+	float maxHp = 100;
+	float mp = 100;
+	float maxMp = 100;
+	float exp = 100;
+	float maxExp = 100;
 };
 

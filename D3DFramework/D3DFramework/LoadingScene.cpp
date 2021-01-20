@@ -9,13 +9,15 @@
 #include "LoadingChampPanel.h"
 #include "LoadingChampScreen.h"
 #include "Label.h"
+#include "GameScene.h"
 
+long loadMax = 36;
 long loadCount = 0;
 
 
 void LoadingScene::OnLoaded()
 {
-	
+	net = Network::GetInstance();
 	//ReqEnterGame();
 
 	int screenW = MainGame::GetWidth();
@@ -82,14 +84,14 @@ void LoadingScene::Update()
 			//ReqTest();
 		}
 
-		int per = ((float)loadCount / 14) * 100;
+		int per = ((float)loadCount / loadMax) * 100;
 		if (loadPercent != per)
 		{
 			loadPercent = per;
 			ReqLoading(loadPercent);
 		}
 
-		if (loadCount == 14)
+		if (loadCount == loadMax)
 		{
 			if (isCompleteLoading == false)
 			{
@@ -115,22 +117,51 @@ void LoadingScene::LoadResources()
 {
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/", L"malp.X", Count);
 
+	// 오브젝트
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/", L"bush.x", Count);
+
+	// 몬스터
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/scuttleracer/", L"scuttleracer.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_blue/", L"sru_blue.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_gromp/", L"sru_gromp.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krug/", L"sru_krug.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krugmini/", L"sru_krugmini.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolf/", L"sru_murkwolf.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/", L"sru_murkwolfmini_left.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/", L"sru_murkwolfmini_right.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeak/", L"sru_razorbeak.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeakmini/", L"sru_razorbeakmini.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_red/", L"sru_red.x", Count);
+
+	// 챔피언
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/blitzcrank/", L"blitzcrank.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/darius/", L"darius.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/diana/", L"diana.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/garen/", L"garen.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leesin/", L"leesin.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/missfortune/", L"missfortune.X", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leona/", L"leona.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/ahri/", L"ahri.x", Count);
 
-	//LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/sr/", L"sr.x", Count);
-	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"nav_wall.x", Count);
+	// 미니언
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/", L"order_minion_caster.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_melee/", L"order_minion_melee.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_siege/", L"order_minion_siege.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_super/", L"order_minion_super.x", Count);
 
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_caster/", L"chaos_minion_caster.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_melee/", L"chaos_minion_melee.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_siege/", L"chaos_minion_siege.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/", L"chaos_minion_super.x", Count);
+
+	// 터렛
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/", L"turret_order.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break1.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break2.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break3.x", Count);
 
+	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"nav_wall.x", Count);
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/", L"summoner_rift.x", Count);
 }
 
@@ -141,7 +172,6 @@ void LoadingScene::Count()
 
 void LoadingScene::NetProc()
 {
-	Network* net = Network::GetInstance();
 	
 	while (net->packQ.size() > 0)
 	{
@@ -222,6 +252,11 @@ void LoadingScene::ResEnterGame(CPacket* pack)
 		*pack >> number >> champ >> spell1 >> spell2;
 
 		screens[number]->nickName->text = nick;
+		if (screens[number]->nickName->text == net->nick)
+		{
+			net->users[number].isMine = true;
+			net->number = number;
+		}
 		
 		champType = (ChampionType)champ;
 		spell1Type = (SpellType)spell1;
@@ -230,6 +265,11 @@ void LoadingScene::ResEnterGame(CPacket* pack)
 		screens[number]->SetChampion(champType);
 		screens[number]->SetSpell1(spell1Type);
 		screens[number]->SetSpell2(spell2Type);
+
+		net->users[number].number = number;
+		net->users[number].champ = champ;
+		net->users[number].spell1 = spell1;
+		net->users[number].spell2 = spell2;
 	}
 
 	LoadResources();
@@ -271,7 +311,7 @@ void LoadingScene::ReqCompleteLoading()
 void LoadingScene::ResCompleteLoading(CPacket* pack)
 {
 	printf("로딩 완료\n");
-	SceneManager::LoadScene<TestScene>();
+	SceneManager::LoadScene<GameScene>();
 }
 
 void LoadingScene::CreateChampPanel(int borderW, int borderH, int padding)

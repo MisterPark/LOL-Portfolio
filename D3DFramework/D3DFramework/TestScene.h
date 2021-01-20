@@ -3,6 +3,7 @@
 
 using namespace PKH;
 
+class Label;
 
 class TestScene :
     public IScene
@@ -13,4 +14,5 @@ class TestScene :
     virtual void Update() override;
 
 public:
+    Label* testLabel = nullptr;
 };
