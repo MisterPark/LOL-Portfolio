@@ -225,7 +225,7 @@ void LoadingScene::ResTest(CPacket* pack)
 
 void LoadingScene::ReqEnterGame()
 {
-	printf("[INFO] ResEnterGame 요청\n");
+	printf("[INFO] ReqEnterGame 요청\n");
 	CPacket* pack = new CPacket();
 	pack->Clear();
 	*pack << (WORD)GAME_REQ_ENTER_GAME;

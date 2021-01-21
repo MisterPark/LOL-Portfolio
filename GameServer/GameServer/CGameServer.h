@@ -1,19 +1,20 @@
 #pragma once
 #include "CNetwork.h"
-#include "CLanLoginClient.h"
-#include "CLanGameLogicClient.h"
+//#include "CLanLoginClient.h"
+//#include "CLanGameLogicClient.h"
 #include "GameRoom.h"
 
 #define dfMAX_THREAD_GAMESERVER 1
-#define dfROOM_MAX_USER_COUNT 1
+#define dfROOM_MAX_USER_COUNT 2
 
 using namespace std;
 
 typedef __int64 SESSION_ID;
 typedef __int64 CLIENT_ID;
 
-struct Client
+class Client
 {
+public:
 	SESSION_ID	sessionID = -1;
 	SOCKADDR_IN	sockaddr;
 	wstring		nickname;
@@ -98,6 +99,8 @@ public:
 	// ∞‘¿”æ¿
 	void ReqTime(Client* pClient, CPacket* pPacket);
 	void ResTime(Client* pClient, DWORD time);
+	void ReqMove(Client* pClient, CPacket* pPacket);
+	void ResMove(Client* pClient, int gameID, list<Vector3>& path);
 
 public:
 	void Monitor();

@@ -21,7 +21,10 @@ public:
 
     void SetTargetMode(bool _mode);
 
+    void ReqMove(Vector3 _dest, bool _search = false);
+
 public:
+    Network* net = nullptr;
     PKH::NavMeshAgent* agent = nullptr;
     bool targetMode = false;
     Unit* unit = nullptr;

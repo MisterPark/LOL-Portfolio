@@ -31,6 +31,51 @@
     <Filter Include="GameLogic\Layer">
       <UniqueIdentifier>{9eaced4b-3018-406e-901b-fa8140dd0078}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameLogic\Lib">
+      <UniqueIdentifier>{6a6e1c6f-1a47-4cb3-899e-a3c394109a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Lib\PathFinder">
+      <UniqueIdentifier>{406743fd-0699-4cf4-bc60-3f7eddd8f84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Lib\DirectX">
+      <UniqueIdentifier>{ec9abcec-5b28-48c7-96e1-14e47632c278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component">
+      <UniqueIdentifier>{1199e5e7-e4ea-43b5-a317-e2e67706fdaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\GameObject\Unit">
+      <UniqueIdentifier>{84ffb2ba-136f-4f1e-9b76-e2556fc2886a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\GameObject\Environment">
+      <UniqueIdentifier>{47dc4b50-7c39-4bb5-88fb-0d35712e2943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Mesh">
+      <UniqueIdentifier>{578a28d1-2043-40c9-bcf3-3162948a9bd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Collider">
+      <UniqueIdentifier>{c38716c2-293c-452d-b9fa-37fde00de438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Transform">
+      <UniqueIdentifier>{01d858eb-a9a3-4794-b0cb-fd903c861feb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Nav">
+      <UniqueIdentifier>{1945d095-f3db-45d0-b28c-3df6c906e7f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Mesh\CustumMesh">
+      <UniqueIdentifier>{5287d4d3-ff3e-43d9-96a2-8ef21ccf7e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Mesh\StaticMesh">
+      <UniqueIdentifier>{2faed708-a90a-49b4-8f3f-fda0b00bfeef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Mesh\DynamicMesh">
+      <UniqueIdentifier>{5815e309-a8ba-4bef-8b2f-9d96981290aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\Component\Mesh\NavMesh">
+      <UniqueIdentifier>{2163d254-4dec-4a52-b38d-107c6615f538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLogic\BaseObject">
+      <UniqueIdentifier>{07815356-8cb4-4bfc-a711-5b29db9d6f2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGameServer.cpp">
@@ -69,7 +114,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="GameRoom.cpp" />
     <ClCompile Include="GameObject.cpp">
       <Filter>GameLogic\GameObject</Filter>
     </ClCompile>
@@ -78,6 +122,135 @@
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>GameLogic\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRoom.cpp">
+      <Filter>Network\DataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameLogic\Lib\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>GameLogic\Lib\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Bush.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Champion.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>GameLogic\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>GameLogic\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponent.cpp">
+      <Filter>GameLogic\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Minion.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>GameLogic\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitState.cpp">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>GameLogic\GameObject\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>GameLogic\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>GameLogic\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GameLogic\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCollider.cpp">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshAgent.cpp">
+      <Filter>GameLogic\Component\Nav</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomMesh.cpp">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicMesh.cpp">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyLoader.cpp">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>GameLogic\Component\Mesh\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMesh.cpp">
+      <Filter>GameLogic\Component\Mesh\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainMesh.cpp">
+      <Filter>GameLogic\Component\Mesh\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMeshMap.cpp">
+      <Filter>GameLogic\Component\Nav</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +296,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="GameRoom.h" />
     <ClInclude Include="Function.h">
       <Filter>Default</Filter>
     </ClInclude>
@@ -136,5 +308,154 @@
     <ClInclude Include="Layer.h">
       <Filter>GameLogic\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="GameRoom.h">
+      <Filter>Network\DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>GameLogic\Lib\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>GameLogic\Lib\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="Bush.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Champion.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>GameLogic\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>GameLogic\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>GameLogic\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Minion.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>GameLogic\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitState.h">
+      <Filter>GameLogic\GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>GameLogic\GameObject\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>GameLogic\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>GameLogic\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GameLogic\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshCollider.h">
+      <Filter>GameLogic\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshAgent.h">
+      <Filter>GameLogic\Component\Nav</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="AllMeshs.h">
+      <Filter>GameLogic\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMesh.h">
+      <Filter>GameLogic\Component\Mesh\CustumMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicMesh.h">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyLoader.h">
+      <Filter>GameLogic\Component\Mesh\DynamicMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>GameLogic\Component\Mesh\StaticMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainMesh.h">
+      <Filter>GameLogic\Component\Mesh\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMesh.h">
+      <Filter>GameLogic\Component\Mesh\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>GameLogic\BaseObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>GameLogic\Lib\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshMap.h">
+      <Filter>GameLogic\Component\Nav</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BaseObject.inl">
+      <Filter>GameLogic\BaseObject</Filter>
+    </None>
   </ItemGroup>
 </Project>

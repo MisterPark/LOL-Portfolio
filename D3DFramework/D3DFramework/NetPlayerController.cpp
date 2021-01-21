@@ -8,6 +8,7 @@
 NetPlayerController::NetPlayerController(GameObject* owner)
     :IComponent(owner)
 {
+    net = Network::GetInstance();
     unit = (Unit*)owner;
     agent = (NavMeshAgent*)owner->GetComponent<NavMeshAgent>();
 }
@@ -19,6 +20,7 @@ NetPlayerController::NetPlayerController(const NetPlayerController& rhs)
 
 NetPlayerController::~NetPlayerController()
 {
+    net = nullptr;
     unit = nullptr;
     agent = nullptr;
 }
@@ -40,7 +42,7 @@ void NetPlayerController::Update()
     {
 
     }
-    if (InputManager::GetKey('D'))
+    if (InputManager::GetKeyDown('D'))
     {
 
     }
@@ -69,6 +71,7 @@ void NetPlayerController::Update()
 
     if (InputManager::GetMouseLButtonDown())
     {
+
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
@@ -97,6 +100,7 @@ void NetPlayerController::Update()
     }
     else if (InputManager::GetMouseRButtonDown())
     {
+        SetTargetMode(false);
 
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
@@ -107,10 +111,33 @@ void NetPlayerController::Update()
             // TODO : 여기부터 ★★★★★★★★
             // ReqMove 해야함
             // 응답은 GameScene에서 받을것
-            SetTargetMode(false);
-            unit->SetAttackTarget(nullptr);
-            agent->SetStoppingDistance(0.03f);
-            unit->SetDestination(hit.point);
+
+            Vector3 direction = hit.point - transform->position;
+            Vector3::Normalize(&direction);
+
+            // 이동
+            Ray ray2;
+            RaycastHit hit2;
+            ray2.origin = transform->position;
+            ray2.origin.y += 0.1f;
+            ray2.direction = direction;
+            float dist = Vector3(hit.point - ray2.origin).Length();
+            int mask2 = LayerMask::GetMask(Layer::Wall);
+            if (Physics::Raycast(ray2, &hit2, dist, mask2))
+            {
+                // 직선상에 벽이 있을 경우
+                Debug::Print("직선상에 벽이있음\n");
+                //agent->SetDestination(_dest);
+                ReqMove(hit.point);
+            }
+            else
+            {
+                // 직선상에 벽이 없을 경우
+                //agent->SetDestination(_dest, true);
+                ReqMove(hit.point, true);
+            }
+            
+            
         }
 
     }
@@ -132,4 +159,46 @@ void NetPlayerController::SetTargetMode(bool _mode)
     {
         Cursor::SetMode(CursorMode::Normal);
     }
+}
+
+void NetPlayerController::ReqMove(Vector3 _dest, bool _noSearch)
+{
+    list<Vector3> path;
+    int pathCount = 0;
+
+    CPacket* pack = new CPacket();
+    pack->Clear();
+    *pack << (WORD)GAME_REQ_MOVE << net->number;
+
+    if (_noSearch)
+    {
+        pathCount = 1;
+        *pack << pathCount << _dest.x << _dest.y << _dest.z;
+
+    }
+    else
+    {
+        bool res = agent->Search(_dest, &path);
+        if (res)
+        {
+            pathCount = path.size();
+            *pack << pathCount;
+            
+            for (auto iter : path)
+            {
+                *pack << iter.x << iter.y << iter.z;
+            }
+
+            
+        }
+        else
+        {
+            pathCount = 1;
+            *pack << pathCount << _dest.x << _dest.y << _dest.z;
+        }
+    }
+    Network::SendPacket(pack);
+    delete pack;
+    Debug::PrintLine("[Debug] ReqMove 요청 / 경유지 : %d", pathCount);
+    
 }

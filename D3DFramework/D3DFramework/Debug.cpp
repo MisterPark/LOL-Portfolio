@@ -49,3 +49,14 @@ void Debug::Print(const char* _text, ...)
 	fprintf(stdout, "%s", buf);
 
 }
+
+void Debug::PrintLine(const char* _text, ...)
+{
+	va_list ap;
+	char buf[dfMAX_BUF_SIZE] = { 0, };
+	va_start(ap, _text);
+	vsprintf_s(buf, _text, ap);
+	va_end(ap);
+
+	fprintf(stdout, "%s\n", buf);
+}

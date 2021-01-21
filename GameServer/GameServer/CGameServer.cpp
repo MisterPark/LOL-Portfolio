@@ -225,6 +225,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	case GAME_REQ_TIME:
 		ReqTime(pClient, pPacket);
 		break;
+	case GAME_REQ_MOVE:
+		ReqMove(pClient, pPacket);
+		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
@@ -324,7 +327,7 @@ void CGameServer::ReqJoinGame(Client* pClient, CPacket* pPacket)
 {
 	// 대기열에 추가
 	readyQ.push(pClient);
-	wprintf(L"대기열 추가 Count : %lld\n", readyQ.size());
+	wprintf(L"대기열 추가 Count : %d\n", readyQ.size());
 
 	// 대기열이 10명 이상이면
 	while (readyQ.size() >= dfROOM_MAX_USER_COUNT)
@@ -446,6 +449,7 @@ void CGameServer::ReqReady(Client* pClient, CPacket* pPacket)
 	GameRoom* gameRoom = new GameRoom();
 	AcquireSRWLockExclusive(&gameroomLocker);
 	gameroomMap[room->number] = gameRoom;
+	gameRoom->number = room->number;
 	ReleaseSRWLockExclusive(&gameroomLocker);
 
 	// 레디 인원 모두한테 게임시작 패킷 던지기
@@ -633,6 +637,40 @@ void CGameServer::ResTime(Client* pClient, DWORD time)
 {
 	CPacket* pack = PacketPool::Alloc();
 	*pack << (WORD)GAME_RES_TIME << time;
+	SendUnicast(pClient->sessionID, pack);
+}
+
+void CGameServer::ReqMove(Client* pClient, CPacket* pPacket)
+{
+	INT gameID, pathCount;
+	float x, y, z;
+	list<Vector3> path;
+
+	*pPacket >> gameID >> pathCount;
+	
+	for (int i = 0; i < pathCount; i++)
+	{
+		*pPacket >> x >> y >> z;
+		Vector3 layover = Vector3(x, y, z);
+		path.push_back(layover);
+	}
+	// 방찾고
+	GameRoom* room = gameroomMap[pClient->roomNum];
+	for (auto iter : room->users)
+	{
+		ResMove(iter.second, gameID, path);
+	}
+}
+
+void CGameServer::ResMove(Client* pClient, int gameID, list<Vector3>& path)
+{
+	CPacket* pack = PacketPool::Alloc();
+	*pack << (WORD)GAME_RES_MOVE << gameID << (int)path.size();
+	for (auto iter : path)
+	{
+		*pack << iter.x << iter.y << iter.z;
+	}
+
 	SendUnicast(pClient->sessionID, pack);
 }
 

@@ -112,6 +112,9 @@ void GameScene::PacketProc(CPacket* pPacket)
 	case GAME_RES_TIME:
 		ResTime(pPacket);
 		break;
+	case GAME_RES_MOVE:
+		ResMove(pPacket);
+		break;
 	default:
 		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
@@ -132,6 +135,53 @@ void GameScene::NetProc()
 	}
 }
 
+
+void GameScene::ReqTime()
+{
+	oldTime = timeGetTime();
+
+	CPacket* pack = new CPacket();
+	pack->Clear();
+	*pack << (WORD)GAME_REQ_TIME << oldTime;
+
+	Network::SendPacket(pack);
+	delete pack;
+}
+
+void GameScene::ResTime(CPacket* pack)
+{
+	DWORD time;
+	*pack >> time;
+	DWORD curTime = timeGetTime();
+	DWORD elapsed = curTime - time;
+	WCHAR wstr[16] = {};
+	swprintf_s(wstr, L"%dms", elapsed);
+	latencyLabel->text = wstr;
+}
+
+void GameScene::ResMove(CPacket* pack)
+{
+	INT gameID, pathCount;
+	Vector3 dest;
+	list<Vector3> path;
+	
+	*pack >> gameID >> pathCount;
+
+	for (int i = 0; i < pathCount; i++)
+	{
+		*pack >> dest.x >> dest.y >> dest.z;
+		path.push_back(dest);
+	}
+
+	if (champions[gameID] == nullptr) return;
+	
+	//champions[gameID]->Move(dest);
+	champions[gameID]->SetAttackTarget(nullptr);
+	champions[gameID]->agent->SetStoppingDistance(0.03f);
+	champions[gameID]->agent->SetPath(path);
+}
+
+//============================================================================================
 void GameScene::CreateEnvironment()
 {
 	GameObject* obj = nullptr;
@@ -187,9 +237,10 @@ void GameScene::CreateChampion()
 	for (auto iter : net->users)
 	{
 		Layer layer = Layer::TeamUnit;
+		int userNum = iter.second.number;
 		if (net->number > 4)
 		{
-			if (iter.second.number > 4)
+			if (userNum > 4)
 			{
 				layer = Layer::TeamUnit;
 			}
@@ -200,7 +251,7 @@ void GameScene::CreateChampion()
 		}
 		else
 		{
-			if (iter.second.number > 4)
+			if (userNum > 4)
 			{
 				layer = Layer::EnemyUnit;
 			}
@@ -210,33 +261,32 @@ void GameScene::CreateChampion()
 			}
 		}
 
-		Champion* champion = nullptr;
 		ChampionType champType = (ChampionType)iter.second.champ;
 		switch (champType)
 		{
 		case ChampionType::Garen:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Garen>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Garen>(layer);
 			break;
 		case ChampionType::Darius:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Darius>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Darius>(layer);
 			break;
 		case ChampionType::Diana:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Diana>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Diana>(layer);
 			break;
 		case ChampionType::Leona:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Leona>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Leona>(layer);
 			break;
 		case ChampionType::Leesin:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Leesin>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Leesin>(layer);
 			break;
 		case ChampionType::Missfortune:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Missfortune>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Missfortune>(layer);
 			break;
 		case ChampionType::Blitzcrank:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(layer);
 			break;
 		case ChampionType::Ahri:
-			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Ahri>(layer);
+			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Ahri>(layer);
 			break;
 		case ChampionType::Amumu:
 			break;
@@ -246,46 +296,23 @@ void GameScene::CreateChampion()
 			break;
 		}
 
-		if (champion != nullptr)
+		if (champions[userNum] != nullptr)
 		{
-			if (iter.second.number > 4)
+			if (userNum > 4)
 			{
-				champion->SetTeam(Team::RED);
+				champions[userNum]->SetTeam(Team::RED);
 			}
 			else
 			{
-				champion->SetTeam(Team::BLUE);
-				if (iter.second.number == net->number)
+				champions[userNum]->SetTeam(Team::BLUE);
+				if (userNum == net->number)
 				{
-					champion->AddComponent<NetPlayerController>(L"NetPlayerController");
-					Camera::main->SetTarget(champion);
+					champions[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
+					Camera::main->SetTarget(champions[userNum]);
 				}
 			}
-			
-			champion->transform->position = spawnPos[iter.second.number];
+
+			champions[userNum]->transform->position = spawnPos[userNum];
 		}
 	}
-}
-
-void GameScene::ReqTime()
-{
-	oldTime = timeGetTime();
-
-	CPacket* pack = new CPacket();
-	pack->Clear();
-	*pack << (WORD)GAME_REQ_TIME << oldTime;
-
-	Network::SendPacket(pack);
-	delete pack;
-}
-
-void GameScene::ResTime(CPacket* pack)
-{
-	DWORD time;
-	*pack >> time;
-	DWORD curTime = timeGetTime();
-	DWORD elapsed = curTime - time;
-	WCHAR wstr[16] = {};
-	swprintf_s(wstr, L"%dms", elapsed);
-	latencyLabel->text = wstr;
 }

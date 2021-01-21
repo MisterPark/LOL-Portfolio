@@ -167,4 +167,25 @@ enum PROTOCOL
 	//	DWORD	time
 	//---------------------------------
 	GAME_RES_TIME,
+	
+	//---------------------------------
+	// 이동 요청 (게임서버 <- 클라이언트)
+	//
+	//	WORD	type
+	//	INT		userNO
+	//	FLOAT	x
+	//	FLOAT	y
+	//	FLOAT	z
+	//---------------------------------
+	GAME_REQ_MOVE,
+	//---------------------------------
+	// 이동 응답 (게임서버 -> 클라이언트)
+	//
+	//	WORD	type
+	//	INT		userNO
+	//	FLOAT	x
+	//	FLOAT	y
+	//	FLOAT	z
+	//---------------------------------
+	GAME_RES_MOVE,
 };

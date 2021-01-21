@@ -63,6 +63,24 @@ IComponent* PKH::NavMeshAgent::Clone()
     return new NavMeshAgent(*this);
 }
 
+bool PKH::NavMeshAgent::Search(const Vector3& dest, list<Vector3>* outPath)
+{
+    bool result = navMeshMap->Search(transform->position, dest);
+    if (result)
+    {
+        list<PathFinder::Node*>* resultPath = navMeshMap->GetPath();
+        auto iter = resultPath->begin();
+        auto end = resultPath->end();
+        for (; iter != end; ++iter)
+        {
+            outPath->push_back((*iter)->position);
+        }
+        outPath->push_back(dest);
+
+    }
+    return result;
+}
+
 bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
 {
     bool result = false;
@@ -127,4 +145,31 @@ void PKH::NavMeshAgent::ResetPath()
 void PKH::NavMeshAgent::SetStoppingDistance(float _dist)
 {
     stoppingDistance = _dist;
+}
+
+void PKH::NavMeshAgent::SetPath(list<Vector3>& _path)
+{
+    ResetPath();
+    isDestination = false;
+    Vector3 dest;
+    auto iter = _path.begin();
+    auto end = _path.end();
+    for (; iter != end; ++iter)
+    {
+        path.push_back((*iter));
+        dest = (*iter);
+    }
+    // destination 세팅
+    destination = dest;
+    // nextPosition 세팅
+    nextPosition = path.front();
+    path.erase(path.begin());
+}
+
+void PKH::NavMeshAgent::PushLayover(const Vector3& _point)
+{
+    isDestination = false;
+    destination = _point;
+    path.push_back(_point);
+    //nextPosition = _point;
 }

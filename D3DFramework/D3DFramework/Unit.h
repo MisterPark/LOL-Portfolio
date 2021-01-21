@@ -50,6 +50,7 @@ public:
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
+	void Move(Vector3 _target);
 	virtual void Attack(Unit* _target);
 	virtual void Spell1();
 	virtual void Spell2();

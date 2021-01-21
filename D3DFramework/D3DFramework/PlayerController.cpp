@@ -28,7 +28,7 @@ void PlayerController::Update()
     if (gameObject == nullptr)return;
 
     
-    if (InputManager::GetKey('W'))
+    if (InputManager::GetKeyDown('W'))
     {
         
     }
@@ -36,20 +36,20 @@ void PlayerController::Update()
     {
         SetTargetMode(!targetMode);
     }
-    if (InputManager::GetKey('S'))
+    if (InputManager::GetKeyDown('S'))
     {
         
     }
-    if (InputManager::GetKey('D'))
+    if (InputManager::GetKeyDown('D'))
     {
         
     }
 
-    if (InputManager::GetKey('Q'))
+    if (InputManager::GetKeyDown('Q'))
     {
         
     }
-    if (InputManager::GetKey('E'))
+    if (InputManager::GetKeyDown('E'))
     {
         
     }

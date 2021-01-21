@@ -2,6 +2,8 @@
 #include <iostream>
 #include <Windows.h>
 
+#define dfMAX_BUF_SIZE 4096
+
 enum class LogLevel
 {
 	Debug,
@@ -19,6 +21,8 @@ private:
 public:
 	static Debug* GetInstance();
 	
+	static void Print(const char* _text, ...);
+	static void PrintLine(const char* _text, ...);
 	static void Log(LogLevel level, const char* title, const char* format, ...);
 	static void Log(const char* title, const char* format, ...);
 	static void LogWarning(const char* title, const char* format, ...);

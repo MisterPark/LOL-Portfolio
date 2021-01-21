@@ -2,6 +2,7 @@
 #include "IScene.h"
 
 class Label;
+class Champion;
 
 class GameScene :
     public IScene
@@ -16,15 +17,17 @@ public:
     void PacketProc(CPacket* pPacket);
     void NetProc();
 
-    void CreateEnvironment();
-    void CreateChampion();
-
     void ReqTime();
     void ResTime(CPacket* pack);
+    void ResMove(CPacket* pack);
+
+    void CreateEnvironment();
+    void CreateChampion();
 
     Network* net = nullptr;
     Vector3 spawnPos[10];
 
+    Champion* champions[10] = {};
     // 시간측정
     DWORD oldTime = 0;
     float sendTick = 0.f;

@@ -132,6 +132,13 @@ void Unit::SetDestination(Vector3 _target)
 	}
 }
 
+void Unit::Move(Vector3 _target)
+{
+	SetAttackTarget(nullptr);
+	agent->SetStoppingDistance(0.03f);
+	SetDestination(_target);
+}
+
 void Unit::Attack(Unit* target)
 {
 	if (target == nullptr) return;

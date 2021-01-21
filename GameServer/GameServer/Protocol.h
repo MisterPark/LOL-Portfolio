@@ -14,7 +14,7 @@ enum LoginResult
 
 enum PROTOCOL
 {
-	TEST_REQ=11,
+	TEST_REQ = 11,
 	TEST_RES,
 	//=================================
 	// ★ 게임 서버 ★
@@ -173,5 +173,33 @@ enum PROTOCOL
 	//	DWORD	time
 	//---------------------------------
 	GAME_RES_TIME,
+
+	//---------------------------------
+	// 이동 요청 (게임서버 <- 클라이언트)
+	//
+	//	WORD	Type
+	//	INT		GameID
+	//	INT		PathCount
+	//	{
+	//		FLOAT	X
+	//		FLOAT	Y
+	//		FLOAT	Z
+	//	}
+	//---------------------------------
+	GAME_REQ_MOVE,
+	//---------------------------------
+	// 이동 응답 (게임서버 -> 클라이언트)
+	//
+	//	WORD	Type
+	//	INT		GameID
+	//	INT		PathCount
+	//	{
+	//		FLOAT	x
+	//		FLOAT	y
+	//		FLOAT	z
+	//	}
+	//---------------------------------
+	GAME_RES_MOVE,
+
 
 };
