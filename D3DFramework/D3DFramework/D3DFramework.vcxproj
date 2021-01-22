@@ -292,6 +292,7 @@
     <ClInclude Include="TestLoadingScene.h" />
     <ClInclude Include="TestMan.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TextParser.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
@@ -424,6 +425,7 @@
     <ClCompile Include="TestLoadingScene.cpp" />
     <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TextParser.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />

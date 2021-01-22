@@ -59,6 +59,7 @@ using namespace std;
 #include "CPacket.h"
 #include "Network.h"
 #include "PacketPool.h"
+#include "TextParser.h"
 
 //=======================================
 //  My Lib

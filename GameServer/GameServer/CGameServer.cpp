@@ -193,6 +193,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 
 	WORD type;
 	*pPacket >> type;
+
+	printf("뭔가 받음 %d\n", type);
+
 	switch (type)
 	{
 	case TEST_REQ:
@@ -252,15 +255,19 @@ void CGameServer::ResTest(Client* pClient)
 
 void CGameServer::ReqNick(Client* pClient, CPacket* pPacket)
 {
+	
 	WCHAR nick[20] = {};
 
 	pPacket->Dequeue((char*)nick, sizeof(nick));
 	pClient->nickname = nick;
 
+	wprintf(L"[INFO] 닉네임 요청 [Nick : %s]\n", nick);
+
 	auto find = nickMap.find(nick);
 	if (find != nickMap.end())
 	{
 		// 중복 닉네임
+		wprintf(L"[INFO] 중복된 닉네임 [Nick : %s]\n", nick);
 		pClient->loginStatus = LoginResult::ID_ALREADY_LOGGED_IN;
 		ResNick(pClient);
 		return;

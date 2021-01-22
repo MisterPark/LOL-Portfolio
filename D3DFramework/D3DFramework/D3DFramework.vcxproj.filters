@@ -611,6 +611,7 @@
     </ClInclude>
     <ClInclude Include="NetPlayerController.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TextParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1100,6 +1101,7 @@
     </ClCompile>
     <ClCompile Include="NetPlayerController.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="TextParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

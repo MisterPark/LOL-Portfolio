@@ -31,7 +31,7 @@ public:
 	bool RecvProc();
 	void PacketProc(CPacket* pPacket);
 
-
+	static void SetIP(const wstring& _ip);
 	static void SetNickname(const wstring& nick);
 
 
@@ -43,7 +43,8 @@ private:
 	SOCKET sock = INVALID_SOCKET;
 	SOCKADDR_IN serveraddr;
 	int addrlen = sizeof(serveraddr);
-	WCHAR serverIPtext[64] = L"1.236.172.67";//L"192.168.0.34";
+	//WCHAR ip[64] = L"1.236.172.67";//L"192.168.0.34";
+	wstring ip = L"192.168.0.4";
 	CRingBuffer recvQ;
 	CRingBuffer sendQ;
 	bool sendFlag = false;

@@ -49,7 +49,7 @@ void Network::Initialize()
 	}
 	memset(&pNetwork->serveraddr, 0, sizeof(serveraddr));
 	pNetwork->serveraddr.sin_family = AF_INET;
-	WSAStringToAddressW(pNetwork->serverIPtext, AF_INET, NULL, (SOCKADDR*)&pNetwork->serveraddr, &pNetwork->addrlen);
+	WSAStringToAddressW((WCHAR*)pNetwork->ip.c_str(), AF_INET, NULL, (SOCKADDR*)&pNetwork->serveraddr, &pNetwork->addrlen);
 	pNetwork->serveraddr.sin_port = htons(SERVER_PORT);
 }
 
@@ -210,6 +210,11 @@ void Network::PacketProc(CPacket* pPacket)
 		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
 	}
+}
+
+void Network::SetIP(const wstring & _ip)
+{
+	pNetwork->ip = _ip.c_str();
 }
 
 void Network::SetNickname(const wstring& nick)

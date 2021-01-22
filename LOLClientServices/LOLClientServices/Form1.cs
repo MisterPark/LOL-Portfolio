@@ -33,7 +33,9 @@ namespace LOLClientServices
 
             timer.Start();
 
-            net = new NetworkProcessor("1.236.172.67", 1222);
+            TextParser parser = new TextParser("setting.ini");
+            //net = new NetworkProcessor("1.236.172.67", 1222);
+            net = new NetworkProcessor(parser.ip, 1222);
             net.OnConnectCallback += OnConnected;
             net.OnReceiveCallback += OnReceiveMsg;
             net.OnDisconnectCallback += OnDisconnected;
@@ -207,6 +209,11 @@ namespace LOLClientServices
         }
 
         private void pictureBox3_MouseClick(object sender, MouseEventArgs e)
+        {
+            RequestNick(textBox1.Text);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
             RequestNick(textBox1.Text);
         }

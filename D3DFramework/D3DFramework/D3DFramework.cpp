@@ -53,7 +53,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
     wstring nick = argv[0];
     
+	FileManager::GetInstance();
+
+	TextParser::GetInstance();
+	TextParser::Parse("setting.ini");
+
     Network::GetInstance();
+	Network::SetIP(TextParser::GetIP());
     Network::SetNickname(nick);
     
 

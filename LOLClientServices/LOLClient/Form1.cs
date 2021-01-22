@@ -110,7 +110,9 @@ namespace LOLClient
 
             timer.Start();
             // 네트워크
-            net = new NetworkProcessor("1.236.172.67", 1222);
+            TextParser parser = new TextParser("setting.ini");
+            //net = new NetworkProcessor("1.236.172.67", 1222);
+            net = new NetworkProcessor(parser.ip, 1222);
             net.OnConnectCallback += OnConnected;
             net.OnReceiveCallback += OnReceiveMsg;
             net.OnDisconnectCallback += OnDisconnected;
