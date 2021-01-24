@@ -46,7 +46,8 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-	void UpdateAttack();
+
+	void UpdateState();
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -57,18 +58,26 @@ public:
 	virtual void Spell3();
 	virtual void Spell4();
 
+	virtual void Die();
+
+	void PushedOut(Unit* other);
+
 	virtual void SetTeam(Team _team);
 	void SetAttackTarget(Unit* _target);
 	void SetAttackSpeed(float _attackPerSec);
+	void SetMovementSpeed(float _speed);
+	void TakeDamage(float _damage);
+	void SetID(INT _id);
 
-
-
+	bool IsDead();
+	INT GetID();
 
 public:
 	UnitState state = UnitState::IDLE1;
 	Team team = Team::NEUTRAL;
 	Animation* anim = nullptr;
 	NavMeshAgent* agent = nullptr;
+	SphereCollider* collider = nullptr;
 
 protected:
 	// 기본공격 관련
@@ -81,9 +90,17 @@ protected:
 	bool canAttack = false;
 
 	bool isDamaged = false;
+	// 추격 관련
+	float chaseTick = 0.f;
+	float chaseDelay = 0.1f;
+
+	// 사망 관련
+	bool isDead = false;
 	
+	// 네트워크 관련
+	INT unitID = -1;
 public:
-	float attackDamege = 5;
+	float attackDamage = 15;
 	float armor = 1;
 	float magicResistance = 1;
 	float movementSpeed = 5.f;

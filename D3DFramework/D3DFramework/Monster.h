@@ -1,6 +1,8 @@
 #pragma once
 #include "Unit.h"
 
+class MinionFloatingBar;
+
 class Monster : public Unit
 {
 public:
@@ -11,4 +13,7 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
+
+public:
+    MinionFloatingBar* bar = nullptr;
 };

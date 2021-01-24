@@ -29,16 +29,22 @@ namespace PKH
 	public:
 		void AttachToDynamicMesh(DynamicMesh* dmesh);
 		string GetNameByState(UnitState state);
+		UINT GetIndexByState(UnitState state);
+		UINT GetCurrentAnimation();
 
 		void SetLoop(UnitState state, bool loop);
 		void SetSpeed(UnitState state, float speed);
 		bool IsFrameEnd();
+
+		void Stop();
+		void Resume();
 
 	private:
 		Unit* unit = nullptr;
 		DynamicMesh* dmesh = nullptr;
 		
 		UINT currentAnim = 0;
+		bool stopFlag = false;
 	public:
 		map<UINT, Animation::Node> animsets;
 	};

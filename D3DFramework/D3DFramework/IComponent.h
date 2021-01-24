@@ -21,6 +21,8 @@ namespace PKH
 	public:
 		GameObject* gameObject = nullptr;
 		Transform* transform = nullptr;
+		bool visible = true;
+		bool enable = true;
 	};
 
 

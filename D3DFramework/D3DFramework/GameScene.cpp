@@ -24,6 +24,8 @@
 #include "Missfortune.h"
 #include "Leona.h"
 #include "Ahri.h"
+#include "Jax.h"
+#include "Jinx.h"
 
 #include "PlayerInfoPanel.h"
 #include "FloatingBar.h"
@@ -80,7 +82,7 @@ void GameScene::OnLoaded()
 
 	CreateEnvironment();
 	CreateChampion();
-	
+	CreateBuilding();
 	
 }
 
@@ -114,6 +116,9 @@ void GameScene::PacketProc(CPacket* pPacket)
 		break;
 	case GAME_RES_MOVE:
 		ResMove(pPacket);
+		break;
+	case GAME_RES_ATTACK:
+		ResAttack(pPacket);
 		break;
 	default:
 		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
@@ -173,12 +178,40 @@ void GameScene::ResMove(CPacket* pack)
 		path.push_back(dest);
 	}
 
-	if (champions[gameID] == nullptr) return;
+	auto find = unitMap.find(gameID);
+	if (find == unitMap.end())
+	{
+		return;
+	}
 	
-	//champions[gameID]->Move(dest);
-	champions[gameID]->SetAttackTarget(nullptr);
-	champions[gameID]->agent->SetStoppingDistance(0.03f);
-	champions[gameID]->agent->SetPath(path);
+	//unitMap[gameID]->Move(dest);
+	unitMap[gameID]->SetAttackTarget(nullptr);
+	unitMap[gameID]->agent->SetStoppingDistance(0.03f);
+	unitMap[gameID]->agent->SetPath(path);
+}
+
+void GameScene::ResAttack(CPacket* pack)
+{
+	
+	INT unitID, targetID;
+	*pack >> unitID >> targetID;
+	Debug::PrintLine("공격패킷 받음 / 공격자 %d / 타겟 %d", unitID, targetID);
+
+	auto find = unitMap.find(unitID);
+	if (find == unitMap.end())
+	{
+		Debug::PrintLine("공격자가 없음");
+		return;
+	}
+	auto find2 = unitMap.find(targetID);
+	if (find2 == unitMap.end())
+	{
+		Debug::PrintLine("타겟이 없음");
+		return;
+	}
+	Debug::PrintLine("공격 실행");
+	unitMap[unitID]->Attack(find2->second);
+
 }
 
 //============================================================================================
@@ -236,83 +269,265 @@ void GameScene::CreateChampion()
 {
 	for (auto iter : net->users)
 	{
-		Layer layer = Layer::TeamUnit;
+		Layer layer = Layer::Unit;
 		int userNum = iter.second.number;
-		if (net->number > 4)
-		{
-			if (userNum > 4)
-			{
-				layer = Layer::TeamUnit;
-			}
-			else
-			{
-				layer = Layer::EnemyUnit;
-			}
-		}
-		else
-		{
-			if (userNum > 4)
-			{
-				layer = Layer::EnemyUnit;
-			}
-			else
-			{
-				layer = Layer::TeamUnit;
-			}
-		}
 
 		ChampionType champType = (ChampionType)iter.second.champ;
+		Champion* champion = nullptr;
 		switch (champType)
 		{
 		case ChampionType::Garen:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Garen>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Garen>(layer);
 			break;
 		case ChampionType::Darius:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Darius>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Darius>(layer);
 			break;
 		case ChampionType::Diana:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Diana>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Diana>(layer);
 			break;
 		case ChampionType::Leona:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Leona>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Leona>(layer);
 			break;
 		case ChampionType::Leesin:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Leesin>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Leesin>(layer);
 			break;
 		case ChampionType::Missfortune:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Missfortune>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Missfortune>(layer);
 			break;
 		case ChampionType::Blitzcrank:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(layer);
 			break;
 		case ChampionType::Ahri:
-			champions[userNum] = (Champion*)ObjectManager::GetInstance()->CreateObject<Ahri>(layer);
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Ahri>(layer);
 			break;
-		case ChampionType::Amumu:
+		case ChampionType::Jax:
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Jax>(layer);
 			break;
 		case ChampionType::Jinx:
+			champion = (Champion*)ObjectManager::GetInstance()->CreateObject<Jinx>(layer);
 			break;
 		default:
 			break;
 		}
 
-		if (champions[userNum] != nullptr)
+		if (champion != nullptr)
 		{
+			unitMap[userNum] = champion;
+			unitMap[userNum]->SetID(userNum);
+
 			if (userNum > 4)
 			{
-				champions[userNum]->SetTeam(Team::RED);
+				unitMap[userNum]->SetTeam(Team::RED);
 			}
 			else
 			{
-				champions[userNum]->SetTeam(Team::BLUE);
+				unitMap[userNum]->SetTeam(Team::BLUE);
 				if (userNum == net->number)
 				{
-					champions[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
-					Camera::main->SetTarget(champions[userNum]);
+					unitMap[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
+					Camera::main->SetTarget(unitMap[userNum]);
 				}
 			}
 
-			champions[userNum]->transform->position = spawnPos[userNum];
+			unitMap[userNum]->transform->position = spawnPos[userNum];
 		}
 	}
+}
+
+void GameScene::CreateBuilding()
+{
+	Unit* unit = nullptr;
+	int unitID = (int)UnitID::TurretBlueBot1;
+	
+	
+	// 블루팀 타워
+	
+	// bottom1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -23.15f, 67.71f, 44.17f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// bottom2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -0.30f, 67.71f, 41.20f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// bottom3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 16.41f, 67.87f, 42.5f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// mid1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 6.50f, 67.71f, 10.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// mid2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 11.61f, 67.71f, 20.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// mid3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 20.51f, 67.87f, 27.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// top1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 37.42f, 67.71f, -16.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// top2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 34.12f, 67.71f, 8.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// top3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 36.36f, 67.87f, 23.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	
+	// twin Left
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 32.35f, 68.f, 36.f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// twin Right
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 29.46f, 68.f, 39.3f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// 퍼플팀
+
+	// bottom1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -45.25f,67.71f,22.31f };
+	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// bottom2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -39.68f,67.71f,-2.57f };
+	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// bottom3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -42.44f,67.87f,-16.78f };
+	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// mid1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -14.04f,67.71f,-3.74f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// mid2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -18.84f,67.71f,-13.95f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// mid3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -26.67f,67.87f,-20.54f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// top1
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { 15.71f,67.71f,-37.53f };
+	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// top2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -7.48f,67.71f,-33.31f };
+	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// top3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -23.36f,67.87f,-37.31f };
+	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+
+	// twin left
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -38.39f,68.f,-29.67f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// twin right
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -37.14f,68.f,-33.51f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
 }

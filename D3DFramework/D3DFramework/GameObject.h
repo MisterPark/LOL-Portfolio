@@ -25,7 +25,7 @@ namespace PKH
 		virtual void Render();
 		virtual void Destroy();
 		virtual void PostRender();
-		virtual void OnCollisionEnter(const Collider* target);
+		virtual void OnCollisionEnter(Collider* target);
 
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.
@@ -64,7 +64,7 @@ namespace PKH
 		Transform* GetTransform() const { return transform; } //수정
 		Layer GetLayer() { return this->layer; }
 
-		bool IsDead();
+		bool IsDestroy();
 		
 		// setter
 		bool SetLayer(Layer _layer);
@@ -80,7 +80,7 @@ namespace PKH
 		
 		map<wstring, PKH::IComponent*> components;
 	protected:
-		bool isDead = false;
+		bool destroyFlag = false;
 	private:
 		Layer layer = Layer::Default;
 	};

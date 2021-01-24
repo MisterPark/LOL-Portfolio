@@ -5,7 +5,7 @@
 NavNode::NavNode()
 {
 	collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
-	collider->radius = 0.5f;
+	collider->SetRadius(0.5f);
 }
 
 NavNode::~NavNode()
@@ -39,6 +39,6 @@ void NavNode::PostRender()
 	}
 }
 
-void NavNode::OnCollisionEnter(const Collider* target)
+void NavNode::OnCollisionEnter(Collider* target)
 {
 }

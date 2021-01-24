@@ -193,6 +193,9 @@
     <Filter Include="GameObject\Unit\Monster\Jungle">
       <UniqueIdentifier>{bd927f06-e47b-40ab-a0ca-8dc182a07194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Unit\Champion\Jax">
+      <UniqueIdentifier>{07d8d923-c02b-4a37-bbaa-cd4cbeded27f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -610,8 +613,15 @@
       <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
     <ClInclude Include="NetPlayerController.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="TextParser.h" />
+    <ClInclude Include="Jax.h">
+      <Filter>GameObject\Unit\Champion\Jax</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretFloatingBar.h" />
+    <ClInclude Include="MinionFloatingBar.h" />
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1100,8 +1110,15 @@
       <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
     <ClCompile Include="NetPlayerController.cpp" />
-    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="TextParser.cpp" />
+    <ClCompile Include="Jax.cpp">
+      <Filter>GameObject\Unit\Champion\Jax</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretFloatingBar.cpp" />
+    <ClCompile Include="MinionFloatingBar.cpp" />
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

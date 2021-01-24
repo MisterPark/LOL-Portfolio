@@ -3,6 +3,12 @@
 
 Jinx::Jinx()
 {
+	transform->scale = { 0.014f, 0.014f, 0.014f, };
+	transform->eulerAngles.y = D3DXToRadian(180.f);
+	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"jinx");
+	AddComponent(L"DynamicMesh", dmesh);
+
+	anim->AttachToDynamicMesh(dmesh);
 }
 
 Jinx::~Jinx()

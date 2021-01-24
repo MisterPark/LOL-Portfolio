@@ -2,6 +2,7 @@
 #include "Champion.h"
 #include "FloatingBar.h"
 #include "FloatingHPBar.h"
+#include "Collider.h"
 
 Champion::Champion()
 {
@@ -30,4 +31,31 @@ void Champion::Release()
 void Champion::Update()
 {
 	Unit::Update();
+}
+
+void Champion::OnCollisionEnter(Collider* target)
+{
+	if (dynamic_cast<Unit*>(target->gameObject))
+	{
+		Unit* unit = (Unit*)target->gameObject;
+		if (unit->state == UnitState::RUN)
+		{
+			unit->PushedOut(this);
+		}
+		
+	}
+}
+
+void Champion::SetTeam(Team _team)
+{
+	Unit::SetTeam(_team);
+
+	if (_team == Team::BLUE)
+	{
+		bar->SetTextureHP(L"bar_float (5)");
+	}
+	else
+	{
+		bar->SetTextureHP(L"bar_float (2)");
+	}
 }

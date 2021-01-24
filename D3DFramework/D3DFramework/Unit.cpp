@@ -7,8 +7,8 @@
 Unit::Unit()
 {
 	anim = (Animation*)AddComponent<Animation>(L"Animation");
-	SphereCollider* collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
-	collider->radius = 1.5f;
+	collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
+	collider->SetRadius(0.5f);
 	collider->center = { 0.f,1.f,0.f };
 
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
@@ -32,16 +32,29 @@ void Unit::Update()
 {
 	state = UnitState::IDLE1;
 
-	UpdateAttack();
+	UpdateState();
 
 	GameObject::Update();
 
 }
 
-void Unit::UpdateAttack()
+
+void Unit::UpdateState()
 {
 	float dt = TimeManager::DeltaTime();
 	
+	if (isDead)
+	{
+		state = UnitState::DEATH;
+		attackTarget = nullptr;
+		UINT curAnim = anim->GetCurrentAnimation();
+		UINT deathAnim = anim->GetIndexByState(UnitState::DEATH);
+		if (curAnim == deathAnim && anim->IsFrameEnd())
+		{
+			anim->Stop();
+		}
+		return;
+	}
 
 	if (anim->IsFrameEnd())
 	{
@@ -58,6 +71,11 @@ void Unit::UpdateAttack()
 
 	if (attackTarget != nullptr)
 	{
+		if (attackTarget->IsDead())
+		{
+			attackTarget = nullptr;
+			return;
+		}
 		Vector3 direction = attackTarget->transform->position - transform->position;
 		float dist = direction.Length();
 		if (dist <= attackRange) // 공격 거리 이내
@@ -78,7 +96,7 @@ void Unit::UpdateAttack()
 				if (isDamaged == false)
 				{
 					isDamaged = true;
-					attackTarget->hp -= attackDamege;
+					attackTarget->TakeDamage(attackDamage);
 				}
 			}
 			
@@ -88,6 +106,17 @@ void Unit::UpdateAttack()
 
 			canAttack = false;
 			isDamaged = false;
+		}
+		else
+		{
+			chaseTick += dt;
+			if (chaseTick > chaseDelay)
+			{
+				chaseTick = 0.f;
+				agent->SetStoppingDistance(attackRange);
+				SetDestination(attackTarget->transform->position);
+			}
+			
 		}
 	}
 	else
@@ -101,8 +130,6 @@ void Unit::LookRotation(Vector3 _direction)
 {
 	float angle = Vector3::AngleY(Vector3(0, 0, 1), _direction);
 	transform->eulerAngles.y = angle;
-	
-
 }
 
 void Unit::SetDestination(Vector3 _target)
@@ -145,8 +172,8 @@ void Unit::Attack(Unit* target)
 
 	attackTarget = target;
 	
-	agent->SetStoppingDistance(attackRange);
-	SetDestination(attackTarget->transform->position);
+	//agent->SetStoppingDistance(attackRange);
+	//SetDestination(attackTarget->transform->position);
 }
 
 void Unit::Spell1()
@@ -163,6 +190,26 @@ void Unit::Spell3()
 
 void Unit::Spell4()
 {
+}
+
+void Unit::Die()
+{
+	isDead = true;
+	collider->enable = false;
+}
+
+void Unit::PushedOut(Unit* other)
+{
+	Vector3 direction = collider->GetWorldPosition() - other->collider->GetWorldPosition();
+	direction.y = 0.f;
+	float dist = direction.Length();
+	Vector3::Normalize(&direction);
+	float radiusSum = other->collider->GetRadius() + collider->GetRadius();
+	if (radiusSum > dist)
+	{
+		float pushDist = radiusSum - dist;
+		transform->position += direction * pushDist;
+	}
 }
 
 void Unit::SetTeam(Team _team)
@@ -182,4 +229,34 @@ void Unit::SetAttackSpeed(float _attackPerSec)
 	anim->SetSpeed(UnitState::ATTACK2, _attackPerSec);
 	anim->SetSpeed(UnitState::ATTACK3, _attackPerSec);
 	anim->SetSpeed(UnitState::ATTACK4, _attackPerSec);
+}
+
+void Unit::SetMovementSpeed(float _speed)
+{
+	movementSpeed = _speed;
+	agent->SetSpeed(_speed);
+}
+
+void Unit::TakeDamage(float _damage)
+{
+	hp -= _damage;
+	if (hp <= 0.f)
+	{
+		Die();
+	}
+}
+
+void Unit::SetID(INT _id)
+{
+	unitID = _id;
+}
+
+bool Unit::IsDead()
+{
+	return isDead;
+}
+
+INT Unit::GetID()
+{
+	return unitID;
 }

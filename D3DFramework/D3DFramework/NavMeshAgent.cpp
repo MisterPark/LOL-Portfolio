@@ -173,3 +173,8 @@ void PKH::NavMeshAgent::PushLayover(const Vector3& _point)
     path.push_back(_point);
     //nextPosition = _point;
 }
+
+void PKH::NavMeshAgent::SetSpeed(float _speed)
+{
+    speed = _speed;
+}

@@ -200,6 +200,7 @@
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Jax.h" />
     <ClInclude Include="Jinx.h" />
     <ClInclude Include="Krug.h" />
     <ClInclude Include="KrugMini.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="Minion.h" />
+    <ClInclude Include="MinionFloatingBar.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Murkwolf.h" />
@@ -299,6 +301,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Turret.h" />
+    <ClInclude Include="TurretFloatingBar.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
@@ -340,6 +343,7 @@
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Jax.cpp" />
     <ClCompile Include="Jinx.cpp" />
     <ClCompile Include="Krug.cpp" />
     <ClCompile Include="KrugMini.cpp" />
@@ -365,6 +369,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="Minion.cpp" />
+    <ClCompile Include="MinionFloatingBar.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Murkwolf.cpp" />
@@ -432,6 +437,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Turret.cpp" />
+    <ClCompile Include="TurretFloatingBar.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />

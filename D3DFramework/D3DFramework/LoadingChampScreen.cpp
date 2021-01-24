@@ -103,7 +103,7 @@ void LoadingChampScreen::SetChampion(ChampionType type)
 		champName->text = L"아리";
 		champ->SetTexture(L"ahriloadscreen");
 		break;
-	case ChampionType::Amumu:
+	case ChampionType::Jax:
 		champName->text = L"아무무";
 		champ->SetTexture(L"amumuloadscreen");
 		break;

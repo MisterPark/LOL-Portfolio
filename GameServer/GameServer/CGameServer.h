@@ -5,7 +5,7 @@
 #include "GameRoom.h"
 
 #define dfMAX_THREAD_GAMESERVER 1
-#define dfROOM_MAX_USER_COUNT 2
+#define dfROOM_MAX_USER_COUNT 1
 
 using namespace std;
 
@@ -101,6 +101,8 @@ public:
 	void ResTime(Client* pClient, DWORD time);
 	void ReqMove(Client* pClient, CPacket* pPacket);
 	void ResMove(Client* pClient, int gameID, list<Vector3>& path);
+	void ReqAttack(Client* pClient, CPacket* pPacket);
+	void ResAttack(Client* pClient, int unitID, int targetID);
 
 public:
 	void Monitor();

@@ -8,7 +8,7 @@ PKH::SphereCollider::SphereCollider(GameObject* owner)
 {
     type = ColliderType::Sphere;
     LPD3DXMESH mesh;
-    radius = 0.5f;
+    radius = 1.f;
     auto device = RenderManager::GetDevice();
     RenderManager::LockDevice();
     D3DXCreateSphere(device, radius, 16, 16, &mesh, nullptr);
@@ -62,6 +62,44 @@ PKH::SphereCollider::SphereCollider(const SphereCollider& rhs)
 
 PKH::SphereCollider::~SphereCollider()
 {
+}
+
+void PKH::SphereCollider::Render()
+{
+    if (pMesh == nullptr)return;
+    if (gameObject == nullptr)return;
+    if (transform == nullptr)return;
+
+    auto device = RenderManager::GetDevice();
+    RenderManager::LockDevice();
+    
+    world._11 = radius;
+    world._22 = radius;
+    world._33 = radius;
+
+    device->SetTransform(D3DTS_WORLD, &world);
+
+    LPDIRECT3DVERTEXBUFFER9 vb;
+    pMesh->GetVertexBuffer(&vb);
+    LPDIRECT3DINDEXBUFFER9 ib;
+    pMesh->GetIndexBuffer(&ib);
+
+    //device->SetStreamSource(0, vb, 0, pMesh->GetNumVertices());
+    //device->SetFVF(fvf);
+    //device->SetIndices(ib);
+
+    device->SetRenderState(D3DRS_LIGHTING, false);
+    device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+
+    device->SetTexture(0, 0);
+    pMesh->DrawSubset(0);
+    //device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, pMesh->GetNumVertices(), 0, pMesh->GetNumFaces());
+
+
+    device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    device->SetRenderState(D3DRS_LIGHTING, false);
+    //device->SetFVF(originFVF);
+    RenderManager::UnlockDevice();
 }
 
 IComponent* PKH::SphereCollider::Clone()
@@ -121,4 +159,17 @@ bool PKH::SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDist
 
 
     return false;
+}
+
+void PKH::SphereCollider::SetRadius(float _radius)
+{
+    radius = _radius;
+    //transform->scale.x = _radius;
+    //transform->scale.y = _radius;
+    //transform->scale.z = _radius;
+}
+
+float PKH::SphereCollider::GetRadius()
+{
+    return radius;
 }

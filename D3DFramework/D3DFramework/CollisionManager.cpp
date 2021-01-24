@@ -48,14 +48,17 @@ void PKH::CollisionManager::Destroy()
 
 void PKH::CollisionManager::Update()
 {
-	int layerCount = MaxOfEnum<Layer>();
-	for (int i = 0; i < layerCount; i++)
-	{
-		for (int j = i; j < layerCount; j++)
-		{
-			CollisionCheck((Layer)i, (Layer)j);
-		}
-	}
+	// TODO : CollisionManager 과부하가 너무 심해서 일단 주석
+	//int layerCount = MaxOfEnum<Layer>();
+	//for (int i = 0; i < layerCount; i++)
+	//{
+	//	for (int j = i; j < layerCount; j++)
+	//	{
+	//		CollisionCheck((Layer)i, (Layer)j);
+	//	}
+	//}
+	CollisionCheck(Layer::Building, Layer::Unit);
+	CollisionCheck(Layer::Unit, Layer::Unit);
 }
 
 
@@ -66,6 +69,8 @@ void PKH::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
 		for (auto& dstElem : objectList[(int)dstType])
 		{
 			if (srcElem == dstElem)continue;
+			if (srcElem->enable == false) continue;
+			if (dstElem->enable == false) continue;
 			if (IsCollided(srcElem, dstElem))
 			{
 				srcElem->OnCollisionEnter(dstElem);
@@ -182,7 +187,7 @@ bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereColl
 	Vector3 srcWorldPos = src->GetWorldPosition();
 	Vector3 destWorldPos = dest->GetWorldPosition();
 	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
-	float radiusSum = src->radius + dest->radius;
+	float radiusSum = src->GetRadius() + dest->GetRadius();
 
 	// 거리가 반지름합보다 크면 충돌X
 	if (distance > radiusSum) return false;

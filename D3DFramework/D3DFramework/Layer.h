@@ -7,10 +7,8 @@ enum class Layer
 	Ground,
 	Wall,
 	Bush,
-	EnemyUnit,
-	TeamUnit,
-	EnemyBuilding,
-	TeamBulilding,
+	Unit,
+	Building,
 	UI,
 	END
 };

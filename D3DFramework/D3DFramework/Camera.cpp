@@ -66,11 +66,11 @@ void PKH::Camera::Update()
 	
 	if (InputManager::GetKey(VK_UP))
 	{
-		offset.y += 10.f * dt;
+		//offset.y += 10.f * dt;
 	}
 	if (InputManager::GetKey(VK_DOWN))
 	{
-		offset.y -= 10.f * dt;
+		//offset.y -= 10.f * dt;
 	}
 	if (InputManager::GetKey(VK_NUMPAD7))
 	{

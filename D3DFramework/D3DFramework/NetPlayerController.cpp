@@ -69,34 +69,40 @@ void NetPlayerController::Update()
         cam->Move(-cam->transform->look, 10.f);
     }
 
+    if (unit->IsDead())
+    {
+        return;
+    }
+
     if (InputManager::GetMouseLButtonDown())
     {
-
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
         {
-            printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
 
         }
         RaycastHit info;
-        int unitMask = LayerMask::GetMask(Layer::EnemyUnit);
+        int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
         if (Physics::Raycast(ray, &info, INFINITY, unitMask))
         {
             if (targetMode)
             {
-                SetTargetMode(false);
-                unit->Attack((Unit*)info.collider->gameObject);
+                Unit* target = (Unit*)info.collider->gameObject;
+                //if (target->team != unit->team && !target->IsDead())
+                //{
+                //    ReqAttack(target);
+                //}
+                if (!target->IsDead())
+                {
+                    ReqAttack(target);
+                }
             }
         }
-        else
-        {
-            SetTargetMode(false);
-        }
 
 
-
+        SetTargetMode(false);
     }
     else if (InputManager::GetMouseRButtonDown())
     {
@@ -108,10 +114,6 @@ void NetPlayerController::Update()
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
-            // TODO : 여기부터 ★★★★★★★★
-            // ReqMove 해야함
-            // 응답은 GameScene에서 받을것
-
             Vector3 direction = hit.point - transform->position;
             Vector3::Normalize(&direction);
 
@@ -126,14 +128,11 @@ void NetPlayerController::Update()
             if (Physics::Raycast(ray2, &hit2, dist, mask2))
             {
                 // 직선상에 벽이 있을 경우
-                Debug::Print("직선상에 벽이있음\n");
-                //agent->SetDestination(_dest);
                 ReqMove(hit.point);
             }
             else
             {
                 // 직선상에 벽이 없을 경우
-                //agent->SetDestination(_dest, true);
                 ReqMove(hit.point, true);
             }
             
@@ -201,4 +200,17 @@ void NetPlayerController::ReqMove(Vector3 _dest, bool _noSearch)
     delete pack;
     Debug::PrintLine("[Debug] ReqMove 요청 / 경유지 : %d", pathCount);
     
+}
+
+void NetPlayerController::ReqAttack(Unit* _target)
+{
+    INT unitID = _target->GetID();
+    CPacket* pack = new CPacket();
+    pack->Clear();
+
+    *pack << (WORD)GAME_REQ_ATTACK << net->number << unitID;
+
+    Network::SendPacket(pack);
+    delete pack;
+    Debug::PrintLine("[Debug] ReqAttack 요청 / 공격자ID : %d / 타겟ID : %d", net->number, unitID);
 }

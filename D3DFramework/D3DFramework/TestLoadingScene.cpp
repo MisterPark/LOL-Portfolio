@@ -9,7 +9,7 @@
 #include "LoadingChampScreen.h"
 #include "Label.h"
 
-long resourceMax = 36;
+long resourceMax = 38;
 long resourceLoadCnt = 0;
 
 void TestLoadingScene::OnLoaded()
@@ -93,6 +93,8 @@ void TestLoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/missfortune/", L"missfortune.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leona/", L"leona.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/ahri/", L"ahri.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/", L"jax.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/", L"jinx.x", Count);
 
 	// ¹Ì´Ï¾ð
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/", L"order_minion_caster.x", Count);

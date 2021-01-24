@@ -20,7 +20,7 @@ FloatingBar::FloatingBar()
 	//transform->scale = { 1,scaleY,1 };
 
 	SetTexture(L"border_float (1)");
-	textureKeyHP = L"bar_float (5)";
+	textureKeyHP = L"bar_float (2)";
 	textureKeyMP = L"bar_float (5)";
 	////SetSizeByTexture();
 	//SetSize(1000, 100);
@@ -44,7 +44,7 @@ void FloatingBar::Release()
 
 void FloatingBar::Update()
 {
-	if (target->IsDead())
+	if (target->IsDestroy())
 	{
 		target = nullptr;
 	}

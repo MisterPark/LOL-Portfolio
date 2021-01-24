@@ -194,7 +194,6 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	WORD type;
 	*pPacket >> type;
 
-	printf("뭔가 받음 %d\n", type);
 
 	switch (type)
 	{
@@ -230,6 +229,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 		break;
 	case GAME_REQ_MOVE:
 		ReqMove(pClient, pPacket);
+		break;
+	case GAME_REQ_ATTACK:
+		ReqAttack(pClient, pPacket);
 		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
@@ -677,6 +679,29 @@ void CGameServer::ResMove(Client* pClient, int gameID, list<Vector3>& path)
 	{
 		*pack << iter.x << iter.y << iter.z;
 	}
+
+	SendUnicast(pClient->sessionID, pack);
+}
+
+void CGameServer::ReqAttack(Client* pClient, CPacket* pPacket)
+{
+	
+	INT unitID, targetID;
+
+	*pPacket >> unitID >> targetID;
+
+	GameRoom* room = gameroomMap[pClient->roomNum];
+	for (auto iter : room->users)
+	{
+		ResAttack(iter.second, unitID, targetID);
+	}
+}
+
+void CGameServer::ResAttack(Client* pClient, int unitID, int targetID)
+{
+	printf("[INFO] 공격요청 응답 / 공격자 : %d / 타겟 : %d\n", unitID, targetID);
+	CPacket* pack = PacketPool::Alloc();
+	*pack << (WORD)GAME_RES_ATTACK << unitID << targetID;
 
 	SendUnicast(pClient->sessionID, pack);
 }

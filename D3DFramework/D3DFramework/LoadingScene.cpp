@@ -11,7 +11,7 @@
 #include "Label.h"
 #include "GameScene.h"
 
-long loadMax = 36;
+long loadMax = 38;
 long loadCount = 0;
 
 
@@ -142,6 +142,8 @@ void LoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/missfortune/", L"missfortune.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leona/", L"leona.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/ahri/", L"ahri.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/", L"jax.x", Count);
+	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/", L"jinx.x", Count);
 
 	// ¹Ì´Ï¾ð
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/", L"order_minion_caster.x", Count);

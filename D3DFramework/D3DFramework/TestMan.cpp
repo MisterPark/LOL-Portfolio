@@ -41,7 +41,7 @@ void TestMan::Update()
 	GameObject::Update();
 }
 
-void TestMan::OnCollisionEnter(const Collider* target)
+void TestMan::OnCollisionEnter(Collider* target)
 {
 	Collider* collider = (Collider*)GetComponent<Collider>();
 	if (collider == nullptr) return;

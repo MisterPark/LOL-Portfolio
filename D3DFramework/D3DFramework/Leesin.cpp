@@ -25,5 +25,23 @@ void Leesin::Release()
 
 void Leesin::Update()
 {
+	float dt = TimeManager::DeltaTime();
+
+	if (InputManager::GetKey(VK_UP))
+	{
+		transform->position.z -= movementSpeed * dt;
+	}
+	if (InputManager::GetKey(VK_DOWN))
+	{
+		transform->position.z += movementSpeed * dt;
+	}
+	if (InputManager::GetKey(VK_LEFT))
+	{
+		transform->position.x += movementSpeed * dt;
+	}
+	if (InputManager::GetKey(VK_RIGHT))
+	{
+		transform->position.x -= movementSpeed * dt;
+	}
 	Champion::Update();
 }

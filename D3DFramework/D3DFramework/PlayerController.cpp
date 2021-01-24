@@ -82,21 +82,21 @@ void PlayerController::Update()
 
         }
         RaycastHit info;
-        int unitMask = LayerMask::GetMask(Layer::EnemyUnit);
+        int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
         if (Physics::Raycast(ray, &info, INFINITY, unitMask))
         {
             if (targetMode)
             {
-                SetTargetMode(false);
-                unit->Attack((Unit*)info.collider->gameObject);
+                Unit* target = (Unit*)info.collider->gameObject;
+                if (target->team != unit->team && !target->IsDead())
+                {
+                    unit->Attack(target);
+                }
+                   
             }
         }
-        else
-        {
-            SetTargetMode(false);
-        }
 
-        
+        SetTargetMode(false);
         
     }
     else if (InputManager::GetMouseRButtonDown())
@@ -107,14 +107,16 @@ void PlayerController::Update()
         int mask = LayerMask::GetMask(Layer::Ground);
         if (Physics::Raycast(ray, &hit, INFINITY, mask))
         {
-            SetTargetMode(false);
+            
             unit->SetAttackTarget(nullptr);
-            agent->SetStoppingDistance(0.03f);
+            agent->SetStoppingDistance(0.05f);
             unit->SetDestination(hit.point);
         }
         
+        SetTargetMode(false);
     }
 
+    
 
 }
 

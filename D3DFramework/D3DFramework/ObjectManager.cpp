@@ -134,7 +134,7 @@ void PKH::ObjectManager::PostUpdate()
 			target = *iter;
 
 
-			if (target->IsDead())
+			if (target->IsDestroy())
 			{
 				if (target->dontDestroy)
 				{
@@ -170,15 +170,29 @@ void PKH::ObjectManager::Render()
 	Vector3 camPos = Camera::main->GetPosition();
 	
 	auto objTable = pObjectManager->objectTable;
-	int layerCount = MaxOfEnum<Layer>();
+	int layerCount = (int)Layer::UI;
+	int ground = (int)Layer::Ground;
 	for (int i = 0; i < layerCount; i++)
 	{
 		auto& objList = objTable[i];
-		for (auto& iter : objList)
+		if (i <= ground)
 		{
-			if (!iter->isVisible)continue;
-			pObjectManager->renderList.push_back(iter);
+			for (auto& iter : objList)
+			{
+				if (!iter->isVisible)continue;
+				pObjectManager->renderList.push_back(iter);
+			}
 		}
+		else
+		{
+			for (auto& iter : objList)
+			{
+				if (!iter->isVisible)continue;
+				if (!Frustum::Intersect(&iter->transform->position, 1.f)) continue;
+				pObjectManager->renderList.push_back(iter);
+			}
+		}
+		
 	}
 	// z값으로 정렬
 	pObjectManager->renderList.sort(CompareZ);
@@ -188,7 +202,11 @@ void PKH::ObjectManager::Render()
 		obj->Render();
 	}
 	
-	
+	auto uiList = pObjectManager->objectTable[(int)Layer::UI];
+	for (auto& iter : uiList)
+	{
+		iter->Render();
+	}
 	
 	// 디버그용
 	//TimeManager::RenderFPS();

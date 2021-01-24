@@ -12,7 +12,7 @@ TestGaren::TestGaren()
 	AddComponent(L"DynamicMesh", dmesh);
 
 	SphereCollider* collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
-	collider->radius = 1.5f;
+	collider->SetRadius(0.5f);
 	collider->center = { 0,1.f,0 };
 
 	AddComponent< NavMeshAgent>(L"NavMeshAgent");

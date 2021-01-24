@@ -22,7 +22,7 @@ namespace PKH
         virtual void Render();
         // IComponent을(를) 통해 상속됨
         virtual IComponent* Clone() = 0;
-        virtual void OnCollisionEnter(const Collider* other);
+        virtual void OnCollisionEnter(Collider* other);
         virtual bool Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance) = 0;
 
     public:

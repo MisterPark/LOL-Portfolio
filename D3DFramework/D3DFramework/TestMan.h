@@ -10,7 +10,7 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    virtual void OnCollisionEnter(const Collider* target) override;
+    virtual void OnCollisionEnter(Collider* target) override;
 
 };
 

@@ -6,5 +6,7 @@ class Building :
 public:
     Building();
     virtual ~Building();
+
+    virtual void OnCollisionEnter(Collider* target);
 };
 

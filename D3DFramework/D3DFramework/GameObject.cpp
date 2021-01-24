@@ -51,7 +51,7 @@ void PKH::GameObject::Render()
 void PKH::GameObject::Destroy()
 {
 	if (dontDestroy) return;
-	isDead = true;
+	destroyFlag = true;
 }
 
 void PKH::GameObject::PostRender()
@@ -68,7 +68,7 @@ void PKH::GameObject::PostRender()
 	}
 }
 
-void PKH::GameObject::OnCollisionEnter(const Collider* target)
+void PKH::GameObject::OnCollisionEnter(Collider* target)
 {
 
 
@@ -241,9 +241,9 @@ IComponent* PKH::GameObject::GetComponent(const wstring& _key)
 	return f->second;
 }
 
-bool PKH::GameObject::IsDead()
+bool PKH::GameObject::IsDestroy()
 {
-	return isDead;
+	return destroyFlag;
 }
 
 bool PKH::GameObject::SetLayer(Layer _layer)

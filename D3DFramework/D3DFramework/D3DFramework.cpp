@@ -115,6 +115,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MainGame::Release();
     MainGame::Destroy();
 
+    TextParser::DestroyInstance();
+
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     return (int) msg.wParam;

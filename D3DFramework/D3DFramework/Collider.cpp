@@ -77,11 +77,9 @@ void PKH::Collider::Render()
 	//device->SetFVF(originFVF);
 	RenderManager::UnlockDevice();
 
-	// TODO : 반드시 지워야함 DEBUG코드
-	//SetColor(D3DCOLOR_ARGB(255, 0, 255, 0));
 }
 
-void PKH::Collider::OnCollisionEnter(const Collider* other)
+void PKH::Collider::OnCollisionEnter(Collider* other)
 {
 	if (gameObject == nullptr) return;
 

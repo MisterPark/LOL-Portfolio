@@ -14,7 +14,7 @@ public:
     virtual void Update() override;
     virtual void PostRender() override;
 
-    virtual void OnCollisionEnter(const Collider* target) override;
+    virtual void OnCollisionEnter(Collider* target) override;
 
 
 public:

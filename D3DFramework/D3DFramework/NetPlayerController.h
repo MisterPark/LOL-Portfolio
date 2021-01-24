@@ -22,6 +22,7 @@ public:
     void SetTargetMode(bool _mode);
 
     void ReqMove(Vector3 _dest, bool _search = false);
+    void ReqAttack(Unit* _target);
 
 public:
     Network* net = nullptr;

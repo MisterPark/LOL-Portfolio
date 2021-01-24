@@ -2,15 +2,18 @@
 #include "Monster.h"
 #include "Plane.h"
 #include "Rectangle.h"
+#include "MinionFloatingBar.h"
 
 Monster::Monster()
 {
-	
+	bar = (MinionFloatingBar*)ObjectManager::GetInstance()->CreateObject<MinionFloatingBar>(Layer::UI);
+	bar->SetTarget(this);
 	
 }
 
 Monster::~Monster()
 {
+	bar = nullptr;
 }
 
 void Monster::Initialize()

@@ -16,6 +16,9 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
+    virtual void OnCollisionEnter(Collider* target);
+
+    virtual void SetTeam(Team _team);
 
 public:
     FloatingBar* bar = nullptr;

@@ -30,6 +30,7 @@ namespace PKH
 		void SetPath(list<Vector3>& _path);
 		// 경유지 임의 삽입
 		void PushLayover(const Vector3& _point);
+		void SetSpeed(float _speed);
 
 	private:
 		Unit* unit = nullptr;

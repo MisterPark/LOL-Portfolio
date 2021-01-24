@@ -33,7 +33,7 @@ void FloatingHPBar::Release()
 
 void FloatingHPBar::Update()
 {
-	if (target->IsDead())
+	if (target->IsDestroy())
 	{
 		target = nullptr;
 	}

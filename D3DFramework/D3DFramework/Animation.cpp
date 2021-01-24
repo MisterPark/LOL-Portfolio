@@ -39,7 +39,8 @@ void PKH::Animation::PostUpdate()
     
     float animSpeed = dt * animsets[(int)unit->state].period * animsets[(int)unit->state].speed;
     
-    dmesh->PlayAnimation(animSpeed);
+    if(stopFlag == false)
+        dmesh->PlayAnimation(animSpeed);
 }
 
 IComponent* PKH::Animation::Clone()
@@ -160,6 +161,16 @@ string PKH::Animation::GetNameByState(UnitState state)
     return name;
 }
 
+UINT PKH::Animation::GetIndexByState(UnitState state)
+{
+    return animsets[(int)state].index;
+}
+
+UINT PKH::Animation::GetCurrentAnimation()
+{
+    return currentAnim;
+}
+
 void PKH::Animation::SetLoop(UnitState state, bool loop)
 {
     animsets[(int)state].isLoop = loop;
@@ -174,4 +185,14 @@ bool PKH::Animation::IsFrameEnd()
 {
     if (dmesh == nullptr) return false;
     return dmesh->IsAnimationSetEnd();
+}
+
+void PKH::Animation::Stop()
+{
+    stopFlag = true;
+}
+
+void PKH::Animation::Resume()
+{
+    stopFlag = false;
 }
