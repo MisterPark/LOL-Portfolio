@@ -322,11 +322,13 @@ void GameScene::CreateChampion()
 			else
 			{
 				unitMap[userNum]->SetTeam(Team::BLUE);
-				if (userNum == net->number)
-				{
-					unitMap[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
-					Camera::main->SetTarget(unitMap[userNum]);
-				}
+				
+			}
+
+			if (userNum == net->number)
+			{
+				unitMap[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
+				Camera::main->SetTarget(unitMap[userNum]);
 			}
 
 			unitMap[userNum]->transform->position = spawnPos[userNum];
