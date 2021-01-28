@@ -7,6 +7,7 @@ enum class Layer
 	Ground,
 	Wall,
 	Bush,
+	Indicator,
 	Unit,
 	Building,
 	UI,

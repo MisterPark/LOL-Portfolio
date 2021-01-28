@@ -3,6 +3,7 @@
 #include "SphereCollider.h"
 #include "NavMeshAgent.h"
 #include "Animation.h"
+#include "Indicator.h"
 
 Unit::Unit()
 {
@@ -12,12 +13,16 @@ Unit::Unit()
 	collider->center = { 0.f,1.f,0.f };
 
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
+
+	attackIndicator = (Indicator*)ObjectManager::GetInstance()->CreateObject<Indicator>(Layer::Indicator);
+	attackIndicator->SetTarget(this);
 }
 
 Unit::~Unit()
 {
 	anim = nullptr;
 	agent = nullptr;
+	attackIndicator = nullptr;
 }
 
 void Unit::Initialize()
@@ -259,4 +264,9 @@ bool Unit::IsDead()
 INT Unit::GetID()
 {
 	return unitID;
+}
+
+float Unit::GetAttackRange()
+{
+	return attackRange;
 }

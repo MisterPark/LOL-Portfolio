@@ -196,6 +196,9 @@
     <Filter Include="GameObject\Unit\Champion\Jax">
       <UniqueIdentifier>{07d8d923-c02b-4a37-bbaa-cd4cbeded27f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Indicator">
+      <UniqueIdentifier>{dadaa94b-4908-473f-83c3-eed52a69677d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -622,6 +625,7 @@
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Indicator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1119,6 +1123,7 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Indicator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

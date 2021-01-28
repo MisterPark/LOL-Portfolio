@@ -72,3 +72,8 @@ void PKH::Plane::CreateCustomMesh()
 
 	triangles->Unlock();
 }
+
+PKH::IComponent* PKH::Plane::Clone()
+{
+	return new Plane(*this);
+}

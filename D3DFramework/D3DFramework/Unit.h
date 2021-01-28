@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 
+class Indicator;
+
 enum class Team
 {
 	NEUTRAL, BLUE, RED, END
@@ -71,6 +73,7 @@ public:
 
 	bool IsDead();
 	INT GetID();
+	float GetAttackRange();
 
 public:
 	UnitState state = UnitState::IDLE1;
@@ -78,6 +81,7 @@ public:
 	Animation* anim = nullptr;
 	NavMeshAgent* agent = nullptr;
 	SphereCollider* collider = nullptr;
+	Indicator* attackIndicator = nullptr;
 
 protected:
 	// 기본공격 관련

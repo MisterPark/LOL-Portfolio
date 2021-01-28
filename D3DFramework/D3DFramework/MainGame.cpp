@@ -298,5 +298,6 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
 
-
+	// 인디케이터
+	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
 }										

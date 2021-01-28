@@ -4,6 +4,7 @@
 #include "NavMeshAgent.h"
 #include "NavNode.h"
 #include "Unit.h"
+#include "Indicator.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -131,9 +132,11 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
+        unit->attackIndicator->isVisible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
+        unit->attackIndicator->isVisible = false;
     }
 }

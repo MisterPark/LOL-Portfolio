@@ -199,6 +199,7 @@
     <ClInclude Include="Gromp.h" />
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="Indicator.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Jax.h" />
     <ClInclude Include="Jinx.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="Gromp.cpp" />
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Indicator.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jax.cpp" />
     <ClCompile Include="Jinx.cpp" />
