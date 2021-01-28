@@ -34,5 +34,8 @@ public:
 	Texture* invenPanelTex = nullptr;
 
 	UI* mainPanel = nullptr;
+	UI* miniPanel = nullptr;
+	UI* invenPanel = nullptr;
+	UI* faceBorder = nullptr;
 };
 

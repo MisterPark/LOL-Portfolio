@@ -5,6 +5,7 @@
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
+	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 }
 
 UI::~UI()
@@ -22,30 +23,48 @@ void UI::Update()
 
 void UI::Render()
 {
-	Matrix ortho = Camera::main->GetOrthogonalMatrix();
-	Matrix perspective = Camera::main->GetPerspectiveMatrix();
+	//Matrix ortho = Camera::main->GetOrthogonalMatrix();
+	//Matrix perspective = Camera::main->GetPerspectiveMatrix();
 
-	RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &ortho);
+	//RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &ortho);
 
-	//RenderManager::DrawUI(textureKey, *transform, 0);
-	//Vector3 originCamPos = Camera::main->transform->position;
-	//Vector3 originCamLook = Camera::main->transform->look;
+	//GameObject::Render();
 
-	//Camera::main->transform->position = Vector3(0, 0, -1);
-	//Camera::main->transform->look = Vector3(0, 0, 1);
+	//if (textRenderFlag)
+	//{
+	//	Vector3 pos = transform->position + textOffsetPosition;
+	//	RenderManager::DrawFont(text, pos.x, pos.y, D3DCOLOR_XRGB(0, 0, 0));
+	//}
+
+	//RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &perspective);
+
+	auto device = RenderManager::GetDevice();
+	int screenW = MainGame::GetWidth();
+	int screenH = MainGame::GetHeight();
+	Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
+
+	device->GetTransform(D3DTS_VIEW, &matOriginView);
+	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
+
+	D3DXMatrixOrthoLH(&matProj, screenW, screenH, 0.f, 1.f);
+	D3DXMatrixIdentity(&matWorld);
+	D3DXMatrixIdentity(&matView);
+
+	matWorld._11 = transform->scale.x;
+	matWorld._22 = transform->scale.y;
+	matWorld._33 = 1.f;
+	matWorld._41 = transform->position.x;
+	matWorld._42 = transform->position.y;
+
+	device->SetTransform(D3DTS_WORLD, &matWorld);
+	transform->world = matWorld;
+	device->SetTransform(D3DTS_VIEW, &matView);
+	device->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	GameObject::Render();
 
-	//Camera::main->transform->position = originCamPos;
-	//Camera::main->transform->look = originCamLook;
-
-	if (textRenderFlag)
-	{
-		Vector3 pos = transform->position + textOffsetPosition;
-		RenderManager::DrawFont(text, pos.x, pos.y, D3DCOLOR_XRGB(0, 0, 0));
-	}
-
-	RenderManager::GetDevice()->SetTransform(D3DTS_PROJECTION, &perspective);
+	device->SetTransform(D3DTS_VIEW, &matOriginView);
+	device->SetTransform(D3DTS_PROJECTION, &matOriginProj);
 
 }
 
