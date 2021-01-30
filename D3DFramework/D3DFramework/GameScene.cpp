@@ -65,6 +65,9 @@ GameScene::GameScene()
 	spawnPos[8] = { -46.34, 68.48, -39.96 };
 	spawnPos[9] = { -46.01, 68.48, -41.93 };
 
+	playerInfo = PlayerInfoPanel::GetInstance();
+	ObjectManager::GetInstance()->AddObject(playerInfo, Layer::HUD);
+
 }
 
 void GameScene::OnLoaded()
@@ -329,6 +332,7 @@ void GameScene::CreateChampion()
 			{
 				unitMap[userNum]->AddComponent<NetPlayerController>(L"NetPlayerController");
 				Camera::main->SetTarget(unitMap[userNum]);
+				playerInfo->SetTarget(champion);
 			}
 
 			unitMap[userNum]->transform->position = spawnPos[userNum];

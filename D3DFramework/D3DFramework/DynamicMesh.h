@@ -33,6 +33,9 @@ namespace PKH
 
 		// CombinedTransformationMatrix의 주소값을 얻어와서 채워주는 함수
 		void			SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame);
+
+		void			CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutCloneFrame);
+		void			DeleteFrame(D3DXFRAME* pRoot);
 	public:
 		// TODO : 이것들 세팅해줘야 할 경우가 생기려나?
 		virtual ULONG GetVertexCount() override { return 0; }
@@ -48,6 +51,9 @@ namespace PKH
 		list<D3DXMESHCONTAINER_DERIVED*>			m_MeshContainerList;
 
 		map<string, UINT> m_AnimKeys;
+	public:
+		float animSpeed = 0.f;
+		bool stopFlag = false;
 
 	};
 }

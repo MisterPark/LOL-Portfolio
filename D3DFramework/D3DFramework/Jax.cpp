@@ -9,6 +9,26 @@ Jax::Jax()
 	AddComponent(L"DynamicMesh", dmesh);
 
 	anim->AttachToDynamicMesh(dmesh);
+
+	faceCircleTexkey = L"jax_circle";
+	faceSquareTexkey = L"jax_square";
+	// 스킬 아이콘
+	qTexKey = L"jax_q";
+	wTexKey = L"jax_w";
+	eTexKey = L"jax_e";
+	rTexKey = L"jax_r";
+	passiveTexKey = L"jax_passive";
+
+	SetHP(592.8f);
+	SetHPRegen(8.5f);
+	SetMP(338.8f);
+	SetMPRegen(7.5f);
+	SetAttackDamage(68.f);
+	SetAttackPerSec(0.638f);
+	SetArmor(36.f);
+	SetMagicResistance(31.25f);
+	SetAttackRange(1.25f);
+	SetMovementSpeed(3.5f);
 }
 
 Jax::~Jax()

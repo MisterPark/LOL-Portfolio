@@ -15,6 +15,7 @@ enum class UnitState
 	IDLE2,
 	IDLE3,
 	DEATH,
+	DEATH2,
 	RECALL,
 	RECALL2,
 	RECALL3,
@@ -66,14 +67,39 @@ public:
 
 	virtual void SetTeam(Team _team);
 	void SetAttackTarget(Unit* _target);
-	void SetAttackSpeed(float _attackPerSec);
+
+	void SetHP(float _max);
+	void SetMP(float _max);
+	void SetHPRegen(float _per5Sec);
+	void SetMPRegen(float _per5Sec);
+	void SetAttackDamage(float _damage);
+	void SetAttackPerSec(float _attackPerSec);
+	void SetAttackRange(float _range);
+	void SetAbilityPower(float _ap);
 	void SetMovementSpeed(float _speed);
+	void SetArmor(float _armor);
+	void SetMagicResistance(float _magicResist);
+	void SetCriticalPer(float _percent);
+	void SetCooldownReduction(float _cdr);
+
 	void TakeDamage(float _damage);
 	void SetID(INT _id);
 
 	bool IsDead();
 	INT GetID();
+	float GetHP();
+	float GetMP();
+	float GetMaxHP();
+	float GetMaxMP();
+	float GetAttackDamage();
+	float GetAttackPerSec();
 	float GetAttackRange();
+	float GetAbilityPower();
+	float GetMovementSpeed();
+	float GetArmor();
+	float GetMagicResistance();
+	float GetCriticalPer();
+	float GetCooldownReduction();
 
 public:
 	UnitState state = UnitState::IDLE1;
@@ -104,16 +130,25 @@ protected:
 	// 네트워크 관련
 	INT unitID = -1;
 public:
-	float attackDamage = 15;
+	float attackDamage = 15.f;
+	float abilityPower = 0.f;
 	float armor = 1;
-	float magicResistance = 1;
+	float magicResistance = 1.f;
 	float movementSpeed = 5.f;
+	float criticalPer = 0.f;
+	float cooldownReduction = 0.f;
 
-	float hp = 100;
-	float maxHp = 100;
-	float mp = 100;
-	float maxMp = 100;
-	float exp = 100;
-	float maxExp = 100;
+	float hp = 100.f;
+	float maxHp = 100.f;
+	float mp = 100.f;
+	float maxMp = 100.f;
+	float exp = 0.f;
+	float maxExp = 100.f;
+	int level = 1;
+
+	// 5초당
+	float hpRegen = 0.f;
+	// 5초당
+	float mpRegen = 0.f;
 };
 

@@ -73,19 +73,22 @@ void FloatingBar::Render()
 	//RenderManager::DrawSprite(textureKey2, transform->position + offset2, 0);
 	if (target != nullptr)
 	{
-		ratioHP = (float)target->hp / target->maxHp;
-		ratioMP = (float)target->mp / target->maxMp;
+		if (target->maxHp != 0.f)
+		{
+			ratioHP = target->hp / target->maxHp;
+		}
+		if (target->maxMp != 0.f)
+		{
+			ratioMP = target->mp / target->maxMp;
+		}
+		
+		if (ratioHP < 0.f) ratioHP = 0.f;
+		if (ratioMP < 0.f) ratioMP = 0.f;
+		RenderManager::DrawUIHorizontal(textureKeyHP, transform->position + offset2, scaleHP, 0, ratioHP);
+		RenderManager::DrawUIHorizontal(textureKeyMP, transform->position + offsetMP, scaleMP, 0, ratioMP);
+
 	}
-	if (ratioHP < 0.f)
-	{
-		ratioHP = 0.f;
-	}
-	if (ratioMP < 0.f)
-	{
-		ratioMP = 0.f;
-	}
-	RenderManager::DrawUIHorizontal(textureKeyHP, transform->position + offset2, scaleHP, 0, ratioHP);
-	RenderManager::DrawUIHorizontal(textureKeyMP, transform->position + offsetMP, scaleMP, 0, ratioMP);
+	
 }
 
 void FloatingBar::SetTarget(Unit* target)

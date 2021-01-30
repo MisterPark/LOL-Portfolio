@@ -104,8 +104,8 @@ void LoadingChampScreen::SetChampion(ChampionType type)
 		champ->SetTexture(L"ahriloadscreen");
 		break;
 	case ChampionType::Jax:
-		champName->text = L"¾Æ¹«¹«";
-		champ->SetTexture(L"amumuloadscreen");
+		champName->text = L"Àè½º";
+		champ->SetTexture(L"jaxloadscreen");
 		break;
 	case ChampionType::Jinx:
 		champName->text = L"Â¡Å©½º";

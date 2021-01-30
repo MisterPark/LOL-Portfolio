@@ -50,7 +50,7 @@ namespace LOLClient
             champButton[5] = button_missfortune;
             champButton[6] = button_blitzcrank;
             champButton[7] = button_ahri;
-            champButton[8] = button_amumu;
+            champButton[8] = button_jax;
             champButton[9] = button_jinx;
 
             userChamp[0] = face1;
@@ -72,7 +72,7 @@ namespace LOLClient
             champCircleImage[5] = Properties.Resources.missfortune_circle_0;
             champCircleImage[6] = Properties.Resources.steamgolem_circle;
             champCircleImage[7] = Properties.Resources.ahri_circle;
-            champCircleImage[8] = Properties.Resources.amumu_circle_0;
+            champCircleImage[8] = Properties.Resources.jax_circle;
             champCircleImage[9] = Properties.Resources.jinx_circle;
 
             spellImage[0] = Properties.Resources.summoner_barrier;

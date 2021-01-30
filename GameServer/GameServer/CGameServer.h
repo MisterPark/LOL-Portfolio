@@ -5,7 +5,7 @@
 #include "GameRoom.h"
 
 #define dfMAX_THREAD_GAMESERVER 1
-#define dfROOM_MAX_USER_COUNT 6
+#define dfROOM_MAX_USER_COUNT 1
 
 using namespace std;
 

@@ -53,8 +53,8 @@ void UI::Render()
 	matWorld._11 = transform->scale.x;
 	matWorld._22 = transform->scale.y;
 	matWorld._33 = 1.f;
-	matWorld._41 = transform->position.x;
-	matWorld._42 = transform->position.y;
+	matWorld._41 = transform->position.x - (screenW * 0.5f) + transform->scale.x;
+	matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
 	device->SetTransform(D3DTS_WORLD, &matWorld);
 	transform->world = matWorld;
@@ -245,8 +245,8 @@ void PKH::UI::SetLocation(int x, int y)
 {
 	int screenW = MainGame::GetWidth();
 	int screenH = MainGame::GetHeight();
-	transform->position.x = x - (screenW * 0.5f) + transform->scale.x;
-	transform->position.y = -y + (screenH * 0.5f) - transform->scale.y;
+	transform->position.x = x;
+	transform->position.y = y;
 }
 
 void UI::SetTexture(const wstring& _key)

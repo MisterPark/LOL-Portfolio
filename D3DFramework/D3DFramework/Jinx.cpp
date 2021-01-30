@@ -9,6 +9,26 @@ Jinx::Jinx()
 	AddComponent(L"DynamicMesh", dmesh);
 
 	anim->AttachToDynamicMesh(dmesh);
+
+	faceCircleTexkey = L"jinx_circle";
+	faceSquareTexkey = L"jinx_square";
+	// 스킬 아이콘
+	qTexKey = L"jinx_q1";
+	wTexKey = L"jinx_w";
+	eTexKey = L"jinx_e";
+	rTexKey = L"jinx_r";
+	passiveTexKey = L"jinx_passive";
+
+	SetHP(610.f);
+	SetHPRegen(3.75f);
+	SetMP(245.6f);
+	SetMPRegen(6.5f);
+	SetAttackDamage(57.f);
+	SetAttackPerSec(0.625f);
+	SetArmor(28.f);
+	SetMagicResistance(30.f);
+	SetAttackRange(5.25f);
+	SetMovementSpeed(3.25f);
 }
 
 Jinx::~Jinx()

@@ -23,6 +23,7 @@ namespace PKH
 		bool Search(const Vector3& dest, list<Vector3>* outPath);
 		bool SetDestination(const Vector3& target, bool noSearch = false);
 		void Stop();
+		void Pause();
 		void Resume();
 		void Move(const Vector3& offset);
 		void ResetPath();

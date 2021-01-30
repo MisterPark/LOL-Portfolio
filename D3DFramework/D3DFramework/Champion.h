@@ -23,5 +23,13 @@ public:
 public:
     FloatingBar* bar = nullptr;
 	FloatingHPBar* hpBar = nullptr;
+    wstring faceCircleTexkey;
+    wstring faceSquareTexkey;
+
+    wstring qTexKey;
+    wstring wTexKey;
+    wstring eTexKey;
+    wstring rTexKey;
+    wstring passiveTexKey;
 };
 

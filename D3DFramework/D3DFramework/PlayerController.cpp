@@ -39,7 +39,8 @@ void PlayerController::Update()
     }
     if (InputManager::GetKeyDown('S'))
     {
-        
+        agent->Stop();
+        unit->SetAttackTarget(nullptr);
     }
     if (InputManager::GetKeyDown('D'))
     {
@@ -48,11 +49,19 @@ void PlayerController::Update()
 
     if (InputManager::GetKeyDown('Q'))
     {
-        
+        unit->Spell1();
+    }
+    if (InputManager::GetKeyDown('W'))
+    {
+        unit->Spell2();
     }
     if (InputManager::GetKeyDown('E'))
     {
-        
+        unit->Spell3();
+    }
+    if (InputManager::GetKeyDown('R'))
+    {
+        unit->Spell4();
     }
     
     if (InputManager::GetKeyDown('L'))

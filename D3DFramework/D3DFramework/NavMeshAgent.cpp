@@ -123,6 +123,12 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
 
 void PKH::NavMeshAgent::Stop()
 {
+    isDestination = true;
+    path.clear();
+}
+
+void PKH::NavMeshAgent::Pause()
+{
     isMoving = false;
 }
 

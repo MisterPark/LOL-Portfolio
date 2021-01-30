@@ -26,21 +26,25 @@ void PKH::Animation::PostUpdate()
 
     float dt = TimeManager::DeltaTime();
 
-    currentAnim = animsets[(int)unit->state].index;
+    Animation::Node animNode = animsets[(int)unit->state];
+    currentAnim = animNode.index;
     dmesh->SetAnimationSet(currentAnim);
     
     if (dmesh->IsAnimationSetEnd())
     {
-        if (animsets[currentAnim].isLoop == false)
+        if (animNode.isLoop == false)
         {
+            animNode = animsets[(int)UnitState::IDLE1];
             currentAnim = animsets[(int)UnitState::IDLE1].index;
         }
     }
     
-    float animSpeed = dt * animsets[(int)unit->state].period * animsets[(int)unit->state].speed;
+    float animSpeed = animNode.period * animNode.speed * dt;
     
-    if(stopFlag == false)
-        dmesh->PlayAnimation(animSpeed);
+    //if(stopFlag == false)
+    //    dmesh->PlayAnimation(animSpeed);
+    dmesh->stopFlag = stopFlag;
+    dmesh->animSpeed += animSpeed;
 }
 
 IComponent* PKH::Animation::Clone()
@@ -93,6 +97,9 @@ string PKH::Animation::GetNameByState(UnitState state)
         break;
     case UnitState::DEATH:
         name = "death";
+        break;
+    case UnitState::DEATH2:
+        name = "death2";
         break;
     case UnitState::RECALL:
         name = "recall";

@@ -193,11 +193,11 @@ void TestScene::OnLoaded()
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
-
+	PlayerInfoPanel::GetInstance()->SetTarget((Champion*)unit);
 	
 
 	obj = PlayerInfoPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(obj, Layer::UI);
+	ObjectManager::GetInstance()->AddObject(obj, Layer::HUD);
 	
 
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);
@@ -231,11 +231,16 @@ void TestScene::OnLoaded()
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jax>(Layer::Unit);
 	unit->transform->position = { 29,68,28 };
 	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jinx>(Layer::Unit);
 	unit->transform->position = { 27,68,28 };
 	unit->SetTeam(Team::RED);
 	//unit->AddComponent<PlayerController>(L"PlayerController");
+	//Camera::GetInstance()->SetTarget(unit);
+	//unit->AddComponent<PlayerController>(L"PlayerController");
+
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
+	unit->transform->position = { 26,68,28 };
+	unit->SetTeam(Team::RED);
 
 	// 블루팀 타워
 

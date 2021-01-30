@@ -4,6 +4,7 @@
 class Label;
 class Champion;
 class Unit;
+class PlayerInfoPanel;
 
 enum class UnitID
 {
@@ -57,6 +58,8 @@ public:
 
     Network* net = nullptr;
     Vector3 spawnPos[10];
+
+    PlayerInfoPanel* playerInfo;
 
     map<INT,Unit*> unitMap;
     // 시간측정

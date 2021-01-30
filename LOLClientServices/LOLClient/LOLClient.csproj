@@ -202,5 +202,11 @@
   <ItemGroup>
     <None Include="Resources\summonermana.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jax_circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jax_square.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

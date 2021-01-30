@@ -207,6 +207,12 @@ void PKH::ObjectManager::Render()
 	{
 		iter->Render();
 	}
+
+	auto hudList = pObjectManager->objectTable[(int)Layer::HUD];
+	for (auto& iter : hudList)
+	{
+		iter->Render();
+	}
 	
 	// 디버그용
 	//TimeManager::RenderFPS();

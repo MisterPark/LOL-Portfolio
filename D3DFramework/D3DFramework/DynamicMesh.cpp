@@ -20,6 +20,12 @@ PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
 	, m_MeshContainerList(rhs.m_MeshContainerList)
 	, m_AnimKeys(rhs.m_AnimKeys)
 {
+	//CloneFrame((D3DXFRAME_DERIVED*)rhs.m_pRootFrame, &m_pRootFrame);
+	//Matrix		matTemp;// = Matrix::identity;
+	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
+	//UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
+
+	//SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)m_pRootFrame);
 	m_pAniCtrl = AnimationController::Create(*rhs.m_pAniCtrl);
 }
 
@@ -31,6 +37,10 @@ PKH::DynamicMesh::~DynamicMesh()
 	{
 		m_pLoader->DestroyFrame(m_pRootFrame);
 		Safe_Release(&m_pLoader);
+	}
+	else
+	{
+		//DeleteFrame(m_pRootFrame);
 	}
 	m_MeshContainerList.clear();
 }
@@ -123,6 +133,14 @@ void DynamicMesh::Render(void)
 {
 	if (gameObject == nullptr)return;
 	
+
+	if (stopFlag == true)
+	{
+		animSpeed = 0.f;
+	}
+	PlayAnimation(animSpeed);
+	animSpeed = 0.f;
+		
 	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
 	Matrix		matTemp = gameObject->transform->world;
@@ -160,7 +178,7 @@ void DynamicMesh::Render(void)
 
 		device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 		device->SetRenderState(D3DRS_LIGHTING, false);
-		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
 		{
@@ -268,6 +286,48 @@ void DynamicMesh::SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame)
 
 	if (nullptr != pFrame->pFrameFirstChild)
 		SetUpFrameMatrixPointer((D3DXFRAME_DERIVED*)pFrame->pFrameFirstChild);
+
+}
+
+void PKH::DynamicMesh::CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutCloneFrame)
+{
+	if (nullptr == pRoot) return;
+	if (ppOutCloneFrame == nullptr) return;
+
+	D3DXFRAME_DERIVED* frame = new D3DXFRAME_DERIVED;
+	frame->Name = pRoot->Name;
+	frame->TransformationMatrix = pRoot->TransformationMatrix;
+	frame->pMeshContainer = pRoot->pMeshContainer;
+	//frame->CombinedTransformationMatrix = pRoot->CombinedTransformationMatrix;
+	frame->pFrameSibling = nullptr;
+	frame->pFrameFirstChild = nullptr;
+	(*ppOutCloneFrame) = frame;
+
+
+	if (nullptr != pRoot->pFrameSibling)
+		CloneFrame((D3DXFRAME_DERIVED*)pRoot->pFrameSibling, &frame->pFrameSibling);
+
+	if (nullptr != pRoot->pFrameFirstChild)
+		CloneFrame((D3DXFRAME_DERIVED*)pRoot->pFrameFirstChild, &frame->pFrameFirstChild);
+
+}
+
+void PKH::DynamicMesh::DeleteFrame(D3DXFRAME* pRoot)
+{
+	if (nullptr == pRoot)
+		return;
+	
+	if (nullptr != pRoot->pFrameFirstChild)
+	{
+		DeleteFrame(pRoot->pFrameFirstChild);
+	}
+	
+	if (nullptr != pRoot->pFrameSibling)
+	{
+		DeleteFrame(pRoot->pFrameSibling);
+	}
+
+	delete pRoot;
 
 }
 

@@ -192,6 +192,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"dariusloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"dianaloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"garenloadscreen.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"jaxloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"jinxloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"leesinloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"leonaloadscreen.dds");
@@ -297,6 +298,91 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (3).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"amumu_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"amumu_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"blitzcrank_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"blitzcrank_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"darius_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"darius_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"diana_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"diana_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"garen_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"garen_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jax_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jax_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jinx_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jinx_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leesin_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leesin_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leona_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leona_square.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"missfortune_circle.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"missfortune_square.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\blitzcrank\\", L"blitzcrank_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\blitzcrank\\", L"blitzcrank_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\blitzcrank\\", L"blitzcrank_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\blitzcrank\\", L"blitzcrank_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\blitzcrank\\", L"blitzcrank_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\darius\\", L"darius_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\darius\\", L"darius_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\darius\\", L"darius_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\darius\\", L"darius_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\darius\\", L"darius_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\diana\\", L"diana_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\diana\\", L"diana_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\diana\\", L"diana_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\diana\\", L"diana_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\diana\\", L"diana_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_e1.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_e2.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\garen\\", L"garen_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jax\\", L"jax_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jax\\", L"jax_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jax\\", L"jax_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jax\\", L"jax_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jax\\", L"jax_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_q1.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_q2.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\jinx\\", L"jinx_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leesin\\", L"leesin_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leesin\\", L"leesin_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leesin\\", L"leesin_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leesin\\", L"leesin_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leesin\\", L"leesin_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leona\\", L"leona_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leona\\", L"leona_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leona\\", L"leona_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leona\\", L"leona_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\leona\\", L"leona_passive.dds");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_q.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_w.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_e.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_r.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_passive.dds");
 
 	// 인디케이터
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");

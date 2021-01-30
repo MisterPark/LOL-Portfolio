@@ -16,6 +16,8 @@ Unit::Unit()
 
 	attackIndicator = (Indicator*)ObjectManager::GetInstance()->CreateObject<Indicator>(Layer::Indicator);
 	attackIndicator->SetTarget(this);
+
+	SetAttackPerSec(0.625f);
 }
 
 Unit::~Unit()
@@ -227,19 +229,77 @@ void Unit::SetAttackTarget(Unit* _target)
 	attackTarget = _target;
 }
 
-void Unit::SetAttackSpeed(float _attackPerSec)
+void Unit::SetHP(float _max)
+{
+	maxHp = _max;
+	hp = _max;
+}
+
+void Unit::SetMP(float _max)
+{
+	maxMp = _max;
+	mp = _max;
+}
+
+void Unit::SetHPRegen(float _per5Sec)
+{
+	hpRegen = _per5Sec;
+}
+
+void Unit::SetMPRegen(float _per5Sec)
+{
+	mpRegen = _per5Sec;
+}
+
+void Unit::SetAttackDamage(float _damage)
+{
+	attackDamage = _damage;
+}
+
+void Unit::SetAttackPerSec(float _attackPerSec)
 {
 	attackPerSec = _attackPerSec;
 	anim->SetSpeed(UnitState::ATTACK1, _attackPerSec);
 	anim->SetSpeed(UnitState::ATTACK2, _attackPerSec);
 	anim->SetSpeed(UnitState::ATTACK3, _attackPerSec);
 	anim->SetSpeed(UnitState::ATTACK4, _attackPerSec);
+	anim->SetSpeed(UnitState::CRITICAL, _attackPerSec);
+}
+
+void Unit::SetAttackRange(float _range)
+{
+	attackRange = _range;
+}
+
+void Unit::SetAbilityPower(float _ap)
+{
+	abilityPower = _ap;
 }
 
 void Unit::SetMovementSpeed(float _speed)
 {
 	movementSpeed = _speed;
 	agent->SetSpeed(_speed);
+}
+
+void Unit::SetArmor(float _armor)
+{
+	armor = _armor;
+}
+
+void Unit::SetMagicResistance(float _magicResist)
+{
+	magicResistance = _magicResist;
+}
+
+void Unit::SetCriticalPer(float _percent)
+{
+	criticalPer = _percent;
+}
+
+void Unit::SetCooldownReduction(float _cdr)
+{
+	cooldownReduction = _cdr;
 }
 
 void Unit::TakeDamage(float _damage)
@@ -266,7 +326,67 @@ INT Unit::GetID()
 	return unitID;
 }
 
+float Unit::GetHP()
+{
+	return hp;
+}
+
+float Unit::GetMP()
+{
+	return mp;
+}
+
+float Unit::GetMaxHP()
+{
+	return maxHp;
+}
+
+float Unit::GetMaxMP()
+{
+	return maxMp;
+}
+
+float Unit::GetAttackDamage()
+{
+	return attackDamage;
+}
+
 float Unit::GetAttackRange()
 {
 	return attackRange;
+}
+
+float Unit::GetAbilityPower()
+{
+	return abilityPower;
+}
+
+float Unit::GetAttackPerSec()
+{
+	return attackPerSec;
+}
+
+float Unit::GetMovementSpeed()
+{
+	return movementSpeed;
+}
+
+float Unit::GetArmor()
+{
+	return armor;
+}
+
+float Unit::GetMagicResistance()
+{
+	return magicResistance;
+}
+
+float Unit::GetCriticalPer()
+{
+	return criticalPer;
+}
+
+float Unit::GetCooldownReduction()
+{
+	return cooldownReduction;
 }

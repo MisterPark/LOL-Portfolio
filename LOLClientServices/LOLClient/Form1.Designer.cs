@@ -52,7 +52,7 @@
             this.button_spell1 = new System.Windows.Forms.PictureBox();
             this.button_Ready = new System.Windows.Forms.PictureBox();
             this.button_jinx = new System.Windows.Forms.PictureBox();
-            this.button_amumu = new System.Windows.Forms.PictureBox();
+            this.button_jax = new System.Windows.Forms.PictureBox();
             this.button_ahri = new System.Windows.Forms.PictureBox();
             this.button_blitzcrank = new System.Windows.Forms.PictureBox();
             this.button_missfortune = new System.Windows.Forms.PictureBox();
@@ -84,7 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.button_spell1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_Ready)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_jinx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button_amumu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button_jax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_ahri)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_blitzcrank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_missfortune)).BeginInit();
@@ -224,7 +224,7 @@
             this.panel2.Controls.Add(this.button_spell1);
             this.panel2.Controls.Add(this.button_Ready);
             this.panel2.Controls.Add(this.button_jinx);
-            this.panel2.Controls.Add(this.button_amumu);
+            this.panel2.Controls.Add(this.button_jax);
             this.panel2.Controls.Add(this.button_ahri);
             this.panel2.Controls.Add(this.button_blitzcrank);
             this.panel2.Controls.Add(this.button_missfortune);
@@ -404,16 +404,16 @@
             this.button_jinx.TabStop = false;
             this.button_jinx.Click += new System.EventHandler(this.button_garen_Click);
             // 
-            // button_amumu
+            // button_jax
             // 
-            this.button_amumu.Image = global::LOLClient.Properties.Resources.amumu_square_0;
-            this.button_amumu.Location = new System.Drawing.Point(719, 239);
-            this.button_amumu.Name = "button_amumu";
-            this.button_amumu.Size = new System.Drawing.Size(60, 60);
-            this.button_amumu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.button_amumu.TabIndex = 19;
-            this.button_amumu.TabStop = false;
-            this.button_amumu.Click += new System.EventHandler(this.button_garen_Click);
+            this.button_jax.Image = global::LOLClient.Properties.Resources.jax_square;
+            this.button_jax.Location = new System.Drawing.Point(719, 239);
+            this.button_jax.Name = "button_jax";
+            this.button_jax.Size = new System.Drawing.Size(60, 60);
+            this.button_jax.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.button_jax.TabIndex = 19;
+            this.button_jax.TabStop = false;
+            this.button_jax.Click += new System.EventHandler(this.button_garen_Click);
             // 
             // button_ahri
             // 
@@ -649,7 +649,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.button_spell1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_Ready)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_jinx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button_amumu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button_jax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_ahri)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_blitzcrank)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button_missfortune)).EndInit();
@@ -696,7 +696,7 @@
         private System.Windows.Forms.PictureBox face2;
         private System.Windows.Forms.PictureBox face1;
         private System.Windows.Forms.PictureBox button_jinx;
-        private System.Windows.Forms.PictureBox button_amumu;
+        private System.Windows.Forms.PictureBox button_jax;
         private System.Windows.Forms.PictureBox button_ahri;
         private System.Windows.Forms.PictureBox button_blitzcrank;
         private System.Windows.Forms.PictureBox button_missfortune;
