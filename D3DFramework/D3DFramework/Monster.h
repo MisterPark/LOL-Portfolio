@@ -13,6 +13,7 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
+    virtual void OnCollisionEnter(Collider* target);
 
 public:
     MinionFloatingBar* bar = nullptr;

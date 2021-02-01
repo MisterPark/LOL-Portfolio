@@ -103,6 +103,8 @@ public:
 	void ResMove(Client* pClient, int gameID, list<Vector3>& path);
 	void ReqAttack(Client* pClient, CPacket* pPacket);
 	void ResAttack(Client* pClient, int unitID, int targetID);
+	void ReqDamage(Client* pClient, CPacket* pPacket);
+	void ResDamage(Client* pClient, int unitID, int targetID, float damage);
 
 public:
 	void Monitor();

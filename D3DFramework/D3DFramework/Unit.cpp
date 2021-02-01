@@ -5,8 +5,12 @@
 #include "Animation.h"
 #include "Indicator.h"
 
+list<Unit*> unitList;
+
 Unit::Unit()
 {
+	unitList.push_back(this);
+
 	anim = (Animation*)AddComponent<Animation>(L"Animation");
 	collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
 	collider->SetRadius(0.5f);
@@ -22,6 +26,8 @@ Unit::Unit()
 
 Unit::~Unit()
 {
+	unitList.remove(this);
+
 	anim = nullptr;
 	agent = nullptr;
 	attackIndicator = nullptr;
@@ -40,6 +46,7 @@ void Unit::Update()
 	state = UnitState::IDLE1;
 
 	UpdateState();
+	UpdateLastAttacker();
 
 	GameObject::Update();
 
@@ -87,6 +94,7 @@ void Unit::UpdateState()
 		float dist = direction.Length();
 		if (dist <= attackRange) // 공격 거리 이내
 		{
+			agent->Stop();
 			LookRotation(direction.Normalized());
 			state = attackState;
 
@@ -95,27 +103,40 @@ void Unit::UpdateState()
 			if (attackTick > attackDelay)
 			{
 				attackTick = 0.f;
-				canAttack = true;
+				isDamaged = false;
 			}
-			float damageDelay = attackDelay * 0.1f;
+			float damageDelay = attackDelay * 0.2f;
 			if (attackTick > damageDelay)
 			{
 				if (isDamaged == false)
 				{
 					isDamaged = true;
-					attackTarget->TakeDamage(attackDamage);
+					Network* net = Network::GetInstance();
+					
+					if (net->isMultiGame)
+					{
+						if (net->number == unitID)
+						{
+							ReqDamage(unitID, attackTarget->GetID(), attackDamage);
+						}
+						else if (unitID > 9 && net->number == 0)
+						{
+							ReqDamage(unitID, attackTarget->GetID(), attackDamage);
+						}
+					}
+					else
+					{
+						attackTarget->SetLastAttacker(this);
+						attackTarget->TakeDamage(attackDamage);
+					}
 				}
 			}
 			
-
-			if (canAttack == false) return;
-
-
-			canAttack = false;
-			isDamaged = false;
 		}
 		else
 		{
+			attackTick = 0.f;
+			isDamaged = false;
 			chaseTick += dt;
 			if (chaseTick > chaseDelay)
 			{
@@ -128,9 +149,20 @@ void Unit::UpdateState()
 	}
 	else
 	{
+		attackTick = 0.f;
 		isDamaged = false;
 	}
 	
+}
+
+void Unit::UpdateLastAttacker()
+{
+	lastAttackTick += TimeManager::DeltaTime();
+	if (lastAttackTick > lastAttackDuration)
+	{
+		lastAttackTick = 0.f;
+		lastAttacker = nullptr;
+	}
 }
 
 void Unit::LookRotation(Vector3 _direction)
@@ -302,6 +334,12 @@ void Unit::SetCooldownReduction(float _cdr)
 	cooldownReduction = _cdr;
 }
 
+void Unit::SetLastAttacker(Unit* _attacker)
+{
+	lastAttacker = _attacker;
+	lastAttackTick = 0.f;
+}
+
 void Unit::TakeDamage(float _damage)
 {
 	hp -= _damage;
@@ -389,4 +427,43 @@ float Unit::GetCriticalPer()
 float Unit::GetCooldownReduction()
 {
 	return cooldownReduction;
+}
+
+Unit* Unit::GetLastAttacker()
+{
+	return lastAttacker;
+}
+
+Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
+{
+	Unit* target = nullptr;
+	float targetDist = radius;
+
+	for (Unit* iter : unitList)
+	{
+		if (team != iter->team)
+		{
+			Vector3 to = iter->transform->position - point;
+			float dist = to.Length();
+			if (dist < targetDist)
+			{
+				target = iter;
+				targetDist = dist;
+			}
+		}
+	}
+
+	return target;
+}
+
+void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
+{
+	CPacket* pack = new CPacket();
+	pack->Clear();
+
+	*pack << (WORD)GAME_REQ_DAMAGE << _attackerID << _targetID << _damage;
+
+	Network::SendPacket(pack);
+	delete pack;
+	Debug::PrintLine("[Debug] ReqDamage 요청 / 공격자ID : %d / 타겟ID : %d", _attackerID, _targetID);
 }

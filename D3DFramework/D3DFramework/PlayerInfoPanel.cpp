@@ -182,26 +182,26 @@ void PlayerInfoPanel::Release()
 
 void PlayerInfoPanel::Update()
 {
-    if (InputManager::GetKeyDown(VK_UP))
-    {
-        barTipOffset1.y -= 1;
-        printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
-    }
-    if (InputManager::GetKeyDown(VK_DOWN))
-    {
-        barTipOffset1.y += 1;
-        printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
-    }
-    if (InputManager::GetKeyDown(VK_LEFT))
-    {
-        barTipOffset1.x -= 1;
-        printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
-    }
-    if (InputManager::GetKeyDown(VK_RIGHT))
-    {
-        barTipOffset1.x += 1;
-        printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
-    }
+    //if (InputManager::GetKeyDown(VK_UP))
+    //{
+    //    barTipOffset1.y -= 1;
+    //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
+    //}
+    //if (InputManager::GetKeyDown(VK_DOWN))
+    //{
+    //    barTipOffset1.y += 1;
+    //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
+    //}
+    //if (InputManager::GetKeyDown(VK_LEFT))
+    //{
+    //    barTipOffset1.x -= 1;
+    //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
+    //}
+    //if (InputManager::GetKeyDown(VK_RIGHT))
+    //{
+    //    barTipOffset1.x += 1;
+    //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
+    //}
 
     GameObject::Update();
     mainPanel->Update();
@@ -234,9 +234,9 @@ void PlayerInfoPanel::Render()
 
     GameObject::Render();
     RenderStat();
+    miniPanel->Render();
     
     mainPanel->Render();
-    miniPanel->Render();
     invenPanel->Render();
     
 
@@ -323,6 +323,10 @@ void PlayerInfoPanel::RenderStat()
         statLabel[i]->transform->position = labelPos[i];
         statLabel[i]->Render();
     }
+}
+
+void PlayerInfoPanel::RenderMini()
+{
 }
 
 void PlayerInfoPanel::RenderBar()

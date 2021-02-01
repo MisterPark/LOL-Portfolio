@@ -230,6 +230,7 @@
     <ClInclude Include="MinionFloatingBar.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterAI.h" />
     <ClInclude Include="Murkwolf.h" />
     <ClInclude Include="MurkwolfMini.h" />
     <ClInclude Include="NavMesh.h" />
@@ -374,6 +375,7 @@
     <ClCompile Include="MinionFloatingBar.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterAI.cpp" />
     <ClCompile Include="Murkwolf.cpp" />
     <ClCompile Include="MurkwolfMini.cpp" />
     <ClCompile Include="NavMesh.cpp" />

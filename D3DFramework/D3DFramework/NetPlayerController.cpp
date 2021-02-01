@@ -79,10 +79,7 @@ void NetPlayerController::Update()
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
-        if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
-        {
-
-        }
+        
         RaycastHit info;
         int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
         if (Physics::Raycast(ray, &info, INFINITY, unitMask))
@@ -90,13 +87,24 @@ void NetPlayerController::Update()
             if (targetMode)
             {
                 Unit* target = (Unit*)info.collider->gameObject;
-                //if (target->team != unit->team && !target->IsDead())
-                //{
-                //    ReqAttack(target);
-                //}
-                if (!target->IsDead())
+                if (target->team != unit->team && !target->IsDead())
                 {
                     ReqAttack(target);
+                }
+            }
+        }
+        else if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
+        {
+            if (targetMode)
+            {
+                Unit* target = unit->GetNearestEnemy(hit.point, 5.f);
+                if (target != nullptr)
+                {
+                    ReqAttack(target);
+                }
+                else
+                {
+                    ReqMove(hit.point, true);
                 }
             }
         }

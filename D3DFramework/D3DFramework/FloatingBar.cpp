@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FloatingBar.h"
+#include "Label.h"
 
 FloatingBar::FloatingBar()
 {
@@ -26,11 +27,14 @@ FloatingBar::FloatingBar()
 	//SetSize(1000, 100);
 	//mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 
-	
+	nicknameLabel = new Label();
+	nicknameLabel->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
+	nicknameLabel->align = Label::Align::Center;
 }
 
 FloatingBar::~FloatingBar()
 {
+	Safe_Delete(&nicknameLabel);
 	target = nullptr;
 }
 
@@ -54,8 +58,10 @@ void FloatingBar::Update()
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);
 		transform->position = worldPos;
+		nicknameLabel->transform->position = worldPos + Vector3(0, -35, 0);
 	}
 	
+	nicknameLabel->Update();
 	//UI::Update();
 	GameObject::Update();
 
@@ -88,7 +94,7 @@ void FloatingBar::Render()
 		RenderManager::DrawUIHorizontal(textureKeyMP, transform->position + offsetMP, scaleMP, 0, ratioMP);
 
 	}
-	
+	nicknameLabel->Render();
 }
 
 void FloatingBar::SetTarget(Unit* target)
@@ -109,4 +115,9 @@ void FloatingBar::SetTextureHP(const wstring& _textureKey)
 void FloatingBar::SetTextureMP(const wstring& _textureKey)
 {
 	textureKeyMP = _textureKey;
+}
+
+void FloatingBar::SetNickname(const wstring& _nick)
+{
+	nicknameLabel->text = _nick;
 }

@@ -239,6 +239,8 @@ void LoadingScene::ReqEnterGame()
 
 void LoadingScene::ResEnterGame(CPacket* pack)
 {
+	net->isMultiGame = true;
+
 	int userCount;
 	WCHAR nick[20] = {};
 	int number;
@@ -272,6 +274,7 @@ void LoadingScene::ResEnterGame(CPacket* pack)
 		net->users[number].champ = champ;
 		net->users[number].spell1 = spell1;
 		net->users[number].spell2 = spell2;
+		net->users[number].nickname = nick;
 	}
 
 	LoadResources();

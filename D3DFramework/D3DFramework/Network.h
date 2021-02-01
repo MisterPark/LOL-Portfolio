@@ -7,6 +7,7 @@ struct NetUser
 	BYTE spell1 = 0;
 	BYTE spell2 = 0;
 	bool isMine = false;
+	wstring nickname;
 };
 
 class Network
@@ -53,6 +54,7 @@ public:
 	queue<CPacket*> packQ;
 public:
 	bool isConnected = false;
+	bool isMultiGame = false;
 	wstring nick;
 	INT number = -1;
 	map<INT, NetUser> users;

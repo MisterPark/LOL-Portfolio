@@ -86,11 +86,7 @@ void PlayerController::Update()
         Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
-        if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
-        {
-            printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
-
-        }
+        
         RaycastHit info;
         int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
         if (Physics::Raycast(ray, &info, INFINITY, unitMask))
@@ -103,6 +99,24 @@ void PlayerController::Update()
                     unit->Attack(target);
                 }
                    
+            }
+        }
+        else if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
+        {
+            printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
+            if (targetMode)
+            {
+                Unit* target = unit->GetNearestEnemy(hit.point, 5.f);
+                if (target != nullptr)
+                {
+                    unit->Attack(target);
+                }
+                else
+                {
+                    unit->SetAttackTarget(nullptr);
+                    agent->SetStoppingDistance(0.05f);
+                    unit->SetDestination(hit.point);
+                }
             }
         }
 

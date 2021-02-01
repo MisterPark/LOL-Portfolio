@@ -49,6 +49,8 @@
 #include "RazorbeakMini.h"
 #include "Scuttleracer.h"
 
+#include "MonsterAI.h"
+
 void TestScene::OnLoaded()
 {
 	Cursor::Show();
@@ -60,7 +62,7 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	testLabel = (Label*)ObjectManager::GetInstance()->CreateObject<Label>(Layer::UI);
-	testLabel->text = L"123123";
+	testLabel->text = L"123123\n123123";
 	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
 
 	GameObject* obj = nullptr;
@@ -124,7 +126,7 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	obj->transform->position = { -26.43,67.71,6.83 };
 	// 늑대 위
-	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>();
+	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	obj->transform->position = { 19.74,67.71,9.78 };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { 19.17,67.71,10.84 };
@@ -194,6 +196,8 @@ void TestScene::OnLoaded()
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	PlayerInfoPanel::GetInstance()->SetTarget((Champion*)unit);
+	Champion* champ = (Champion*)unit;
+	champ->bar->SetNickname(L"테스트닉네임");
 	
 
 	obj = PlayerInfoPanel::GetInstance();

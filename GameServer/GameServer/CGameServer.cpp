@@ -233,6 +233,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	case GAME_REQ_ATTACK:
 		ReqAttack(pClient, pPacket);
 		break;
+	case GAME_REQ_DAMAGE:
+		ReqDamage(pClient, pPacket);
+		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
@@ -702,6 +705,26 @@ void CGameServer::ResAttack(Client* pClient, int unitID, int targetID)
 	printf("[INFO] 공격요청 응답 / 공격자 : %d / 타겟 : %d\n", unitID, targetID);
 	CPacket* pack = PacketPool::Alloc();
 	*pack << (WORD)GAME_RES_ATTACK << unitID << targetID;
+
+	SendUnicast(pClient->sessionID, pack);
+}
+
+void CGameServer::ReqDamage(Client* pClient, CPacket* pPacket)
+{
+	INT unitID, targetID;
+	FLOAT damage;
+	*pPacket >> unitID >> targetID >> damage;
+	GameRoom* room = gameroomMap[pClient->roomNum];
+	for (auto iter : room->users)
+	{
+		ResDamage(iter.second, unitID, targetID, damage);
+	}
+}
+
+void CGameServer::ResDamage(Client* pClient, int unitID, int targetID, float damage)
+{
+	CPacket* pack = PacketPool::Alloc();
+	*pack << (WORD)GAME_RES_DAMAGE << unitID << targetID << damage;
 
 	SendUnicast(pClient->sessionID, pack);
 }

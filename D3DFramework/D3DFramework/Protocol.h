@@ -205,4 +205,23 @@ enum PROTOCOL
 	//	INT		targetNO
 	//---------------------------------
 	GAME_RES_ATTACK,
+
+	//---------------------------------
+	// 데미지 요청 (게임서버 <- 클라이언트)
+	//
+	//	WORD	type
+	//	INT		unitNO
+	//	INT		targetNO
+	//	FLAOT	damage
+	//---------------------------------
+	GAME_REQ_DAMAGE,
+	//---------------------------------
+	// 데미지 응답 (게임서버 -> 클라이언트)
+	//
+	//	WORD	type
+	//	INT		unitNO
+	//	INT		targetNO
+	//	FLAOT	damage
+	//---------------------------------
+	GAME_RES_DAMAGE,
 };

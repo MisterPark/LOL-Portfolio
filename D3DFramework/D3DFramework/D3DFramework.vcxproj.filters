@@ -199,6 +199,9 @@
     <Filter Include="GameObject\UI\Indicator">
       <UniqueIdentifier>{dadaa94b-4908-473f-83c3-eed52a69677d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\AI">
+      <UniqueIdentifier>{c39372a4-bac1-4d9d-93e8-d1dae29cd1c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -626,6 +629,7 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Indicator.h" />
+    <ClInclude Include="MonsterAI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1124,6 +1128,7 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Indicator.cpp" />
+    <ClCompile Include="MonsterAI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

@@ -4,6 +4,8 @@
 
 using namespace PKH;
 
+class Label;
+
 class FloatingBar : public GameObject
 {
 public:
@@ -19,6 +21,7 @@ public:
     void SetTexture(const wstring& _textureKey);
     void SetTextureHP(const wstring& _textureKey);
     void SetTextureMP(const wstring& _textureKey);
+    void SetNickname(const wstring& _nick);
 
 protected:
     Unit* target = nullptr;
@@ -33,6 +36,8 @@ protected:
     wstring textureKeyMP;
     Vector3 offsetMP;
     Vector3 scaleMP;
+
+    Label* nicknameLabel = nullptr;
     //PKH::Rectangle* mesh = nullptr;
 
     //bool isHover = false;

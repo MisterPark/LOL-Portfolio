@@ -203,7 +203,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 			256);
 
 		lstrcat(szFullPath, szFileName);
-
+		
 		HRESULT res = E_FAIL;
 		RenderManager::LockDevice();
 		res = D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i]);

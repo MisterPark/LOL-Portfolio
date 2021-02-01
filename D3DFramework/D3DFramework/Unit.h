@@ -51,6 +51,7 @@ public:
 
 
 	void UpdateState();
+	void UpdateLastAttacker();
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -82,6 +83,8 @@ public:
 	void SetCriticalPer(float _percent);
 	void SetCooldownReduction(float _cdr);
 
+	void SetLastAttacker(Unit* _attacker);
+
 	void TakeDamage(float _damage);
 	void SetID(INT _id);
 
@@ -101,6 +104,14 @@ public:
 	float GetCriticalPer();
 	float GetCooldownReduction();
 
+	Unit* GetLastAttacker();
+	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
+
+	// 멀티
+	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
+
+	
+
 public:
 	UnitState state = UnitState::IDLE1;
 	Team team = Team::NEUTRAL;
@@ -117,12 +128,16 @@ protected:
 	float attackTick = 0.f;
 	float attackPerSec = 0.625f;
 	UnitState attackState = UnitState::ATTACK1;
-	bool canAttack = false;
+
+	// 마지막으로 나를 공격한 유닛
+	Unit* lastAttacker = nullptr;
+	float lastAttackTick = 0.f;
+	float lastAttackDuration = 5.f;
 
 	bool isDamaged = false;
 	// 추격 관련
 	float chaseTick = 0.f;
-	float chaseDelay = 0.1f;
+	float chaseDelay = 0.3f;
 
 	// 사망 관련
 	bool isDead = false;

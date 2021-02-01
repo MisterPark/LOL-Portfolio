@@ -32,6 +32,35 @@ enum class UnitID
     TurretRedTop3,
     TurretRedTwin1,
     TurretRedTwin2,
+
+    Red1,
+    Red2,
+    Blue1,
+    Blue2,
+    Murkwolf1,
+    Murkwolf_Mini1,
+    Murkwolf_Mini2,
+    Murkwolf2,
+    Murkwolf_Mini3,
+    Murkwolf_Mini4,
+    Gromp1,
+    Gromp2,
+    Razorbeak1,
+    Razorbeak_Mini1,
+    Razorbeak_Mini2,
+    Razorbeak_Mini3,
+    Razorbeak_Mini4,
+    Razorbeak_Mini5,
+    Razorbeak2,
+    Razorbeak_Mini6,
+    Razorbeak_Mini7,
+    Razorbeak_Mini8,
+    Razorbeak_Mini9,
+    Razorbeak_Mini10,
+    Krug1,
+    Krug2,
+    Scuttleracer1,
+    Scuttleracer2,
 };
 
 class GameScene :
@@ -51,10 +80,12 @@ public:
     void ResTime(CPacket* pack);
     void ResMove(CPacket* pack);
     void ResAttack(CPacket* pack);
+    void ResDamage(CPacket* pack);
 
     void CreateEnvironment();
     void CreateChampion();
     void CreateBuilding();
+    void CreateMonster();
 
     Network* net = nullptr;
     Vector3 spawnPos[10];

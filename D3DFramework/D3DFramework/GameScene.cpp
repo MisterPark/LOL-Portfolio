@@ -86,7 +86,7 @@ void GameScene::OnLoaded()
 	CreateEnvironment();
 	CreateChampion();
 	CreateBuilding();
-	
+	CreateMonster();
 }
 
 void GameScene::OnUnloaded()
@@ -122,6 +122,9 @@ void GameScene::PacketProc(CPacket* pPacket)
 		break;
 	case GAME_RES_ATTACK:
 		ResAttack(pPacket);
+		break;
+	case GAME_RES_DAMAGE:
+		ResDamage(pPacket);
 		break;
 	default:
 		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
@@ -215,6 +218,29 @@ void GameScene::ResAttack(CPacket* pack)
 	Debug::PrintLine("공격 실행");
 	unitMap[unitID]->Attack(find2->second);
 
+}
+
+void GameScene::ResDamage(CPacket* pack)
+{
+	INT unitID, targetID;
+	FLOAT damage;
+	*pack >> unitID >> targetID >> damage;
+	Debug::PrintLine("데미지 패킷 받음 / 공격자 %d / 타겟 %d", unitID, targetID);
+
+	auto find = unitMap.find(unitID);
+	if (find == unitMap.end())
+	{
+		Debug::PrintLine("공격자가 없음");
+		return;
+	}
+	auto find2 = unitMap.find(targetID);
+	if (find2 == unitMap.end())
+	{
+		Debug::PrintLine("타겟이 없음");
+		return;
+	}
+	unitMap[targetID]->SetLastAttacker(unitMap[unitID]);
+	unitMap[targetID]->TakeDamage(damage);
 }
 
 //============================================================================================
@@ -336,6 +362,7 @@ void GameScene::CreateChampion()
 			}
 
 			unitMap[userNum]->transform->position = spawnPos[userNum];
+			champion->bar->SetNickname(iter.second.nickname);
 		}
 	}
 }
@@ -533,6 +560,170 @@ void GameScene::CreateBuilding()
 	unit->transform->position = { -37.14f,68.f,-33.51f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+}
+
+void GameScene::CreateMonster()
+{
+	Unit* unit = nullptr;
+	int unitID = (int)UnitID::Red1;
+	// 몬스터
+
+	// 레드
+	unit = (Unit*)(Unit*)ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
+	unit->transform->position = { -6.10,67.71,24.87 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
+	unit->transform->position = { -1.88,67.71,-17.87 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// 블루
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
+	unit->transform->position = { 19.79,67.72,0.64 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
+	unit->transform->position = { -26.43,67.71,6.83 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// 늑대 위
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
+	unit->transform->position = { 19.74,67.71,9.78 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
+	unit->transform->position = { 19.17,67.71,10.84 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
+	unit->transform->position = { 21.08,67.71,9.00 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// 늑대 아래
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
+	unit->transform->position = { -26.72,67.72,-2.72 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
+	unit->transform->position = { -26.23,67.71,-3.57 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
+	unit->transform->position = { -27.73,67.71,-2.44 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	// 두꺼비
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
+	unit->transform->position = { 29.28,67.73,-2.82 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
+	unit->transform->position = { -36.59,67.71,10.14 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// 쨱쨱이 위
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
+	unit->transform->position = { -0.75,67.71,16.17 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -1.32,67.71,15.52 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -1.69,67.71,16.20 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -1.71,67.71,17.11 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -0.98,67.71,17.65 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { 0.08,67.71,17.21 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// 짹짹이 아래
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
+	unit->transform->position = { -6.43,67.71,-10.09 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -5.53,67.71,-9.14 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -5.56,67.71,-10.09 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -5.91,67.71,-11.04 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -6.81,67.71,-10.93 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
+	unit->transform->position = { -7.31,67.71,-10.48 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+
+	// 작골
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
+	unit->transform->position = { -10.05,67.71,33.49 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
+	unit->transform->position = { 3.13,67.71,-26.61 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// 바위게
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
+	unit->transform->position = { 15.68,66.91,-11.16 };
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
+	unit->transform->position = { -24.36,66.91,17.82 };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;

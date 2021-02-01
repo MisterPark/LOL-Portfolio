@@ -23,6 +23,7 @@ public:
 	virtual void Render() override;
 
 	void RenderStat();
+	void RenderMini();
 	void RenderBar();
 
 	void SetTarget(Champion* _target);
@@ -31,7 +32,7 @@ public:
 
 	int screenW = 1280;
 	int screenH = 720;
-
+private:
 	Vector3 faceBorderPos;
 	Vector3 mainPanelPos;
 	Vector3 miniPanelPos;
