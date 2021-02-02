@@ -239,6 +239,7 @@
     <ClInclude Include="NavNode.h" />
     <ClInclude Include="NavNodeManager.h" />
     <ClInclude Include="NetPlayerController.h" />
+    <ClInclude Include="Nexus.h" />
     <ClInclude Include="Optimization.h" />
     <ClInclude Include="OrderMinionCaster.h" />
     <ClInclude Include="OrderMinionMelee.h" />
@@ -384,6 +385,7 @@
     <ClCompile Include="NavNode.cpp" />
     <ClCompile Include="NavNodeManager.cpp" />
     <ClCompile Include="NetPlayerController.cpp" />
+    <ClCompile Include="Nexus.cpp" />
     <ClCompile Include="Optimization.cpp" />
     <ClCompile Include="OrderMinionCaster.cpp" />
     <ClCompile Include="OrderMinionMelee.cpp" />

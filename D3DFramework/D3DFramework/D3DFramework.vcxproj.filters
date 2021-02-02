@@ -630,6 +630,7 @@
     </ClInclude>
     <ClInclude Include="Indicator.h" />
     <ClInclude Include="MonsterAI.h" />
+    <ClInclude Include="Nexus.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1129,6 +1130,7 @@
     </ClCompile>
     <ClCompile Include="Indicator.cpp" />
     <ClCompile Include="MonsterAI.cpp" />
+    <ClCompile Include="Nexus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

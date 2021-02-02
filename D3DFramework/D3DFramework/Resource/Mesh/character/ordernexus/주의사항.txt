@@ -1,0 +1,5 @@
+idle이 매쉬가 준내 이상함
+한번 띄워보고 답없다싶으면
+
+Static Mesh로
+sruap_ordernexus.x 이거를 띄우셈

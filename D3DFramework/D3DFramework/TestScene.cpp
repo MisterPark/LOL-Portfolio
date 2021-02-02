@@ -51,6 +51,8 @@
 
 #include "MonsterAI.h"
 
+#include "Nexus.h"
+
 void TestScene::OnLoaded()
 {
 	Cursor::Show();
@@ -308,6 +310,12 @@ void TestScene::OnLoaded()
 	unit->transform->position = { 29.46f, 68.f, 39.3f };
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
+
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Nexus>(Layer::Building);
+	unit->transform->position = { 33.90f,68.04f,39.89f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::RED);
+	
 
 	// ÆÛÇÃÆÀ
 
