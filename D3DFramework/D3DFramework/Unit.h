@@ -48,14 +48,17 @@ public:
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
+	virtual void Render() override;
 
 
-	void UpdateState();
+	virtual void UpdateState();
 	void UpdateLastAttacker();
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
 	void Move(Vector3 _target);
+	virtual void Chase(Vector3 _target);
+
 	virtual void Attack(Unit* _target);
 	virtual void Spell1();
 	virtual void Spell2();
@@ -66,8 +69,12 @@ public:
 
 	void PushedOut(Unit* other);
 
+	void SetState(UnitState _state);
+	UnitState GetState();
+
 	virtual void SetTeam(Team _team);
 	void SetAttackTarget(Unit* _target);
+	Unit* GetAttackTarget();
 
 	void SetHP(float _max);
 	void SetMP(float _max);
@@ -108,12 +115,14 @@ public:
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
 
 	// 멀티
+	void ReqMove(Vector3 _dest, bool _noSearch = false);
+	void ReqAttack(Unit* _target);
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
 
 	
-
 public:
-	UnitState state = UnitState::IDLE1;
+	static list<Unit*> unitList;
+public:
 	Team team = Team::NEUTRAL;
 	Animation* anim = nullptr;
 	NavMeshAgent* agent = nullptr;
@@ -121,6 +130,8 @@ public:
 	Indicator* attackIndicator = nullptr;
 
 protected:
+	UnitState state = UnitState::IDLE1;
+	
 	// 기본공격 관련
 	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
@@ -149,7 +160,7 @@ public:
 	float abilityPower = 0.f;
 	float armor = 1;
 	float magicResistance = 1.f;
-	float movementSpeed = 5.f;
+	float movementSpeed = 3.5f;
 	float criticalPer = 0.f;
 	float cooldownReduction = 0.f;
 

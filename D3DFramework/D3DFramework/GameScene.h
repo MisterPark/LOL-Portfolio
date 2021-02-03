@@ -61,6 +61,7 @@ enum class UnitID
     Krug2,
     Scuttleracer1,
     Scuttleracer2,
+    END
 };
 
 class GameScene :
@@ -82,10 +83,19 @@ public:
     void ResAttack(CPacket* pack);
     void ResDamage(CPacket* pack);
 
+    void ReqCreateMinionCaster();
+    void ResCreateMinionCaster(CPacket* pack);
+
     void CreateEnvironment();
     void CreateChampion();
     void CreateBuilding();
     void CreateMonster();
+
+    void CreateMinionCaster();
+    void CreateMinionMelee();
+    void CreateMinionSiege();
+    void CreateMinionSuper();
+    
 
     Network* net = nullptr;
     Vector3 spawnPos[10];

@@ -347,11 +347,15 @@ void CNetwork::RecvProc(Session* pSession)
 		if (!pack.Decryption(header))
 		{
 			printf("[Warning] Decyption Failed\n");
-			Disconnect(pSession);
+			//Disconnect(pSession);
 			break;
 		}
-		recvTPS++;
-		OnRecv(pSession->sessionID, &pack);
+		else
+		{
+			recvTPS++;
+			OnRecv(pSession->sessionID, &pack);
+		}
+		
 		
 		
 	}

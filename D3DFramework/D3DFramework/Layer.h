@@ -10,6 +10,7 @@ enum class Layer
 	Indicator,
 	Unit,
 	Building,
+	Effect,
 	UI,
 	HUD,
 	END

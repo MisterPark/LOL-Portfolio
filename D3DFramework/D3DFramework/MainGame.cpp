@@ -81,8 +81,8 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//SkillManager::GetInstance();
 
 	// 씬로드
-	SceneManager::LoadScene<TestLoadingScene>();
-	//SceneManager::LoadScene<LoadingScene>();
+	//SceneManager::LoadScene<TestLoadingScene>();
+	SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
 }
 
@@ -386,4 +386,9 @@ void PKH::MainGame::LoadUISprite()
 
 	// 인디케이터
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
+
+	// 터렛
+	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
+	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
+
 }										

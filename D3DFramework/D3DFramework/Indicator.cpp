@@ -30,6 +30,7 @@ void Indicator::Release()
 
 void Indicator::Update()
 {
+
 	if (target != nullptr)
 	{
 		transform->position = target->transform->position;

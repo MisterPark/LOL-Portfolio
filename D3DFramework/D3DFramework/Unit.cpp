@@ -2,10 +2,9 @@
 #include "Unit.h"
 #include "SphereCollider.h"
 #include "NavMeshAgent.h"
-#include "Animation.h"
 #include "Indicator.h"
 
-list<Unit*> unitList;
+list<Unit*> Unit::unitList;
 
 Unit::Unit()
 {
@@ -19,6 +18,7 @@ Unit::Unit()
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
 
 	attackIndicator = (Indicator*)ObjectManager::GetInstance()->CreateObject<Indicator>(Layer::Indicator);
+	//attackIndicator = new Indicator;
 	attackIndicator->SetTarget(this);
 
 	SetAttackPerSec(0.625f);
@@ -30,6 +30,10 @@ Unit::~Unit()
 
 	anim = nullptr;
 	agent = nullptr;
+
+	//attackIndicator->SetTarget(nullptr);
+	//attackIndicator->Destroy();
+	//delete attackIndicator;
 	attackIndicator = nullptr;
 }
 
@@ -50,6 +54,14 @@ void Unit::Update()
 
 	GameObject::Update();
 
+	attackIndicator->Update();
+}
+
+void Unit::Render()
+{
+	attackIndicator->Render();
+	GameObject::Render();
+
 }
 
 
@@ -59,10 +71,10 @@ void Unit::UpdateState()
 	
 	if (isDead)
 	{
-		state = UnitState::DEATH;
+		SetState(UnitState::DEATH);
 		attackTarget = nullptr;
 		UINT curAnim = anim->GetCurrentAnimation();
-		UINT deathAnim = anim->GetIndexByState(UnitState::DEATH);
+		UINT deathAnim = anim->GetIndexByState((int)UnitState::DEATH);
 		if (curAnim == deathAnim && anim->IsFrameEnd())
 		{
 			anim->Stop();
@@ -92,11 +104,12 @@ void Unit::UpdateState()
 		}
 		Vector3 direction = attackTarget->transform->position - transform->position;
 		float dist = direction.Length();
-		if (dist <= attackRange) // 공격 거리 이내
+		float targetRadius = attackTarget->collider->GetRadius();
+		if (dist <= attackRange +targetRadius) // 공격 거리 이내
 		{
 			agent->Stop();
 			LookRotation(direction.Normalized());
-			state = attackState;
+			SetState(attackState);
 
 			attackTick += dt;
 			float attackDelay = 1.f / attackPerSec;
@@ -137,13 +150,7 @@ void Unit::UpdateState()
 		{
 			attackTick = 0.f;
 			isDamaged = false;
-			chaseTick += dt;
-			if (chaseTick > chaseDelay)
-			{
-				chaseTick = 0.f;
-				agent->SetStoppingDistance(attackRange);
-				SetDestination(attackTarget->transform->position);
-			}
+			Chase(attackTarget->transform->position);
 			
 		}
 	}
@@ -205,6 +212,17 @@ void Unit::Move(Vector3 _target)
 	SetDestination(_target);
 }
 
+void Unit::Chase(Vector3 _target)
+{
+	chaseTick += TimeManager::DeltaTime();
+	if (chaseTick > chaseDelay)
+	{
+		chaseTick = 0.f;
+		agent->SetStoppingDistance(attackRange);
+		SetDestination(_target);
+	}
+}
+
 void Unit::Attack(Unit* target)
 {
 	if (target == nullptr) return;
@@ -251,6 +269,17 @@ void Unit::PushedOut(Unit* other)
 	}
 }
 
+void Unit::SetState(UnitState _state)
+{
+	state = _state;
+	anim->SetState((int)_state);
+}
+
+UnitState Unit::GetState()
+{
+	return state;
+}
+
 void Unit::SetTeam(Team _team)
 {
 	team = _team;
@@ -259,6 +288,11 @@ void Unit::SetTeam(Team _team)
 void Unit::SetAttackTarget(Unit* _target)
 {
 	attackTarget = _target;
+}
+
+Unit* Unit::GetAttackTarget()
+{
+	return attackTarget;
 }
 
 void Unit::SetHP(float _max)
@@ -291,11 +325,11 @@ void Unit::SetAttackDamage(float _damage)
 void Unit::SetAttackPerSec(float _attackPerSec)
 {
 	attackPerSec = _attackPerSec;
-	anim->SetSpeed(UnitState::ATTACK1, _attackPerSec);
-	anim->SetSpeed(UnitState::ATTACK2, _attackPerSec);
-	anim->SetSpeed(UnitState::ATTACK3, _attackPerSec);
-	anim->SetSpeed(UnitState::ATTACK4, _attackPerSec);
-	anim->SetSpeed(UnitState::CRITICAL, _attackPerSec);
+	anim->SetSpeed((int)UnitState::ATTACK1, _attackPerSec);
+	anim->SetSpeed((int)UnitState::ATTACK2, _attackPerSec);
+	anim->SetSpeed((int)UnitState::ATTACK3, _attackPerSec);
+	anim->SetSpeed((int)UnitState::ATTACK4, _attackPerSec);
+	anim->SetSpeed((int)UnitState::CRITICAL, _attackPerSec);
 }
 
 void Unit::SetAttackRange(float _range)
@@ -441,6 +475,7 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 
 	for (Unit* iter : unitList)
 	{
+		if (iter->IsDead()) continue;
 		if (team != iter->team)
 		{
 			Vector3 to = iter->transform->position - point;
@@ -456,10 +491,61 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	return target;
 }
 
+void Unit::ReqMove(Vector3 _dest, bool _noSearch)
+{
+	list<Vector3> path;
+	int pathCount = 0;
+
+	CPacket* pack = new CPacket();
+	*pack << (WORD)GAME_REQ_MOVE << this->GetID();
+
+	if (_noSearch)
+	{
+		pathCount = 1;
+		*pack << pathCount << _dest.x << _dest.y << _dest.z;
+
+	}
+	else
+	{
+		bool res = agent->Search(_dest, &path);
+		if (res)
+		{
+			pathCount = path.size();
+			*pack << pathCount;
+
+			for (auto iter : path)
+			{
+				*pack << iter.x << iter.y << iter.z;
+			}
+
+
+		}
+		else
+		{
+			pathCount = 1;
+			*pack << pathCount << _dest.x << _dest.y << _dest.z;
+		}
+	}
+	Network::SendPacket(pack);
+	delete pack;
+	Debug::PrintLine("[Debug] ReqMove 요청 / 경유지 : %d", pathCount);
+}
+
+void Unit::ReqAttack(Unit* _target)
+{
+	INT unitID = _target->GetID();
+	CPacket* pack = new CPacket();
+
+	*pack << (WORD)GAME_REQ_ATTACK << this->GetID() << unitID;
+
+	Network::SendPacket(pack);
+	delete pack;
+	Debug::PrintLine("[Debug] ReqAttack 요청 / 공격자ID : %d / 타겟ID : %d", this->GetID(), unitID);
+}
+
 void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 {
 	CPacket* pack = new CPacket();
-	pack->Clear();
 
 	*pack << (WORD)GAME_REQ_DAMAGE << _attackerID << _targetID << _damage;
 

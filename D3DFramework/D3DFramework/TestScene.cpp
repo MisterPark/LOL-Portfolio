@@ -52,6 +52,7 @@
 #include "MonsterAI.h"
 
 #include "Nexus.h"
+#include "MinionAI.h"
 
 void TestScene::OnLoaded()
 {
@@ -206,47 +207,44 @@ void TestScene::OnLoaded()
 	ObjectManager::GetInstance()->AddObject(obj, Layer::HUD);
 	
 
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);
-	unit->transform->position = { 32,68,29 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Darius>(Layer::Unit);
-	unit->transform->position = { 29,68,30 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Diana>(Layer::Unit);
-	unit->transform->position = { 26,68,32 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Leesin>(Layer::Unit);
-	unit->transform->position = { 24,68,34 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Missfortune>(Layer::Unit);
-	unit->transform->position = { 23,68,37 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Leona>(Layer::Unit);
-	unit->transform->position = { 30,68,27 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Ahri>(Layer::Unit);
-	unit->transform->position = { 31,68,28 };
-	unit->SetTeam(Team::RED);
-	//unit->AddComponent<PlayerController>(L"PlayerController");
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jax>(Layer::Unit);
-	unit->transform->position = { 29,68,28 };
-	unit->SetTeam(Team::RED);
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jinx>(Layer::Unit);
-	unit->transform->position = { 27,68,28 };
-	unit->SetTeam(Team::RED);
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);
+	//unit->transform->position = { 32,68,29 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Darius>(Layer::Unit);
+	//unit->transform->position = { 29,68,30 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Diana>(Layer::Unit);
+	//unit->transform->position = { 26,68,32 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Leesin>(Layer::Unit);
+	//unit->transform->position = { 24,68,34 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Missfortune>(Layer::Unit);
+	//unit->transform->position = { 23,68,37 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Leona>(Layer::Unit);
+	//unit->transform->position = { 30,68,27 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Ahri>(Layer::Unit);
+	//unit->transform->position = { 31,68,28 };
+	//unit->SetTeam(Team::RED);
+	////unit->AddComponent<PlayerController>(L"PlayerController");
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jax>(Layer::Unit);
+	//unit->transform->position = { 29,68,28 };
+	//unit->SetTeam(Team::RED);
+	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Jinx>(Layer::Unit);
+	//unit->transform->position = { 27,68,28 };
+	//unit->SetTeam(Team::RED);
 	//unit->AddComponent<PlayerController>(L"PlayerController");
 	//Camera::GetInstance()->SetTarget(unit);
 	//unit->AddComponent<PlayerController>(L"PlayerController");
 
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
-	unit->transform->position = { 26,68,28 };
-	unit->SetTeam(Team::RED);
 
 	// 블루팀 타워
 
@@ -271,6 +269,7 @@ void TestScene::OnLoaded()
 	unit->transform->position = { 6.50f, 67.71f, 10.f };
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
+	
 	// mid2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
 	unit->transform->position = { 11.61f, 67.71f, 20.f };
@@ -311,94 +310,98 @@ void TestScene::OnLoaded()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 
+	// nexus
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Nexus>(Layer::Building);
 	unit->transform->position = { 33.90f,68.04f,39.89f };
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
-	unit->SetTeam(Team::RED);
+	unit->SetTeam(Team::BLUE);
 	
 
 	// 퍼플팀
 
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -45.25f,67.71f,22.31f };
+	unit->transform->position = { -44.71f,67.71f,21.98f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	// bottom2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -39.68f,67.71f,-2.57f };
+	unit->transform->position = { -41.30f,67.71f,-1.89f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	// bottom3
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -42.44f,67.87f,-16.78f };
+	unit->transform->position = { -43.20f,68.f,-16.83f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 
 	// mid1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -14.04f,67.71f,-3.74f };
+	unit->transform->position = { -13.30f,67.71f,-3.61f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
+	
 	// mid2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -18.84f,67.71f,-13.95f };
+	unit->transform->position = { -18.52f,67.71f,-13.85f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
+	
 	// mid3
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -26.67f,67.87f,-20.54f };
+	unit->transform->position = { -27.21f,68.f,-20.97f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
+	
 
 	// top1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { 15.71f,67.71f,-37.53f };
+	unit->transform->position = { 16.28f,67.71f,-37.99f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	// top2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -7.48f,67.71f,-33.31f };
+	unit->transform->position = { -6.93f,67.71f,-34.96f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	// top3
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -23.36f,67.87f,-37.31f };
+	unit->transform->position = { -23.09f,68.f,-36.63f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 
-
 	// twin left
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -38.39f,67.87f,-29.67f };
+	unit->transform->position = { -39.52f,68.00f,-29.97f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	// twin right
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -37.14f,67.87f,-33.51f };
+	unit->transform->position = { -36.64f,68.00f,-32.90f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
+	//testUnit = unit;
 
 
 
 	// 미니언
-	obj = ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
-	obj->transform->position = { 26,68,38 };
-	obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
-	obj->transform->position = { 23,68,38 };
-	obj = ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
-	obj->transform->position = { 20,68,38 };
-	obj = ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
-	obj->transform->position = { 17,68,38 };
+	
 
-	obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
-	obj->transform->position = { 26,68,39 };
-	obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
-	obj->transform->position = { 23,68,39 };
-	obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
-	obj->transform->position = { 20,68,39 };
-	obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
-	obj->transform->position = { 17,68,39 };
+	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
+	//obj->transform->position = { 23,68,38 };
+	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
+	//obj->transform->position = { 20,68,38 };
+	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
+	//obj->transform->position = { 17,68,38 };
+	//
+	//obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	//obj->transform->position = { 26,68,39 };
+	//obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
+	//obj->transform->position = { 23,68,39 };
+	//obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
+	//obj->transform->position = { 20,68,39 };
+	//obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
+	//obj->transform->position = { 17,68,39 };
 }
 
 void TestScene::OnUnloaded()
@@ -408,5 +411,81 @@ void TestScene::OnUnloaded()
 
 void TestScene::Update()
 {
+	if (testUnit != nullptr)
+	{
+		if (InputManager::GetKey(VK_UP))
+		{
+			testUnit->transform->position.z -= TimeManager::DeltaTime();
+			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
 
+		}
+		if (InputManager::GetKey(VK_DOWN))
+		{
+			testUnit->transform->position.z += TimeManager::DeltaTime();
+			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
+
+		}
+		if (InputManager::GetKey(VK_LEFT))
+		{
+			testUnit->transform->position.x += TimeManager::DeltaTime();
+			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
+
+		}
+		if (InputManager::GetKey(VK_RIGHT))
+		{
+			testUnit->transform->position.x -= TimeManager::DeltaTime();
+			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
+
+		}
+	}
+	
+	if (InputManager::GetKeyDown('M'))
+	{
+		CreateMinionCaster();
+	}
+}
+
+void TestScene::CreateMinionCaster()
+{
+	Minion* minion = nullptr;
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 29.47f,68.04f,41.74f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
+	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 30.64f,68.04f,37.51f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 35.00f,68.04f,35.55f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
+	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+
+	// 레드
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -43.05f,68.01f,-29.62f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
+	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -36.94f,68.01f,-30.35f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -36.68f,68.01f,-36.45f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
+	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
 }

@@ -43,7 +43,7 @@ void Monster::OnCollisionEnter(Collider* target)
 	if (dynamic_cast<Unit*>(target->gameObject))
 	{
 		Unit* unit = (Unit*)target->gameObject;
-		if (unit->state == UnitState::RUN)
+		if (unit->GetState() == UnitState::RUN)
 		{
 			unit->PushedOut(this);
 		}

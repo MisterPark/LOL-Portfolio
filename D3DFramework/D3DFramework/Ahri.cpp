@@ -10,7 +10,7 @@ Ahri::Ahri()
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop(UnitState::IDLE1, true);
+	anim->SetLoop((int)UnitState::IDLE1, true);
 
 	faceCircleTexkey = L"ahri_circle";
 	faceSquareTexkey = L"ahri_square";

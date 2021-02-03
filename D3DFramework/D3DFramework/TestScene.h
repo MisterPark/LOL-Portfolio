@@ -13,6 +13,9 @@ class TestScene :
     virtual void OnUnloaded() override;
     virtual void Update() override;
 
+    void CreateMinionCaster();
+
 public:
     Label* testLabel = nullptr;
+    Unit* testUnit = nullptr;
 };

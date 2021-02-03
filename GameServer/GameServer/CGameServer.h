@@ -106,6 +106,8 @@ public:
 	void ReqDamage(Client* pClient, CPacket* pPacket);
 	void ResDamage(Client* pClient, int unitID, int targetID, float damage);
 
+	void ReqCreateMinionCaster(Client* pClient, CPacket* pPacket);
+	void ResCreateMinionCaster(Client* pClient);
 public:
 	void Monitor();
 

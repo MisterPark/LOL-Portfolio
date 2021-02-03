@@ -47,7 +47,7 @@ void PKH::NavMeshAgent::Update()
         else // 남은 거리가 있다면
         {
             // 상태
-            unit->state = UnitState::RUN;
+            unit->SetState(UnitState::RUN);
             // 회전
             //float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
             //gameObject->transform->eulerAngles.y = angle;

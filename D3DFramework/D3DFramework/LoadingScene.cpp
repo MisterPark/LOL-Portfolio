@@ -11,7 +11,7 @@
 #include "Label.h"
 #include "GameScene.h"
 
-long loadMax = 38;
+long loadMax = 39;
 long loadCount = 0;
 
 
@@ -156,11 +156,15 @@ void LoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_siege/", L"chaos_minion_siege.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/", L"chaos_minion_super.x", Count);
 
+
 	// ≈Õ∑ø
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/", L"turret_order.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break1.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break2.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break3.x", Count);
+
+	// ≥ÿº≠Ω∫
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/", L"sruap_ordernexus.x", Count);
 
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/", L"nav_wall.x", Count);

@@ -10,7 +10,7 @@ RedMonster::RedMonster()
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop(UnitState::IDLE1, true);
+	anim->SetLoop((int)UnitState::IDLE1, true);
 }
 
 RedMonster::~RedMonster()

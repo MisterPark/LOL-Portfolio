@@ -12,7 +12,7 @@ Darius::Darius()
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop(UnitState::IDLE1, true);
+	anim->SetLoop((int)UnitState::IDLE1, true);
 
 	faceCircleTexkey = L"darius_circle";
 	faceSquareTexkey = L"darius_square";

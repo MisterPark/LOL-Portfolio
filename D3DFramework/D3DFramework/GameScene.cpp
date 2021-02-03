@@ -50,6 +50,10 @@
 #include "RazorbeakMini.h"
 #include "Scuttleracer.h"
 
+#include "MinionAI.h"
+
+int unitID = (int)UnitID::END;
+
 GameScene::GameScene()
 {
 	net = Network::GetInstance();
@@ -106,6 +110,14 @@ void GameScene::Update()
 		sendTick = 0.f;
 		ReqTime();
 	}
+
+	if (InputManager::GetKey(VK_SHIFT))
+	{
+		if (InputManager::GetKeyDown('M'))
+		{
+			ReqCreateMinionCaster();
+		}
+	}
 }
 
 void GameScene::PacketProc(CPacket* pPacket)
@@ -125,6 +137,9 @@ void GameScene::PacketProc(CPacket* pPacket)
 		break;
 	case GAME_RES_DAMAGE:
 		ResDamage(pPacket);
+		break;
+	case GAME_RES_CREATE_MINION_CASTER:
+		ResCreateMinionCaster(pPacket);
 		break;
 	default:
 		Debug::Print("[Warning] 정의되지 않은 패킷 타입 감지\n");
@@ -241,6 +256,22 @@ void GameScene::ResDamage(CPacket* pack)
 	}
 	unitMap[targetID]->SetLastAttacker(unitMap[unitID]);
 	unitMap[targetID]->TakeDamage(damage);
+
+}
+
+void GameScene::ReqCreateMinionCaster()
+{
+	CPacket* pack = new CPacket();
+	pack->Clear();
+	*pack << (WORD)GAME_REQ_CREATE_MINION_CASTER;
+
+	Network::SendPacket(pack);
+	delete pack;
+}
+
+void GameScene::ResCreateMinionCaster(CPacket* pack)
+{
+	CreateMinionCaster();
 }
 
 //============================================================================================
@@ -469,11 +500,12 @@ void GameScene::CreateBuilding()
 	unit->SetID(unitID);
 	unitID++;
 
+
 	// 퍼플팀
 
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -45.25f,67.71f,22.31f };
+	unit->transform->position = { -44.71f,67.71f,21.98f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -481,7 +513,7 @@ void GameScene::CreateBuilding()
 	unitID++;
 	// bottom2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -39.68f,67.71f,-2.57f };
+	unit->transform->position = { -41.30f,67.71f,-1.89f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -489,7 +521,7 @@ void GameScene::CreateBuilding()
 	unitID++;
 	// bottom3
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -42.44f,67.87f,-16.78f };
+	unit->transform->position = { -43.20f,68.f,-16.83f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -498,32 +530,35 @@ void GameScene::CreateBuilding()
 
 	// mid1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -14.04f,67.71f,-3.74f };
-	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
-	unit->SetTeam(Team::RED);
-	unitMap[unitID] = unit;
-	unit->SetID(unitID);
-	unitID++;
-	// mid2
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -18.84f,67.71f,-13.95f };
-	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
-	unit->SetTeam(Team::RED);
-	unitMap[unitID] = unit;
-	unit->SetID(unitID);
-	unitID++;
-	// mid3
-	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -26.67f,67.87f,-20.54f };
+	unit->transform->position = { -13.30f,67.71f,-3.61f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
+	// mid2
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -18.52f,67.71f,-13.85f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// mid3
+	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
+	unit->transform->position = { -27.21f,68.f,-20.97f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+
 	// top1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { 15.71f,67.71f,-37.53f };
+	unit->transform->position = { 16.28f,67.71f,-37.99f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -531,7 +566,7 @@ void GameScene::CreateBuilding()
 	unitID++;
 	// top2
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -7.48f,67.71f,-33.31f };
+	unit->transform->position = { -6.93f,67.71f,-34.96f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -539,17 +574,16 @@ void GameScene::CreateBuilding()
 	unitID++;
 	// top3
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -23.36f,67.87f,-37.31f };
+	unit->transform->position = { -23.09f,68.f,-36.63f };
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
-
 	// twin left
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -38.39f,68.f,-29.67f };
+	unit->transform->position = { -39.52f,68.00f,-29.97f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -557,7 +591,7 @@ void GameScene::CreateBuilding()
 	unitID++;
 	// twin right
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
-	unit->transform->position = { -37.14f,68.f,-33.51f };
+	unit->transform->position = { -36.64f,68.00f,-32.90f };
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -726,5 +760,268 @@ void GameScene::CreateMonster()
 	unit->transform->position = { -24.36,66.91,17.82 };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
+	unitID++;
+}
+
+void GameScene::CreateMinionCaster()
+{
+	Minion* minion = nullptr;
+
+	// 블루
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 29.47f,68.04f,41.74f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
+	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 30.64f,68.04f,37.51f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
+	minion->transform->position = { 35.00f,68.04f,35.55f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
+	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	// 레드
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -43.05f,68.01f,-29.62f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
+	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -36.94f,68.01f,-30.35f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
+	minion->transform->position = { -36.68f,68.01f,-36.45f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
+	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	
+
+	
+
+	
+}
+
+void GameScene::CreateMinionMelee()
+{
+	Minion* minion = nullptr;
+	// 블루========================================================
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
+	minion->transform->position = { 29.47f,68.04f,41.74f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
+	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
+	minion->transform->position = { 30.64f,68.04f,37.51f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
+	minion->transform->position = { 35.00f,68.04f,35.55f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
+	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	// 레드
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
+	minion->transform->position = { -43.05f,68.01f,-29.62f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
+	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
+	minion->transform->position = { -36.94f,68.01f,-30.35f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
+	minion->transform->position = { -36.68f,68.01f,-36.45f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
+	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+}
+
+void GameScene::CreateMinionSiege()
+{
+	Minion* minion = nullptr;
+	// 블루
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
+	minion->transform->position = { 29.47f,68.04f,41.74f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
+	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
+	minion->transform->position = { 30.64f,68.04f,37.51f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
+	minion->transform->position = { 35.00f,68.04f,35.55f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
+	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	// 레드
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
+	minion->transform->position = { -43.05f,68.01f,-29.62f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
+	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
+	minion->transform->position = { -36.94f,68.01f,-30.35f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
+	minion->transform->position = { -36.68f,68.01f,-36.45f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
+	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+}
+
+void GameScene::CreateMinionSuper()
+{
+	Minion* minion = nullptr;
+	// 블루
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
+	minion->transform->position = { 29.47f,68.04f,41.74f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
+	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
+	minion->transform->position = { 30.64f,68.04f,37.51f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
+	minion->transform->position = { 35.00f,68.04f,35.55f };
+	minion->SetTeam(Team::BLUE);
+	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
+	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
+	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	// 레드
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
+	minion->transform->position = { -43.05f,68.01f,-29.62f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
+	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
+	minion->transform->position = { -36.94f,68.01f,-30.35f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
+	unitID++;
+
+	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
+	minion->transform->position = { -36.68f,68.01f,-36.45f };
+	minion->SetTeam(Team::RED);
+	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
+	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
+	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
+	unitMap[unitID] = minion;
+	minion->SetID(unitID);
 	unitID++;
 }

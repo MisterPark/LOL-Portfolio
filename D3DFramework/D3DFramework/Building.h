@@ -8,5 +8,7 @@ public:
     virtual ~Building();
 
     virtual void OnCollisionEnter(Collider* target);
+
+    //virtual void Chase(Vector3 _target);
 };
 

@@ -179,7 +179,7 @@ void PKH::ObjectManager::Render()
 		{
 			for (auto& iter : objList)
 			{
-				if (!iter->isVisible)continue;
+				if (iter->isVisible == false)continue;
 				pObjectManager->renderList.push_back(iter);
 			}
 		}
@@ -187,7 +187,7 @@ void PKH::ObjectManager::Render()
 		{
 			for (auto& iter : objList)
 			{
-				if (!iter->isVisible)continue;
+				if (iter->isVisible == false)continue;
 				if (!Frustum::Intersect(&iter->transform->position, 1.f)) continue;
 				pObjectManager->renderList.push_back(iter);
 			}
@@ -205,12 +205,14 @@ void PKH::ObjectManager::Render()
 	auto uiList = pObjectManager->objectTable[(int)Layer::UI];
 	for (auto& iter : uiList)
 	{
+		if (iter->isVisible == false) continue;
 		iter->Render();
 	}
 
 	auto hudList = pObjectManager->objectTable[(int)Layer::HUD];
 	for (auto& iter : hudList)
 	{
+		if (iter->isVisible == false) continue;
 		iter->Render();
 	}
 	

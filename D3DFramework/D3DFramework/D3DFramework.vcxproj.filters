@@ -631,6 +631,9 @@
     <ClInclude Include="Indicator.h" />
     <ClInclude Include="MonsterAI.h" />
     <ClInclude Include="Nexus.h" />
+    <ClInclude Include="TurretMissile.h" />
+    <ClInclude Include="TurretBreak.h" />
+    <ClInclude Include="MinionAI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1131,6 +1134,9 @@
     <ClCompile Include="Indicator.cpp" />
     <ClCompile Include="MonsterAI.cpp" />
     <ClCompile Include="Nexus.cpp" />
+    <ClCompile Include="TurretMissile.cpp" />
+    <ClCompile Include="TurretBreak.cpp" />
+    <ClCompile Include="MinionAI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

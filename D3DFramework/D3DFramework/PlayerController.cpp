@@ -29,10 +29,6 @@ void PlayerController::Update()
     if (gameObject == nullptr)return;
 
     
-    if (InputManager::GetKeyDown('W'))
-    {
-        
-    }
     if (InputManager::GetKeyDown('A'))
     {
         SetTargetMode(!targetMode);
@@ -44,7 +40,7 @@ void PlayerController::Update()
     }
     if (InputManager::GetKeyDown('D'))
     {
-        
+        unit->SetMovementSpeed(5.f);
     }
 
     if (InputManager::GetKeyDown('Q'))

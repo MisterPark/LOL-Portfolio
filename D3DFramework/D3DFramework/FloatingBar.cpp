@@ -4,6 +4,7 @@
 
 FloatingBar::FloatingBar()
 {
+
 	offset = { 0,1.8f,-0.5f };
 	offset2 = { -42,-9,0 };
 	offsetMP = { -42,5,0 };
@@ -55,6 +56,8 @@ void FloatingBar::Update()
 
 	if (target != nullptr)
 	{
+		isVisible = !target->IsDead();
+
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);
 		transform->position = worldPos;

@@ -3,29 +3,11 @@
 
 namespace PKH
 {
-	enum class BlendMode
-	{
-		NONE,
-		ALPHA_BLEND,
-		ALPHA_TEST,
-	};
-
-	enum class ZReadMode
-	{
-		ON,
-		OFF
-	};
-	enum class ZWriteMode
-	{
-		ON,
-		OFF
-	};
-
-	enum class LightMode
-	{
-		ON,
-		OFF
-	};
+	enum class BlendMode { NONE, ALPHA_BLEND, ALPHA_TEST, };
+	enum class CullMode { NONE, CW, CCW };
+	enum class ZReadMode { ON, OFF };
+	enum class ZWriteMode { ON, OFF };
+	enum class LightMode { ON, OFF };
 
 	class CustomMesh : public Mesh
 	{
@@ -57,7 +39,9 @@ namespace PKH
 		void SetTexture(const wstring& id);
 		void SetVertexPos(UINT index, const Vector3& pos);
 		void SetUV(UINT index, float u, float v);
+
 		void SetBlendMode(BlendMode _mode);
+		void SetCullMode(CullMode _mode);
 		void SetZReadMode(ZReadMode _mode);
 		void SetZWriteMode(ZWriteMode _mode);
 		void SetLightMode(LightMode _mode);
@@ -69,6 +53,7 @@ namespace PKH
 		UINT vertexSize;
 		UINT triangleCount;
 		BlendMode blendMode = BlendMode::NONE;
+		CullMode cullMode = CullMode::NONE;
 		ZReadMode zReadMode = ZReadMode::ON;
 		ZWriteMode zWriteMode = ZWriteMode::ON;
 		LightMode lightMode = LightMode::OFF;

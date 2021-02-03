@@ -236,6 +236,9 @@ void CGameServer::PacketProc(SESSION_ID sessionID, CPacket* pPacket)
 	case GAME_REQ_DAMAGE:
 		ReqDamage(pClient, pPacket);
 		break;
+	case GAME_REQ_CREATE_MINION_CASTER:
+		ReqCreateMinionCaster(pClient, pPacket);
+		break;
 	default:
 		printf("[Warning] 정의되지 않은 패킷 타입 감지\n");
 		break;
@@ -725,6 +728,23 @@ void CGameServer::ResDamage(Client* pClient, int unitID, int targetID, float dam
 {
 	CPacket* pack = PacketPool::Alloc();
 	*pack << (WORD)GAME_RES_DAMAGE << unitID << targetID << damage;
+
+	SendUnicast(pClient->sessionID, pack);
+}
+
+void CGameServer::ReqCreateMinionCaster(Client* pClient, CPacket* pPacket)
+{
+	GameRoom* room = gameroomMap[pClient->roomNum];
+	for (auto iter : room->users)
+	{
+		ResCreateMinionCaster(iter.second);
+	}
+}
+
+void CGameServer::ResCreateMinionCaster(Client* pClient)
+{
+	CPacket* pack = PacketPool::Alloc();
+	*pack << (WORD)GAME_RES_CREATE_MINION_CASTER;
 
 	SendUnicast(pClient->sessionID, pack);
 }

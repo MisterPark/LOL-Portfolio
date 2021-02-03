@@ -227,6 +227,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="Minion.h" />
+    <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
@@ -304,7 +305,9 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Turret.h" />
+    <ClInclude Include="TurretBreak.h" />
     <ClInclude Include="TurretFloatingBar.h" />
+    <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
@@ -373,6 +376,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="Minion.cpp" />
+    <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -443,7 +447,9 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Turret.cpp" />
+    <ClCompile Include="TurretBreak.cpp" />
     <ClCompile Include="TurretFloatingBar.cpp" />
+    <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />

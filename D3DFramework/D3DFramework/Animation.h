@@ -1,11 +1,9 @@
 #pragma once
 #include "IComponent.h"
 
-class Unit;
-enum class UnitState;
-
 namespace PKH
 {
+
 	class Animation :
 		public IComponent
 	{
@@ -28,19 +26,20 @@ namespace PKH
 
 	public:
 		void AttachToDynamicMesh(DynamicMesh* dmesh);
-		string GetNameByState(UnitState state);
-		UINT GetIndexByState(UnitState state);
+		string GetNameByState(int _state);
+		UINT GetIndexByState(int _state);
 		UINT GetCurrentAnimation();
 
-		void SetLoop(UnitState state, bool loop);
-		void SetSpeed(UnitState state, float speed);
+		void SetState(int _state);
+		void SetLoop(int _state, bool loop);
+		void SetSpeed(int _state, float speed);
 		bool IsFrameEnd();
 
 		void Stop();
 		void Resume();
 
 	private:
-		Unit* unit = nullptr;
+		int state = 0;
 		DynamicMesh* dmesh = nullptr;
 		
 		UINT currentAnim = 0;

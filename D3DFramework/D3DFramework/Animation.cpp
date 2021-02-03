@@ -5,7 +5,6 @@
 PKH::Animation::Animation(GameObject* owner)
     :IComponent(owner)
 {
-    unit = dynamic_cast<Unit*>(owner);
     
 }
 
@@ -21,12 +20,11 @@ PKH::Animation::~Animation()
 
 void PKH::Animation::PostUpdate()
 {
-    if (unit == nullptr) return;
     if (dmesh == nullptr) return;
 
     float dt = TimeManager::DeltaTime();
 
-    Animation::Node animNode = animsets[(int)unit->state];
+    Animation::Node animNode = animsets[state];
     currentAnim = animNode.index;
     dmesh->SetAnimationSet(currentAnim);
     
@@ -34,8 +32,9 @@ void PKH::Animation::PostUpdate()
     {
         if (animNode.isLoop == false)
         {
-            animNode = animsets[(int)UnitState::IDLE1];
-            currentAnim = animsets[(int)UnitState::IDLE1].index;
+            state = 0;
+            animNode = animsets[0];
+            currentAnim = animsets[0].index;
         }
     }
     
@@ -63,7 +62,7 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
     for (int i = 0; i < end; i++)
     {
         UINT idx = 0;
-        string name = GetNameByState((UnitState)i);
+        string name = GetNameByState(i);
         if (dmesh->GetAnimationIndex(&idx, name.c_str()))
         {
             animsets[i].index = idx;
@@ -81,10 +80,11 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
     currentAnim = idleIndex;
 }
 
-string PKH::Animation::GetNameByState(UnitState state)
+string PKH::Animation::GetNameByState(int _state)
 {
     string name;
-    switch (state)
+    UnitState unitState = (UnitState)_state;
+    switch (unitState)
     {
     case UnitState::IDLE1:
         name = "idle1";
@@ -168,9 +168,9 @@ string PKH::Animation::GetNameByState(UnitState state)
     return name;
 }
 
-UINT PKH::Animation::GetIndexByState(UnitState state)
+UINT PKH::Animation::GetIndexByState(int _state)
 {
-    return animsets[(int)state].index;
+    return animsets[_state].index;
 }
 
 UINT PKH::Animation::GetCurrentAnimation()
@@ -178,14 +178,19 @@ UINT PKH::Animation::GetCurrentAnimation()
     return currentAnim;
 }
 
-void PKH::Animation::SetLoop(UnitState state, bool loop)
+void PKH::Animation::SetState(int _state)
 {
-    animsets[(int)state].isLoop = loop;
+    state = _state;
 }
 
-void PKH::Animation::SetSpeed(UnitState state, float speed)
+void PKH::Animation::SetLoop(int _state, bool loop)
 {
-    animsets[(int)state].speed = speed;
+    animsets[_state].isLoop = loop;
+}
+
+void PKH::Animation::SetSpeed(int _state, float speed)
+{
+    animsets[_state].speed = speed;
 }
 
 bool PKH::Animation::IsFrameEnd()

@@ -108,7 +108,21 @@ void PKH::CustomMesh::Render()
 			break;
 		}
 		
-		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		switch (cullMode)
+		{
+		case PKH::CullMode::NONE:
+			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+			break;
+		case PKH::CullMode::CW:
+			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+			break;
+		case PKH::CullMode::CCW:
+			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+			break;
+		default:
+			break;
+		}
+		
 
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 		//device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
@@ -148,6 +162,7 @@ void PKH::CustomMesh::Render()
 		default:
 			break;
 		}
+		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 		device->SetRenderState(D3DRS_ZENABLE, TRUE);
 		device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
@@ -227,6 +242,11 @@ void PKH::CustomMesh::SetUV(UINT index, float u, float v)
 void PKH::CustomMesh::SetBlendMode(BlendMode _mode)
 {
 	this->blendMode = _mode;
+}
+
+void PKH::CustomMesh::SetCullMode(CullMode _mode)
+{
+	cullMode = _mode;
 }
 
 void PKH::CustomMesh::SetZReadMode(ZReadMode _mode)

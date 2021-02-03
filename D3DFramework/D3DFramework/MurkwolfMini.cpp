@@ -10,7 +10,7 @@ MurkwolfMini::MurkwolfMini()
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop(UnitState::IDLE1, true);
+	anim->SetLoop((int)UnitState::IDLE1, true);
 }
 
 MurkwolfMini::~MurkwolfMini()
