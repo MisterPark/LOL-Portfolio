@@ -86,7 +86,7 @@ bool PKH::TimeManager::SkipFrame()
     }
     
     // 프레임당 초과/미만 시간 누적
-    pTime->timeStack += elapsed - pTime->targetFrame;
+    pTime->timeStack += (int)(elapsed - pTime->targetFrame);
 
     if (pTime->timeStack >= pTime->targetFrame) // 느릴때
     {
@@ -110,7 +110,7 @@ int PKH::TimeManager::GetFPS()
 void PKH::TimeManager::SetFPS(int _fps)
 {
     pTime->fps = _fps;
-    pTime->targetFrame = 1000.f / _fps;
+    pTime->targetFrame = (int)(1000.f / _fps);
 }
 
 float PKH::TimeManager::DeltaTime()

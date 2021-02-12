@@ -207,7 +207,7 @@ void PKH::CustomMesh::SetColor(D3DCOLOR color)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
-	for (int i = 0; i < vertexCount; i++)
+	for (UINT i = 0; i < vertexCount; i++)
 	{
 		vertices[i].color = color;
 	}

@@ -81,7 +81,7 @@ bool BoxCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
     
     float u, v, dist;
     DWORD index;
-    for (int i = 0; i < triangleCount; i++)
+    for (UINT i = 0; i < triangleCount; i++)
     {
         index = i * 3;
         Vector3 v1 = vertexPositions[indices[index]];

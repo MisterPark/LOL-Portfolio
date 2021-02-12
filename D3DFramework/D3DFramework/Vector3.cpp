@@ -20,7 +20,7 @@ PKH::Vector3::Vector3(D3DXVECTOR3 r) :D3DXVECTOR3(r)
 {
 }
 
-PKH::Vector3::Vector3(POINT r) :D3DXVECTOR3(r.x, r.y, 0.f)
+PKH::Vector3::Vector3(POINT r) :D3DXVECTOR3((FLOAT)r.x, (FLOAT)r.y, 0.f)
 {
 }
 

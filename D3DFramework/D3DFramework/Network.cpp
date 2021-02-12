@@ -175,9 +175,9 @@ bool Network::RecvProc()
 	for(;;)
 	{
 		size = recvQ.GetUseSize();
-		if (size < sizeof(NetHeader)) break;
+		if (size < (int)(sizeof(NetHeader))) break;
 		recvQ.Peek((char*)&header, sizeof(NetHeader));
-		if (size < sizeof(NetHeader) + header.len) break;
+		if (size < (int)(sizeof(NetHeader) + header.len)) break;
 		recvQ.MoveFront(sizeof(NetHeader));
 
 		pack = new CPacket();

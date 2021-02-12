@@ -33,32 +33,32 @@ PlayerInfoPanel::PlayerInfoPanel()
     statPanel = new HUD();
     statPanel->SetTexture(L"stat_panel (5)");
     statPanel->SetSizeByTexture();
-    statPanel->SetLocation(statPanelPos.x, statPanelPos.y);
+    statPanel->SetLocation((int)statPanelPos.x, (int)statPanelPos.y);
 
     mainPanel = new HUD();
     mainPanel->SetTexture(L"panel (5)");
     mainPanel->SetSizeByTexture();
-    mainPanel->SetLocation(mainPanelPos.x, mainPanelPos.y);
+    mainPanel->SetLocation((int)mainPanelPos.x, (int)mainPanelPos.y);
 
     miniPanel = new HUD();
     miniPanel->SetTexture(L"panel (4)");
     miniPanel->SetSizeByTexture();
-    miniPanel->SetLocation(miniPanelPos.x, miniPanelPos.y);
+    miniPanel->SetLocation((int)miniPanelPos.x, (int)miniPanelPos.y);
 
     invenPanel = new HUD();
     invenPanel->SetTexture(L"panel (2)");
     invenPanel->SetSizeByTexture();
-    invenPanel->SetLocation(invenPanelPos.x, invenPanelPos.y);
+    invenPanel->SetLocation((int)invenPanelPos.x, (int)invenPanelPos.y);
 
     faceBorder = new HUD();
     faceBorder->SetTexture(L"panel (1)");
     faceBorder->SetSizeByTexture();
-    faceBorder->SetLocation(faceBorderPos.x, faceBorderPos.y);
+    faceBorder->SetLocation((int)faceBorderPos.x, (int)faceBorderPos.y);
    
     facePanel = new HUD();
     facePanel->SetTexture(L"garen_circle");
     facePanel->SetSize(120, 120);
-    facePanel->SetLocation(faceBorderPos.x+20, faceBorderPos.y+20);
+    facePanel->SetLocation((int)faceBorderPos.x+20, (int)faceBorderPos.y+20);
 
     scaleHP = { 1,1,1 };
     scaleMP = { 1,1,1 };
@@ -91,8 +91,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     }
     
 
-    int spellPosX = mainPanelPos.x + 126;
-    int spellPosY = mainPanelPos.y + 31;
+    int spellPosX = (int)(mainPanelPos.x + 126);
+    int spellPosY = (int)(mainPanelPos.y + 31);
     int spellPadding = 6;
     int spellSize = 64;
     slotSpell1 = new HUD();
@@ -108,8 +108,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotSpell4->SetSize(spellSize, spellSize);
     slotSpell4->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 3 + 3, spellPosY + 3);
     
-    int passivePosX = mainPanelPos.x + 70;
-    int passivePosY = mainPanelPos.y + 31;
+    int passivePosX = (int)(mainPanelPos.x + 70);
+    int passivePosY = (int)(mainPanelPos.y + 31);
     int passiveSize = 50;
 
     slotPassive = new HUD();
@@ -118,10 +118,10 @@ PlayerInfoPanel::PlayerInfoPanel()
 
     slotSummoner1 = new HUD();
     slotSummoner1->SetSize(48, 48);
-    slotSummoner1->SetLocation(mainPanelPos.x + 434, mainPanelPos.y + 32);
+    slotSummoner1->SetLocation((int)(mainPanelPos.x + 434), (int)(mainPanelPos.y + 32));
     slotSummoner2 = new HUD();
     slotSummoner2->SetSize(48, 48);
-    slotSummoner2->SetLocation(mainPanelPos.x + 490, mainPanelPos.y + 32);
+    slotSummoner2->SetLocation((int)(mainPanelPos.x + 490), (int)(mainPanelPos.y + 32));
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()

@@ -58,16 +58,16 @@ GameScene::GameScene()
 {
 	net = Network::GetInstance();
 
-	spawnPos[0] = { 41.74, 68.57, 46.30 };
-	spawnPos[1] = { 39.85, 68.57, 46.63 };
-	spawnPos[2] = { 39.60, 68.59, 48.72 };
-	spawnPos[3] = { 41.30, 68.58, 49.42 };
-	spawnPos[4] = { 42.58, 68.59, 47.91 };
-	spawnPos[5] = { -47.68, 68.48, -43.10 };
-	spawnPos[6] = { -49.23, 68.48, -41.54 };
-	spawnPos[7] = { -48.35, 68.49, -39.51 };
-	spawnPos[8] = { -46.34, 68.48, -39.96 };
-	spawnPos[9] = { -46.01, 68.48, -41.93 };
+	spawnPos[0] = { 41.74f, 68.57f, 46.30f };
+	spawnPos[1] = { 39.85f, 68.57f, 46.63f };
+	spawnPos[2] = { 39.60f, 68.59f, 48.72f };
+	spawnPos[3] = { 41.30f, 68.58f, 49.42f };
+	spawnPos[4] = { 42.58f, 68.59f, 47.91f };
+	spawnPos[5] = { -47.68f, 68.48f, -43.10f };
+	spawnPos[6] = { -49.23f, 68.48f, -41.54f };
+	spawnPos[7] = { -48.35f, 68.49f, -39.51f };
+	spawnPos[8] = { -46.34f, 68.48f, -39.96f };
+	spawnPos[9] = { -46.01f, 68.48f, -41.93f };
 
 	playerInfo = PlayerInfoPanel::GetInstance();
 	ObjectManager::GetInstance()->AddObject(playerInfo, Layer::HUD);
@@ -292,37 +292,37 @@ void GameScene::CreateEnvironment()
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.90,67.71,29.87 };
+	obj->transform->position = { 8.90f, 67.71f, 29.87f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.84,67.71,29.55 };
+	obj->transform->position = { 8.84f, 67.71f, 29.55f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.50,67.71,28.95 };
+	obj->transform->position = { 8.50f, 67.71f, 28.95f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.90,67.71,28.73 };
+	obj->transform->position = { 8.90f, 67.71f, 28.73f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.70,67.71,28.37 };
+	obj->transform->position = { 8.70f, 67.71f, 28.37f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.39,67.71,28.22 };
+	obj->transform->position = { 8.39f, 67.71f, 28.22f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.01,67.71,28.06 };
+	obj->transform->position = { 8.01f, 67.71f, 28.06f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.71,67.71,27.92 };
+	obj->transform->position = { 7.71f, 67.71f, 27.92f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.41,67.71,27.83 };
+	obj->transform->position = { 7.41f, 67.71f, 27.83f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.99,67.71,28.52 };
+	obj->transform->position = { 7.99f, 67.71f, 28.52f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.54,67.71,28.44 };
+	obj->transform->position = { 7.54f, 67.71f, 28.44f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.68,67.71,28.77 };
+	obj->transform->position = { 7.68f, 67.71f, 28.77f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.15,67.71,28.61 };
+	obj->transform->position = { 7.15f, 67.71f, 28.61f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.00,67.71,28.84 };
+	obj->transform->position = { 7.00f, 67.71f, 28.84f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 6.83,67.71,28.54 };
+	obj->transform->position = { 6.83f, 67.71f, 28.54f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 6.99,67.71,28.18 };
+	obj->transform->position = { 6.99f, 67.71f, 28.18f };
 }
 
 void GameScene::CreateChampion()
@@ -607,130 +607,130 @@ void GameScene::CreateMonster()
 
 	// ·¹µå
 	unit = (Unit*)(Unit*)ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
-	unit->transform->position = { -6.10,67.71,24.87 };
+	unit->transform->position = { -6.10f, 67.71f, 24.87f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
-	unit->transform->position = { -1.88,67.71,-17.87 };
+	unit->transform->position = { -1.88f, 67.71f, -17.87f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// ºí·ç
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
-	unit->transform->position = { 19.79,67.72,0.64 };
+	unit->transform->position = { 19.79f, 67.72f, 0.64f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
-	unit->transform->position = { -26.43,67.71,6.83 };
+	unit->transform->position = { -26.43f, 67.71f, 6.83f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// ´Á´ë À§
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
-	unit->transform->position = { 19.74,67.71,9.78 };
+	unit->transform->position = { 19.74f, 67.71f, 9.78f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	unit->transform->position = { 19.17,67.71,10.84 };
+	unit->transform->position = { 19.17f, 67.71f, 10.84f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	unit->transform->position = { 21.08,67.71,9.00 };
+	unit->transform->position = { 21.08f, 67.71f, 9.00f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// ´Á´ë ¾Æ·¡
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
-	unit->transform->position = { -26.72,67.72,-2.72 };
+	unit->transform->position = { -26.72f, 67.72f, -2.72f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	unit->transform->position = { -26.23,67.71,-3.57 };
+	unit->transform->position = { -26.23f, 67.71f, -3.57f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	unit->transform->position = { -27.73,67.71,-2.44 };
+	unit->transform->position = { -27.73f, 67.71f, -2.44f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// µÎ²¨ºñ
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
-	unit->transform->position = { 29.28,67.73,-2.82 };
+	unit->transform->position = { 29.28f, 67.73f, -2.82f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
-	unit->transform->position = { -36.59,67.71,10.14 };
+	unit->transform->position = { -36.59f, 67.71f, 10.14f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
 	// ¤‹¤‹ÀÌ À§
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
-	unit->transform->position = { -0.75,67.71,16.17 };
+	unit->transform->position = { -0.75f, 67.71f, 16.17f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -1.32,67.71,15.52 };
+	unit->transform->position = { -1.32f, 67.71f, 15.52f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -1.69,67.71,16.20 };
+	unit->transform->position = { -1.69f, 67.71f, 16.20f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -1.71,67.71,17.11 };
+	unit->transform->position = { -1.71f, 67.71f, 17.11f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -0.98,67.71,17.65 };
+	unit->transform->position = { -0.98f, 67.71f, 17.65f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { 0.08,67.71,17.21 };
+	unit->transform->position = { 0.08f, 67.71f, 17.21f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
 	// Â±Â±ÀÌ ¾Æ·¡
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
-	unit->transform->position = { -6.43,67.71,-10.09 };
+	unit->transform->position = { -6.43f, 67.71f, -10.09f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -5.53,67.71,-9.14 };
+	unit->transform->position = { -5.53f, 67.71f, -9.14f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -5.56,67.71,-10.09 };
+	unit->transform->position = { -5.56f, 67.71f, -10.09f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -5.91,67.71,-11.04 };
+	unit->transform->position = { -5.91f, 67.71f, -11.04f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -6.81,67.71,-10.93 };
+	unit->transform->position = { -6.81f, 67.71f, -10.93f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	unit->transform->position = { -7.31,67.71,-10.48 };
+	unit->transform->position = { -7.31f, 67.71f, -10.48f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
@@ -738,26 +738,26 @@ void GameScene::CreateMonster()
 
 	// ÀÛ°ñ
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
-	unit->transform->position = { -10.05,67.71,33.49 };
+	unit->transform->position = { -10.05f, 67.71f, 33.49f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
-	unit->transform->position = { 3.13,67.71,-26.61 };
+	unit->transform->position = { 3.13f, 67.71f, -26.61f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
 	// ¹ÙÀ§°Ô
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
-	unit->transform->position = { 15.68,66.91,-11.16 };
+	unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
 
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
-	unit->transform->position = { -24.36,66.91,17.82 };
+	unit->transform->position = { -24.36f, 66.91f, 17.82f };
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;

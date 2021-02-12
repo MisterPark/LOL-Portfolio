@@ -30,14 +30,14 @@ void LoadingScene::OnLoaded()
 	float ratioX = (float)borderW / 308;
 	float ratioY = (float)borderH / 560;
 
-	int spellW = 30 * ratioX;
-	int spellH = 30 * ratioY;
-	int spell1offsetX = 25 * ratioX;
-	int spell2offsetX = 64 * ratioX;
-	int spelloffsetY = 488 * ratioY;
-	int nameOffsetX = 153 * ratioX;
-	int champNameOffsetY = 430 * ratioY;
-	int nickNameOffsetY = 525 * ratioY;
+	int spellW = (int)(30 * ratioX);
+	int spellH = (int)(30 * ratioY);
+	int spell1offsetX = (int)(25 * ratioX);
+	int spell2offsetX = (int)(64 * ratioX);
+	int spelloffsetY = (int)(488 * ratioY);
+	int nameOffsetX = (int)(153 * ratioX);
+	int champNameOffsetY = (int)(430 * ratioY);
+	int nickNameOffsetY = (int)(525 * ratioY);
 	
 	Camera::GetInstance()->SetPosition(Vector3(0, 0, -1));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
@@ -84,7 +84,7 @@ void LoadingScene::Update()
 			//ReqTest();
 		}
 
-		int per = ((float)loadCount / loadMax) * 100;
+		int per = (int)(((float)loadCount / loadMax) * 100);
 		if (loadPercent != per)
 		{
 			loadPercent = per;
@@ -328,16 +328,16 @@ void LoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 	float ratioX = (float)borderW / 308;
 	float ratioY = (float)borderH / 560;
 
-	int spellW = 30 * ratioX;
-	int spellH = 30 * ratioY;
-	int spell1offsetX = 25 * ratioX;
-	int spell2offsetX = 64 * ratioX;
-	int spelloffsetY = 488 * ratioY;
-	int nameOffsetX = 153 * ratioX;
-	int champNameOffsetY = 430 * ratioY;
-	int nickNameOffsetY = 525 * ratioY;
-	int progressOffsetX = 227 * ratioX;
-	int progressOffsetY = 510 * ratioY;
+	int spellW = (int)(30 * ratioX);
+	int spellH = (int)(30 * ratioY);
+	int spell1offsetX = (int)(25 * ratioX);
+	int spell2offsetX = (int)(64 * ratioX);
+	int spelloffsetY = (int)(488 * ratioY);
+	int nameOffsetX = (int)(153 * ratioX);
+	int champNameOffsetY = (int)(430 * ratioY);
+	int nickNameOffsetY = (int)(525 * ratioY);
+	int progressOffsetX = (int)(227 * ratioX);
+	int progressOffsetY = (int)(510 * ratioY);
 
 	int borderX = borderW;
 	int borderY = padding;
