@@ -221,7 +221,7 @@ void PKH::ObjectManager::Render()
 }
 
 void PKH::ObjectManager::PostRender()
-{
+{ 
 	
 	if (pObjectManager->isVisibleCollider)
 	{

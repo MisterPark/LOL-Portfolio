@@ -83,14 +83,14 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	//==============================
 	// X파일 메쉬 로드
 	//==============================
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (FAILED(D3DXLoadMeshFromXW(szFullPath, D3DXMESH_MANAGED, device,
 		&pAdjacency, &pSubset, NULL, &subsetCount, &pOriginMesh)))
 	{
-		RenderManager::UnlockDevice();
+		//RenderManager::UnlockDevice();
 		return E_FAIL;
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 	
 	
@@ -99,7 +99,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	//==============================
 	fvf = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
 
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (!(fvf & D3DFVF_NORMAL))
 	{
 		// 노말 값이 없는 경우
@@ -111,7 +111,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	{
 		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 	HRESULT res = pMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
 		(DWORD*)pAdjacency->GetBufferPointer(), NULL, NULL, NULL);
@@ -300,16 +300,16 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		lstrcat(szFullPath, szFileName);
 
 		HRESULT res = E_FAIL;
-		RenderManager::LockDevice();
+		//RenderManager::LockDevice();
 		res = D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i]);
 		if (res != S_OK)
 		{
-			RenderManager::UnlockDevice();
+			//RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
 
 
-		RenderManager::UnlockDevice();
+		//RenderManager::UnlockDevice();
 	}
 
 	pMesh->GetVertexBuffer(&vertexBuffer);

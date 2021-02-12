@@ -75,21 +75,21 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	//==============================
 	// X파일 메쉬 로드
 	//==============================
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (FAILED(D3DXLoadMeshFromX(szFullPath, D3DXMESH_MANAGED, device,
 		&pAdjacency, &pSubset, NULL, &subsetCount, &pOriginMesh)))
 	{
 		RenderManager::UnlockDevice();
 		return E_FAIL;
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 	//==============================
 	// FVF & 노말 세팅
 	//==============================
 	fvf = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
 	
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (!(fvf & D3DFVF_NORMAL))
 	{
 		// 노말 값이 없는 경우
@@ -101,7 +101,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	{
 		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 
 	//==============================
