@@ -64,7 +64,7 @@ void PKH::Rectangle::CreateCustomMesh()
 	vertices[2] = Vertex(Vector3(1.f, 1.f, 0.f), 0xFFFFFFFF, 1, 0);
 	vertices[3] = Vertex(Vector3(1.f, -1.f, 0.f), 0xFFFFFFFF, 1, 1);
 
-	for (int i = 0; i < vertexCount; i++)
+	for (UINT i = 0; i < vertexCount; i++)
 	{
 		pVertices[i] = vertices[i].pos;
 	}

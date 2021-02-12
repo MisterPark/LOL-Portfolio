@@ -89,7 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MainGame::Initialize(screenWidth, screenHeight);
 
     Network::Initialize();
-    Network::Connect();
+    //Network::Connect();
 
     
 

@@ -163,7 +163,7 @@ void PKH::Collider::SetMeshInformation()
 	vertexPositions = new Vector3[vertexCount];
 
 	int vertexSize = D3DXGetFVFVertexSize(fvf);
-	for (int i = 0; i < vertexCount; ++i)
+	for (UINT i = 0; i < vertexCount; ++i)
 	{
 		Vector3* pos = ((Vector3*)(((BYTE*)pVertex) + (i * vertexSize + offset)));
 		vertexPositions[i] = *pos;

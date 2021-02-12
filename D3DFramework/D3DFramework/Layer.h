@@ -24,7 +24,7 @@ public:
 	static int GetMask(_Layer layer)
 	{
 		int val = (int)layer;
-		val = pow(2, val);
+		val = (int)pow(2, val);
 		return val;
 	}
 
@@ -33,7 +33,7 @@ public:
 	{
 		int sum = 0;
 		int val = (int)layer;
-		val = pow(2, val);
+		val = (int)pow(2, val);
 
 		sum = sum | val;
 		sum = sum | GetMask(layers...);

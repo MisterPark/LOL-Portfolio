@@ -66,12 +66,12 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
         if (dmesh->GetAnimationIndex(&idx, name.c_str()))
         {
             animsets[i].index = idx;
-            animsets[i].period = dmesh->GetPeriod(idx);
+            animsets[i].period = (float)dmesh->GetPeriod(idx);
         }
         else
         {
             animsets[i].index = idleIndex;
-            animsets[i].period = dmesh->GetPeriod(idleIndex);
+            animsets[i].period = (float)dmesh->GetPeriod(idleIndex);
         }
         animsets[i].speed = 1.f / animsets[i].period;
         animsets[i].name = name;

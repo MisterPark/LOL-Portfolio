@@ -84,112 +84,112 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.90,67.71,29.87 };
+	obj->transform->position = { 8.90f, 67.71f, 29.87f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.84,67.71,29.55 };
+	obj->transform->position = { 8.84f, 67.71f, 29.55f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.50,67.71,28.95 };
+	obj->transform->position = { 8.50f, 67.71f, 28.95f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.90,67.71,28.73 };
+	obj->transform->position = { 8.90f, 67.71f, 28.73f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.70,67.71,28.37 };
+	obj->transform->position = { 8.70f, 67.71f, 28.37f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.39,67.71,28.22 };
+	obj->transform->position = { 8.39f, 67.71f, 28.22f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 8.01,67.71,28.06 };
+	obj->transform->position = { 8.01f, 67.71f, 28.06f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.71,67.71,27.92 };
+	obj->transform->position = { 7.71f, 67.71f, 27.92f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.41,67.71,27.83 };
+	obj->transform->position = { 7.41f, 67.71f, 27.83f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.99,67.71,28.52 };
+	obj->transform->position = { 7.99f, 67.71f, 28.52f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.54,67.71,28.44 };
+	obj->transform->position = { 7.54f, 67.71f, 28.44f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.68,67.71,28.77 };
+	obj->transform->position = { 7.68f, 67.71f, 28.77f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.15,67.71,28.61 };
+	obj->transform->position = { 7.15f, 67.71f, 28.61f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 7.00,67.71,28.84 };
+	obj->transform->position = { 7.00f, 67.71f, 28.84f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 6.83,67.71,28.54 };
+	obj->transform->position = { 6.83f, 67.71f, 28.54f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 6.99,67.71,28.18 };
+	obj->transform->position = { 6.99f, 67.71f, 28.18f };
 
 	// ¸ó½ºÅÍ
 
 	// ·¹µå
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
-	obj->transform->position = { -6.10,67.71,24.87 };
+	obj->transform->position = { -6.10f, 67.71f, 24.87f };
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
-	obj->transform->position = { -1.88,67.71,-17.87 };
+	obj->transform->position = { -1.88f, 67.71f, -17.87f };
 	// ºí·ç
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
-	obj->transform->position = { 19.79,67.72,0.64 };
+	obj->transform->position = { 19.79f, 67.72f, 0.64f };
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
-	obj->transform->position = { -26.43,67.71,6.83 };
+	obj->transform->position = { -26.43f, 67.71f, 6.83f };
 	// ´Á´ë À§
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
-	obj->transform->position = { 19.74,67.71,9.78 };
+	obj->transform->position = { 19.74f, 67.71f, 9.78f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	obj->transform->position = { 19.17,67.71,10.84 };
+	obj->transform->position = { 19.17f, 67.71f, 10.84f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	obj->transform->position = { 21.08,67.71,9.00 };
+	obj->transform->position = { 21.08f, 67.71f, 9.00f };
 	// ´Á´ë ¾Æ·¡
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
-	obj->transform->position = { -26.72,67.72,-2.72 };
+	obj->transform->position = { -26.72f, 67.72f, -2.72f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	obj->transform->position = { -26.23,67.71,-3.57 };
+	obj->transform->position = { -26.23f, 67.71f, -3.57f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
-	obj->transform->position = { -27.73,67.71,-2.44 };
+	obj->transform->position = { -27.73f, 67.71f, -2.44f };
 	// µÎ²¨ºñ
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
-	obj->transform->position = { 29.28,67.73,-2.82 };
+	obj->transform->position = { 29.28f, 67.73f, -2.82f };
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
-	obj->transform->position = { -36.59,67.71,10.14 };
+	obj->transform->position = { -36.59f, 67.71f, 10.14f };
 
 	// ¤‹¤‹ÀÌ À§
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
-	obj->transform->position = { -0.75,67.71,16.17 };
+	obj->transform->position = { -0.75f, 67.71f, 16.17f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -1.32,67.71,15.52 };
+	obj->transform->position = { -1.32f, 67.71f, 15.52f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -1.69,67.71,16.20 };
+	obj->transform->position = { -1.69f, 67.71f, 16.20f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -1.71,67.71,17.11 };
+	obj->transform->position = { -1.71f, 67.71f, 17.11f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -0.98,67.71,17.65 };
+	obj->transform->position = { -0.98f, 67.71f, 17.65f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { 0.08,67.71,17.21 };
+	obj->transform->position = { 0.08f, 67.71f, 17.21f };
 
 	// Â±Â±ÀÌ ¾Æ·¡
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
-	obj->transform->position = { -6.43,67.71,-10.09 };
+	obj->transform->position = { -6.43f, 67.71f, -10.09f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -5.53,67.71,-9.14 };
+	obj->transform->position = { -5.53f, 67.71f, -9.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -5.56,67.71,-10.09 };
+	obj->transform->position = { -5.56f, 67.71f, -10.09f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -5.91,67.71,-11.04 };
+	obj->transform->position = { -5.91f, 67.71f, -11.04f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -6.81,67.71,-10.93 };
+	obj->transform->position = { -6.81f, 67.71f, -10.93f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
-	obj->transform->position = { -7.31,67.71,-10.48 };
+	obj->transform->position = { -7.31f, 67.71f, -10.48f };
 
 
 	// ÀÛ°ñ
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
-	obj->transform->position = { -10.05,67.71,33.49 };
+	obj->transform->position = { -10.05f, 67.71f, 33.49f };
 
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
-	obj->transform->position = { 3.13,67.71,-26.61 };
+	obj->transform->position = { 3.13f, 67.71f, -26.61f };
 
 	// ¹ÙÀ§°Ô
 	obj = ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
-	obj->transform->position = { 15.68,66.91,-11.16 };
+	obj->transform->position = { 15.68f, 66.91f, -11.16f };
 
 	obj = ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
-	obj->transform->position = { -24.36,66.91,17.82 };
+	obj->transform->position = { -24.36f, 66.91f, 17.82f };
 
 
 	// Ã¨ÇÇ¾ð

@@ -24,14 +24,14 @@ void TestLoadingScene::OnLoaded()
 	float ratioX = (float)borderW / 308;
 	float ratioY = (float)borderH / 560;
 
-	int spellW = 30 * ratioX;
-	int spellH = 30 * ratioY;
-	int spell1offsetX = 25 * ratioX;
-	int spell2offsetX = 64 * ratioX;
-	int spelloffsetY = 488 * ratioY;
-	int nameOffsetX = 153 * ratioX;
-	int champNameOffsetY = 430 * ratioY;
-	int nickNameOffsetY = 525 * ratioY;
+	int spellW = (int)(30 * ratioX);
+	int spellH = (int)(30 * ratioY);
+	int spell1offsetX = (int)(25 * ratioX);
+	int spell2offsetX = (int)(64 * ratioX);
+	int spelloffsetY = (int)(488 * ratioY);
+	int nameOffsetX = (int)(153 * ratioX);
+	int champNameOffsetY = (int)(430 * ratioY);
+	int nickNameOffsetY = (int)(525 * ratioY);
 
 	Camera::GetInstance()->SetPosition(Vector3(0, 0, -1));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
@@ -53,7 +53,7 @@ void TestLoadingScene::OnUnloaded()
 
 void TestLoadingScene::Update()
 {
-	int loadPercent = ((float)resourceLoadCnt / resourceMax) * 100;
+	int loadPercent =  (int)(((float)resourceLoadCnt / resourceMax) * 100);
 	WCHAR buf[16] = {};
 	swprintf_s(buf, L"%d%%", loadPercent);
 	screens[0]->progressLabel->text = buf;
@@ -133,22 +133,22 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 	float ratioX = (float)borderW / 308;
 	float ratioY = (float)borderH / 560;
 
-	int spellW = 30 * ratioX;
-	int spellH = 30 * ratioY;
-	int spell1offsetX = 25 * ratioX;
-	int spell2offsetX = 64 * ratioX;
-	int spelloffsetY = 488 * ratioY;
-	int nameOffsetX = 153 * ratioX;
-	int champNameOffsetY = 430 * ratioY;
-	int nickNameOffsetY = 525 * ratioY;
-	int progressOffsetX = 227 * ratioX;
-	int progressOffsetY = 510 * ratioY;
+	int spellW = (int)(30 * ratioX);
+	int spellH = (int)(30 * ratioY);
+	int spell1offsetX = (int)(25 * ratioX);
+	int spell2offsetX = (int)(64 * ratioX);
+	int spelloffsetY = (int)(488 * ratioY);
+	int nameOffsetX = (int)(153 * ratioX);
+	int champNameOffsetY = (int)(430 * ratioY);
+	int nickNameOffsetY = (int)(525 * ratioY);
+	int progressOffsetX = (int)(227 * ratioX);
+	int progressOffsetY = (int)(510 * ratioY);
 
 	int borderX = borderW;
 	int borderY = padding;
 	wstring texKey = L"loadingFrameBlue";
 
-	LoadingChampScreen* screen;
+	LoadingChampScreen* screen = nullptr;
 
 	for (int i = 0; i < 10; i++)
 	{
