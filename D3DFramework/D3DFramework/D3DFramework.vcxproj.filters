@@ -202,6 +202,15 @@
     <Filter Include="Component\AI">
       <UniqueIdentifier>{c39372a4-bac1-4d9d-93e8-d1dae29cd1c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Graphics">
+      <UniqueIdentifier>{849679d1-438a-44e6-bbbb-6abd293da155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Graphics\RenderTarget">
+      <UniqueIdentifier>{91e5d5e6-22b6-42fc-8581-346aad52a264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Graphics\RenderTarget\impl">
+      <UniqueIdentifier>{de307bf7-5665-4fcd-be58-aeb9b32a2652}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -634,6 +643,12 @@
     <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="TurretBreak.h" />
     <ClInclude Include="MinionAI.h" />
+    <ClInclude Include="RenderTarget.h">
+      <Filter>Lib\Graphics\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetImpl.h">
+      <Filter>Lib\Graphics\RenderTarget\impl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1137,6 +1152,12 @@
     <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="TurretBreak.cpp" />
     <ClCompile Include="MinionAI.cpp" />
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>Lib\Graphics\RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetImpl.cpp">
+      <Filter>Lib\Graphics\RenderTarget\impl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

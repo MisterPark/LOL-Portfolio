@@ -286,6 +286,8 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="RenderTargetImpl.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scuttleracer.h" />
@@ -429,6 +431,8 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
