@@ -46,7 +46,7 @@ void UI::Render()
 	device->GetTransform(D3DTS_VIEW, &matOriginView);
 	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 
-	D3DXMatrixOrthoLH(&matProj, screenW, screenH, 0.f, 1.f);
+	D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
 	D3DXMatrixIdentity(&matWorld);
 	D3DXMatrixIdentity(&matView);
 
@@ -245,8 +245,8 @@ void PKH::UI::SetLocation(int x, int y)
 {
 	int screenW = MainGame::GetWidth();
 	int screenH = MainGame::GetHeight();
-	transform->position.x = x;
-	transform->position.y = y;
+	transform->position.x = (float)x;
+	transform->position.y = (float)y;
 }
 
 void UI::SetTexture(const wstring& _key)

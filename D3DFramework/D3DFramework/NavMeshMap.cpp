@@ -53,7 +53,7 @@ void PKH::NavMeshMap::SetNavigationInfo()
 	// 인접 삼각형 정보를 통해서
 	// 삼각형의 중점
 	// 
-	for (int i = 0; i < triangleCount; i++)
+	for (DWORD i = 0; i < triangleCount; i++)
 	{
 		DWORD index = i * 3;
 		Vector3 a = pVertices[pIndices[index]];
@@ -76,7 +76,7 @@ void PKH::NavMeshMap::SetNavigationInfo()
 		pPathFinder->AddNode(i,node);
 	}
 
-	for (int i = 0; i < triangleCount; i++)
+	for (DWORD i = 0; i < triangleCount; i++)
 	{
 		if (pAdjacencyInfo[i].a != ULONG_MAX)
 			pPathFinder->LinkNode(i, pAdjacencyInfo[i].a);

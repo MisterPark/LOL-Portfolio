@@ -241,7 +241,7 @@ HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& f
 
 	// 虐积己
 	wstring id = L"";
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -329,6 +329,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int i
 
 	float centerX = float(w >> 1);
 	float centerY = float(h >> 1);
+	Vector3 center = { centerX, centerY, 0.f };
 
 	Matrix world, trans;
 	D3DXMatrixTranslation(&trans, pos.x, pos.y, 0.f);
@@ -337,7 +338,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int i
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(centerX, centerY, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -370,6 +371,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& t
 
 	float centerX = float(w >> 1);
 	float centerY = float(h >> 1);
+	Vector3 center = { centerX, centerY, 0.f };
 
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
@@ -379,7 +381,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& t
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(centerX, centerY, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -410,6 +412,8 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& trans
 	area.right = x + w;
 	area.bottom = y + h;
 
+	Vector3 center = { 0.f, 0.f, 0.f };
+
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
 	D3DXMatrixTranslation(&trans, transform.position.x, transform.position.y , 0.f);
@@ -418,7 +422,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& trans
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -449,6 +453,8 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index
 	area.right = x + w;
 	area.bottom = y + h;
 
+	Vector3 center = { 0.f, 0.f, 0.f };
+
 	Matrix world, trans;
 	D3DXMatrixTranslation(&trans, pos.x, pos.y, 0.f);
 	world = trans;
@@ -456,7 +462,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -487,6 +493,8 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	area.right = (x + w);
 	area.bottom = y + h;
 
+	Vector3 center = { 0.f, 0.f, 0.f };
+
 	Matrix matWorld, matPos, matScale;
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
 	D3DXMatrixTranslation(&matPos, pos.x, pos.y, 0.f);
@@ -495,7 +503,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&matWorld);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -523,8 +531,10 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	RECT area;
 	area.left = x;
 	area.top = y;
-	area.right = (x + w) * verticalPer;
+	area.right = (LONG)((x + w) * verticalPer);
 	area.bottom = y + h;
+
+	Vector3 center = { 0.f, 0.f, 0.f };
 
 	Matrix matWorld, matPos, matScale;
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
@@ -534,7 +544,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&matWorld);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -562,8 +572,10 @@ void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos,
 	RECT area;
 	area.left = x;
 	area.top = y;
-	area.right = x + w * horizontalPer;
+	area.right = (LONG)(x + w * horizontalPer);
 	area.bottom = (y + h);
+
+	Vector3 center = { 0.f, 0.f, 0.f };
 
 	Matrix matWorld, matPos, matScale;
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
@@ -573,7 +585,7 @@ void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos,
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&matWorld);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -602,7 +614,9 @@ void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, V
 	area.left = x;
 	area.top = y;
 	area.right = (x + w);
-	area.bottom = (y + h) * verticalPer;
+	area.bottom = (LONG)((y + h) * verticalPer);
+
+	Vector3 center = { 0.f, 0.f, 0.f };
 
 	Matrix matWorld, matPos, matScale;
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, 1.f);
@@ -612,7 +626,7 @@ void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, V
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&matWorld);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -641,6 +655,7 @@ void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform
 
 	float centerX = float(w >> 1);
 	float centerY = float(h >> 1);
+	Vector3 center = { centerX, (float)h, 0.f };
 
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
@@ -650,7 +665,7 @@ void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &area, &Vector3(centerX, h, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &area, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 
@@ -671,6 +686,8 @@ void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& tr
 	int w = tex->imageInfo.Width;
 	int h = tex->imageInfo.Height;
 
+	Vector3 center = { 0.f, 0.f, 0.f };
+
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixScaling(&scale, transform.scale.x, transform.scale.y, 0.f);
 	D3DXMatrixTranslation(&trans, transform.position.x, transform.position.y, 0.f);
@@ -679,7 +696,7 @@ void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& tr
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, nullptr, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, nullptr, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -700,9 +717,12 @@ void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float ve
 	int h = tex->imageInfo.Height;
 	RECT rt;
 	rt.left = 0;
-	rt.top = h-h*verticalPer;
+	rt.top = (LONG)(h-h*verticalPer);
 	rt.right = w;
 	rt.bottom =  h;
+
+	Vector3 center = { 0.f, 0.f, 0.f };
+
 	Matrix world, trans, rot, scale, parent;
 	D3DXMatrixTranslation(&trans, x, y, 0.f);
 	world = trans;
@@ -710,7 +730,7 @@ void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float ve
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	pRenderManager->pSprite->SetTransform(&world);
-	pRenderManager->pSprite->Draw(tex->pTexture, &rt, &Vector3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pRenderManager->pSprite->Draw(tex->pTexture, &rt, &center, nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	pRenderManager->pSprite->End();
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
@@ -867,7 +887,7 @@ HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& 
 
 	// 虐积己
 	wstring id = L"";
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -908,7 +928,7 @@ HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstri
 
 	// 虐积己
 	wstring id = L"";
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -984,7 +1004,7 @@ HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* 
 	// 虐积己
 	wstring id = L"";
 	wstring fileName = pFileName;
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -1021,7 +1041,7 @@ HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR*
 	// 虐积己
 	wstring id = L"";
 	wstring fileName = pFileName;
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -1058,7 +1078,7 @@ HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR*
 	// 虐积己
 	wstring id = L"";
 	wstring fileName = pFileName;
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];
@@ -1095,7 +1115,7 @@ HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFi
 	// 虐积己
 	wstring id = L"";
 	wstring fileName = pFileName;
-	for (int i = 0; i < fileName.length(); i++)
+	for (size_t i = 0; i < fileName.length(); i++)
 	{
 		if (fileName[i] == '.') break;
 		id += fileName[i];

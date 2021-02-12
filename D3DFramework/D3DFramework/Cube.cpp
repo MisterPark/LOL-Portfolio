@@ -71,7 +71,7 @@ void PKH::Cube::CreateCustomMesh()
 	vertices[6] = Vertex(Vector3(1.0f, 1.0f, 1.0f), D3DCOLOR_XRGB(0, 0, 255), 0, 0);
 	vertices[7] = Vertex(Vector3(1.0f, -1.0f, 1.0f), D3DCOLOR_XRGB(255, 0, 255), 0, 1);
 
-	for (int i = 0; i < vertexCount; i++)
+	for (UINT i = 0; i < vertexCount; i++)
 	{
 		pVertices[i] = vertices[i].pos;
 	}

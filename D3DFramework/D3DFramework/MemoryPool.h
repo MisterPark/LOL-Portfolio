@@ -180,7 +180,7 @@ private:
 
 	void Upsizing()
 	{
-		for (int i = 0; i < chunkCount; i++)
+		for (unsigned int i = 0; i < chunkCount; i++)
 		{
 			Chunk<T>* pChunk = new Chunk<T>(chunkSize, isPlacementNew);
 			chunkList->PushBack(pChunk);

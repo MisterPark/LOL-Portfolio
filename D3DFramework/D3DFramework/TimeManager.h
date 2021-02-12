@@ -36,7 +36,7 @@ namespace PKH
 		__int64 elapseSum = 0;
 		float deltaTime = 0.f;
 		int frameCount = 0;
-		int targetFrame = 0.f;
+		int targetFrame = 0;
 		int timeStack = 0; // 프레임당 초과 미만 시간 누적
 
 		int renderCount = 0;

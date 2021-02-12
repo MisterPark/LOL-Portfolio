@@ -47,12 +47,12 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
     Matrix matWorld = transform->world;
 
     float u, v, dist;
-    DWORD index, ind;
+    DWORD index;
     Vector3 v1;
     Vector3 v2;
     Vector3 v3;
 
-    for (int i = 0; i < triangleCount; i++)
+    for (UINT i = 0; i < triangleCount; i++)
     {
         index = i * 3;
         v1 = vertexPositions[indices[index]];

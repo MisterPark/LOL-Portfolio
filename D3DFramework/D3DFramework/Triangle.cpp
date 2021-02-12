@@ -51,7 +51,7 @@ void PKH::Triangle::CreateCustomMesh()
 	vertices[1] = Vertex(Vector3(0.f, 0.1f, 0.f), D3DCOLOR_XRGB(255, 0, 0),0.5f,1);
 	vertices[2] = Vertex(Vector3(0.1f, -0.1f, 0.f), D3DCOLOR_XRGB(0, 255, 0),1,0);
 
-	for (int i = 0; i < vertexCount; i++)
+	for (UINT i = 0; i < vertexCount; i++)
 	{
 		pVertices[i] = vertices[i].pos;
 	}

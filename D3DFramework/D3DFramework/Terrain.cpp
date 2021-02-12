@@ -68,10 +68,10 @@ void PKH::Terrain::CreateCustomMesh()
 			index = i * width + j;
 			float u = j / float(width - 1);
 
-			vertices[index] = Vertex(Vector3(j, 0.f, i), D3DCOLOR_XRGB(255, 255, 255), u * 30, v * 30);
-			vertexInfo[index].x = j;
+			vertices[index] = Vertex(Vector3((float)j, 0.f, (float)i), D3DCOLOR_XRGB(255, 255, 255), u * 30, v * 30);
+			vertexInfo[index].x = (float)j;
 			vertexInfo[index].y = 0.f;
-			vertexInfo[index].z = i;
+			vertexInfo[index].z = (float)i;
 
 		}
 	}
@@ -111,7 +111,7 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 
 	Vertex* vertices;
 	int k = 0;
-	int h = 0;
+	float h = 0;
 	int index = 0;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
 
@@ -194,9 +194,9 @@ void PKH::Terrain::SetNormalVector()
 	INDEX16* indices = nullptr;
 	triangles->Lock(0, 0, (void**)&indices, 0);
 
-	for (unsigned long i = 0; i < height - 1; ++i)
+	for (int i = 0; i < height - 1; ++i)
 	{
-		for (unsigned long j = 0; j < width - 1; ++j)
+		for (int j = 0; j < width - 1; ++j)
 		{
 			index = i * width + j;
 

@@ -196,7 +196,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	//==============================
 
 	subsetBoxArray = new BoundingBox[subsetCount];
-	for (int i = 0; i < subsetCount; i++)
+	for (ULONG i = 0; i < subsetCount; i++)
 	{
 		// 최소값 초기화 
 		subsetBoxArray[i].minPos.x = FLT_MAX;
@@ -216,7 +216,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	DWORD attID = 0;
 	int oldID = -1;
 
-	for (int i = 0; i < triangleCount; i++)
+	for (ULONG i = 0; i < triangleCount; i++)
 	{
 		
 		attID = attributeBuffer[i];
@@ -270,7 +270,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	
 
 	// 서브셋당 센터포지션과 반경 구하기
-	for (int i = 0; i < subsetCount; i++)
+	for (ULONG i = 0; i < subsetCount; i++)
 	{
 		subsetBoxArray[i].center =  subsetBoxArray[i].minPos + (subsetBoxArray[i].maxPos - subsetBoxArray[i].minPos) * 0.5f;
 		subsetBoxArray[i].radius = Vector3(subsetBoxArray[i].maxPos - subsetBoxArray[i].center).Length();
