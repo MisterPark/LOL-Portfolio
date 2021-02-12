@@ -9,6 +9,7 @@ const PKH::Color Color::BlueMonster = D3DCOLOR_ARGB(255, 0, 0, 255);
 
 PKH::Color::Color() 
 {
+
 }
 
 
