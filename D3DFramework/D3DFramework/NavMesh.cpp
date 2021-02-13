@@ -240,7 +240,7 @@ void PKH::NavMesh::Render()
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
 
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
 	//device->SetFVF(fvf);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

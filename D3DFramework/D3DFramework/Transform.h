@@ -11,7 +11,8 @@ namespace PKH
 		explicit Transform(const Transform& rhs);
 		virtual ~Transform();
 
-		virtual void Update();
+		virtual void Update() override;
+		virtual void PostUpdate() override;
 		virtual IComponent* Clone() override;
 
 		// 임의의 축 회전
@@ -46,7 +47,8 @@ namespace PKH
 		Vector3 right = Vector3::RIGHT;
 		Vector3 up = Vector3::UP;
 		Vector3 look = Vector3::FORWARD;
-		Matrix world;
+		Matrix localMatrix;
+		Matrix worldMatrix;
 
 		float zOrder = 0.f;
 	};

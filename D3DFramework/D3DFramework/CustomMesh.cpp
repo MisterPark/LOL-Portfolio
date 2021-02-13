@@ -58,7 +58,7 @@ void PKH::CustomMesh::Render()
 		device->SetIndices(triangles);
 
 
-		device->SetTransform(D3DTS_WORLD, &transform->world);
+		device->SetTransform(D3DTS_WORLD, &transform->localMatrix);
 
 		// Z Read ¸ðµå
 		switch (zReadMode)

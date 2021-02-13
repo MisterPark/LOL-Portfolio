@@ -43,7 +43,7 @@ void UI::Render()
 	matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
 	device->SetTransform(D3DTS_WORLD, &matWorld);
-	transform->world = matWorld;
+	transform->localMatrix = matWorld;
 	device->SetTransform(D3DTS_VIEW, &matView);
 	device->SetTransform(D3DTS_PROJECTION, &matProj);
 

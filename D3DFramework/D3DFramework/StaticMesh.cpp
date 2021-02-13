@@ -240,7 +240,7 @@ void PKH::StaticMesh::Render()
 void PKH::StaticMesh::RenderUsingFixedPL()
 {
 	auto device = RenderManager::GetDevice();
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
 	device->SetFVF(fvf);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	// TODO : 바꿔야함 컬모드
@@ -264,7 +264,7 @@ void PKH::StaticMesh::RenderUsingShader()
 	GameRenderer* const renderer = GameRenderer::Instance();
 	UINT passCount = 0;
 	renderer->GetEffect(L"DEFERRED", &effect);
-	effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+	effect->SetMatrix("g_mWorld", &gameObject->transform->localMatrix);
 	effect->Begin(&passCount, 0);
 	effect->BeginPass(0);
 	for (ULONG i = 0; i < subsetCount; ++i)

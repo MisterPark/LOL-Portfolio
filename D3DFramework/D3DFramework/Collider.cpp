@@ -97,7 +97,7 @@ Matrix PKH::Collider::GetWorldMatrix()
 {
 	if (transform == nullptr)return Matrix::identity;
 
-	return transform->world;
+	return transform->localMatrix;
 }
 
 void PKH::Collider::SetColor(D3DCOLOR color)
