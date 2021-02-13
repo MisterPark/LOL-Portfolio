@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RenderManager.h"
-
+#include "RenderTarget.h"
 #include "Texture.h"
 using namespace PKH;
 
@@ -138,13 +138,16 @@ void PKH::RenderManager::Release()
 	{
 		delete pair.second;
 	}
-
+	for (auto const& pair : pRenderManager->renderTargetMap)
+	{
+		delete pair.second;
+	}
 	pRenderManager->textureMap.clear();
 	pRenderManager->staticMeshMap.clear();
 	pRenderManager->dynamicMeshMap.clear();
 	pRenderManager->terrainMeshMap.clear();
 	pRenderManager->navMeshMap.clear();
-
+	pRenderManager->renderTargetMap.clear();
 	if (pRenderManager->pLine)
 	{
 		pRenderManager->pLine->Release();
@@ -1137,4 +1140,31 @@ NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& id)
 	}
 
 	return (NavMesh*)mesh->second->Clone();
+}
+
+HRESULT PKH::RenderManager::CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt)
+{
+	map<wstring, RenderTarget*>& renderTagets = pRenderManager->renderTargetMap;
+	RenderTarget* renderTarget = nullptr;
+	HRESULT hr = E_NOTIMPL;
+	auto const findIt = renderTagets.find(renderTargetID);
+	if (findIt != renderTagets.end())
+	{
+		return E_FAIL;
+	}
+	hr = RenderTarget::Create(width, height, fmt, &renderTarget);
+	renderTagets.emplace(renderTargetID, renderTarget);
+	return S_OK;
+}
+
+RenderTarget* PKH::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
+{
+	RenderManager* const self = pRenderManager;
+	map<wstring, RenderTarget*>& renderTargetMap = self->renderTargetMap;
+	auto const findIt = renderTargetMap.find(renderTargetID);
+	if (findIt != renderTargetMap.end())
+	{
+		return nullptr;
+	}
+	return findIt->second;
 }

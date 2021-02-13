@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -199,6 +199,8 @@
     <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="FloatingHPBar.h" />
     <ClInclude Include="Frustum.h" />
+    <ClInclude Include="GameRenderer.h" />
+    <ClInclude Include="GameRendererImpl.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="Gromp.h" />
@@ -260,6 +262,7 @@
     <ClInclude Include="Razorbeak.h" />
     <ClInclude Include="RazorbeakMini.h" />
     <ClInclude Include="RedMonster.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -350,6 +353,8 @@
     <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="FloatingHPBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
+    <ClCompile Include="GameRendererImpl.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="Gromp.cpp" />
@@ -480,6 +485,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BaseObject.inl" />
+    <CopyFileToFolders Include="deferred_render.fx">
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="deferred_shader.fx">
+      <FileType>Document</FileType>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

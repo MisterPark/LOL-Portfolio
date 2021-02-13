@@ -54,6 +54,7 @@
 #include "Nexus.h"
 #include "MinionAI.h"
 
+#include "GameRenderer.h"
 void TestScene::OnLoaded()
 {
 	Cursor::Show();
@@ -76,7 +77,7 @@ void TestScene::OnLoaded()
 
 	// 바닥
 	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
-
+	
 	// 벽
 	obj = ObjectManager::GetInstance()->CreateObject<Wall>(Layer::Wall);
 
@@ -382,7 +383,13 @@ void TestScene::OnLoaded()
 	unit->SetTeam(Team::RED);
 	//testUnit = unit;
 
-
+	D3DLIGHT9 dirLight{};
+	Vector3 v = Vector3(1.f, -1.f, 1.f).Normalized();
+	dirLight.Type = D3DLIGHT_DIRECTIONAL;
+	dirLight.Direction = v;
+	dirLight.Diffuse = D3DCOLORVALUE{ 1.f, 1.f, 1.f, 1.f };
+	dirLight.Ambient = D3DCOLORVALUE{ 0.2f, 0.2f, 0.2f, 1.0f};
+	GameRenderer::AddLight(L"dir1", dirLight);
 
 	// 미니언
 	

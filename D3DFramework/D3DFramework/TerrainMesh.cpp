@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TerrainMesh.h"
-
+#include "GameRenderer.h"
 PKH::TerrainMesh::TerrainMesh(GameObject* owner)
     :Mesh(owner)
 {
@@ -322,10 +322,11 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 void PKH::TerrainMesh::Render()
 {
 	if (gameObject == nullptr) return;
+	
 	//return;
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
-
+	
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
 	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
