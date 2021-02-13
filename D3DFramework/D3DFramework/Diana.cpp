@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "Diana.h"
-
+#include "GameRenderer.h"
 Diana::Diana()
 {
 	transform->scale = { 0.015f, 0.015f, 0.015f, };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"diana");
 	AddComponent(L"DynamicMesh", dmesh);
-
+	dmesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	faceCircleTexkey = L"diana_circle";
@@ -33,6 +34,8 @@ Diana::Diana()
 
 Diana::~Diana()
 {
+	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
+	GameRenderer::Unregister(dmesh);
 }
 
 void Diana::Initialize()

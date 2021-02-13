@@ -5,7 +5,7 @@
 #include "DynamicMesh.h"
 #include "TerrainMesh.h"
 #include "NavMesh.h"
-
+#include "RenderTarget.h"
 namespace PKH
 {
 
@@ -87,7 +87,8 @@ namespace PKH
 		static TerrainMesh* CloneTerrainMesh(const wstring& id);
 		static HRESULT LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static NavMesh* CloneNavMesh(const wstring& id);
-
+		static HRESULT CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt);
+		static RenderTarget* GetRenderTarget(const WCHAR* renderTargetID);
 		//==================================================
 
 	private:
@@ -106,7 +107,7 @@ namespace PKH
 		map<wstring, DynamicMesh*> dynamicMeshMap;
 		map<wstring, TerrainMesh*> terrainMeshMap;
 		map<wstring, NavMesh*> navMeshMap;
-
+		map<wstring, RenderTarget*> renderTargetMap;
 		CRITICAL_SECTION csDevice;
 		
 	};

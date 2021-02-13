@@ -17,6 +17,8 @@ namespace PKH
 	public:
 		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		virtual void Render(void) override;
+		void RenderUsingFixedPL();
+		void RenderUsingShader();
 		const  D3DXFRAME_DERIVED* GetFrameByName(const char* pFrameName);
 		bool			IsAnimationSetEnd(void);
 	public:

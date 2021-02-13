@@ -38,7 +38,7 @@
 #ifdef _DEBUG
 
 #include <iostream>
-using namespace std;
+
 
 #ifdef UNICODE
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
@@ -46,7 +46,7 @@ using namespace std;
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 #endif
-
+using namespace std;
 //=======================================
 //  Network
 //=======================================
@@ -128,6 +128,7 @@ using namespace std;
 
 #include "NavMesh.h"
 #include "NavMeshAgent.h"
+#include "GameRenderer.h"
 
 
 using namespace std;

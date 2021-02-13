@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -100,6 +100,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,6 +126,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +144,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +160,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./FMOD</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -194,12 +199,15 @@
     <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="FloatingHPBar.h" />
     <ClInclude Include="Frustum.h" />
+    <ClInclude Include="GameRenderer.h" />
+    <ClInclude Include="GameRendererImpl.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="Gromp.h" />
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Indicator.h" />
+    <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Jax.h" />
     <ClInclude Include="Jinx.h" />
@@ -255,6 +263,7 @@
     <ClInclude Include="Razorbeak.h" />
     <ClInclude Include="RazorbeakMini.h" />
     <ClInclude Include="RedMonster.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -281,6 +290,8 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="RenderTargetImpl.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scuttleracer.h" />
@@ -343,6 +354,8 @@
     <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="FloatingHPBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
+    <ClCompile Include="GameRendererImpl.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="Gromp.cpp" />
@@ -424,6 +437,8 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
@@ -433,6 +448,7 @@
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
@@ -470,6 +486,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BaseObject.inl" />
+    <CopyFileToFolders Include="deferred_render.fx">
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="deferred_shader.fx">
+      <FileType>Document</FileType>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

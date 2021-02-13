@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Leona.h"
+#include "GameRenderer.h"
 
 Leona::Leona()
 {
@@ -7,7 +8,8 @@ Leona::Leona()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"leona");
 	AddComponent(L"DynamicMesh", dmesh);
-
+	dmesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	faceCircleTexkey = L"leona_circle";
@@ -33,6 +35,8 @@ Leona::Leona()
 
 Leona::~Leona()
 {
+	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
+	GameRenderer::Unregister(dmesh);
 }
 
 void Leona::Initialize()

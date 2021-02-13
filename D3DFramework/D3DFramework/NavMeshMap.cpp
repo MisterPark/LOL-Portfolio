@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NavMeshMap.h"
 #include "MeshCollider.h"
-
+#include "GameRenderer.h"
 using namespace PKH;
 
 PKH::NavMeshMap::NavMeshMap()
@@ -18,12 +18,15 @@ PKH::NavMeshMap::NavMeshMap()
 	pPathFinder = new Astar();
 	//SetNavigationInfo();
 	LoadNavigationInfo();
+	navMesh->renderGroupID = RenderGroupID::AlphablendForward;
+	GameRenderer::Register(navMesh);
 }
 
 PKH::NavMeshMap::~NavMeshMap()
 {
 	delete pPathFinder;
 	pPathFinder = nullptr;
+	GameRenderer::Unregister(navMesh);
 }
 
 void PKH::NavMeshMap::Initialize()

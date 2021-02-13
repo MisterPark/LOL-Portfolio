@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "FloatingHPBar.h"
-
+#include "GameRenderer.h"
 FloatingHPBar::FloatingHPBar()
 {
 	offset = { -0.2f,2.1f,-0.5f };

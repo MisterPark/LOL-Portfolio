@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "LoadingBackGround.h"
-
+#include "IRenderComponent.h"
 LoadingBackGround::LoadingBackGround()
 {
 	SetTexture(L"srbackground");
@@ -10,10 +10,16 @@ LoadingBackGround::LoadingBackGround()
 	
 	SetSize(MainGame::GetWidth(), MainGame::GetHeight());
 	SetLocation(0, 0);
+	RenderComponent* com = (RenderComponent*)AddComponent<GameObjectRenderComponent>(L"renderCom");
+	com->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(com);
 }
 
 LoadingBackGround::~LoadingBackGround()
 {
+	RenderComponent* com = (RenderComponent*)GetComponent(L"renderCom");
+	GameRenderer::Unregister(com);
+
 }
 
 void LoadingBackGround::Initialize()
