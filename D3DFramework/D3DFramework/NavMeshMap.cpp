@@ -18,15 +18,15 @@ PKH::NavMeshMap::NavMeshMap()
 	pPathFinder = new Astar();
 	//SetNavigationInfo();
 	LoadNavigationInfo();
-	renderGroup = RenderGroupID::Deferred;
-	GameRenderer::Register(renderGroup, this);
+	navMesh->renderGroupID = RenderGroupID::AlphablendForward;
+	GameRenderer::Register(navMesh);
 }
 
 PKH::NavMeshMap::~NavMeshMap()
 {
 	delete pPathFinder;
 	pPathFinder = nullptr;
-	GameRenderer::Unregister(renderGroup, this);
+	GameRenderer::Unregister(navMesh);
 }
 
 void PKH::NavMeshMap::Initialize()

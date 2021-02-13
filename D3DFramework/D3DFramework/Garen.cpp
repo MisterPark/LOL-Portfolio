@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "Garen.h"
 #include "Animation.h"
-
+#include "GameRenderer.h"
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
-
+	dmesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	// 얼굴 아이콘
@@ -39,6 +40,8 @@ Garen::Garen()
 
 Garen::~Garen()
 {
+	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
+	GameRenderer::Unregister(dmesh);
 }
 
 void Garen::Initialize()

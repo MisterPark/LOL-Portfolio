@@ -326,12 +326,54 @@ void PKH::TerrainMesh::Render()
 	//return;
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
-	
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
-
 	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
 	device->SetFVF(fvf);
 	device->SetIndices(indexBuffer);
+	if (renderGroupID == RenderGroupID::Deferred)
+	{
+		ID3DXEffect* effect{};
+		GameRenderer* renderer = GameRenderer::Instance();
+		renderer->GetEffect(L"DEFERRED", &effect);
+		UINT passCount{};
+		effect->SetFloat("g_alphaThreshold", 0.5f);
+		effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+		effect->Begin(&passCount, 0);
+		effect->BeginPass(1);
+		int cullcount = 0;
+		for (ULONG i = 0; i < subsetCount; ++i)
+		{
+			Vector3 worldCenter;
+			D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->world);
+			if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
+			{
+				cullcount++;
+				continue;
+			}
+			effect->SetTexture("g_diffuseTexture", ppTextures[i]);
+			effect->CommitChanges();
+			auto device = RenderManager::GetDevice();
+			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
+		}
+		effect->EndPass();
+		effect->End();
+		effect->Release();
+	}
+	else
+	{
+		RenderUsingFixed();
+	}
+	RenderManager::UnlockDevice();
+}
+
+void PKH::TerrainMesh::RenderUsingShader(ID3DXEffect* effect)
+{
+
+}
+
+void PKH::TerrainMesh::RenderUsingFixed()
+{
+	auto device = RenderManager::GetDevice();
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
@@ -357,5 +399,4 @@ void PKH::TerrainMesh::Render()
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
-	RenderManager::UnlockDevice();
 }

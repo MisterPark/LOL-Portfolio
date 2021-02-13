@@ -24,14 +24,14 @@ void GameRenderer::Destroy()
 	}
 }
 
-void GameRenderer::Register(RenderGroupID groupId, PKH::GameObject* object)
+void GameRenderer::Register(RenderComponent* mesh)
 {
-	g_instance->Register(groupId, object);
+	g_instance->Register(mesh);
 }
 
-void GameRenderer::Unregister(RenderGroupID groupId, PKH::GameObject* object)
+void GameRenderer::Unregister(RenderComponent* mesh)
 {
-	g_instance->Unregister(groupId, object);
+	g_instance->Unregister(mesh);
 }
 
 void GameRenderer::Render()

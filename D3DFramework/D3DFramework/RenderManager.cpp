@@ -1162,7 +1162,7 @@ RenderTarget* PKH::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
 	RenderManager* const self = pRenderManager;
 	map<wstring, RenderTarget*>& renderTargetMap = self->renderTargetMap;
 	auto const findIt = renderTargetMap.find(renderTargetID);
-	if (findIt != renderTargetMap.end())
+	if (findIt == renderTargetMap.end())
 	{
 		return nullptr;
 	}

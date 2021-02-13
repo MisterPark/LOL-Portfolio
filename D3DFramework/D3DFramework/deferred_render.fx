@@ -56,11 +56,12 @@ VSOut VS_main(VSIn input)
 PSOut PS_main_NonAlpha(PSIn input)
 {
 	float depth = input.vClipPosition.z / input.vClipPosition.w;
-	NOSPECULARMAP_PS_OUT output;
+	PSOut output;
+
 	output.diffuse = tex2D(DiffuseTextureSampler, input.vUV);
 	output.diffuse.a = 1.f;
 	output.specular = g_vSpecular;
-	float3 vN = input.vNormal;
+	float3 vN = input.vNormal.xyz;
 
 	//float p = sqrt(vN.z * 8 + 8);
 	//output.normal.rg = vN.xy / p + 0.5f;
@@ -79,11 +80,11 @@ float g_alphaThreshold;
 PSOut PS_main_AlphaTest(PSIn input)
 {
 	float4 diffuse = tex2D(DiffuseTextureSampler, input.vUV);
-	if (diffuse.a >= g_alphaThreshold)
+	if (diffuse.a < g_alphaThreshold)
 	{
 		discard;
 	}
-	NOSPECULARMAP_PS_OUT output;
+	PSOut output;
 	output.diffuse = diffuse;
 	output.diffuse.a = 1.f;
 

@@ -128,6 +128,7 @@ using namespace std;
 
 #include "NavMesh.h"
 #include "NavMeshAgent.h"
+#include "GameRenderer.h"
 
 
 using namespace std;

@@ -5,7 +5,7 @@
 #include "LoadingPanel.h"
 #include "UI_Spell.h"
 #include "Label.h"
-
+#include "IRenderComponent.h"
 LoadingChampScreen::LoadingChampScreen()
 {
 	border = new LoadingBorder;
@@ -19,10 +19,16 @@ LoadingChampScreen::LoadingChampScreen()
 	champName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
 	nickName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
 	progressLabel->foreColor = D3DCOLOR_ARGB(255, 0, 250, 0);
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent *)AddComponent<GameObjectRenderComponent>(L"renderCom");
+	renderCom->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(renderCom);
 }
 
 LoadingChampScreen::~LoadingChampScreen()
 {
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)GetComponent(L"renderCom");
+	GameRenderer::Unregister(renderCom);
+
 	delete border;
 	delete champ;
 	delete mask;

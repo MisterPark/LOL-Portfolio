@@ -17,6 +17,10 @@ const char ID_TEX_DEPTH_MAP[]{ "g_depthMap" };
 
 struct PPVertexFVF { D3DXVECTOR3 xyz; D3DXVECTOR2 uv; };
 static constexpr DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
+auto compareZ = [](RenderComponent* a, RenderComponent* b)->bool
+{
+	return a->transform->zOrder > b->transform->zOrder;
+};
 GameRendererImpl::GameRendererImpl()
 {
 	IDirect3DDevice9* device = RenderManager::GetDevice();
@@ -68,6 +72,16 @@ GameRendererImpl::GameRendererImpl()
 		&deferredShader_,
 		&msgBuffer
 	);
+	if (msgBuffer != nullptr)
+	{
+		const char* const errMsg = (const char*)msgBuffer->GetBufferPointer();
+		OutputDebugStringA(errMsg);
+	}
+	if (FAILED(hr))
+	{
+		
+		DebugBreak();
+	}
 	ComPtr<ID3DXEffect> effect;
 	msgBuffer = ComPtr<ID3DXBuffer>{};
 	effect = ComPtr<ID3DXEffect>{};
@@ -81,24 +95,42 @@ GameRendererImpl::GameRendererImpl()
 		&effect,
 		&msgBuffer
 	);
+	if (msgBuffer != nullptr)
+	{
+		const char* const errMsg = (const char*)msgBuffer->GetBufferPointer();
+		OutputDebugStringA(errMsg);
+	}
+	if (FAILED(hr))
+	{
+		if (msgBuffer != nullptr)
+		{
+			const char* const errMsg = (const char*)msgBuffer->GetBufferPointer();
+			OutputDebugStringA(errMsg);
+		}
+		DebugBreak();
+	}
 	effects_.emplace(L"DEFERRED", effect);
+
+	D3DXCreateSprite(device, &sprite_);
 }
 
-void GameRendererImpl::Register(RenderGroupID groupId, PKH::GameObject* object)
+void GameRendererImpl::Register(RenderComponent* mesh)
 {
-	std::list<GameObject*>& group = renderGroups_[groupId];
-	auto it = std::find(group.begin(), group.end(), object);
+	RenderGroupID groupId = mesh->renderGroupID;
+	std::list<RenderComponent*>& group = renderGroups_[groupId];
+	auto it = std::find(group.begin(), group.end(), mesh);
 	if (it != group.end())
 	{
 		return;
 	}
-	group.emplace_back(object);
+	group.emplace_back(mesh);
 }
 
-void GameRendererImpl::Unregister(RenderGroupID groupId, PKH::GameObject* object)
+void GameRendererImpl::Unregister(RenderComponent* mesh)
 {
-	std::list<GameObject*>& group = renderGroups_[groupId];
-	auto it = std::find(group.begin(), group.end(), object);
+	RenderGroupID groupId = mesh->renderGroupID;
+	std::list<RenderComponent*>& group = renderGroups_[groupId];
+	auto it = std::find(group.begin(), group.end(), mesh);
 	if (it == group.end())
 	{
 		return;
@@ -117,14 +149,16 @@ void GameRendererImpl::Render()
 		ID3DXEffect* effect = pair.second.Get();
 		effect->SetMatrix("g_mViewSpace",		&mViewSpace);
 		effect->SetMatrix("g_mProjSpace",		&mProjSpace);
-		effect->SetMatrix("g_mViewProjSpace",	&mViewProj);
+		effect->SetMatrix("g_mViewProj",	&mViewProj);
 	}
 	device->SetTransform(D3DTS_PROJECTION, reinterpret_cast<D3DMATRIX*>(&mProjSpace));
 	device->SetTransform(D3DTS_VIEW, reinterpret_cast<D3DMATRIX*>(&mViewSpace));
 	device->BeginScene();
 	device->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, 0, 1.f, 0);
 	DeferredRender();
+	RenderAlphaForward();
 	RenderUI();
+	RenderDebugRT();
 	device->EndScene();
 	device->Present(nullptr, nullptr, nullptr, nullptr);
 }
@@ -172,7 +206,10 @@ void GameRendererImpl::DeferredRender()
 	RenderTarget* const depthRT		= RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
 	RenderTarget* const specularRT	= RenderManager::GetRenderTarget(RENDER_TARGET_SPECULAR);
 	ComPtr<IDirect3DSurface9> surface;
-
+	//float4 diffuse : COLOR0;
+	//float4 normal : COLOR1;
+	//float4 specular : COLOR2;
+	//float4 depth : COLOR3;
 	surface = ComPtr<IDirect3DSurface9>{};
 	albedoRT->GetSurface(&surface);
 	device->SetRenderTarget(0, surface.Get() );
@@ -192,13 +229,28 @@ void GameRendererImpl::DeferredRender()
 	device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 
 	auto& list{ renderGroups_[RenderGroupID::Deferred] };
-	std::vector<GameObject*> zSortedObjects;
-	zSortedObjects.reserve(list.size());
-	zSortedObjects.assign(list.begin(), list.end());
-	std::sort(zSortedObjects.begin(), zSortedObjects.end(), PKH::ObjectManager::CompareZ);
-	for (auto object : zSortedObjects)
+	std::vector<RenderComponent*> zSortedMeshs;
+	zSortedMeshs.reserve(list.size());
+	zSortedMeshs.assign(list.begin(), list.end());
+	std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
+	D3DXVECTOR4 defaultSpecular{ 0.0f,0.0f,0.0f,1.f };
+
+	for (auto mesh : zSortedMeshs)
 	{
-		object->Render();
+		if (mesh->gameObject == nullptr)
+		{
+			continue;
+		}
+		if (mesh->gameObject->isVisible == false)
+		{
+			continue;
+		}
+		for (auto& pair : effects_)
+		{
+			ID3DXEffect* effect = pair.second.Get();
+			effect->SetVector("g_vSpecular", &defaultSpecular);
+		}
+		mesh->Render();
 	}
 	UINT passCount{};
 	deferredShader_->Begin(&passCount, 0);
@@ -315,31 +367,93 @@ void GameRendererImpl::DeferredCombine()
 	deferredShader_->EndPass();
 }
 
+void GameRendererImpl::RenderAlphaForward()
+{
+	auto& list{ renderGroups_[RenderGroupID::AlphablendForward] };
+	std::vector<RenderComponent*> zSortedMeshs;
+	zSortedMeshs.reserve(list.size());
+	zSortedMeshs.assign(list.begin(), list.end());
+	std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
+	for (auto mesh : zSortedMeshs)
+	{
+		if (mesh->gameObject == nullptr)
+		{
+			continue;
+		}
+		if (mesh->gameObject->isVisible == false)
+		{
+			continue;
+		}
+		mesh->Render();
+	}
+}
+
 void GameRendererImpl::RenderUI()
 {
 	auto& list{ renderGroups_[RenderGroupID::UI] };
-	std::vector<GameObject*> zSortedObjects;
-	zSortedObjects.reserve(list.size());
-	zSortedObjects.assign(list.begin(), list.end());
-	std::sort(zSortedObjects.begin(), zSortedObjects.end(), PKH::ObjectManager::CompareZ);
-	for (auto object : zSortedObjects)
+	std::vector<RenderComponent*> zSortedMeshs;
+	zSortedMeshs.reserve(list.size());
+	zSortedMeshs.assign(list.begin(), list.end());
+	std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
+	for (auto mesh : zSortedMeshs)
 	{
-		if (object->isVisible == false) continue;
-		object->Render();
+		if (mesh->gameObject == nullptr)
+		{
+			continue;
+		}
+		if (mesh->gameObject->isVisible == false)
+		{
+			continue;
+		}
+		mesh->Render();
 	}
 }
 
 void GameRendererImpl::RenderHUD()
 {
 	auto& list{ renderGroups_[RenderGroupID::HUD] };
-	std::vector<GameObject*> zSortedObjects;
-	zSortedObjects.reserve(list.size());
-	zSortedObjects.assign(list.begin(), list.end());
-	std::sort(zSortedObjects.begin(), zSortedObjects.end(), PKH::ObjectManager::CompareZ);
-	for (auto object : zSortedObjects)
+	std::vector<RenderComponent*> zSortedMeshs;
+	zSortedMeshs.reserve(list.size());
+	zSortedMeshs.assign(list.begin(), list.end());
+	std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
+	for (auto mesh: zSortedMeshs)
 	{
-		if (object->isVisible == false) continue;
-		object->Render();
+		if (mesh->gameObject == nullptr)
+		{
+			continue;
+		}
+		if (mesh->gameObject->isVisible == false)
+		{
+			continue;
+		}
+		mesh->Render();
 	}
+}
+
+void GameRendererImpl::RenderDebugRT()
+{
+	D3DXMATRIX tmpMat;
+	D3DXMATRIX tmpMat2;
+	RenderTarget* albedo = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
+	RenderTarget* normal = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
+	ComPtr<IDirect3DTexture9> texture;
+	
+	D3DXMatrixScaling(&tmpMat, .2f, .2f, .2f);
+	D3DXMatrixTranslation(&tmpMat2, MainGame::GetInstance()->width * 0.2f, 0, 0);
+
+	sprite_->Begin(D3DXSPRITE_ALPHABLEND);
+	sprite_->SetTransform(&tmpMat);
+
+	texture.Reset();
+	albedo->GetTexture(&texture);
+	sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+	
+	texture.Reset();
+	normal->GetTexture(&texture);
+	tmpMat = tmpMat * tmpMat2;
+	sprite_->SetTransform(&tmpMat);
+	sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+
+	sprite_->End();
 }
 

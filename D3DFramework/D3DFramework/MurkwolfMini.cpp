@@ -7,7 +7,8 @@ MurkwolfMini::MurkwolfMini()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"sru_murkwolfmini_left");
 	AddComponent(L"DynamicMesh", dmesh);
-
+	dmesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
@@ -15,4 +16,6 @@ MurkwolfMini::MurkwolfMini()
 
 MurkwolfMini::~MurkwolfMini()
 {
+	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
+	GameRenderer::Unregister(dmesh);
 }

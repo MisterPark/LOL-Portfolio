@@ -5,7 +5,7 @@
 #include "TurretMissile.h"
 #include "Indicator.h"
 #include "TurretBreak.h"
-
+#include "GameRenderer.h"
 Turret::Turret()
 {
 	transform->position = { 0,0,0 };
@@ -20,11 +20,16 @@ Turret::Turret()
 	bar->SetTarget(this);
 
 	SetAttackRange(7.75f);
+
+	mesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(mesh);
 }
 
 Turret::~Turret()
 {
 	bar = nullptr;
+	StaticMesh* mesh = (StaticMesh*)GetComponent(L"StaticMesh");
+	GameRenderer::Unregister(mesh);
 }
 
 void Turret::Update()

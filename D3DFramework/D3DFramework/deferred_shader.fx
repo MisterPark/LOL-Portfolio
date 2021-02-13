@@ -7,7 +7,8 @@ struct VS_IN
 struct VS_OUT
 {
 	float4 vPosition:POSITION;
-	float2 vUV: TEXCOORD0;
+	float4 vClipPosition:TEXCOORD0;
+	float2 vUV: TEXCOORD1;
 };
 struct PS_IN
 {
@@ -17,31 +18,8 @@ struct PS_IN
 struct PS_OUT
 {
 	float4 vColor: COLOR0;
+	float4 vSpecular:COLOR1;
 };
-VS_OUT vs_main(VS_IN input)
-{
-	VS_OUT output;
-	output.vPosition = input.vPosition;
-	output.vPosition.w = 1.f;
-	output.vClipPosition = output.vPosition;
-	output.vUV = input.vUV;
-	return output;
-}
-
-float4 ps_main(PS_IN input) :COLOR0
-{
-	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
-	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
-	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
-	float4 vColor = vSpecular + vAlbedo * vShade;
-	float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
-
-	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
-	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
-	//vColor = fogFactor * vColor + (1.f - fogFactor);
-	vColor.a = vAlbedo.a;
-	return vColor;
-}
 texture g_normalMap;
 texture g_specularMap;
 texture g_depthMap;
@@ -75,6 +53,32 @@ sampler NormalMapSampler = sampler_state
 {
 	texture = g_normalMap;
 };
+
+
+VS_OUT vs_main(VS_IN input)
+{
+	VS_OUT output;
+	output.vPosition = input.vPosition;
+	output.vPosition.w = 1.f;
+	output.vClipPosition = output.vPosition;
+	output.vUV = input.vUV;
+	return output;
+}
+
+float4 ps_combine(PS_IN input) :COLOR0
+{
+	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
+	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
+	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
+	float4 vColor = vSpecular + vAlbedo * vShade;
+	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
+
+	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
+	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
+	//vColor = fogFactor * vColor + (1.f - fogFactor);
+	vColor.a = vAlbedo.a;
+	return vAlbedo;
+}
 
 matrix g_mInverseViewProj;
 float4 g_vLightDirectionAndPower;
@@ -127,9 +131,9 @@ technique Default_Device
 		SrcBlend = srcalpha;
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
-		PixelShader = compile ps_3_0 ps_main();
+		PixelShader = compile ps_3_0 ps_combine();
 	}
-	pass combine
+	pass directioanl
 	{
 		ZEnable = false;
 		VertexShader = compile vs_3_0 vs_main();

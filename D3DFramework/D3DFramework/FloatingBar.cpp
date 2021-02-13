@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "FloatingBar.h"
 #include "Label.h"
-
+#include "IRenderComponent.h"
+#include "GameRenderer.h"
 FloatingBar::FloatingBar()
 {
 
@@ -31,12 +32,19 @@ FloatingBar::FloatingBar()
 	nicknameLabel = new Label();
 	nicknameLabel->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
 	nicknameLabel->align = Label::Align::Center;
+
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)AddComponent<GameObjectRenderComponent>(L"render_component");
+	renderCom->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(renderCom);
 }
 
 FloatingBar::~FloatingBar()
 {
 	Safe_Delete(&nicknameLabel);
 	target = nullptr;
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)GetComponent(L"render_component");
+	GameRenderer::Unregister(renderCom);
+
 }
 
 void FloatingBar::Initialize()

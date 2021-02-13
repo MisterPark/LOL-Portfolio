@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "StaticMesh.h"
-
+#include "GameRenderer.h"
 PKH::StaticMesh::StaticMesh(GameObject* owner)
 	:Mesh(owner)
 {
@@ -224,9 +224,22 @@ void PKH::StaticMesh::Render()
 {
 	if (gameObject == nullptr) return;
 
-	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
+	if (renderGroupID == RenderGroupID::Deferred)
+	{
+		RenderUsingShader();
+	}
+	else
+	{
+		RenderUsingFixedPL();
+	}
 
+	RenderManager::UnlockDevice();
+}
+
+void PKH::StaticMesh::RenderUsingFixedPL()
+{
+	auto device = RenderManager::GetDevice();
 	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 	device->SetFVF(fvf);
 	device->SetRenderState(D3DRS_LIGHTING, false);
@@ -242,5 +255,28 @@ void PKH::StaticMesh::Render()
 	device->SetTexture(0, 0);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	RenderManager::UnlockDevice();
+}
+
+void PKH::StaticMesh::RenderUsingShader()
+{
+	IDirect3DDevice9* const device = RenderManager::GetDevice();
+	ID3DXEffect* effect;
+	GameRenderer* const renderer = GameRenderer::Instance();
+	UINT passCount = 0;
+	renderer->GetEffect(L"DEFERRED", &effect);
+	effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+	effect->Begin(&passCount, 0);
+	effect->BeginPass(0);
+	for (ULONG i = 0; i < subsetCount; ++i)
+	{
+		effect->SetTexture("g_diffuseTexture", ppTextures[i]);
+		effect->CommitChanges();
+		pMesh->DrawSubset(i);
+	}
+	effect->EndPass();
+	effect->End();
+	if (effect != nullptr)
+	{
+		effect->Release();
+	}
 }

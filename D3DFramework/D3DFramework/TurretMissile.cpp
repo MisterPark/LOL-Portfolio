@@ -2,19 +2,21 @@
 #include "TurretMissile.h"
 #include "Rectangle.h"
 #include "SphereCollider.h"
-
+#include "GameRenderer.h"
 TurretMissile::TurretMissile()
 {
 	mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);
-	
+	mesh->renderGroupID = RenderGroupID::AlphablendForward;
+	GameRenderer::Register(mesh);
 	transform->scale = { 0.5f,0.5f, 1.f };
 }
 
 TurretMissile::~TurretMissile()
 {
+	GameRenderer::Unregister(mesh);
 	mesh = nullptr;
 }
 
