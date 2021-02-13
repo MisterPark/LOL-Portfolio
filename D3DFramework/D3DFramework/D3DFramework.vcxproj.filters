@@ -642,25 +642,15 @@
     <ClInclude Include="FloatingHPBar.h">
       <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
-    <ClInclude Include="NetPlayerController.h" />
-    <ClInclude Include="TextParser.h" />
     <ClInclude Include="Jax.h">
       <Filter>GameObject\Unit\Champion\Jax</Filter>
     </ClInclude>
-    <ClInclude Include="TurretFloatingBar.h" />
-    <ClInclude Include="MinionFloatingBar.h" />
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Indicator.h" />
-    <ClInclude Include="MonsterAI.h" />
-    <ClInclude Include="TurretMissile.h" />
-    <ClInclude Include="TurretBreak.h" />
-    <ClInclude Include="MinionAI.h" />
     <ClInclude Include="Vector2.h">
       <Filter>Lib</Filter>
     </ClInclude>
-    <ClInclude Include="MinimapPanel.h" />
     <ClInclude Include="RenderTarget.h">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClInclude>
@@ -681,6 +671,36 @@
     </ClInclude>
     <ClInclude Include="IRenderComponent.h">
       <Filter>Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMissile.h">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretBreak.h">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretFloatingBar.h">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParser.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Indicator.h">
+      <Filter>GameObject\UI\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="MinimapPanel.h">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionFloatingBar.h">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="NetPlayerController.h">
+      <Filter>Component\PlayerController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1169,25 +1189,15 @@
     <ClCompile Include="HUD.cpp">
       <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
-    <ClCompile Include="NetPlayerController.cpp" />
-    <ClCompile Include="TextParser.cpp" />
     <ClCompile Include="Jax.cpp">
       <Filter>GameObject\Unit\Champion\Jax</Filter>
     </ClCompile>
-    <ClCompile Include="TurretFloatingBar.cpp" />
-    <ClCompile Include="MinionFloatingBar.cpp" />
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Indicator.cpp" />
-    <ClCompile Include="MonsterAI.cpp" />
-    <ClCompile Include="TurretMissile.cpp" />
-    <ClCompile Include="TurretBreak.cpp" />
-    <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="Vector2.cpp">
       <Filter>Lib</Filter>
     </ClCompile>
-    <ClCompile Include="MinimapPanel.cpp" />
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClCompile>
@@ -1202,6 +1212,36 @@
     </ClCompile>
     <ClCompile Include="Nexus.cpp">
       <Filter>GameObject\Unit\Building\Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretBreak.cpp">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretFloatingBar.cpp">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMissile.cpp">
+      <Filter>GameObject\Unit\Building\Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="TextParser.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Indicator.cpp">
+      <Filter>GameObject\UI\Indicator</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimapPanel.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionFloatingBar.cpp">
+      <Filter>GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="NetPlayerController.cpp">
+      <Filter>Component\PlayerController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1222,13 +1262,13 @@
     <None Include="BaseObject.inl">
       <Filter>BaseObject</Filter>
     </None>
-    <None Include="deferred_render.fx">
-      <Filter>Lib\Graphics\shader</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="deferred_shader.fx">
+    <CopyFileToFolders Include="deferred_shader.fx">
       <Filter>Lib\Graphics\shader</Filter>
-    </FxCompile>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="deferred_render.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
