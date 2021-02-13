@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TerrainMesh.h"
-
+#include "GameRenderer.h"
 PKH::TerrainMesh::TerrainMesh(GameObject* owner)
     :Mesh(owner)
 {
@@ -83,14 +83,14 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	//==============================
 	// X파일 메쉬 로드
 	//==============================
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (FAILED(D3DXLoadMeshFromXW(szFullPath, D3DXMESH_MANAGED, device,
 		&pAdjacency, &pSubset, NULL, &subsetCount, &pOriginMesh)))
 	{
-		RenderManager::UnlockDevice();
+		//RenderManager::UnlockDevice();
 		return E_FAIL;
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 	
 	
@@ -99,7 +99,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	//==============================
 	fvf = pOriginMesh->GetFVF();	// 메쉬가 지닌 정점 FVF정보를 얻어오는 함수
 
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (!(fvf & D3DFVF_NORMAL))
 	{
 		// 노말 값이 없는 경우
@@ -111,7 +111,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	{
 		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 
 	HRESULT res = pMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
 		(DWORD*)pAdjacency->GetBufferPointer(), NULL, NULL, NULL);
@@ -300,16 +300,16 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 		lstrcat(szFullPath, szFileName);
 
 		HRESULT res = E_FAIL;
-		RenderManager::LockDevice();
+		//RenderManager::LockDevice();
 		res = D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i]);
 		if (res != S_OK)
 		{
-			RenderManager::UnlockDevice();
+			//RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
 
 
-		RenderManager::UnlockDevice();
+		//RenderManager::UnlockDevice();
 	}
 
 	pMesh->GetVertexBuffer(&vertexBuffer);
@@ -322,15 +322,58 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 void PKH::TerrainMesh::Render()
 {
 	if (gameObject == nullptr) return;
+	
 	//return;
 	auto device = RenderManager::GetDevice();
 	RenderManager::LockDevice();
-
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
-
 	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
 	device->SetFVF(fvf);
 	device->SetIndices(indexBuffer);
+	if (renderGroupID == RenderGroupID::Deferred)
+	{
+		ID3DXEffect* effect{};
+		GameRenderer* renderer = GameRenderer::Instance();
+		renderer->GetEffect(L"DEFERRED", &effect);
+		UINT passCount{};
+		effect->SetFloat("g_alphaThreshold", 0.5f);
+		effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+		effect->Begin(&passCount, 0);
+		effect->BeginPass(1);
+		int cullcount = 0;
+		for (ULONG i = 0; i < subsetCount; ++i)
+		{
+			Vector3 worldCenter;
+			D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->world);
+			if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
+			{
+				cullcount++;
+				continue;
+			}
+			effect->SetTexture("g_diffuseTexture", ppTextures[i]);
+			effect->CommitChanges();
+			auto device = RenderManager::GetDevice();
+			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
+		}
+		effect->EndPass();
+		effect->End();
+		effect->Release();
+	}
+	else
+	{
+		RenderUsingFixed();
+	}
+	RenderManager::UnlockDevice();
+}
+
+void PKH::TerrainMesh::RenderUsingShader(ID3DXEffect* effect)
+{
+
+}
+
+void PKH::TerrainMesh::RenderUsingFixed()
+{
+	auto device = RenderManager::GetDevice();
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
@@ -356,5 +399,4 @@ void PKH::TerrainMesh::Render()
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
-	RenderManager::UnlockDevice();
 }

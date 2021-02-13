@@ -2,14 +2,14 @@
 #include "Mesh.h"
 
 PKH::Mesh::Mesh(GameObject* owner)
-	:IComponent(owner)
+	:RenderComponent(owner)
 	,isClone(false)
 {
 	type = MeshType::NONE;
 }
 
 PKH::Mesh::Mesh(const Mesh& rhs)
-	:IComponent(rhs)
+	:RenderComponent(rhs)
 	,isClone(true)
 	,type(rhs.type)
 {

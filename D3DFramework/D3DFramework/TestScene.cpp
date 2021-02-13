@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "TestScene.h"
 
 #include "Label.h"
@@ -55,7 +55,7 @@
 #include "Nexus.h"
 #include "MinionAI.h"
 
-
+#include "GameRenderer.h"
 void TestScene::OnLoaded()
 {
 	Cursor::Show();
@@ -75,17 +75,17 @@ void TestScene::OnLoaded()
 
 	GameObject* obj = nullptr;
 	Unit* unit = nullptr;
-	// ¿ÀºêÁ§Æ®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	obj = ObjectManager::GetInstance()->CreateObject<Environment>();
 	obj->transform->position = { 0,0,0 };
 
-	// ¹Ù´Ú
+	// ï¿½Ù´ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
-
-	// º®
+	
+	// ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Wall>(Layer::Wall);
 
-	// ºÎ½¬
+	// ï¿½Î½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
@@ -121,39 +121,39 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 6.99f, 67.71f, 28.18f };
 
-	// ¸ó½ºÅÍ
+	// ï¿½ï¿½ï¿½ï¿½
 
-	// ·¹µå
+	// ï¿½ï¿½ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
 	obj->transform->position = { -6.10f, 67.71f, 24.87f };
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
 	obj->transform->position = { -1.88f, 67.71f, -17.87f };
-	// ºí·ç
+	// ï¿½ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	obj->transform->position = { 19.79f, 67.72f, 0.64f };
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	obj->transform->position = { -26.43f, 67.71f, 6.83f };
-	// ´Á´ë À§
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	obj->transform->position = { 19.74f, 67.71f, 9.78f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { 19.17f, 67.71f, 10.84f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { 21.08f, 67.71f, 9.00f };
-	// ´Á´ë ¾Æ·¡
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	obj->transform->position = { -26.72f, 67.72f, -2.72f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { -26.23f, 67.71f, -3.57f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { -27.73f, 67.71f, -2.44f };
-	// µÎ²¨ºñ
+	// ï¿½Î²ï¿½ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
 	obj->transform->position = { 29.28f, 67.73f, -2.82f };
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
 	obj->transform->position = { -36.59f, 67.71f, 10.14f };
 
-	// ¤‹¤‹ÀÌ À§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	obj->transform->position = { -0.75f, 67.71f, 16.17f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
@@ -167,7 +167,7 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
 	obj->transform->position = { 0.08f, 67.71f, 17.21f };
 
-	// Â±Â±ÀÌ ¾Æ·¡
+	// Â±Â±ï¿½ï¿½ ï¿½Æ·ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	obj->transform->position = { -6.43f, 67.71f, -10.09f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
@@ -182,14 +182,14 @@ void TestScene::OnLoaded()
 	obj->transform->position = { -7.31f, 67.71f, -10.48f };
 
 
-	// ÀÛ°ñ
+	// ï¿½Û°ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
 	obj->transform->position = { -10.05f, 67.71f, 33.49f };
 
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
 	obj->transform->position = { 3.13f, 67.71f, -26.61f };
 
-	// ¹ÙÀ§°Ô
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	obj = ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
 	obj->transform->position = { 15.68f, 66.91f, -11.16f };
 
@@ -197,7 +197,7 @@ void TestScene::OnLoaded()
 	obj->transform->position = { -24.36f, 66.91f, 17.82f };
 
 
-	// Ã¨ÇÇ¾ð
+	// Ã¨ï¿½Ç¾ï¿½
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
 	unit->transform->position = { 41,68,46 };
 	unit->SetTeam(Team::BLUE);
@@ -205,7 +205,7 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->SetTarget(unit);
 	PlayerInfoPanel::GetInstance()->SetTarget((Champion*)unit);
 	Champion* champ = (Champion*)unit;
-	champ->bar->SetNickname(L"Å×½ºÆ®´Ð³×ÀÓ");
+	champ->bar->SetNickname(L"ï¿½×½ï¿½Æ®ï¿½Ð³ï¿½ï¿½ï¿½");
 	
 
 	obj = PlayerInfoPanel::GetInstance();
@@ -251,7 +251,7 @@ void TestScene::OnLoaded()
 	//unit->AddComponent<PlayerController>(L"PlayerController");
 
 
-	// ºí·çÆÀ Å¸¿ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
 
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
@@ -322,7 +322,7 @@ void TestScene::OnLoaded()
 	unit->SetTeam(Team::BLUE);
 	
 
-	// ÆÛÇÃÆÀ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
@@ -387,9 +387,15 @@ void TestScene::OnLoaded()
 	unit->SetTeam(Team::RED);
 	//testUnit = unit;
 
+	D3DLIGHT9 dirLight{};
+	Vector3 v = Vector3(1.f, -1.f, 1.f).Normalized();
+	dirLight.Type = D3DLIGHT_DIRECTIONAL;
+	dirLight.Direction = v;
+	dirLight.Diffuse = D3DCOLORVALUE{ 1.f, 1.f, 1.f, 1.f };
+	dirLight.Ambient = D3DCOLORVALUE{ 0.2f, 0.2f, 0.2f, 1.0f};
+	GameRenderer::AddLight(L"dir1", dirLight);
 
-
-	// ¹Ì´Ï¾ð
+	// ï¿½Ì´Ï¾ï¿½
 	
 
 	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
@@ -473,7 +479,7 @@ void TestScene::CreateMinionCaster()
 	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
 	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
 
-	// ·¹µå
+	// ï¿½ï¿½ï¿½ï¿½
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
 	minion->transform->position = { -43.05f,68.01f,-29.62f };
 	minion->SetTeam(Team::RED);

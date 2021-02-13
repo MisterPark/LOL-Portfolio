@@ -5,7 +5,7 @@
 #include "TitleScene.h"
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
-
+#include "GameRenderer.h"
 using namespace PKH;
 
 PKH::MainGame* pMainGame = nullptr;
@@ -53,7 +53,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
-
+	GameRenderer::Initialize();
 	LoadUISprite();
 
 	ObjectManager::GetInstance();
@@ -113,7 +113,8 @@ void PKH::MainGame::Update()
 
 		SkyBox::GetInstance()->Render();
 		ObjectManager::PreRender();
-		ObjectManager::Render();
+		//ObjectManager::Render();
+		GameRenderer::Render();
 		ObjectManager::PostRender();
 
 
@@ -133,6 +134,7 @@ void PKH::MainGame::Release()
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();
+	GameRenderer::Destroy();
 	RenderManager::Destroy();
 	InputManager::Destroy();
 	Camera::Destroy();

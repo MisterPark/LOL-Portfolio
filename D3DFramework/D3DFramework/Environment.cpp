@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Environment.h"
 #include "Terrain.h"
-
+#include "GameRenderer.h"
 Environment::Environment()
 {
 	//CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");
@@ -12,12 +12,18 @@ Environment::Environment()
 	//transform->eulerAngles.y = D3DXToRadian(180.f);
 	TerrainMesh* mesh = RenderManager::CloneTerrainMesh(L"summoner_rift");
 	AddComponent(L"TerrainMesh", mesh);
-
+	mesh->renderGroupID = RenderGroupID::Deferred;
+	GameRenderer::Register(mesh);
 	
 }
 
 Environment::~Environment()
 {
+	TerrainMesh* mesh = static_cast<TerrainMesh*>(this->GetComponent< TerrainMesh>());
+	if (mesh != nullptr)
+	{
+		GameRenderer::Unregister(mesh);
+	}
 }
 
 void Environment::Initialize()

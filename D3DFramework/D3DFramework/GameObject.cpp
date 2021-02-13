@@ -44,7 +44,6 @@ void PKH::GameObject::Render()
 		{
 			mesh->Render();
 		}
-		
 	}
 }
 

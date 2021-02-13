@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Building.h"
 #include "SphereCollider.h"
-
+#include "GameRenderer.h"
 Building::Building()
 {
+
 }
 
 Building::~Building()

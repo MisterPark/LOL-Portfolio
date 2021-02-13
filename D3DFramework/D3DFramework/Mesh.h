@@ -1,6 +1,7 @@
 #pragma once
 #include "IComponent.h"
-
+#include "IRenderComponent.h"
+enum class RenderGroupID :int;
 namespace PKH
 {
 	enum class MeshType
@@ -13,7 +14,7 @@ namespace PKH
 		CUSTOM_MESH,
 	};
 
-	class Mesh : public IComponent
+	class Mesh : public RenderComponent
 	{
 	public:
 		explicit Mesh(GameObject* owner);

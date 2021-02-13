@@ -4,8 +4,6 @@
 using namespace PKH;
 
 
-
-
 namespace PKH
 {
 	class IComponent;
@@ -77,7 +75,6 @@ namespace PKH
 		bool isVisible = true;
 		bool isEnable = true;
 		bool dontDestroy = false;
-		
 		map<wstring, PKH::IComponent*> components;
 	protected:
 		bool destroyFlag = false;
