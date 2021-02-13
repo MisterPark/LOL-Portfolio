@@ -14,6 +14,7 @@ const Vector3 Vector3::ZERO = Vector3(0.f, 0.f, 0.f);
 
 PKH::Vector3::Vector3()
 {
+	x = y = z = 0.f;
 }
 
 PKH::Vector3::Vector3(D3DXVECTOR3 r) :D3DXVECTOR3(r)

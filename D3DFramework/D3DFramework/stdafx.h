@@ -72,6 +72,7 @@ using namespace std;
 // DirectX 변형 자료
 
 #include "Point.h"
+#include "Vector2.h"
 #include "Vector3.h"
 #include "Matrix.h"
 #include "Quaternion.h"

@@ -2,6 +2,7 @@
 #include "TestScene.h"
 
 #include "Label.h"
+#include "MinimapPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -54,6 +55,7 @@
 #include "Nexus.h"
 #include "MinionAI.h"
 
+
 void TestScene::OnLoaded()
 {
 	Cursor::Show();
@@ -67,6 +69,9 @@ void TestScene::OnLoaded()
 	testLabel = (Label*)ObjectManager::GetInstance()->CreateObject<Label>(Layer::UI);
 	testLabel->text = L"123123\n123123";
 	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+
+	MinimapPanel* minimap = MinimapPanel::GetInstance();
+	ObjectManager::GetInstance()->AddObject(minimap, Layer::HUD);
 
 	GameObject* obj = nullptr;
 	Unit* unit = nullptr;

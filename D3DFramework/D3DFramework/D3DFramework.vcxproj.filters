@@ -634,6 +634,10 @@
     <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="TurretBreak.h" />
     <ClInclude Include="MinionAI.h" />
+    <ClInclude Include="Vector2.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="MinimapPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1137,6 +1141,10 @@
     <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="TurretBreak.cpp" />
     <ClCompile Include="MinionAI.cpp" />
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimapPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

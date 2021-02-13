@@ -226,6 +226,7 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
+    <ClInclude Include="MinimapPanel.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
@@ -312,6 +313,7 @@
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Wall.h" />
@@ -375,6 +377,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
+    <ClCompile Include="MinimapPanel.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
@@ -454,6 +457,7 @@
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Wall.cpp" />
