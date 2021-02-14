@@ -366,6 +366,7 @@
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Indicator.cpp" />
+    <ClCompile Include="IRenderComponent.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jax.cpp" />
     <ClCompile Include="Jinx.cpp" />
