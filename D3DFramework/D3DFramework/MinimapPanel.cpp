@@ -8,6 +8,7 @@ MinimapPanel::MinimapPanel()
     SetTexture(L"minimapBorder");
     int screenW = MainGame::GetWidth();
     int screenH = MainGame::GetHeight();
+    this->SetSize(100, 100);
     this->SetLocation(screenW - width-10, screenH - height-10);
 }
 

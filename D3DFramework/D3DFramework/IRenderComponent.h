@@ -26,3 +26,14 @@ public:
 		return nullptr;
 	}
 };
+
+class UIRenderComponent : public RenderComponent
+{
+public:
+	UIRenderComponent(GameObject* owner) :RenderComponent(owner) {}
+	void Render();
+	IComponent* Clone()
+	{
+		return nullptr;
+	}
+};

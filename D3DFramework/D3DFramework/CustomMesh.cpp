@@ -40,7 +40,7 @@ void PKH::CustomMesh::Render()
 	Transform* transform = (Transform*)gameObject->GetComponent(L"Transform");
 
 	LPDIRECT3DDEVICE9 device = RenderManager::GetDevice();
-	RenderManager::LockDevice();
+	//RenderManager::LockDevice();
 	if (device)
 	{
 		Texture* texture = RenderManager::GetTexture(textureKey);
@@ -58,7 +58,7 @@ void PKH::CustomMesh::Render()
 		device->SetIndices(triangles);
 
 
-		device->SetTransform(D3DTS_WORLD, &transform->localMatrix);
+		//device->SetTransform(D3DTS_WORLD, &transform->localMatrix);
 
 		// Z Read ¸ðµå
 		switch (zReadMode)
@@ -169,7 +169,7 @@ void PKH::CustomMesh::Render()
 		
 	
 	}
-	RenderManager::UnlockDevice();
+	//RenderManager::UnlockDevice();
 }
 
 
