@@ -203,8 +203,10 @@ void TestScene::OnLoaded()
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
-	PlayerInfoPanel::GetInstance()->SetTarget((Champion*)unit);
+
 	Champion* champ = (Champion*)unit;
+  
+	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	champ->bar->SetNickname(L"테스트닉네임");
 	
 
