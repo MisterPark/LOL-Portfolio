@@ -8,13 +8,15 @@ UI::UI()
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 
-	mesh->renderGroupID = RenderGroupID::UI;
-	GameRenderer::Register(mesh);
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)AddComponent<GameObjectRenderComponent>(L"render_component");
+	renderCom->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(renderCom);
 }
 
 UI::~UI()
 {
-	GameRenderer::Unregister(mesh);
+	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)GetComponent(L"render_component");
+	GameRenderer::Unregister(renderCom);
 	mesh = nullptr;
 	texture = nullptr;
 }
