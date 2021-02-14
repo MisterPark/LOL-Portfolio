@@ -77,6 +77,7 @@ void PKH::Transform::Update()
 
 void PKH::Transform::PostUpdate()
 {
+	worldMatrix = GetWorldMatrix();
 }
 
 IComponent* PKH::Transform::Clone()
@@ -146,4 +147,18 @@ void PKH::Transform::RotateY(float _angle)
 void PKH::Transform::RotateZ(float _angle)
 {
 	Rotate(Vector3::FORWARD, _angle);
+}
+
+Matrix PKH::Transform::GetWorldMatrix()
+{
+	if (gameObject->parent == nullptr)
+	{
+		return localMatrix;
+	}
+	
+	Matrix parentWorld = gameObject->parent->transform->GetWorldMatrix();
+
+	worldMatrix = localMatrix * parentWorld;
+	
+	return worldMatrix;
 }

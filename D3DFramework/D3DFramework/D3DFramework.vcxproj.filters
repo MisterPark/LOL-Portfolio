@@ -226,6 +226,9 @@
     <Filter Include="Lib\Graphics\shader">
       <UniqueIdentifier>{c3d7b2d3-0f5f-4de2-a929-98e82fffb429}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Stat">
+      <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -702,6 +705,8 @@
     <ClInclude Include="NetPlayerController.h">
       <Filter>Component\PlayerController</Filter>
     </ClInclude>
+    <ClInclude Include="Stat.h" />
+    <ClInclude Include="UnitStat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1243,6 +1248,8 @@
     <ClCompile Include="NetPlayerController.cpp">
       <Filter>Component\PlayerController</Filter>
     </ClCompile>
+    <ClCompile Include="Stat.cpp" />
+    <ClCompile Include="UnitStat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

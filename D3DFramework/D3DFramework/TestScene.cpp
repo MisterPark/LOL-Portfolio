@@ -205,8 +205,9 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->SetTarget(unit);
 
 	Champion* champ = (Champion*)unit;
+  
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
-	champ->bar->SetNickname(L"�׽�Ʈ�г���");
+	champ->bar->SetNickname(L"테스트닉네임");
 	
 
 	obj = PlayerInfoPanel::GetInstance();
