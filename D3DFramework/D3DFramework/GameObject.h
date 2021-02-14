@@ -78,6 +78,7 @@ namespace PKH
 
 		GameObject* parent = nullptr;
 		list<GameObject*> children;
+
 		map<wstring, PKH::IComponent*> components;
 	protected:
 		bool destroyFlag = false;

@@ -37,6 +37,7 @@ namespace PKH
 
 		Vector3 GetPos() { return position; }
 		Vector3* Get_Pos() { return &position; } //¼öÁ¤
+		Matrix GetWorldMatrix();
 
 	public:
 		Vector3 position{ 0.f,0.f,0.f };
@@ -48,7 +49,7 @@ namespace PKH
 		Vector3 up = Vector3::UP;
 		Vector3 look = Vector3::FORWARD;
 		Matrix localMatrix;
-		Matrix worldMatrix;
+		Matrix worldMatrix = Matrix::identity;
 
 		float zOrder = 0.f;
 	};

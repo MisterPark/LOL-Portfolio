@@ -28,7 +28,7 @@ void TurretFloatingBar::Render()
 	RenderManager::DrawSprite(textureKey, *transform, 0);
 	if (target != nullptr)
 	{
-		ratioHP = (float)target->hp / target->maxHp;
+		ratioHP = (float)target->stat->hp.GetValue() / target->stat->maxHp.GetValue();
 	}
 	if (ratioHP < 0.f)
 	{
