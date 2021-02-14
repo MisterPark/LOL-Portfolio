@@ -40,6 +40,7 @@ namespace PKH
         void SetTexture(const wstring& _key);
 
 
+
     public:
         
         //wstring textureKey;

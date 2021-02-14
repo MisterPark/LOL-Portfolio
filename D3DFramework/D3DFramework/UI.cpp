@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "UI.h"
 
+list<UI*> uiList;
+
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
@@ -13,7 +15,6 @@ UI::UI()
 UI::~UI()
 {
 	GameRenderer::Unregister(mesh);
-
 	mesh = nullptr;
 	texture = nullptr;
 }
@@ -285,3 +286,4 @@ void UI::SetTexture(const wstring& _key)
 	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
 }
+
