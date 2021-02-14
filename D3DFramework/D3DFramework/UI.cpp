@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "UI.h"
 
-
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
+
+	mesh->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(mesh);
 }
 
 UI::~UI()
 {
+	GameRenderer::Unregister(mesh);
+
 	mesh = nullptr;
 	texture = nullptr;
 }
@@ -78,7 +82,6 @@ void UI::UpdateEvent()
 		if (isLeave == false)
 		{
 			OnLeave();
-			
 		}
 		isHover = false;
 		isLeave = true;

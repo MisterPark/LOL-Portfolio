@@ -23,6 +23,11 @@ void PKH::GameObject::Update()
 	{
 		comp.second->Update();
 	}
+
+	for (auto iter : children)
+	{
+		iter->Update();
+	}
 }
 
 void PKH::GameObject::PostUpdate()
@@ -30,6 +35,11 @@ void PKH::GameObject::PostUpdate()
 	for (auto& comp : components)
 	{
 		comp.second->PostUpdate();
+	}
+
+	for (auto iter : children)
+	{
+		iter->PostUpdate();
 	}
 }
 
@@ -44,6 +54,11 @@ void PKH::GameObject::Render()
 		{
 			mesh->Render();
 		}
+	}
+
+	for (auto iter : children)
+	{
+		iter->Render();
 	}
 }
 
@@ -64,6 +79,11 @@ void PKH::GameObject::PostRender()
 			continue;
 		}
 
+	}
+
+	for (auto iter : children)
+	{
+		iter->PostRender();
 	}
 }
 
