@@ -35,6 +35,9 @@ CustomMesh::~CustomMesh()
 
 void PKH::CustomMesh::RenderSubset(int index)
 {
+	device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
+	device->SetFVF(Vertex::FVF);
+	device->SetIndices(triangles);
 	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
 }
 

@@ -28,6 +28,7 @@ int PKH::Mesh::GetSubsetCount()
 
 void PKH::Mesh::RenderSubset(int index)
 {
+
 }
 
 IDirect3DTexture9* PKH::Mesh::GetSubsetTexture(int index)
