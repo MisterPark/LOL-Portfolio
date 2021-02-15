@@ -49,6 +49,3 @@ void Light::Update()
 {
 }
 
-void Light::Render()
-{
-}

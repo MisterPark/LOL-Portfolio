@@ -230,29 +230,3 @@ HRESULT PKH::NavMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 
 	return S_OK;
 }
-
-
-
-void PKH::NavMesh::Render()
-{
-	if (gameObject == nullptr) return;
-
-	auto device = RenderManager::GetDevice();
-	RenderManager::LockDevice();
-
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
-	//device->SetFVF(fvf);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
-	for (ULONG i = 0; i < subsetCount; ++i)
-	{
-		device->SetTexture(0, ppTextures[i]);
-		pMesh->DrawSubset(i);
-	}
-
-	device->SetTexture(0, 0);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-	//device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	RenderManager::UnlockDevice();
-}

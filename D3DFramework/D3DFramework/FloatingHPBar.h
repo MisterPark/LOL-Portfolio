@@ -13,7 +13,6 @@ public:
 	virtual void Initialize() override;
 	virtual void Release() override;
 	virtual void Update() override;
-	virtual void Render() override;
 
 	void SetTarget(GameObject* target);
 

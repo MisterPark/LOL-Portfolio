@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Garen.h"
 #include "Animation.h"
-#include "GameRenderer.h"
 #include "SkinnedMeshRenderer.h"
 Garen::Garen()
 {
@@ -43,8 +42,6 @@ Garen::Garen()
 
 Garen::~Garen()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }
 
 void Garen::Initialize()

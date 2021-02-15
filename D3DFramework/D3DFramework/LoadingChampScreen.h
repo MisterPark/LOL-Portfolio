@@ -17,7 +17,6 @@ public:
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
-    virtual void Render() override;
 
     void SetChampion(ChampionType type);
     void SetSpell1(SpellType type);

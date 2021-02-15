@@ -22,13 +22,11 @@ namespace PKH
 
         int GetSubsetCount();
         IDirect3DTexture9* GetSubsetTexture(int index);
+
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-        virtual void Render() override;
-        void RenderSubset(int index);
-    protected:
-        void RenderUsingFixedPL();
-        void RenderUsingShader();
+        virtual void RenderSubset(int index) override;
+
     private:
         LPD3DXMESH			pOriginMesh;	// 최초 로드 시점에 생성하는 메쉬 컴객체
         LPD3DXMESH			pMesh; // 노말 정보를 삽입하여 변환시킨 메쉬 컴객체

@@ -11,7 +11,7 @@ namespace PKH
         virtual ~UI();
 
         virtual void Update() override;
-        virtual void Render() override;
+
 
         void UpdateEvent();
         void ClearEvent();

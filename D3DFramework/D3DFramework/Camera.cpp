@@ -167,9 +167,7 @@ void PKH::Camera::Update()
 	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
-void PKH::Camera::Render()
-{
-}
+
 
 void PKH::Camera::Initialize()
 {

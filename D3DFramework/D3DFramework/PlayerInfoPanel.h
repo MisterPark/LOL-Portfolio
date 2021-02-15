@@ -20,11 +20,10 @@ public:
 	virtual void Release() override;
 
 	virtual void Update() override;
-	virtual void Render() override;
 
-	void RenderStat();
-	void RenderMini();
-	void RenderBar();
+	//void RenderStat();
+	//void RenderMini();
+	//void RenderBar();
 
 	void SetTarget(Champion* _target);
 

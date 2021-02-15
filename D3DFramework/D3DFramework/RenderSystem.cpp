@@ -202,7 +202,8 @@ namespace KST
 	{
 		IDirect3DDevice9* device = RenderManager::GetDevice();
 		device->BeginScene();
-		device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
+		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
+		device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0xFFFFFFFF, 1.f, 0);
 		RednerEarlyForward();
 		SetupShadowMap();
 		RednerDeferred();
@@ -287,6 +288,12 @@ namespace KST
 	}
 	void RenderSystem::RenderUI()
 	{
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		ComPtr<IDirect3DSurface9> backbuffer;
+
+		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
+		device->SetRenderTarget(0, backbuffer.Get());
+
 		auto& forwardRenderers = rendererTable[(unsigned)RendererType::UI];
 
 		for (auto* forwardRenderer : forwardRenderers)

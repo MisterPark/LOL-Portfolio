@@ -7,6 +7,5 @@ public:
     MinionFloatingBar();
     virtual ~MinionFloatingBar();
 
-    virtual void Render() override;
 };
 

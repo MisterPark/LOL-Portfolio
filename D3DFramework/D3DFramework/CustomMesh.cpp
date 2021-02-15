@@ -33,143 +33,20 @@ CustomMesh::~CustomMesh()
 	Safe_Delete_Array(&pIndices);
 }
 
-void PKH::CustomMesh::Render()
+void PKH::CustomMesh::RenderSubset(int index)
 {
-	if (gameObject == nullptr)return;
-	
-	Transform* transform = (Transform*)gameObject->GetComponent(L"Transform");
+	device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
+	device->SetFVF(Vertex::FVF);
+	device->SetIndices(triangles);
+	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
+}
 
-	LPDIRECT3DDEVICE9 device = RenderManager::GetDevice();
-	//RenderManager::LockDevice();
-	if (device)
-	{
-		Texture* texture = RenderManager::GetTexture(textureKey);
-		if (texture != nullptr)
-		{
-			device->SetTexture(0, texture->pTexture);
-		}
-		else
-		{
-			device->SetTexture(0, 0);
-		}
+IDirect3DTexture9* PKH::CustomMesh::GetSubsetTexture(int index)
+{
+	Texture* texture = RenderManager::GetTexture(textureKey);
+	if (texture == nullptr) return nullptr;
 
-		device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
-		device->SetFVF(Vertex::FVF);
-		device->SetIndices(triangles);
-
-
-		//device->SetTransform(D3DTS_WORLD, &transform->localMatrix);
-
-		// Z Read 모드
-		switch (zReadMode)
-		{
-		case PKH::ZReadMode::ON:
-			device->SetRenderState(D3DRS_ZENABLE, TRUE);
-			break;
-		case PKH::ZReadMode::OFF:
-			device->SetRenderState(D3DRS_ZENABLE, FALSE);
-			break;
-		default:
-			break;
-		}
-
-		// Z Write 모드
-		switch (zWriteMode)
-		{
-		case PKH::ZWriteMode::ON:
-			device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-			break;
-		case PKH::ZWriteMode::OFF:
-			device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-			break;
-		default:
-			break;
-		}
-
-		// 블렌드 모드
-		switch (blendMode)
-		{
-		case PKH::BlendMode::NONE:
-			break;
-		case PKH::BlendMode::ALPHA_BLEND:
-			device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-
-			device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-			break;
-		case PKH::BlendMode::ALPHA_TEST:
-			device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-
-			device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-			device->SetRenderState(D3DRS_ALPHAREF, 0x00000088);
-			device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-			break;
-		default:
-			break;
-		}
-		
-		switch (cullMode)
-		{
-		case PKH::CullMode::NONE:
-			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-			break;
-		case PKH::CullMode::CW:
-			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
-			break;
-		case PKH::CullMode::CCW:
-			device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-			break;
-		default:
-			break;
-		}
-		
-
-		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		//device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
-
-		switch (lightMode)
-		{
-		case LightMode::ON:
-			device->SetRenderState(D3DRS_LIGHTING, true);
-			device->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-			device->SetMaterial(&material);
-			break;
-		case LightMode::OFF:
-			device->SetRenderState(D3DRS_LIGHTING, false);
-			break;
-		default:
-			break;
-		}
-		
-		// 렌더
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
-
-		device->SetRenderState(D3DRS_LIGHTING, false);
-	
-		device->SetTexture(0, NULL);
-
-		switch (blendMode)
-		{
-		case PKH::BlendMode::NONE:
-			break;
-		case PKH::BlendMode::ALPHA_BLEND:
-			device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-			break;
-		case PKH::BlendMode::ALPHA_TEST:
-			device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-			device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-			break;
-		default:
-			break;
-		}
-		device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-		device->SetRenderState(D3DRS_ZENABLE, TRUE);
-		device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-		
-	
-	}
-	//RenderManager::UnlockDevice();
+	return texture->pTexture;
 }
 
 

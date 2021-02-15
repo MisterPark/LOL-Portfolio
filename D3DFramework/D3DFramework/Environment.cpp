@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Environment.h"
 #include "Terrain.h"
-#include "GameRenderer.h"
 #include "DeferredStaticMeshRenderer.h"
+
 Environment::Environment()
 {
 	//CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");

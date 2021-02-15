@@ -12,7 +12,6 @@ public:
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
-    virtual void PostRender() override;
 
     virtual void OnCollisionEnter(Collider* target) override;
 

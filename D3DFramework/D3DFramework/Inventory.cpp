@@ -76,19 +76,6 @@ void Inventory::Update()
     }
 }
 
-void Inventory::Render()
-{
-    if (pInventory->isVisible == false)return;
-    //RenderManager::DrawUI(TextureKey::UI_BAG, pInventory->position, 0);
-
-    for (int i = 0; i < dfMAX_SLOT_COUNT; i++)
-    {
-        pInventory->slots[i].Render();
-    }
-    
-    
-}
-
 bool Inventory::Push(Item* item)
 {
     Item* out = nullptr;
