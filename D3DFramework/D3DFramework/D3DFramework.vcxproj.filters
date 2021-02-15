@@ -1316,5 +1316,8 @@
     <CopyFileToFolders Include="deferred_render.fx">
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="HPBarEffect.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
