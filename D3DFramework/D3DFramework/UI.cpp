@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "UI.h"
 
-list<UI*> uiList;
-
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
+	mesh->SetZReadMode(ZReadMode::OFF);
+	mesh->SetZWriteMode(ZWriteMode::OFF);
 
 	UIRenderComponent* renderCom = (UIRenderComponent*)AddComponent<UIRenderComponent>(L"render_component");
 	renderCom->renderGroupID = RenderGroupID::UI;
@@ -21,11 +21,19 @@ UI::~UI()
 	texture = nullptr;
 }
 
+void PKH::UI::Initialize()
+{
+}
+
+void PKH::UI::Release()
+{
+}
+
 void UI::Update()
 {
 	UpdateEvent();
 	GameObject::Update();
-	Billboard();
+	//Billboard();
 }
 
 void UI::Render()
@@ -258,8 +266,8 @@ Vector3 PKH::UI::GetLocation()
 
 void UI::SetSize(int w, int h)
 {
-	transform->scale.x = w;
-	transform->scale.y = h;
+	transform->scale.x = (float)w;
+	transform->scale.y = (float)h;
 	width = w;
 	height = h;
 }
@@ -291,6 +299,8 @@ void PKH::UI::SetLocation(Vector2 pos)
 void UI::SetTexture(const wstring& _key)
 {
 	texture = RenderManager::GetTexture(_key);
+	if (texture == nullptr) return;
+
 	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
 }

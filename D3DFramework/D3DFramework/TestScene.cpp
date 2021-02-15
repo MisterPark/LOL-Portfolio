@@ -27,6 +27,7 @@
 #include "Jax.h"
 #include "Jinx.h"
 
+#include "UIManager.h"
 #include "PlayerInfoPanel.h"
 #include "FloatingBar.h"
 
@@ -58,6 +59,8 @@
 #include "GameRenderer.h"
 void TestScene::OnLoaded()
 {
+	UIManager::GetInstance()->Initialize();
+
 	Cursor::Show();
 	//ObjectManager::GetInstance()->CreateObject<Light>();
 
@@ -65,6 +68,8 @@ void TestScene::OnLoaded()
 	//SkyBox::SetTexture(TextureKey::SKY_U);
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
+
+
 
 	testLabel = (Label*)ObjectManager::GetInstance()->CreateObject<Label>(Layer::UI);
 	testLabel->text = L"123123\n123123";
@@ -197,9 +202,9 @@ void TestScene::OnLoaded()
 	obj->transform->position = { -24.36f, 66.91f, 17.82f };
 
 
-	// è�Ǿ�
+	// Player
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
-	unit->transform->position = { 41,68,46 };
+	unit->transform->position = { 41.f, 68.f, 46.f };
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
@@ -209,11 +214,6 @@ void TestScene::OnLoaded()
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	champ->bar->SetNickname(L"테스트닉네임");
 	
-
-	obj = PlayerInfoPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(obj, Layer::HUD);
-	
-
 	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);
 	//unit->transform->position = { 32,68,29 };
 	//unit->SetTeam(Team::RED);

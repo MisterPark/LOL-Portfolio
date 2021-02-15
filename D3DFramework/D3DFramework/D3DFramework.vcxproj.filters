@@ -707,6 +707,9 @@
     </ClInclude>
     <ClInclude Include="Stat.h" />
     <ClInclude Include="UnitStat.h" />
+    <ClInclude Include="UIManager.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1252,6 +1255,9 @@
     <ClCompile Include="UnitStat.cpp" />
     <ClCompile Include="IRenderComponent.cpp">
       <Filter>Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>GameObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -102,6 +102,7 @@ using namespace std;
 #include "ObjectManager.h"
 #include "RenderManager.h"
 #include "FileManager.h"
+#include "UIManager.h"
 
 #include "CollisionManager.h"
 #include "InputManager.h"

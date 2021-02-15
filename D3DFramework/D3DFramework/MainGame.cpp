@@ -69,6 +69,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	Camera::GetInstance();
 	FileManager::GetInstance();
 	Cursor::GetInstance();
+	UIManager::GetInstance();
 
 	SoundManager::GetInstance()->Initialize();
 	LoadManager::GetInstance();
@@ -94,6 +95,9 @@ void PKH::MainGame::Update()
 	// 2. 씬 매니저 업데이트
 	SceneManager::Update();
 
+	// (임시) UI 업데이트
+	UIManager::Update();
+
 	// 3. Player 업데이트
 
 	// 4. Obj 업데이트
@@ -109,19 +113,28 @@ void PKH::MainGame::Update()
 
 	if (!TimeManager::SkipFrame())
 	{
-		RenderManager::Clear();
-
-		SkyBox::GetInstance()->Render();
-		ObjectManager::PreRender();
-		//ObjectManager::Render();
-		GameRenderer::Render();
-		ObjectManager::PostRender();
-
-
-		RenderManager::Present();
-
-		
+//		RenderManager::Clear();
+//
+//		SkyBox::GetInstance()->Render();
+//		ObjectManager::PreRender();
+//		//ObjectManager::Render();
+//		GameRenderer::Render();
+//		ObjectManager::PostRender();
+//
+//
+//		RenderManager::Present();		
 	}
+
+	RenderManager::Clear();
+
+	SkyBox::GetInstance()->Render();
+	ObjectManager::PreRender();
+	//ObjectManager::Render();
+	GameRenderer::Render();
+	ObjectManager::PostRender();
+
+
+	RenderManager::Present();
 }
 
 void PKH::MainGame::Release()
@@ -131,6 +144,7 @@ void PKH::MainGame::Release()
 	SceneManager::Destroy();
 	TimeManager::Destroy();
 	ObjectManager::Destroy();
+	UIManager::Destroy();
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();

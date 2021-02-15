@@ -15,6 +15,11 @@ PKH::GameObject::GameObject()
 PKH::GameObject::~GameObject()
 {
 	ReleaseComponents();
+
+	for (auto child : children)
+	{
+		Safe_Delete(&child);
+	}
 }
 
 void PKH::GameObject::Update()
@@ -282,6 +287,12 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 	}
 
 	return true;
+}
+
+void PKH::GameObject::AddChild(GameObject* _child)
+{
+	if (_child == nullptr) return;
+	children.push_back(_child);
 }
 
 

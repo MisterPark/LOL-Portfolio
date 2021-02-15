@@ -8,8 +8,8 @@ void UIRenderComponent::Render()
 		auto device = RenderManager::GetDevice();
 		int screenW = MainGame::GetWidth();
 		int screenH = MainGame::GetHeight();
-		Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 
+		Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 		device->GetTransform(D3DTS_VIEW, &matOriginView);
 		device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 

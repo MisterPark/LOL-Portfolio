@@ -394,7 +394,7 @@ void GameRendererImpl::RenderUI()
 	std::vector<RenderComponent*> zSortedMeshs;
 	zSortedMeshs.reserve(list.size());
 	zSortedMeshs.assign(list.begin(), list.end());
-	std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
+	//std::sort(zSortedMeshs.begin(), zSortedMeshs.end(), compareZ);
 	for (auto mesh : zSortedMeshs)
 	{
 		if (mesh->gameObject == nullptr)

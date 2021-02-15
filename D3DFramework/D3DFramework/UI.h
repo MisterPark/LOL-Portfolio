@@ -10,8 +10,10 @@ namespace PKH
         UI();
         virtual ~UI();
 
-        virtual void Update() override;
-        virtual void Render() override;
+        virtual void Initialize();
+        virtual void Release();
+        virtual void Update();
+        virtual void Render();
 
         void UpdateEvent();
         void ClearEvent();
@@ -81,9 +83,5 @@ namespace PKH
         float doubleClickDelay = 0.4f;
 
         wstring oldText;
-
     };
-
-
-
 }

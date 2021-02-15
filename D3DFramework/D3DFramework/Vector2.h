@@ -9,6 +9,7 @@ namespace PKH
 		Vector2();
 		Vector2(D3DXVECTOR2 rhs);
 		Vector2(POINT p);
+		Vector2(int x, int y);
 		Vector2(float x, float y);
 		~Vector2();
 

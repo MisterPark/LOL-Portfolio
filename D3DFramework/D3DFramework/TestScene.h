@@ -18,4 +18,5 @@ class TestScene :
 public:
     Label* testLabel = nullptr;
     Unit* testUnit = nullptr;
+    UIManager* UIManager = nullptr;
 };

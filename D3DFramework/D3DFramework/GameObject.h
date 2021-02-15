@@ -66,7 +66,9 @@ namespace PKH
 		
 		// setter
 		bool SetLayer(Layer _layer);
-		
+
+		// Child
+		void AddChild(GameObject* _child);
 
 	public:
 		wstring name;

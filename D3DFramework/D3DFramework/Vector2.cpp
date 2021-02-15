@@ -11,7 +11,11 @@ PKH::Vector2::Vector2(D3DXVECTOR2 rhs) :D3DXVECTOR2(rhs)
 {
 }
 
-PKH::Vector2::Vector2(POINT p) : D3DXVECTOR2(p.x, p.y)
+PKH::Vector2::Vector2(POINT p) : D3DXVECTOR2((FLOAT)p.x, (FLOAT)p.y)
+{
+}
+
+PKH::Vector2::Vector2(int x, int y) : D3DXVECTOR2((FLOAT)x, (FLOAT)y)
 {
 }
 
