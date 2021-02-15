@@ -16,7 +16,7 @@ namespace PKH
         void UpdateEvent();
         void ClearEvent();
 
-        // �̺�Ʈ ������
+        // 이벤트 리스너
         virtual void OnHover();
         virtual void OnLeave();
         virtual void OnLButtonDown();
@@ -32,7 +32,7 @@ namespace PKH
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
-        // �»�� ����
+        // 좌상단 기준
 
         void SetLocation(int x, int y);
         void SetLocation(float x, float y);
@@ -42,23 +42,23 @@ namespace PKH
 
 
     public:
-        
+
         //wstring textureKey;
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
 
-        // �ؽ�Ʈ ����
-        wstring text; // ����� �ؽ�Ʈ (RW)
+        // 텍스트 관련
+        wstring text; // 출력할 텍스트 (RW)
         D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 1, 1, 1);
-        Vector3 textOffsetPosition;// �ؽ�Ʈ�� ����� local(offset)��ġ (RW) 
-        bool textRenderFlag = false;// �ؽ�Ʈ�� ����� UI�ΰ�? (RW)
+        Vector3 textOffsetPosition;// 텍스트를 출력할 local(offset)위치 (RW) 
+        bool textRenderFlag = false;// 텍스트를 출력할 UI인가? (RW)
 
-        // ���� ���� (R)
+        // 넓이 높이 (R)
         int width = 0;
         int height = 0;
 
     public:
-        // �̺�Ʈ �ݹ� (RW)
+        // 이벤트 콜백 (RW)
         void (*Click)() = nullptr;
         void (*DoubleClick)() = nullptr;
         void (*LButtonDown)() = nullptr;
@@ -70,7 +70,7 @@ namespace PKH
         void (*ChangedText)() = nullptr;
 
     private:
-        // �̺�Ʈ ���� 
+        // 이벤트 관련 
         bool isHover = false;
         bool isLeave = false;
         bool isLButtonDown = false;
@@ -81,5 +81,9 @@ namespace PKH
         float doubleClickDelay = 0.4f;
 
         wstring oldText;
+
     };
+
+
+
 }
