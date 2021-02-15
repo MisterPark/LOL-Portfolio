@@ -21,6 +21,7 @@ Unit::Unit()
 	//attackIndicator = new Indicator;
 	attackIndicator->SetTarget(this);
 
+	stat = (UnitStat*)AddComponent<UnitStat>(L"UnitStat");
 	SetAttackPerSec(0.625f);
 }
 
@@ -30,6 +31,7 @@ Unit::~Unit()
 
 	anim = nullptr;
 	agent = nullptr;
+	stat = nullptr;
 
 	//attackIndicator->SetTarget(nullptr);
 	//attackIndicator->Destroy();
@@ -130,17 +132,17 @@ void Unit::UpdateState()
 					{
 						if (net->number == unitID)
 						{
-							ReqDamage(unitID, attackTarget->GetID(), attackDamage);
+							ReqDamage(unitID, attackTarget->GetID(), stat->attackDamage.GetValue());
 						}
 						else if (unitID > 9 && net->number == 0)
 						{
-							ReqDamage(unitID, attackTarget->GetID(), attackDamage);
+							ReqDamage(unitID, attackTarget->GetID(), stat->attackDamage.GetValue());
 						}
 					}
 					else
 					{
 						attackTarget->SetLastAttacker(this);
-						attackTarget->TakeDamage(attackDamage);
+						attackTarget->TakeDamage(stat->attackDamage.GetValue());
 					}
 				}
 			}
@@ -297,29 +299,29 @@ Unit* Unit::GetAttackTarget()
 
 void Unit::SetHP(float _max)
 {
-	maxHp = _max;
-	hp = _max;
+	stat->maxHp = _max;
+	stat->hp = _max;
 }
 
 void Unit::SetMP(float _max)
 {
-	maxMp = _max;
-	mp = _max;
+	stat->maxMp = _max;
+	stat->mp = _max;
 }
 
 void Unit::SetHPRegen(float _per5Sec)
 {
-	hpRegen = _per5Sec;
+	stat->hpRegen = _per5Sec;
 }
 
 void Unit::SetMPRegen(float _per5Sec)
 {
-	mpRegen = _per5Sec;
+	stat->mpRegen = _per5Sec;
 }
 
 void Unit::SetAttackDamage(float _damage)
 {
-	attackDamage = _damage;
+	stat->attackDamage = _damage;
 }
 
 void Unit::SetAttackPerSec(float _attackPerSec)
@@ -339,33 +341,33 @@ void Unit::SetAttackRange(float _range)
 
 void Unit::SetAbilityPower(float _ap)
 {
-	abilityPower = _ap;
+	stat->abilityPower = _ap;
 }
 
 void Unit::SetMovementSpeed(float _speed)
 {
-	movementSpeed = _speed;
+	stat->movementSpeed = _speed;
 	agent->SetSpeed(_speed);
 }
 
 void Unit::SetArmor(float _armor)
 {
-	armor = _armor;
+	stat->armor = _armor;
 }
 
 void Unit::SetMagicResistance(float _magicResist)
 {
-	magicResistance = _magicResist;
+	stat->magicResistance = _magicResist;
 }
 
 void Unit::SetCriticalPer(float _percent)
 {
-	criticalPer = _percent;
+	stat->criticalPer = _percent;
 }
 
 void Unit::SetCooldownReduction(float _cdr)
 {
-	cooldownReduction = _cdr;
+	stat->cooldownReduction = _cdr;
 }
 
 void Unit::SetLastAttacker(Unit* _attacker)
@@ -376,8 +378,8 @@ void Unit::SetLastAttacker(Unit* _attacker)
 
 void Unit::TakeDamage(float _damage)
 {
-	hp -= _damage;
-	if (hp <= 0.f)
+	stat->hp -= _damage;
+	if (stat->hp <= 0.f)
 	{
 		Die();
 	}
@@ -400,27 +402,27 @@ INT Unit::GetID()
 
 float Unit::GetHP()
 {
-	return hp;
+	return stat->hp.GetValue();
 }
 
 float Unit::GetMP()
 {
-	return mp;
+	return stat->mp.GetValue();
 }
 
 float Unit::GetMaxHP()
 {
-	return maxHp;
+	return stat->maxHp.GetValue();
 }
 
 float Unit::GetMaxMP()
 {
-	return maxMp;
+	return stat->maxMp.GetValue();
 }
 
 float Unit::GetAttackDamage()
 {
-	return attackDamage;
+	return stat->attackDamage.baseValue;
 }
 
 float Unit::GetAttackRange()
@@ -430,7 +432,7 @@ float Unit::GetAttackRange()
 
 float Unit::GetAbilityPower()
 {
-	return abilityPower;
+	return stat->abilityPower.GetValue();
 }
 
 float Unit::GetAttackPerSec()
@@ -440,27 +442,27 @@ float Unit::GetAttackPerSec()
 
 float Unit::GetMovementSpeed()
 {
-	return movementSpeed;
+	return stat->movementSpeed.GetValue();
 }
 
 float Unit::GetArmor()
 {
-	return armor;
+	return stat->armor.GetValue();
 }
 
 float Unit::GetMagicResistance()
 {
-	return magicResistance;
+	return stat->magicResistance.GetValue();
 }
 
 float Unit::GetCriticalPer()
 {
-	return criticalPer;
+	return stat->criticalPer.GetValue();
 }
 
 float Unit::GetCooldownReduction()
 {
-	return cooldownReduction;
+	return stat->cooldownReduction.GetValue();
 }
 
 Unit* Unit::GetLastAttacker()

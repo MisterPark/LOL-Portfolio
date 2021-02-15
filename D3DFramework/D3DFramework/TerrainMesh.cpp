@@ -336,14 +336,14 @@ void PKH::TerrainMesh::Render()
 		renderer->GetEffect(L"DEFERRED", &effect);
 		UINT passCount{};
 		effect->SetFloat("g_alphaThreshold", 0.5f);
-		effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+		effect->SetMatrix("g_mWorld", &gameObject->transform->localMatrix);
 		effect->Begin(&passCount, 0);
 		effect->BeginPass(1);
 		int cullcount = 0;
 		for (ULONG i = 0; i < subsetCount; ++i)
 		{
 			Vector3 worldCenter;
-			D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->world);
+			D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->localMatrix);
 			if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
 			{
 				cullcount++;
@@ -398,7 +398,7 @@ void PKH::TerrainMesh::RenderUsingShader(ID3DXEffect* effect)
 void PKH::TerrainMesh::RenderUsingFixed()
 {
 	auto device = RenderManager::GetDevice();
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
 
 	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
 	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
@@ -410,7 +410,7 @@ void PKH::TerrainMesh::RenderUsingFixed()
 	for (ULONG i = 0; i < subsetCount; ++i)
 	{
 		Vector3 worldCenter;
-		D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->world);
+		D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->localMatrix);
 		if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
 		{
 			cullcount++;

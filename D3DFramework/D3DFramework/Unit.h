@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Animation.h"
+#include "Stat.h"
+#include "UnitStat.h"
 
 class Indicator;
 
@@ -128,6 +130,7 @@ public:
 	NavMeshAgent* agent = nullptr;
 	SphereCollider* collider = nullptr;
 	Indicator* attackIndicator = nullptr;
+	UnitStat* stat = nullptr;
 
 protected:
 	UnitState state = UnitState::IDLE1;
@@ -156,25 +159,5 @@ protected:
 	// 네트워크 관련
 	INT unitID = -1;
 public:
-	float attackDamage = 15.f;
-	float abilityPower = 0.f;
-	float armor = 1;
-	float magicResistance = 1.f;
-	float movementSpeed = 3.5f;
-	float criticalPer = 0.f;
-	float cooldownReduction = 0.f;
-
-	float hp = 100.f;
-	float maxHp = 100.f;
-	float mp = 100.f;
-	float maxMp = 100.f;
-	float exp = 0.f;
-	float maxExp = 100.f;
-	int level = 1;
-
-	// 5초당
-	float hpRegen = 0.f;
-	// 5초당
-	float mpRegen = 0.f;
 };
 

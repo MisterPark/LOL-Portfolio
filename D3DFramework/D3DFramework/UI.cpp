@@ -1,15 +1,22 @@
 #include "stdafx.h"
 #include "UI.h"
 
+list<UI*> uiList;
 
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
+
+	UIRenderComponent* renderCom = (UIRenderComponent*)AddComponent<UIRenderComponent>(L"render_component");
+	renderCom->renderGroupID = RenderGroupID::UI;
+	GameRenderer::Register(renderCom);
 }
 
 UI::~UI()
 {
+	UIRenderComponent* renderCom = (UIRenderComponent*)GetComponent(L"render_component");
+	GameRenderer::Unregister(renderCom);
 	mesh = nullptr;
 	texture = nullptr;
 }
@@ -23,34 +30,40 @@ void UI::Update()
 
 void UI::Render()
 {
+	//auto device = RenderManager::GetDevice();
+	//int screenW = MainGame::GetWidth();
+	//int screenH = MainGame::GetHeight();
+	//Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 
-	auto device = RenderManager::GetDevice();
-	int screenW = MainGame::GetWidth();
-	int screenH = MainGame::GetHeight();
-	Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
+	//device->GetTransform(D3DTS_VIEW, &matOriginView);
+	//device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 
-	device->GetTransform(D3DTS_VIEW, &matOriginView);
-	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
+	//D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
+	//D3DXMatrixIdentity(&matWorld);
+	//D3DXMatrixIdentity(&matView);
 
-	D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
-	D3DXMatrixIdentity(&matWorld);
-	D3DXMatrixIdentity(&matView);
+	////matWorld._11 = transform->scale.x;
+	////matWorld._22 = transform->scale.y;
+	////matWorld._33 = 1.f;
+	////matWorld._41 = transform->position.x - (screenW * 0.5f) + transform->scale.x;
+	////matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
-	matWorld._11 = transform->scale.x;
-	matWorld._22 = transform->scale.y;
-	matWorld._33 = 1.f;
-	matWorld._41 = transform->position.x - (screenW * 0.5f) + transform->scale.x;
-	matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
+	//matWorld = transform->GetWorldMatrix();
+	//matWorld._11 = matWorld._11 * 0.5f;
+	//matWorld._22 = matWorld._22 * 0.5f;
+	//matWorld._33 = 1.f;
+	//matWorld._41 = matWorld._41 - (screenW * 0.5f) + matWorld._11;
+	//matWorld._42 = -matWorld._42 + (screenH * 0.5f) - matWorld._22;
+	////matWorld._43 = 1.f;
 
-	device->SetTransform(D3DTS_WORLD, &matWorld);
-	transform->world = matWorld;
-	device->SetTransform(D3DTS_VIEW, &matView);
-	device->SetTransform(D3DTS_PROJECTION, &matProj);
+	//device->SetTransform(D3DTS_WORLD, &matWorld);
+	//device->SetTransform(D3DTS_VIEW, &matView);
+	//device->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	GameObject::Render();
 
-	device->SetTransform(D3DTS_VIEW, &matOriginView);
-	device->SetTransform(D3DTS_PROJECTION, &matOriginProj);
+	/*device->SetTransform(D3DTS_VIEW, &matOriginView);
+	device->SetTransform(D3DTS_PROJECTION, &matOriginProj);*/
 
 }
 
@@ -78,7 +91,6 @@ void UI::UpdateEvent()
 		if (isLeave == false)
 		{
 			OnLeave();
-			
 		}
 		isHover = false;
 		isLeave = true;
@@ -246,8 +258,8 @@ Vector3 PKH::UI::GetLocation()
 
 void UI::SetSize(int w, int h)
 {
-	transform->scale.x = w * 0.5f;
-	transform->scale.y = h * 0.5f;
+	transform->scale.x = w;
+	transform->scale.y = h;
 	width = w;
 	height = h;
 }
@@ -282,3 +294,4 @@ void UI::SetTexture(const wstring& _key)
 	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
 }
+

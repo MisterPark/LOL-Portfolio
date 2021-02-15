@@ -141,9 +141,9 @@ void DynamicMesh::Render(void)
 	PlayAnimation(animSpeed);
 	animSpeed = 0.f;
 		
-	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
 
-	Matrix		matTemp = gameObject->transform->world;
+	Matrix		matTemp = gameObject->transform->localMatrix;
 	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
 	matTemp._41 = 0.f;
 	matTemp._42 = 0.f;
@@ -192,7 +192,7 @@ const list<D3DXMESHCONTAINER_DERIVED*>& PKH::DynamicMesh::GetMeshContainersRef()
 void PKH::DynamicMesh::RenderUsingFixedPL()
 {
 	device = RenderManager::GetDevice();
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	for (auto& iter : m_MeshContainerList)
@@ -241,7 +241,7 @@ void PKH::DynamicMesh::RenderUsingShader()
 	ID3DXEffect* effect = nullptr;
 	UINT passCount = 0;
 	renderer->GetEffect(L"DEFERRED", &effect);
-	effect->SetMatrix("g_mWorld", &gameObject->transform->world);
+	effect->SetMatrix("g_mWorld", &gameObject->transform->localMatrix);
 	device = RenderManager::GetDevice();
 	effect->Begin(&passCount, 0);
 	effect->BeginPass(0);

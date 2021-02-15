@@ -72,7 +72,7 @@ void PKH::NavMeshMap::SetNavigationInfo()
 		barycentricCoord.z /= 3.f;
 
 		//월드로 바꿔야 함
-		D3DXVec3TransformCoord(&barycentricCoord, &barycentricCoord, &transform->world);
+		D3DXVec3TransformCoord(&barycentricCoord, &barycentricCoord, &transform->localMatrix);
 
 		PathFinder::Node* node = new PathFinder::Node();
 		node->position = barycentricCoord;

@@ -250,6 +250,9 @@
     <Filter Include="Component\Renderer\Material\SkinnedMaterial">
       <UniqueIdentifier>{22119948-b6b2-4619-8d65-e083178331f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Stat">
+      <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -723,6 +726,8 @@
     <ClInclude Include="NetPlayerController.h">
       <Filter>Component\PlayerController</Filter>
     </ClInclude>
+    <ClInclude Include="Stat.h" />
+    <ClInclude Include="UnitStat.h" />
     <ClInclude Include="RenderSystem.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
@@ -1305,6 +1310,11 @@
     </ClCompile>
     <ClCompile Include="SkinnedMaterial.cpp">
       <Filter>Component\Renderer\Material\SkinnedMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="Stat.cpp" />
+    <ClCompile Include="UnitStat.cpp" />
+    <ClCompile Include="IRenderComponent.cpp">
+      <Filter>Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

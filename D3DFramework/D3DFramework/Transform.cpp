@@ -17,7 +17,7 @@ PKH::Transform::Transform(const Transform& rhs)
 	,right(rhs.right)
 	,up(rhs.up)
 	,look(rhs.look)
-	,world(rhs.world)
+	,localMatrix(rhs.localMatrix)
 	,zOrder(rhs.zOrder)
 {
 }
@@ -34,7 +34,7 @@ void PKH::Transform::Update()
 	D3DXVec3TransformCoord(&coord, &position, &matView);
 	zOrder = coord.z;
 
-	world = world.identity;
+	localMatrix = localMatrix.identity;
 	// 오일러 각 360도 보정
 	
 	eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(360.f));
@@ -71,8 +71,13 @@ void PKH::Transform::Update()
 	D3DXMatrixRotationQuaternion(&matRotation, &rotation);
 	D3DXMatrixTranslation(&matTrans, position.x, position.y, position.z);
 
-	//world = matScale * rotX * rotY * rotZ * matTrans;
-	world = matScale * matRotation * matTrans;
+	//localMatrix = matScale * rotX * rotY * rotZ * matTrans;
+	localMatrix = matScale * matRotation * matTrans;
+}
+
+void PKH::Transform::PostUpdate()
+{
+	worldMatrix = GetWorldMatrix();
 }
 
 IComponent* PKH::Transform::Clone()
@@ -142,4 +147,18 @@ void PKH::Transform::RotateY(float _angle)
 void PKH::Transform::RotateZ(float _angle)
 {
 	Rotate(Vector3::FORWARD, _angle);
+}
+
+Matrix PKH::Transform::GetWorldMatrix()
+{
+	if (gameObject->parent == nullptr)
+	{
+		return localMatrix;
+	}
+	
+	Matrix parentWorld = gameObject->parent->transform->GetWorldMatrix();
+
+	worldMatrix = localMatrix * parentWorld;
+	
+	return worldMatrix;
 }

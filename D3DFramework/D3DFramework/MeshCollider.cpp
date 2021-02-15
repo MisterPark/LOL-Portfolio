@@ -44,7 +44,7 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
     // 
 
     // TODO : (약함)로컬에서 충돌검사를 해야 빠르겠지...?
-    Matrix matWorld = transform->world;
+    Matrix matWorld = transform->localMatrix;
 
     float u, v, dist;
     DWORD index;

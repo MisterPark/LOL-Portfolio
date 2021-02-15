@@ -75,6 +75,10 @@ namespace PKH
 		bool isVisible = true;
 		bool isEnable = true;
 		bool dontDestroy = false;
+
+		GameObject* parent = nullptr;
+		list<GameObject*> children;
+
 		map<wstring, PKH::IComponent*> components;
 	protected:
 		bool destroyFlag = false;

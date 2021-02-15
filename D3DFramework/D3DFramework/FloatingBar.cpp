@@ -90,13 +90,13 @@ void FloatingBar::Render()
 	//RenderManager::DrawSprite(textureKey2, transform->position + offset2, 0);
 	if (target != nullptr)
 	{
-		if (target->maxHp != 0.f)
+		if (target->stat->maxHp != 0.f)
 		{
-			ratioHP = target->hp / target->maxHp;
+			ratioHP = target->stat->hp.GetValue() / target->stat->maxHp.GetValue();
 		}
-		if (target->maxMp != 0.f)
+		if (target->stat->maxMp != 0.f)
 		{
-			ratioMP = target->mp / target->maxMp;
+			ratioMP = target->stat->mp.GetValue() / target->stat->maxMp.GetValue();
 		}
 		
 		if (ratioHP < 0.f) ratioHP = 0.f;

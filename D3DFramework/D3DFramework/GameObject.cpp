@@ -23,6 +23,11 @@ void PKH::GameObject::Update()
 	{
 		comp.second->Update();
 	}
+
+	for (auto iter : children)
+	{
+		iter->Update();
+	}
 }
 
 void PKH::GameObject::PostUpdate()
@@ -30,6 +35,11 @@ void PKH::GameObject::PostUpdate()
 	for (auto& comp : components)
 	{
 		comp.second->PostUpdate();
+	}
+
+	for (auto iter : children)
+	{
+		iter->PostUpdate();
 	}
 }
 
@@ -44,6 +54,11 @@ void PKH::GameObject::Render()
 		{
 			mesh->Render();
 		}
+	}
+
+	for (auto iter : children)
+	{
+		iter->Render();
 	}
 }
 
@@ -64,6 +79,11 @@ void PKH::GameObject::PostRender()
 			continue;
 		}
 
+	}
+
+	for (auto iter : children)
+	{
+		iter->PostRender();
 	}
 }
 
@@ -156,7 +176,7 @@ void PKH::GameObject::Billboard()
 	//이동부분을 반영해줍니다. 다시 좌표의 위치로 이동시켜주는 처리입니다.
 
 	//RenderManager::SetTransform(D3DTS_WORLD, &matView);
-	transform->world = matScale*matView;
+	transform->localMatrix = matScale*matView;
 }
 
 void PKH::GameObject::BillboardYaw()
@@ -184,7 +204,7 @@ void PKH::GameObject::BillboardYaw()
 	// 이동
 	D3DXVECTOR3 BillPos = transform->position;
 	memcpy(&matBill._41, &BillPos, sizeof(D3DXVECTOR3));
-	transform->world = matScale * matBill;
+	transform->localMatrix = matScale * matBill;
 
 
 }
