@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 #include "Rectangle.h"
 
@@ -10,15 +10,13 @@ namespace PKH
         UI();
         virtual ~UI();
 
-        virtual void Initialize();
-        virtual void Release();
-        virtual void Update();
-        virtual void Render();
+        virtual void Update() override;
+
 
         void UpdateEvent();
         void ClearEvent();
 
-        // ÀÌº¥Æ® ¸®½º³Ê
+        // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         virtual void OnHover();
         virtual void OnLeave();
         virtual void OnLButtonDown();
@@ -34,7 +32,7 @@ namespace PKH
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
-        // ÁÂ»ó´Ü ±âÁØ
+        // ï¿½Â»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         void SetLocation(int x, int y);
         void SetLocation(float x, float y);
@@ -49,18 +47,18 @@ namespace PKH
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
 
-        // ÅØ½ºÆ® °ü·Ã
-        wstring text; // Ãâ·ÂÇÒ ÅØ½ºÆ® (RW)
+        // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        wstring text; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® (RW)
         D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 1, 1, 1);
-        Vector3 textOffsetPosition;// ÅØ½ºÆ®¸¦ Ãâ·ÂÇÒ local(offset)À§Ä¡ (RW) 
-        bool textRenderFlag = false;// ÅØ½ºÆ®¸¦ Ãâ·ÂÇÒ UIÀÎ°¡? (RW)
+        Vector3 textOffsetPosition;// ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ local(offset)ï¿½ï¿½Ä¡ (RW) 
+        bool textRenderFlag = false;// ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ UIï¿½Î°ï¿½? (RW)
 
-        // ³ÐÀÌ ³ôÀÌ (R)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (R)
         int width = 0;
         int height = 0;
 
     public:
-        // ÀÌº¥Æ® ÄÝ¹é (RW)
+        // ï¿½Ìºï¿½Æ® ï¿½Ý¹ï¿½ (RW)
         void (*Click)() = nullptr;
         void (*DoubleClick)() = nullptr;
         void (*LButtonDown)() = nullptr;
@@ -72,7 +70,7 @@ namespace PKH
         void (*ChangedText)() = nullptr;
 
     private:
-        // ÀÌº¥Æ® °ü·Ã 
+        // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ 
         bool isHover = false;
         bool isLeave = false;
         bool isLButtonDown = false;

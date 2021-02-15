@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Darius.h"
-#include "GameRenderer.h"
 using namespace PKH;
 
 Darius::Darius()
@@ -9,8 +8,6 @@ Darius::Darius()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"darius");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
@@ -38,8 +35,6 @@ Darius::Darius()
 
 Darius::~Darius()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }
 
 void Darius::Initialize()

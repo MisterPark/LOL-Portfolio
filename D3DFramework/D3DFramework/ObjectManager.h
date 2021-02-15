@@ -39,9 +39,6 @@ namespace PKH
 		
 		static void Update();
 		static void PostUpdate();
-		static void PreRender();
-		static void Render();
-		static void PostRender();
 
 		static bool CompareY(GameObject* a, GameObject* b);
 		static bool CompareZ(GameObject* a, GameObject* b);

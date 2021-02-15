@@ -56,7 +56,6 @@
 #include "Nexus.h"
 #include "MinionAI.h"
 
-#include "GameRenderer.h"
 #include "RenderSystem.h"
 void TestScene::OnLoaded()
 {

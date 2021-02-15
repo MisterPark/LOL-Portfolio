@@ -7,8 +7,6 @@ Scuttleracer::Scuttleracer()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"scuttleracer");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
@@ -16,6 +14,4 @@ Scuttleracer::Scuttleracer()
 
 Scuttleracer::~Scuttleracer()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }

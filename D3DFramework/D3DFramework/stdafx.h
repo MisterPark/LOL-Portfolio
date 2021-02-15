@@ -130,11 +130,12 @@ using namespace std;
 
 #include "NavMesh.h"
 #include "NavMeshAgent.h"
-#include "GameRenderer.h"
+#include "RenderSystem.h"
 
 
 using namespace std;
 using namespace PKH;
+using namespace KST;
 
 extern HWND g_hwnd;
 extern HINSTANCE g_hInstance;

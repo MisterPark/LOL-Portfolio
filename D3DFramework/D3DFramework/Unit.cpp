@@ -59,13 +59,6 @@ void Unit::Update()
 	attackIndicator->Update();
 }
 
-void Unit::Render()
-{
-	attackIndicator->Render();
-	GameObject::Render();
-
-}
-
 
 void Unit::UpdateState()
 {

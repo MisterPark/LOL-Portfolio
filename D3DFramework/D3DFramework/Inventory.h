@@ -21,7 +21,6 @@ public:
 	static void Hide();
 
 	static void Update();
-	static void Render();
 
 	static bool Push(Item* item);
 

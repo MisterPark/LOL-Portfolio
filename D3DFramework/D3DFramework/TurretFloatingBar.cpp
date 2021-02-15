@@ -21,18 +21,3 @@ TurretFloatingBar::~TurretFloatingBar()
 {
 }
 
-void TurretFloatingBar::Render()
-{
-	float ratioHP = 0.f;
-
-	RenderManager::DrawSprite(textureKey, *transform, 0);
-	if (target != nullptr)
-	{
-		ratioHP = (float)target->stat->hp.GetValue() / target->stat->maxHp.GetValue();
-	}
-	if (ratioHP < 0.f)
-	{
-		ratioHP = 0.f;
-	}
-	RenderManager::DrawUIHorizontal(textureKeyHP, transform->position + offset2, scaleHP, 0, ratioHP);
-}

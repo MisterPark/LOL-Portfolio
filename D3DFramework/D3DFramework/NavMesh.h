@@ -33,7 +33,6 @@ namespace PKH
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
     
-        virtual void Render() override;
 
 
 

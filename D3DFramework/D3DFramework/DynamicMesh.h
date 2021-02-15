@@ -16,12 +16,10 @@ namespace PKH
 		virtual IComponent * Clone() override;
 	public:
 		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		virtual void Render(void) override;
 		//렌더링을 준비한다.
 		void UpdateFrame();
 		const list<D3DXMESHCONTAINER_DERIVED*>& GetMeshContainersRef();
-		void RenderUsingFixedPL();
-		void RenderUsingShader();
+
 		const  D3DXFRAME_DERIVED* GetFrameByName(const char* pFrameName);
 		bool			IsAnimationSetEnd(void);
 	public:

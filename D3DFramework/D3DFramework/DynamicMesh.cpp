@@ -2,7 +2,7 @@
 #include "DynamicMesh.h"
 #include "HierarchyLoader.h"
 #include "AnimationController.h"
-#include "GameRenderer.h"
+
 PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 	:Mesh(owner)
 	, m_pRootFrame(nullptr)
@@ -129,38 +129,6 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 	return S_OK;
 }
 
-void DynamicMesh::Render(void)
-{
-	if (gameObject == nullptr)return;
-	
-
-	if (stopFlag == true)
-	{
-		animSpeed = 0.f;
-	}
-	PlayAnimation(animSpeed);
-	animSpeed = 0.f;
-		
-	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
-
-	Matrix		matTemp = gameObject->transform->localMatrix;
-	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
-	matTemp._41 = 0.f;
-	matTemp._42 = 0.f;
-	matTemp._43 = 0.f;
-	//UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &);
-	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
-
-	if (renderGroupID == RenderGroupID::Deferred)
-	{
-		RenderUsingShader();
-	}
-	else
-	{
-		RenderUsingFixedPL();
-	}
-}
-
 void PKH::DynamicMesh::UpdateFrame()
 {
 	if (gameObject == nullptr)return;
@@ -189,101 +157,6 @@ const list<D3DXMESHCONTAINER_DERIVED*>& PKH::DynamicMesh::GetMeshContainersRef()
 	return m_MeshContainerList;
 }
 
-void PKH::DynamicMesh::RenderUsingFixedPL()
-{
-	device = RenderManager::GetDevice();
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	for (auto& iter : m_MeshContainerList)
-	{
-		D3DXMESHCONTAINER_DERIVED* pMeshContainer = iter;
-
-		for (ULONG i = 0; i < pMeshContainer->dwNumBones; ++i)
-		{
-			pMeshContainer->pRenderingMatrix[i] = pMeshContainer->pFrameOffsetMatrix[i] * (*pMeshContainer->ppFrameCombinedMatrix[i]);
-		}
-
-		void* pSrcVtx = nullptr;
-		void* pDestVtx = nullptr;
-
-
-		pMeshContainer->pOriMesh->LockVertexBuffer(0, &pSrcVtx);
-		pMeshContainer->MeshData.pMesh->LockVertexBuffer(0, &pDestVtx);
-
-		// 소프트웨어 스키닝을 수행하는 함수(스키닝 뿐 아니라 애니메이션 변경 시, 뼈대들과 정점 정보들의 변경을 동시에 수행하기도 함)
-		pMeshContainer->pSkinInfo->UpdateSkinnedMesh(pMeshContainer->pRenderingMatrix,	// 최종 뼈의 변환상태 행렬
-			nullptr,						// 원래 상태로 되돌리기 위한 상태 행렬(원래는 위 행렬의 역행렬을 구해서 넣어줘야 하지만 안넣어줘도 상관 없음)
-			pSrcVtx,						// 변하지 않는 원본 메쉬의 정점 정보
-			pDestVtx);						// 변환된 정보를 담기 위한 메쉬의 정점 정보
-		pMeshContainer->pOriMesh->UnlockVertexBuffer();
-		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
-
-		RenderManager::LockDevice();
-
-		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
-		{
-			device->SetTexture(0, pMeshContainer->ppTexture[i]);
-			pMeshContainer->MeshData.pMesh->DrawSubset(i);
-		}
-
-		RenderManager::UnlockDevice();
-
-	}
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-}
-
-void PKH::DynamicMesh::RenderUsingShader()
-{
-
-	GameRenderer* renderer = GameRenderer::Instance();
-	ID3DXEffect* effect = nullptr;
-	UINT passCount = 0;
-	renderer->GetEffect(L"DEFERRED", &effect);
-	effect->SetMatrix("g_mWorld", &gameObject->transform->localMatrix);
-	device = RenderManager::GetDevice();
-	effect->Begin(&passCount, 0);
-	effect->BeginPass(0);
-	for (auto& iter : m_MeshContainerList)
-	{
-		D3DXMESHCONTAINER_DERIVED* pMeshContainer = iter;
-
-		for (ULONG i = 0; i < pMeshContainer->dwNumBones; ++i)
-		{
-			pMeshContainer->pRenderingMatrix[i] = pMeshContainer->pFrameOffsetMatrix[i] * (*pMeshContainer->ppFrameCombinedMatrix[i]);
-		}
-
-		void* pSrcVtx = nullptr;
-		void* pDestVtx = nullptr;
-
-
-		pMeshContainer->pOriMesh->LockVertexBuffer(0, &pSrcVtx);
-		pMeshContainer->MeshData.pMesh->LockVertexBuffer(0, &pDestVtx);
-
-		// 소프트웨어 스키닝을 수행하는 함수(스키닝 뿐 아니라 애니메이션 변경 시, 뼈대들과 정점 정보들의 변경을 동시에 수행하기도 함)
-		pMeshContainer->pSkinInfo->UpdateSkinnedMesh(pMeshContainer->pRenderingMatrix,	// 최종 뼈의 변환상태 행렬
-			nullptr,						// 원래 상태로 되돌리기 위한 상태 행렬(원래는 위 행렬의 역행렬을 구해서 넣어줘야 하지만 안넣어줘도 상관 없음)
-			pSrcVtx,						// 변하지 않는 원본 메쉬의 정점 정보
-			pDestVtx);						// 변환된 정보를 담기 위한 메쉬의 정점 정보
-		pMeshContainer->pOriMesh->UnlockVertexBuffer();
-		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
-
-		RenderManager::LockDevice();
-
-		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
-		{
-			effect->SetTexture("g_diffuseTexture", pMeshContainer->ppTexture[i]);
-			effect->CommitChanges();
-			pMeshContainer->MeshData.pMesh->DrawSubset(i);
-		}
-
-
-		RenderManager::UnlockDevice();
-	}
-	effect->EndPass();
-	effect->End();
-}
 
 const D3DXFRAME_DERIVED* DynamicMesh::GetFrameByName(const char* pFrameName)
 {

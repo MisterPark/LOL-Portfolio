@@ -20,7 +20,8 @@ namespace PKH
 	public:
 
 		virtual void Update() {};
-		virtual void Render();
+		virtual void RenderSubset(int index) override;
+		virtual IDirect3DTexture9* GetSubsetTexture(int index);
 
 		virtual PKH::IComponent* Clone() = 0;
 

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "TerrainMesh.h"
-#include "GameRenderer.h"
 PKH::TerrainMesh::TerrainMesh(GameObject* owner)
     :Mesh(owner)
 {
@@ -319,52 +318,6 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	return S_OK;
 }
 
-void PKH::TerrainMesh::Render()
-{
-	if (gameObject == nullptr) return;
-	
-	//return;
-	auto device = RenderManager::GetDevice();
-	RenderManager::LockDevice();
-	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
-	device->SetFVF(fvf);
-	device->SetIndices(indexBuffer);
-	if (renderGroupID == RenderGroupID::Deferred)
-	{
-		ID3DXEffect* effect{};
-		GameRenderer* renderer = GameRenderer::Instance();
-		renderer->GetEffect(L"DEFERRED", &effect);
-		UINT passCount{};
-		effect->SetFloat("g_alphaThreshold", 0.5f);
-		effect->SetMatrix("g_mWorld", &gameObject->transform->localMatrix);
-		effect->Begin(&passCount, 0);
-		effect->BeginPass(1);
-		int cullcount = 0;
-		for (ULONG i = 0; i < subsetCount; ++i)
-		{
-			Vector3 worldCenter;
-			D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->localMatrix);
-			if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
-			{
-				cullcount++;
-				continue;
-			}
-			effect->SetTexture("g_diffuseTexture", ppTextures[i]);
-			effect->CommitChanges();
-			auto device = RenderManager::GetDevice();
-			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
-		}
-		effect->EndPass();
-		effect->End();
-		effect->Release();
-	}
-	else
-	{
-		RenderUsingFixed();
-	}
-	RenderManager::UnlockDevice();
-}
-
 void PKH::TerrainMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
@@ -388,40 +341,4 @@ int PKH::TerrainMesh::GetSubsetCount()
 IDirect3DTexture9* PKH::TerrainMesh::GetSubsetTexture(int index)
 {
 	return ppTextures[index];
-}
-
-void PKH::TerrainMesh::RenderUsingShader(ID3DXEffect* effect)
-{
-
-}
-
-void PKH::TerrainMesh::RenderUsingFixed()
-{
-	auto device = RenderManager::GetDevice();
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->localMatrix);
-
-	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	device->SetRenderState(D3DRS_ALPHATESTENABLE, true);
-	device->SetRenderState(D3DRS_ALPHAREF, 0x00000088);
-	device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-
-	int cullcount = 0;
-	for (ULONG i = 0; i < subsetCount; ++i)
-	{
-		Vector3 worldCenter;
-		D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[i].center, &gameObject->transform->localMatrix);
-		if (Frustum::Intersect(&worldCenter, subsetBoxArray[i].radius) == false)
-		{
-			cullcount++;
-			continue;
-		}
-		device->SetTexture(0, ppTextures[i]);
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[i].FaceStart * 3, pAttributeTable[i].FaceCount);
-	}
-
-	device->SetTexture(0, 0);
-	device->SetRenderState(D3DRS_LIGHTING, false);
-	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-	device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
 }

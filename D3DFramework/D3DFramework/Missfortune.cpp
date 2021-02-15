@@ -1,14 +1,11 @@
 #include "stdafx.h"
 #include "Missfortune.h"
-#include "GameRenderer.h"
 Missfortune::Missfortune()
 {
 	transform->scale = { 0.015f, 0.015f, 0.015f, };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"missfortune");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	faceCircleTexkey = L"missfortune_circle";
@@ -34,8 +31,6 @@ Missfortune::Missfortune()
 
 Missfortune::~Missfortune()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }
 
 void Missfortune::Initialize()

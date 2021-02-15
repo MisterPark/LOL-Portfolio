@@ -5,7 +5,7 @@
 #include "TitleScene.h"
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
-#include "GameRenderer.h"
+
 #include "RenderSystem.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "SkinnedMeshRenderer.h"
@@ -50,13 +50,13 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//LobbyWindow::GetInstance();
 	Random::InitState();
 
-	// 다른 모든 매니저 초기화
+	// �ٸ� ��� �Ŵ��� �ʱ�ȭ
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(300);
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
-	GameRenderer::Initialize();
+
 	LoadUISprite();
 
 	ObjectManager::GetInstance();
@@ -83,7 +83,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	//SkillManager::GetInstance();
 
-	// 씬로드
+	// ���ε�
 	SceneManager::LoadScene<TestLoadingScene>();
 	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
@@ -91,18 +91,18 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 void PKH::MainGame::Update()
 {
-	// 1. 인풋 먼저
+	// 1. ��ǲ ����
 	InputManager::Update();
 
-	// 2. 씬 매니저 업데이트
+	// 2. �� �Ŵ��� ������Ʈ
 	SceneManager::Update();
 
-	// (임시) UI 업데이트
+	// (�ӽ�) UI ������Ʈ
 	UIManager::Update();
 
-	// 3. Player 업데이트
+	// 3. Player ������Ʈ
 
-	// 4. Obj 업데이트
+	// 4. Obj ������Ʈ
 	ObjectManager::Update();
 
 	Camera::GetInstance()->Update();
@@ -115,33 +115,15 @@ void PKH::MainGame::Update()
 
 	if (!TimeManager::SkipFrame())
 	{
-//		RenderManager::Clear();
-//
-//		SkyBox::GetInstance()->Render();
-//		ObjectManager::PreRender();
-//		//ObjectManager::Render();
-//		GameRenderer::Render();
-//		ObjectManager::PostRender();
-//
-//
-//		RenderManager::Present();		
-	}
-
-	RenderManager::Clear();
-
-		SkyBox::GetInstance()->Render();
-		ObjectManager::PreRender();
-		//ObjectManager::Render();
+		RenderManager::Clear();
 		RenderSystem::Render();
-		ObjectManager::PostRender();
-
-
-	RenderManager::Present();
+		RenderManager::Present();
+	}
 }
 
 void PKH::MainGame::Release()
 {
-	// 다른 모든 매니저 해제
+	// �ٸ� ��� �Ŵ��� ����
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	TimeManager::Destroy();
@@ -150,7 +132,7 @@ void PKH::MainGame::Release()
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();
-	GameRenderer::Destroy();
+
 	RenderSystem::Destory();
 	RenderManager::Destroy();
 	InputManager::Destroy();
@@ -191,13 +173,13 @@ int PKH::MainGame::GetHeight()
 
 void PKH::MainGame::LoadUISprite()
 {
-	// Load Resource
+	// 리소스 로드
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
-	// Loading Scene
+	//로딩씬
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingscreen_spinner_atlas.dds",8,4);
@@ -228,7 +210,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
 	
-	// Ingame
+	// 인게임
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
@@ -403,10 +385,10 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_r.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_passive.dds");
 
-	// Indicator
+	// 인디케이터
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
 
-	// Turret
+	// 터렛
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 

@@ -20,9 +20,9 @@ namespace PKH
 		virtual void Release() = 0;
 		virtual void Update() = 0;
 		virtual void PostUpdate();
-		virtual void Render();
+
 		virtual void Destroy();
-		virtual void PostRender();
+
 		virtual void OnCollisionEnter(Collider* target);
 
 		// 방향으로 이동

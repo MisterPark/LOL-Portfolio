@@ -5,8 +5,9 @@
 #include "TurretMissile.h"
 #include "Indicator.h"
 #include "TurretBreak.h"
-#include "GameRenderer.h"
 #include "DeferredStaticMeshRenderer.h"
+
+
 Turret::Turret()
 {
 	transform->position = { 0,0,0 };

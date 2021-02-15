@@ -48,48 +48,12 @@ void PKH::GameObject::PostUpdate()
 	}
 }
 
-void PKH::GameObject::Render()
-{
-	if (isVisible == false) return;
 
-	for (auto& comp : components)
-	{
-		Mesh* mesh = dynamic_cast<Mesh*>(comp.second);
-		if (mesh != nullptr)
-		{
-			mesh->Render();
-		}
-	}
-
-	for (auto iter : children)
-	{
-		iter->Render();
-	}
-}
 
 void PKH::GameObject::Destroy()
 {
 	if (dontDestroy) return;
 	destroyFlag = true;
-}
-
-void PKH::GameObject::PostRender()
-{
-	for (auto& comp : components)
-	{
-		Collider* collider = dynamic_cast<Collider*>(comp.second);
-		if (collider != nullptr)
-		{
-			collider->Render();
-			continue;
-		}
-
-	}
-
-	for (auto iter : children)
-	{
-		iter->PostRender();
-	}
 }
 
 void PKH::GameObject::OnCollisionEnter(Collider* target)
