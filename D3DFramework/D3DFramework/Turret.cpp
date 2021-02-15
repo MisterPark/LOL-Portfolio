@@ -6,6 +6,7 @@
 #include "Indicator.h"
 #include "TurretBreak.h"
 #include "GameRenderer.h"
+#include "DeferredStaticMeshRenderer.h"
 Turret::Turret()
 {
 	transform->position = { 0,0,0 };
@@ -20,16 +21,16 @@ Turret::Turret()
 	bar->SetTarget(this);
 
 	SetAttackRange(7.75f);
+	KST::DeferredStaticMeshRenderer* renderer =
+		(KST::DeferredStaticMeshRenderer*)AddComponent<KST::DeferredStaticMeshRenderer>(L"renderer");
+	renderer->SetMesh(mesh);
 
-	mesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(mesh);
 }
 
 Turret::~Turret()
 {
 	bar = nullptr;
-	StaticMesh* mesh = (StaticMesh*)GetComponent(L"StaticMesh");
-	GameRenderer::Unregister(mesh);
+
 }
 
 void Turret::Update()

@@ -226,6 +226,30 @@
     <Filter Include="Lib\Graphics\shader">
       <UniqueIdentifier>{c3d7b2d3-0f5f-4de2-a929-98e82fffb429}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{321b47cc-0270-467d-8bdf-fdb312532077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\StaticMeshRenderer">
+      <UniqueIdentifier>{f52eeb6d-e38f-486a-bb73-f6071492e2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\SkinnedMeshRenderer">
+      <UniqueIdentifier>{96783364-299a-4d13-a5c5-1800f7ecb24c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer">
+      <UniqueIdentifier>{395a357b-102e-4725-a7be-71978d62ffbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\Material">
+      <UniqueIdentifier>{f3a271ee-a92c-4089-974f-570e59ae1400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\Material\Standard">
+      <UniqueIdentifier>{c37255ad-77a3-4ccc-adcf-5a9636d5222b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\Material\Forward">
+      <UniqueIdentifier>{053e20c7-1730-4d4f-96e9-783822628903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\Material\SkinnedMaterial">
+      <UniqueIdentifier>{22119948-b6b2-4619-8d65-e083178331f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -663,9 +687,6 @@
     <ClInclude Include="GameRenderer.h">
       <Filter>Lib\Graphics\Renderer\GameRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Lib\Graphics\Renderer\00.common</Filter>
-    </ClInclude>
     <ClInclude Include="Nexus.h">
       <Filter>GameObject\Unit\Building\Nexus</Filter>
     </ClInclude>
@@ -701,6 +722,30 @@
     </ClInclude>
     <ClInclude Include="NetPlayerController.h">
       <Filter>Component\PlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer_old.h">
+      <Filter>Lib\Graphics\Renderer\00.common</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredStaticMeshRenderer.h">
+      <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMeshRenderer.h">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Component\Renderer\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardMaterial.h">
+      <Filter>Component\Renderer\Material\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMaterial.h">
+      <Filter>Component\Renderer\Material\SkinnedMaterial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1242,6 +1287,24 @@
     </ClCompile>
     <ClCompile Include="NetPlayerController.cpp">
       <Filter>Component\PlayerController</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredStaticMeshRenderer.cpp">
+      <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMeshRenderer.cpp">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardMaterial.cpp">
+      <Filter>Component\Renderer\Material\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMaterial.cpp">
+      <Filter>Component\Renderer\Material\SkinnedMaterial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

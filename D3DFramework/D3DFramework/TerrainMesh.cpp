@@ -365,6 +365,25 @@ void PKH::TerrainMesh::Render()
 	RenderManager::UnlockDevice();
 }
 
+void PKH::TerrainMesh::RenderSubset(int index)
+{
+	auto device = RenderManager::GetDevice();
+	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
+	device->SetFVF(fvf);
+	device->SetIndices(indexBuffer);
+	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[index].FaceStart * 3, pAttributeTable[index].FaceCount);
+}
+
+int PKH::TerrainMesh::GetSubsetCount()
+{
+	return (int)subsetCount;
+}
+
+IDirect3DTexture9* PKH::TerrainMesh::GetSubsetTexture(int index)
+{
+	return ppTextures[index];
+}
+
 void PKH::TerrainMesh::RenderUsingShader(ID3DXEffect* effect)
 {
 

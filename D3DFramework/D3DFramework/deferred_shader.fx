@@ -67,8 +67,12 @@ VS_OUT vs_main(VS_IN input)
 
 float4 ps_combine(PS_IN input) :COLOR0
 {
-	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
 	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
+	if (vAlbedo.a < 0.1f)
+	{
+		discard;
+	}
+	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
 	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
 	float4 vColor = vSpecular + vAlbedo * vShade;
 	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
@@ -79,7 +83,25 @@ float4 ps_combine(PS_IN input) :COLOR0
 	vColor.a = vAlbedo.a;
 	return vAlbedo;
 }
+float4 ps_tone_combine(PS_IN input) :COLOR0
+{
+	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
+	if (vAlbedo.a < 0.1f)
+	{
+		discard;
+	}
+	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
+	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
+	float4 vColor = vSpecular + vAlbedo * vShade;
+	//vColor.r += 0.5f;
+	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
 
+	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
+	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
+	//vColor = fogFactor * vColor + (1.f - fogFactor);
+	vColor.a = vAlbedo.a;
+	return vAlbedo;
+}
 matrix g_mInverseViewProj;
 float4 g_vLightDirectionAndPower;
 float4 g_vLightDiffuse;
@@ -88,6 +110,12 @@ float4 g_vCameraPosition;
 PS_OUT ps_directional_light(PS_IN input)
 {
 	PS_OUT output;
+	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
+	if (vAlbedo.a < 0.1f)
+	{
+		discard;
+	}
+
 	output.vSpecular = float4(0.f, 0.f, 0.f, 1.f);
 	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
 	float4 fPower = vSpecular.w;
@@ -138,5 +166,14 @@ technique Default_Device
 		ZEnable = false;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light();
+	}
+	pass tone_combine
+	{
+		ZWriteEnable = false;
+		AlphaBlendEnable = true;
+		SrcBlend = srcalpha;
+		DestBlend = invsrcalpha;
+		VertexShader = compile vs_3_0 vs_main();
+		PixelShader = compile ps_3_0 ps_tone_combine();
 	}
 }

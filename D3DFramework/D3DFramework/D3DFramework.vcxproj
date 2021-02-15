@@ -192,6 +192,7 @@
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Darius.h" />
+    <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicMesh.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="MinimapPanel.h" />
@@ -265,6 +267,8 @@
     <ClInclude Include="RazorbeakMini.h" />
     <ClInclude Include="RedMonster.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Renderer_old.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -296,10 +300,13 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scuttleracer.h" />
+    <ClInclude Include="SkinnedMaterial.h" />
+    <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="StandardMaterial.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
@@ -349,6 +356,7 @@
     <ClCompile Include="ChaosMinionMelee.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Darius.cpp" />
+    <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
@@ -420,6 +428,7 @@
     <ClCompile Include="Razorbeak.cpp" />
     <ClCompile Include="RazorbeakMini.cpp" />
     <ClCompile Include="RedMonster.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -440,14 +449,18 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
+    <ClCompile Include="SkinnedMaterial.cpp" />
+    <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="StandardMaterial.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

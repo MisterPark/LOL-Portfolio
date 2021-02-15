@@ -161,6 +161,34 @@ void DynamicMesh::Render(void)
 	}
 }
 
+void PKH::DynamicMesh::UpdateFrame()
+{
+	if (gameObject == nullptr)return;
+
+
+	if (stopFlag == true)
+	{
+		animSpeed = 0.f;
+	}
+	PlayAnimation(animSpeed);
+	animSpeed = 0.f;
+
+	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+
+	Matrix		matTemp = gameObject->transform->world;
+	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
+	matTemp._41 = 0.f;
+	matTemp._42 = 0.f;
+	matTemp._43 = 0.f;
+	//UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &);
+	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
+}
+
+const list<D3DXMESHCONTAINER_DERIVED*>& PKH::DynamicMesh::GetMeshContainersRef()
+{
+	return m_MeshContainerList;
+}
+
 void PKH::DynamicMesh::RenderUsingFixedPL()
 {
 	device = RenderManager::GetDevice();

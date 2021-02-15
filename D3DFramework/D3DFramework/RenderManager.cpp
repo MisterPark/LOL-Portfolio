@@ -142,6 +142,10 @@ void PKH::RenderManager::Release()
 	{
 		delete pair.second;
 	}
+	for (auto const& pair : pRenderManager->effects)
+	{
+		pair.second->Release();
+	}
 	pRenderManager->textureMap.clear();
 	pRenderManager->staticMeshMap.clear();
 	pRenderManager->dynamicMeshMap.clear();
@@ -1167,4 +1171,41 @@ RenderTarget* PKH::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
 		return nullptr;
 	}
 	return findIt->second;
+}
+
+ID3DXEffect* PKH::RenderManager::LoadEffect(const WCHAR* path)
+{
+	HRESULT hr{};
+	RenderManager* const self = pRenderManager;
+	WCHAR fullPath[MAX_PATH]{};
+	WCHAR** parts{};
+	GetFullPathNameW(path, MAX_PATH, fullPath, parts);
+	auto findIt = self->effects.find(fullPath);
+	if (findIt != self->effects.end())
+	{
+		return findIt->second;
+	}
+	ID3DXEffect* effect;
+	ID3DXBuffer* buffer;
+	hr = D3DXCreateEffectFromFileW(
+		self->pDevice,
+		fullPath,
+		nullptr,
+		nullptr,
+		D3DXSHADER_OPTIMIZATION_LEVEL3,
+		nullptr,
+		&effect,
+		&buffer
+	);
+	if (buffer != nullptr)
+	{
+		const char* msg = (const char*)buffer->GetBufferPointer();
+		OutputDebugStringA(msg);
+	}
+	if (FAILED(hr))
+	{
+		return nullptr;
+	}
+	self->effects.emplace(fullPath, effect);
+	return effect;
 }
