@@ -6,13 +6,13 @@ PKH::Cursor* pCursor = nullptr;
 
 PKH::Cursor::Cursor()
 {
-    textureKey = L"hover_precise";
-    transform->scale.x *= 0.8f;
-    transform->scale.y *= 0.8f;
     ShowCursor(FALSE);
     
-    mesh->SetTexture(L"hover_precise");
-
+    SetTexture(L"hover_precise");
+    //SetSizeByTexture();
+    //transform->scale.x *= 0.8f;
+    //transform->scale.y *= 0.8f;
+    type = UIType::CURSOR;
 }
 
 PKH::Cursor::~Cursor()
@@ -110,11 +110,6 @@ void PKH::Cursor::Release()
 bool PKH::Cursor::IsVisible()
 {
     return pCursor->isVisible;
-}
-
-void PKH::Cursor::SetTexture(const wstring& key)
-{
-    pCursor->textureKey = key.c_str();
 }
 
 void PKH::Cursor::SetRenderCenter(bool isCenter)

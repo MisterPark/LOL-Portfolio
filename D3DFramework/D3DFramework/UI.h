@@ -4,6 +4,16 @@
 
 namespace PKH
 {
+    enum class UIType
+    {
+        DEFAULT,
+        PLAYER_INFO,
+        MINIMAP,
+        SHOP,
+        STATUS_INFO,
+        CURSOR,
+    };
+
     class UI : public GameObject
     {
     public:
@@ -11,6 +21,7 @@ namespace PKH
         virtual ~UI();
 
         virtual void Update() override;
+        virtual void PostUpdate() override;
 
 
         void UpdateEvent();
@@ -56,6 +67,8 @@ namespace PKH
         // 넓이 높이 (R)
         int width = 0;
         int height = 0;
+
+        UIType type = UIType::DEFAULT;
 
     public:
         // 이벤트 콜백 (RW)

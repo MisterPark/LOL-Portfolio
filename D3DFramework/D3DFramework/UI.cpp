@@ -25,7 +25,11 @@ void UI::Update()
 {
 	UpdateEvent();
 	GameObject::Update();
-	Billboard();
+}
+
+void PKH::UI::PostUpdate()
+{
+	transform->zOrder = (int)type;
 }
 
 void UI::UpdateEvent()

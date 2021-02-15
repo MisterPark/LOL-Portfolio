@@ -26,14 +26,12 @@ namespace PKH
 		virtual void Release() override;
 
 		static bool IsVisible();
-		static void SetTexture(const wstring& key);
 		static void SetRenderCenter(bool isCenter);
 
 		static void SetMode(CursorMode _mode);
 		static void ChangeMode();
 
 	private:
-		wstring textureKey;
 		bool isRenderCenter = false;
 		CursorMode mode = CursorMode::Normal;
 	};

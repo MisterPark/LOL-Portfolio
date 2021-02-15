@@ -15,7 +15,8 @@ namespace KST
 		void SetMesh(PKH::Mesh* mesh);
 
 
-
+	public:
+		int zOrder = 0;
 	private:
 		PKH::Mesh* mesh = nullptr;
 	};

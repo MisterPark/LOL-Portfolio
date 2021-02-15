@@ -53,6 +53,10 @@ namespace KST
 	{
 		return a->transform->zOrder > b->transform->zOrder;
 	};
+	auto OrderLessZ(Renderer* a, Renderer* b)->bool
+	{
+		return a->transform->zOrder < b->transform->zOrder;
+	};
 	void RenderSystem::Initialize()
 	{
 		IDirect3DDevice9* device = RenderManager::GetDevice();
@@ -295,6 +299,8 @@ namespace KST
 		device->SetRenderTarget(0, backbuffer.Get());
 
 		auto& forwardRenderers = rendererTable[(unsigned)RendererType::UI];
+
+		forwardRenderers.sort(OrderLessZ);
 
 		for (auto* forwardRenderer : forwardRenderers)
 		{

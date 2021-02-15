@@ -37,8 +37,8 @@ void KST::UIRenderer::Render()
 	//matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
 	matWorld = transform->GetWorldMatrix();
-	matWorld._11 = 50.f;
-	matWorld._22 = 50.f;
+	matWorld._11 = matWorld._11 * 0.5f;
+	matWorld._22 = matWorld._22 * 0.5f;
 	matWorld._33 = 1.f;
 	matWorld._41 =  matWorld._41 - (screenW * 0.5f) + matWorld._11;
 	matWorld._42 =  -matWorld._42 + (screenH * 0.5f) - matWorld._22;
