@@ -240,7 +240,6 @@ namespace KST
 			device->SetRenderTarget(0, surface.Get());
 			device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_STENCIL | D3DCLEAR_STENCIL, 0xFFFFFFFF, 1.f, 0);
 		}
-		
 	}
 	void RenderSystem::RednerEarlyForward()
 	{

@@ -21,7 +21,11 @@ void KST::UIRenderer::Render()
 
 	device->GetTransform(D3DTS_VIEW, &matOriginView);
 	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
-
+	device->SetRenderState(D3DRS_ZENABLE, FALSE);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
 	D3DXMatrixIdentity(&matWorld);
 	D3DXMatrixIdentity(&matView);
@@ -33,12 +37,12 @@ void KST::UIRenderer::Render()
 	//matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
 	matWorld = transform->GetWorldMatrix();
-	matWorld._11 = matWorld._11 * 0.5f;
-	matWorld._22 = matWorld._22 * 0.5f;
+	matWorld._11 = 50.f;
+	matWorld._22 = 50.f;
 	matWorld._33 = 1.f;
-	matWorld._41 = matWorld._41 - (screenW * 0.5f) + matWorld._11;
-	matWorld._42 = -matWorld._42 + (screenH * 0.5f) - matWorld._22;
-	//matWorld._43 = 1.f;
+	matWorld._41 =  matWorld._41 - (screenW * 0.5f) + matWorld._11;
+	matWorld._42 =  -matWorld._42 + (screenH * 0.5f) - matWorld._22;
+	matWorld._43 = 1.f;
 
 	device->SetTransform(D3DTS_WORLD, &matWorld);
 	device->SetTransform(D3DTS_VIEW, &matView);
@@ -49,6 +53,9 @@ void KST::UIRenderer::Render()
 
 	device->SetTransform(D3DTS_VIEW, &matOriginView);
 	device->SetTransform(D3DTS_PROJECTION, &matOriginProj);
+	device->SetRenderState(D3DRS_ZENABLE, TRUE);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+
 }
 
 void KST::UIRenderer::SetMesh(PKH::Mesh* mesh)
