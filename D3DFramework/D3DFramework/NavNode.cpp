@@ -25,19 +25,19 @@ void NavNode::Update()
 {
 	GameObject::Update();
 }
-
-void NavNode::PostRender()
-{
-	GameObject::PostRender();
-	
-	for (int adj : adjacencyArr)
-	{
-		NavNode* adjNode = NavNodeManager::FindNode(adj);
-		if (adjNode == nullptr) continue;
-
-		RenderManager::DrawLine(transform->position, adjNode->transform->position, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}
-}
+//
+//void NavNode::PostRender()
+//{
+//	GameObject::PostRender();
+//	
+//	for (int adj : adjacencyArr)
+//	{
+//		NavNode* adjNode = NavNodeManager::FindNode(adj);
+//		if (adjNode == nullptr) continue;
+//
+//		RenderManager::DrawLine(transform->position, adjNode->transform->position, D3DCOLOR_ARGB(255, 255, 0, 0));
+//	}
+//}
 
 void NavNode::OnCollisionEnter(Collider* target)
 {

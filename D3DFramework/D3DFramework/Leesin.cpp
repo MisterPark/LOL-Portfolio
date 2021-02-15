@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Leesin.h"
-#include "GameRenderer.h"
 
 Leesin::Leesin()
 {
@@ -8,8 +7,6 @@ Leesin::Leesin()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"leesin");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	faceCircleTexkey = L"leesin_circle";
@@ -35,8 +32,6 @@ Leesin::Leesin()
 
 Leesin::~Leesin()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }
 
 void Leesin::Initialize()

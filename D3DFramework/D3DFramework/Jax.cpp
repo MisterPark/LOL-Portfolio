@@ -1,14 +1,11 @@
 #include "stdafx.h"
 #include "Jax.h"
-#include "GameRenderer.h"
 Jax::Jax()
 {
 	transform->scale = { 0.016f, 0.016f, 0.016f, };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"jax");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
 	faceCircleTexkey = L"jax_circle";
@@ -34,8 +31,6 @@ Jax::Jax()
 
 Jax::~Jax()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	GameRenderer::Unregister(dmesh);
 }
 
 void Jax::Initialize()

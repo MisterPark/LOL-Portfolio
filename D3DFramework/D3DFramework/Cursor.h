@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "UI.h"
 
 namespace PKH
 {
 	enum class CursorMode { Normal, SingleTarget };
 
-	class Cursor : public GameObject
+	class Cursor : public UI
 	{
 	private:
 		Cursor();
@@ -21,7 +21,7 @@ namespace PKH
 
 
 		virtual void Update() override;
-		virtual void Render() override;
+
 		virtual void Initialize() override;
 		virtual void Release() override;
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "IComponent.h"
-#include "IRenderComponent.h"
+
 enum class RenderGroupID :int;
 namespace PKH
 {
@@ -14,7 +14,7 @@ namespace PKH
 		CUSTOM_MESH,
 	};
 
-	class Mesh : public RenderComponent
+	class Mesh : public IComponent
 	{
 	public:
 		explicit Mesh(GameObject* owner);
@@ -30,7 +30,6 @@ namespace PKH
 		virtual ULONG GetVertexSize()	PURE;
 		virtual ULONG GetFaceCount()	PURE;
 
-		virtual void Render() PURE;
 		virtual int GetSubsetCount();
 		virtual void RenderSubset(int index);
 		virtual IDirect3DTexture9* GetSubsetTexture(int index);

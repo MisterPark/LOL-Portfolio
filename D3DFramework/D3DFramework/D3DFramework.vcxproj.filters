@@ -211,18 +211,6 @@
     <Filter Include="Lib\Graphics\RenderTarget\impl">
       <UniqueIdentifier>{de307bf7-5665-4fcd-be58-aeb9b32a2652}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lib\Graphics\Renderer">
-      <UniqueIdentifier>{f05549d5-1142-48b6-8b79-151c3cd68809}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lib\Graphics\Renderer\GameRenderer">
-      <UniqueIdentifier>{22b0660d-4e52-4015-8c0e-7b37c40632a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lib\Graphics\Renderer\GameRenderer\impl">
-      <UniqueIdentifier>{710f8806-538d-474b-8636-85126d594f5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lib\Graphics\Renderer\00.common">
-      <UniqueIdentifier>{8680ae61-2f45-4823-85f5-b207eb385dad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lib\Graphics\shader">
       <UniqueIdentifier>{c3d7b2d3-0f5f-4de2-a929-98e82fffb429}</UniqueIdentifier>
     </Filter>
@@ -240,6 +228,9 @@
     </Filter>
     <Filter Include="Component\Stat">
       <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\UIRenderer">
+      <UniqueIdentifier>{598d0f5d-e44e-46b1-8b61-14752bb911eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -672,17 +663,8 @@
     <ClInclude Include="RenderTargetImpl.h">
       <Filter>Lib\Graphics\RenderTarget\impl</Filter>
     </ClInclude>
-    <ClInclude Include="GameRendererImpl.h">
-      <Filter>Lib\Graphics\Renderer\GameRenderer\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="GameRenderer.h">
-      <Filter>Lib\Graphics\Renderer\GameRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="Nexus.h">
       <Filter>GameObject\Unit\Building\Nexus</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderComponent.h">
-      <Filter>Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="TurretMissile.h">
       <Filter>GameObject\Unit\Building\Turret</Filter>
@@ -719,9 +701,6 @@
     <ClInclude Include="RenderSystem.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer_old.h">
-      <Filter>Lib\Graphics\Renderer\00.common</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
@@ -730,6 +709,9 @@
     </ClInclude>
     <ClInclude Include="SkinnedMeshRenderer.h">
       <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderer.h">
+      <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1233,12 +1215,6 @@
     <ClCompile Include="RenderTargetImpl.cpp">
       <Filter>Lib\Graphics\RenderTarget\impl</Filter>
     </ClCompile>
-    <ClCompile Include="GameRendererImpl.cpp">
-      <Filter>Lib\Graphics\Renderer\GameRenderer\impl</Filter>
-    </ClCompile>
-    <ClCompile Include="GameRenderer.cpp">
-      <Filter>Lib\Graphics\Renderer\GameRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="Nexus.cpp">
       <Filter>GameObject\Unit\Building\Nexus</Filter>
     </ClCompile>
@@ -1286,8 +1262,8 @@
     </ClCompile>
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="UnitStat.cpp" />
-    <ClCompile Include="IRenderComponent.cpp">
-      <Filter>Component\Mesh</Filter>
+    <ClCompile Include="UIRenderer.cpp">
+      <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

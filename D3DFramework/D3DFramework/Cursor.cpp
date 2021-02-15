@@ -10,6 +10,9 @@ PKH::Cursor::Cursor()
     transform->scale.x *= 0.8f;
     transform->scale.y *= 0.8f;
     ShowCursor(FALSE);
+    
+    mesh->SetTexture(L"hover_precise");
+
 }
 
 PKH::Cursor::~Cursor()
@@ -77,24 +80,24 @@ void PKH::Cursor::Update()
 
     //Billboard();
 }
-
-void PKH::Cursor::Render()
-{
-    if (isVisible == false)return;
-
-    switch (mode)
-    {
-    case PKH::CursorMode::Normal:
-        RenderManager::DrawUI(L"hover_precise", *transform, 0);
-        break;
-    case PKH::CursorMode::SingleTarget:
-        RenderManager::DrawSprite(L"singletarget", *transform, 0);
-        break;
-    default:
-        break;
-    }
-    
-}
+//
+//void PKH::Cursor::Render()
+//{
+//    if (isVisible == false)return;
+//
+//    switch (mode)
+//    {
+//    case PKH::CursorMode::Normal:
+//        RenderManager::DrawUI(L"hover_precise", *transform, 0);
+//        break;
+//    case PKH::CursorMode::SingleTarget:
+//        RenderManager::DrawSprite(L"singletarget", *transform, 0);
+//        break;
+//    default:
+//        break;
+//    }
+//    
+//}
 
 void PKH::Cursor::Initialize()
 {

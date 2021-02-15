@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Nexus.h"
 #include "SphereCollider.h"
-#include "GameRenderer.h"
+
 #include "DeferredStaticMeshRenderer.h"
 Nexus::Nexus()
 {

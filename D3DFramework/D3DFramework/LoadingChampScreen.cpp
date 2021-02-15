@@ -5,7 +5,7 @@
 #include "LoadingPanel.h"
 #include "UI_Spell.h"
 #include "Label.h"
-#include "IRenderComponent.h"
+
 LoadingChampScreen::LoadingChampScreen()
 {
 	border = new LoadingBorder;
@@ -19,15 +19,12 @@ LoadingChampScreen::LoadingChampScreen()
 	champName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
 	nickName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
 	progressLabel->foreColor = D3DCOLOR_ARGB(255, 0, 250, 0);
-	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent *)AddComponent<GameObjectRenderComponent>(L"renderCom");
-	renderCom->renderGroupID = RenderGroupID::UI;
-	GameRenderer::Register(renderCom);
+
 }
 
 LoadingChampScreen::~LoadingChampScreen()
 {
-	GameObjectRenderComponent* renderCom = (GameObjectRenderComponent*)GetComponent(L"renderCom");
-	GameRenderer::Unregister(renderCom);
+
 
 	delete border;
 	delete champ;
@@ -59,19 +56,19 @@ void LoadingChampScreen::Update()
 	nickName->Update();
 	progressLabel->Update();
 }
-
-void LoadingChampScreen::Render()
-{
-	GameObject::Render();
-	champ->Render();
-	mask->Render();
-	spell1->Render();
-	spell2->Render();
-	border->Render();
-	champName->Render();
-	nickName->Render();
-	progressLabel->Render();
-}
+//
+//void LoadingChampScreen::Render()
+//{
+//	GameObject::Render();
+//	champ->Render();
+//	mask->Render();
+//	spell1->Render();
+//	spell2->Render();
+//	border->Render();
+//	champName->Render();
+//	nickName->Render();
+//	progressLabel->Render();
+//}
 
 void LoadingChampScreen::SetChampion(ChampionType type)
 {

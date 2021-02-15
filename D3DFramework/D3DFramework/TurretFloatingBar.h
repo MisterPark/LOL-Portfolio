@@ -7,7 +7,6 @@ public:
     TurretFloatingBar();
     virtual ~TurretFloatingBar();
 
-    virtual void Render() override;
 
 
 };

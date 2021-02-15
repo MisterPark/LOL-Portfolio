@@ -200,15 +200,12 @@
     <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="FloatingHPBar.h" />
     <ClInclude Include="Frustum.h" />
-    <ClInclude Include="GameRenderer.h" />
-    <ClInclude Include="GameRendererImpl.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Garen.h" />
     <ClInclude Include="Gromp.h" />
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Indicator.h" />
-    <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Jax.h" />
     <ClInclude Include="Jinx.h" />
@@ -266,7 +263,6 @@
     <ClInclude Include="RazorbeakMini.h" />
     <ClInclude Include="RedMonster.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Renderer_old.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
@@ -326,6 +322,7 @@
     <ClInclude Include="TurretFloatingBar.h" />
     <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIRenderer.h" />
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
@@ -363,15 +360,12 @@
     <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="FloatingHPBar.cpp" />
     <ClCompile Include="Frustum.cpp" />
-    <ClCompile Include="GameRenderer.cpp" />
-    <ClCompile Include="GameRendererImpl.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Garen.cpp" />
     <ClCompile Include="Gromp.cpp" />
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Indicator.cpp" />
-    <ClCompile Include="IRenderComponent.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jax.cpp" />
     <ClCompile Include="Jinx.cpp" />
@@ -482,6 +476,7 @@
     <ClCompile Include="TurretFloatingBar.cpp" />
     <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIRenderer.cpp" />
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />
