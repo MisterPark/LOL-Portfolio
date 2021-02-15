@@ -175,7 +175,7 @@ void PKH::DynamicMesh::UpdateFrame()
 
 	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
-	Matrix		matTemp = gameObject->transform->world;
+	Matrix		matTemp = gameObject->transform->worldMatrix;
 	//D3DXMatrixRotationY(&matTemp, D3DXToRadian(180.f));
 	matTemp._41 = 0.f;
 	matTemp._42 = 0.f;

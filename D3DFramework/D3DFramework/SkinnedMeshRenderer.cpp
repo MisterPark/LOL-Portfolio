@@ -17,7 +17,7 @@ void KST::SkinnedMeshRenderer::Render()
 	device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface);
 	device->SetRenderTarget(0, surface.Get());
 
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
+	device->SetTransform(D3DTS_WORLD, &gameObject->transform->worldMatrix );
 	device->SetRenderState(D3DRS_LIGHTING, false);
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();

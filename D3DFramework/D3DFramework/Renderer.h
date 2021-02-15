@@ -25,31 +25,4 @@ namespace KST
 		bool attached;
 		bool shadow;
 	};
-	template<typename ParentClass, typename DerivedClass>
-	class RendererEx : public ParentClass
-	{
-	protected:
-		RendererEx(PKH::GameObject* owner);
-	public:
-		virtual  ~RendererEx();
-		virtual PKH::IComponent* Clone() override;
-	private:
-	};
-	template<typename ParentClass, typename DerivedClass>
-	RendererEx<ParentClass, DerivedClass>::RendererEx(PKH::GameObject* owner):
-		ParentClass{owner}
-	{
-		ParentClass::AttachToRenderSystem(typeid(DerivedClass));
-	}
-
-	template<typename ParentClass, typename DerivedClass>
-	inline RendererEx<ParentClass, DerivedClass>::~RendererEx()
-	{
-		ParentClass::DettachToRenderSystem(typeid(DerivedClass));
-	}
-	template<typename ParentClass, typename DerivedClass>
-	inline PKH::IComponent* RendererEx<ParentClass, DerivedClass>::Clone()
-	{
-		return nullptr;
-	}
 }

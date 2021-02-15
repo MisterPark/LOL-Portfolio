@@ -3,6 +3,7 @@
 #include "DeferredStaticMeshRenderer.h"
 #include "RenderSystem.h"
 #include <wrl.h>
+#include <wrl/module.h>
 using namespace Microsoft::WRL;
 namespace KST
 {
@@ -75,7 +76,7 @@ namespace KST
 		renderingShader->SetMatrix("g_mViewSpace", &mViewSpace);
 		renderingShader->SetMatrix("g_mProjSpace", &mProjSpace);
 		renderingShader->SetMatrix("g_mViewProj", &mViewProj);
-		renderingShader->SetMatrix("g_mWorld", &transform->world);
+		renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 
 		if (alphaTest)
 		{

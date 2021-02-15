@@ -369,7 +369,7 @@ void PKH::TerrainMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
 	Vector3 worldCenter;
-	D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[index].center, &gameObject->transform->world);
+	D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[index].center, &gameObject->transform->worldMatrix);
 	if (Frustum::Intersect(&worldCenter, subsetBoxArray[index].radius) == false)
 	{
 		return;
