@@ -368,6 +368,12 @@ void PKH::TerrainMesh::Render()
 void PKH::TerrainMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
+	Vector3 worldCenter;
+	D3DXVec3TransformCoord(&worldCenter, &subsetBoxArray[index].center, &gameObject->transform->world);
+	if (Frustum::Intersect(&worldCenter, subsetBoxArray[index].radius) == false)
+	{
+		return;
+	}
 	device->SetStreamSource(0, vertexBuffer, 0, vertexSize);
 	device->SetFVF(fvf);
 	device->SetIndices(indexBuffer);
