@@ -50,7 +50,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//LobbyWindow::GetInstance();
 	Random::InitState();
 
-	// �ٸ� ��� �Ŵ��� �ʱ�ȭ
+	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(300);
 	
@@ -83,7 +83,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	//SkillManager::GetInstance();
 
-	// ���ε�
+	// 씬로드
 	SceneManager::LoadScene<TestLoadingScene>();
 	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
@@ -91,18 +91,18 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 void PKH::MainGame::Update()
 {
-	// 1. ��ǲ ����
+	// 1. 인풋 먼저
 	InputManager::Update();
 
-	// 2. �� �Ŵ��� ������Ʈ
+	// 2. 씬 매니저 업데이트
 	SceneManager::Update();
 
-	// (�ӽ�) UI ������Ʈ
+	// (임시) UI 업데이트
 	UIManager::Update();
 
-	// 3. Player ������Ʈ
+	// 3. Player 업데이트
 
-	// 4. Obj ������Ʈ
+	// 4. Obj 업데이트
 	ObjectManager::Update();
 
 	Camera::GetInstance()->Update();
@@ -141,7 +141,7 @@ void PKH::MainGame::Update()
 
 void PKH::MainGame::Release()
 {
-	// �ٸ� ��� �Ŵ��� ����
+	// 다른 모든 매니저 해제
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	TimeManager::Destroy();
@@ -191,13 +191,13 @@ int PKH::MainGame::GetHeight()
 
 void PKH::MainGame::LoadUISprite()
 {
-	// ���ҽ� �ε�
+	// Load Resource
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
-	//�ε���
+	// Loading Scene
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingscreen_spinner_atlas.dds",8,4);
@@ -228,7 +228,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
 	
-	// �ΰ���
+	// Ingame
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
@@ -403,10 +403,10 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_r.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_passive.dds");
 
-	// �ε�������
+	// Indicator
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
 
-	// �ͷ�
+	// Turret
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 
