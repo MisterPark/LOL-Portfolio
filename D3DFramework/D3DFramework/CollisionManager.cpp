@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "CollisionManager.h"
 #include "Collider.h"
 #include "BoxCollider.h"
@@ -48,7 +48,7 @@ void PKH::CollisionManager::Destroy()
 
 void PKH::CollisionManager::Update()
 {
-	// TODO : CollisionManager °úºÎÇÏ°¡ ³Ê¹« ½ÉÇØ¼­ ÀÏ´Ü ÁÖ¼®
+	// TODO : CollisionManager ê³¼ë¶€í•˜ê°€ ë„ˆë¬´ ì‹¬í•´ì„œ ì¼ë‹¨ ì£¼ì„
 	//int layerCount = MaxOfEnum<Layer>();
 	//for (int i = 0; i < layerCount; i++)
 	//{
@@ -56,7 +56,7 @@ void PKH::CollisionManager::Update()
 	//	{
 	//		CollisionCheck((Layer)i, (Layer)j);
 	//	}
-	//}
+	//} 
 	CollisionCheck(Layer::Building, Layer::Unit);
 	CollisionCheck(Layer::Unit, Layer::Unit);
 }
@@ -134,8 +134,8 @@ bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 
 bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
 {
-	// TODO : ÀÌ°Å °¢ÀÚÀÇ Äİ¶óÀÌ´õ¿¡¼­ »ó´ë Äİ¶óÀÌ´õ Å¸ÀÔ¿¡ µû¸¥ Ãæµ¹Ã³¸®·Î º¯°æÇØ¾ßÇÔ
-	// Äİ¶óÀÌ´õ Å¸ÀÔ ÆÇº°
+	// TODO : ì´ê±° ê°ìì˜ ì½œë¼ì´ë”ì—ì„œ ìƒëŒ€ ì½œë¼ì´ë” íƒ€ì…ì— ë”°ë¥¸ ì¶©ëŒì²˜ë¦¬ë¡œ ë³€ê²½í•´ì•¼í•¨
+	// ì½œë¼ì´ë” íƒ€ì… íŒë³„
 	BoxCollider* srcBox = nullptr;
 	SphereCollider* srcSphere = nullptr;
 	switch (src->type)
@@ -183,13 +183,13 @@ bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
 
 bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereCollider* dest)
 {
-	// °Å¸® °è»ê
+	// ê±°ë¦¬ ê³„ì‚°
 	Vector3 srcWorldPos = src->GetWorldPosition();
 	Vector3 destWorldPos = dest->GetWorldPosition();
 	float distance = Vector3::Distance(srcWorldPos, destWorldPos);
 	float radiusSum = src->GetRadius() + dest->GetRadius();
 
-	// °Å¸®°¡ ¹İÁö¸§ÇÕº¸´Ù Å©¸é Ãæµ¹X
+	// ê±°ë¦¬ê°€ ë°˜ì§€ë¦„í•©ë³´ë‹¤ í¬ë©´ ì¶©ëŒX
 	if (distance > radiusSum) return false;
 
 	return true;
@@ -197,7 +197,7 @@ bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereColl
 
 bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* dest)
 {
-	// °Å¸® °è»ê
+	// ê±°ë¦¬ ê³„ì‚°
 	Vector3 srcWorldPos = src->GetWorldPosition();
 	Vector3 destWorldPos = dest->GetWorldPosition();
 	
@@ -217,19 +217,19 @@ bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* de
 					,destWorldPos.y + (dest->size.y * 0.5f)
 					,destWorldPos.z + (dest->size.z * 0.5f));
 
-	// xÃà
+	// xì¶•
 	min = max(dstMin.x, srcMin.x);
 	max = min(dstMax.x, srcMax.x);
 
 	if (max < min) return false;
 
-	// yÃà
+	// yì¶•
 	min = max(dstMin.y, srcMin.y);
 	max = min(dstMax.y, srcMax.y);
 
 	if (max < min) return false;
 
-	// zÃà
+	// zì¶•
 	min = max(dstMin.z, srcMin.z);
 	max = min(dstMax.z, srcMax.z);
 
@@ -241,7 +241,7 @@ bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* de
 
 bool PKH::CollisionManager::CheckOBBCollision(BoxCollider* src, BoxCollider* dest)
 {
-	// °Å¸® °è»ê
+	// ê±°ë¦¬ ê³„ì‚°
 	Vector3 srcWorldPos = src->GetWorldPosition();
 	Vector3 destWorldPos = dest->GetWorldPosition();
 	float distance = Vector3::Distance(srcWorldPos, destWorldPos);

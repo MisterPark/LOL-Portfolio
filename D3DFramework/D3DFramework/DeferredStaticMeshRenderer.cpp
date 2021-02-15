@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "RenderTarget.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "RenderSystem.h"
@@ -48,7 +48,7 @@ namespace KST
 	}
 	void DeferredStaticMeshRenderer::RenderShadowMap()
 	{
-		//TODO: ÀÌÁ¦ ¼Îµµ¿ìÀÇ Åõ¿µÇà·Ä¸¦ ¹Ş¾Æ¼­ ¼Îµµ¿ì ¸Ê¿¡ ¸Ş½Ã¸¦ ·»´õ¸µÇØ¾ß ÇÑ´Ù.
+		//TODO: ì´ì œ ì…°ë„ìš°ì˜ íˆ¬ì˜í–‰ë ¬ë¥¼ ë°›ì•„ì„œ ì…°ë„ìš° ë§µì— ë©”ì‹œë¥¼ ë Œë”ë§í•´ì•¼ í•œë‹¤.
 	}
 	void DeferredStaticMeshRenderer::RenderGBuffer()
 	{
@@ -97,5 +97,6 @@ namespace KST
 		renderingShader->End();
 
 	}
+
 }
 
