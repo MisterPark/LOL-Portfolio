@@ -89,6 +89,7 @@ namespace PKH
 		static NavMesh* CloneNavMesh(const wstring& id);
 		static HRESULT CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt);
 		static RenderTarget* GetRenderTarget(const WCHAR* renderTargetID);
+		static ID3DXEffect* LoadEffect(const WCHAR* path);
 		//==================================================
 
 	private:
@@ -108,6 +109,7 @@ namespace PKH
 		map<wstring, TerrainMesh*> terrainMeshMap;
 		map<wstring, NavMesh*> navMeshMap;
 		map<wstring, RenderTarget*> renderTargetMap;
+		map<wstring, ID3DXEffect*> effects;
 		CRITICAL_SECTION csDevice;
 		
 	};

@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{b5fd05d1-07cd-499b-8ec1-7885fd22ca77}</ProjectGuid>
     <RootNamespace>D3DFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -192,6 +192,7 @@
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Darius.h" />
+    <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicMesh.h" />
@@ -265,6 +266,8 @@
     <ClInclude Include="RazorbeakMini.h" />
     <ClInclude Include="RedMonster.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Renderer_old.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="D3DFramework.h" />
     <ClInclude Include="Debug.h" />
@@ -296,6 +299,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scuttleracer.h" />
+    <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="SoundManager.h" />
@@ -351,6 +355,7 @@
     <ClCompile Include="ChaosMinionMelee.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Darius.cpp" />
+    <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
@@ -423,6 +428,7 @@
     <ClCompile Include="Razorbeak.cpp" />
     <ClCompile Include="RazorbeakMini.cpp" />
     <ClCompile Include="RedMonster.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="D3DFramework.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -443,10 +449,12 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
+    <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SoundManager.cpp" />

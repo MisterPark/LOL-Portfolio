@@ -31,7 +31,9 @@ namespace PKH
 		virtual ULONG GetFaceCount()	PURE;
 
 		virtual void Render() PURE;
-
+		virtual int GetSubsetCount();
+		virtual void RenderSubset(int index);
+		virtual IDirect3DTexture9* GetSubsetTexture(int index);
 	public:
 		MeshType type = MeshType::NONE;
 	protected:

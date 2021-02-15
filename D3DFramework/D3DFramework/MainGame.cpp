@@ -6,6 +6,9 @@
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
 #include "GameRenderer.h"
+#include "RenderSystem.h"
+#include "DeferredStaticMeshRenderer.h"
+#include "SkinnedMeshRenderer.h"
 using namespace PKH;
 
 PKH::MainGame* pMainGame = nullptr;
@@ -75,9 +78,8 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	Frustum::GetInstance();
 	NavNodeManager::GetInstance();
 
-	
+	RenderSystem::Initialize();
 
-	
 	//SkillManager::GetInstance();
 
 	// ¾À·Îµå
@@ -114,7 +116,7 @@ void PKH::MainGame::Update()
 		SkyBox::GetInstance()->Render();
 		ObjectManager::PreRender();
 		//ObjectManager::Render();
-		GameRenderer::Render();
+		RenderSystem::Render();
 		ObjectManager::PostRender();
 
 
@@ -135,6 +137,7 @@ void PKH::MainGame::Release()
 	SkyBox::Destroy();
 	//RenderManager::Release();
 	GameRenderer::Destroy();
+	RenderSystem::Destory();
 	RenderManager::Destroy();
 	InputManager::Destroy();
 	Camera::Destroy();

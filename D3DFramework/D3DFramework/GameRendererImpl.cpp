@@ -79,7 +79,6 @@ GameRendererImpl::GameRendererImpl()
 	}
 	if (FAILED(hr))
 	{
-		
 		DebugBreak();
 	}
 	ComPtr<ID3DXEffect> effect;

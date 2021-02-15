@@ -29,10 +29,12 @@ namespace PKH
         virtual ULONG GetVertexCount() override { return this->vertexCount; }
         virtual ULONG GetVertexSize() override { return this->vertexSize; }
         virtual ULONG GetFaceCount() override { return this->triangleCount; }
-
+        int                 GetSubsetCount();
+        IDirect3DTexture9*  GetSubsetTexture(int index);
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
         virtual void Render() override;
+        void RenderSubset(int index);
         void RenderUsingShader(ID3DXEffect* effect);
         void RenderUsingFixed();
     private:
