@@ -233,7 +233,6 @@
     <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cursor.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="MinimapPanel.h" />
@@ -300,13 +299,11 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scuttleracer.h" />
-    <ClInclude Include="SkinnedMaterial.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SphereCollider.h" />
-    <ClInclude Include="StandardMaterial.h" />
     <ClInclude Include="Stat.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="stdafx.h" />
@@ -457,13 +454,11 @@
     <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
-    <ClCompile Include="SkinnedMaterial.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
-    <ClCompile Include="StandardMaterial.cpp" />
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="stdafx.cpp">
