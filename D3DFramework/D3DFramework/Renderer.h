@@ -1,8 +1,28 @@
 #pragma once
-#include<d3dx9.h>
-class Renderer
+#include "IComponent.h"
+#include <typeinfo>
+namespace KST
 {
-public:
-	virtual ~Renderer() = default;
-	virtual HRESULT GetEffect(const wchar_t* id, ID3DXEffect** effect) = 0;
-};
+	enum class RendererType :int;
+	class Renderer;
+
+	
+	class Renderer : public IComponent
+	{
+	protected:
+		Renderer(PKH::GameObject* owner, RendererType rendererType);
+	public:
+		~Renderer();
+		virtual void Render() PURE;
+		void SetShadowState(bool use);
+		bool IsShadowState();
+	protected:
+		void AttachToRenderSystem(std::type_info const& infos);
+		void DettachToRenderSystem(std::type_info const& infos);
+	public:
+		RendererType rendererType;
+	private:
+		bool attached;
+		bool shadow;
+	};
+}

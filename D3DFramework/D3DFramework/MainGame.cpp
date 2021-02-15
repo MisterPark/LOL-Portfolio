@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MainGame.h"
 #include "TestScene.h"
 #include "SkyBox.h"
@@ -6,6 +6,9 @@
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
 #include "GameRenderer.h"
+#include "RenderSystem.h"
+#include "DeferredStaticMeshRenderer.h"
+#include "SkinnedMeshRenderer.h"
 using namespace PKH;
 
 PKH::MainGame* pMainGame = nullptr;
@@ -47,7 +50,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//LobbyWindow::GetInstance();
 	Random::InitState();
 
-	// ´Ù¸¥ ¸ðµç ¸Å´ÏÀú ÃÊ±âÈ­
+	// ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(300);
 	
@@ -76,12 +79,11 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	Frustum::GetInstance();
 	NavNodeManager::GetInstance();
 
-	
+	RenderSystem::Initialize();
 
-	
 	//SkillManager::GetInstance();
 
-	// ¾À·Îµå
+	// ï¿½ï¿½ï¿½Îµï¿½
 	SceneManager::LoadScene<TestLoadingScene>();
 	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
@@ -89,18 +91,18 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 void PKH::MainGame::Update()
 {
-	// 1. ÀÎÇ² ¸ÕÀú
+	// 1. ï¿½ï¿½Ç² ï¿½ï¿½ï¿½ï¿½
 	InputManager::Update();
 
-	// 2. ¾À ¸Å´ÏÀú ¾÷µ¥ÀÌÆ®
+	// 2. ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	SceneManager::Update();
 
-	// (ÀÓ½Ã) UI ¾÷µ¥ÀÌÆ®
+	// (ï¿½Ó½ï¿½) UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	UIManager::Update();
 
-	// 3. Player ¾÷µ¥ÀÌÆ®
+	// 3. Player ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-	// 4. Obj ¾÷µ¥ÀÌÆ®
+	// 4. Obj ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	ObjectManager::Update();
 
 	Camera::GetInstance()->Update();
@@ -127,11 +129,11 @@ void PKH::MainGame::Update()
 
 	RenderManager::Clear();
 
-	SkyBox::GetInstance()->Render();
-	ObjectManager::PreRender();
-	//ObjectManager::Render();
-	GameRenderer::Render();
-	ObjectManager::PostRender();
+		SkyBox::GetInstance()->Render();
+		ObjectManager::PreRender();
+		//ObjectManager::Render();
+		RenderSystem::Render();
+		ObjectManager::PostRender();
 
 
 	RenderManager::Present();
@@ -139,7 +141,7 @@ void PKH::MainGame::Update()
 
 void PKH::MainGame::Release()
 {
-	// ´Ù¸¥ ¸ðµç ¸Å´ÏÀú ÇØÁ¦
+	// ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	TimeManager::Destroy();
@@ -149,6 +151,7 @@ void PKH::MainGame::Release()
 	SkyBox::Destroy();
 	//RenderManager::Release();
 	GameRenderer::Destroy();
+	RenderSystem::Destory();
 	RenderManager::Destroy();
 	InputManager::Destroy();
 	Camera::Destroy();
@@ -188,13 +191,13 @@ int PKH::MainGame::GetHeight()
 
 void PKH::MainGame::LoadUISprite()
 {
-	// ¸®¼Ò½º ·Îµå
+	// ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½Îµï¿½
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
-	//·Îµù¾À
+	//ï¿½Îµï¿½ï¿½ï¿½
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingscreen_spinner_atlas.dds",8,4);
@@ -225,7 +228,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
 	
-	// ÀÎ°ÔÀÓ
+	// ï¿½Î°ï¿½ï¿½ï¿½
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
@@ -400,10 +403,10 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_r.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_passive.dds");
 
-	// ÀÎµðÄÉÀÌÅÍ
+	// ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
 
-	// ÅÍ·¿
+	// ï¿½Í·ï¿½
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 

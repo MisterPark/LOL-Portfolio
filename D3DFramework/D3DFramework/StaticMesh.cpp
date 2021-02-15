@@ -63,6 +63,16 @@ IComponent* PKH::StaticMesh::Clone()
 }
 
 
+int PKH::StaticMesh::GetSubsetCount()
+{
+	return static_cast<int>(subsetCount);
+}
+
+IDirect3DTexture9* PKH::StaticMesh::GetSubsetTexture(int index)
+{
+	return ppTextures[index];
+}
+
 HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
@@ -235,6 +245,13 @@ void PKH::StaticMesh::Render()
 	}
 
 	RenderManager::UnlockDevice();
+}
+
+void PKH::StaticMesh::RenderSubset(int index)
+{
+	auto device = RenderManager::GetDevice();
+	device->SetFVF(fvf);
+	pMesh->DrawSubset(index);
 }
 
 void PKH::StaticMesh::RenderUsingFixedPL()

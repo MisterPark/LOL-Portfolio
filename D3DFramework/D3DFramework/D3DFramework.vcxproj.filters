@@ -226,6 +226,18 @@
     <Filter Include="Lib\Graphics\shader">
       <UniqueIdentifier>{c3d7b2d3-0f5f-4de2-a929-98e82fffb429}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{321b47cc-0270-467d-8bdf-fdb312532077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\StaticMeshRenderer">
+      <UniqueIdentifier>{f52eeb6d-e38f-486a-bb73-f6071492e2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\SkinnedMeshRenderer">
+      <UniqueIdentifier>{96783364-299a-4d13-a5c5-1800f7ecb24c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer">
+      <UniqueIdentifier>{395a357b-102e-4725-a7be-71978d62ffbc}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Component\Stat">
       <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
     </Filter>
@@ -666,9 +678,6 @@
     <ClInclude Include="GameRenderer.h">
       <Filter>Lib\Graphics\Renderer\GameRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Lib\Graphics\Renderer\00.common</Filter>
-    </ClInclude>
     <ClInclude Include="Nexus.h">
       <Filter>GameObject\Unit\Building\Nexus</Filter>
     </ClInclude>
@@ -707,6 +716,21 @@
     </ClInclude>
     <ClInclude Include="Stat.h" />
     <ClInclude Include="UnitStat.h" />
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer_old.h">
+      <Filter>Lib\Graphics\Renderer\00.common</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredStaticMeshRenderer.h">
+      <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMeshRenderer.h">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClInclude>
     <ClInclude Include="UIManager.h">
       <Filter>GameObject\UI</Filter>
     </ClInclude>
@@ -1250,6 +1274,18 @@
     </ClCompile>
     <ClCompile Include="NetPlayerController.cpp">
       <Filter>Component\PlayerController</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredStaticMeshRenderer.cpp">
+      <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMeshRenderer.cpp">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="UnitStat.cpp" />

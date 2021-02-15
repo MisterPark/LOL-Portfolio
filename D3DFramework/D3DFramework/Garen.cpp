@@ -2,14 +2,17 @@
 #include "Garen.h"
 #include "Animation.h"
 #include "GameRenderer.h"
+#include "SkinnedMeshRenderer.h"
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
-	dmesh->renderGroupID = RenderGroupID::Deferred;
-	GameRenderer::Register(dmesh);
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	anim->AttachToDynamicMesh(dmesh);
 
 	// 얼굴 아이콘
