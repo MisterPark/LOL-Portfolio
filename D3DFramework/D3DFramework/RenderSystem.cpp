@@ -209,6 +209,7 @@ namespace KST
 		RenderLigting();
 		RenderCombine();
 		RenderForward();
+		RenderUI();
 
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
@@ -279,7 +280,16 @@ namespace KST
 		//정렬을 하고
 		forwardRenderers.sort(CompareZ);
 		//렌더링을 진행한다.
-		std::type_info const* prevRendererClass = nullptr;
+
+		for (auto* forwardRenderer : forwardRenderers)
+		{
+			forwardRenderer->Render();
+		}
+	}
+	void RenderSystem::RenderUI()
+	{
+		auto& forwardRenderers = rendererTable[(unsigned)RendererType::UI];
+
 		for (auto* forwardRenderer : forwardRenderers)
 		{
 			forwardRenderer->Render();

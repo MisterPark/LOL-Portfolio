@@ -8,6 +8,7 @@ namespace KST
 		EarlyForward,
 		Deferred,
 		Forward,
+		UI,
 		END
 	};
 	class Renderer;
@@ -33,6 +34,7 @@ namespace KST
 		static void RednerEarlyForward();
 		static void RednerDeferred();
 		static void RenderForward();
+		static void RenderUI();
 		static void RenderLigting();
 		static void RenderCombine();
 		static void Add(Renderer*);
