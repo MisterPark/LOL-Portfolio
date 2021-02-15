@@ -1265,6 +1265,7 @@
     <ClCompile Include="UIRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="TestEncoding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

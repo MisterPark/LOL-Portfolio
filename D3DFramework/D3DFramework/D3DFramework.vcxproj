@@ -461,6 +461,7 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
+    <ClCompile Include="TestEncoding.cpp" />
     <ClCompile Include="TestGaren.cpp" />
     <ClCompile Include="TestLoadingScene.cpp" />
     <ClCompile Include="TestMan.cpp" />
