@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 enum class Layer
 {
@@ -12,7 +12,6 @@ enum class Layer
 	Building,
 	Effect,
 	UI,
-	HUD,
 	END
 };
 

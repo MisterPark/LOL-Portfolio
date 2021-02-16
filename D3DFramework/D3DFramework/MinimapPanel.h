@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "HUD.h"
+#include "Panel.h"
 class MinimapPanel :
-    public HUD
+    public Panel
 {
 private:
     MinimapPanel();

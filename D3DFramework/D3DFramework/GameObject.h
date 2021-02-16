@@ -68,7 +68,6 @@ namespace PKH
 		// setter
 		bool SetLayer(Layer _layer);
 		
-
 	public:
 		wstring name;
 		Transform* transform = nullptr;

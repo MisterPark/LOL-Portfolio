@@ -71,7 +71,7 @@ void TestScene::OnLoaded()
 	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
 
 	MinimapPanel* minimap = MinimapPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(minimap, Layer::HUD);
+	ObjectManager::GetInstance()->AddObject(minimap, Layer::UI);
 
 	GameObject* obj = nullptr;
 	Unit* unit = nullptr;
@@ -211,7 +211,7 @@ void TestScene::OnLoaded()
 	
 
 	obj = PlayerInfoPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(obj, Layer::HUD);
+	ObjectManager::GetInstance()->AddObject(obj, Layer::UI);
 	
 
 	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);

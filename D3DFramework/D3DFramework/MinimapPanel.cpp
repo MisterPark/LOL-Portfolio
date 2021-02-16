@@ -5,11 +5,11 @@ MinimapPanel* self = nullptr;
 
 MinimapPanel::MinimapPanel()
 {
-    SetTexture(L"minimapBorder");
     int screenW = MainGame::GetWidth();
     int screenH = MainGame::GetHeight();
-    this->SetSize(100, 100);
-    this->SetLocation(screenW - width-10, screenH - height-10);
+    this->SetLocation(screenW - width - 10, screenH - height - 10);
+
+    AddChild(L"minimapBorder", Vector2(100, 100));
 
     Click += TestFunc;
 }

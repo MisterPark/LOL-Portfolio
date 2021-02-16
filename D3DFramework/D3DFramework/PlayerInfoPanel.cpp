@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "PlayerInfoPanel.h"
 #include "Rectangle.h"
 #include "UI.h"
@@ -18,56 +18,46 @@ PlayerInfoPanel::PlayerInfoPanel()
     invenPanelTex = RenderManager::GetTexture(L"panel (2)");
     statPanelTex = RenderManager::GetTexture(L"stat_panel (5)");
 
+    Vector2 faceBorderPos;
+    Vector2 mainPanelPos;
+    Vector2 miniPanelPos;
+    Vector2 invenPanelPos;
+    Vector2 statPanelPos;
+    Vector2 hpOffsetPos;
+    Vector2 mpOffsetPos;
+    Vector2 scaleHP;
+    Vector2 scaleMP;
+    Vector2 barTipOffset1;
+    Vector2 barTipOffset2;
+    Vector2 barTipOffset3;
+    Vector2 barTipOffset4;
+
     mainPanelPos = { (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f,
-                   float(screenH - mainPanelTex->GetSpriteHeight()),0.f };
+                   float(screenH - mainPanelTex->GetSpriteHeight())};
     miniPanelPos = { float(screenW - miniPanelTex->GetSpriteWidth()),
-                   0.f,0.f };
+                   0.f};
     invenPanelPos = { mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25,
-                    float(screenH - invenPanelTex->GetSpriteHeight()),
-                    0.f };
+                    float(screenH - invenPanelTex->GetSpriteHeight())};
     faceBorderPos = { mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f,
-                     mainPanelPos.y + 10 ,0.f };
+                     mainPanelPos.y + 10};
     statPanelPos = { faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f,
-                     faceBorderPos.y  ,0.f };
+                     faceBorderPos.y};
 
-    statPanel = new HUD();
-    statPanel->SetTexture(L"stat_panel (5)");
-    statPanel->SetSizeByTexture();
-    statPanel->SetLocation((int)statPanelPos.x, (int)statPanelPos.y);
+    statPanel = new UI(L"stat_panel (5)", statPanelPos);
+    mainPanel = new UI(L"panel (5)", mainPanelPos);
+    miniPanel = new UI(L"panel (4)", miniPanelPos);
+    invenPanel = new UI(L"panel (2)", invenPanelPos);
+    faceBorder = new UI(L"panel (1)", faceBorderPos);
+    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos+20));
 
-    mainPanel = new HUD();
-    mainPanel->SetTexture(L"panel (5)");
-    mainPanel->SetSizeByTexture();
-    mainPanel->SetLocation((int)mainPanelPos.x, (int)mainPanelPos.y);
-
-    miniPanel = new HUD();
-    miniPanel->SetTexture(L"panel (4)");
-    miniPanel->SetSizeByTexture();
-    miniPanel->SetLocation((int)miniPanelPos.x, (int)miniPanelPos.y);
-
-    invenPanel = new HUD();
-    invenPanel->SetTexture(L"panel (2)");
-    invenPanel->SetSizeByTexture();
-    invenPanel->SetLocation((int)invenPanelPos.x, (int)invenPanelPos.y);
-
-    faceBorder = new HUD();
-    faceBorder->SetTexture(L"panel (1)");
-    faceBorder->SetSizeByTexture();
-    faceBorder->SetLocation((int)faceBorderPos.x, (int)faceBorderPos.y);
-   
-    facePanel = new HUD();
-    facePanel->SetTexture(L"garen_circle");
-    facePanel->SetSize(120, 120);
-    facePanel->SetLocation((int)faceBorderPos.x+20, (int)faceBorderPos.y+20);
-
-    scaleHP = { 1,1,1 };
-    scaleMP = { 1,1,1 };
-    hpOffsetPos = { 76,124,0 };
-    mpOffsetPos = { 76,146,0 };
-    barTipOffset1 = { 71,124,0 };
-    barTipOffset2 = { 535,124,0 };
-    barTipOffset3 = { 71,146,0 };
-    barTipOffset4 = { 535,146,0 };
+    scaleHP = { 1,1 };
+    scaleMP = { 1,1 };
+    hpOffsetPos = { 76,124 };
+    mpOffsetPos = { 76,146 };
+    barTipOffset1 = { 71,124 };
+    barTipOffset2 = { 535,124 };
+    barTipOffset3 = { 71,146 };
+    barTipOffset4 = { 535,146 };
 
     textureKeyHP = L"bar_big1";
     textureKeyMP = L"bar_big2";
@@ -95,16 +85,17 @@ PlayerInfoPanel::PlayerInfoPanel()
     int spellPosY = (int)(mainPanelPos.y + 31);
     int spellPadding = 6;
     int spellSize = 64;
-    slotSpell1 = new HUD();
+
+    slotSpell1 = new UI();
     slotSpell1->SetSize(spellSize, spellSize);
     slotSpell1->SetLocation(spellPosX + 2, spellPosY + 3);
-    slotSpell2 = new HUD();
+    slotSpell2 = new UI();
     slotSpell2->SetSize(spellSize, spellSize);
     slotSpell2->SetLocation(spellPosX + spellSize+4 + spellPadding + 3, spellPosY + 3);
-    slotSpell3 = new HUD();
+    slotSpell3 = new UI();
     slotSpell3->SetSize(spellSize, spellSize);
     slotSpell3->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 2 + 3, spellPosY + 3);
-    slotSpell4 = new HUD();
+    slotSpell4 = new UI();
     slotSpell4->SetSize(spellSize, spellSize);
     slotSpell4->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 3 + 3, spellPosY + 3);
     
@@ -112,14 +103,14 @@ PlayerInfoPanel::PlayerInfoPanel()
     int passivePosY = (int)(mainPanelPos.y + 31);
     int passiveSize = 50;
 
-    slotPassive = new HUD();
+    slotPassive = new UI();
     slotPassive->SetSize(passiveSize, passiveSize);
     slotPassive->SetLocation(passivePosX, passivePosY);
 
-    slotSummoner1 = new HUD();
+    slotSummoner1 = new UI();
     slotSummoner1->SetSize(48, 48);
     slotSummoner1->SetLocation((int)(mainPanelPos.x + 434), (int)(mainPanelPos.y + 32));
-    slotSummoner2 = new HUD();
+    slotSummoner2 = new UI();
     slotSummoner2->SetSize(48, 48);
     slotSummoner2->SetLocation((int)(mainPanelPos.x + 490), (int)(mainPanelPos.y + 32));
 }

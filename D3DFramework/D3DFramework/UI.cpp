@@ -2,8 +2,6 @@
 #include "UI.h"
 #include "UIRenderer.h"
 
-list<UI*> uiList;
-
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
@@ -14,11 +12,27 @@ UI::UI()
 	AddComponent(L"renderer", renderer);
 }
 
+PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
+	: UI()
+{
+	SetTexture(_tag);
+	SetSizeByTexture();
+	SetLocation(pos);
+}
+
 UI::~UI()
 {
 
 	mesh = nullptr;
 	texture = nullptr;
+}
+
+void PKH::UI::Initialize()
+{
+}
+
+void PKH::UI::Release()
+{
 }
 
 void UI::Update()
@@ -29,7 +43,7 @@ void UI::Update()
 
 void PKH::UI::PostUpdate()
 {
-	transform->zOrder = (int)type;
+	transform->zOrder = (float)type;
 }
 
 void UI::UpdateEvent()
@@ -196,8 +210,8 @@ Vector3 PKH::UI::GetLocation()
 
 void UI::SetSize(int w, int h)
 {
-	transform->scale.x = w;
-	transform->scale.y = h;
+	transform->scale.x = (float)w;
+	transform->scale.y = (float)h;
 	width = w;
 	height = h;
 }
@@ -231,5 +245,12 @@ void UI::SetTexture(const wstring& _key)
 	texture = RenderManager::GetTexture(_key);
 	//SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
+}
+
+void PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
+{
+	UI* ui = new UI(_tag, _pos);
+	children.emplace(_tag, ui);
+
 }
 

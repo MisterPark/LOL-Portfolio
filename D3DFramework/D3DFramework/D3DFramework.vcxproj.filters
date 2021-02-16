@@ -642,9 +642,6 @@
     <ClInclude Include="FloatingBar.h">
       <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>GameObject\UI\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="FloatingHPBar.h">
       <Filter>GameObject\UI\HUD</Filter>
     </ClInclude>
@@ -1197,9 +1194,6 @@
       <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
     <ClCompile Include="FloatingHPBar.cpp">
-      <Filter>GameObject\UI\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
       <Filter>GameObject\UI\HUD</Filter>
     </ClCompile>
     <ClCompile Include="Jax.cpp">

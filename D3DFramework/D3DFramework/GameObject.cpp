@@ -15,6 +15,12 @@ PKH::GameObject::GameObject()
 PKH::GameObject::~GameObject()
 {
 	ReleaseComponents();
+
+	for (auto iter : children)
+	{
+		Safe_Delete(&iter.second);
+	}
+	children.clear();
 }
 
 void PKH::GameObject::Update()
@@ -26,7 +32,7 @@ void PKH::GameObject::Update()
 
 	for (auto iter : children)
 	{
-		iter->Update();
+		iter.second->Update();
 	}
 }
 
@@ -39,7 +45,7 @@ void PKH::GameObject::PostUpdate()
 
 	for (auto iter : children)
 	{
-		iter->PostUpdate();
+		iter.second->PostUpdate();
 	}
 }
 
