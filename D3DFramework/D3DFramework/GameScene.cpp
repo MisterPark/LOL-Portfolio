@@ -671,7 +671,7 @@ void GameScene::CreateMonster()
 	unit->SetID(unitID);
 	unitID++;
 
-	// 쨱쨱이 위
+	// 짹짹이 위
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	unit->transform->position = { -0.75f, 67.71f, 16.17f };
 	unitMap[unitID] = unit;
