@@ -78,7 +78,7 @@ namespace PKH
 		bool dontDestroy = false;
 
 		GameObject* parent = nullptr;
-		list<GameObject*> children;
+		map<wstring, GameObject*> children;
 
 		map<wstring, PKH::IComponent*> components;
 	protected:
