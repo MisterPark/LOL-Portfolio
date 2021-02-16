@@ -50,7 +50,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//LobbyWindow::GetInstance();
 	Random::InitState();
 
-	// �ٸ� ��� �Ŵ��� �ʱ�ȭ
+	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(300);
 	
@@ -72,7 +72,6 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	Camera::GetInstance();
 	FileManager::GetInstance();
 	Cursor::GetInstance();
-	UIManager::GetInstance();
 
 	SoundManager::GetInstance()->Initialize();
 	LoadManager::GetInstance();
@@ -83,7 +82,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	//SkillManager::GetInstance();
 
-	// ���ε�
+	// 씬로드
 	SceneManager::LoadScene<TestLoadingScene>();
 	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
@@ -91,18 +90,15 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 void PKH::MainGame::Update()
 {
-	// 1. ��ǲ ����
+	// 1. 인풋 먼저
 	InputManager::Update();
 
-	// 2. �� �Ŵ��� ������Ʈ
+	// 2. 씬 매니저 업데이트
 	SceneManager::Update();
 
-	// (�ӽ�) UI ������Ʈ
-	UIManager::Update();
+	// 3. Player 업데이트
 
-	// 3. Player ������Ʈ
-
-	// 4. Obj ������Ʈ
+	// 4. Obj 업데이트
 	ObjectManager::Update();
 
 	Camera::GetInstance()->Update();
@@ -123,12 +119,11 @@ void PKH::MainGame::Update()
 
 void PKH::MainGame::Release()
 {
-	// �ٸ� ��� �Ŵ��� ����
+	// 다른 모든 매니저 해제
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	TimeManager::Destroy();
 	ObjectManager::Destroy();
-	UIManager::Destroy();
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();

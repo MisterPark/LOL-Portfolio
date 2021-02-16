@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IScene.h"
 
 using namespace PKH;
@@ -8,7 +8,7 @@ class Label;
 class TestScene :
     public IScene
 {
-    // ISceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // ISceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;
@@ -18,5 +18,4 @@ class TestScene :
 public:
     Label* testLabel = nullptr;
     Unit* testUnit = nullptr;
-    UIManager* UIManager = nullptr;
 };
