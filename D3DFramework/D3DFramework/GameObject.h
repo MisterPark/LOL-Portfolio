@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Layer.h"
 
 using namespace PKH;
@@ -25,23 +25,23 @@ namespace PKH
 
 		virtual void OnCollisionEnter(Collider* target);
 
-		// ¹æÇâÀ¸·Î ÀÌµ¿
-		// ³»ºÎ¿¡¼­ Á¤±ÔÈ­ ÇØÁÜ.
+		// ë°©í–¥ìœ¼ë¡œ ì´ë™
+		// ë‚´ë¶€ì—ì„œ ì •ê·œí™” í•´ì¤Œ.
 		void Move(Vector3 _direction);
 		void Move(Vector3 _direction, float _speed);
-		// À§Ä¡·Î ÀÌµ¿
+		// ìœ„ì¹˜ë¡œ ì´ë™
 		void MoveToTarget(Vector3 _target);
 		void MoveToTarget(Vector3 _target, float _speed);
-		// Å¸°Ù µû¶ó°¡±â
+		// íƒ€ê²Ÿ ë”°ë¼ê°€ê¸°
 		void FollowTarget(const GameObject* _target);
 		void FollowTarget(const Transform& _targetTransform);
 		void FollowTarget(const Vector3& _targetPos);
-		// Å¸°Ù ¿ÀºêÁ§Æ® ¹æÇâÀ¸·Î È¸Àü
+		// íƒ€ê²Ÿ ì˜¤ë¸Œì íŠ¸ ë°©í–¥ìœ¼ë¡œ íšŒì „
 		void FaceTarget(const GameObject* _target);
 		void FaceTarget(const Transform& _targetTransform);
 		void FaceTarget(const Vector3& _targetPos);
-		// ºôº¸µå
-		// GameObject::Update() È£Ãâ ÈÄ¿¡ È£Ãâ
+		// ë¹Œë³´ë“œ
+		// GameObject::Update() í˜¸ì¶œ í›„ì— í˜¸ì¶œ
 		void Billboard();
 		void BillboardYaw();
 
@@ -53,13 +53,14 @@ namespace PKH
 		IComponent* AddComponent(const wstring& _key, IComponent* _component);
 		void ReleaseComponents();
 		void RemoveComponent(IComponent* _target);
+		void RemoveComponent(const wstring& _key);
 
 
 		// getter
 		IComponent* GetComponent(const wstring& _key);
 		template<class T>
 		IComponent* GetComponent();
-		Transform* GetTransform() const { return transform; } //¼öÁ¤
+		Transform* GetTransform() const { return transform; } //ìˆ˜ì •
 		Layer GetLayer() { return this->layer; }
 
 		bool IsDestroy();

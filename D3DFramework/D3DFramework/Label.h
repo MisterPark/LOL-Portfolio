@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "UI.h"
 
 
@@ -26,7 +26,7 @@ private:
 
 public:
     Label::Align align = Label::Align::Left;
-private:
+
     LPD3DXFONT	pFont = nullptr;
     LPD3DXSPRITE pSprite = nullptr;
     LPDIRECT3DDEVICE9 pDevice = nullptr;

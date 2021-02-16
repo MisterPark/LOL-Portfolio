@@ -213,6 +213,7 @@
     <ClInclude Include="Krug.h" />
     <ClInclude Include="KrugMini.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LabelRenderer.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Leesin.h" />
     <ClInclude Include="Leona.h" />
@@ -374,6 +375,7 @@
     <ClCompile Include="Krug.cpp" />
     <ClCompile Include="KrugMini.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LabelRenderer.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Leesin.cpp" />
     <ClCompile Include="Leona.cpp" />

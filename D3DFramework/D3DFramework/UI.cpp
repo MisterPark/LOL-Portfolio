@@ -229,7 +229,7 @@ void PKH::UI::SetLocation(Vector2 pos)
 void UI::SetTexture(const wstring& _key)
 {
 	texture = RenderManager::GetTexture(_key);
-	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
+	//SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
 }
 

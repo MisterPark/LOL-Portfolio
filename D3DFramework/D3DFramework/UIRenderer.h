@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Renderer.h"
 
 namespace KST
@@ -8,7 +8,7 @@ namespace KST
 	{
 	public:
 		explicit UIRenderer(GameObject* owner);
-		// RendererÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+		// Rendererì„(ë¥¼) í†µí•´ ìƒì†ë¨
 		virtual IComponent* Clone() override;
 		virtual void Render() override;
 
@@ -17,7 +17,7 @@ namespace KST
 
 	public:
 		int zOrder = 0;
-	private:
+	protected:
 		PKH::Mesh* mesh = nullptr;
 	};
 

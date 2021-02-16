@@ -1,11 +1,17 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Label.h"
+#include "LabelRenderer.h"
 
 Label::Label()
 {
 	pDevice = RenderManager::GetDevice();
 	pSprite = RenderManager::GetSprite();
 	MakeFont();
+
+	SetTexture(L"Empty");
+	LabelRenderer* renderer = new LabelRenderer(this);
+	AddComponent(L"LabelRenderer", renderer);
+
 }
 
 Label::Label(int fontSize)
@@ -13,6 +19,10 @@ Label::Label(int fontSize)
 	pDevice = RenderManager::GetDevice();
 	pSprite = RenderManager::GetSprite();
 	MakeFont(fontSize);
+
+	SetTexture(L"Empty");
+	LabelRenderer* renderer = new LabelRenderer(this);
+	AddComponent(L"LabelRenderer", renderer);
 }
 
 Label::~Label()
@@ -82,7 +92,7 @@ void Label::MakeFont(int fontSize)
 	fontInfo.Width = 0;
 	fontInfo.Weight = FW_THIN;
 	fontInfo.CharSet = HANGUL_CHARSET;
-	lstrcpy(fontInfo.FaceName, L"À¸¶äµ¸¿ò");
+	lstrcpy(fontInfo.FaceName, L"ìœ¼ëœ¸ë‹ì›€");
 
 
 	auto device = RenderManager::GetDevice();
@@ -90,7 +100,7 @@ void Label::MakeFont(int fontSize)
 
 	if (FAILED(D3DXCreateFontIndirect(device, &fontInfo, &pFont)))
 	{
-		MessageBoxW(g_hwnd, L"ÆùÆ® »ı¼º ½ÇÆĞ", nullptr, MB_OK);
+		MessageBoxW(g_hwnd, L"í°íŠ¸ ìƒì„± ì‹¤íŒ¨", nullptr, MB_OK);
 	}
 
 	RenderManager::UnlockDevice();

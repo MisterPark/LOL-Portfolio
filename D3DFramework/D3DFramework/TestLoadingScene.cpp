@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "TestLoadingScene.h"
 #include "TestScene.h"
 #include "LoadingBackGround.h"
@@ -68,10 +68,10 @@ void TestLoadingScene::LoadResources()
 {
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/", L"malp.X", Count);
 	
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/", L"bush.x", Count);
 
-	// ¸ó½ºÅÍ
+	// ëª¬ìŠ¤í„°
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/scuttleracer/", L"scuttleracer.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_blue/", L"sru_blue.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_gromp/", L"sru_gromp.x", Count);
@@ -84,7 +84,7 @@ void TestLoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeakmini/", L"sru_razorbeakmini.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_red/", L"sru_red.x", Count);
 
-	// Ã¨ÇÇ¾ğ
+	// ì±”í”¼ì–¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/blitzcrank/", L"blitzcrank.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/darius/", L"darius.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/diana/", L"diana.X", Count);
@@ -96,7 +96,7 @@ void TestLoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/", L"jax.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/", L"jinx.x", Count);
 
-	// ¹Ì´Ï¾ğ
+	// ë¯¸ë‹ˆì–¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/", L"order_minion_caster.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_melee/", L"order_minion_melee.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_siege/", L"order_minion_siege.x", Count);
@@ -107,13 +107,13 @@ void TestLoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_siege/", L"chaos_minion_siege.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/", L"chaos_minion_super.x", Count);
 
-	// ÅÍ·¿
+	// í„°ë ›
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/", L"turret_order.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break1.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break2.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break3.x", Count);
 
-	// ³Ø¼­½º
+	// ë„¥ì„œìŠ¤
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/", L"sruap_ordernexus.x", Count);
 
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);

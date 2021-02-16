@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "LoadingChampScreen.h"
 #include "LoadingBorder.h"
 #include "LoadingChampPanel.h"
@@ -24,8 +24,6 @@ LoadingChampScreen::LoadingChampScreen()
 
 LoadingChampScreen::~LoadingChampScreen()
 {
-
-
 	delete border;
 	delete champ;
 	delete mask;
@@ -75,43 +73,43 @@ void LoadingChampScreen::SetChampion(ChampionType type)
 	switch (type)
 	{
 	case ChampionType::Garen:
-		champName->text = L"°¡·»";
+		champName->text = L"ê°€ë Œ";
 		champ->SetTexture(L"garenloadscreen");
 		break;
 	case ChampionType::Darius:
-		champName->text = L"´Ù¸®¿ì½º";
+		champName->text = L"ë‹¤ë¦¬ìš°ìŠ¤";
 		champ->SetTexture(L"dariusloadscreen");
 		break;
 	case ChampionType::Diana:
-		champName->text = L"´ÙÀÌ¾Ö³ª";
+		champName->text = L"ë‹¤ì´ì• ë‚˜";
 		champ->SetTexture(L"dianaloadscreen");
 		break;
 	case ChampionType::Leona:
-		champName->text = L"·¹¿À³ª";
+		champName->text = L"ë ˆì˜¤ë‚˜";
 		champ->SetTexture(L"leonaloadscreen");
 		break;
 	case ChampionType::Leesin:
-		champName->text = L"¸® ½Å";
+		champName->text = L"ë¦¬ ì‹ ";
 		champ->SetTexture(L"leesinloadscreen");
 		break;
 	case ChampionType::Missfortune:
-		champName->text = L"¹Ì½ºÆ÷Ãó";
+		champName->text = L"ë¯¸ìŠ¤í¬ì¸ˆ";
 		champ->SetTexture(L"missfortuneloadscreen");
 		break;
 	case ChampionType::Blitzcrank:
-		champName->text = L"ºí¸®Ã÷Å©·©Å©";
+		champName->text = L"ë¸”ë¦¬ì¸ í¬ëž­í¬";
 		champ->SetTexture(L"blitzcrankloadscreen");
 		break;
 	case ChampionType::Ahri:
-		champName->text = L"¾Æ¸®";
+		champName->text = L"ì•„ë¦¬";
 		champ->SetTexture(L"ahriloadscreen");
 		break;
 	case ChampionType::Jax:
-		champName->text = L"Àè½º";
+		champName->text = L"ìž­ìŠ¤";
 		champ->SetTexture(L"jaxloadscreen");
 		break;
 	case ChampionType::Jinx:
-		champName->text = L"Â¡Å©½º";
+		champName->text = L"ì§•í¬ìŠ¤";
 		champ->SetTexture(L"jinxloadscreen");
 		break;
 	default:

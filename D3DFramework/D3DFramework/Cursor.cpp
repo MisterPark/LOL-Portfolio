@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Cursor.h"
 #include "Rectangle.h"
 
@@ -9,7 +9,7 @@ PKH::Cursor::Cursor()
     ShowCursor(FALSE);
     
     SetTexture(L"hover_precise");
-    //SetSizeByTexture();
+    SetSizeByTexture();
     //transform->scale.x *= 0.8f;
     //transform->scale.y *= 0.8f;
     type = UIType::CURSOR;

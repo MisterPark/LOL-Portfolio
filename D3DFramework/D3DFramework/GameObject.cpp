@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "GameObject.h"
 #include "IComponent.h"
 #include "transform.h"
@@ -135,9 +135,9 @@ void PKH::GameObject::Billboard()
 
 	
 
-	//ÀÌµ¿ ºÎºÐ
+	//ì´ë™ ë¶€ë¶„
 	memcpy(&matView._41, &BillPos, sizeof(D3DXVECTOR3));
-	//ÀÌµ¿ºÎºÐÀ» ¹Ý¿µÇØÁÝ´Ï´Ù. ´Ù½Ã ÁÂÇ¥ÀÇ À§Ä¡·Î ÀÌµ¿½ÃÄÑÁÖ´Â Ã³¸®ÀÔ´Ï´Ù.
+	//ì´ë™ë¶€ë¶„ì„ ë°˜ì˜í•´ì¤ë‹ˆë‹¤. ë‹¤ì‹œ ì¢Œí‘œì˜ ìœ„ì¹˜ë¡œ ì´ë™ì‹œì¼œì£¼ëŠ” ì²˜ë¦¬ìž…ë‹ˆë‹¤.
 
 	//RenderManager::SetTransform(D3DTS_WORLD, &matView);
 	transform->localMatrix = matScale*matView;
@@ -152,7 +152,7 @@ void PKH::GameObject::BillboardYaw()
 	memset(&matBill._41, 0, sizeof(D3DXVECTOR3));
 
 	matBill = Matrix::identity;
-	// ºäÇà·ÄÀÇ YÃà È¸ÀüÇà·Ä°ª¸¸ °¡Áö°í¿À±â
+	// ë·°í–‰ë ¬ì˜ Yì¶• íšŒì „í–‰ë ¬ê°’ë§Œ ê°€ì§€ê³ ì˜¤ê¸°
 	matBill._11 = matView._11;
 	matBill._13 = matView._13;
 	matBill._31 = matView._31;
@@ -161,11 +161,11 @@ void PKH::GameObject::BillboardYaw()
 	D3DXMatrixInverse(&matBill, 0, &matBill);
 
 	
-	//½ºÄÉÀÏ
+	//ìŠ¤ì¼€ì¼
 	D3DXMatrixScaling(&matScale, transform->scale.x, transform->scale.y, transform->scale.z);
 
 
-	// ÀÌµ¿
+	// ì´ë™
 	D3DXVECTOR3 BillPos = transform->position;
 	memcpy(&matBill._41, &BillPos, sizeof(D3DXVECTOR3));
 	transform->localMatrix = matScale * matBill;
@@ -207,14 +207,16 @@ void PKH::GameObject::RemoveComponent(IComponent* _target)
 	{
 		if (iter->second == _target)
 		{
-			delete _target;
 			components.erase(iter);
 			break;
 		}
 
-		
-
 	}
+}
+
+void PKH::GameObject::RemoveComponent(const wstring& _key)
+{
+	components.erase(_key);
 }
 
 IComponent* PKH::GameObject::GetComponent(const wstring& _key)
