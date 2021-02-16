@@ -1,9 +1,10 @@
-#pragma once
+Ôªø#pragma once
 #include "GameObject.h"
-#include "HUD.h"
+
 
 class Champion;
 class Label;
+class PKH::UI;
 
 class PlayerInfoPanel : public GameObject
 {
@@ -15,7 +16,7 @@ public:
 	static PlayerInfoPanel* GetInstance();
 	static void DestroyInstance();
 
-	// UI¿ª(∏¶) ≈Î«ÿ ªÛº”µ 
+	// UIÏùÑ(Î•º) ÌÜµÌï¥ ÏÉÅÏÜçÎê®
 	virtual void Initialize() override;
 	virtual void Release() override;
 
@@ -32,20 +33,6 @@ public:
 	int screenW = 1280;
 	int screenH = 720;
 private:
-	Vector3 faceBorderPos;
-	Vector3 mainPanelPos;
-	Vector3 miniPanelPos;
-	Vector3 invenPanelPos;
-	Vector3 statPanelPos;
-	Vector3 hpOffsetPos;
-	Vector3 mpOffsetPos;
-	Vector3 scaleHP;
-	Vector3 scaleMP;
-	Vector3 barTipOffset1;
-	Vector3 barTipOffset2;
-	Vector3 barTipOffset3;
-	Vector3 barTipOffset4;
-
 	Texture* mainPanelTex = nullptr;
 	Texture* miniPanelTex = nullptr;
 	Texture* faceBorderTex = nullptr;
@@ -56,24 +43,24 @@ private:
 	wstring tipTextureKey;
 	wstring spellBorderKey;
 
-	UI* statPanel = nullptr;
-	UI* mainPanel = nullptr;
-	UI* miniPanel = nullptr;
-	UI* invenPanel = nullptr;
-	UI* faceBorder = nullptr;
-	UI* facePanel = nullptr;
+	PKH::UI* statPanel = nullptr;
+	PKH::UI* mainPanel = nullptr;
+	PKH::UI* miniPanel = nullptr;
+	PKH::UI* invenPanel = nullptr;
+	PKH::UI* faceBorder = nullptr;
+	PKH::UI* facePanel = nullptr;
 	Label* hpLabel = nullptr;
 	Label* mpLabel = nullptr;
 
 	Label* statLabel[8];
 
-	UI* slotSpell1 = nullptr;
-	UI* slotSpell2 = nullptr;
-	UI* slotSpell3 = nullptr;
-	UI* slotSpell4 = nullptr;
-	UI* slotPassive = nullptr;
-	UI* slotSummoner1 = nullptr;
-	UI* slotSummoner2 = nullptr;
+	PKH::UI* slotSpell1 = nullptr;
+	PKH::UI* slotSpell2 = nullptr;
+	PKH::UI* slotSpell3 = nullptr;
+	PKH::UI* slotSpell4 = nullptr;
+	PKH::UI* slotPassive = nullptr;
+	PKH::UI* slotSummoner1 = nullptr;
+	PKH::UI* slotSummoner2 = nullptr;
 
 	Champion* champion = nullptr;
 };

@@ -60,7 +60,7 @@ namespace PKH
 		IComponent* GetComponent(const wstring& _key);
 		template<class T>
 		IComponent* GetComponent();
-		Transform* GetTransform() const { return transform; } //수정
+		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
 
 		bool IsDestroy();
@@ -68,7 +68,6 @@ namespace PKH
 		// setter
 		bool SetLayer(Layer _layer);
 		
-
 	public:
 		wstring name;
 		Transform* transform = nullptr;
@@ -78,7 +77,7 @@ namespace PKH
 		bool dontDestroy = false;
 
 		GameObject* parent = nullptr;
-		list<GameObject*> children;
+		map<wstring, GameObject*> children;
 
 		map<wstring, PKH::IComponent*> components;
 	protected:

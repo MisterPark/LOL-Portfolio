@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MainGame.h"
 #include "TestScene.h"
 #include "SkyBox.h"
@@ -50,7 +50,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//LobbyWindow::GetInstance();
 	Random::InitState();
 
-	// ´Ù¸¥ ¸ğµç ¸Å´ÏÀú ÃÊ±âÈ­
+	// ë‹¤ë¥¸ ëª¨ë“  ë§¤ë‹ˆì € ì´ˆê¸°í™”
 	TimeManager::GetInstance();
 	TimeManager::SetFPS(300);
 	
@@ -82,7 +82,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	//SkillManager::GetInstance();
 
-	// ¾À·Îµå
+	// ì”¬ë¡œë“œ
 	SceneManager::LoadScene<TestLoadingScene>();
 	//SceneManager::LoadScene<LoadingScene>();
 	//SceneManager::LoadScene<TestScene>();
@@ -90,15 +90,15 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 void PKH::MainGame::Update()
 {
-	// 1. ÀÎÇ² ¸ÕÀú
+	// 1. ì¸í’‹ ë¨¼ì €
 	InputManager::Update();
 
-	// 2. ¾À ¸Å´ÏÀú ¾÷µ¥ÀÌÆ®
+	// 2. ì”¬ ë§¤ë‹ˆì € ì—…ë°ì´íŠ¸
 	SceneManager::Update();
 
-	// 3. Player ¾÷µ¥ÀÌÆ®
+	// 3. Player ì—…ë°ì´íŠ¸
 
-	// 4. Obj ¾÷µ¥ÀÌÆ®
+	// 4. Obj ì—…ë°ì´íŠ¸
 	ObjectManager::Update();
 
 	Camera::GetInstance()->Update();
@@ -119,7 +119,7 @@ void PKH::MainGame::Update()
 
 void PKH::MainGame::Release()
 {
-	// ´Ù¸¥ ¸ğµç ¸Å´ÏÀú ÇØÁ¦
+	// ë‹¤ë¥¸ ëª¨ë“  ë§¤ë‹ˆì € í•´ì œ
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	TimeManager::Destroy();
@@ -168,13 +168,13 @@ int PKH::MainGame::GetHeight()
 
 void PKH::MainGame::LoadUISprite()
 {
-	// ¸®¼Ò½º ·Îµå
+	// ë¦¬ì†ŒìŠ¤ ë¡œë“œ
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
-	//·Îµù¾À
+	//ë¡œë”©ì”¬
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingscreen_spinner_atlas.dds",8,4);
@@ -205,7 +205,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
 	
-	// ÀÎ°ÔÀÓ
+	// ì¸ê²Œì„
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big2.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
@@ -380,10 +380,10 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_r.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\missfortune\\", L"missfortune_passive.dds");
 
-	// ÀÎµğÄÉÀÌÅÍ
+	// ì¸ë””ì¼€ì´í„°
 	RenderManager::LoadSprite(L"Resource\\Spell\\indicator\\", L"circularrangeindicator.png");
 
-	// ÅÍ·¿
+	// í„°ë ›
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 

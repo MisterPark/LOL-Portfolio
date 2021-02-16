@@ -18,8 +18,11 @@ namespace PKH
     {
     public:
         UI();
+        UI(const std::wstring& _tag, const Vector2& pos);
         virtual ~UI();
 
+        virtual void Initialize() override;
+        virtual void Release() override;
         virtual void Update() override;
         virtual void PostUpdate() override;
 
@@ -50,10 +53,12 @@ namespace PKH
         void SetLocation(Vector2 pos);
         void SetTexture(const wstring& _key);
 
+        // child
+        void AddChild(const std::wstring& _tag, const Vector2& _pos);
 
 
     public:
-        
+
         //wstring textureKey;
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;

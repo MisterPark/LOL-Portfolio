@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "GameScene.h"
 
 #include "Label.h"
@@ -70,7 +70,7 @@ GameScene::GameScene()
 	spawnPos[9] = { -46.01f, 68.48f, -41.93f };
 
 	playerInfo = PlayerInfoPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(playerInfo, Layer::HUD);
+	ObjectManager::GetInstance()->AddObject(playerInfo, Layer::UI);
 
 }
 
@@ -142,7 +142,7 @@ void GameScene::PacketProc(CPacket* pPacket)
 		ResCreateMinionCaster(pPacket);
 		break;
 	default:
-		Debug::Print("[Warning] Á¤ÀÇµÇÁö ¾ÊÀº ÆÐÅ¶ Å¸ÀÔ °¨Áö\n");
+		Debug::Print("[Warning] ì •ì˜ë˜ì§€ ì•Šì€ íŒ¨í‚· íƒ€ìž… ê°ì§€\n");
 		break;
 	}
 }
@@ -216,21 +216,21 @@ void GameScene::ResAttack(CPacket* pack)
 	
 	INT unitID, targetID;
 	*pack >> unitID >> targetID;
-	Debug::PrintLine("°ø°ÝÆÐÅ¶ ¹ÞÀ½ / °ø°ÝÀÚ %d / Å¸°Ù %d", unitID, targetID);
+	Debug::PrintLine("ê³µê²©íŒ¨í‚· ë°›ìŒ / ê³µê²©ìž %d / íƒ€ê²Ÿ %d", unitID, targetID);
 
 	auto find = unitMap.find(unitID);
 	if (find == unitMap.end())
 	{
-		Debug::PrintLine("°ø°ÝÀÚ°¡ ¾øÀ½");
+		Debug::PrintLine("ê³µê²©ìžê°€ ì—†ìŒ");
 		return;
 	}
 	auto find2 = unitMap.find(targetID);
 	if (find2 == unitMap.end())
 	{
-		Debug::PrintLine("Å¸°ÙÀÌ ¾øÀ½");
+		Debug::PrintLine("íƒ€ê²Ÿì´ ì—†ìŒ");
 		return;
 	}
-	Debug::PrintLine("°ø°Ý ½ÇÇà");
+	Debug::PrintLine("ê³µê²© ì‹¤í–‰");
 	unitMap[unitID]->Attack(find2->second);
 
 }
@@ -240,18 +240,18 @@ void GameScene::ResDamage(CPacket* pack)
 	INT unitID, targetID;
 	FLOAT damage;
 	*pack >> unitID >> targetID >> damage;
-	Debug::PrintLine("µ¥¹ÌÁö ÆÐÅ¶ ¹ÞÀ½ / °ø°ÝÀÚ %d / Å¸°Ù %d", unitID, targetID);
+	Debug::PrintLine("ë°ë¯¸ì§€ íŒ¨í‚· ë°›ìŒ / ê³µê²©ìž %d / íƒ€ê²Ÿ %d", unitID, targetID);
 
 	auto find = unitMap.find(unitID);
 	if (find == unitMap.end())
 	{
-		Debug::PrintLine("°ø°ÝÀÚ°¡ ¾øÀ½");
+		Debug::PrintLine("ê³µê²©ìžê°€ ì—†ìŒ");
 		return;
 	}
 	auto find2 = unitMap.find(targetID);
 	if (find2 == unitMap.end())
 	{
-		Debug::PrintLine("Å¸°ÙÀÌ ¾øÀ½");
+		Debug::PrintLine("íƒ€ê²Ÿì´ ì—†ìŒ");
 		return;
 	}
 	unitMap[targetID]->SetLastAttacker(unitMap[unitID]);
@@ -278,17 +278,17 @@ void GameScene::ResCreateMinionCaster(CPacket* pack)
 void GameScene::CreateEnvironment()
 {
 	GameObject* obj = nullptr;
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	obj = ObjectManager::GetInstance()->CreateObject<Environment>();
 	obj->transform->position = { 0,0,0 };
 
-	// ¹Ù´Ú
+	// ë°”ë‹¥
 	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
 
-	// º®
+	// ë²½
 	obj = ObjectManager::GetInstance()->CreateObject<Wall>(Layer::Wall);
 
-	// ºÎ½¬
+	// ë¶€ì‰¬
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
@@ -404,7 +404,7 @@ void GameScene::CreateBuilding()
 	int unitID = (int)UnitID::TurretBlueBot1;
 	
 	
-	// ºí·çÆÀ Å¸¿ö
+	// ë¸”ë£¨íŒ€ íƒ€ì›Œ
 	
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
@@ -501,7 +501,7 @@ void GameScene::CreateBuilding()
 	unitID++;
 
 
-	// ÆÛÇÃÆÀ
+	// í¼í”ŒíŒ€
 
 	// bottom1
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Turret>(Layer::Building);
@@ -603,9 +603,9 @@ void GameScene::CreateMonster()
 {
 	Unit* unit = nullptr;
 	int unitID = (int)UnitID::Red1;
-	// ¸ó½ºÅÍ
+	// ëª¬ìŠ¤í„°
 
-	// ·¹µå
+	// ë ˆë“œ
 	unit = (Unit*)(Unit*)ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
 	unit->transform->position = { -6.10f, 67.71f, 24.87f };
 	unitMap[unitID] = unit;
@@ -616,7 +616,7 @@ void GameScene::CreateMonster()
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
-	// ºí·ç
+	// ë¸”ë£¨
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	unit->transform->position = { 19.79f, 67.72f, 0.64f };
 	unitMap[unitID] = unit;
@@ -627,7 +627,7 @@ void GameScene::CreateMonster()
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
-	// ´Á´ë À§
+	// ëŠ‘ëŒ€ ìœ„
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	unit->transform->position = { 19.74f, 67.71f, 9.78f };
 	unitMap[unitID] = unit;
@@ -643,7 +643,7 @@ void GameScene::CreateMonster()
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
-	// ´Á´ë ¾Æ·¡
+	// ëŠ‘ëŒ€ ì•„ëž˜
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	unit->transform->position = { -26.72f, 67.72f, -2.72f };
 	unitMap[unitID] = unit;
@@ -659,7 +659,7 @@ void GameScene::CreateMonster()
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
-	// µÎ²¨ºñ
+	// ë‘êº¼ë¹„
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
 	unit->transform->position = { 29.28f, 67.73f, -2.82f };
 	unitMap[unitID] = unit;
@@ -671,7 +671,7 @@ void GameScene::CreateMonster()
 	unit->SetID(unitID);
 	unitID++;
 
-	// ¤‹¤‹ÀÌ À§
+	// ì§¹ì§¹ì´ ìœ„
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	unit->transform->position = { -0.75f, 67.71f, 16.17f };
 	unitMap[unitID] = unit;
@@ -703,7 +703,7 @@ void GameScene::CreateMonster()
 	unit->SetID(unitID);
 	unitID++;
 
-	// Â±Â±ÀÌ ¾Æ·¡
+	// ì§¹ì§¹ì´ ì•„ëž˜
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	unit->transform->position = { -6.43f, 67.71f, -10.09f };
 	unitMap[unitID] = unit;
@@ -736,7 +736,7 @@ void GameScene::CreateMonster()
 	unitID++;
 
 
-	// ÀÛ°ñ
+	// ìž‘ê³¨
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
 	unit->transform->position = { -10.05f, 67.71f, 33.49f };
 	unitMap[unitID] = unit;
@@ -749,7 +749,7 @@ void GameScene::CreateMonster()
 	unit->SetID(unitID);
 	unitID++;
 
-	// ¹ÙÀ§°Ô
+	// ë°”ìœ„ê²Œ
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
 	unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unitMap[unitID] = unit;
@@ -767,7 +767,7 @@ void GameScene::CreateMinionCaster()
 {
 	Minion* minion = nullptr;
 
-	// ºí·ç
+	// ë¸”ë£¨
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionCaster>(Layer::Unit);
 	minion->transform->position = { 29.47f,68.04f,41.74f };
 	minion->SetTeam(Team::BLUE);
@@ -797,7 +797,7 @@ void GameScene::CreateMinionCaster()
 	minion->SetID(unitID);
 	unitID++;
 
-	// ·¹µå
+	// ë ˆë“œ
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionCaster>(Layer::Unit);
 	minion->transform->position = { -43.05f,68.01f,-29.62f };
 	minion->SetTeam(Team::RED);
@@ -837,7 +837,7 @@ void GameScene::CreateMinionCaster()
 void GameScene::CreateMinionMelee()
 {
 	Minion* minion = nullptr;
-	// ºí·ç========================================================
+	// ë¸”ë£¨========================================================
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
 	minion->transform->position = { 29.47f,68.04f,41.74f };
 	minion->SetTeam(Team::BLUE);
@@ -867,7 +867,7 @@ void GameScene::CreateMinionMelee()
 	minion->SetID(unitID);
 	unitID++;
 
-	// ·¹µå
+	// ë ˆë“œ
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionMelee>(Layer::Unit);
 	minion->transform->position = { -43.05f,68.01f,-29.62f };
 	minion->SetTeam(Team::RED);
@@ -901,7 +901,7 @@ void GameScene::CreateMinionMelee()
 void GameScene::CreateMinionSiege()
 {
 	Minion* minion = nullptr;
-	// ºí·ç
+	// ë¸”ë£¨
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
 	minion->transform->position = { 29.47f,68.04f,41.74f };
 	minion->SetTeam(Team::BLUE);
@@ -931,7 +931,7 @@ void GameScene::CreateMinionSiege()
 	minion->SetID(unitID);
 	unitID++;
 
-	// ·¹µå
+	// ë ˆë“œ
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSiege>(Layer::Unit);
 	minion->transform->position = { -43.05f,68.01f,-29.62f };
 	minion->SetTeam(Team::RED);
@@ -965,7 +965,7 @@ void GameScene::CreateMinionSiege()
 void GameScene::CreateMinionSuper()
 {
 	Minion* minion = nullptr;
-	// ºí·ç
+	// ë¸”ë£¨
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<OrderMinionSuper>(Layer::Unit);
 	minion->transform->position = { 29.47f,68.04f,41.74f };
 	minion->SetTeam(Team::BLUE);
@@ -995,7 +995,7 @@ void GameScene::CreateMinionSuper()
 	minion->SetID(unitID);
 	unitID++;
 
-	// ·¹µå
+	// ë ˆë“œ
 	minion = (Minion*)ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
 	minion->transform->position = { -43.05f,68.01f,-29.62f };
 	minion->SetTeam(Team::RED);
