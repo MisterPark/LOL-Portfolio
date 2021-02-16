@@ -255,12 +255,3 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 
 	return true;
 }
-
-void PKH::GameObject::AddChild(GameObject* _child)
-{
-	if (_child == nullptr) return;
-	children.push_back(_child);
-}
-
-
-
