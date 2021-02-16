@@ -253,3 +253,18 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 
 	return true;
 }
+
+void PKH::GameObject::SetParent(GameObject* _parent)
+{
+	this->parent = _parent;
+}
+
+void PKH::GameObject::AddChild(const wstring& _key, GameObject* _child)
+{
+	auto find = children.find(_key);
+	if (find == children.end())
+	{
+		_child->SetParent(this);
+		children[_key] = _child;
+	}
+}

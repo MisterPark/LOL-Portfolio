@@ -41,8 +41,8 @@ namespace PKH
         virtual void OnDoubleClick();
         virtual void OnChangedText();
 
-        Vector3 GetSize();
-        Vector3 GetLocation();
+        Vector2 GetSize();
+        Vector2 GetLocation();
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
@@ -54,8 +54,10 @@ namespace PKH
         void SetTexture(const wstring& _key);
 
         // child
-        void AddChild(const std::wstring& _tag, const Vector2& _pos);
+        UI* AddChild(const std::wstring& _tag, const Vector2& _pos);
 
+        bool Intersect(Vector2 _target);
+        RECT GetRect();
 
     public:
 
@@ -70,8 +72,7 @@ namespace PKH
         bool textRenderFlag = false;// 텍스트를 출력할 UI인가? (RW)
 
         // 넓이 높이 (R)
-        int width = 0;
-        int height = 0;
+        Vector2 size;
 
         UIType type = UIType::DEFAULT;
 

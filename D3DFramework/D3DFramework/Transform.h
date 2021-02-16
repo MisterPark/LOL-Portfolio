@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IComponent.h"
 #include "Vector3.h"
 
@@ -15,28 +15,29 @@ namespace PKH
 		virtual void PostUpdate() override;
 		virtual IComponent* Clone() override;
 
-		// ÀÓÀÇÀÇ Ãà È¸Àü
+		// ì„ì˜ì˜ ì¶• íšŒì „
 		void Rotate(Vector3 _axis, float _angle);
-		// ¹Ù¶óº¸±â
+		// ë°”ë¼ë³´ê¸°
 		void LookAt(Transform _target, Vector3 _worldUp = Vector3::UP);
 		void LookAt(Vector3 _target, Vector3 _worldUp = Vector3::UP);
 
-		// ·ÎÄÃ XÃà È¸Àü
+		// ë¡œì»¬ Xì¶• íšŒì „
 		void RotatePitch(float _angle);
-		// ·ÎÄÃ YÃà È¸Àü
+		// ë¡œì»¬ Yì¶• íšŒì „
 		void RotateYaw(float _angle);
-		// ·ÎÄÃ ZÃà È¸Àü
+		// ë¡œì»¬ Zì¶• íšŒì „
 		void RotateRoll(float _angle);
 
-		// ¿ùµå XÃà È¸Àü
+		// ì›”ë“œ Xì¶• íšŒì „
 		void RotateX(float _angle);
-		// ¿ùµå YÃà È¸Àü
+		// ì›”ë“œ Yì¶• íšŒì „
 		void RotateY(float _angle);
-		// ¿ùµå ZÃà È¸Àü
+		// ì›”ë“œ Zì¶• íšŒì „
 		void RotateZ(float _angle);
 
 		Vector3 GetPos() { return position; }
-		Vector3* Get_Pos() { return &position; } //¼öÁ¤
+		Vector3* Get_Pos() { return &position; } //ìˆ˜ì •
+		Matrix GetLocalMatrix();
 		Matrix GetWorldMatrix();
 
 	public:
@@ -48,7 +49,7 @@ namespace PKH
 		Vector3 right = Vector3::RIGHT;
 		Vector3 up = Vector3::UP;
 		Vector3 look = Vector3::FORWARD;
-		Matrix localMatrix;
+		Matrix localMatrix = Matrix::identity;
 		Matrix worldMatrix = Matrix::identity;
 
 		float zOrder = 0.f;

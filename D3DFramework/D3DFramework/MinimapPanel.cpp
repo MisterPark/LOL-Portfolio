@@ -7,11 +7,18 @@ MinimapPanel::MinimapPanel()
 {
     int screenW = MainGame::GetWidth();
     int screenH = MainGame::GetHeight();
-    this->SetLocation(screenW - width - 10, screenH - height - 10);
+    
+    UI* border = AddChild(L"minimapBorder", Vector2(0, 0));
+    Vector2 borderSize = border->GetSize();
+    this->SetLocation(screenW - borderSize.x, screenH - borderSize.y);
 
-    AddChild(L"minimapBorder", Vector2(100, 100));
+    UI* minimap = AddChild(L"map11", Vector2(20, 12));
+    minimap->transform->scale = { 0.5625f,0.5625f, 1.f };
+    
 
-    Click += TestFunc;
+    
+
+    minimap->Click += TestFunc;
 }
 
 MinimapPanel::~MinimapPanel()

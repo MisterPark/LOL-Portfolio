@@ -1,10 +1,11 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "UIRenderer.h"
 #include "RenderSystem.h"
 
 KST::UIRenderer::UIRenderer(GameObject* owner)
 	: Renderer{ owner, RendererType::UI }
 {
+	ui = (UI*)owner;
 }
 
 IComponent* KST::UIRenderer::Clone()
@@ -14,6 +15,7 @@ IComponent* KST::UIRenderer::Clone()
 
 void KST::UIRenderer::Render()
 {
+	if (ui == nullptr) return;
 	auto device = RenderManager::GetDevice();
 	int screenW = MainGame::GetWidth();
 	int screenH = MainGame::GetHeight();
@@ -37,8 +39,8 @@ void KST::UIRenderer::Render()
 	//matWorld._42 = -transform->position.y + (screenH * 0.5f) - transform->scale.y;
 
 	matWorld = transform->GetWorldMatrix();
-	matWorld._11 = matWorld._11 * 0.5f;
-	matWorld._22 = matWorld._22 * 0.5f;
+	matWorld._11 = (ui->size.x * matWorld._11) * 0.5f;
+	matWorld._22 = (ui->size.y * matWorld._22) * 0.5f;
 	matWorld._33 = 1.f;
 	matWorld._41 =  matWorld._41 - (screenW * 0.5f) + matWorld._11;
 	matWorld._42 =  -matWorld._42 + (screenH * 0.5f) - matWorld._22;
