@@ -713,6 +713,7 @@
     <ClInclude Include="UIRenderer.h">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1266,6 +1267,7 @@
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
     <ClCompile Include="TestEncoding.cpp" />
+    <ClCompile Include="Event.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
