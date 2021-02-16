@@ -81,23 +81,22 @@ PlayerInfoPanel::PlayerInfoPanel()
     }
     
 
-    int spellPosX = (int)(mainPanelPos.x + 126);
-    int spellPosY = (int)(mainPanelPos.y + 31);
+    Vector2 spellPos{ (float)(mainPanelPos.x + 126), (float)(mainPanelPos.y + 31) };
     int spellPadding = 6;
     int spellSize = 64;
 
     slotSpell1 = new UI();
     slotSpell1->SetSize(spellSize, spellSize);
-    slotSpell1->SetLocation(spellPosX + 2, spellPosY + 3);
+    slotSpell1->SetLocation(spellPos.x + 2, spellPos.y + 3);
     slotSpell2 = new UI();
     slotSpell2->SetSize(spellSize, spellSize);
-    slotSpell2->SetLocation(spellPosX + spellSize+4 + spellPadding + 3, spellPosY + 3);
+    slotSpell2->SetLocation(spellPos.x + spellSize+4 + spellPadding + 3, spellPos.y + 3);
     slotSpell3 = new UI();
     slotSpell3->SetSize(spellSize, spellSize);
-    slotSpell3->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 2 + 3, spellPosY + 3);
+    slotSpell3->SetLocation(spellPos.x + ((spellSize + 4) + spellPadding) * 2 + 3, spellPos.y + 3);
     slotSpell4 = new UI();
     slotSpell4->SetSize(spellSize, spellSize);
-    slotSpell4->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 3 + 3, spellPosY + 3);
+    slotSpell4->SetLocation(spellPos.x + ((spellSize + 4) + spellPadding) * 3 + 3, spellPos.y + 3);
     
     int passivePosX = (int)(mainPanelPos.x + 70);
     int passivePosY = (int)(mainPanelPos.y + 31);
