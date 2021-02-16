@@ -58,7 +58,7 @@ namespace PKH
 
 
     public:
-        
+
         //wstring textureKey;
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;

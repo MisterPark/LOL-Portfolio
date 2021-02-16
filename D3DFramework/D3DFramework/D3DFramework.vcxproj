@@ -324,6 +324,7 @@
     <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIRenderer.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
@@ -480,6 +481,7 @@
     <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIRenderer.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />

@@ -25,23 +25,23 @@ namespace PKH
 
 		virtual void OnCollisionEnter(Collider* target);
 
-		// 방향으로 이동
-		// 내부에서 정규화 해줌.
+		// �������� �̵�
+		// ���ο��� ����ȭ ����.
 		void Move(Vector3 _direction);
 		void Move(Vector3 _direction, float _speed);
-		// 위치로 이동
+		// ��ġ�� �̵�
 		void MoveToTarget(Vector3 _target);
 		void MoveToTarget(Vector3 _target, float _speed);
-		// 타겟 따라가기
+		// Ÿ�� ���󰡱�
 		void FollowTarget(const GameObject* _target);
 		void FollowTarget(const Transform& _targetTransform);
 		void FollowTarget(const Vector3& _targetPos);
-		// 타겟 오브젝트 방향으로 회전
+		// Ÿ�� ������Ʈ �������� ȸ��
 		void FaceTarget(const GameObject* _target);
 		void FaceTarget(const Transform& _targetTransform);
 		void FaceTarget(const Vector3& _targetPos);
-		// 빌보드
-		// GameObject::Update() 호출 후에 호출
+		// �����
+		// GameObject::Update() ȣ�� �Ŀ� ȣ��
 		void Billboard();
 		void BillboardYaw();
 
@@ -60,7 +60,7 @@ namespace PKH
 		IComponent* GetComponent(const wstring& _key);
 		template<class T>
 		IComponent* GetComponent();
-		Transform* GetTransform() const { return transform; } //수정
+		Transform* GetTransform() const { return transform; } //����
 		Layer GetLayer() { return this->layer; }
 
 		bool IsDestroy();

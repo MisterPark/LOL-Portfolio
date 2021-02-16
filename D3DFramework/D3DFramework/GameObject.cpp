@@ -141,9 +141,9 @@ void PKH::GameObject::Billboard()
 
 	
 
-	//이동 부분
+	//�̵� �κ�
 	memcpy(&matView._41, &BillPos, sizeof(D3DXVECTOR3));
-	//이동부분을 반영해줍니다. 다시 좌표의 위치로 이동시켜주는 처리입니다.
+	//�̵��κ��� �ݿ����ݴϴ�. �ٽ� ��ǥ�� ��ġ�� �̵������ִ� ó���Դϴ�.
 
 	//RenderManager::SetTransform(D3DTS_WORLD, &matView);
 	transform->localMatrix = matScale*matView;
@@ -158,7 +158,7 @@ void PKH::GameObject::BillboardYaw()
 	memset(&matBill._41, 0, sizeof(D3DXVECTOR3));
 
 	matBill = Matrix::identity;
-	// 뷰행렬의 Y축 회전행렬값만 가지고오기
+	// ������� Y�� ȸ����İ��� ���������
 	matBill._11 = matView._11;
 	matBill._13 = matView._13;
 	matBill._31 = matView._31;
@@ -167,11 +167,11 @@ void PKH::GameObject::BillboardYaw()
 	D3DXMatrixInverse(&matBill, 0, &matBill);
 
 	
-	//스케일
+	//������
 	D3DXMatrixScaling(&matScale, transform->scale.x, transform->scale.y, transform->scale.z);
 
 
-	// 이동
+	// �̵�
 	D3DXVECTOR3 BillPos = transform->position;
 	memcpy(&matBill._41, &BillPos, sizeof(D3DXVECTOR3));
 	transform->localMatrix = matScale * matBill;
@@ -254,6 +254,12 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 	}
 
 	return true;
+}
+
+void PKH::GameObject::AddChild(GameObject* _child)
+{
+	if (_child == nullptr) return;
+	children.push_back(_child);
 }
 
 

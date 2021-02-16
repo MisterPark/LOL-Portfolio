@@ -199,7 +199,7 @@ void TestScene::OnLoaded()
 
 	// è�Ǿ�
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
-	unit->transform->position = { 41,68,46 };
+	unit->transform->position = { 41.f, 68.f, 46.f };
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
