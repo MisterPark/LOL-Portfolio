@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
@@ -67,9 +67,9 @@ using namespace std;
 
 #include "Debug.h"
 #include "Define.h"
+#include "Event.h"
 
-
-// DirectX º¯Çü ÀÚ·á
+// DirectX ë³€í˜• ìë£Œ
 
 #include "Point.h"
 #include "Vector2.h"
@@ -90,13 +90,13 @@ using namespace std;
 // Base
 #include "BaseObject.h"
 
-// ¸Å½¬
+// ë§¤ì‰¬
 #include "Vertex.h"
 #include "CustomMesh.h"
 #include "Triangle.h"
-// ·¹ÀÌ¾î
+// ë ˆì´ì–´
 #include "Layer.h"
-// ¸Å´ÏÀú
+// ë§¤ë‹ˆì €
 #include "SoundManager.h"
 #include "MainGame.h"
 #include "ObjectManager.h"
@@ -110,9 +110,9 @@ using namespace std;
 #include "LightManager.h"
 #include "LoadManager.h"
 #include "NavNodeManager.h"
-// ¹°¸®
+// ë¬¼ë¦¬
 #include "Physics.h"
-// °ÔÀÓ ¿ÀºêÁ§Æ®
+// ê²Œì„ ì˜¤ë¸Œì íŠ¸
 #include "GameObject.h"
 #include "Cursor.h"
 #include "Camera.h"

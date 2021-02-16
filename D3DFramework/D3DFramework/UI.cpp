@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "UI.h"
 #include "UIRenderer.h"
 
@@ -136,74 +136,47 @@ void UI::ClearEvent()
 
 void UI::OnHover()
 {
-	if (Hover != nullptr)
-	{
-		Hover();
-	}
+	Hover.Invoke();
 }
 
 void UI::OnLeave()
 {
-	if (Leave != nullptr)
-	{
-		Leave();
-	}
+	Leave.Invoke();
 }
 
 void UI::OnLButtonDown()
 {
-	if (LButtonDown != nullptr)
-	{
-		LButtonDown();
-	}
+	LButtonDown.Invoke();
 }
 
 void UI::OnLButtonUp()
 {
-	if (LButtonUp != nullptr)
-	{
-		LButtonUp();
-	}
+	LButtonUp.Invoke();
 }
 
 void UI::OnRButtonDown()
 {
-	if (RButtonDown != nullptr)
-	{
-		RButtonDown();
-	}
+	RButtonDown.Invoke();
 }
 
 void UI::OnRButtonUp()
 {
-	if (RButtonUp != nullptr)
-	{
-		RButtonUp();
-	}
+	RButtonUp.Invoke();
 }
 
 void UI::OnClick()
 {
-	if (Click != nullptr)
-	{
-		Click();
-	}
+	Click.Invoke();
 }
 
 void PKH::UI::OnDoubleClick()
 {
-	if (DoubleClick != nullptr)
-	{
-		DoubleClick();
-	}
+	DoubleClick.Invoke();
 }
 
 void UI::OnChangedText()
 {
-	if (ChangedText != nullptr)
-	{
-		ChangedText();
-	}
+	ChangedText.Invoke();
 }
 
 Vector3 PKH::UI::GetSize()

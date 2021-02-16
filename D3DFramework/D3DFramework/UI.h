@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 #include "Rectangle.h"
 
@@ -27,7 +27,7 @@ namespace PKH
         void UpdateEvent();
         void ClearEvent();
 
-        // ÀÌº¥Æ® ¸®½º³Ê
+        // ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ
         virtual void OnHover();
         virtual void OnLeave();
         virtual void OnLButtonDown();
@@ -43,7 +43,7 @@ namespace PKH
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
-        // ÁÂ»ó´Ü ±âÁØ
+        // ì¢Œìƒë‹¨ ê¸°ì¤€
 
         void SetLocation(int x, int y);
         void SetLocation(float x, float y);
@@ -58,32 +58,32 @@ namespace PKH
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
 
-        // ÅØ½ºÆ® °ü·Ã
-        wstring text; // Ãâ·ÂÇÒ ÅØ½ºÆ® (RW)
+        // í…ìŠ¤íŠ¸ ê´€ë ¨
+        wstring text; // ì¶œë ¥í•  í…ìŠ¤íŠ¸ (RW)
         D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 1, 1, 1);
-        Vector3 textOffsetPosition;// ÅØ½ºÆ®¸¦ Ãâ·ÂÇÒ local(offset)À§Ä¡ (RW) 
-        bool textRenderFlag = false;// ÅØ½ºÆ®¸¦ Ãâ·ÂÇÒ UIÀÎ°¡? (RW)
+        Vector3 textOffsetPosition;// í…ìŠ¤íŠ¸ë¥¼ ì¶œë ¥í•  local(offset)ìœ„ì¹˜ (RW) 
+        bool textRenderFlag = false;// í…ìŠ¤íŠ¸ë¥¼ ì¶œë ¥í•  UIì¸ê°€? (RW)
 
-        // ³ĞÀÌ ³ôÀÌ (R)
+        // ë„“ì´ ë†’ì´ (R)
         int width = 0;
         int height = 0;
 
         UIType type = UIType::DEFAULT;
 
     public:
-        // ÀÌº¥Æ® Äİ¹é (RW)
-        void (*Click)() = nullptr;
-        void (*DoubleClick)() = nullptr;
-        void (*LButtonDown)() = nullptr;
-        void (*LButtonUp)() = nullptr;
-        void (*RButtonDown)() = nullptr;
-        void (*RButtonUp)() = nullptr;
-        void (*Hover)() = nullptr;
-        void (*Leave)() = nullptr;
-        void (*ChangedText)() = nullptr;
+        // ì´ë²¤íŠ¸ (RW)
+        Event Click;
+        Event DoubleClick;
+        Event LButtonDown;
+        Event LButtonUp;
+        Event RButtonDown;
+        Event RButtonUp;
+        Event Hover;
+        Event Leave;
+        Event ChangedText;
 
     private:
-        // ÀÌº¥Æ® °ü·Ã 
+        // ì´ë²¤íŠ¸ ê´€ë ¨ 
         bool isHover = false;
         bool isLeave = false;
         bool isLButtonDown = false;

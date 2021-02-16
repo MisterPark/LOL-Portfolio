@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "HUD.h"
 class MinimapPanel :
     public HUD
@@ -9,5 +9,7 @@ private:
 public:
     static MinimapPanel* GetInstance();
     static void Destroy();
+
+    static void TestFunc();
 };
 

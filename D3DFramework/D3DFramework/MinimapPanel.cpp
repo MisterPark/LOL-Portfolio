@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "MinimapPanel.h"
 
 MinimapPanel* self = nullptr;
@@ -10,6 +10,8 @@ MinimapPanel::MinimapPanel()
     int screenH = MainGame::GetHeight();
     this->SetSize(100, 100);
     this->SetLocation(screenW - width-10, screenH - height-10);
+
+    Click += TestFunc;
 }
 
 MinimapPanel::~MinimapPanel()
@@ -32,4 +34,9 @@ void MinimapPanel::Destroy()
         delete self;
         self = nullptr;
     }
+}
+
+void MinimapPanel::TestFunc()
+{
+    Debug::PrintLine("테스트");
 }
