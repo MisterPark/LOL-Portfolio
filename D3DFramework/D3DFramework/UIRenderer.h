@@ -19,6 +19,7 @@ namespace KST
 		int zOrder = 0;
 	protected:
 		PKH::Mesh* mesh = nullptr;
+		PKH::UI* ui = nullptr;
 	};
 
 

@@ -53,9 +53,9 @@ void UI::UpdateEvent()
 
 	// Hover & Leave
 	if (cursorPos.x > transform->position.x &&
-		cursorPos.x < transform->position.x + width &&
+		cursorPos.x < transform->position.x + size.x &&
 		cursorPos.y > transform->position.y &&
-		cursorPos.y < transform->position.y + height) 
+		cursorPos.y < transform->position.y + size.y) 
 	{
 		if (isHover == false)
 		{
@@ -210,10 +210,8 @@ Vector3 PKH::UI::GetLocation()
 
 void UI::SetSize(int w, int h)
 {
-	transform->scale.x = (float)w;
-	transform->scale.y = (float)h;
-	width = w;
-	height = h;
+	size.x = w;
+	size.y = h;
 }
 
 void PKH::UI::SetSizeByTexture()
@@ -247,10 +245,11 @@ void UI::SetTexture(const wstring& _key)
 	mesh->SetTexture(_key);
 }
 
-void PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
+PKH::UI* PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
 {
 	UI* ui = new UI(_tag, _pos);
 	children.emplace(_tag, ui);
-
+	ui->SetParent(this);
+	return ui;
 }
 

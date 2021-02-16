@@ -253,3 +253,8 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 
 	return true;
 }
+
+void PKH::GameObject::SetParent(GameObject* _parent)
+{
+	this->parent = _parent;
+}

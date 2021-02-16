@@ -7,9 +7,10 @@ MinimapPanel::MinimapPanel()
 {
     int screenW = MainGame::GetWidth();
     int screenH = MainGame::GetHeight();
-    this->SetLocation(screenW - width - 10, screenH - height - 10);
+    this->SetLocation(0, 0);
 
-    AddChild(L"minimapBorder", Vector2(100, 100));
+    UI* border = AddChild(L"map11", Vector2(100, 100));
+    border->AddChild(L"minimapBorder", Vector2(100, 100));
 
     Click += TestFunc;
 }
