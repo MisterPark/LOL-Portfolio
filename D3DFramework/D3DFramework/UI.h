@@ -41,8 +41,8 @@ namespace PKH
         virtual void OnDoubleClick();
         virtual void OnChangedText();
 
-        Vector3 GetSize();
-        Vector3 GetLocation();
+        Vector2 GetSize();
+        Vector2 GetLocation();
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
@@ -56,6 +56,8 @@ namespace PKH
         // child
         UI* AddChild(const std::wstring& _tag, const Vector2& _pos);
 
+        bool Intersect(Vector2 _target);
+        RECT GetRect();
 
     public:
 

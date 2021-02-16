@@ -52,10 +52,7 @@ void UI::UpdateEvent()
 	Vector3 cursorPos = Cursor::GetMousePos();
 
 	// Hover & Leave
-	if (cursorPos.x > transform->position.x &&
-		cursorPos.x < transform->position.x + size.x &&
-		cursorPos.y > transform->position.y &&
-		cursorPos.y < transform->position.y + size.y) 
+	if (Intersect(cursorPos)) 
 	{
 		if (isHover == false)
 		{
@@ -193,17 +190,21 @@ void UI::OnChangedText()
 	ChangedText.Invoke();
 }
 
-Vector3 PKH::UI::GetSize()
+Vector2 PKH::UI::GetSize()
 {
-	Vector3 size = transform->scale;
-	size.x *= 2.f;
-	size.y *= 2.f;
+	Matrix world = transform->GetWorldMatrix();
+	Vector2 size = this->size;
+	size.x *= world._11;
+	size.y *= world._22;
 	return size;
 }
 
-Vector3 PKH::UI::GetLocation()
+Vector2 PKH::UI::GetLocation()
 {
-	Vector3 screenPos = Camera::main->WorldToScreenPoint(transform->position);
+	Matrix world = transform->GetWorldMatrix();
+	Vector2 screenPos;
+	screenPos.x = world._41;
+	screenPos.y = world._42;
 
 	return screenPos;
 }
@@ -251,5 +252,26 @@ PKH::UI* PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
 	children.emplace(_tag, ui);
 	ui->SetParent(this);
 	return ui;
+}
+
+bool PKH::UI::Intersect(Vector2 _target)
+{
+	RECT rc = GetRect();
+	if (_target.x < rc.left) return false;
+	if (_target.x > rc.right) return false;
+	if (_target.y < rc.top) return false;
+	if (_target.y > rc.bottom) return false;
+	return true;
+}
+
+RECT PKH::UI::GetRect()
+{
+	RECT rc;
+	Matrix world = transform->GetWorldMatrix();
+	rc.left = (LONG)world._41;
+	rc.top = (LONG)world._42;
+	rc.right = (LONG)(world._41 + (size.x * world._11));
+	rc.bottom = (LONG)(world._42 + (size.y * world._22));
+	return rc;
 }
 

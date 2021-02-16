@@ -48,7 +48,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     miniPanel = new UI(L"panel (4)", miniPanelPos);
     invenPanel = new UI(L"panel (2)", invenPanelPos);
     faceBorder = new UI(L"panel (1)", faceBorderPos);
-    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos+20));
+    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x+20,faceBorderPos.y + 20));
 
     scaleHP = { 1,1 };
     scaleMP = { 1,1 };

@@ -68,6 +68,7 @@ namespace PKH
 		// setter
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
+		void AddChild(const wstring& _key, GameObject* _child);
 	public:
 		wstring name;
 		Transform* transform = nullptr;

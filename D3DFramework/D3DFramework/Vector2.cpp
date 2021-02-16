@@ -23,6 +23,12 @@ PKH::Vector2::Vector2(float x, float y) : D3DXVECTOR2(x, y)
 {
 }
 
+PKH::Vector2::Vector2(D3DXVECTOR3 r)
+{
+	this->x = r.x;
+	this->y = r.y;
+}
+
 PKH::Vector2::~Vector2()
 {
 }

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "transform.h"
 
 using namespace PKH;
@@ -35,7 +35,7 @@ void PKH::Transform::Update()
 	zOrder = coord.z;
 
 	localMatrix = localMatrix.identity;
-	// ¿ÀÀÏ·¯ °¢ 360µµ º¸Á¤
+	// ì˜¤ì¼ëŸ¬ ê° 360ë„ ë³´ì •
 	
 	eulerAngles.x = fmodf(eulerAngles.x, D3DXToRadian(360.f));
 	eulerAngles.y = fmodf(eulerAngles.y, D3DXToRadian(360.f));
@@ -43,11 +43,11 @@ void PKH::Transform::Update()
 	
 	
 
-	// ¿ÀÀÏ·¯°¢ -> ÄõÅÍ´Ï¾ð
+	// ì˜¤ì¼ëŸ¬ê° -> ì¿¼í„°ë‹ˆì–¸
 	D3DXQuaternionRotationYawPitchRoll(&rotation, eulerAngles.y, eulerAngles.x, eulerAngles.z);
 	D3DXQuaternionNormalize(&rotation, &rotation);
 
-	// ·ÎÄÃ ÁÂÇ¥°è ¼¼ÆÃ
+	// ë¡œì»¬ ì¢Œí‘œê³„ ì„¸íŒ…
 	right = Vector3::RIGHT;
 	up = Vector3::UP;
 	look = Vector3::FORWARD;
@@ -62,7 +62,7 @@ void PKH::Transform::Update()
 	Vector3::Normalize(&up);
 	Vector3::Normalize(&look);
 
-	// ¿ùµå Çà·Ä ¼¼ÆÃ
+	// ì›”ë“œ í–‰ë ¬ ì„¸íŒ…
 	Matrix matTrans, matScale, matRotation;//, rotX, rotY, rotZ
 	D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
 	//D3DXMatrixRotationX(&rotX, transform->eulerAngles.x);
@@ -149,16 +149,22 @@ void PKH::Transform::RotateZ(float _angle)
 	Rotate(Vector3::FORWARD, _angle);
 }
 
+Matrix PKH::Transform::GetLocalMatrix()
+{
+	Update();
+	return localMatrix;
+}
+
 Matrix PKH::Transform::GetWorldMatrix()
 {
 	if (gameObject->parent == nullptr)
 	{
-		return localMatrix;
+		return GetLocalMatrix();
 	}
 	
 	Matrix parentWorld = gameObject->parent->transform->GetWorldMatrix();
 
-	worldMatrix = localMatrix * parentWorld;
+	worldMatrix = GetLocalMatrix() * parentWorld;
 	
 	return worldMatrix;
 }
