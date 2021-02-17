@@ -13,9 +13,16 @@ UI::UI()
 	AddComponent(L"renderer", renderer);
 }
 
+PKH::UI::UI(const Vector2& pos)
+	: UI()
+{
+	SetLocation(pos);
+}
+
 PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
+	tag = _tag;
 	SetTexture(_tag);
 	SetSizeByTexture();
 	SetLocation(pos);
@@ -197,8 +204,8 @@ Vector2 PKH::UI::GetLocation()
 
 void UI::SetSize(int w, int h)
 {
-	size.x = w;
-	size.y = h;
+	size.x = (FLOAT)w;
+	size.y = (FLOAT)h;
 }
 
 void PKH::UI::SetSizeByTexture()
@@ -230,11 +237,25 @@ void UI::SetTexture(const wstring& _key)
 	texture = RenderManager::GetTexture(_key);
 	//SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
+	tag = _key;
+	SetSizeByTexture();
+}
+
+UI* PKH::UI::AddChild(UI* _ui)
+{
+	if (_ui == nullptr) return nullptr;
+
+	children.emplace(_ui->tag, _ui);
+	_ui->SetParent(this);
+
+	return nullptr;
 }
 
 PKH::UI* PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
 {
 	UI* ui = new UI(_tag, _pos);
+	if (ui == nullptr) return nullptr;
+
 	children.emplace(_tag, ui);
 	ui->SetParent(this);
 	return ui;

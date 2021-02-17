@@ -18,51 +18,27 @@ PlayerInfoPanel::PlayerInfoPanel()
     invenPanelTex = RenderManager::GetTexture(L"panel (2)");
     statPanelTex = RenderManager::GetTexture(L"stat_panel (5)");
 
-    Vector2 faceBorderPos;
-    Vector2 mainPanelPos;
-    Vector2 miniPanelPos;
-    Vector2 invenPanelPos;
-    Vector2 statPanelPos;
-    Vector2 hpOffsetPos;
-    Vector2 mpOffsetPos;
-    Vector2 scaleHP;
-    Vector2 scaleMP;
-    Vector2 barTipOffset1;
-    Vector2 barTipOffset2;
-    Vector2 barTipOffset3;
-    Vector2 barTipOffset4;
-
-    mainPanelPos = { (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f,
-                   float(screenH - mainPanelTex->GetSpriteHeight())};
-    miniPanelPos = { float(screenW - miniPanelTex->GetSpriteWidth()),
-                   0.f};
-    invenPanelPos = { mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25,
-                    float(screenH - invenPanelTex->GetSpriteHeight())};
-    faceBorderPos = { mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f,
-                     mainPanelPos.y + 10};
-    statPanelPos = { faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f,
-                     faceBorderPos.y};
+    Vector2 mainPanelPos{ (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f, float(screenH - mainPanelTex->GetSpriteHeight())};
+    Vector2 miniPanelPos{ float(screenW - miniPanelTex->GetSpriteWidth()), 0.f};
+    Vector2 invenPanelPos{ mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25, float(screenH - invenPanelTex->GetSpriteHeight())};
+    Vector2 faceBorderPos{ mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f, mainPanelPos.y + 10};
+    Vector2 statPanelPos{ faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f, faceBorderPos.y};
 
     statPanel = new UI(L"stat_panel (5)", statPanelPos);
     mainPanel = new UI(L"panel (5)", mainPanelPos);
     miniPanel = new UI(L"panel (4)", miniPanelPos);
     invenPanel = new UI(L"panel (2)", invenPanelPos);
+    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x + 20, faceBorderPos.y + 20));
     faceBorder = new UI(L"panel (1)", faceBorderPos);
-    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x+20,faceBorderPos.y + 20));
 
-    scaleHP = { 1,1 };
-    scaleMP = { 1,1 };
-    hpOffsetPos = { 76,124 };
-    mpOffsetPos = { 76,146 };
-    barTipOffset1 = { 71,124 };
-    barTipOffset2 = { 535,124 };
-    barTipOffset3 = { 71,146 };
-    barTipOffset4 = { 535,146 };
-
-    textureKeyHP = L"bar_big1";
-    textureKeyMP = L"bar_big2";
-    tipTextureKey = L"bar_tip (1)";
-    spellBorderKey = L"border_skill (1)";
+    Vector2 scaleHP{ 1,1 };
+    Vector2 scaleMP{ 1,1 };
+    Vector2 hpOffsetPos{ 76,124 };
+    Vector2 mpOffsetPos{ 76,146 };
+    Vector2 barTipOffset1{ 71,124 };
+    Vector2 barTipOffset2{ 535,124 };
+    Vector2 barTipOffset3{ 71,146 };
+    Vector2 barTipOffset4{ 535,146 };
 
     hpLabel = new Label();
     hpLabel->transform->position = { mainPanelPos.x + 303, mainPanelPos.y + 124,0 };
@@ -81,38 +57,20 @@ PlayerInfoPanel::PlayerInfoPanel()
     }
     
 
-    int spellPosX = (int)(mainPanelPos.x + 126);
-    int spellPosY = (int)(mainPanelPos.y + 31);
+    Vector2 spellPos{ (float)(mainPanelPos.x + 126), (float)(mainPanelPos.y + 31) };
     int spellPadding = 6;
     int spellSize = 64;
 
-    slotSpell1 = new UI();
-    slotSpell1->SetSize(spellSize, spellSize);
-    slotSpell1->SetLocation(spellPosX + 2, spellPosY + 3);
-    slotSpell2 = new UI();
-    slotSpell2->SetSize(spellSize, spellSize);
-    slotSpell2->SetLocation(spellPosX + spellSize+4 + spellPadding + 3, spellPosY + 3);
-    slotSpell3 = new UI();
-    slotSpell3->SetSize(spellSize, spellSize);
-    slotSpell3->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 2 + 3, spellPosY + 3);
-    slotSpell4 = new UI();
-    slotSpell4->SetSize(spellSize, spellSize);
-    slotSpell4->SetLocation(spellPosX + ((spellSize + 4) + spellPadding) * 3 + 3, spellPosY + 3);
+    slotSpell1 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 0 + 3, spellPos.y + 3));
+    slotSpell2 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 1 + 3, spellPos.y + 3));
+    slotSpell3 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 2 + 3, spellPos.y + 3));
+    slotSpell4 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 3 + 3, spellPos.y + 3));
     
-    int passivePosX = (int)(mainPanelPos.x + 70);
-    int passivePosY = (int)(mainPanelPos.y + 31);
     int passiveSize = 50;
 
-    slotPassive = new UI();
-    slotPassive->SetSize(passiveSize, passiveSize);
-    slotPassive->SetLocation(passivePosX, passivePosY);
-
-    slotSummoner1 = new UI();
-    slotSummoner1->SetSize(48, 48);
-    slotSummoner1->SetLocation((int)(mainPanelPos.x + 434), (int)(mainPanelPos.y + 32));
-    slotSummoner2 = new UI();
-    slotSummoner2->SetSize(48, 48);
-    slotSummoner2->SetLocation((int)(mainPanelPos.x + 490), (int)(mainPanelPos.y + 32));
+    slotPassive = new UI(Vector2(mainPanelPos.x + 70, mainPanelPos.y + 31));
+    slotSummoner1 = new UI(Vector2(mainPanelPos.x + 434, mainPanelPos.y + 32));
+    slotSummoner2 = new UI(Vector2(mainPanelPos.x + 490, mainPanelPos.y + 32));
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()

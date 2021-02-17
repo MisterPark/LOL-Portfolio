@@ -39,15 +39,20 @@ void TestLoadingScene::OnLoaded()
 	Cursor::GetInstance()->Show();
 
 	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
+	for (int i = 0; i < 10; ++i) {
+		screens[i] = new LoadingChampScreen();
+		UIManager::GetInstance()->AddUI(screens[i]);
+	}
+
 
 	CreateChampPanel(borderW, borderH, padding);
-
 
 	LoadResources();
 }
 
 void TestLoadingScene::OnUnloaded()
 {
+	UIManager::GetInstance()->DeleteListAll();
 	ObjectManager::DestroyAll();
 }
 
@@ -148,8 +153,6 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 	int borderY = padding;
 	wstring texKey = L"loadingFrameBlue";
 
-	LoadingChampScreen* screen = nullptr;
-
 	for (int i = 0; i < 10; i++)
 	{
 		if (i == 5)
@@ -159,7 +162,6 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 			texKey = L"loadingFrameRed";
 		}
 
-		screens[i] = (LoadingChampScreen*)ObjectManager::GetInstance()->CreateObject<LoadingChampScreen>(Layer::UI);
 		screens[i]->border->SetTexture(texKey);
 		screens[i]->border->SetSize(borderW, borderH);
 		screens[i]->border->SetLocation(borderX, borderY);

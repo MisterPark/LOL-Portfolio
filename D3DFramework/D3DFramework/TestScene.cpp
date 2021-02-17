@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "TestScene.h"
 
+#include "UIManager.h"
 #include "Label.h"
 #include "MinimapPanel.h"
 
@@ -58,7 +59,6 @@
 #include "RenderSystem.h"
 void TestScene::OnLoaded()
 {
-	Cursor::Show();
 	//ObjectManager::GetInstance()->CreateObject<Light>();
 
 	//SkyBox::Show();
@@ -69,9 +69,6 @@ void TestScene::OnLoaded()
 	testLabel = (Label*)ObjectManager::GetInstance()->CreateObject<Label>(Layer::UI);
 	testLabel->text = L"123123\n123123";
 	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
-
-	MinimapPanel* minimap = MinimapPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(minimap, Layer::UI);
 
 	GameObject* obj = nullptr;
 	Unit* unit = nullptr;
@@ -196,22 +193,21 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
 	obj->transform->position = { -24.36f, 66.91f, 17.82f };
 
-
-	// è�Ǿ�
+	// 플레이어
 	unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Garen>(Layer::Unit);
 	unit->transform->position = { 41.f, 68.f, 46.f };
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
-
 	Champion* champ = (Champion*)unit;
   
-	PlayerInfoPanel::GetInstance()->SetTarget(champ);
+	// UI
+	//PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	champ->bar->SetNickname(L"테스트닉네임");
 	
 
-	obj = PlayerInfoPanel::GetInstance();
-	ObjectManager::GetInstance()->AddObject(obj, Layer::UI);
+	//obj = PlayerInfoPanel::GetInstance();
+	//ObjectManager::GetInstance()->AddObject(obj, Layer::UI);
 	
 
 	//unit = (Unit*)ObjectManager::GetInstance()->CreateObject<Blitzcrank>(Layer::Unit);
@@ -398,8 +394,6 @@ void TestScene::OnLoaded()
 	KST::RenderSystem::AddLight(L"dir1", dirLight);
 
 	// �̴Ͼ�
-	
-
 	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
 	//obj->transform->position = { 23,68,38 };
 	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionSiege>(Layer::Unit);
@@ -415,6 +409,9 @@ void TestScene::OnLoaded()
 	//obj->transform->position = { 20,68,39 };
 	//obj = ObjectManager::GetInstance()->CreateObject<ChaosMinionSuper>(Layer::Unit);
 	//obj->transform->position = { 17,68,39 };
+
+	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
+	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
 }
 
 void TestScene::OnUnloaded()

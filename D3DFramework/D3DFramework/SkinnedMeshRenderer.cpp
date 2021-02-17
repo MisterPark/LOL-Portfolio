@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
@@ -37,11 +37,11 @@ void KST::SkinnedMeshRenderer::Render()
 		pMeshContainer->pOriMesh->LockVertexBuffer(0, &pSrcVtx);
 		pMeshContainer->MeshData.pMesh->LockVertexBuffer(0, &pDestVtx);
 
-		// ¼ÒÇÁÆ®¿þ¾î ½ºÅ°´×À» ¼öÇàÇÏ´Â ÇÔ¼ö(½ºÅ°´× »Ó ¾Æ´Ï¶ó ¾Ö´Ï¸ÞÀÌ¼Ç º¯°æ ½Ã, »À´ëµé°ú Á¤Á¡ Á¤º¸µéÀÇ º¯°æÀ» µ¿½Ã¿¡ ¼öÇàÇÏ±âµµ ÇÔ)
-		pMeshContainer->pSkinInfo->UpdateSkinnedMesh(pMeshContainer->pRenderingMatrix,	// ÃÖÁ¾ »ÀÀÇ º¯È¯»óÅÂ Çà·Ä
-			nullptr,						// ¿ø·¡ »óÅÂ·Î µÇµ¹¸®±â À§ÇÑ »óÅÂ Çà·Ä(¿ø·¡´Â À§ Çà·ÄÀÇ ¿ªÇà·ÄÀ» ±¸ÇØ¼­ ³Ö¾îÁà¾ß ÇÏÁö¸¸ ¾È³Ö¾îÁàµµ »ó°ü ¾øÀ½)
-			pSrcVtx,						// º¯ÇÏÁö ¾Ê´Â ¿øº» ¸Þ½¬ÀÇ Á¤Á¡ Á¤º¸
-			pDestVtx);						// º¯È¯µÈ Á¤º¸¸¦ ´ã±â À§ÇÑ ¸Þ½¬ÀÇ Á¤Á¡ Á¤º¸
+		// ì†Œí”„íŠ¸ì›¨ì–´ ìŠ¤í‚¤ë‹ì„ ìˆ˜í–‰í•˜ëŠ” í•¨ìˆ˜(ìŠ¤í‚¤ë‹ ë¿ ì•„ë‹ˆë¼ ì• ë‹ˆë©”ì´ì…˜ ë³€ê²½ ì‹œ, ë¼ˆëŒ€ë“¤ê³¼ ì •ì  ì •ë³´ë“¤ì˜ ë³€ê²½ì„ ë™ì‹œì— ìˆ˜í–‰í•˜ê¸°ë„ í•¨)
+		pMeshContainer->pSkinInfo->UpdateSkinnedMesh(pMeshContainer->pRenderingMatrix,	// ìµœì¢… ë¼ˆì˜ ë³€í™˜ìƒíƒœ í–‰ë ¬
+			nullptr,						// ì›ëž˜ ìƒíƒœë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•œ ìƒíƒœ í–‰ë ¬(ì›ëž˜ëŠ” ìœ„ í–‰ë ¬ì˜ ì—­í–‰ë ¬ì„ êµ¬í•´ì„œ ë„£ì–´ì¤˜ì•¼ í•˜ì§€ë§Œ ì•ˆë„£ì–´ì¤˜ë„ ìƒê´€ ì—†ìŒ)
+			pSrcVtx,						// ë³€í•˜ì§€ ì•ŠëŠ” ì›ë³¸ ë©”ì‰¬ì˜ ì •ì  ì •ë³´
+			pDestVtx);						// ë³€í™˜ëœ ì •ë³´ë¥¼ ë‹´ê¸° ìœ„í•œ ë©”ì‰¬ì˜ ì •ì  ì •ë³´
 		pMeshContainer->pOriMesh->UnlockVertexBuffer();
 		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
 

@@ -45,15 +45,14 @@ namespace PKH
 		void Billboard();
 		void BillboardYaw();
 
-
-		void SetPosition(Vector3 _vPos);
-
 		template<class T>
 		IComponent* AddComponent(const wstring& _key);
 		IComponent* AddComponent(const wstring& _key, IComponent* _component);
 		void ReleaseComponents();
 		void RemoveComponent(IComponent* _target);
 		void RemoveComponent(const wstring& _key);
+
+		bool IsDestroy();
 
 
 		// getter
@@ -63,14 +62,16 @@ namespace PKH
 		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
 
-		bool IsDestroy();
-		
 		// setter
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
+		void SetPosition(Vector3 _vPos);
+		void Show();
+		void Hide();
 
 		template<class T>
 		T* AddChild(const wstring& _key);
+
 	public:
 		wstring name;
 		Transform* transform = nullptr;

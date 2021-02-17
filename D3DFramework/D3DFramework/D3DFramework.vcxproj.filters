@@ -163,6 +163,15 @@
     <Filter Include="GameObject\Unit\Champion\Leona">
       <UniqueIdentifier>{235842bd-28a8-4b90-b5ce-f8554f23b14d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Loading">
+      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Loading">
+      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Loading">
+      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\Unit\Minion">
       <UniqueIdentifier>{e864066a-1ec0-4e68-b4cf-6e9e0ca6a6fa}</UniqueIdentifier>
     </Filter>
@@ -177,6 +186,9 @@
     </Filter>
     <Filter Include="GameObject\Unit\Monster">
       <UniqueIdentifier>{b8875451-e817-42f9-ad25-e05a0f3dc4e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Indicator">
+      <UniqueIdentifier>{dadaa94b-4908-473f-83c3-eed52a69677d}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject\Unit\Monster\Jungle">
       <UniqueIdentifier>{bd927f06-e47b-40ab-a0ca-8dc182a07194}</UniqueIdentifier>
@@ -211,12 +223,6 @@
     <Filter Include="Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer">
       <UniqueIdentifier>{395a357b-102e-4725-a7be-71978d62ffbc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Stat">
-      <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Renderer\UIRenderer">
-      <UniqueIdentifier>{598d0f5d-e44e-46b1-8b61-14752bb911eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\UI">
       <UniqueIdentifier>{ada1f413-2b4a-4d3c-aad1-eb43b9b3577e}</UniqueIdentifier>
     </Filter>
@@ -234,6 +240,27 @@
     </Filter>
     <Filter Include="Lib\Event">
       <UniqueIdentifier>{c9ee0999-224e-4ae3-bd18-d1d15ccbcb5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\FloatingBar">
+      <UniqueIdentifier>{35af94a1-c4a2-4e77-94d6-b88348a11b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Control">
+      <UniqueIdentifier>{879ef4d2-5b1b-4139-b3b1-a9996a40c5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\PlayerInfoPanel">
+      <UniqueIdentifier>{f06c955d-bfac-4bb4-a2fd-2fa6e8545902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\ScorePanel">
+      <UniqueIdentifier>{39d9018a-677f-4d90-9b40-852940ad0ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\MinimapPanel">
+      <UniqueIdentifier>{596f2e3f-4214-4668-a8f2-dc8753fe218e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Stat">
+      <UniqueIdentifier>{c8991c4d-52e5-4671-97d1-ca66063c4d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\UIRenderer">
+      <UniqueIdentifier>{598d0f5d-e44e-46b1-8b61-14752bb911eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -357,12 +384,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Panel.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="AllMeshs.h">
       <Filter>Component\Mesh</Filter>
     </ClInclude>
@@ -389,9 +410,6 @@
     </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Label.h">
-      <Filter>GameObject\UI</Filter>
     </ClInclude>
     <ClInclude Include="Environment.h">
       <Filter>GameObject\Environment</Filter>
@@ -555,9 +573,6 @@
     <ClInclude Include="CircularList.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInfoPanel.h">
-      <Filter>GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="TestLoadingScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -643,10 +658,10 @@
       <Filter>GameObject\Unit\Monster\Jungle</Filter>
     </ClInclude>
     <ClInclude Include="FloatingBar.h">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClInclude>
     <ClInclude Include="FloatingHPBar.h">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClInclude>
     <ClInclude Include="Jax.h">
       <Filter>GameObject\Unit\Champion\Jax</Filter>
@@ -687,11 +702,8 @@
     <ClInclude Include="Indicator.h">
       <Filter>GameObject\UI\Indicator</Filter>
     </ClInclude>
-    <ClInclude Include="MinimapPanel.h">
-      <Filter>GameObject\UI\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="MinionFloatingBar.h">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClInclude>
     <ClInclude Include="NetPlayerController.h">
       <Filter>Component\PlayerController</Filter>
@@ -704,12 +716,6 @@
     </ClInclude>
     <ClInclude Include="DeferredStaticMeshRenderer.h">
       <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="SkinnedMeshRenderer.h">
-      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="UIRenderer.h">
-      <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Stat.h">
       <Filter>Component\Stat</Filter>
@@ -725,6 +731,34 @@
     </ClInclude>
     <ClInclude Include="Bar.h">
       <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="LabelRenderer.h" />
+    <ClInclude Include="Panel.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfoPanel.h">
+      <Filter>GameObject\UI\PlayerInfoPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="MinimapPanel.h">
+      <Filter>GameObject\UI\MinimapPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderer.h">
+      <Filter>Component\Renderer\UIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="LabelRenderer.h" />
+    <ClInclude Include="SkinnedMeshRenderer.h">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -919,12 +953,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Panel.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>GameObject\UI\Inventory</Filter>
     </ClCompile>
@@ -942,9 +970,6 @@
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>GameObject\UI</Filter>
     </ClCompile>
     <ClCompile Include="Environment.cpp">
       <Filter>GameObject\Environment</Filter>
@@ -1117,9 +1142,6 @@
     <ClCompile Include="PacketPool.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerInfoPanel.cpp">
-      <Filter>GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="TestLoadingScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -1205,10 +1227,10 @@
       <Filter>GameObject\Unit\Monster\Jungle</Filter>
     </ClCompile>
     <ClCompile Include="FloatingBar.cpp">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClCompile>
     <ClCompile Include="FloatingHPBar.cpp">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClCompile>
     <ClCompile Include="Jax.cpp">
       <Filter>GameObject\Unit\Champion\Jax</Filter>
@@ -1249,11 +1271,8 @@
     <ClCompile Include="MonsterAI.cpp">
       <Filter>Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="MinimapPanel.cpp">
-      <Filter>GameObject\UI\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="MinionFloatingBar.cpp">
-      <Filter>GameObject\UI\HUD</Filter>
+      <Filter>GameObject\UI\FloatingBar</Filter>
     </ClCompile>
     <ClCompile Include="NetPlayerController.cpp">
       <Filter>Component\PlayerController</Filter>
@@ -1267,13 +1286,6 @@
     <ClCompile Include="DeferredStaticMeshRenderer.cpp">
       <Filter>Component\Renderer\StaticMeshRenderer\DeferredStaticMeshRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="SkinnedMeshRenderer.cpp">
-      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="UIRenderer.cpp">
-      <Filter>Component\Renderer\UIRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="TestEncoding.cpp" />
     <ClCompile Include="Stat.cpp">
       <Filter>Component\Stat</Filter>
     </ClCompile>
@@ -1288,6 +1300,35 @@
     </ClCompile>
     <ClCompile Include="Bar.cpp">
       <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="LabelRenderer.cpp" />
+    <ClCompile Include="Button.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfoPanel.cpp">
+      <Filter>GameObject\UI\PlayerInfoPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimapPanel.cpp">
+      <Filter>GameObject\UI\MinimapPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderer.cpp">
+      <Filter>Component\Renderer\UIRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEncoding.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="LabelRenderer.cpp" />
+    <ClCompile Include="SkinnedMeshRenderer.cpp">
+      <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ PKH::Cursor::Cursor()
     SetTexture(L"hover_precise");
     SetSizeByTexture();
     transform->scale = { 0.8f,0.8f,1.f };
+    dontDestroy = true;
 }
 
 PKH::Cursor::~Cursor()
@@ -78,7 +79,7 @@ void PKH::Cursor::Update()
 
     BringToTop();
 
-    GameObject::Update();
+    UI::Update();
 
     //Billboard();
 }

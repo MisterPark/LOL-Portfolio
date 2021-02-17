@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IScene.h"
 
 class LoadingChampScreen;
@@ -6,7 +6,7 @@ class LoadingChampScreen;
 class TestLoadingScene :
     public IScene
 {
-    // ISceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // ISceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;

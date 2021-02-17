@@ -7,8 +7,6 @@
 #include "TestLoadingScene.h"
 
 #include "RenderSystem.h"
-#include "DeferredStaticMeshRenderer.h"
-#include "SkinnedMeshRenderer.h"
 using namespace PKH;
 
 PKH::MainGame* pMainGame = nullptr;
@@ -80,6 +78,8 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	RenderSystem::Initialize();
 
+	UIManager::GetInstance();
+
 	//SkillManager::GetInstance();
 
 	// 씬로드
@@ -100,6 +100,7 @@ void PKH::MainGame::Update()
 
 	// 4. Obj 업데이트
 	ObjectManager::Update();
+	Cursor::GetInstance()->Update();
 
 	Camera::GetInstance()->Update();
 	SkyBox::GetInstance()->Update();
@@ -109,12 +110,20 @@ void PKH::MainGame::Update()
 	ObjectManager::PostUpdate();
 	SoundManager::Update();
 
+#if 0
 	if (!TimeManager::SkipFrame())
 	{
 		RenderManager::Clear();
 		RenderSystem::Render();
 		RenderManager::Present();
 	}
+#else
+	TimeManager::SkipFrame();
+
+	RenderManager::Clear();
+	RenderSystem::Render();
+	RenderManager::Present();
+#endif
 }
 
 void PKH::MainGame::Release()
@@ -127,7 +136,7 @@ void PKH::MainGame::Release()
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();
-
+	UIManager::DestroyInstance();
 	RenderSystem::Destory();
 	RenderManager::Destroy();
 	InputManager::Destroy();

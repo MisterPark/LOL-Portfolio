@@ -30,6 +30,12 @@ FloatingBar::~FloatingBar()
 
 void FloatingBar::Update()
 {
+	
+	GameObject::Update();
+}
+
+void FloatingBar::PostUpdate()
+{
 	if (target != nullptr)
 	{
 		if (target->IsDestroy())
@@ -37,7 +43,7 @@ void FloatingBar::Update()
 			target = nullptr;
 		}
 	}
-	
+
 	if (target != nullptr)
 	{
 		isVisible = !target->IsDead();
@@ -54,9 +60,10 @@ void FloatingBar::Update()
 		SetLocation(worldPos.x + offset.x, worldPos.y + offset.y);
 	}
 
-	
-	
-	GameObject::Update();
+
+
+
+	GameObject::PostUpdate();
 }
 
 void FloatingBar::SetTarget(Unit* target)

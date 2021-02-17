@@ -9,6 +9,7 @@ namespace PKH
     {
     public:
         UI();
+        UI(const Vector2& pos);
         UI(const std::wstring& _tag, const Vector2& pos);
         virtual ~UI();
 
@@ -43,6 +44,7 @@ namespace PKH
         void SetTexture(const wstring& _key);
 
         // child
+        UI* AddChild(UI* _ui);
         UI* AddChild(const std::wstring& _tag, const Vector2& _pos);
 
         bool Intersect(Vector2 _target);
@@ -59,6 +61,7 @@ namespace PKH
         // 넓이 높이 (R)
         Vector2 size;
 
+        std::wstring tag;
     public:
         // 이벤트 (RW)
         Event Click;

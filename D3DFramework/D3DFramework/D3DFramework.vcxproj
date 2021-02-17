@@ -324,6 +324,7 @@
     <ClInclude Include="TurretFloatingBar.h" />
     <ClInclude Include="TurretMissile.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIRenderer.h" />
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
@@ -481,6 +482,7 @@
     <ClCompile Include="TurretFloatingBar.cpp" />
     <ClCompile Include="TurretMissile.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIRenderer.cpp" />
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
