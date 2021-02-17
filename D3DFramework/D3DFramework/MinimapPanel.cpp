@@ -34,7 +34,7 @@ MinimapPanel* MinimapPanel::GetInstance()
     return self;
 }
 
-void MinimapPanel::Destroy()
+void MinimapPanel::DestroyInstance()
 {
     if (self)
     {

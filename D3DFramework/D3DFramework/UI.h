@@ -8,16 +8,19 @@ namespace PKH
     {
         DEFAULT,
         PLAYER_INFO,
+        SCORE_INFO,
         MINIMAP,
         SHOP,
         STATUS_INFO,
         CURSOR,
+        END
     };
 
     class UI : public GameObject
     {
     public:
         UI();
+        UI(const Vector2& pos);
         UI(const std::wstring& _tag, const Vector2& pos);
         virtual ~UI();
 
@@ -54,6 +57,7 @@ namespace PKH
         void SetTexture(const wstring& _key);
 
         // child
+        UI* AddChild(UI* _ui);
         UI* AddChild(const std::wstring& _tag, const Vector2& _pos);
 
         bool Intersect(Vector2 _target);
@@ -75,6 +79,7 @@ namespace PKH
         Vector2 size;
 
         UIType type = UIType::DEFAULT;
+        std::wstring tag;
 
     public:
         // 이벤트 (RW)

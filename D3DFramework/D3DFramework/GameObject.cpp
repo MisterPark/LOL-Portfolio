@@ -183,6 +183,16 @@ void PKH::GameObject::SetPosition(Vector3 _vPos)
 	transform->position = _vPos;
 }
 
+void PKH::GameObject::Show()
+{
+	isVisible = true;
+}
+
+void PKH::GameObject::Hide()
+{
+	isVisible = false;
+}
+
 IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)
 {
 	if (_component == nullptr) return nullptr;

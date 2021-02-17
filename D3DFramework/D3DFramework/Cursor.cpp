@@ -13,6 +13,7 @@ PKH::Cursor::Cursor()
     //transform->scale.x *= 0.8f;
     //transform->scale.y *= 0.8f;
     type = UIType::CURSOR;
+    dontDestroy = true;
 }
 
 PKH::Cursor::~Cursor()
@@ -76,8 +77,7 @@ void PKH::Cursor::Update()
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
-    GameObject::Update();
-
+    UI::Update();
     //Billboard();
 }
 //

@@ -1,14 +1,14 @@
 ﻿#pragma once
-#include "GameObject.h"
+#include "Panel.h"
 
 
 class Champion;
 class Label;
 class PKH::UI;
 
-class PlayerInfoPanel : public GameObject
+class PlayerInfoPanel : public Panel
 {
-private:
+public:
 	PlayerInfoPanel();
 	virtual ~PlayerInfoPanel();
 

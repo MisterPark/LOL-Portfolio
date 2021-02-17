@@ -3,12 +3,12 @@
 class MinimapPanel :
     public Panel
 {
-private:
+public:
     MinimapPanel();
     virtual ~MinimapPanel();
 public:
     static MinimapPanel* GetInstance();
-    static void Destroy();
+    static void DestroyInstance();
 
     static void TestFunc();
 };

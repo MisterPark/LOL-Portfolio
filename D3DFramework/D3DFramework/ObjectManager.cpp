@@ -1,8 +1,7 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "ObjectManager.h"
 #include "SkyBox.h"
 #include "Cursor.h"
-#include "Inventory.h"
 #include "PlayerInfoPanel.h"
 
 using namespace PKH;
@@ -12,16 +11,11 @@ int lastUid = 0;
 
 PKH::ObjectManager::ObjectManager()
 {
-	Cursor::GetInstance();
-	Inventory::GetInstance();
 }
 
 PKH::ObjectManager::~ObjectManager()
 {
-	
 	Release();
-	Cursor::Destroy();
-	Inventory::Destroy();
 }
 
 ObjectManager * PKH::ObjectManager::GetInstance()
@@ -62,6 +56,7 @@ void PKH::ObjectManager::Release()
 
 bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 {
+	if (_target == nullptr) return false;
 	auto& objList = pObjectManager->objectTable[(int)_target->GetLayer()];
 	
 	auto target = find(objList.begin(), objList.end(), _target);
@@ -113,9 +108,6 @@ void PKH::ObjectManager::Update()
 			iter->Update();
 		}
 	}
-
-	Cursor::GetInstance()->Update();
-	Inventory::Update();
 }
 
 void PKH::ObjectManager::PostUpdate()

@@ -1,5 +1,5 @@
-#pragma once
-#include "GameObject.h"
+ï»¿#pragma once
+#include "Panel.h"
 
 class LoadingBorder;
 class LoadingChampPanel;
@@ -8,12 +8,12 @@ class UI_Spell;
 class Label;
 
 class LoadingChampScreen :
-    public GameObject
+    public Panel
 {
 public:
     LoadingChampScreen();
     virtual ~LoadingChampScreen();
-    // GameObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // GameObjectì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
