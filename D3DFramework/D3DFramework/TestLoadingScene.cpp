@@ -38,12 +38,12 @@ void TestLoadingScene::OnLoaded()
 
 	Cursor::GetInstance()->Show();
 
+	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
 	for (int i = 0; i < 10; ++i) {
 		screens[i] = new LoadingChampScreen();
 		UIManager::GetInstance()->AddUI(screens[i]);
 	}
 
-	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
 
 	CreateChampPanel(borderW, borderH, padding);
 

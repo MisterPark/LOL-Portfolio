@@ -13,7 +13,7 @@ public:
     virtual ~FloatingBar();
 
     virtual void Update() override;
-
+    virtual void PostUpdate() override;
 
     void SetTarget(Unit* target);
     void SetTextureHP(const wstring& _key);

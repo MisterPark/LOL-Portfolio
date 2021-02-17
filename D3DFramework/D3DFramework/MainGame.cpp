@@ -7,8 +7,6 @@
 #include "TestLoadingScene.h"
 
 #include "RenderSystem.h"
-#include "DeferredStaticMeshRenderer.h"
-#include "SkinnedMeshRenderer.h"
 using namespace PKH;
 
 PKH::MainGame* pMainGame = nullptr;
