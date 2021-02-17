@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "FloatingBar.h"
 class TurretFloatingBar :
     public FloatingBar
@@ -6,7 +6,6 @@ class TurretFloatingBar :
 public:
     TurretFloatingBar();
     virtual ~TurretFloatingBar();
-
 
 
 };

@@ -65,11 +65,12 @@ namespace PKH
 		// setter
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
-		void AddChild(const wstring& _key, GameObject* _child);
 		void SetPosition(Vector3 _vPos);
-
 		void Show();
 		void Hide();
+
+		template<class T>
+		T* AddChild(const wstring& _key);
 
 	public:
 		wstring name;
@@ -116,6 +117,14 @@ namespace PKH
 			}
 		}
 		return nullptr;
+	}
+	template<class T>
+	inline T* GameObject::AddChild(const wstring& _key)
+	{
+		GameObject* child = new T();
+		children.emplace(_key, child);
+		child->SetParent(this);
+		return child;
 	}
 }
 

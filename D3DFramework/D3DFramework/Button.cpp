@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Button.h"
 
 
@@ -15,9 +15,6 @@ Button::~Button()
 void Button::Initialize()
 {
 	transform->scale = { 1.f,1.f,1.f };
-	textRenderFlag = true;
-	text = L"¹öÆ°";
-	textOffsetPosition = { 20,10,0 };
 	originScale = transform->scale;
 	
 }

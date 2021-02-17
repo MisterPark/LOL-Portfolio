@@ -1,23 +1,29 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TurretFloatingBar.h"
+#include "Bar.h"
 
 TurretFloatingBar::TurretFloatingBar()
 {
 	// 170,15
 	// 11,6
 	offset = { 0.f,3.5f, 0.f };
-	offset2 = { -84,-11,0 };
+	hp->SetLocation(11, 6);
+	mp->SetTexture(L"Empty");
 
-	Texture* tex = RenderManager::GetTexture(textureKeyHP);
-	int w = tex->GetSpriteWidth();
-	int h = tex->GetSpriteHeight();
-	float ratioW = 170.f / w;
-	float ratioH = 15.f / h;
-	scaleHP = { ratioW,ratioH,1.f };
+	Texture* tex = hp->GetTexture();
+	if (tex != nullptr)
+	{
+		int w = tex->GetSpriteWidth();
+		int h = tex->GetSpriteHeight();
+		float ratioW = 170.f / w;
+		float ratioH = 15.f / h;
+		hp->transform->scale = { ratioW,ratioH,1.f };
+	}
+	
 	SetTexture(L"border_float (2)");
+	SetSizeByTexture();
 }
 
 TurretFloatingBar::~TurretFloatingBar()
 {
 }
-

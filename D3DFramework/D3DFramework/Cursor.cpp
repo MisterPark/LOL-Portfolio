@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Cursor.h"
 #include "Rectangle.h"
+#include "UIRenderer.h"
 
 PKH::Cursor* pCursor = nullptr;
 
@@ -10,9 +11,7 @@ PKH::Cursor::Cursor()
     
     SetTexture(L"hover_precise");
     SetSizeByTexture();
-    //transform->scale.x *= 0.8f;
-    //transform->scale.y *= 0.8f;
-    type = UIType::CURSOR;
+    transform->scale = { 0.8f,0.8f,1.f };
     dontDestroy = true;
 }
 
@@ -77,7 +76,11 @@ void PKH::Cursor::Update()
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
+
+    BringToTop();
+
     UI::Update();
+
     //Billboard();
 }
 //
@@ -120,6 +123,20 @@ void PKH::Cursor::SetRenderCenter(bool isCenter)
 void PKH::Cursor::SetMode(CursorMode _mode)
 {
     pCursor->mode = _mode;
+
+    switch (_mode)
+    {
+    case PKH::CursorMode::Normal:
+        pCursor->SetTexture(L"hover_precise");
+        pCursor->SetSizeByTexture();
+        break;
+    case PKH::CursorMode::SingleTarget:
+        pCursor->SetTexture(L"singletarget");
+        pCursor->SetSizeByTexture();
+        break;
+    default:
+        break;
+    }
 }
 
 void PKH::Cursor::ChangeMode()
@@ -127,10 +144,10 @@ void PKH::Cursor::ChangeMode()
     switch (pCursor->mode)
     {
     case PKH::CursorMode::Normal:
-        pCursor->mode = CursorMode::SingleTarget;
+        SetMode(CursorMode::SingleTarget);
         break;
     case PKH::CursorMode::SingleTarget:
-        pCursor->mode = CursorMode::Normal;
+        SetMode(CursorMode::Normal);
         break;
     default:
         break;

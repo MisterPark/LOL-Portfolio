@@ -4,17 +4,6 @@
 
 namespace PKH
 {
-    enum class UIType
-    {
-        DEFAULT,
-        PLAYER_INFO,
-        SCORE_INFO,
-        MINIMAP,
-        SHOP,
-        STATUS_INFO,
-        CURSOR,
-        END
-    };
 
     class UI : public GameObject
     {
@@ -27,7 +16,6 @@ namespace PKH
         virtual void Initialize() override;
         virtual void Release() override;
         virtual void Update() override;
-        virtual void PostUpdate() override;
 
 
         void UpdateEvent();
@@ -42,7 +30,6 @@ namespace PKH
         virtual void OnRButtonUp();
         virtual void OnClick();
         virtual void OnDoubleClick();
-        virtual void OnChangedText();
 
         Vector2 GetSize();
         Vector2 GetLocation();
@@ -62,25 +49,19 @@ namespace PKH
 
         bool Intersect(Vector2 _target);
         RECT GetRect();
+        Texture* GetTexture();
+
+        void BringToTop();
 
     public:
 
-        //wstring textureKey;
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
-
-        // 텍스트 관련
-        wstring text; // 출력할 텍스트 (RW)
-        D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 1, 1, 1);
-        Vector3 textOffsetPosition;// 텍스트를 출력할 local(offset)위치 (RW) 
-        bool textRenderFlag = false;// 텍스트를 출력할 UI인가? (RW)
 
         // 넓이 높이 (R)
         Vector2 size;
 
-        UIType type = UIType::DEFAULT;
         std::wstring tag;
-
     public:
         // 이벤트 (RW)
         Event Click;
@@ -104,7 +85,6 @@ namespace PKH
         float doubleClickTick = 0.f;
         float doubleClickDelay = 0.4f;
 
-        wstring oldText;
 
     };
 

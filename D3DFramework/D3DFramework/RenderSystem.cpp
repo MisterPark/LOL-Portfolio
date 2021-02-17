@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
 #include<map>
@@ -55,7 +55,7 @@ namespace KST
 	};
 	auto OrderLessZ(Renderer* a, Renderer* b)->bool
 	{
-		return a->transform->zOrder < b->transform->zOrder;
+		return a->transform->zIndex < b->transform->zIndex;
 	};
 	void RenderSystem::Initialize()
 	{
@@ -236,7 +236,7 @@ namespace KST
 			}
 
 		}
-		//»ç¿ëÁßÀÎ ¸ğµç ¼Îµµ¿ì¸ÊÀÇ ±íÀÌ°ªÀ» 1.fÀ¸·Î ¸ÂÃá´Ù.
+		//ì‚¬ìš©ì¤‘ì¸ ëª¨ë“  ì…°ë„ìš°ë§µì˜ ê¹Šì´ê°’ì„ 1.fìœ¼ë¡œ ë§ì¶˜ë‹¤.
 		for (auto renderTarget : usingShadowMap)
 		{
 			ComPtr<IDirect3DSurface9> surface;
@@ -248,7 +248,7 @@ namespace KST
 	void RenderSystem::RednerEarlyForward()
 	{
 		auto& forwardRenderers = rendererTable[(unsigned)RendererType::EarlyForward];
-		//·»´õ¸µÀ» ÁøÇàÇÑ´Ù.
+		//ë Œë”ë§ì„ ì§„í–‰í•œë‹¤.
 		std::type_info const* prevRendererClass = nullptr;
 		for (auto* forwardRenderer : forwardRenderers)
 		{
@@ -281,9 +281,9 @@ namespace KST
 	void RenderSystem::RenderForward()
 	{
 		auto& forwardRenderers = rendererTable[(unsigned) RendererType::Forward];
-		//Á¤·ÄÀ» ÇÏ°í
+		//ì •ë ¬ì„ í•˜ê³ 
 		forwardRenderers.sort(CompareZ);
-		//·»´õ¸µÀ» ÁøÇàÇÑ´Ù.
+		//ë Œë”ë§ì„ ì§„í–‰í•œë‹¤.
 
 		for (auto* forwardRenderer : forwardRenderers)
 		{
