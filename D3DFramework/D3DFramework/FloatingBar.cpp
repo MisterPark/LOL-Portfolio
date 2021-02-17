@@ -18,7 +18,7 @@ FloatingBar::FloatingBar()
 	mp->transform->scale = { 0.97f,0.3f,1.f };
 	
 
-	textOffsetPosition = { 0,-35,0 };
+	//textOffsetPosition = { 0,-35,0 };
 }
 
 FloatingBar::~FloatingBar()
@@ -56,7 +56,7 @@ void FloatingBar::Update()
 
 	
 	
-	UI::Update();
+	GameObject::Update();
 }
 
 void FloatingBar::SetTarget(Unit* target)
@@ -76,5 +76,5 @@ void FloatingBar::SetTextureMP(const wstring& _key)
 
 void FloatingBar::SetNickname(const wstring& _nick)
 {
-	text = _nick.c_str();
+	
 }

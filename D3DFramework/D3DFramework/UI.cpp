@@ -2,6 +2,7 @@
 #include "UI.h"
 #include "UIRenderer.h"
 
+
 UI::UI()
 {
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
@@ -39,11 +40,6 @@ void UI::Update()
 {
 	UpdateEvent();
 	GameObject::Update();
-}
-
-void PKH::UI::PostUpdate()
-{
-	transform->zOrder = (float)type;
 }
 
 void UI::UpdateEvent()
@@ -116,11 +112,6 @@ void UI::UpdateEvent()
 		isRButtonDown = false;
 	}
 
-	if (text.compare(oldText) != 0)
-	{
-		oldText = text;
-		OnChangedText();
-	}
 
 	if (clickFlag)
 	{
@@ -183,11 +174,6 @@ void UI::OnClick()
 void PKH::UI::OnDoubleClick()
 {
 	DoubleClick.Invoke();
-}
-
-void UI::OnChangedText()
-{
-	ChangedText.Invoke();
 }
 
 Vector2 PKH::UI::GetSize()
@@ -278,5 +264,11 @@ RECT PKH::UI::GetRect()
 Texture* PKH::UI::GetTexture()
 {
 	return texture;
+}
+
+void PKH::UI::BringToTop()
+{
+	UIRenderer* renderer = (UIRenderer*)GetComponent<UIRenderer>();
+	renderer->BringToTop();
 }
 

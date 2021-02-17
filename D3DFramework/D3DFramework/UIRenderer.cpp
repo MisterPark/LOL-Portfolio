@@ -2,10 +2,13 @@
 #include "UIRenderer.h"
 #include "RenderSystem.h"
 
+int UIRenderer::uniqueZIndex = 0;
+
 KST::UIRenderer::UIRenderer(GameObject* owner)
 	: Renderer{ owner, RendererType::UI }
 {
 	ui = (UI*)owner;
+	ui->transform->zIndex = uniqueZIndex++;
 }
 
 IComponent* KST::UIRenderer::Clone()
@@ -65,4 +68,9 @@ void KST::UIRenderer::Render()
 void KST::UIRenderer::SetMesh(PKH::Mesh* mesh)
 {
 	this->mesh = mesh;
+}
+
+void KST::UIRenderer::BringToTop()
+{
+	transform->zIndex = UIRenderer::uniqueZIndex;
 }

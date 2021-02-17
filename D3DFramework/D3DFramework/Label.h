@@ -32,7 +32,7 @@ public:
     LPDIRECT3DDEVICE9 pDevice = nullptr;
     RECT rcDraw = {};
 
-    
-
+    wstring text;
+    D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
 };
 

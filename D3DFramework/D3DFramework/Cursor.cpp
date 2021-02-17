@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Cursor.h"
 #include "Rectangle.h"
+#include "UIRenderer.h"
 
 PKH::Cursor* pCursor = nullptr;
 
@@ -11,7 +12,6 @@ PKH::Cursor::Cursor()
     SetTexture(L"hover_precise");
     SetSizeByTexture();
     transform->scale = { 0.8f,0.8f,1.f };
-    type = UIType::CURSOR;
 }
 
 PKH::Cursor::~Cursor()
@@ -75,6 +75,9 @@ void PKH::Cursor::Update()
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
+
+    BringToTop();
+
     GameObject::Update();
 
     //Billboard();

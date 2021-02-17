@@ -53,6 +53,7 @@ namespace PKH
 		Matrix worldMatrix = Matrix::identity;
 
 		float zOrder = 0.f;
+		int zIndex = 0;
 	};
 }
 

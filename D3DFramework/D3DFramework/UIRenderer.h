@@ -14,12 +14,15 @@ namespace KST
 
 		void SetMesh(PKH::Mesh* mesh);
 
-
+		void BringToTop();
 	public:
 		int zOrder = 0;
 	protected:
 		PKH::Mesh* mesh = nullptr;
 		PKH::UI* ui = nullptr;
+		
+	private:
+		static int uniqueZIndex;
 	};
 
 
