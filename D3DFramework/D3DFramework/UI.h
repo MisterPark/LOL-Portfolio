@@ -58,6 +58,7 @@ namespace PKH
 
         bool Intersect(Vector2 _target);
         RECT GetRect();
+        Texture* GetTexture();
 
     public:
 

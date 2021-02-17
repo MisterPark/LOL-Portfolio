@@ -34,9 +34,6 @@
     <Filter Include="Component\Animation">
       <UniqueIdentifier>{8f5f6826-86f7-4bed-9621-98d62a4610b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\UI">
-      <UniqueIdentifier>{ada1f413-2b4a-4d3c-aad1-eb43b9b3577e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\SkyBox">
       <UniqueIdentifier>{c45ec730-8842-4b52-b2c8-607d5b9417df}</UniqueIdentifier>
     </Filter>
@@ -48,9 +45,6 @@
     </Filter>
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{6256dccd-0b4d-4f31-b432-2a6b3d8573e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\UI\Inventory">
-      <UniqueIdentifier>{3c5e9bdc-0eba-4712-912a-e5e5f9c2101e}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject\Light">
       <UniqueIdentifier>{e5a5d110-ce28-4e07-8a85-b29492dc268f}</UniqueIdentifier>
@@ -169,12 +163,6 @@
     <Filter Include="GameObject\Unit\Champion\Leona">
       <UniqueIdentifier>{235842bd-28a8-4b90-b5ce-f8554f23b14d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\UI\HUD">
-      <UniqueIdentifier>{35af94a1-c4a2-4e77-94d6-b88348a11b1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\UI\Loading">
-      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Unit\Minion">
       <UniqueIdentifier>{e864066a-1ec0-4e68-b4cf-6e9e0ca6a6fa}</UniqueIdentifier>
     </Filter>
@@ -195,9 +183,6 @@
     </Filter>
     <Filter Include="GameObject\Unit\Champion\Jax">
       <UniqueIdentifier>{07d8d923-c02b-4a37-bbaa-cd4cbeded27f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\UI\Indicator">
-      <UniqueIdentifier>{dadaa94b-4908-473f-83c3-eed52a69677d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\AI">
       <UniqueIdentifier>{c39372a4-bac1-4d9d-93e8-d1dae29cd1c6}</UniqueIdentifier>
@@ -231,6 +216,24 @@
     </Filter>
     <Filter Include="Component\Renderer\UIRenderer">
       <UniqueIdentifier>{598d0f5d-e44e-46b1-8b61-14752bb911eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{ada1f413-2b4a-4d3c-aad1-eb43b9b3577e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Inventory">
+      <UniqueIdentifier>{3c5e9bdc-0eba-4712-912a-e5e5f9c2101e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\HUD">
+      <UniqueIdentifier>{35af94a1-c4a2-4e77-94d6-b88348a11b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Loading">
+      <UniqueIdentifier>{3db0cba9-40c8-4c47-9a81-958f3581d4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Indicator">
+      <UniqueIdentifier>{dadaa94b-4908-473f-83c3-eed52a69677d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Event">
+      <UniqueIdentifier>{c9ee0999-224e-4ae3-bd18-d1d15ccbcb5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -693,8 +696,6 @@
     <ClInclude Include="NetPlayerController.h">
       <Filter>Component\PlayerController</Filter>
     </ClInclude>
-    <ClInclude Include="Stat.h" />
-    <ClInclude Include="UnitStat.h" />
     <ClInclude Include="RenderSystem.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
@@ -710,8 +711,21 @@
     <ClInclude Include="UIRenderer.h">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="LabelRenderer.h" />
+    <ClInclude Include="Stat.h">
+      <Filter>Component\Stat</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitStat.h">
+      <Filter>Component\Stat</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelRenderer.h">
+      <Filter>Component\Renderer\UIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Lib\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Bar.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1256,14 +1270,25 @@
     <ClCompile Include="SkinnedMeshRenderer.cpp">
       <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="Stat.cpp" />
-    <ClCompile Include="UnitStat.cpp" />
     <ClCompile Include="UIRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
     <ClCompile Include="TestEncoding.cpp" />
-    <ClCompile Include="Event.cpp" />
-    <ClCompile Include="LabelRenderer.cpp" />
+    <ClCompile Include="Stat.cpp">
+      <Filter>Component\Stat</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitStat.cpp">
+      <Filter>Component\Stat</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelRenderer.cpp">
+      <Filter>Component\Renderer\UIRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Lib\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

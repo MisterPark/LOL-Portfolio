@@ -275,3 +275,8 @@ RECT PKH::UI::GetRect()
 	return rc;
 }
 
+Texture* PKH::UI::GetTexture()
+{
+	return texture;
+}
+

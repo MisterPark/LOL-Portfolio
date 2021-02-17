@@ -1,25 +1,23 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Unit.h"
 using namespace PKH;
 
+class Bar;
 class Label;
 
-class FloatingBar : public GameObject
+class FloatingBar : public UI
 {
 public:
     FloatingBar();
     virtual ~FloatingBar();
 
-    virtual void Initialize() override;
-    virtual void Release() override;
     virtual void Update() override;
 
 
     void SetTarget(Unit* target);
-    void SetTexture(const wstring& _textureKey);
-    void SetTextureHP(const wstring& _textureKey);
-    void SetTextureMP(const wstring& _textureKey);
+    void SetTextureHP(const wstring& _key);
+    void SetTextureMP(const wstring& _key);
     void SetNickname(const wstring& _nick);
 
 protected:
@@ -27,17 +25,7 @@ protected:
 
     Vector3 offset;
     wstring textureKey;
-    //HP
-    wstring textureKeyHP;
-    Vector3 offset2;
-    Vector3 scaleHP;
-    //MP
-    wstring textureKeyMP;
-    Vector3 offsetMP;
-    Vector3 scaleMP;
 
-    Label* nicknameLabel = nullptr;
-    //PKH::Rectangle* mesh = nullptr;
-
-    //bool isHover = false;
+    Bar* hp = nullptr;
+    Bar* mp = nullptr;
 };

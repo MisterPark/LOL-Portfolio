@@ -1,77 +1,62 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "FloatingBar.h"
+#include "Bar.h"
 #include "Label.h"
+
 FloatingBar::FloatingBar()
 {
 
 	offset = { 0,1.8f,-0.5f };
-	offset2 = { -42,-9,0 };
-	offsetMP = { -42,5,0 };
-
-	scaleHP = { 0.97f,1.f,1.f };
-	scaleMP = { 0.97f,0.3f,1.f };
-	//mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
-	//mesh->SetTexture(L"border_float (1)");
-	//mesh->SetBlendMode(BlendMode::ALPHA_TEST);
-
-	//Texture* tex = RenderManager::GetTexture(L"border_float (1)");
-	//int w = tex->GetSpriteWidth();
-	//int h = tex->GetSpriteHeight();
-	//float scaleY = (float)h / w;
-	//transform->scale = { 1,scaleY,1 };
 
 	SetTexture(L"border_float (1)");
-	textureKeyHP = L"bar_float (2)";
-	textureKeyMP = L"bar_float (5)";
-	////SetSizeByTexture();
-	//SetSize(1000, 100);
-	//mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
+	SetSizeByTexture();
 
-	nicknameLabel = new Label();
-	nicknameLabel->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
-	nicknameLabel->align = Label::Align::Center;
+	hp = (Bar*)AddChild(L"bar_float (2)", Vector2(26, 6));
+	hp->transform->scale = { 0.97f,1.f,1.f };
+	
+	mp = (Bar*)AddChild(L"bar_float (5)", Vector2(26, 20));
+	mp->transform->scale = { 0.97f,0.3f,1.f };
+	
 
+	textOffsetPosition = { 0,-35,0 };
 }
 
 FloatingBar::~FloatingBar()
 {
-	Safe_Delete(&nicknameLabel);
 	target = nullptr;
-
-}
-
-void FloatingBar::Initialize()
-{
-}
-
-void FloatingBar::Release()
-{
+	hp = nullptr;
+	mp = nullptr;
 }
 
 void FloatingBar::Update()
 {
-	if (target->IsDestroy())
+	if (target != nullptr)
 	{
-		target = nullptr;
+		if (target->IsDestroy())
+		{
+			target = nullptr;
+		}
 	}
-
+	
 	if (target != nullptr)
 	{
 		isVisible = !target->IsDead();
 
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);
-		transform->position = worldPos;
-		nicknameLabel->transform->position = worldPos + Vector3(0, -35, 0);
+
+		Vector2 offset;
+		if (texture != nullptr)
+		{
+			offset.x = -texture->GetSpriteWidth() * 0.5f;
+			offset.y = -texture->GetSpriteHeight() * 0.5f;
+		}
+		SetLocation(worldPos.x + offset.x, worldPos.y + offset.y);
 	}
-	
-	nicknameLabel->Update();
-	//UI::Update();
-	GameObject::Update();
-
-	//Billboard();
 
 	
+	
+	UI::Update();
 }
 
 void FloatingBar::SetTarget(Unit* target)
@@ -79,22 +64,17 @@ void FloatingBar::SetTarget(Unit* target)
 	this->target = target;
 }
 
-void FloatingBar::SetTexture(const wstring& _textureKey)
+void FloatingBar::SetTextureHP(const wstring& _key)
 {
-	textureKey = _textureKey;
+	hp->SetTexture(_key);
 }
 
-void FloatingBar::SetTextureHP(const wstring& _textureKey)
+void FloatingBar::SetTextureMP(const wstring& _key)
 {
-	textureKeyHP = _textureKey;
-}
-
-void FloatingBar::SetTextureMP(const wstring& _textureKey)
-{
-	textureKeyMP = _textureKey;
+	mp->SetTexture(_key);
 }
 
 void FloatingBar::SetNickname(const wstring& _nick)
 {
-	nicknameLabel->text = _nick;
+	text = _nick.c_str();
 }

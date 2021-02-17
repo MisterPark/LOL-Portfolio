@@ -15,7 +15,9 @@ IComponent* KST::UIRenderer::Clone()
 
 void KST::UIRenderer::Render()
 {
+	if (visible == false) return;
 	if (ui == nullptr) return;
+
 	auto device = RenderManager::GetDevice();
 	int screenW = MainGame::GetWidth();
 	int screenH = MainGame::GetHeight();

@@ -10,6 +10,7 @@ LabelRenderer::LabelRenderer(GameObject* owner)
 
 void LabelRenderer::Render()
 {
+	if (visible == false) return;
 	if (label == nullptr) return;
 	
 	Matrix matWorld, matPos, matScale;

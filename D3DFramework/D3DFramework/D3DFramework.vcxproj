@@ -176,6 +176,7 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Blitzcrank.h" />
     <ClInclude Include="BlueMonster.h" />
@@ -339,6 +340,7 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Blitzcrank.cpp" />
     <ClCompile Include="BlueMonster.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
