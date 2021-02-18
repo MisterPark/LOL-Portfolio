@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "RazorbeakMini.h"
 
 RazorbeakMini::RazorbeakMini()
@@ -8,6 +8,10 @@ RazorbeakMini::RazorbeakMini()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"sru_razorbeakmini");
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
 }

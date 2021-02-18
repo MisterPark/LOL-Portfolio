@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Diana.h"
 Diana::Diana()
 {
@@ -8,9 +8,13 @@ Diana::Diana()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"diana_circle";
 	faceSquareTexkey = L"diana_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"diana_q";
 	wTexKey = L"diana_w";
 	eTexKey = L"diana_e";

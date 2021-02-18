@@ -95,6 +95,7 @@ using namespace std;
 #include "Vertex.h"
 #include "CustomMesh.h"
 #include "Triangle.h"
+
 // 레이어
 #include "Layer.h"
 // 매니저
@@ -131,7 +132,12 @@ using namespace std;
 
 #include "NavMesh.h"
 #include "NavMeshAgent.h"
+// 렌더
 #include "RenderSystem.h"
+#include "Renderer.h"
+#include "SkinnedMeshRenderer.h"
+#include "DeferredStaticMeshRenderer.h"
+#include "UIRenderer.h"
 
 
 using namespace std;

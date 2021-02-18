@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Missfortune.h"
 Missfortune::Missfortune()
 {
@@ -8,9 +8,13 @@ Missfortune::Missfortune()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"missfortune_circle";
 	faceSquareTexkey = L"missfortune_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"missfortune_q";
 	wTexKey = L"missfortune_w";
 	eTexKey = L"missfortune_e";

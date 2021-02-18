@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "ChaosMinionSiege.h"
 
 ChaosMinionSiege::ChaosMinionSiege()
@@ -7,6 +7,10 @@ ChaosMinionSiege::ChaosMinionSiege()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"chaos_minion_siege");
 	AddComponent(L"DynamicMesh", dmesh);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
 }

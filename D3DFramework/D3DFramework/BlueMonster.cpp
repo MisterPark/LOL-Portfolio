@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "BlueMonster.h"
 BlueMonster::BlueMonster()
 {
@@ -7,6 +7,10 @@ BlueMonster::BlueMonster()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"sru_blue");
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
 }

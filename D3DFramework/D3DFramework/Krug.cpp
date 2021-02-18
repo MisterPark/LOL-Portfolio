@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Krug.h"
 
 Krug::Krug()
@@ -8,6 +8,10 @@ Krug::Krug()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"sru_krug");
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
 }

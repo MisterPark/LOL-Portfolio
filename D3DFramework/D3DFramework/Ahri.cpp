@@ -1,5 +1,6 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Ahri.h"
+
 Ahri::Ahri()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -8,11 +9,15 @@ Ahri::Ahri()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	anim->SetLoop((int)UnitState::IDLE1, true);
 
 	faceCircleTexkey = L"ahri_circle";
 	faceSquareTexkey = L"ahri_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"ahri_q";
 	wTexKey = L"ahri_w";
 	eTexKey = L"ahri_e";
