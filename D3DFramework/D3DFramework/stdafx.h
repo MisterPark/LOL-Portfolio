@@ -68,6 +68,7 @@ using namespace std;
 #include "Debug.h"
 #include "Define.h"
 #include "Event.h"
+#include "Math.h"
 
 // DirectX 변형 자료
 
