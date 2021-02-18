@@ -1361,4 +1361,9 @@
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shadow_map_shader.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

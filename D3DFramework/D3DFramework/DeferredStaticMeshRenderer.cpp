@@ -17,7 +17,7 @@ namespace KST
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
 		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
-
+		shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 	}
 
 	void DeferredStaticMeshRenderer::EnableAlphaTest(float threshold)
@@ -48,6 +48,52 @@ namespace KST
 	}
 	void DeferredStaticMeshRenderer::RenderShadowMap()
 	{
+		const int lightCount = RenderSystem::GetLightCount();
+		std::vector<const std::wstring*> lightNames;
+
+		lightNames.reserve(RenderSystem::GetLightCount());
+		for (int i = 0; i < lightCount; ++i)
+		{
+			lightNames.push_back(&RenderSystem::GetLightName(i));
+		}
+		for (auto lightNamePtr : lightNames)
+		{
+			IDirect3DDevice9* device = RenderManager::GetDevice();
+			ComPtr<IDirect3DSurface9> surface;
+			RenderTarget* renderTarget;
+			Matrix projMatrix;
+			UINT passCount = 0;
+			UINT passNum = 0;
+			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &projMatrix))
+			{
+				continue;
+			}
+			renderTarget->GetSurface(&surface);
+			if (alphaTest)
+			{
+				passNum = 1;
+				shadowMapShader->SetFloat("g_alphaThreshold", threshold);
+			}
+			shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
+			shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+			device->SetRenderTarget(0, surface.Get());
+
+			shadowMapShader->Begin(&passCount, 0);
+			shadowMapShader->BeginPass(passNum);
+			int subsetCount = mesh->GetSubsetCount();
+			for (int i = 0; i < subsetCount; ++i)
+			{
+				if (alphaTest)
+				{
+					IDirect3DTexture9* texture = mesh->GetSubsetTexture(i);
+					shadowMapShader->SetTexture("g_diffuseTexture", texture);
+					shadowMapShader->CommitChanges();
+				}
+				mesh->RenderSubset(i);
+			}
+			shadowMapShader->EndPass();
+			shadowMapShader->End();
+		}
 		//TODO: 이제 셰도우의 투영행렬를 받아서 셰도우 맵에 메시를 렌더링해야 한다.
 	}
 	void DeferredStaticMeshRenderer::RenderGBuffer()

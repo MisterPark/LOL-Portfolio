@@ -1,4 +1,4 @@
-//for common
+﻿//for common
 struct VS_IN
 {
 	float4 vPosition:POSITION;
@@ -25,6 +25,7 @@ texture g_specularMap;
 texture g_depthMap;
 texture g_shadeMap;
 texture g_albedoMap;
+texture g_shadowMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -53,7 +54,12 @@ sampler NormalMapSampler = sampler_state
 {
 	texture = g_normalMap;
 };
-
+sampler ShadowMapSampler = sampler_state
+{
+	texture = g_shadowMap;
+	minfilter = linear;
+	magfilter = linear;
+};
 
 VS_OUT vs_main(VS_IN input)
 {
@@ -102,6 +108,7 @@ float4 ps_tone_combine(PS_IN input) :COLOR0
 	vColor.a = vAlbedo.a;
 	return vAlbedo;
 }
+matrix g_mCvt2LightSpace;
 matrix g_mInverseViewProj;
 float4 g_vLightDirectionAndPower;
 float4 g_vLightDiffuse;
@@ -122,30 +129,34 @@ PS_OUT ps_directional_light(PS_IN input)
 	vSpecular.w = 1.f;
 
 	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
-	//float2 fenc = vNormalFactor.xy * 4.f - 2.f;
-	//float f = dot(fenc, fenc);
-	//float g = sqrt(1.f - f / 4.f);
-	//float3 vNormal = normalize(float3(fenc * g, 1.f - f / 2.f));
-	//float depth = vNormalFactor.z;
-	//float z = vNormalFactor.w;
-
+	
 	float depth = tex2D(DepthMapSampler, input.vUV).r;
 	float z = tex2D(DepthMapSampler, input.vUV).g;
-	float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
-
-	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
-	float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
-	float intensity = saturate(dot(vLightDir * -1, vNormal));
-	float4 vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
-	vDiffuse.a = intensity;
-	if (intensity > 0.f)
+	float4 vLightSpacePosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mCvt2LightSpace);
+	//투영좌표를 UV좌표로 변환시킨다.
+	vLightSpacePosition.xy *= 0.5f;
+	vLightSpacePosition.xy += 0.5f;
+	vLightSpacePosition.y *= -1.f;
+	float2 shadowDepth = tex2D(ShadowMapSampler, vLightSpacePosition.xy);
+	float4 vDiffuse = g_vLightAmbient;
+	//z값만 비교하자
+	if (shadowDepth.g > vLightSpacePosition.w)
 	{
-		float3 vReflect = reflect(vLightDir.xyz, vNormal.xyz).xyz;
-		float3 vLook = normalize(vPosition.xyz - g_vCameraPosition.xyz);
-		float power = pow(saturate(dot(vReflect, -vLook)), fPower);
-		output.vSpecular = (float4) power;
-		output.vSpecular = output.vSpecular * g_vLightDiffuse * vSpecular;
-		output.vSpecular.a = 1.f;
+		float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
+		float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
+		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
+		float intensity = saturate(dot(vLightDir * -1, vNormal));
+		vDiffuse += intensity * g_vLightDiffuse;
+		vDiffuse.a = intensity;
+		if (intensity > 0.f)
+		{
+			float3 vReflect = reflect(vLightDir.xyz, vNormal.xyz).xyz;
+			float3 vLook = normalize(vPosition.xyz - g_vCameraPosition.xyz);
+			float power = pow(saturate(dot(vReflect, -vLook)), fPower);
+			output.vSpecular = (float4) power;
+			output.vSpecular = output.vSpecular * g_vLightDiffuse * vSpecular;
+			output.vSpecular.a = 1.f;
+		}
 	}
 	output.vColor = vDiffuse;
 	return output;

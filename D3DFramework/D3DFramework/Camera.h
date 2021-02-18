@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 
 namespace PKH
@@ -11,7 +11,7 @@ namespace PKH
 	public:
 		static Camera* GetInstance();
 		static void Destroy();
-		// GameObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+		// GameObjectì„(ë¥¼) í†µí•´ ìƒì†ë¨
 		virtual void Update() override;
 		virtual void Initialize() override;
 		virtual void Release() override;
@@ -37,11 +37,12 @@ namespace PKH
 		void SetTarget(GameObject* _target);
 		void SlowChaseTarget(GameObject* tar);
 
-		// Ä«¸Ş¶ó Èçµé±â
+		// ì¹´ë©”ë¼ í”ë“¤ê¸°
 		void Shake(float _duration = 0.05f, float _magnitude = 0.03f);
 		void UpdateShake();
 		void SetShakeDuration(float _duration);
 
+		float GetFarPlane();
 	private:
 		void PerspectiveProjection();
 		void OrthogonalProjection();
@@ -61,28 +62,28 @@ namespace PKH
 		Matrix orthogonalMatrix;
 		GameObject* target = nullptr;
 
-		// Ä«¸Ş¶ó ÃµÃµÈ÷ µû¶ó°¡±â
+		// ì¹´ë©”ë¼ ì²œì²œíˆ ë”°ë¼ê°€ê¸°
 		bool isSlowChase = false;
 		float slowTime = 0.f;
 
-		// Ä«¸Ş¶ó Èçµé±â
+		// ì¹´ë©”ë¼ í”ë“¤ê¸°
 		bool isShake = false;
 		float shakeDuration;
 		float shakeMagnitude;
 		Vector3 originCamPos;
 
-		// Ä«¸Ş¶ó ÁÜÀÎ ¾Æ¿ô
+		// ì¹´ë©”ë¼ ì¤Œì¸ ì•„ì›ƒ
 		float zoomSpeed = 1.f;
 		Vector3 offset = { 0,6,3 };
 
-		// À©µµ¿ì »çÀÌÁî
+		// ìœˆë„ìš° ì‚¬ì´ì¦ˆ
 		int screenW = dfCLIENT_WIDTH;
 		int screenH = dfCLIENT_HEIGHT;
 	public:
 		static map<wstring, Camera*> cams;
 		static Camera* main;
 
-		// µğ¹ö±×¿ë
+		// ë””ë²„ê·¸ìš©
 		bool topViewFlag = false;
 		Vector3 topViewPos = { 0,100,0 };
 		Vector3 topViewLook = { 0,0,1 };

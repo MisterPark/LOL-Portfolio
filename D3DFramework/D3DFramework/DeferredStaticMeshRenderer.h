@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"Renderer.h"
 #include"RenderSystem.h"
 #include"Mesh.h"
@@ -29,6 +29,7 @@ namespace KST
 		RenderTarget* sharpnessRenderTarget;
 		RenderTarget* depthRenderTarget;
 		ID3DXEffect* renderingShader;
+		ID3DXEffect* shadowMapShader;
 		PKH::Mesh* mesh;
 
 	};

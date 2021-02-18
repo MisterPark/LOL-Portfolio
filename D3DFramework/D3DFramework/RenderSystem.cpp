@@ -221,6 +221,17 @@ namespace KST
 	}
 	bool RenderSystem::GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, Matrix* proj)
 	{
+		auto findIt = lights.find(lightName);
+		if (findIt == lights.end())
+		{
+			return false;
+		}
+		if (findIt->second.shadowMap == nullptr)
+		{
+			return false;
+		}
+		*renderTarget = findIt->second.shadowMap;
+		*proj = findIt->second.projectionMatrix;
 		return false;
 	}
 	void RenderSystem::SetupShadowMap()
@@ -243,6 +254,23 @@ namespace KST
 			renderTarget->GetSurface(&surface);
 			device->SetRenderTarget(0, surface.Get());
 			device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_STENCIL | D3DCLEAR_STENCIL, 0xFFFFFFFF, 1.f, 0);
+		}
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		float cameraZ = 100.f;
+		//최대한 카메라에 가까이에 라이트의 위치를 잡아주고 싶다.
+		Transform* cameraTransform = Camera::main->GetTransform();
+		Matrix mCameraTransform = cameraTransform->GetWorldMatrix();
+		Matrix mProjSpace = Camera::main->GetProjectionMatrix();
+		Matrix mProjInverse = Matrix::Inverse(mProjSpace);
+
+		for (auto& pair : lights)
+		{
+			Vector3 focusAt =
+				(Vector3&)mCameraTransform.m[2] * cameraZ
+				+ (Vector3&)mCameraTransform.m[3];
+			const D3DLIGHT9& light = pair.second.light;
+			Vector3 lightPosition = focusAt - 500.f * (Vector3&)light.Direction;
+			D3DXMatrixOrthoLH(&pair.second.projectionMatrix, 100.f, 100.f, 0.f, 1000.f);
 		}
 	}
 	void RenderSystem::RednerEarlyForward()
