@@ -1,4 +1,4 @@
-﻿//for common
+//for common
 matrix g_mCameraProj;
 matrix g_mWorld;
 //matrix g_mNormalWorld;

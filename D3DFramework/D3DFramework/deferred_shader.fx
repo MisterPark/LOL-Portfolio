@@ -1,4 +1,4 @@
-﻿//for common
+//for common
 struct VS_IN
 {
 	float4 vPosition:POSITION;

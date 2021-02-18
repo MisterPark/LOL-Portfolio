@@ -48,6 +48,7 @@ namespace KST
 	}
 	void DeferredStaticMeshRenderer::RenderShadowMap()
 	{
+		return;
 		const int lightCount = RenderSystem::GetLightCount();
 		std::vector<const std::wstring*> lightNames;
 

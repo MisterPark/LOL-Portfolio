@@ -236,6 +236,7 @@ namespace KST
 	}
 	void RenderSystem::SetupShadowMap()
 	{
+		return;
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
 		for (auto& pair : lights)
 		{
@@ -255,7 +256,6 @@ namespace KST
 			device->SetRenderTarget(0, surface.Get());
 			device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_STENCIL | D3DCLEAR_STENCIL, 0xFFFFFFFF, 1.f, 0);
 		}
-		IDirect3DDevice9* const device = RenderManager::GetDevice();
 		float cameraZ = 100.f;
 		//최대한 카메라에 가까이에 라이트의 위치를 잡아주고 싶다.
 		Transform* cameraTransform = Camera::main->GetTransform();
