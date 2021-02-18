@@ -27,7 +27,7 @@ void KST::UIRenderer::Render()
 	int screenH = MainGame::GetHeight();
 	Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 	Matrix matViewProj;
-	D3DXVECTOR4 vecUVMax{ ui->uvRatio};
+	D3DXVECTOR4 vecUVMax{ ui->uvRatio.x,ui->uvRatio.y, 0.f, 0.f};
 	device->GetTransform(D3DTS_VIEW, &matOriginView);
 	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 	D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
