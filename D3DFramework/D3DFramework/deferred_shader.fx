@@ -19,6 +19,7 @@ struct PS_OUT
 {
 	float4 vColor: COLOR0;
 	float4 vSpecular:COLOR1;
+	float4 vShadow:COLOR2;
 };
 texture g_normalMap;
 texture g_specularMap;
@@ -26,6 +27,7 @@ texture g_depthMap;
 texture g_shadeMap;
 texture g_albedoMap;
 texture g_shadowMap;
+texture g_shadowOptionMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -60,7 +62,12 @@ sampler ShadowMapSampler = sampler_state
 	minfilter = linear;
 	magfilter = linear;
 };
-
+sampler ShadowMapOptionSampler = sampler_state
+{
+	texture = g_shadowOptionMap;
+	minfilter = linear;
+	magfilter = linear;
+};
 VS_OUT vs_main(VS_IN input)
 {
 	VS_OUT output;
@@ -87,7 +94,7 @@ float4 ps_combine(PS_IN input) :COLOR0
 	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
 	//vColor = fogFactor * vColor + (1.f - fogFactor);
 	vColor.a = vAlbedo.a;
-	return vAlbedo;
+	return vColor;
 }
 float4 ps_tone_combine(PS_IN input) :COLOR0
 {
@@ -106,22 +113,27 @@ float4 ps_tone_combine(PS_IN input) :COLOR0
 	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
 	//vColor = fogFactor * vColor + (1.f - fogFactor);
 	vColor.a = vAlbedo.a;
-	return vAlbedo;
+	return vColor;
 }
-matrix g_mCvt2LightSpace;
+matrix g_mLightSpace;
 matrix g_mInverseViewProj;
 float4 g_vLightDirectionAndPower;
 float4 g_vLightDiffuse;
 float4 g_vLightAmbient;
 float4 g_vCameraPosition;
+
+float4 CalcSpecular(float4 vMatSpecular, float3 vLightDir, float3 vNormal, float3 vPosition, float fPower)
+{
+	float3 vReflect = reflect(vLightDir.xyz, vNormal.xyz).xyz;
+	float3 vLook = normalize(vPosition.xyz - g_vCameraPosition.xyz);
+	float power = pow(saturate(dot(vReflect, -vLook)), fPower);
+	float4 vSpecular = (float4) power;
+	return vSpecular * g_vLightDiffuse * vMatSpecular;
+}
 PS_OUT ps_directional_light(PS_IN input)
 {
 	PS_OUT output;
 	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
-	if (vAlbedo.a < 0.1f)
-	{
-		discard;
-	}
 
 	output.vSpecular = float4(0.f, 0.f, 0.f, 1.f);
 	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
@@ -132,31 +144,61 @@ PS_OUT ps_directional_light(PS_IN input)
 	
 	float depth = tex2D(DepthMapSampler, input.vUV).r;
 	float z = tex2D(DepthMapSampler, input.vUV).g;
-	float4 vLightSpacePosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mCvt2LightSpace);
+	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
+	float4 vLightSpacePosition = mul(vPosition, g_mLightSpace);
 	//투영좌표를 UV좌표로 변환시킨다.
-	vLightSpacePosition.xy *= 0.5f;
-	vLightSpacePosition.xy += 0.5f;
-	vLightSpacePosition.y *= -1.f;
-	float2 shadowDepth = tex2D(ShadowMapSampler, vLightSpacePosition.xy);
+	float2 shadowMapUV;
+
+	shadowMapUV.x = vLightSpacePosition.x * 0.5f + 0.5f;
+	shadowMapUV.y = -vLightSpacePosition.y * 0.5f + 0.5f;
+
+	float2 shadowDepthColor = tex2D(ShadowMapSampler, saturate(shadowMapUV) );
+	int shadowOption = tex2D(ShadowMapOptionSampler, saturate(shadowMapUV));
+	float shadowDepth = shadowDepthColor.r/(shadowDepthColor.g * 2000.f) ;
 	float4 vDiffuse = g_vLightAmbient;
-	//z값만 비교하자
-	if (shadowDepth.g > vLightSpacePosition.w)
+	float currentDepth = (vLightSpacePosition.z / vLightSpacePosition.w);
+	//현재 깊이가 그림자 맵의 뎁스보다 작아야, 조명을 계산한다
+	if (currentDepth < shadowDepth + 0.0000125f)
 	{
 		float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
-		float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
 		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
 		float intensity = saturate(dot(vLightDir * -1, vNormal));
-		vDiffuse += intensity * g_vLightDiffuse;
+		vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
 		vDiffuse.a = intensity;
 		if (intensity > 0.f)
 		{
-			float3 vReflect = reflect(vLightDir.xyz, vNormal.xyz).xyz;
-			float3 vLook = normalize(vPosition.xyz - g_vCameraPosition.xyz);
-			float power = pow(saturate(dot(vReflect, -vLook)), fPower);
-			output.vSpecular = (float4) power;
-			output.vSpecular = output.vSpecular * g_vLightDiffuse * vSpecular;
+			output.vSpecular = CalcSpecular(vSpecular, vLightDir.xyz, vNormal.xyz, vPosition.xyz, fPower);
 			output.vSpecular.a = 1.f;
 		}
+	}
+	output.vShadow = float4(shadowOption.xx, 0.f, 0.f);
+	output.vColor = vDiffuse;
+	return output;
+}
+PS_OUT ps_directional_light_noshadow(PS_IN input)
+{
+	PS_OUT output;
+	output.vSpecular = float4(0.f, 0.f, 0.f, 1.f);
+	output.vShadow = float4(1.f, 1.f, 1.f, 1.f);
+	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
+	float4 fPower = vSpecular.w;
+	vSpecular.w = 1.f;
+
+	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
+
+	float depth = tex2D(DepthMapSampler, input.vUV).r;
+	float z = tex2D(DepthMapSampler, input.vUV).g;
+	float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
+
+	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
+	float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
+	float intensity = saturate(dot(vLightDir * -1, vNormal));
+	float4 vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
+	vDiffuse.a = intensity;
+	if (intensity > 0.f)
+	{
+		output.vSpecular = CalcSpecular(vSpecular, vLightDir.xyz, vNormal.xyz, vPosition.xyz, fPower);
+		output.vSpecular.a = 1.f;
 	}
 	output.vColor = vDiffuse;
 	return output;
@@ -178,13 +220,10 @@ technique Default_Device
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light();
 	}
-	pass tone_combine
+	pass directioanl_no_shadow
 	{
-		ZWriteEnable = false;
-		AlphaBlendEnable = true;
-		SrcBlend = srcalpha;
-		DestBlend = invsrcalpha;
+		ZEnable = false;
 		VertexShader = compile vs_3_0 vs_main();
-		PixelShader = compile ps_3_0 ps_tone_combine();
+		PixelShader = compile ps_3_0 ps_directional_light_noshadow();
 	}
 }

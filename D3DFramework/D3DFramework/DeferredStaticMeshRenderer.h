@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include"Renderer.h"
 #include"RenderSystem.h"
 #include"Mesh.h"
@@ -17,6 +17,8 @@ namespace KST
 		PKH::IComponent* Clone() { return nullptr; }
 	public:
 		virtual void Render() override;
+		bool NeedShadow = true;
+
 	private:
 		void RenderShadowMap();
 		void RenderGBuffer();

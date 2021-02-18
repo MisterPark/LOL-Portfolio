@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
@@ -57,6 +57,60 @@ void KST::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
 
 void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
 {
+	IDirect3DDevice9* device = RenderManager::GetDevice();
+
+	ID3DXMesh* mesh = container->MeshData.pMesh;
+	int subsetCount = container->NumMaterials;
+
+	const int lightCount = RenderSystem::GetLightCount();
+	std::vector<const std::wstring*> lightNames;
+
+	lightNames.reserve(RenderSystem::GetLightCount());
+	for (int i = 0; i < lightCount; ++i)
+	{
+		lightNames.push_back(&RenderSystem::GetLightName(i));
+	}
+	UINT passCount = 0;
+	UINT passNum = 0;
+	shadowMapShader->Begin(&passCount, 0);
+	shadowMapShader->BeginPass(passNum);
+	ComPtr<IDirect3DSurface9> oldSurface;
+	device->GetDepthStencilSurface(&oldSurface);
+	for (auto lightNamePtr : lightNames)
+	{
+		ComPtr<IDirect3DSurface9> depthBuffer;
+		ComPtr<IDirect3DSurface9> surface;
+		ComPtr<IDirect3DSurface9> optionSurface;
+
+		RenderTarget* renderTarget;
+		RenderTarget* optionRenderTarget;
+		Matrix projMatrix;
+
+		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &optionRenderTarget , &depthBuffer, &projMatrix))
+		{
+			continue;
+		}
+		renderTarget->GetSurface(&surface);
+		optionRenderTarget->GetSurface(&optionSurface);
+		shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
+		shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+		shadowMapShader->SetBool("g_shadow", true);
+		shadowMapShader->CommitChanges();
+		device->SetRenderTarget(0, surface.Get());
+		device->SetRenderTarget(1, optionSurface.Get());
+		device->SetRenderTarget(2, nullptr);
+		device->SetRenderTarget(3, nullptr);
+		device->SetDepthStencilSurface(depthBuffer.Get());
+		
+		for (int i = 0; i < subsetCount; ++i)
+		{
+			mesh->DrawSubset(i);
+		}
+
+	}
+	shadowMapShader->EndPass();
+	shadowMapShader->End();
+	device->SetDepthStencilSurface(oldSurface.Get());
 
 }
 

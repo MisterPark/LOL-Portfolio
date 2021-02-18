@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "RenderTarget.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "RenderSystem.h"
@@ -48,7 +48,6 @@ namespace KST
 	}
 	void DeferredStaticMeshRenderer::RenderShadowMap()
 	{
-		return;
 		const int lightCount = RenderSystem::GetLightCount();
 		std::vector<const std::wstring*> lightNames;
 
@@ -57,19 +56,27 @@ namespace KST
 		{
 			lightNames.push_back(&RenderSystem::GetLightName(i));
 		}
+
+		IDirect3DDevice9* device = RenderManager::GetDevice();
+		ComPtr<IDirect3DSurface9> oldSurface;
+		device->GetDepthStencilSurface(&oldSurface);
+
 		for (auto lightNamePtr : lightNames)
 		{
-			IDirect3DDevice9* device = RenderManager::GetDevice();
 			ComPtr<IDirect3DSurface9> surface;
+			ComPtr<IDirect3DSurface9> optionSurface;
+			ComPtr<IDirect3DSurface9> depthBuffer;
 			RenderTarget* renderTarget;
+			RenderTarget* optionRenderTarget;
 			Matrix projMatrix;
 			UINT passCount = 0;
 			UINT passNum = 0;
-			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &projMatrix))
+			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget,&optionRenderTarget, &depthBuffer, &projMatrix))
 			{
 				continue;
 			}
 			renderTarget->GetSurface(&surface);
+			optionRenderTarget->GetSurface(&optionSurface);
 			if (alphaTest)
 			{
 				passNum = 1;
@@ -78,7 +85,11 @@ namespace KST
 			shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
 			shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 			device->SetRenderTarget(0, surface.Get());
-
+			device->SetRenderTarget(1, optionSurface.Get());
+			device->SetRenderTarget(2, nullptr);
+			device->SetRenderTarget(3, nullptr);
+			device->SetDepthStencilSurface(depthBuffer.Get());
+			shadowMapShader->SetBool("g_shadow", NeedShadow);
 			shadowMapShader->Begin(&passCount, 0);
 			shadowMapShader->BeginPass(passNum);
 			int subsetCount = mesh->GetSubsetCount();
@@ -95,7 +106,8 @@ namespace KST
 			shadowMapShader->EndPass();
 			shadowMapShader->End();
 		}
-		//TODO: 이제 셰도우의 투영행렬를 받아서 셰도우 맵에 메시를 렌더링해야 한다.
+		device->SetDepthStencilSurface(oldSurface.Get());
+
 	}
 	void DeferredStaticMeshRenderer::RenderGBuffer()
 	{

@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
 #include<map>
@@ -19,15 +19,22 @@ namespace KST
 	const char ID_TEX_DEPTH_MAP[]{ "g_depthMap" };
 	using namespace Microsoft::WRL;
 	std::list< Renderer*> rendererTable[(unsigned)RendererType::END];
+	struct ShadowMap;
 	struct LightAdditionalInfo
 	{
 		D3DLIGHT9 light;
 		Matrix projectionMatrix;
-		RenderTarget* shadowMap;
+		std::shared_ptr< ShadowMap> shadowMap;
+		
 	};
-
-	std::set<RenderTarget*> usingShadowMap;
-	std::set<RenderTarget*> idleShadowMap;
+	struct ShadowMap
+	{
+		std::unique_ptr<RenderTarget> renderTarget;
+		std::unique_ptr<RenderTarget> optionTarget;
+		ComPtr<IDirect3DSurface9> depthBuffer;
+	};
+	std::set<std::shared_ptr< ShadowMap> > usingShadowMap;
+	std::set<std::shared_ptr< ShadowMap> > idleShadowMap;
 
 	std::vector<std::wstring> lightNames;
 	std::map <std::wstring, LightAdditionalInfo> lights;
@@ -38,6 +45,7 @@ namespace KST
 	RenderTarget* normalRenderTarget;
 	RenderTarget* sharpnessRenderTarget;
 	RenderTarget* depthRenderTarget;
+	RenderTarget* shadowRenderTarget;
 
 	RenderTarget* lightSpecularRenderTarget;
 	RenderTarget* lightDiffuseRenderTarget;
@@ -46,6 +54,7 @@ namespace KST
 	ID3DXEffect* deferredShader;
 
 	Matrix mViewProj;
+
 
 	struct PPVertexFVF { D3DXVECTOR3 xyz; D3DXVECTOR2 uv; };
 	static constexpr DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
@@ -97,6 +106,8 @@ namespace KST
 		RenderManager::CreateRenderTarget(RENDER_TARGET_DEPTH, width, height, D3DFMT_G32R32F);
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
+		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_G32R32F);
+		shadowRenderTarget = RenderManager::GetRenderTarget(L"shadow_1");
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
@@ -106,29 +117,32 @@ namespace KST
 
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 		deferredShader = RenderManager::LoadEffect(L"./deferred_shader.fx");
+
 	}
 	void RenderSystem::Destory()
 	{
 		indexBuffer.Reset();
 		vertexBuffer.Reset();
-		for (auto it : usingShadowMap)
-		{
-			delete it;
-		}
-		for (auto it : idleShadowMap)
-		{
-			delete it;
-		}
+		idleShadowMap.clear();
+		usingShadowMap.clear();
+		lights.clear();
+		lightNames.clear();
 	}
 	void RenderSystem::AddLight(const wchar_t* name, const D3DLIGHT9& init)
 	{
 		LightAdditionalInfo info{};
 		info.light = init;
 		lights.emplace(name, info);
+		lightNames.emplace_back(name);
 	}
 	void RenderSystem::RemoveLight(const wchar_t* name)
 	{
 		lights.erase(name);
+		auto const it = std::find(lightNames.begin(), lightNames.end(), name);
+		if (it != lightNames.end())
+		{
+			lightNames.erase(it);
+		}
 	}
 	D3DLIGHT9* RenderSystem::GetLight(const wchar_t* name)
 	{
@@ -178,12 +192,23 @@ namespace KST
 		}
 		if (idleShadowMap.empty())
 		{
+			IDirect3DDevice9* device = RenderManager::GetDevice();
+			ComPtr<IDirect3DSurface9> depthBuffer;
 			RenderTarget* renderTarget{};
-			RenderTarget::Create(2048, 2048, D3DFMT_G32R32F, &renderTarget);
-			idleShadowMap.insert(renderTarget);
+			RenderTarget* optionBuffer{};
+			RenderTarget::Create(4096, 4096, D3DFMT_G32R32F, &renderTarget);
+			RenderTarget::Create(4096, 4096, D3DFMT_A8R8G8B8, &optionBuffer);
+			//optionTarget
+			device->CreateDepthStencilSurface(4096, 4096, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, false, &depthBuffer, nullptr);
+			std::shared_ptr<ShadowMap> shadowMap = std::make_shared<ShadowMap>();
+			shadowMap->depthBuffer = depthBuffer;
+			shadowMap->renderTarget.reset(renderTarget);
+			shadowMap->optionTarget.reset(optionBuffer);
+			idleShadowMap.insert(std::move(shadowMap));
 		}
 		auto idleShadowMapsIt = idleShadowMap.begin();
-		RenderTarget* shadowMap = *idleShadowMapsIt;
+		std::shared_ptr<ShadowMap> shadowMap = *idleShadowMapsIt;
+		it->second.shadowMap = shadowMap;
 		idleShadowMap.erase(idleShadowMapsIt);
 		usingShadowMap.emplace(shadowMap);
 	}
@@ -208,6 +233,7 @@ namespace KST
 		device->BeginScene();
 		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
 		device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0xFFFFFFFF, 1.f, 0);
+		mViewProj = Camera::main->GetViewMatrix() * Camera::main->GetProjectionMatrix();
 		RednerEarlyForward();
 		SetupShadowMap();
 		RednerDeferred();
@@ -216,10 +242,35 @@ namespace KST
 		RenderForward();
 		RenderUI();
 
+		if (usingShadowMap.empty() == false)
+		{
+			//const int width = MainGame::GetInstance()->width;
+			//const int height = MainGame::GetInstance()->height;
+			//auto it = *usingShadowMap.begin();
+			//ComPtr<IDirect3DTexture9> texture;
+			//it->renderTarget->GetTexture(&texture);
+			//D3DXMATRIX mMatrix;
+			//D3DXMATRIX mPos;
+			//D3DXMatrixScaling(&mMatrix,400.f/ 4096.f, 400.f / 4096.f, 1.f);
+			//sprite_->Begin(D3DXSPRITE_ALPHABLEND);
+			//sprite_->SetTransform(&mMatrix);
+			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+
+			//texture.Reset();
+			//shadowRenderTarget->GetTexture(&texture);
+			//D3DXMatrixScaling(&mMatrix, 400.f / width, 400.f / height, 1.f);
+			//D3DXMatrixTranslation(&mPos, 400.f , 0.f , 0.f);
+			//mMatrix = mMatrix * mPos;
+			//sprite_->SetTransform(&mMatrix);
+			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+
+			//sprite_->End();
+		}
+
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
 	}
-	bool RenderSystem::GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, Matrix* proj)
+	bool RenderSystem::GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, RenderTarget** optionBuffer, IDirect3DSurface9** depthBufferOut , Matrix* proj)
 	{
 		auto findIt = lights.find(lightName);
 		if (findIt == lights.end())
@@ -230,13 +281,16 @@ namespace KST
 		{
 			return false;
 		}
-		*renderTarget = findIt->second.shadowMap;
+		IDirect3DSurface9* depthBuffer = findIt->second.shadowMap->depthBuffer.Get();
+		depthBuffer->AddRef();
+		*depthBufferOut = depthBuffer;
+		*renderTarget = findIt->second.shadowMap->renderTarget.get();
+		*optionBuffer = findIt->second.shadowMap->optionTarget.get();
 		*proj = findIt->second.projectionMatrix;
-		return false;
+		return true;
 	}
 	void RenderSystem::SetupShadowMap()
 	{
-		return;
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
 		for (auto& pair : lights)
 		{
@@ -248,29 +302,50 @@ namespace KST
 			}
 
 		}
+		ComPtr<IDirect3DSurface9> oldBackbuffer;
+		device->GetDepthStencilSurface(&oldBackbuffer);
 		//사용중인 모든 셰도우맵의 깊이값을 1.f으로 맞춘다.
-		for (auto renderTarget : usingShadowMap)
+		for (auto& shadowMap : usingShadowMap)
 		{
 			ComPtr<IDirect3DSurface9> surface;
-			renderTarget->GetSurface(&surface);
+			ComPtr<IDirect3DSurface9> optionSurface;
+			shadowMap->renderTarget->GetSurface(&surface);
+			shadowMap->optionTarget->GetSurface(&optionSurface);
+
 			device->SetRenderTarget(0, surface.Get());
-			device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_STENCIL | D3DCLEAR_STENCIL, 0xFFFFFFFF, 1.f, 0);
+			device->SetDepthStencilSurface(shadowMap->depthBuffer.Get());
+			device->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
+			device->SetRenderTarget(0, optionSurface.Get());
+			device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
 		}
-		float cameraZ = 100.f;
+		device->SetDepthStencilSurface(oldBackbuffer.Get());
+
+		float cameraZ = 10.f;
 		//최대한 카메라에 가까이에 라이트의 위치를 잡아주고 싶다.
 		Transform* cameraTransform = Camera::main->GetTransform();
-		Matrix mCameraTransform = cameraTransform->GetWorldMatrix();
+		Matrix mCameraTransform = Matrix::Inverse(Camera::main->GetViewMatrix());
 		Matrix mProjSpace = Camera::main->GetProjectionMatrix();
 		Matrix mProjInverse = Matrix::Inverse(mProjSpace);
-
+		Vector3 vCameraPosition = (Vector3&)mCameraTransform.m[3];
 		for (auto& pair : lights)
 		{
+			if (pair.second.shadowMap == nullptr)
+			{
+				continue;
+			}
+			
 			Vector3 focusAt =
 				(Vector3&)mCameraTransform.m[2] * cameraZ
 				+ (Vector3&)mCameraTransform.m[3];
 			const D3DLIGHT9& light = pair.second.light;
-			Vector3 lightPosition = focusAt - 500.f * (Vector3&)light.Direction;
-			D3DXMatrixOrthoLH(&pair.second.projectionMatrix, 100.f, 100.f, 0.f, 1000.f);
+			Vector3 lightPosition = focusAt - 1000.f * (Vector3&)light.Direction;
+			Matrix mView;
+			Matrix mProjection;
+			D3DXMatrixLookAtLH(&mView, &lightPosition, &focusAt, &(Vector3&)mCameraTransform.m[1]);
+			//mView = Camera::main->GetViewMatrix();
+			//D3DXMatrixPerspectiveFovLH(&mProjection, D3DX_PI * 0.75f, 1.f, 0.1f, 2000.f);
+			D3DXMatrixOrthoLH(&mProjection, 500.f * vCameraPosition.y / 1000.f, 500.f * vCameraPosition.y / 1000.f, 0.1f, 2000.f);
+			pair.second.projectionMatrix = mView * mProjection;
 		}
 	}
 	void RenderSystem::RednerEarlyForward()
@@ -286,6 +361,7 @@ namespace KST
 	void RenderSystem::RednerDeferred()
 	{
 		IDirect3DDevice9* device = RenderManager::GetDevice();
+		
 		ComPtr<IDirect3DSurface9> albedoSurface;
 		ComPtr<IDirect3DSurface9> normalSurface;
 		ComPtr<IDirect3DSurface9> sharpnessSurface;
@@ -357,6 +433,7 @@ namespace KST
 
 		ComPtr<IDirect3DSurface9> lightDiffuseSurface{};
 		ComPtr<IDirect3DSurface9> lightSpecularSurface{};
+		ComPtr<IDirect3DSurface9> shadowSurface{};
 		D3DXMatrixInverse(&mInverseViewProj, nullptr, &mViewProj);
 		deferredShader->SetMatrix(ID_CONST_INVERSE_VIEW_PROJ_MATRIX, &mInverseViewProj);
 
@@ -372,30 +449,41 @@ namespace KST
 
 		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
 		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
+		shadowRenderTarget->GetSurface(&shadowSurface);
 		device->SetRenderTarget(0, lightDiffuseSurface.Get());
 		device->SetRenderTarget(1, lightSpecularSurface.Get());
 
-		device->SetRenderTarget(2, nullptr);
+		device->SetRenderTarget(2, shadowSurface.Get());
 		device->SetRenderTarget(3, nullptr);
 
 		deferredShader->SetVector("g_vCameraPosition", &vCameraPosition);
 
-
-		std::vector<D3DLIGHT9> lights;
-		lights.resize(RenderSystem::GetLightCount(), D3DLIGHT9{});
-		RenderSystem::GetLights(lights.data(), lights.size());
-		for (auto const& light : lights)
+		for (auto const& pair : lights)
 		{
+			D3DLIGHT9 const& light = pair.second.light;
 			int passNum = 0;
 			switch (light.Type)
 			{
 			case D3DLIGHT_DIRECTIONAL:
-				passNum = 1;
+				passNum = 2;
 				{
+					if (pair.second.shadowMap != nullptr)
+					{
+						passNum = 1;
+						ComPtr<IDirect3DTexture9> texture;
+						ComPtr<IDirect3DTexture9> shdowOptionTexture;
+						pair.second.shadowMap->renderTarget->GetTexture(&texture);
+						pair.second.shadowMap->optionTarget->GetTexture(&shdowOptionTexture);
+						deferredShader->SetTexture("g_shadowMap", texture.Get());
+						deferredShader->SetTexture("g_shadowOptionMap", shdowOptionTexture.Get());
+
+						deferredShader->SetMatrix("g_mLightSpace", &pair.second.projectionMatrix);
+					}
 					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 1.f);
 					deferredShader->SetVector("g_vLightDirectionAndPower", &vLightDir);
 					deferredShader->SetVector("g_vLightAmbient", reinterpret_cast<D3DXVECTOR4 const*>(&light.Ambient));
 					deferredShader->SetVector("g_vLightDiffuse", reinterpret_cast<D3DXVECTOR4 const*>(&light.Diffuse));
+
 				}
 				break;
 			}

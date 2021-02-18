@@ -32,7 +32,9 @@ struct PSIn
 struct PSOut
 {
 	float4 depth:COLOR0;
+	int4 option:COLOR1;
 };
+bool g_shadow;
 VSOut VS_main(VSIn input)
 {
 	VSOut output;
@@ -46,12 +48,24 @@ VSOut VS_main(VSIn input)
 }
 PSOut PS_main_NonAlpha(PSIn input)
 {
-	float depth = input.vClipPosition.z / input.vClipPosition.w;
 	PSOut output;
+	output.depth.rgba = 0.f;
+	output.option = (uint4)0;
+	//몇가지 문제가 있어 이것을 해결할 방법이 읍다.
+	if (!g_shadow)
+	{
+		//output.depth = float4(1.f, 1.f, 0.f, 0.f);
+		//output.option.x = 1;
+	}
+	else
+	{
 
+	}
+	float depth = input.vClipPosition.z / input.vClipPosition.w;
 	output.depth.rgba = 0.f;
 	output.depth.r = depth;
-	output.depth.g = input.vClipPosition.w;
+	output.depth.g = input.vClipPosition.w / 2000.f;
+	output.depth = output.depth;
 	return output;
 }
 float g_alphaThreshold;
@@ -62,10 +76,23 @@ PSOut PS_main_AlphaTest(PSIn input)
 	{
 		discard;
 	}
+	PSOut output;
+	output.option = (uint4)0;
+	//몇가지 문제가 있어 이것을 해결할 방법이 읍다.
+	if (!g_shadow)
+	{
+		//output.depth = float4(1.f, 1.f, 0.f, 0.f);
+		//output.option.x = 1;
+	}
+	else
+	{
+
+	}
 	float depth = input.vClipPosition.z / input.vClipPosition.w;
 	output.depth.rgba = 0.f;
 	output.depth.r = depth;
-	output.depth.g = input.vClipPosition.w;
+	output.depth.g = input.vClipPosition.w / 2000.f;
+	output.depth = output.depth;
 	return output;
 }
 
@@ -83,6 +110,7 @@ technique Default_Device
 		AlphaBlendEnable = true;
 		SrcBlend = one;
 		DestBlend = zero;
+
 		vertexshader = compile vs_3_0 VS_main();
 		pixelshader = compile ps_3_0 PS_main_AlphaTest();
 	}
