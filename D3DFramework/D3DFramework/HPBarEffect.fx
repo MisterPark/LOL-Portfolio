@@ -23,6 +23,9 @@ sampler TextureSampler = sampler_state
 	texture = g_texture;
 	minfilter = linear;
 	magfilter = linear;
+
+	addressU = clamp;
+	addressV = clamp;
 };
 
 VS_OUT vs_main(VS_IN input)
