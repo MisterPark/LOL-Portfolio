@@ -16,9 +16,10 @@ PKH::GameObject::~GameObject()
 {
 	ReleaseComponents();
 
-	for (auto iter : children)
+	for (auto& iter : children)
 	{
-		Safe_Delete(&iter.second);
+		//Safe_Delete(&iter.second);
+		delete iter.second;
 	}
 	children.clear();
 }

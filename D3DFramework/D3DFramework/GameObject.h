@@ -70,10 +70,13 @@ namespace PKH
 		void Hide();
 
 		template<class T>
-		T* AddChild(const wstring& _key);
+		T* AddChild(const wstring& _tag, T* _child);
+		template<class T>
+		T* CreateChild(const wstring& _key);
 
 	public:
 		wstring name;
+		wstring tag;
 		Transform* transform = nullptr;
 		
 		bool isVisible = true;
@@ -119,7 +122,17 @@ namespace PKH
 		return nullptr;
 	}
 	template<class T>
-	inline T* GameObject::AddChild(const wstring& _key)
+	inline T* GameObject::AddChild(const wstring& _tag, T* _child)
+	{
+		if (_child == nullptr) return nullptr;
+
+		_child->tag = _tag;
+		children.emplace(_child->tag, _child);
+		_child->SetParent(this);
+		return NULL;
+	}
+	template<class T>
+	inline T* GameObject::CreateChild(const wstring& _key)
 	{
 		GameObject* child = new T();
 		children.emplace(_key, child);

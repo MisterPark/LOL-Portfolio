@@ -21,6 +21,10 @@ public:
     virtual void Initialize() override;
     virtual void Release() override;
     virtual void Update() override;
+
+    void SetText(const wstring& _text);
+    void SetText(int _value);
+
 private:
     void MakeFont(int fontSize = 20);
 

@@ -46,6 +46,18 @@ void Label::Update()
 	UI::Update();
 }
 
+void Label::SetText(const wstring& _text)
+{
+	text = _text.c_str();
+}
+
+void Label::SetText(int _value)
+{
+	WCHAR wstr[16] = {};
+	swprintf_s(wstr, L"%d", _value);
+	text = wstr;
+}
+
 //void Label::Render()
 //{
 //	if (pFont == nullptr) return;

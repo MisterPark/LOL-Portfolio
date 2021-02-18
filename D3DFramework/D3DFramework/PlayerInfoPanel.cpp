@@ -13,20 +13,17 @@ PlayerInfoPanel::PlayerInfoPanel()
     screenH = MainGame::GetHeight();
 
     mainPanelTex = RenderManager::GetTexture(L"panel (5)");
-    miniPanelTex = RenderManager::GetTexture(L"panel (4)");
     faceBorderTex = RenderManager::GetTexture(L"panel (1)");
     invenPanelTex = RenderManager::GetTexture(L"panel (2)");
     statPanelTex = RenderManager::GetTexture(L"stat_panel (5)");
 
     Vector2 mainPanelPos{ (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f, float(screenH - mainPanelTex->GetSpriteHeight())};
-    Vector2 miniPanelPos{ float(screenW - miniPanelTex->GetSpriteWidth()), 0.f};
     Vector2 invenPanelPos{ mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25, float(screenH - invenPanelTex->GetSpriteHeight())};
     Vector2 faceBorderPos{ mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f, mainPanelPos.y + 10};
     Vector2 statPanelPos{ faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f, faceBorderPos.y};
 
     statPanel = new UI(L"stat_panel (5)", statPanelPos);
     mainPanel = new UI(L"panel (5)", mainPanelPos);
-    miniPanel = new UI(L"panel (4)", miniPanelPos);
     invenPanel = new UI(L"panel (2)", invenPanelPos);
     facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x + 20, faceBorderPos.y + 20));
     faceBorder = new UI(L"panel (1)", faceBorderPos);
@@ -77,7 +74,6 @@ PlayerInfoPanel::~PlayerInfoPanel()
 {
     Safe_Delete(&statPanel);
     Safe_Delete(&mainPanel);
-    Safe_Delete(&miniPanel);
     Safe_Delete(&invenPanel);
     Safe_Delete(&faceBorder);
     Safe_Delete(&facePanel);
@@ -97,7 +93,6 @@ PlayerInfoPanel::~PlayerInfoPanel()
 
     pPlayerInfoPanel = nullptr;
     mainPanelTex = nullptr;
-    miniPanelTex = nullptr;
     faceBorderTex = nullptr;
     invenPanelTex = nullptr;
     champion = nullptr;
@@ -154,7 +149,6 @@ void PlayerInfoPanel::Update()
 
     GameObject::Update();
     mainPanel->Update();
-    miniPanel->Update();
     invenPanel->Update();
     faceBorder->Update();
     facePanel->Update();

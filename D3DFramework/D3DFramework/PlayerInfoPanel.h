@@ -34,7 +34,6 @@ public:
 	int screenH = 720;
 private:
 	Texture* mainPanelTex = nullptr;
-	Texture* miniPanelTex = nullptr;
 	Texture* faceBorderTex = nullptr;
 	Texture* invenPanelTex = nullptr;
 	Texture* statPanelTex = nullptr;
@@ -45,7 +44,6 @@ private:
 
 	PKH::UI* statPanel = nullptr;
 	PKH::UI* mainPanel = nullptr;
-	PKH::UI* miniPanel = nullptr;
 	PKH::UI* invenPanel = nullptr;
 	PKH::UI* faceBorder = nullptr;
 	PKH::UI* facePanel = nullptr;
