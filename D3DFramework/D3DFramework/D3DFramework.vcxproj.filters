@@ -265,6 +265,9 @@
     <Filter Include="Lib\Math">
       <UniqueIdentifier>{d29c1181-a81b-4323-8efb-30de559432e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\ItemshopPanel">
+      <UniqueIdentifier>{1e6af0ea-f596-4583-b33c-7e0a2694dc89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -765,6 +768,12 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Lib\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemshopPanel.h">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="OutlinedSlot.h">
+      <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1338,6 +1347,12 @@
     </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>Lib\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemshopPanel.cpp">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="OutlinedSlot.cpp">
+      <Filter>GameObject\UI\Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "UI.h"
 class Button :
     public UI
 {
 public:
-    Button();
+    Button(const std::wstring& _tag, const Vector2& pos);
     virtual ~Button();
 
     virtual void Initialize() override;
@@ -19,11 +19,11 @@ public:
 
 
 private:
-    // hover ÀÌº¥Æ® Àü¿ë
+    // hover ì´ë²¤íŠ¸ ì „ìš©
     float upScaleRatio = 1.1f;
     Vector3 originScale;
     bool isUpScale = false;
-    // down ÀÌº¥Æ® Àü¿ë
+    // down ì´ë²¤íŠ¸ ì „ìš©
     Vector3 originPosition;
     bool isButtonDown = false;
     

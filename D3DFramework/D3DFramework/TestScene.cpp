@@ -1,9 +1,6 @@
 ﻿#include "stdafx.h"
 #include "TestScene.h"
 
-#include "UIManager.h"
-#include "Label.h"
-#include "MinimapPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -28,7 +25,12 @@
 #include "Jax.h"
 #include "Jinx.h"
 
+// UI
+#include "UIManager.h"
+#include "Label.h"
 #include "PlayerInfoPanel.h"
+#include "MinimapPanel.h"
+#include "ItemshopPanel.h"
 #include "FloatingBar.h"
 
 #include "OrderMinionCaster.h"
@@ -412,6 +414,7 @@ void TestScene::OnLoaded()
 
 	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
+	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 }
 
 void TestScene::OnUnloaded()

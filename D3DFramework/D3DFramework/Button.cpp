@@ -2,8 +2,11 @@
 #include "Button.h"
 
 
-Button::Button()
+Button::Button(const std::wstring& _tag, const Vector2& pos)
+	: UI(_tag, pos)
 {
+
+
 	Initialize();
 }
 

@@ -22,9 +22,7 @@ PKH::UI::UI(const Vector2& pos)
 PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
-	tag = _tag;
 	SetTexture(_tag);
-	SetSizeByTexture();
 	SetLocation(pos);
 }
 
@@ -248,7 +246,7 @@ UI* PKH::UI::AddChild(UI* _ui)
 	children.emplace(_ui->tag, _ui);
 	_ui->SetParent(this);
 
-	return nullptr;
+	return _ui;
 }
 
 PKH::UI* PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)

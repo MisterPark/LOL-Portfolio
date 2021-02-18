@@ -256,6 +256,7 @@
     <ClInclude Include="OrderMinionMelee.h" />
     <ClInclude Include="OrderMinionSiege.h" />
     <ClInclude Include="OrderMinionSuper.h" />
+    <ClInclude Include="OutlinedSlot.h" />
     <ClInclude Include="PacketPool.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Physics.h" />
@@ -306,6 +307,7 @@
     <ClInclude Include="Stat.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="ItemshopPanel.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
@@ -420,6 +422,7 @@
     <ClCompile Include="OrderMinionMelee.cpp" />
     <ClCompile Include="OrderMinionSiege.cpp" />
     <ClCompile Include="OrderMinionSuper.cpp" />
+    <ClCompile Include="OutlinedSlot.cpp" />
     <ClCompile Include="PacketPool.cpp" />
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Physics.cpp" />
@@ -466,6 +469,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ItemshopPanel.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="TestEncoding.cpp" />
