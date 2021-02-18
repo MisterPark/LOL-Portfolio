@@ -57,7 +57,7 @@ namespace PKH
 
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
-        Vector2 uvRatio = Vector2{ 1.f, 1.f };
+        Vector2 uvRatio = { 1,1 };
         // 넓이 높이 (R)
         Vector2 size;
 

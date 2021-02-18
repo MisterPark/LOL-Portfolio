@@ -262,6 +262,9 @@
     <Filter Include="Component\Renderer\UIRenderer">
       <UniqueIdentifier>{598d0f5d-e44e-46b1-8b61-14752bb911eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Math">
+      <UniqueIdentifier>{d29c1181-a81b-4323-8efb-30de559432e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -759,6 +762,9 @@
     <ClInclude Include="LabelRenderer.h" />
     <ClInclude Include="SkinnedMeshRenderer.h">
       <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Lib\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1329,6 +1335,9 @@
     <ClCompile Include="LabelRenderer.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp">
       <Filter>Component\Renderer\SkinnedMeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Lib\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

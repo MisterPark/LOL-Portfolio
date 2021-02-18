@@ -232,6 +232,7 @@
     <ClInclude Include="CRingBuffer.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="MinimapPanel.h" />
@@ -395,6 +396,7 @@
     <ClCompile Include="CRingBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MinimapPanel.cpp" />
