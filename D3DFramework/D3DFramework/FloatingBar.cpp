@@ -11,11 +11,11 @@ FloatingBar::FloatingBar()
 	SetTexture(L"border_float (1)");
 	SetSizeByTexture();
 
-	hp = (Bar*)AddChild(L"bar_float (2)", Vector2(26, 6));
-	hp->transform->scale = { 0.97f,1.f,1.f };
+	hpBar = (Bar*)AddChild(L"bar_float (2)", Vector2(26, 6));
+	hpBar->transform->scale = { 0.97f,1.f,1.f };
 	
-	mp = (Bar*)AddChild(L"bar_float (5)", Vector2(26, 20));
-	mp->transform->scale = { 0.97f,0.3f,1.f };
+	mpBar = (Bar*)AddChild(L"bar_float (5)", Vector2(26, 20));
+	mpBar->transform->scale = { 0.97f,0.3f,1.f };
 	
 
 	//textOffsetPosition = { 0,-35,0 };
@@ -24,8 +24,8 @@ FloatingBar::FloatingBar()
 FloatingBar::~FloatingBar()
 {
 	target = nullptr;
-	hp = nullptr;
-	mp = nullptr;
+	hpBar = nullptr;
+	mpBar = nullptr;
 }
 
 void FloatingBar::Update()
@@ -58,9 +58,30 @@ void FloatingBar::PostUpdate()
 			offset.y = -texture->GetSpriteHeight() * 0.5f;
 		}
 		SetLocation(worldPos.x + offset.x, worldPos.y + offset.y);
+
+		Vector2 hpRatio = { 0,1 };
+		Vector2 mpRatio = { 0,1 };
+		float hp = target->GetHP();
+		float mp = target->GetMP();
+		float maxHp = target->GetMaxHP();
+		float maxMp = target->GetMaxMP();
+
+		if (maxHp != 0)
+		{
+			hpRatio.x = hp / maxHp;
+		}
+		if (maxMp != 0)
+		{
+			mpRatio.x = mp / maxMp;
+		}
+		if (hp != maxHp)
+		{
+			int a = 10;
+		}
+
+		hpBar->uvRatio = hpRatio;
+		mpBar->uvRatio = mpRatio;
 	}
-
-
 
 
 	GameObject::PostUpdate();
@@ -73,12 +94,12 @@ void FloatingBar::SetTarget(Unit* target)
 
 void FloatingBar::SetTextureHP(const wstring& _key)
 {
-	hp->SetTexture(_key);
+	hpBar->SetTexture(_key);
 }
 
 void FloatingBar::SetTextureMP(const wstring& _key)
 {
-	mp->SetTexture(_key);
+	mpBar->SetTexture(_key);
 }
 
 void FloatingBar::SetNickname(const wstring& _nick)

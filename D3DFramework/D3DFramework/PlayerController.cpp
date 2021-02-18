@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "PlayerController.h"
 #include "Collider.h"
 #include "NavMeshAgent.h"
@@ -110,7 +110,7 @@ void PlayerController::Update()
                 else
                 {
                     unit->SetAttackTarget(nullptr);
-                    agent->SetStoppingDistance(0.05f);
+                    agent->SetStoppingDistance(0.1f);
                     unit->SetDestination(hit.point);
                 }
             }
@@ -129,7 +129,7 @@ void PlayerController::Update()
         {
             
             unit->SetAttackTarget(nullptr);
-            agent->SetStoppingDistance(0.05f);
+            agent->SetStoppingDistance(0.1f);
             unit->SetDestination(hit.point);
         }
         
