@@ -1,4 +1,3 @@
-//for common
 struct VS_IN
 {
 	float4 vPosition:POSITION;
@@ -16,7 +15,7 @@ struct PS_IN
 	float2 vTex: TEXCOORD1;
 };
 texture g_texture;
-float4 g_vHpBarPercent;
+float4 g_uvRatio;
 matrix g_mWorld;
 matrix g_mViewProj;
 sampler TextureSampler = sampler_state
@@ -39,9 +38,9 @@ VS_OUT vs_main(VS_IN input)
 float4 ps_main(PS_IN input) :COLOR0
 {
 	float2 vTex = input.vTex;
-	if (vTex.x > g_vHpBarPercent.x && vTex.y > g_vHpBarPercent.y)
+	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
 	{
-		discard;
+		return float4(0.f, 0.f, 0.f, 0.f);
 	}
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
 	return vAlbedo;
@@ -50,7 +49,7 @@ technique Default_Device
 {
 	pass HPBar
 	{
-		ZEnable = true;
+		ZEnable = false;
 		AlphaBlendEnable = true;
 		SrcBlend = srcalpha;
 		DestBlend = invsrcalpha;

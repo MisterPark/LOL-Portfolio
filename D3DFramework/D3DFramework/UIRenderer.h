@@ -20,7 +20,7 @@ namespace KST
 	protected:
 		PKH::Mesh* mesh = nullptr;
 		PKH::UI* ui = nullptr;
-		
+		ID3DXEffect* effect = nullptr;
 	private:
 		static int uniqueZIndex;
 	};

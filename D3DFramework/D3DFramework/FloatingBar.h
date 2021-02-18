@@ -26,6 +26,6 @@ protected:
     Vector3 offset;
     wstring textureKey;
 
-    Bar* hp = nullptr;
-    Bar* mp = nullptr;
+    Bar* hpBar = nullptr;
+    Bar* mpBar = nullptr;
 };

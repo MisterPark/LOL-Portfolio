@@ -284,21 +284,21 @@ void PlayerInfoPanel::Update()
 //    float ratioMP = 0.f;
 //    float maxHp = champion->GetMaxHP();
 //    float maxMp = champion->GetMaxMP();
-//    float hp = champion->GetHP();
-//    float mp = champion->GetMP();
+//    float hpBar = champion->GetHP();
+//    float mpBar = champion->GetMP();
 //    WCHAR hpText[32] = {};
 //    WCHAR mpText[32] = {};
 //
 //    if (maxHp != 0.f)
 //    {
-//        ratioHP = hp / maxHp;
-//        swprintf_s(hpText, L"%d / %d", (int)hp, (int)maxHp);
+//        ratioHP = hpBar / maxHp;
+//        swprintf_s(hpText, L"%d / %d", (int)hpBar, (int)maxHp);
 //        hpLabel->text = hpText;
 //    }
 //    if (maxMp != 0.f)
 //    {
-//        ratioMP = mp / maxMp;
-//        swprintf_s(mpText, L"%d / %d", (int)mp, (int)maxMp);
+//        ratioMP = mpBar / maxMp;
+//        swprintf_s(mpText, L"%d / %d", (int)mpBar, (int)maxMp);
 //        mpLabel->text = mpText;
 //    }
 //
