@@ -15,7 +15,7 @@ struct PS_IN
 	float2 vTex: TEXCOORD1;
 };
 texture g_texture;
-float2 g_uvRatio;
+float4 g_uvRatio;
 matrix g_mWorld;
 matrix g_mViewProj;
 sampler TextureSampler = sampler_state
@@ -38,9 +38,9 @@ VS_OUT vs_main(VS_IN input)
 float4 ps_main(PS_IN input) :COLOR0
 {
 	float2 vTex = input.vTex;
-	if (vTex.x > g_uvRatio.x && vTex.y > g_uvRatio.y)
+	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
 	{
-		discard;
+		return float4(0.f, 0.f, 0.f, 0.f);
 	}
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
 	return vAlbedo;
