@@ -223,12 +223,20 @@ technique Default_Device
 	pass directioanl
 	{
 		ZEnable = false;
+		AlphaBlendEnable = true;
+		SrcBlend = One;
+		DestBlend = One;
+		BlendOp = Add;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light();
 	}
 	pass directioanl_no_shadow
 	{
 		ZEnable = false;
+		AlphaBlendEnable = true;
+		SrcBlend = One;
+		DestBlend = One;
+		BlendOp = Add;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light_noshadow();
 	}

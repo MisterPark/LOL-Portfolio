@@ -106,7 +106,7 @@ namespace KST
 		RenderManager::CreateRenderTarget(RENDER_TARGET_DEPTH, width, height, D3DFMT_G32R32F);
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
-		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_G32R32F);
+		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_A16B16G16R16F);
 		shadowRenderTarget = RenderManager::GetRenderTarget(L"shadow_1");
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
@@ -450,11 +450,18 @@ namespace KST
 		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
 		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
 		shadowRenderTarget->GetSurface(&shadowSurface);
+
+		device->SetRenderTarget(0, shadowSurface.Get());
+		device->SetRenderTarget(1, nullptr);
+		device->SetRenderTarget(2, nullptr);
+		device->SetRenderTarget(3, nullptr);
+		device->Clear(0, nullptr, D3DCLEAR_TARGET, 0xFFFFFFFF, 0, 0);
 		device->SetRenderTarget(0, lightDiffuseSurface.Get());
 		device->SetRenderTarget(1, lightSpecularSurface.Get());
-
-		device->SetRenderTarget(2, shadowSurface.Get());
+		device->SetRenderTarget(2, nullptr);
 		device->SetRenderTarget(3, nullptr);
+		device->Clear(0, nullptr, D3DCLEAR_TARGET, 0, 0, 0);
+		device->SetRenderTarget(2, shadowSurface.Get());
 
 		deferredShader->SetVector("g_vCameraPosition", &vCameraPosition);
 
@@ -514,6 +521,7 @@ namespace KST
 	}
 	void RenderSystem::RenderCombine()
 	{
+
 	}
 	void KST::RenderSystem::Add(Renderer* renderer)
 	{
