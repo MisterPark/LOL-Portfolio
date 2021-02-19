@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "LoadManager.h"
 
 LoadManager* pLoadManager = nullptr;
@@ -80,14 +80,14 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
     ThreadInfo* info = (ThreadInfo*)arg;
     UINT number = info->number;
 
-    printf("[DEBUG] [%d]¹ø ½º·¹µå °¡µ¿\n", info->number);
+    printf("[DEBUG] [%d]ë²ˆ ìŠ¤ë ˆë“œ ê°€ë™\n", info->number);
     
     while (!info->shutdownFlag)
     {
         if (info->pLoad->jobQ[number].size() == 0)
         {
             info->isWorking = false;
-            Sleep(0);
+            Sleep(10);
             continue;
         }
         
@@ -132,7 +132,7 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
         }
     }
     
-    printf("[DEBUG] [%d]¹ø ½º·¹µå Á¾·á\n", info->number);
+    printf("[DEBUG] [%d]ë²ˆ ìŠ¤ë ˆë“œ ì¢…ë£Œ\n", info->number);
     return 0;
 }
 

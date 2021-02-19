@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "StaticMesh.h"
 PKH::StaticMesh::StaticMesh(GameObject* owner)
 	:Mesh(owner)
@@ -82,48 +82,43 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	auto device = RenderManager::GetDevice();
 
 	//==============================
-	// XÆÄÀÏ ¸Þ½¬ ·Îµå
+	// XíŒŒì¼ ë©”ì‰¬ ë¡œë“œ
 	//==============================
-	//RenderManager::LockDevice();
 	if (FAILED(D3DXLoadMeshFromX(szFullPath, D3DXMESH_MANAGED, device,
 		&pAdjacency, &pSubset, NULL, &subsetCount, &pOriginMesh)))
 	{
-		RenderManager::UnlockDevice();
 		return E_FAIL;
 	}
-	//RenderManager::UnlockDevice();
 
 	//==============================
-	// FVF & ³ë¸» ¼¼ÆÃ
+	// FVF & ë…¸ë§ ì„¸íŒ…
 	//==============================
-	fvf = pOriginMesh->GetFVF();	// ¸Þ½¬°¡ Áö´Ñ Á¤Á¡ FVFÁ¤º¸¸¦ ¾ò¾î¿À´Â ÇÔ¼ö
+	fvf = pOriginMesh->GetFVF();	// ë©”ì‰¬ê°€ ì§€ë‹Œ ì •ì  FVFì •ë³´ë¥¼ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜
 	
-	//RenderManager::LockDevice();
 	if (!(fvf & D3DFVF_NORMAL))
 	{
-		// ³ë¸» °ªÀÌ ¾ø´Â °æ¿ì
+		// ë…¸ë§ ê°’ì´ ì—†ëŠ” ê²½ìš°
 		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf |= D3DFVF_NORMAL, device, &pMesh);
-		// ³ë¸»°è»ê
+		// ë…¸ë§ê³„ì‚°
 		D3DXComputeNormals(pMesh, (ULONG*)pAdjacency->GetBufferPointer());
 	}
 	else
 	{
 		pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	}
-	//RenderManager::UnlockDevice();
 
 
 	//==============================
-	// ¹öÅØ½ºµéÀÇ Æ÷Áö¼Ç Á¤º¸ ÀúÀå
+	// ë²„í…ìŠ¤ë“¤ì˜ í¬ì§€ì…˜ ì •ë³´ ì €ìž¥
 	//==============================
 	void* pVertex = nullptr;
 
-	vertexCount = pMesh->GetNumVertices();	// ¸Þ½¬°¡ Áö´Ñ Á¤Á¡ÀÇ °³¼ö¸¦ ¹ÝÈ¯
+	vertexCount = pMesh->GetNumVertices();	// ë©”ì‰¬ê°€ ì§€ë‹Œ ì •ì ì˜ ê°œìˆ˜ë¥¼ ë°˜í™˜
 	pVertices = new Vector3[vertexCount];
 
 	pMesh->LockVertexBuffer(0, &pVertex);
 
-	// Á¤Á¡ Á¤º¸ Áß positionÀÇ À§Ä¡ Ã£±â
+	// ì •ì  ì •ë³´ ì¤‘ positionì˜ ìœ„ì¹˜ ì°¾ê¸°
 	D3DVERTEXELEMENT9			Decl[MAX_FVF_DECL_SIZE];
 	ZeroMemory(Decl, sizeof(D3DVERTEXELEMENT9) * MAX_FVF_DECL_SIZE);
 
@@ -139,9 +134,9 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 			break;
 		}
 	}
-	// FVF Á¤º¸¸¦ Åä´ë·Î Á¤Á¡ÀÇ Å©±â¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö
+	// FVF ì •ë³´ë¥¼ í† ëŒ€ë¡œ ì •ì ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 	vertexSize = D3DXGetFVFVertexSize(fvf);
-	// ¹öÅØ½ºÀÇ Æ÷Áö¼ÇÁ¤º¸¸¸ ÀúÀå
+	// ë²„í…ìŠ¤ì˜ í¬ì§€ì…˜ì •ë³´ë§Œ ì €ìž¥
 	for (ULONG i = 0; i < vertexCount; ++i)
 	{
 		pVertices[i] = *((Vector3*)(((UCHAR*)pVertex) + (i * vertexSize + byOffset)));
@@ -150,14 +145,14 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	pMesh->UnlockVertexBuffer();
 
 	//==============================
-	// ÀÎµ¦½º Á¤º¸ ÀúÀå
+	// ì¸ë±ìŠ¤ ì •ë³´ ì €ìž¥
 	//==============================
 
 	this->triangleCount = pMesh->GetNumFaces();
 	int indexCount = triangleCount * 3;
 	pIndices = new DWORD[indexCount];
 
-	// ÀÎµ¦½º ¹öÆÛ ¼¼ÆÃ
+	// ì¸ë±ìŠ¤ ë²„í¼ ì„¸íŒ…
 	LPDIRECT3DINDEXBUFFER9 pIB;
 	pMesh->GetIndexBuffer(&pIB);
 
@@ -191,9 +186,9 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 	
 	
 	//==============================
-	// ¸ÓÆ¼¸®¾ó & ÅØ½ºÃ³ Á¤º¸ ÀúÀå
+	// ë¨¸í‹°ë¦¬ì–¼ & í…ìŠ¤ì²˜ ì •ë³´ ì €ìž¥
 	//==============================
-	// ¸Þ½¬°¡ Áö´Ñ ÀçÁú Á¤º¸ Áß Ã¹ ¹øÂ° ÁÖ¼Ò¸¦ ¹ÝÈ¯ÇÏ¿© ÀúÀå
+	// ë©”ì‰¬ê°€ ì§€ë‹Œ ìž¬ì§ˆ ì •ë³´ ì¤‘ ì²« ë²ˆì§¸ ì£¼ì†Œë¥¼ ë°˜í™˜í•˜ì—¬ ì €ìž¥
 	pMaterial = (D3DXMATERIAL*)pSubset->GetBufferPointer();
 	
 	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
@@ -214,16 +209,12 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 		lstrcat(szFullPath, szFileName);
 		
 		HRESULT res = E_FAIL;
-		RenderManager::LockDevice();
 		res = D3DXCreateTextureFromFile(device, szFullPath, &ppTextures[i]);
 		if (res != S_OK)
 		{
-			RenderManager::UnlockDevice();
 			return E_FAIL;
 		}
 		
-
-		RenderManager::UnlockDevice();
 	}
 
 	return S_OK;
@@ -233,6 +224,10 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 void PKH::StaticMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
+	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+
+	// TODO : Render ë°˜ê²½ ê³„ì‚° í•´ì•¼í• ë“¯?
+	if (Frustum::Intersect(&worldPos, 1.f) == false) return;
 	device->SetFVF(fvf);
 	pMesh->DrawSubset(index);
 }

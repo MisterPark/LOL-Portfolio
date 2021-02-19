@@ -1,21 +1,21 @@
 ﻿#include "stdafx.h"
 #include "Button.h"
+#include "Label.h"
 
-
-Button::Button()
+Button::Button(const std::wstring& _tag, const Vector2& pos)
+	: UI(_tag, pos)
 {
-	Initialize();
+	label = new Label();
+	AddChild(L"Text", label);
+	SetTexture(_tag);
 }
 
 Button::~Button()
 {
-	Release();
 }
 
 void Button::Initialize()
 {
-	transform->scale = { 1.f,1.f,1.f };
-	originScale = transform->scale;
 	
 }
 
@@ -34,57 +34,107 @@ void Button::OnHover()
 {
 	UI::OnHover();
 
-	if (!isUpScale)
-	{
-		isUpScale = true;
-		transform->scale *= upScaleRatio;
-
-		SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
-	}
-	
+	mesh->SetTexture(hoverTexture);
+	SetSizeByTexture();
+	//SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
 	
 }
 
 void Button::OnLeave()
 {
 	UI::OnLeave();
-
-	if (isUpScale)
-	{
-		isUpScale = false;
-		transform->scale = originScale;
-	}
-	
+	mesh->SetTexture(originTexture);
+	SetSizeByTexture();
 }
 
 void Button::OnLButtonDown()
 {
 	UI::OnLButtonDown();
-
-	if (!isButtonDown)
-	{
-		isButtonDown = true;
-		originPosition = transform->position;
-		transform->position.x += 5;
-		transform->position.y += 5;
-	}
+	mesh->SetTexture(pressedTexture);
+	SetSizeByTexture();
 	
 }
 
 void Button::OnLButtonUp()
 {
-	if (isButtonDown)
-	{
-		isButtonDown = false;
-		transform->position = originPosition;
-	}
-	
 	UI::OnLButtonUp();
+	mesh->SetTexture(originTexture);
+	SetSizeByTexture();
 }
 
 void Button::OnClick()
 {
 	UI::OnClick();
 
-	SoundManager::PlayOverlapSound(L"Select.wav", SoundChannel::EFFECT, 0.5f);
+	//SoundManager::PlayOverlapSound(L"Select.wav", SoundChannel::EFFECT, 0.5f);
+}
+
+void Button::OnEnabledChanged()
+{
+	UI::OnEnabledChanged();
+	if (isEnable == false)
+	{
+		mesh->SetTexture(disableTexture);
+		SetSizeByTexture();
+	}
+}
+
+void Button::OnTextChanged()
+{
+	UI::OnTextChanged();
+	label->SetText(text);
+}
+
+void Button::SetTexture(const wstring& _key)
+{
+	UI::SetTexture(_key);
+	originTexture = _key;
+	hoverTexture = _key;
+	pressedTexture = _key;
+	disableTexture = _key;
+}
+
+void Button::SetTextureHover(const wstring& _key)
+{
+	hoverTexture = _key;
+}
+
+void Button::SetTexturePressed(const wstring& _key)
+{
+	pressedTexture = _key;
+}
+
+void Button::SetTextureDisable(const wstring& _key)
+{
+	disableTexture = _key;
+}
+
+void Button::SetLabelSize(int _size)
+{
+	if (label == nullptr) return;
+	label->SetFontSize(_size);
+}
+
+void Button::SetLabelPosition(Vector2 _pos)
+{
+	if (label == nullptr) return;
+	label->SetLocation(_pos);
+}
+
+void Button::SetLabelAlign(Label::Align _align)
+{
+	if (label == nullptr) return;
+	label->align = _align;
+}
+
+void Button::SetLabelVAlign(Label::VAlign _valign)
+{
+	if (label == nullptr) return;
+	label->valign = _valign;
+}
+
+void Button::SetLabelColor(D3DCOLOR _color)
+{
+	if (label == nullptr) return;
+	label->foreColor = _color;
 }

@@ -186,11 +186,37 @@ void PKH::GameObject::SetPosition(Vector3 _vPos)
 
 void PKH::GameObject::Show()
 {
+	auto iter = components.begin();
+	auto end = components.end();
+	for (; iter != end; ++iter)
+	{
+		auto comp = dynamic_cast<Renderer*>(iter->second);
+		if (comp == nullptr) continue;
+		comp->visible = true;
+	}
+
+	for (auto child : children)
+	{
+		child.second->Show();
+	}
 	isVisible = true;
 }
 
 void PKH::GameObject::Hide()
 {
+	auto iter = components.begin();
+	auto end = components.end();
+	for (; iter != end; ++iter)
+	{
+		auto comp = dynamic_cast<Renderer*>(iter->second);
+		if (comp == nullptr) continue;
+		comp->visible = false;
+	}
+
+	for (auto child : children)
+	{
+		child.second->Hide();
+	}
 	isVisible = false;
 }
 

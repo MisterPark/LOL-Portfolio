@@ -32,6 +32,20 @@ void LabelRenderer::Render()
 		break;
 	}
 
+	switch (label->valign)
+	{
+	case Label::VAlign::Top:
+		break;
+	case Label::VAlign::Middle:
+		matWorld._42 -= (label->rcDraw.bottom - label->rcDraw.top) * 0.5f;
+		break;
+	case Label::VAlign::Bottom:
+		matWorld._42 -= (label->rcDraw.bottom - label->rcDraw.top);
+		break;
+	default:
+		break;
+	}
+
 	label->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	label->pSprite->SetTransform(&matWorld);
 	label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->foreColor);

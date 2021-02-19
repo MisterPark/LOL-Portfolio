@@ -1,16 +1,19 @@
 ﻿#include "stdafx.h"
 #include "UI.h"
 #include "UIRenderer.h"
-
+#include "Label.h"
 
 UI::UI()
 {
+	oldEnable = isEnable;
+
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 
 	KST::UIRenderer* renderer = new KST::UIRenderer(this);
 	renderer->SetMesh(mesh);
 	AddComponent(L"renderer", renderer);
+
 }
 
 PKH::UI::UI(const Vector2& pos)
@@ -22,9 +25,7 @@ PKH::UI::UI(const Vector2& pos)
 PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
-	tag = _tag;
 	SetTexture(_tag);
-	SetSizeByTexture();
 	SetLocation(pos);
 }
 
@@ -133,6 +134,19 @@ void UI::UpdateEvent()
 		doubleClickTick = 0.f;
 	}
 	
+	// EnabledChanged
+	if (isEnable != oldEnable)
+	{
+		oldEnable = isEnable;
+		OnEnabledChanged();
+	}
+
+	// TextChanged
+	if (text != oldText)
+	{
+		oldText = text;
+		OnTextChanged();
+	}
 }
 
 void UI::ClearEvent()
@@ -181,6 +195,16 @@ void UI::OnClick()
 void PKH::UI::OnDoubleClick()
 {
 	DoubleClick.Invoke();
+}
+
+void PKH::UI::OnEnabledChanged()
+{
+	EnabledChanged.Invoke();
+}
+
+void PKH::UI::OnTextChanged()
+{
+	TextChanged.Invoke();
 }
 
 Vector2 PKH::UI::GetSize()
@@ -235,10 +259,13 @@ void PKH::UI::SetLocation(Vector2 pos)
 void UI::SetTexture(const wstring& _key)
 {
 	texture = RenderManager::GetTexture(_key);
-	//SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
-	tag = _key;
 	SetSizeByTexture();
+}
+
+void PKH::UI::SetText(const wstring& _text)
+{
+	text = _text;
 }
 
 PKH::UI* PKH::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)

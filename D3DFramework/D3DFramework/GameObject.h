@@ -91,6 +91,7 @@ namespace PKH
 		bool destroyFlag = false;
 	private:
 		Layer layer = Layer::Default;
+		map<wstring, int> childKeyCount;
 	};
 
 	template<class T>
@@ -126,16 +127,58 @@ namespace PKH
 	{
 		if (_child == nullptr) return nullptr;
 
-		_child->tag = _tag;
+		wstring appliedTag = _tag.c_str();
+		int count = 0;
+
+		auto findIter = childKeyCount.find(_tag);
+		if (findIter != childKeyCount.end())
+		{
+			count = ++findIter->second;
+		}
+		else
+		{
+			childKeyCount.emplace(_tag, count);
+		}
+
+		if (count != 0)
+		{
+			WCHAR digit[16] = {};
+			swprintf_s(digit, L"%d", count);
+			appliedTag += digit;
+		}
+
+		_child->tag = appliedTag;
 		children.emplace(_child->tag, _child);
 		_child->SetParent(this);
-		return NULL;
+		return _child;
 	}
 	template<class T>
-	inline T* GameObject::CreateChild(const wstring& _key)
+	inline T* GameObject::CreateChild(const wstring& _tag)
 	{
 		GameObject* child = new T();
-		children.emplace(_key, child);
+
+		wstring appliedTag = _tag.c_str();
+		int count = 0;
+
+		auto findIter = childKeyCount.find(_tag);
+		if (findIter != childKeyCount.end())
+		{
+			count = findIter->second++;
+		}
+		else
+		{
+			childKeyCount.emplace(_tag, count);
+		}
+
+		if (count != 0)
+		{
+			WCHAR digit[16] = {};
+			swprintf_s(digit, L"%d", count);
+			appliedTag += digit;
+		}
+
+		child->tag = appliedTag;
+		children.emplace(child->tag, child);
 		child->SetParent(this);
 		return child;
 	}

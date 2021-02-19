@@ -12,6 +12,12 @@ public:
         Center,
         Right
     };
+    enum class VAlign
+    {
+        Top,
+        Middle,
+        Bottom
+    };
 public:
 
     Label();
@@ -22,17 +28,21 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    void SetText(const wstring& _text);
-    void SetText(int _value);
+    virtual void SetText(const wstring& _text) override;
+    virtual void SetText(int _value);
+    virtual void SetText(LPCTSTR pszStr, ...);
+
+    void SetFontSize(int _fontsize);
 
 private:
     void MakeFont(int fontSize = 20);
 
 public:
-    Label::Align align = Label::Align::Left;
+    Label::Align  align  = Label::Align::Left;
+    Label::VAlign valign = Label::VAlign::Top;
 
-    LPD3DXFONT	pFont = nullptr;
-    LPD3DXSPRITE pSprite = nullptr;
+    LPD3DXFONT        pFont = nullptr;
+    LPD3DXSPRITE      pSprite = nullptr;
     LPDIRECT3DDEVICE9 pDevice = nullptr;
     RECT rcDraw = {};
 
