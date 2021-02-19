@@ -91,7 +91,6 @@ PlayerInfoPanel::~PlayerInfoPanel()
         Safe_Delete(&statLabel[i]);
     }
 
-    pPlayerInfoPanel = nullptr;
     mainPanelTex = nullptr;
     faceBorderTex = nullptr;
     invenPanelTex = nullptr;

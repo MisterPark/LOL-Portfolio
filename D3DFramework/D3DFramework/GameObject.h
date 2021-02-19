@@ -150,7 +150,7 @@ namespace PKH
 		_child->tag = appliedTag;
 		children.emplace(_child->tag, _child);
 		_child->SetParent(this);
-		return NULL;
+		return _child;
 	}
 	template<class T>
 	inline T* GameObject::CreateChild(const wstring& _tag)

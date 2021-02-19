@@ -7,6 +7,7 @@
 #include "PlayerInfoPanel.h"
 #include "FloatingBar.h"
 #include "MiniScorePanel.h"
+#include "ItemshopPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -383,6 +384,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
+	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 }
 
 void TestScene::OnUnloaded()

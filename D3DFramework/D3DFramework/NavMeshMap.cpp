@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "NavMeshMap.h"
 #include "MeshCollider.h"
 
@@ -40,7 +40,7 @@ void PKH::NavMeshMap::Update()
 {
 	GameObject::Update();
 
-	if (InputManager::GetKeyDown('P'))
+	if (InputManager::GetKeyDown('L'))
 	{
 		isVisible = !isVisible;
 	}
@@ -52,8 +52,8 @@ void PKH::NavMeshMap::SetNavigationInfo()
 	Vector3* pVertices = navMesh->GetVertices();
 	DWORD* pIndices = navMesh->GetIndices();
 	AdjacencyInfo* pAdjacencyInfo = navMesh->GetAdjacencyInfo();
-	// ÀÎÁ¢ »ï°¢Çü Á¤º¸¸¦ ÅëÇØ¼­
-	// »ï°¢ÇüÀÇ ÁßÁ¡
+	// ì¸ì ‘ ì‚¼ê°í˜• ì •ë³´ë¥¼ í†µí•´ì„œ
+	// ì‚¼ê°í˜•ì˜ ì¤‘ì 
 	// 
 	for (DWORD i = 0; i < triangleCount; i++)
 	{
@@ -63,14 +63,14 @@ void PKH::NavMeshMap::SetNavigationInfo()
 		Vector3 c = pVertices[pIndices[index + 2]];
 
 		
-		// ¹«°Ô Áß½É
+		// ë¬´ê²Œ ì¤‘ì‹¬
 		Vector3 barycentricCoord;
 		barycentricCoord = a + b + c;
 		barycentricCoord.x /= 3.f;
 		barycentricCoord.y /= 3.f;
 		barycentricCoord.z /= 3.f;
 
-		//¿ùµå·Î ¹Ù²ã¾ß ÇÔ
+		//ì›”ë“œë¡œ ë°”ê¿”ì•¼ í•¨
 		D3DXVec3TransformCoord(&barycentricCoord, &barycentricCoord, &transform->localMatrix);
 
 		PathFinder::Node* node = new PathFinder::Node();

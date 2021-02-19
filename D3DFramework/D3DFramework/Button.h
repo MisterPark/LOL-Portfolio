@@ -4,7 +4,7 @@ class Button :
     public UI
 {
 public:
-    Button();
+    Button(const std::wstring& _tag, const Vector2& pos);
     virtual ~Button();
 
     virtual void Initialize() override;
@@ -16,6 +16,7 @@ public:
     virtual void OnLButtonDown() override;
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
+    virtual void OnEnabledChanged() override;
 
     virtual void SetTexture(const wstring& _key);
     void SetTextureHover(const wstring& _key);

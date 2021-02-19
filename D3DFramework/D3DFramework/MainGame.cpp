@@ -304,6 +304,17 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
 
+	// Itemshop
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_default.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1001_class_t1_bootsofspeed.dds");
+
+
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_square.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"amumu_circle.png");

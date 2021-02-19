@@ -24,9 +24,7 @@ PKH::UI::UI(const Vector2& pos)
 PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
-	tag = _tag;
 	SetTexture(_tag);
-	SetSizeByTexture();
 	SetLocation(pos);
 }
 

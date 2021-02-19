@@ -12,6 +12,12 @@ public:
         Center,
         Right
     };
+    enum class VAlign
+    {
+        Top,
+        Middle,
+        Bottom
+    };
 public:
 
     Label();
@@ -29,10 +35,11 @@ private:
     void MakeFont(int fontSize = 20);
 
 public:
-    Label::Align align = Label::Align::Left;
+    Label::Align  align  = Label::Align::Left;
+    Label::VAlign valign = Label::VAlign::Top;
 
-    LPD3DXFONT	pFont = nullptr;
-    LPD3DXSPRITE pSprite = nullptr;
+    LPD3DXFONT        pFont = nullptr;
+    LPD3DXSPRITE      pSprite = nullptr;
     LPDIRECT3DDEVICE9 pDevice = nullptr;
     RECT rcDraw = {};
 
