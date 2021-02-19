@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "RenderManager.h"
 #include "RenderTarget.h"
 #include "Texture.h"
@@ -41,12 +41,12 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	D3DCAPS9 DeviceCaps;
 	ZeroMemory(&DeviceCaps, sizeof(D3DCAPS9));
 
-	//1.ÀåÄ¡ÀÇ ¼öÁØÀ» Á¶»çÇÒ ÄÄ°´Ã¼¸¦ »ı¼º. 
+	//1.ì¥ì¹˜ì˜ ìˆ˜ì¤€ì„ ì¡°ì‚¬í•  ì»´ê°ì²´ë¥¼ ìƒì„±. 
 	pRenderManager->pSDK = Direct3DCreate9(D3D_SDK_VERSION);
 
 	if (FAILED(pRenderManager->pSDK->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &DeviceCaps)))
 	{
-		// ½ÇÆĞ ÇßÀ»¶§¿¡ ´ëÇÑ ¸Ş½ÃÁö¸¦ ³Ö¾îÁÙ °Í. 
+		// ì‹¤íŒ¨ í–ˆì„ë•Œì— ëŒ€í•œ ë©”ì‹œì§€ë¥¼ ë„£ì–´ì¤„ ê²ƒ. 
 		MessageBoxW(g_hwnd, L"Get DeviceCaps Failed", nullptr, MB_OK);
 
 		return E_FAIL;
@@ -61,7 +61,7 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 
 	
-	//¹é ¹öÆÛÀÇ °¡·Î ¼¼·Î Å©±â. 
+	//ë°± ë²„í¼ì˜ ê°€ë¡œ ì„¸ë¡œ í¬ê¸°. 
 	d3dpp.BackBufferWidth = screenW;
 	d3dpp.BackBufferHeight = screenH;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
@@ -73,14 +73,14 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = g_hwnd;
-	// °ÅÁşÀÌ¸é ÀüÃ¼È­¸é, ÂüÀÌ¸é  Ã¢¸ğµåÀ» »ç¿ëÇÏ°Ú´Ù. 
+	// ê±°ì§“ì´ë©´ ì „ì²´í™”ë©´, ì°¸ì´ë©´  ì°½ëª¨ë“œì„ ì‚¬ìš©í•˜ê² ë‹¤. 
 	d3dpp.Windowed = TRUE;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
-	//3. Á¶»çÇÏ°í ¼¼ÆÃÇÑ µ¥ÀÌÅÍ¸¦ °¡Áö°í ÀÌÁ¦ ÀåÄ¡¸¦ Á¦¾îÇÒ ÄÄ°´Ã¼¸¦ »ı¼ºÇÏÀÚ!
+	//3. ì¡°ì‚¬í•˜ê³  ì„¸íŒ…í•œ ë°ì´í„°ë¥¼ ê°€ì§€ê³  ì´ì œ ì¥ì¹˜ë¥¼ ì œì–´í•  ì»´ê°ì²´ë¥¼ ìƒì„±í•˜ì!
 	if (FAILED(pRenderManager->pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hwnd, vp | D3DCREATE_MULTITHREADED, &d3dpp, &pRenderManager->pDevice)))
 	{
 		MessageBoxW(g_hwnd, L"Failed Creating Device", nullptr, MB_OK);
@@ -97,16 +97,16 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	fontInfo.Width = 0;
 	fontInfo.Weight = FW_HEAVY;
 	fontInfo.CharSet = HANGUL_CHARSET;
-	lstrcpy(fontInfo.FaceName, L"À¸¶äµ¸¿ò");
+	lstrcpy(fontInfo.FaceName, L"ìœ¼ëœ¸ë‹ì›€");
 	if (FAILED(D3DXCreateFontIndirect(pRenderManager->pDevice, &fontInfo, &pRenderManager->pFont)))
 	{
-		MessageBoxW(g_hwnd, L"ÆùÆ® »ı¼º ½ÇÆĞ", nullptr, MB_OK);
+		MessageBoxW(g_hwnd, L"í°íŠ¸ ìƒì„± ì‹¤íŒ¨", nullptr, MB_OK);
 		return E_FAIL;
 	}
 	
 	if (FAILED(D3DXCreateLine(pRenderManager->pDevice, &pRenderManager->pLine)))
 	{
-		MessageBoxW(g_hwnd, L"¶óÀÎ »ı¼º ½ÇÆĞ", nullptr, MB_OK);
+		MessageBoxW(g_hwnd, L"ë¼ì¸ ìƒì„± ì‹¤íŒ¨", nullptr, MB_OK);
 		return E_FAIL;
 	}
 	return S_OK;
@@ -205,7 +205,7 @@ Texture * PKH::RenderManager::GetTexture(const wstring& _key)
 	auto find = pRenderManager->textureMap.find(_key);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return nullptr;
 	}
 
@@ -246,7 +246,7 @@ HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& f
 	lstrcpy(fullName, filePath.c_str());
 	lstrcat(fullName, fileName.c_str());
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	for (size_t i = 0; i < fileName.length(); i++)
 	{
@@ -267,7 +267,7 @@ HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& f
 	HRESULT res = D3DXGetImageInfoFromFile(fullName, &tex->imageInfo);
 	if (FAILED(res))
 	{
-		MessageBox(g_hwnd, L"ÀÌ¹ÌÁö Á¤º¸ ºÒ·¯¿À±â ½ÇÆĞ", nullptr, MB_OK);
+		MessageBox(g_hwnd, L"ì´ë¯¸ì§€ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨", nullptr, MB_OK);
 		delete tex;
 		//LeaveCriticalSection(&pRenderManager->csDevice);
 		return E_FAIL;
@@ -313,13 +313,13 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int i
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -355,13 +355,13 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& t
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -398,13 +398,13 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& trans
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -439,13 +439,13 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -479,13 +479,13 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -520,13 +520,13 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -561,13 +561,13 @@ void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos,
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -602,13 +602,13 @@ void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, V
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->GetSpriteWidth();
 	int h = tex->GetSpriteHeight();
 
@@ -643,13 +643,13 @@ void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = int(tex->imageInfo.Width / tex->colCount);
 	int h = int(tex->imageInfo.Height / tex->rowCount);
 	int x = col * w;
@@ -683,13 +683,13 @@ void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& tr
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->imageInfo.Width;
 	int h = tex->imageInfo.Height;
 
@@ -713,13 +713,13 @@ void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float ve
 	auto find = pRenderManager->textureMap.find(id);
 	if (find == pRenderManager->textureMap.end())
 	{
-		// ·ÎµåµÇÁö ¾ÊÀº ½ºÇÁ¶óÀÌÆ®.
+		// ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤í”„ë¼ì´íŠ¸.
 		return;
 	}
 
 	const Texture* tex = find->second;
 
-	// ½ºÇÁ¶óÀÌÆ® ÇÑÀåÀÇ ³ĞÀÌ¿Í ³ôÀÌ, À§Ä¡
+	// ìŠ¤í”„ë¼ì´íŠ¸ í•œì¥ì˜ ë„“ì´ì™€ ë†’ì´, ìœ„ì¹˜
 	int w = tex->imageInfo.Width;
 	int h = tex->imageInfo.Height;
 	RECT rt;
@@ -892,7 +892,7 @@ HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& 
 	lstrcpy(fullName, filePath.c_str());
 	lstrcat(fullName, fileName.c_str());
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	for (size_t i = 0; i < fileName.length(); i++)
 	{
@@ -908,7 +908,7 @@ HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& 
 
 	if (FAILED(D3DXGetImageInfoFromFile(fullName, &tex->imageInfo)))
 	{
-		MessageBox(g_hwnd, L"ÀÌ¹ÌÁö Á¤º¸ ºÒ·¯¿À±â ½ÇÆĞ", nullptr, MB_OK);
+		MessageBox(g_hwnd, L"ì´ë¯¸ì§€ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨", nullptr, MB_OK);
 		delete tex;
 		return E_FAIL;
 	}
@@ -933,7 +933,7 @@ HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstri
 	lstrcpy(fullName, filePath.c_str());
 	lstrcat(fullName, fileName.c_str());
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	for (size_t i = 0; i < fileName.length(); i++)
 	{
@@ -949,12 +949,12 @@ HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstri
 
 	if (FAILED(D3DXGetImageInfoFromFile(fullName, &tex->imageInfo)))
 	{
-		MessageBox(g_hwnd, L"ÀÌ¹ÌÁö Á¤º¸ ºÒ·¯¿À±â ½ÇÆĞ", nullptr, MB_OK);
+		MessageBox(g_hwnd, L"ì´ë¯¸ì§€ ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨", nullptr, MB_OK);
 		delete tex;
 		return E_FAIL;
 	}
 
-	// TODO : Å¥ºêÅØ½ºÃÄ ·ÎµåÇÏ´Â°Å ¸¶Áö¸·ÀÎÀÚ ¼öÁ¤ÇØ¾ßÇÒ¼öµµÀÖÀ½.
+	// TODO : íë¸Œí…ìŠ¤ì³ ë¡œë“œí•˜ëŠ”ê±° ë§ˆì§€ë§‰ì¸ì ìˆ˜ì •í•´ì•¼í• ìˆ˜ë„ìˆìŒ.
 	EnterCriticalSection(&pRenderManager->csDevice);
 	if (FAILED(D3DXCreateCubeTextureFromFileW(pRenderManager->pDevice, fullName, (LPDIRECT3DCUBETEXTURE9*)&tex->pTexture)))
 	{
@@ -1008,7 +1008,7 @@ HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* 
 		return result;
 	}
 	
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	wstring fileName = pFileName;
 	for (size_t i = 0; i < fileName.length(); i++)
@@ -1028,7 +1028,7 @@ StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& id)
 	auto smesh = pRenderManager->staticMeshMap.find(id);
 	if (smesh == pRenderManager->staticMeshMap.end())
 	{
-		MessageBoxW(g_hwnd, L"·ÎµåµÇÁö ¾ÊÀº ½ºÅÂÆ½ ¸Ş½¬¸¦ ÂüÁ¶ÇÏ°Å³ª Å°°ªÀÌ Àß¸øµÊ.", L"Error", MB_OK);
+		MessageBoxW(g_hwnd, L"ë¡œë“œë˜ì§€ ì•Šì€ ìŠ¤íƒœí‹± ë©”ì‰¬ë¥¼ ì°¸ì¡°í•˜ê±°ë‚˜ í‚¤ê°’ì´ ì˜ëª»ë¨.", L"Error", MB_OK);
 		return nullptr;
 	}
 
@@ -1045,7 +1045,7 @@ HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR*
 		return result;
 	}
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	wstring fileName = pFileName;
 	for (size_t i = 0; i < fileName.length(); i++)
@@ -1065,7 +1065,7 @@ DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& id)
 	auto dmesh = pRenderManager->dynamicMeshMap.find(id);
 	if (dmesh == pRenderManager->dynamicMeshMap.end())
 	{
-		MessageBoxW(g_hwnd, L"·ÎµåµÇÁö ¾ÊÀº ´ÙÀÌ³ª¹Í ¸Ş½¬¸¦ ÂüÁ¶ÇÏ°Å³ª Å°°ªÀÌ Àß¸øµÊ.", L"Error", MB_OK);
+		MessageBoxW(g_hwnd, L"ë¡œë“œë˜ì§€ ì•Šì€ ë‹¤ì´ë‚˜ë¯¹ ë©”ì‰¬ë¥¼ ì°¸ì¡°í•˜ê±°ë‚˜ í‚¤ê°’ì´ ì˜ëª»ë¨.", L"Error", MB_OK);
 		return nullptr;
 	}
 
@@ -1082,7 +1082,7 @@ HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR*
 		return result;
 	}
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	wstring fileName = pFileName;
 	for (size_t i = 0; i < fileName.length(); i++)
@@ -1102,7 +1102,7 @@ TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& id)
 	auto mesh = pRenderManager->terrainMeshMap.find(id);
 	if (mesh == pRenderManager->terrainMeshMap.end())
 	{
-		MessageBoxW(g_hwnd, L"·ÎµåµÇÁö ¾ÊÀº ÅÍ·¹ÀÎ ¸Ş½¬¸¦ ÂüÁ¶ÇÏ°Å³ª Å°°ªÀÌ Àß¸øµÊ.", L"Error", MB_OK);
+		MessageBoxW(g_hwnd, L"ë¡œë“œë˜ì§€ ì•Šì€ í„°ë ˆì¸ ë©”ì‰¬ë¥¼ ì°¸ì¡°í•˜ê±°ë‚˜ í‚¤ê°’ì´ ì˜ëª»ë¨.", L"Error", MB_OK);
 		return nullptr;
 	}
 
@@ -1119,7 +1119,7 @@ HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFi
 		return result;
 	}
 
-	// Å°»ı¼º
+	// í‚¤ìƒì„±
 	wstring id = L"";
 	wstring fileName = pFileName;
 	for (size_t i = 0; i < fileName.length(); i++)
@@ -1139,7 +1139,7 @@ NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& id)
 	auto mesh = pRenderManager->navMeshMap.find(id);
 	if (mesh == pRenderManager->navMeshMap.end())
 	{
-		MessageBoxW(g_hwnd, L"·ÎµåµÇÁö ¾ÊÀº ³×ºñ ¸Ş½¬¸¦ ÂüÁ¶ÇÏ°Å³ª Å°°ªÀÌ Àß¸øµÊ.", L"Error", MB_OK);
+		MessageBoxW(g_hwnd, L"ë¡œë“œë˜ì§€ ì•Šì€ ë„¤ë¹„ ë©”ì‰¬ë¥¼ ì°¸ì¡°í•˜ê±°ë‚˜ í‚¤ê°’ì´ ì˜ëª»ë¨.", L"Error", MB_OK);
 		return nullptr;
 	}
 

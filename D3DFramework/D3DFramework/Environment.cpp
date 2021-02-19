@@ -17,6 +17,7 @@ Environment::Environment()
 	AddComponent(L"terrain_renderer", renderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableAlphaTest(0.4f);
+	renderer->NeedShadow = false;
 	//mesh->renderGroupID = RenderGroupID::Deferred;
 	//GameRenderer::Register(mesh);
 	

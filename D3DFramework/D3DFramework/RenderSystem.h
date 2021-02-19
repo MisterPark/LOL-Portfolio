@@ -27,7 +27,7 @@ namespace KST
 		static void			EnableShadow(const wchar_t* lightName);
 		static void			DisableShadow(const wchar_t* lightName);
 		static void			Render();
-		static bool GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, Matrix* proj);
+		static bool GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, RenderTarget** optionBuffer,IDirect3DSurface9** depthBuffer, Matrix* proj);
 		
 	private:
 		static void SetupShadowMap();

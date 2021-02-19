@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "RenderTarget.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "RenderSystem.h"
@@ -17,7 +17,7 @@ namespace KST
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
 		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
-
+		shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 	}
 
 	void DeferredStaticMeshRenderer::EnableAlphaTest(float threshold)
@@ -48,7 +48,66 @@ namespace KST
 	}
 	void DeferredStaticMeshRenderer::RenderShadowMap()
 	{
-		//TODO: 이제 셰도우의 투영행렬를 받아서 셰도우 맵에 메시를 렌더링해야 한다.
+		const int lightCount = RenderSystem::GetLightCount();
+		std::vector<const std::wstring*> lightNames;
+
+		lightNames.reserve(RenderSystem::GetLightCount());
+		for (int i = 0; i < lightCount; ++i)
+		{
+			lightNames.push_back(&RenderSystem::GetLightName(i));
+		}
+
+		IDirect3DDevice9* device = RenderManager::GetDevice();
+		ComPtr<IDirect3DSurface9> oldSurface;
+		device->GetDepthStencilSurface(&oldSurface);
+
+		for (auto lightNamePtr : lightNames)
+		{
+			ComPtr<IDirect3DSurface9> surface;
+			ComPtr<IDirect3DSurface9> optionSurface;
+			ComPtr<IDirect3DSurface9> depthBuffer;
+			RenderTarget* renderTarget;
+			RenderTarget* optionRenderTarget;
+			Matrix projMatrix;
+			UINT passCount = 0;
+			UINT passNum = 0;
+			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget,&optionRenderTarget, &depthBuffer, &projMatrix))
+			{
+				continue;
+			}
+			renderTarget->GetSurface(&surface);
+			optionRenderTarget->GetSurface(&optionSurface);
+			if (alphaTest)
+			{
+				passNum = 1;
+				shadowMapShader->SetFloat("g_alphaThreshold", threshold);
+			}
+			shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
+			shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+			device->SetRenderTarget(0, surface.Get());
+			device->SetRenderTarget(1, optionSurface.Get());
+			device->SetRenderTarget(2, nullptr);
+			device->SetRenderTarget(3, nullptr);
+			device->SetDepthStencilSurface(depthBuffer.Get());
+			shadowMapShader->SetBool("g_shadow", NeedShadow);
+			shadowMapShader->Begin(&passCount, 0);
+			shadowMapShader->BeginPass(passNum);
+			int subsetCount = mesh->GetSubsetCount();
+			for (int i = 0; i < subsetCount; ++i)
+			{
+				if (alphaTest)
+				{
+					IDirect3DTexture9* texture = mesh->GetSubsetTexture(i);
+					shadowMapShader->SetTexture("g_diffuseTexture", texture);
+					shadowMapShader->CommitChanges();
+				}
+				mesh->RenderSubset(i);
+			}
+			shadowMapShader->EndPass();
+			shadowMapShader->End();
+		}
+		device->SetDepthStencilSurface(oldSurface.Get());
+
 	}
 	void DeferredStaticMeshRenderer::RenderGBuffer()
 	{
