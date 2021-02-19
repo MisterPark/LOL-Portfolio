@@ -18,19 +18,26 @@ ItemshopPanel::ItemshopPanel()
 
     AddChild<UI>(L"background", new UI(L"itemshop_background", Vector2(0, 0)));
 
-    auto title_label = AddChild<Label>(L"titleLabel", new Label(15));
+    auto title_label = AddChild<Label>(L"titleLabel", new Label());
     title_label->transform->position = { 40.f, 40.f, 0 };
     title_label->align = Label::Align::Left;
     title_label->valign = Label::VAlign::Middle;
     title_label->foreColor = D3DCOLOR_ARGB(255, 177, 174, 160);
     title_label->text = L"상점";
 
-    auto topitemtitle_label = AddChild<Label>(L"topitemtitleLabel", new Label(15));
+    auto topitemtitle_label = AddChild<Label>(L"topitemtitleLabel", new Label());
     topitemtitle_label->transform->position = { 622.f, 40.f, 0 };
     topitemtitle_label->align = Label::Align::Left;
     topitemtitle_label->valign = Label::VAlign::Middle;
     topitemtitle_label->foreColor = D3DCOLOR_ARGB(255, 177, 174, 160);
     topitemtitle_label->text = L"상위 아이템";
+
+    auto currentgold_label = AddChild<Label>(L"currentgoldLabel", new Label(15));
+    currentgold_label->transform->position = { 260.f, 677.f, 0 };
+    currentgold_label->align = Label::Align::Left;
+    currentgold_label->valign = Label::VAlign::Middle;
+    currentgold_label->foreColor = D3DCOLOR_ARGB(255, 191, 179, 138);
+    currentgold_label->text = L"0";
 
     auto btn_sel = AddChild<Button>(L"selectbtn", new Button(L"itemshop_button_sel_default", Vector2(22,  662)));
     auto btn_sel_label = dynamic_cast<Label*>(btn_sel->AddChild<Label>(L"selLabel", new Label(15)));

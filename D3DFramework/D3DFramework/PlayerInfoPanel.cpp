@@ -12,18 +12,33 @@ PlayerInfoPanel::PlayerInfoPanel()
     screenW = MainGame::GetWidth();
     screenH = MainGame::GetHeight();
 
+// this
     mainPanelTex = RenderManager::GetTexture(L"panel (5)");
+    this->SetLocation((screenW * 0.5f) - mainPanelTex->GetSpriteWidth() * 0.5f, (float)(screenH - mainPanelTex->GetSpriteHeight()));
+
+// StatPanel
+    statPanel = AddChild<UI>(L"statPanel", new UI(L"stat_panel (5)_icon", Vector2(293, 21)));
+
+// InvenPanel
+    invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(293, 21)));
+
+// mainPanel
+    mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0.f, 0.f)));
+
+    // ↑수정됨
+    // =========================================================================================================================
+#if 0
     faceBorderTex = RenderManager::GetTexture(L"panel (1)");
     invenPanelTex = RenderManager::GetTexture(L"panel (2)");
     statPanelTex = RenderManager::GetTexture(L"stat_panel (5)");
 
-    Vector2 mainPanelPos{ (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f, float(screenH - mainPanelTex->GetSpriteHeight())};
+    Vector2 mainPanelPos{ (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f, float(screenH - mainPanelTex->GetSpriteHeight()) };
     Vector2 invenPanelPos{ mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25, float(screenH - invenPanelTex->GetSpriteHeight())};
     Vector2 faceBorderPos{ mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f, mainPanelPos.y + 10};
     Vector2 statPanelPos{ faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f, faceBorderPos.y};
 
-    statPanel = new UI(L"stat_panel (5)", statPanelPos);
-    mainPanel = new UI(L"panel (5)", mainPanelPos);
+    //statPanel = new UI(L"stat_panel (5)", statPanelPos);
+    //mainPanel = new UI(L"panel (5)", mainPanelPos);
     invenPanel = new UI(L"panel (2)", invenPanelPos);
     facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x + 20, faceBorderPos.y + 20));
     faceBorder = new UI(L"panel (1)", faceBorderPos);
@@ -68,33 +83,34 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotPassive = new UI(Vector2(mainPanelPos.x + 70, mainPanelPos.y + 31));
     slotSummoner1 = new UI(Vector2(mainPanelPos.x + 434, mainPanelPos.y + 32));
     slotSummoner2 = new UI(Vector2(mainPanelPos.x + 490, mainPanelPos.y + 32));
+#endif
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()
 {
-    Safe_Delete(&statPanel);
-    Safe_Delete(&mainPanel);
-    Safe_Delete(&invenPanel);
-    Safe_Delete(&faceBorder);
-    Safe_Delete(&facePanel);
-    Safe_Delete(&hpLabel);
-    Safe_Delete(&mpLabel);
-    Safe_Delete(&slotSpell1);
-    Safe_Delete(&slotSpell2);
-    Safe_Delete(&slotSpell3);
-    Safe_Delete(&slotSpell4);
-    Safe_Delete(&slotPassive);
-    Safe_Delete(&slotSummoner1);
-    Safe_Delete(&slotSummoner2);
-    for (int i = 0; i < 8; i++)
-    {
-        Safe_Delete(&statLabel[i]);
-    }
-
-    mainPanelTex = nullptr;
-    faceBorderTex = nullptr;
-    invenPanelTex = nullptr;
-    champion = nullptr;
+    //Safe_Delete(&statPanel);
+    //Safe_Delete(&mainPanel);
+    //Safe_Delete(&invenPanel);
+    //Safe_Delete(&faceBorder);
+    //Safe_Delete(&facePanel);
+    //Safe_Delete(&hpLabel);
+    //Safe_Delete(&mpLabel);
+    //Safe_Delete(&slotSpell1);
+    //Safe_Delete(&slotSpell2);
+    //Safe_Delete(&slotSpell3);
+    //Safe_Delete(&slotSpell4);
+    //Safe_Delete(&slotPassive);
+    //Safe_Delete(&slotSummoner1);
+    //Safe_Delete(&slotSummoner2);
+    //for (int i = 0; i < 8; i++)
+    //{
+    //    Safe_Delete(&statLabel[i]);
+    //}
+    //
+    //mainPanelTex = nullptr;
+    //faceBorderTex = nullptr;
+    //invenPanelTex = nullptr;
+    //champion = nullptr;
 }
 
 PlayerInfoPanel* PlayerInfoPanel::GetInstance()
@@ -147,27 +163,27 @@ void PlayerInfoPanel::Update()
     //}
 
     GameObject::Update();
-    mainPanel->Update();
-    invenPanel->Update();
-    faceBorder->Update();
-    facePanel->Update();
-    statPanel->Update();
-
-    hpLabel->Update();
-    mpLabel->Update();
-
-    slotSpell1->Update();
-    slotSpell2->Update();
-    slotSpell3->Update();
-    slotSpell4->Update();
-    slotPassive->Update();
-    slotSummoner1->Update();
-    slotSummoner2->Update();
-
-    for (int i = 0; i < 8; i++)
-    {
-        statLabel[i]->Update();
-    }
+    //mainPanel->Update();
+    //invenPanel->Update();
+    //faceBorder->Update();
+    //facePanel->Update();
+    //statPanel->Update();
+    //
+    //hpLabel->Update();
+    //mpLabel->Update();
+    //
+    //slotSpell1->Update();
+    //slotSpell2->Update();
+    //slotSpell3->Update();
+    //slotSpell4->Update();
+    //slotPassive->Update();
+    //slotSummoner1->Update();
+    //slotSummoner2->Update();
+    //
+    //for (int i = 0; i < 8; i++)
+    //{
+    //    statLabel[i]->Update();
+    //}
 }
 //
 //void PlayerInfoPanel::Render()
@@ -306,13 +322,13 @@ void PlayerInfoPanel::Update()
 
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {
-    champion = _target;
-    if (_target == nullptr) return;
-    facePanel->SetTexture(champion->faceCircleTexkey);
-
-    slotSpell1->SetTexture(champion->qTexKey);
-    slotSpell2->SetTexture(champion->wTexKey);
-    slotSpell3->SetTexture(champion->eTexKey);
-    slotSpell4->SetTexture(champion->rTexKey);
-    slotPassive->SetTexture(champion->passiveTexKey);
+    //champion = _target;
+    //if (_target == nullptr) return;
+    //facePanel->SetTexture(champion->faceCircleTexkey);
+    //
+    //slotSpell1->SetTexture(champion->qTexKey);
+    //slotSpell2->SetTexture(champion->wTexKey);
+    //slotSpell3->SetTexture(champion->eTexKey);
+    //slotSpell4->SetTexture(champion->rTexKey);
+    //slotPassive->SetTexture(champion->passiveTexKey);
 }

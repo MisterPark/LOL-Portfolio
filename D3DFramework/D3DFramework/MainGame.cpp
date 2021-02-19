@@ -303,6 +303,7 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (3).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5)_icon.png");
 
 	// Itemshop
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
