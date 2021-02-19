@@ -4,18 +4,14 @@
 
 Button::Button()
 {
-	Initialize();
 }
 
 Button::~Button()
 {
-	Release();
 }
 
 void Button::Initialize()
 {
-	transform->scale = { 1.f,1.f,1.f };
-	originScale = transform->scale;
 	
 }
 
@@ -34,57 +30,57 @@ void Button::OnHover()
 {
 	UI::OnHover();
 
-	if (!isUpScale)
-	{
-		isUpScale = true;
-		transform->scale *= upScaleRatio;
-
-		SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
-	}
-	
+	UI::SetTexture(hoverTexture);
+	//SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
 	
 }
 
 void Button::OnLeave()
 {
 	UI::OnLeave();
-
-	if (isUpScale)
-	{
-		isUpScale = false;
-		transform->scale = originScale;
-	}
-	
+	UI::SetTexture(originTexture);
 }
 
 void Button::OnLButtonDown()
 {
 	UI::OnLButtonDown();
-
-	if (!isButtonDown)
-	{
-		isButtonDown = true;
-		originPosition = transform->position;
-		transform->position.x += 5;
-		transform->position.y += 5;
-	}
+	UI::SetTexture(pressedTexture);
 	
 }
 
 void Button::OnLButtonUp()
 {
-	if (isButtonDown)
-	{
-		isButtonDown = false;
-		transform->position = originPosition;
-	}
-	
 	UI::OnLButtonUp();
+	UI::SetTexture(originTexture);
 }
 
 void Button::OnClick()
 {
 	UI::OnClick();
 
-	SoundManager::PlayOverlapSound(L"Select.wav", SoundChannel::EFFECT, 0.5f);
+	//SoundManager::PlayOverlapSound(L"Select.wav", SoundChannel::EFFECT, 0.5f);
+}
+
+void Button::SetTexture(const wstring& _key)
+{
+	UI::SetTexture(_key);
+	originTexture = _key;
+	hoverTexture = _key;
+	pressedTexture = _key;
+	disableTexture = _key;
+}
+
+void Button::SetTextureHover(const wstring& _key)
+{
+	hoverTexture = _key;
+}
+
+void Button::SetTexturePressed(const wstring& _key)
+{
+	pressedTexture = _key;
+}
+
+void Button::SetTextureDisable(const wstring& _key)
+{
+	disableTexture = _key;
 }

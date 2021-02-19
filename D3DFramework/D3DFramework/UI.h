@@ -30,6 +30,7 @@ namespace PKH
         virtual void OnRButtonUp();
         virtual void OnClick();
         virtual void OnDoubleClick();
+        virtual void OnEnabledChanged();
 
         Vector2 GetSize();
         Vector2 GetLocation();
@@ -41,7 +42,7 @@ namespace PKH
         void SetLocation(int x, int y);
         void SetLocation(float x, float y);
         void SetLocation(Vector2 pos);
-        void SetTexture(const wstring& _key);
+        virtual void SetTexture(const wstring& _key);
 
         // child
         UI* CreateChild(const std::wstring& _tag, const Vector2& _pos);
@@ -72,8 +73,9 @@ namespace PKH
         Event Hover;
         Event Leave;
         Event ChangedText;
+        Event EnabledChanged;
 
-    private:
+    protected:
         // 이벤트 관련 
         bool isHover = false;
         bool isLeave = false;
@@ -84,6 +86,7 @@ namespace PKH
         float doubleClickTick = 0.f;
         float doubleClickDelay = 0.4f;
 
+        bool oldEnable = false;
 
     };
 

@@ -5,6 +5,8 @@
 
 UI::UI()
 {
+	oldEnable = isEnable;
+
 	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 
@@ -133,6 +135,11 @@ void UI::UpdateEvent()
 		doubleClickTick = 0.f;
 	}
 	
+	if (isEnable != oldEnable)
+	{
+		oldEnable = isEnable;
+		OnEnabledChanged();
+	}
 }
 
 void UI::ClearEvent()
@@ -181,6 +188,11 @@ void UI::OnClick()
 void PKH::UI::OnDoubleClick()
 {
 	DoubleClick.Invoke();
+}
+
+void PKH::UI::OnEnabledChanged()
+{
+	EnabledChanged.Invoke();
 }
 
 Vector2 PKH::UI::GetSize()
@@ -237,7 +249,6 @@ void UI::SetTexture(const wstring& _key)
 	texture = RenderManager::GetTexture(_key);
 	//SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 	mesh->SetTexture(_key);
-	tag = _key;
 	SetSizeByTexture();
 }
 

@@ -1,4 +1,4 @@
-#pragma once
+癤�#pragma once
 #include "UI.h"
 class Button :
     public UI
@@ -17,15 +17,15 @@ public:
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
 
+    virtual void SetTexture(const wstring& _key);
+    void SetTextureHover(const wstring& _key);
+    void SetTexturePressed(const wstring& _key);
+    void SetTextureDisable(const wstring& _key);
 
 private:
-    // hover 이벤트 전용
-    float upScaleRatio = 1.1f;
-    Vector3 originScale;
-    bool isUpScale = false;
-    // down 이벤트 전용
-    Vector3 originPosition;
-    bool isButtonDown = false;
-    
+    wstring originTexture = L"";
+    wstring hoverTexture = L"";
+    wstring pressedTexture = L"";
+    wstring disableTexture = L"";
 };
 
