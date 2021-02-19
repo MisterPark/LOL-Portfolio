@@ -9,9 +9,10 @@ sampler DiffuseTextureSampler = sampler_state
 	texture = g_diffuseTexture;
 	minfilter = linear;
 	magfilter = linear;
-	addressU = Clamp;
-	addressV = Clamp;
+	addressU = wrap;
+	addressV = wrap;
 };
+
 //for no specularmap
 float4 g_vSpecular;
 struct VSIn
