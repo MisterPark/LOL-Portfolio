@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 typedef struct D3DXFRAME_DERIVED : public D3DXFRAME
@@ -11,14 +11,14 @@ typedef struct D3DXMESHCONTAINER_DERIVED : public D3DXMESHCONTAINER
 {
 	LPDIRECT3DTEXTURE9* ppTexture;
 
-	LPD3DXMESH				pOriMesh;	// xÆÄÀÏÀ» ·ÎµåÇßÀ» ¶§ ÃÖÃÊÀÇ »óÅÂ¸¦ °¡Áö°í ÀÖ´Â ÄÄ °´Ã¼(ºÒº¯)
+	LPD3DXMESH				pOriMesh;	// xíŒŒì¼ì„ ë¡œë“œí–ˆì„ ë•Œ ìµœì´ˆì˜ ìƒíƒœë¥¼ ê°€ì§€ê³  ìˆëŠ” ì»´ ê°ì²´(ë¶ˆë³€)
 
-	ULONG					dwNumBones;	// »ÀÀÇ °³¼ö¸¦ º¸°üÇÏ´Â º¯¼ö
+	ULONG					dwNumBones;	// ë¼ˆì˜ ê°œìˆ˜ë¥¼ ë³´ê´€í•˜ëŠ” ë³€ìˆ˜
 
 
-	Matrix* pFrameOffsetMatrix;	// ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Æ÷ÇÔÇÑ ÃÖÃÊÀÇ »À »óÅÂ
-	Matrix** ppFrameCombinedMatrix;	// frame ¸¶´Ù °¡Áö°í ÀÖ´Â CombinedTransformationMatrixÀÇ ÁÖ¼Ò°ªµéÀ» º¸°üÇÏ±â À§ÇÑ Æ÷ÀÎÅÍ
-	Matrix* pRenderingMatrix;	//pFrameOffsetMatrix * (*ppFrameCombinedMatrix) °á°ú°ªÀ¸·Î ÃÖÁ¾ÀûÀ¸·Î ·»´õ¸µÀ» ÇÏ±â À§ÇÑ Çà·Ä
+	Matrix* pFrameOffsetMatrix;	// ì• ë‹ˆë©”ì´ì…˜ì„ í¬í•¨í•œ ìµœì´ˆì˜ ë¼ˆ ìƒíƒœ
+	Matrix** ppFrameCombinedMatrix;	// frame ë§ˆë‹¤ ê°€ì§€ê³  ìˆëŠ” CombinedTransformationMatrixì˜ ì£¼ì†Œê°’ë“¤ì„ ë³´ê´€í•˜ê¸° ìœ„í•œ í¬ì¸í„°
+	Matrix* pRenderingMatrix;	//pFrameOffsetMatrix * (*ppFrameCombinedMatrix) ê²°ê³¼ê°’ìœ¼ë¡œ ìµœì¢…ì ìœ¼ë¡œ ë Œë”ë§ì„ í•˜ê¸° ìœ„í•œ í–‰ë ¬
 
 
 }D3DXMESHCONTAINER_DERIVED;
