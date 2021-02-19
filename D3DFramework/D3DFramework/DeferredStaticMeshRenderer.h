@@ -17,6 +17,8 @@ namespace KST
 		PKH::IComponent* Clone() { return nullptr; }
 	public:
 		virtual void Render() override;
+		bool NeedShadow = true;
+
 	private:
 		void RenderShadowMap();
 		void RenderGBuffer();
@@ -29,6 +31,7 @@ namespace KST
 		RenderTarget* sharpnessRenderTarget;
 		RenderTarget* depthRenderTarget;
 		ID3DXEffect* renderingShader;
+		ID3DXEffect* shadowMapShader;
 		PKH::Mesh* mesh;
 
 	};

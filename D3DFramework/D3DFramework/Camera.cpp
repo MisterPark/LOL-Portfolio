@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Camera.h"
 
 using namespace PKH;
@@ -17,7 +17,7 @@ PKH::Camera::Camera()
 	D3DXMatrixLookAtLH(&view, &transform->position, &transform->look, &transform->up);
 
 	RenderManager::SetTransform(D3DTS_VIEW, &view);
-	// Åõ¿µ
+	// íˆ¬ì˜
 	Matrix proj;
 	D3DXMatrixPerspectiveFovLH(&proj, fovY,
 		(float)screenW / screenH,
@@ -82,22 +82,22 @@ void PKH::Camera::Update()
 		//transform->position.y -= 100.f * dt;
 		topViewPos.y -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD8)) // À§
+	if (InputManager::GetKey(VK_NUMPAD8)) // ìœ„
 	{
 		topViewPos.z += 10.f * dt;
 		topViewLook.z += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD5)) // ¾Æ·¡
+	if (InputManager::GetKey(VK_NUMPAD5)) // ì•„ë˜
 	{
 		topViewPos.z -= 10.f * dt;
 		topViewLook.z -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD4)) // ¿Ş
+	if (InputManager::GetKey(VK_NUMPAD4)) // ì™¼
 	{
 		topViewPos.x -= 10.f * dt;
 		topViewLook.x -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD6)) // ¿À¸¥
+	if (InputManager::GetKey(VK_NUMPAD6)) // ì˜¤ë¥¸
 	{
 		topViewPos.x += 10.f * dt;
 		topViewLook.x += 10.f * dt;
@@ -129,7 +129,7 @@ void PKH::Camera::Update()
 		}
 	}
 	
-	// Æ÷Áî, ·è ¼¼ÆÃ
+	// í¬ì¦ˆ, ë£© ì„¸íŒ…
 	if (topViewFlag)
 	{
 		transform->look = topViewLook;
@@ -146,11 +146,11 @@ void PKH::Camera::Update()
 		}
 	}
 
-	// ºä
+	// ë·°
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);
 	RenderManager::SetTransform(D3DTS_VIEW, &viewMatrix);
 
-	// Åõ¿µ
+	// íˆ¬ì˜
 	
 	PerspectiveProjection();
 	OrthogonalProjection();
@@ -364,6 +364,11 @@ void PKH::Camera::SetShakeDuration(float _duration)
 	shakeDuration = _duration;
 }
 
+float PKH::Camera::GetFarPlane()
+{
+	return farClipPlane;
+}
+
 void PKH::Camera::PerspectiveProjection()
 {
 	perspectiveMatrix = Matrix::PerspectiveFovLH(fovY,
@@ -392,7 +397,7 @@ void PKH::Camera::OrthogonalProjection()
 Camera* PKH::Camera::CreateCamera(wstring id)
 {
 	auto find = cams.find(id);
-	if (find != cams.end()) return find->second; // ÀÌ¹Ì Á¸ÀçÇÏ¸é ¸®ÅÏ
+	if (find != cams.end()) return find->second; // ì´ë¯¸ ì¡´ì¬í•˜ë©´ ë¦¬í„´
 	
 	Camera* cam = new Camera();
 	cams[id] = cam;

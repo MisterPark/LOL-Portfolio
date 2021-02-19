@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "TestScene.h"
 
 #include "UIManager.h"
@@ -357,13 +357,13 @@ void TestScene::OnLoaded()
 	//testUnit = unit;
 
 	D3DLIGHT9 dirLight{};
-	Vector3 v = Vector3(0, -1.f, -1.f).Normalized();
+	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();
 	dirLight.Type = D3DLIGHT_DIRECTIONAL;
 	dirLight.Direction = v;
 	dirLight.Diffuse = D3DCOLORVALUE{ 1.f, 1.f, 1.f, 1.f };
-	dirLight.Ambient = D3DCOLORVALUE{ 0.2f, 0.2f, 0.2f, 1.0f};
+	dirLight.Ambient = D3DCOLORVALUE{ 0.5f, 0.5f, 0.5f, 1.0f};
 	KST::RenderSystem::AddLight(L"dir1", dirLight);
-
+	KST::RenderSystem::EnableShadow(L"dir1");
 	// �̴Ͼ�
 	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
 	//obj->transform->position = { 23,68,38 };

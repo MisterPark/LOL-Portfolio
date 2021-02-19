@@ -63,12 +63,11 @@ MiniScorePanel::MiniScorePanel()
 	minionLabel->SetText(0);
 	timeLabel->SetText(L"00:00");
 
-	AddChild(L"blueKill", blueKillLabel);
-	AddChild(L"redKill", redKillLabel);
-	AddChild(L"kda", kdaLabel);
-	AddChild(L"minion", minionLabel);
-	AddChild(L"time", timeLabel);
-
+	AddChild(L"blueKillLabel", blueKillLabel);
+	AddChild(L"redKillLabel", redKillLabel);
+	AddChild(L"kdaLabel", kdaLabel);
+	AddChild(L"minionLabel", minionLabel);
+	AddChild(L"timeLabel", timeLabel);
 
 }
 

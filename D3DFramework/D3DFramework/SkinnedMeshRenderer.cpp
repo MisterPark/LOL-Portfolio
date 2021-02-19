@@ -1,24 +1,25 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
 
 KST::SkinnedMeshRenderer::SkinnedMeshRenderer(PKH::GameObject* owner):
-	Renderer(owner, RendererType::Forward)
+	Renderer(owner, RendererType::Deferred)
 {
-
+	albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
+	normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
+	sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
+	depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
+	renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
+	shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 }
 
 void KST::SkinnedMeshRenderer::Render()
 {
-	IDirect3DDevice9* device = RenderManager::GetDevice();
-	ComPtr<IDirect3DSurface9> surface;
-	device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface);
-	device->SetRenderTarget(0, surface.Get());
 
-	device->SetTransform(D3DTS_WORLD, &gameObject->transform->worldMatrix );
-	device->SetRenderState(D3DRS_LIGHTING, false);
+	IDirect3DDevice9* device = RenderManager::GetDevice();
+
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();
 	for (auto& iter : meshContainers)
@@ -44,16 +45,111 @@ void KST::SkinnedMeshRenderer::Render()
 			pDestVtx);						// 변환된 정보를 담기 위한 메쉬의 정점 정보
 		pMeshContainer->pOriMesh->UnlockVertexBuffer();
 		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
-
-		for (ULONG i = 0; i < pMeshContainer->NumMaterials; ++i)
-		{
-			device->SetTexture(0, pMeshContainer->ppTexture[i]);
-			pMeshContainer->MeshData.pMesh->DrawSubset(i);
-		}
+		RenderShadowMap(pMeshContainer);
+		RenderGBuffer(pMeshContainer);
 	}
 }
 
 void KST::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
 {
 	this->mesh = mesh;
+}
+
+void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
+{
+	IDirect3DDevice9* device = RenderManager::GetDevice();
+
+	ID3DXMesh* mesh = container->MeshData.pMesh;
+	int subsetCount = container->NumMaterials;
+
+	const int lightCount = RenderSystem::GetLightCount();
+	std::vector<const std::wstring*> lightNames;
+
+	lightNames.reserve(RenderSystem::GetLightCount());
+	for (int i = 0; i < lightCount; ++i)
+	{
+		lightNames.push_back(&RenderSystem::GetLightName(i));
+	}
+	UINT passCount = 0;
+	UINT passNum = 0;
+	shadowMapShader->Begin(&passCount, 0);
+	shadowMapShader->BeginPass(passNum);
+	ComPtr<IDirect3DSurface9> oldSurface;
+	device->GetDepthStencilSurface(&oldSurface);
+	for (auto lightNamePtr : lightNames)
+	{
+		ComPtr<IDirect3DSurface9> depthBuffer;
+		ComPtr<IDirect3DSurface9> surface;
+		ComPtr<IDirect3DSurface9> optionSurface;
+
+		RenderTarget* renderTarget;
+		RenderTarget* optionRenderTarget;
+		Matrix projMatrix;
+
+		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &optionRenderTarget , &depthBuffer, &projMatrix))
+		{
+			continue;
+		}
+		renderTarget->GetSurface(&surface);
+		optionRenderTarget->GetSurface(&optionSurface);
+		shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
+		shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+		shadowMapShader->SetBool("g_shadow", true);
+		shadowMapShader->CommitChanges();
+		device->SetRenderTarget(0, surface.Get());
+		device->SetRenderTarget(1, optionSurface.Get());
+		device->SetRenderTarget(2, nullptr);
+		device->SetRenderTarget(3, nullptr);
+		device->SetDepthStencilSurface(depthBuffer.Get());
+		
+		for (int i = 0; i < subsetCount; ++i)
+		{
+			mesh->DrawSubset(i);
+		}
+
+	}
+	shadowMapShader->EndPass();
+	shadowMapShader->End();
+	device->SetDepthStencilSurface(oldSurface.Get());
+
+}
+
+void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
+{
+	IDirect3DDevice9* device = RenderManager::GetDevice();
+	ComPtr<IDirect3DSurface9> albedoSurface;
+	ComPtr<IDirect3DSurface9> normalSurface;
+	ComPtr<IDirect3DSurface9> sharpnessSurface;
+	ComPtr<IDirect3DSurface9> depthSurface;
+	albedoRenderTarget->GetSurface(&albedoSurface);
+	normalRenderTarget->GetSurface(&normalSurface);
+	sharpnessRenderTarget->GetSurface(&sharpnessSurface);
+	depthRenderTarget->GetSurface(&depthSurface);
+
+	device->SetRenderTarget(0, albedoSurface.Get());
+	device->SetRenderTarget(1, normalSurface.Get());
+	device->SetRenderTarget(2, sharpnessSurface.Get());
+	device->SetRenderTarget(3, depthSurface.Get());
+	//device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
+	UINT passCount = 0;
+	UINT passNum = 0;
+
+	Matrix mViewSpace = Camera::main->GetViewMatrix();
+	Matrix mProjSpace = Camera::main->GetProjectionMatrix();
+	Matrix mViewProj = mViewSpace * mProjSpace;
+	renderingShader->SetMatrix("g_mViewSpace", &mViewSpace);
+	renderingShader->SetMatrix("g_mProjSpace", &mProjSpace);
+	renderingShader->SetMatrix("g_mViewProj", &mViewProj);
+	renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+	renderingShader->Begin(&passCount, 0);
+	renderingShader->BeginPass(passNum);
+	for (ULONG i = 0; i < container->NumMaterials; ++i)
+	{
+		IDirect3DTexture9* texture = container->ppTexture[i];
+		renderingShader->SetTexture("g_diffuseTexture", texture);
+		renderingShader->CommitChanges();
+		container->MeshData.pMesh->DrawSubset(i);
+	}
+	renderingShader->EndPass();
+	renderingShader->End();
 }
