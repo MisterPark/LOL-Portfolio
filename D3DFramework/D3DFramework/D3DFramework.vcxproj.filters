@@ -769,6 +769,18 @@
     <ClInclude Include="Math.h">
       <Filter>Lib\Math</Filter>
     </ClInclude>
+    <ClInclude Include="AllMonster.h">
+      <Filter>GameObject\Unit\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AllChampion.h">
+      <Filter>GameObject\Unit\Champion</Filter>
+    </ClInclude>
+    <ClInclude Include="AllMinion.h">
+      <Filter>GameObject\Unit\Minion</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
     <ClInclude Include="ItemshopPanel.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClInclude>
@@ -1347,6 +1359,9 @@
     </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>Lib\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
     </ClCompile>
     <ClCompile Include="ItemshopPanel.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>

@@ -1,6 +1,12 @@
 ﻿#include "stdafx.h"
 #include "TestScene.h"
 
+#include "UIManager.h"
+#include "Label.h"
+#include "MinimapPanel.h"
+#include "PlayerInfoPanel.h"
+#include "FloatingBar.h"
+#include "MiniScorePanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -14,44 +20,10 @@
 #include "Turret.h"
 #include "Bush.h"
 
-#include "Garen.h"
-#include "Blitzcrank.h"
-#include "Darius.h"
-#include "Diana.h"
-#include "Leesin.h"
-#include "Missfortune.h"
-#include "Leona.h"
-#include "Ahri.h"
-#include "Jax.h"
-#include "Jinx.h"
 
-// UI
-#include "UIManager.h"
-#include "Label.h"
-#include "PlayerInfoPanel.h"
-#include "MinimapPanel.h"
-#include "ItemshopPanel.h"
-#include "FloatingBar.h"
-
-#include "OrderMinionCaster.h"
-#include "OrderMinionMelee.h"
-#include "OrderMinionSiege.h"
-#include "OrderMinionSuper.h"
-#include "ChaosMinionCaster.h"
-#include "ChaosMinionSiege.h"
-#include "ChaosMinionSuper.h"
-#include "ChaosMinionMelee.h"
-
-#include "BlueMonster.h"
-#include "RedMonster.h"
-#include "Murkwolf.h"
-#include "MurkwolfMini.h"
-#include "Krug.h"
-#include "KrugMini.h"
-#include "Gromp.h"
-#include "Razorbeak.h"
-#include "RazorbeakMini.h"
-#include "Scuttleracer.h"
+#include "AllChampion.h"
+#include "AllMinion.h"
+#include "AllMonster.h"
 
 #include "MonsterAI.h"
 
@@ -61,10 +33,6 @@
 #include "RenderSystem.h"
 void TestScene::OnLoaded()
 {
-	//ObjectManager::GetInstance()->CreateObject<Light>();
-
-	//SkyBox::Show();
-	//SkyBox::SetTexture(TextureKey::SKY_U);
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
@@ -74,17 +42,17 @@ void TestScene::OnLoaded()
 
 	GameObject* obj = nullptr;
 	Unit* unit = nullptr;
-	// ������Ʈ
+	// 맵
 	obj = ObjectManager::GetInstance()->CreateObject<Environment>();
 	obj->transform->position = { 0,0,0 };
 
-	// �ٴ�
+	// 땅
 	obj = ObjectManager::GetInstance()->CreateObject<NavMeshMap>(Layer::Ground);
 	
-	// ��
+	// 벽
 	obj = ObjectManager::GetInstance()->CreateObject<Wall>(Layer::Wall);
 
-	// �ν�
+	// 부쉬
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
@@ -120,39 +88,39 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 6.99f, 67.71f, 28.18f };
 
-	// ����
+	// 몬스터
 
-	// ����
+	// 레드
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
 	obj->transform->position = { -6.10f, 67.71f, 24.87f };
 	obj = ObjectManager::GetInstance()->CreateObject<RedMonster>(Layer::Unit);
 	obj->transform->position = { -1.88f, 67.71f, -17.87f };
-	// ���
+	// 블루
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	obj->transform->position = { 19.79f, 67.72f, 0.64f };
 	obj = ObjectManager::GetInstance()->CreateObject<BlueMonster>(Layer::Unit);
 	obj->transform->position = { -26.43f, 67.71f, 6.83f };
-	// ���� ��
+	// 늑대
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	obj->transform->position = { 19.74f, 67.71f, 9.78f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { 19.17f, 67.71f, 10.84f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { 21.08f, 67.71f, 9.00f };
-	// ���� �Ʒ�
+	// 늑대
 	obj = ObjectManager::GetInstance()->CreateObject<Murkwolf>(Layer::Unit);
 	obj->transform->position = { -26.72f, 67.72f, -2.72f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { -26.23f, 67.71f, -3.57f };
 	obj = ObjectManager::GetInstance()->CreateObject<MurkwolfMini>(Layer::Unit);
 	obj->transform->position = { -27.73f, 67.71f, -2.44f };
-	// �β���
+	// 두꺼비
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
 	obj->transform->position = { 29.28f, 67.73f, -2.82f };
 	obj = ObjectManager::GetInstance()->CreateObject<Gromp>(Layer::Unit);
 	obj->transform->position = { -36.59f, 67.71f, 10.14f };
 
-	// ������ ��
+	// 쨱쨱이
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	obj->transform->position = { -0.75f, 67.71f, 16.17f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
@@ -166,7 +134,7 @@ void TestScene::OnLoaded()
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
 	obj->transform->position = { 0.08f, 67.71f, 17.21f };
 
-	// ±±�� �Ʒ�
+	// 짹쨱이
 	obj = ObjectManager::GetInstance()->CreateObject<Razorbeak>(Layer::Unit);
 	obj->transform->position = { -6.43f, 67.71f, -10.09f };
 	obj = ObjectManager::GetInstance()->CreateObject<RazorbeakMini>(Layer::Unit);
@@ -181,14 +149,14 @@ void TestScene::OnLoaded()
 	obj->transform->position = { -7.31f, 67.71f, -10.48f };
 
 
-	// �۰�
+	// 작골
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
 	obj->transform->position = { -10.05f, 67.71f, 33.49f };
 
 	obj = ObjectManager::GetInstance()->CreateObject<Krug>(Layer::Unit);
 	obj->transform->position = { 3.13f, 67.71f, -26.61f };
 
-	// ������
+	// 바위게
 	obj = ObjectManager::GetInstance()->CreateObject<Scuttleracer>(Layer::Unit);
 	obj->transform->position = { 15.68f, 66.91f, -11.16f };
 
@@ -414,6 +382,7 @@ void TestScene::OnLoaded()
 
 	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
+	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 }
 

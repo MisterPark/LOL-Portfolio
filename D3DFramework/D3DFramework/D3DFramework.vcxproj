@@ -171,7 +171,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ahri.h" />
+    <ClInclude Include="AllChampion.h" />
     <ClInclude Include="AllMeshs.h" />
+    <ClInclude Include="AllMinion.h" />
+    <ClInclude Include="AllMonster.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
@@ -239,6 +242,7 @@
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
+    <ClInclude Include="MiniScorePanel.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAI.h" />
@@ -405,6 +409,7 @@
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
+    <ClCompile Include="MiniScorePanel.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAI.cpp" />

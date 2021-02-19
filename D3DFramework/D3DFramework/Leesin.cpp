@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Leesin.h"
 
 Leesin::Leesin()
@@ -9,9 +9,13 @@ Leesin::Leesin()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"leesin_circle";
 	faceSquareTexkey = L"leesin_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"leesin_q";
 	wTexKey = L"leesin_w";
 	eTexKey = L"leesin_e";

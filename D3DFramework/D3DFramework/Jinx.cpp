@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Jinx.h"
 Jinx::Jinx()
 {
@@ -8,9 +8,13 @@ Jinx::Jinx()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"jinx_circle";
 	faceSquareTexkey = L"jinx_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"jinx_q1";
 	wTexKey = L"jinx_w";
 	eTexKey = L"jinx_e";

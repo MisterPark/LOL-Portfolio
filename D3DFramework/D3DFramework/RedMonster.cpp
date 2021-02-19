@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "RedMonster.h"
 
 RedMonster::RedMonster()
@@ -10,6 +10,10 @@ RedMonster::RedMonster()
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 }
 
 RedMonster::~RedMonster()

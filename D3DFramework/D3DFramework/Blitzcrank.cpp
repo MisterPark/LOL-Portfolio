@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Blitzcrank.h"
 Blitzcrank::Blitzcrank()
 {
@@ -8,9 +8,13 @@ Blitzcrank::Blitzcrank()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"blitzcrank_circle";
 	faceSquareTexkey = L"blitzcrank_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"blitzcrank_q";
 	wTexKey = L"blitzcrank_w";
 	eTexKey = L"blitzcrank_e";

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Razorbeak.h"
 
 Razorbeak::Razorbeak()
@@ -7,6 +7,10 @@ Razorbeak::Razorbeak()
 	transform->eulerAngles.y = D3DXToRadian(180.f);
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"sru_razorbeak");
 	AddComponent(L"DynamicMesh", dmesh);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
 

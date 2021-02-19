@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Scuttleracer.h"
 
 Scuttleracer::Scuttleracer()
@@ -10,6 +10,10 @@ Scuttleracer::Scuttleracer()
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
+
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 }
 
 Scuttleracer::~Scuttleracer()

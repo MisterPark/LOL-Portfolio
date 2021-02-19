@@ -11,10 +11,10 @@ FloatingBar::FloatingBar()
 	SetTexture(L"border_float (1)");
 	SetSizeByTexture();
 
-	hpBar = (Bar*)AddChild(L"bar_float (2)", Vector2(26, 6));
+	hpBar = (Bar*)CreateChild(L"bar_float (2)", Vector2(26, 6));
 	hpBar->transform->scale = { 0.97f,1.f,1.f };
 	
-	mpBar = (Bar*)AddChild(L"bar_float (5)", Vector2(26, 20));
+	mpBar = (Bar*)CreateChild(L"bar_float (5)", Vector2(26, 20));
 	mpBar->transform->scale = { 0.97f,0.3f,1.f };
 	
 

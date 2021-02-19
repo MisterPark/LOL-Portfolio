@@ -239,17 +239,7 @@ void UI::SetTexture(const wstring& _key)
 	SetSizeByTexture();
 }
 
-UI* PKH::UI::AddChild(UI* _ui)
-{
-	if (_ui == nullptr) return nullptr;
-
-	children.emplace(_ui->tag, _ui);
-	_ui->SetParent(this);
-
-	return _ui;
-}
-
-PKH::UI* PKH::UI::AddChild(const std::wstring& _tag, const Vector2& _pos)
+PKH::UI* PKH::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 {
 	UI* ui = new UI(_tag, _pos);
 	if (ui == nullptr) return nullptr;

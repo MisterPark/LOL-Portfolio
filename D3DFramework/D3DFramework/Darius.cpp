@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Darius.h"
 using namespace PKH;
 
@@ -10,11 +10,15 @@ Darius::Darius()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	anim->SetLoop((int)UnitState::IDLE1, true);
 
 	faceCircleTexkey = L"darius_circle";
 	faceSquareTexkey = L"darius_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"darius_q";
 	wTexKey = L"darius_w";
 	eTexKey = L"darius_e";

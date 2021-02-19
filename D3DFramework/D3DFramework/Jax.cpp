@@ -1,5 +1,6 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Jax.h"
+#include "SkinnedMeshRenderer.h"
 Jax::Jax()
 {
 	transform->scale = { 0.016f, 0.016f, 0.016f, };
@@ -8,9 +9,13 @@ Jax::Jax()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
+	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
+
 	faceCircleTexkey = L"jax_circle";
 	faceSquareTexkey = L"jax_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"jax_q";
 	wTexKey = L"jax_w";
 	eTexKey = L"jax_e";
