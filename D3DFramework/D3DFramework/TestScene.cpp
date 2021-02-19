@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TestScene.h"
 
 #include "UIManager.h"
@@ -171,9 +171,6 @@ void TestScene::OnLoaded()
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
-  
-	// UI
-	//PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	champ->bar->SetNickname(L"테스트닉네임");
 	
 
@@ -385,6 +382,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
+	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 }
 
 void TestScene::OnUnloaded()

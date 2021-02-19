@@ -58,25 +58,59 @@ void Label::SetText(int _value)
 	text = wstr;
 }
 
+void Label::SetText(LPCTSTR pszStr, ...)
+{
+	va_list args;
+	va_start(args, pszStr);
+
+	int len = _vsctprintf(pszStr, args) + 1; // for '\0'
+
+	TCHAR* pBuf = (TCHAR*)malloc(sizeof(TCHAR) * len);
+
+	if (pBuf)
+	{
+		_vstprintf_s(pBuf, len, pszStr, args);
+		text = pBuf;
+		free(pBuf);
+	}
+
+	va_end(args);
+}
+
+void Label::SetFontSize(int _fontsize)
+{
+	if (pFont == nullptr) {
+		MakeFont(_fontsize);
+		return;
+	}
+
+	D3DXFONT_DESC fontInfo;
+	pFont->GetDesc(&fontInfo);
+	pFont->Release();
+
+	fontInfo.Height = _fontsize;
+
+	auto device = RenderManager::GetDevice();
+	if (FAILED(D3DXCreateFontIndirect(device, &fontInfo, &pFont)))
+	{
+		MessageBoxW(g_hwnd, L"폰트 생성 실패", nullptr, MB_OK);
+	}
+}
+
 void Label::MakeFont(int fontSize)
 {
 
-	D3DXFONT_DESCW fontInfo;
-	ZeroMemory(&fontInfo, sizeof(D3DXFONT_DESCW));
+	D3DXFONT_DESC fontInfo;
+	ZeroMemory(&fontInfo, sizeof(D3DXFONT_DESC));
 	fontInfo.Height = fontSize;
 	fontInfo.Width = 0;
 	fontInfo.Weight = FW_THIN;
 	fontInfo.CharSet = HANGUL_CHARSET;
 	lstrcpy(fontInfo.FaceName, L"으뜸돋움");
 
-
 	auto device = RenderManager::GetDevice();
-	RenderManager::LockDevice();
-
 	if (FAILED(D3DXCreateFontIndirect(device, &fontInfo, &pFont)))
 	{
 		MessageBoxW(g_hwnd, L"폰트 생성 실패", nullptr, MB_OK);
 	}
-
-	RenderManager::UnlockDevice();
 }

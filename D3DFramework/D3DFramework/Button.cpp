@@ -7,6 +7,7 @@ Button::Button(const std::wstring& _tag, const Vector2& pos)
 {
 	label = new Label();
 	AddChild(L"Text", label);
+	SetTexture(_tag);
 }
 
 Button::~Button()
@@ -106,4 +107,34 @@ void Button::SetTexturePressed(const wstring& _key)
 void Button::SetTextureDisable(const wstring& _key)
 {
 	disableTexture = _key;
+}
+
+void Button::SetLabelSize(int _size)
+{
+	if (label == nullptr) return;
+	label->SetFontSize(_size);
+}
+
+void Button::SetLabelPosition(Vector2 _pos)
+{
+	if (label == nullptr) return;
+	label->SetLocation(_pos);
+}
+
+void Button::SetLabelAlign(Label::Align _align)
+{
+	if (label == nullptr) return;
+	label->align = _align;
+}
+
+void Button::SetLabelVAlign(Label::VAlign _valign)
+{
+	if (label == nullptr) return;
+	label->valign = _valign;
+}
+
+void Button::SetLabelColor(D3DCOLOR _color)
+{
+	if (label == nullptr) return;
+	label->foreColor = _color;
 }

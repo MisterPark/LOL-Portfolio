@@ -30,6 +30,9 @@ public:
 
     virtual void SetText(const wstring& _text) override;
     virtual void SetText(int _value);
+    virtual void SetText(LPCTSTR pszStr, ...);
+
+    void SetFontSize(int _fontsize);
 
 private:
     void MakeFont(int fontSize = 20);
