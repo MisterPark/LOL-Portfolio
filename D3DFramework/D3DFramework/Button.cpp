@@ -1,10 +1,12 @@
 ﻿#include "stdafx.h"
 #include "Button.h"
-
+#include "Label.h"
 
 Button::Button(const std::wstring& _tag, const Vector2& pos)
 	: UI(_tag, pos)
 {
+	label = new Label();
+	AddChild(L"Text", label);
 }
 
 Button::~Button()
@@ -74,6 +76,12 @@ void Button::OnEnabledChanged()
 		mesh->SetTexture(disableTexture);
 		SetSizeByTexture();
 	}
+}
+
+void Button::OnTextChanged()
+{
+	UI::OnTextChanged();
+	label->SetText(text);
 }
 
 void Button::SetTexture(const wstring& _key)

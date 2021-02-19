@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "UI.h"
+
+class Label;
+
 class Button :
     public UI
 {
@@ -17,16 +20,21 @@ public:
     virtual void OnLButtonUp() override;
     virtual void OnClick() override;
     virtual void OnEnabledChanged() override;
+    virtual void OnTextChanged() override;
 
     virtual void SetTexture(const wstring& _key);
     void SetTextureHover(const wstring& _key);
     void SetTexturePressed(const wstring& _key);
     void SetTextureDisable(const wstring& _key);
 
+public:
+
 private:
     wstring originTexture = L"";
     wstring hoverTexture = L"";
     wstring pressedTexture = L"";
     wstring disableTexture = L"";
+    
+    Label* label = nullptr;
 };
 

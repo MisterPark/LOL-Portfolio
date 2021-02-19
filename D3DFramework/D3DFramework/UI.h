@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Rectangle.h"
 
+class Label;
+
 namespace PKH
 {
 
@@ -31,6 +33,7 @@ namespace PKH
         virtual void OnClick();
         virtual void OnDoubleClick();
         virtual void OnEnabledChanged();
+        virtual void OnTextChanged();
 
         Vector2 GetSize();
         Vector2 GetLocation();
@@ -43,6 +46,8 @@ namespace PKH
         void SetLocation(float x, float y);
         void SetLocation(Vector2 pos);
         virtual void SetTexture(const wstring& _key);
+
+        virtual void SetText(const wstring& _text);
 
         // child
         UI* CreateChild(const std::wstring& _tag, const Vector2& _pos);
@@ -61,7 +66,7 @@ namespace PKH
         // 넓이 높이 (R)
         Vector2 size;
 
-        
+        wstring text;
     public:
         // 이벤트 (RW)
         Event Click;
@@ -72,7 +77,7 @@ namespace PKH
         Event RButtonUp;
         Event Hover;
         Event Leave;
-        Event ChangedText;
+        Event TextChanged;
         Event EnabledChanged;
 
     protected:
@@ -87,6 +92,9 @@ namespace PKH
         float doubleClickDelay = 0.4f;
 
         bool oldEnable = false;
+
+        wstring oldText;
+
 
     };
 
