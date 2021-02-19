@@ -15,9 +15,6 @@ MinimapPanel::MinimapPanel()
     UI* minimap = CreateChild(L"map11", Vector2(20, 12));
     minimap->transform->scale = { 0.5625f,0.5625f, 1.f };
     
-
-    
-
     minimap->Click += TestFunc;
 }
 
