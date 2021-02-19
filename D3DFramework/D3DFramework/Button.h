@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "UI.h"
-
-class Label;
+#include "Label.h"
 
 class Button :
     public UI
@@ -26,6 +25,12 @@ public:
     void SetTextureHover(const wstring& _key);
     void SetTexturePressed(const wstring& _key);
     void SetTextureDisable(const wstring& _key);
+
+    void SetLabelSize(int _size);
+    void SetLabelPosition(Vector2 _pos);
+    void SetLabelAlign(Label::Align _align);
+    void SetLabelVAlign(Label::VAlign _valign);
+    void SetLabelColor(D3DCOLOR _color);
 
 public:
 

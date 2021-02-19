@@ -3,7 +3,10 @@
 #include "Rectangle.h"
 #include "UI.h"
 #include "Champion.h"
+// Control
 #include "Label.h"
+#include "OutlinedSlot.h"
+#include "Button.h"
 
 PlayerInfoPanel* pPlayerInfoPanel = nullptr;
 
@@ -13,104 +16,80 @@ PlayerInfoPanel::PlayerInfoPanel()
     screenH = MainGame::GetHeight();
 
 // this
-    mainPanelTex = RenderManager::GetTexture(L"panel (5)");
+    Texture* mainPanelTex = RenderManager::GetTexture(L"panel (5)");
     this->SetLocation((screenW * 0.5f) - mainPanelTex->GetSpriteWidth() * 0.5f, (float)(screenH - mainPanelTex->GetSpriteHeight()));
 
 // StatPanel
-    statPanel = AddChild<UI>(L"statPanel", new UI(L"stat_panel (5)_icon", Vector2(293, 21)));
+    statPanel = AddChild<UI>(L"statPanel", new UI(L"stat_panel (5)_icon", Vector2(-293, 21)));
+    statLabel[0] = statPanel->AddChild<Label>(L"stat1", new Label(15));
+    statLabel[1] = statPanel->AddChild<Label>(L"stat2", new Label(15));
+    statLabel[2] = statPanel->AddChild<Label>(L"stat3", new Label(15));
+    statLabel[3] = statPanel->AddChild<Label>(L"stat4", new Label(15));
+    statLabel[4] = statPanel->AddChild<Label>(L"stat5", new Label(15));
+    statLabel[5] = statPanel->AddChild<Label>(L"stat6", new Label(15));
+    statLabel[6] = statPanel->AddChild<Label>(L"stat7", new Label(15));
+    statLabel[7] = statPanel->AddChild<Label>(L"stat8", new Label(15));
+    int statstartx = 45;
+    int statstarty = 31;
+    int statinvx = 105;
+    int statinvy = 33;
+    for (int y = 0; y < 4; ++y) {
+        for (int x = 0; x < 2; ++x) {
+            int index = x + y * 2;
+
+            statLabel[index]->SetText(0);
+            statLabel[index]->SetLocation(Vector2(statstartx + statinvx * x, statstarty + statinvy * y));
+            statLabel[index]->align = Label::Align::Left;
+            statLabel[index]->valign = Label::VAlign::Middle;
+            statLabel[index]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+        }
+    }
 
 // InvenPanel
-    invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(293, 21)));
+    invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(548, 6)));
+    invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30)));
+    invenPanel->AddChild<OutlinedSlot>(L"recallSlot", new OutlinedSlot(L"border_skill (6)", Vector2(176, 82)));
+    invenPanel->AddChild<Button>(L"itemstoreBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
 
 // mainPanel
-    mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0.f, 0.f)));
+    mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0, 0)));
+    auto HPBar = mainPanel->AddChild<UI>(L"HPBar", new UI(L"bar_big1", Vector2(74, 123)));
+    auto MPBar = mainPanel->AddChild<UI>(L"MPBar", new UI(L"bar_big2", Vector2(74, 143)));
+    mainPanel->AddChild<UI>(L"HPBarTipL", new UI(L"bar_tip (1)", Vector2(71, 123)));
+    mainPanel->AddChild<UI>(L"HPBarTipR", new UI(L"bar_tip (2)", Vector2(534, 123)));
+    mainPanel->AddChild<UI>(L"MPBarTipL", new UI(L"bar_tip (1)", Vector2(71, 143)));
+    mainPanel->AddChild<UI>(L"MPBarTipR", new UI(L"bar_tip (2)", Vector2(534, 143)));
 
-    // ↑수정됨
-    // =========================================================================================================================
-#if 0
-    faceBorderTex = RenderManager::GetTexture(L"panel (1)");
-    invenPanelTex = RenderManager::GetTexture(L"panel (2)");
-    statPanelTex = RenderManager::GetTexture(L"stat_panel (5)");
+    slotSpell1    = mainPanel->AddChild<OutlinedSlot>(L"Spell1",  new OutlinedSlot(L"border_skill (1)", Vector2(125, 30)));
+    slotSpell2    = mainPanel->AddChild<OutlinedSlot>(L"Spell2",  new OutlinedSlot(L"border_skill (1)", Vector2(199, 30)));
+    slotSpell3    = mainPanel->AddChild<OutlinedSlot>(L"Spell3",  new OutlinedSlot(L"border_skill (1)", Vector2(273, 30)));
+    slotSpell4    = mainPanel->AddChild<OutlinedSlot>(L"Spell4",  new OutlinedSlot(L"border_skill (1)", Vector2(347, 30)));
+    slotPassive   = mainPanel->AddChild<OutlinedSlot>(L"SpellP",  new OutlinedSlot(L"border_skill (2)", Vector2(69,  30)));
+    slotSummoner1 = mainPanel->AddChild<OutlinedSlot>(L"SpellS1", new OutlinedSlot(L"border_skill (2)", Vector2(432, 30)));
+    slotSummoner2 = mainPanel->AddChild<OutlinedSlot>(L"SpellS2", new OutlinedSlot(L"border_skill (2)", Vector2(488, 30)));
+    slotPassive->icon->transform->scale = { 0.71f, 0.71f, 0 };
+    slotSummoner1->icon->transform->scale = { 0.71f, 0.71f, 0 };
+    slotSummoner2->icon->transform->scale = { 0.71f, 0.71f, 0 };
 
-    Vector2 mainPanelPos{ (screenW - mainPanelTex->GetSpriteWidth()) * 0.5f, float(screenH - mainPanelTex->GetSpriteHeight()) };
-    Vector2 invenPanelPos{ mainPanelPos.x + mainPanelTex->GetSpriteWidth() - 25, float(screenH - invenPanelTex->GetSpriteHeight())};
-    Vector2 faceBorderPos{ mainPanelPos.x - faceBorderTex->GetSpriteWidth() * 0.6f, mainPanelPos.y + 10};
-    Vector2 statPanelPos{ faceBorderPos.x - statPanelTex->GetSpriteWidth() * 0.8f, faceBorderPos.y};
-
-    //statPanel = new UI(L"stat_panel (5)", statPanelPos);
-    //mainPanel = new UI(L"panel (5)", mainPanelPos);
-    invenPanel = new UI(L"panel (2)", invenPanelPos);
-    facePanel = new UI(L"garen_circle", Vector2(faceBorderPos.x + 20, faceBorderPos.y + 20));
-    faceBorder = new UI(L"panel (1)", faceBorderPos);
-
-    Vector2 scaleHP{ 1,1 };
-    Vector2 scaleMP{ 1,1 };
-    Vector2 hpOffsetPos{ 76,124 };
-    Vector2 mpOffsetPos{ 76,146 };
-    Vector2 barTipOffset1{ 71,124 };
-    Vector2 barTipOffset2{ 535,124 };
-    Vector2 barTipOffset3{ 71,146 };
-    Vector2 barTipOffset4{ 535,146 };
-
-    hpLabel = new Label();
-    hpLabel->transform->position = { mainPanelPos.x + 303, mainPanelPos.y + 124,0 };
-    hpLabel->align = Label::Align::Center;
-    hpLabel->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
-
-    mpLabel = new Label();
-    mpLabel->transform->position = { mainPanelPos.x + 303, mainPanelPos.y + 146,0 };
-    mpLabel->align = Label::Align::Center;
-    mpLabel->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
-
-    for (int i = 0; i < 8; i++)
-    {
-        statLabel[i] = new Label();
-        statLabel[i]->foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
-    }
-    
-
-    Vector2 spellPos{ (float)(mainPanelPos.x + 126), (float)(mainPanelPos.y + 31) };
-    int spellPadding = 6;
-    int spellSize = 64;
-
-    slotSpell1 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 0 + 3, spellPos.y + 3));
-    slotSpell2 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 1 + 3, spellPos.y + 3));
-    slotSpell3 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 2 + 3, spellPos.y + 3));
-    slotSpell4 = new UI(Vector2(spellPos.x + ((spellSize + 4) + spellPadding) * 3 + 3, spellPos.y + 3));
-    
-    int passiveSize = 50;
-
-    slotPassive = new UI(Vector2(mainPanelPos.x + 70, mainPanelPos.y + 31));
-    slotSummoner1 = new UI(Vector2(mainPanelPos.x + 434, mainPanelPos.y + 32));
-    slotSummoner2 = new UI(Vector2(mainPanelPos.x + 490, mainPanelPos.y + 32));
-#endif
+    facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
+    mainPanel->AddChild<UI>(L"expBar", new UI(L"bar_exp", Vector2(14, 21)));
+    auto champBorder = mainPanel->AddChild<UI>(L"champBorder", new UI(L"panel (1)", Vector2(-93, 11)));
+    level = champBorder->AddChild<Label>(L"level", new Label(15));
+    level->SetText(L"1");
+    level->SetLocation(112, 137);
+    level->align = Label::Align::Center;
+    level->valign = Label::VAlign::Middle;
+    mainPanel->AddChild<UI>(L"statBtnBorder", new UI(L"stat_panel (4)", Vector2(-107, 86)));
+    Button* statBtn1 = mainPanel->AddChild<Button>(L"statBtn1", new Button(L"stat_panel (1)", Vector2(-100, 92)));
+    Button* statBtn2 = mainPanel->AddChild<Button>(L"statBtn2", new Button(L"stat_panel (2)", Vector2(-88, 114)));
+    Button* statBtn3 = mainPanel->AddChild<Button>(L"statBtn3", new Button(L"stat_panel (3)", Vector2(-57, 131)));
+    statBtn1->SetTextureHover(L"stat_panel (1)_hover");
+    statBtn1->SetTexturePressed(L"stat_panel (1)_pressed");
+    statBtn1->Click += ClickStatButton;
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()
 {
-    //Safe_Delete(&statPanel);
-    //Safe_Delete(&mainPanel);
-    //Safe_Delete(&invenPanel);
-    //Safe_Delete(&faceBorder);
-    //Safe_Delete(&facePanel);
-    //Safe_Delete(&hpLabel);
-    //Safe_Delete(&mpLabel);
-    //Safe_Delete(&slotSpell1);
-    //Safe_Delete(&slotSpell2);
-    //Safe_Delete(&slotSpell3);
-    //Safe_Delete(&slotSpell4);
-    //Safe_Delete(&slotPassive);
-    //Safe_Delete(&slotSummoner1);
-    //Safe_Delete(&slotSummoner2);
-    //for (int i = 0; i < 8; i++)
-    //{
-    //    Safe_Delete(&statLabel[i]);
-    //}
-    //
-    //mainPanelTex = nullptr;
-    //faceBorderTex = nullptr;
-    //invenPanelTex = nullptr;
-    //champion = nullptr;
 }
 
 PlayerInfoPanel* PlayerInfoPanel::GetInstance()
@@ -322,13 +301,20 @@ void PlayerInfoPanel::Update()
 
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {
-    //champion = _target;
-    //if (_target == nullptr) return;
-    //facePanel->SetTexture(champion->faceCircleTexkey);
-    //
-    //slotSpell1->SetTexture(champion->qTexKey);
-    //slotSpell2->SetTexture(champion->wTexKey);
-    //slotSpell3->SetTexture(champion->eTexKey);
-    //slotSpell4->SetTexture(champion->rTexKey);
-    //slotPassive->SetTexture(champion->passiveTexKey);
+    champion = _target;
+    if (_target == nullptr) return;
+    facePanel->SetTexture(champion->faceCircleTexkey);
+    
+    slotSpell1->SetIcon(champion->qTexKey);
+    slotSpell2->SetIcon(champion->wTexKey);
+    slotSpell3->SetIcon(champion->eTexKey);
+    slotSpell4->SetIcon(champion->rTexKey);
+    slotPassive->SetIcon(champion->passiveTexKey);
+}
+
+void PlayerInfoPanel::ClickStatButton()
+{
+    pPlayerInfoPanel->statPanel->isVisible ? 
+    pPlayerInfoPanel->statPanel->Hide() :
+    pPlayerInfoPanel->statPanel->Show();
 }

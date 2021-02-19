@@ -9,6 +9,8 @@
 #include "LoadingChampScreen.h"
 #include "Label.h"
 
+#include "PlayerInfoPanel.h" // TODO : 테스트 끝나면 빼기
+
 long resourceMax = 39;
 long resourceLoadCnt = 0;
 
@@ -44,6 +46,9 @@ void TestLoadingScene::OnLoaded()
 		UIManager::GetInstance()->AddUI(screens[i]);
 	}
 
+#if 0 // TODO : 임시 코드니까 다되면 꼭 빼야됨
+	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
+#endif
 
 	CreateChampPanel(borderW, borderH, padding);
 

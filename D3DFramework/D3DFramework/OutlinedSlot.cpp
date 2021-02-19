@@ -2,11 +2,17 @@
 #include "OutlinedSlot.h"
 #include "Rectangle.h"
 
-OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos)
+OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos, bool backicon)
 	: UI(pos)
 {
-	outline = CreateChild(_tagOutline, Vector2(0, 0));
-	icon = AddChild<UI>(L"icon", new UI(Vector2(0, 0)));
+	if (backicon) {
+		icon = AddChild<UI>(L"icon", new UI(Vector2(0, 0)));
+		outline = CreateChild(_tagOutline, Vector2(0, 0));
+	}
+	else {
+		outline = CreateChild(_tagOutline, Vector2(0, 0));
+		icon = AddChild<UI>(L"icon", new UI(Vector2(0, 0)));
+	}
 
 	Initialize();
 }
@@ -29,7 +35,7 @@ void OutlinedSlot::Update()
 	UI::Update();
 }
 
-void OutlinedSlot::AddIcon(const std::wstring& _tag)
+void OutlinedSlot::SetIcon(const std::wstring& _tag)
 {
 	icon->SetTexture(_tag);
 

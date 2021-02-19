@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Panel.h"
-
+class Button;
 class ItemshopPanel : public Panel
 {
 public:
@@ -12,4 +12,6 @@ public:
 	static void DestroyInstance();
 
 	virtual void Update();
+
+	static void Close();
 };

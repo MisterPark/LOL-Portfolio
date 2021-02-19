@@ -299,6 +299,8 @@ void PKH::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_icon (16).png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (1).png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (1)_hover.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (1)_pressed.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (2).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (3).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (4).png");
@@ -307,11 +309,20 @@ void PKH::MainGame::LoadUISprite()
 
 	// Itemshop
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_default.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_disabled.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_hover.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_pressed.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_hover.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_pressed.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_disabled.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_pressed.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_hover.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_hover.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1001_class_t1_bootsofspeed.dds");
 
