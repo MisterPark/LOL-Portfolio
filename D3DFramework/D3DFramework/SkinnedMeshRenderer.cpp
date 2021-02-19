@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
@@ -22,6 +22,11 @@ void KST::SkinnedMeshRenderer::Render()
 
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();
+	
+	if (!Frustum::Intersect(&this->transform->position, 5.f))
+	{
+		return;
+	}
 	for (auto& iter : meshContainers)
 	{
 		D3DXMESHCONTAINER_DERIVED* pMeshContainer = iter;
@@ -83,15 +88,13 @@ void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* contai
 		ComPtr<IDirect3DSurface9> optionSurface;
 
 		RenderTarget* renderTarget;
-		RenderTarget* optionRenderTarget;
 		Matrix projMatrix;
 
-		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &optionRenderTarget , &depthBuffer, &projMatrix))
+		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget,  &depthBuffer, &projMatrix))
 		{
 			continue;
 		}
 		renderTarget->GetSurface(&surface);
-		optionRenderTarget->GetSurface(&optionSurface);
 		shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
 		shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 		shadowMapShader->SetBool("g_shadow", true);

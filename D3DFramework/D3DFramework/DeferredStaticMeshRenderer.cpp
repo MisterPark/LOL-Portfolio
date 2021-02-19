@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "RenderTarget.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "RenderSystem.h"
@@ -67,16 +67,14 @@ namespace KST
 			ComPtr<IDirect3DSurface9> optionSurface;
 			ComPtr<IDirect3DSurface9> depthBuffer;
 			RenderTarget* renderTarget;
-			RenderTarget* optionRenderTarget;
 			Matrix projMatrix;
 			UINT passCount = 0;
 			UINT passNum = 0;
-			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget,&optionRenderTarget, &depthBuffer, &projMatrix))
+			if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &depthBuffer, &projMatrix))
 			{
 				continue;
 			}
 			renderTarget->GetSurface(&surface);
-			optionRenderTarget->GetSurface(&optionSurface);
 			if (alphaTest)
 			{
 				passNum = 1;
@@ -85,7 +83,7 @@ namespace KST
 			shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
 			shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 			device->SetRenderTarget(0, surface.Get());
-			device->SetRenderTarget(1, optionSurface.Get());
+			device->SetRenderTarget(1, nullptr);
 			device->SetRenderTarget(2, nullptr);
 			device->SetRenderTarget(3, nullptr);
 			device->SetDepthStencilSurface(depthBuffer.Get());

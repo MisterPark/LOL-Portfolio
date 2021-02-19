@@ -30,7 +30,6 @@ namespace KST
 	struct ShadowMap
 	{
 		std::unique_ptr<RenderTarget> renderTarget;
-		std::unique_ptr<RenderTarget> optionTarget;
 		ComPtr<IDirect3DSurface9> depthBuffer;
 	};
 	std::set<std::shared_ptr< ShadowMap> > usingShadowMap;
@@ -192,18 +191,16 @@ namespace KST
 		}
 		if (idleShadowMap.empty())
 		{
+			constexpr int _8K = 1024 * 4;
 			IDirect3DDevice9* device = RenderManager::GetDevice();
 			ComPtr<IDirect3DSurface9> depthBuffer;
 			RenderTarget* renderTarget{};
-			RenderTarget* optionBuffer{};
-			RenderTarget::Create(4096 *2, 4096*2, D3DFMT_G32R32F, &renderTarget);
-			RenderTarget::Create(4096 *2, 4096*2, D3DFMT_A8R8G8B8, &optionBuffer);
+			RenderTarget::Create(_8K, _8K, D3DFMT_G32R32F, &renderTarget);
 			//optionTarget
-			device->CreateDepthStencilSurface(4096*2, 4096*2, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, false, &depthBuffer, nullptr);
+			device->CreateDepthStencilSurface(_8K, _8K, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, false, &depthBuffer, nullptr);
 			std::shared_ptr<ShadowMap> shadowMap = std::make_shared<ShadowMap>();
 			shadowMap->depthBuffer = depthBuffer;
 			shadowMap->renderTarget.reset(renderTarget);
-			shadowMap->optionTarget.reset(optionBuffer);
 			idleShadowMap.insert(std::move(shadowMap));
 		}
 		auto idleShadowMapsIt = idleShadowMap.begin();
@@ -270,7 +267,7 @@ namespace KST
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
 	}
-	bool RenderSystem::GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, RenderTarget** optionBuffer, IDirect3DSurface9** depthBufferOut , Matrix* proj)
+	bool RenderSystem::GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget,  IDirect3DSurface9** depthBufferOut , Matrix* proj)
 	{
 		auto findIt = lights.find(lightName);
 		if (findIt == lights.end())
@@ -285,7 +282,6 @@ namespace KST
 		depthBuffer->AddRef();
 		*depthBufferOut = depthBuffer;
 		*renderTarget = findIt->second.shadowMap->renderTarget.get();
-		*optionBuffer = findIt->second.shadowMap->optionTarget.get();
 		*proj = findIt->second.projectionMatrix;
 		return true;
 	}
@@ -310,13 +306,10 @@ namespace KST
 			ComPtr<IDirect3DSurface9> surface;
 			ComPtr<IDirect3DSurface9> optionSurface;
 			shadowMap->renderTarget->GetSurface(&surface);
-			shadowMap->optionTarget->GetSurface(&optionSurface);
 
 			device->SetRenderTarget(0, surface.Get());
 			device->SetDepthStencilSurface(shadowMap->depthBuffer.Get());
 			device->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
-			device->SetRenderTarget(0, optionSurface.Get());
-			device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
 		}
 		device->SetDepthStencilSurface(oldBackbuffer.Get());
 
@@ -451,17 +444,11 @@ namespace KST
 		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
 		shadowRenderTarget->GetSurface(&shadowSurface);
 
-		device->SetRenderTarget(0, shadowSurface.Get());
-		device->SetRenderTarget(1, nullptr);
-		device->SetRenderTarget(2, nullptr);
-		device->SetRenderTarget(3, nullptr);
-		device->Clear(0, nullptr, D3DCLEAR_TARGET, 0xFFFFFFFF, 0, 0);
 		device->SetRenderTarget(0, lightDiffuseSurface.Get());
 		device->SetRenderTarget(1, lightSpecularSurface.Get());
 		device->SetRenderTarget(2, nullptr);
 		device->SetRenderTarget(3, nullptr);
 		device->Clear(0, nullptr, D3DCLEAR_TARGET, 0, 0, 0);
-		device->SetRenderTarget(2, shadowSurface.Get());
 
 		deferredShader->SetVector("g_vCameraPosition", &vCameraPosition);
 
@@ -480,10 +467,7 @@ namespace KST
 						ComPtr<IDirect3DTexture9> texture;
 						ComPtr<IDirect3DTexture9> shdowOptionTexture;
 						pair.second.shadowMap->renderTarget->GetTexture(&texture);
-						pair.second.shadowMap->optionTarget->GetTexture(&shdowOptionTexture);
 						deferredShader->SetTexture("g_shadowMap", texture.Get());
-						deferredShader->SetTexture("g_shadowOptionMap", shdowOptionTexture.Get());
-
 						deferredShader->SetMatrix("g_mLightSpace", &pair.second.projectionMatrix);
 					}
 					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 1.f);
