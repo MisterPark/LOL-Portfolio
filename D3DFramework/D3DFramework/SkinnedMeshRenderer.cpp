@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
@@ -22,6 +22,12 @@ void KST::SkinnedMeshRenderer::Render()
 
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();
+
+	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+
+	// TODO : Render 반경 계산 해야할듯?
+	if (Frustum::Intersect(&worldPos, 1.f) == false) return;
+
 	for (auto& iter : meshContainers)
 	{
 		D3DXMESHCONTAINER_DERIVED* pMeshContainer = iter;
@@ -116,6 +122,11 @@ void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* contai
 
 void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
 {
+	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+
+	// TODO : Render 반경 계산 해야할듯?
+	if (Frustum::Intersect(&worldPos, 1.f) == false) return;
+
 	IDirect3DDevice9* device = RenderManager::GetDevice();
 	ComPtr<IDirect3DSurface9> albedoSurface;
 	ComPtr<IDirect3DSurface9> normalSurface;

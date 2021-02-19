@@ -50,7 +50,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 
 	// 다른 모든 매니저 초기화
 	TimeManager::GetInstance();
-	TimeManager::SetFPS(300);
+	TimeManager::SetFPS(100);
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
@@ -113,16 +113,12 @@ void PKH::MainGame::Update()
 #if 0
 	if (!TimeManager::SkipFrame())
 	{
-		RenderManager::Clear();
 		RenderSystem::Render();
-		RenderManager::Present();
 	}
 #else
 	TimeManager::SkipFrame();
 
-	RenderManager::Clear();
 	RenderSystem::Render();
-	RenderManager::Present();
 #endif
 }
 
