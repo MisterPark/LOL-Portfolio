@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Wall.h"
 #include "MeshCollider.h"
 
@@ -29,7 +29,7 @@ void Wall::Update()
 {
 	GameObject::Update();
 
-	if (InputManager::GetKeyDown('P'))
+	if (InputManager::GetKeyDown('L'))
 	{
 		isVisible = !isVisible;
 	}

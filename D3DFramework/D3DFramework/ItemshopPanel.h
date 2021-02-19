@@ -11,4 +11,5 @@ public:
 	static ItemshopPanel* GetInstance();
 	static void DestroyInstance();
 
+	virtual void Update();
 };

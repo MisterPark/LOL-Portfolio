@@ -5,8 +5,8 @@
 OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos)
 	: UI(pos)
 {
-	outline = AddChild(_tagOutline, Vector2(0, 0));
-	icon = AddChild(new UI(Vector2(0, 0)));
+	outline = CreateChild(_tagOutline, Vector2(0, 0));
+	icon = AddChild<UI>(L"icon", new UI(Vector2(0, 0)));
 
 	Initialize();
 }

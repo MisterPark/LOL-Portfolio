@@ -7,6 +7,7 @@
 #include "PlayerInfoPanel.h"
 #include "FloatingBar.h"
 #include "MiniScorePanel.h"
+#include "ItemshopPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
