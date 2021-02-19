@@ -1373,6 +1373,7 @@
     <None Include="BaseObject.inl">
       <Filter>BaseObject</Filter>
     </None>
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="deferred_shader.fx">
@@ -1384,5 +1385,6 @@
     <CopyFileToFolders Include="HPBarEffect.fx">
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="shadow_map_shader.fx" />
   </ItemGroup>
 </Project>
