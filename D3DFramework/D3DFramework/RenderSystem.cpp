@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
 #include<map>
@@ -196,10 +196,10 @@ namespace KST
 			ComPtr<IDirect3DSurface9> depthBuffer;
 			RenderTarget* renderTarget{};
 			RenderTarget* optionBuffer{};
-			RenderTarget::Create(4096, 4096, D3DFMT_G32R32F, &renderTarget);
-			RenderTarget::Create(4096, 4096, D3DFMT_A8R8G8B8, &optionBuffer);
+			RenderTarget::Create(4096 *2, 4096*2, D3DFMT_G32R32F, &renderTarget);
+			RenderTarget::Create(4096 *2, 4096*2, D3DFMT_A8R8G8B8, &optionBuffer);
 			//optionTarget
-			device->CreateDepthStencilSurface(4096, 4096, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, false, &depthBuffer, nullptr);
+			device->CreateDepthStencilSurface(4096*2, 4096*2, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, false, &depthBuffer, nullptr);
 			std::shared_ptr<ShadowMap> shadowMap = std::make_shared<ShadowMap>();
 			shadowMap->depthBuffer = depthBuffer;
 			shadowMap->renderTarget.reset(renderTarget);
@@ -344,7 +344,7 @@ namespace KST
 			D3DXMatrixLookAtLH(&mView, &lightPosition, &focusAt, &(Vector3&)mCameraTransform.m[1]);
 			//mView = Camera::main->GetViewMatrix();
 			//D3DXMatrixPerspectiveFovLH(&mProjection, D3DX_PI * 0.75f, 1.f, 0.1f, 2000.f);
-			D3DXMatrixOrthoLH(&mProjection, 500.f * vCameraPosition.y / 1000.f, 500.f * vCameraPosition.y / 1000.f, 0.1f, 2000.f);
+			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 900.f, 1000.f * vCameraPosition.y / 900.f, 0.1f, 2000.f);
 			pair.second.projectionMatrix = mView * mProjection;
 		}
 	}

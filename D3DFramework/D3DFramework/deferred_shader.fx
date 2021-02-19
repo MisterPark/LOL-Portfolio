@@ -77,7 +77,6 @@ VS_OUT vs_main(VS_IN input)
 	output.vUV = input.vUV;
 	return output;
 }
-
 float4 ps_combine(PS_IN input) :COLOR0
 {
 	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
@@ -154,11 +153,18 @@ PS_OUT ps_directional_light(PS_IN input)
 
 	float2 shadowDepthColor = tex2D(ShadowMapSampler, saturate(shadowMapUV) );
 	int shadowOption = tex2D(ShadowMapOptionSampler, saturate(shadowMapUV));
+	//shadowMapUV = abs(shadowMapUV);
+	
 	float shadowDepth = shadowDepthColor.r/(shadowDepthColor.g * 2000.f) ;
 	float4 vDiffuse = g_vLightAmbient;
+	
 	float currentDepth = (vLightSpacePosition.z / vLightSpacePosition.w);
+	if (shadowMapUV.x < 0.f || shadowMapUV.x > 1.f || shadowMapUV.y < 0.f || shadowMapUV.y > 1.f)
+	{
+
+	}
 	//현재 깊이가 그림자 맵의 뎁스보다 작아야, 조명을 계산한다
-	if (currentDepth < shadowDepth + 0.0000125f)
+	else if (currentDepth < shadowDepth + 0.0000125f)
 	{
 		float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
 		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
