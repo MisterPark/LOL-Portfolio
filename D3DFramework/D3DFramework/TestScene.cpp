@@ -358,7 +358,7 @@ void TestScene::OnLoaded()
 	dirLight.Type = D3DLIGHT_DIRECTIONAL;
 	dirLight.Direction = v;
 	dirLight.Diffuse = D3DCOLORVALUE{ 1.f, 1.f, 1.f, 1.f };
-	dirLight.Ambient = D3DCOLORVALUE{ 0.5f, 0.5f, 0.5f, 1.0f};
+	dirLight.Ambient = D3DCOLORVALUE{ 0.7f, 0.7f, 0.7f, 1.0f};
 	KST::RenderSystem::AddLight(L"dir1", dirLight);
 	KST::RenderSystem::EnableShadow(L"dir1");
 	// �̴Ͼ�

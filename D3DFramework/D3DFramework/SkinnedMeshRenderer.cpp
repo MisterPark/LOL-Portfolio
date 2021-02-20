@@ -89,15 +89,13 @@ void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* contai
 		ComPtr<IDirect3DSurface9> optionSurface;
 
 		RenderTarget* renderTarget;
-		RenderTarget* optionRenderTarget;
 		Matrix projMatrix;
 
-		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget, &optionRenderTarget , &depthBuffer, &projMatrix))
+		if (!RenderSystem::GetShadowMap(lightNamePtr->c_str(), &renderTarget,  &depthBuffer, &projMatrix))
 		{
 			continue;
 		}
 		renderTarget->GetSurface(&surface);
-		optionRenderTarget->GetSurface(&optionSurface);
 		shadowMapShader->SetMatrix("g_mCameraProj", &projMatrix);
 		shadowMapShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 		shadowMapShader->SetBool("g_shadow", true);

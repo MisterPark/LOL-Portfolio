@@ -20,6 +20,7 @@ namespace KST
 		void RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container);
 		void RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container);
 	private:
+		bool culled;
 		RenderTarget* albedoRenderTarget;
 		RenderTarget* normalRenderTarget;
 		RenderTarget* sharpnessRenderTarget;
