@@ -184,7 +184,9 @@ namespace KST
 			static_assert(std::is_base_of< EventArgs, EventArgClass>::value, "");
 			//타입제약이다. 클래스 타입 T는 GameObject의 파생이여야 한다.
 			static_assert(std::is_base_of< PKH::GameObject, T>::value, "Bind Class Type must be drived by 'PKH::GameObject'");
-			eventHandlers.push_back(std::unique_ptr< EventHandler>{ new TargetMethodEventHandler{ static_cast<GameObject*>(target),(TargetMethodEventHandler::DefaultMethodType)(TargetMethodType)method }});
+			using TEventHanlder = void(T::*)(GameObject*, EventArgClass*);
+			eventHandlers.push_back(std::unique_ptr< EventHandler>{ new TargetMethodEventHandler{ static_cast<GameObject*>(target),
+				(TargetMethodEventHandler::DefaultMethodType)(TargetMethodType)(TEventHanlder)method }});
 			//
 			((GameObject*)target)->AddWeak(this);
 		}
