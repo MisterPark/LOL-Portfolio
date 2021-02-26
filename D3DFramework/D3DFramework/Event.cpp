@@ -84,3 +84,133 @@ void Event::RemoveHandler(const EventHandler& handler)
     }
     
 }
+namespace KST
+{
+    namespace ES
+    {
+#pragma region  StaticMethodEventHandler impl
+        StaticMethodEventHandler::StaticMethodEventHandler(DefaultMethodType handler) :
+            function{ handler }
+        {
+
+        }
+        void StaticMethodEventHandler::Invoke(GameObject* sender, EventArgs* args) const
+        {
+            function(sender, args);
+        }
+        bool StaticMethodEventHandler::IsEqual(EventHandler const& r)
+        {
+            if (typeid(r) != typeid(StaticMethodEventHandler))
+            {
+                return false;
+            }
+            return static_cast<StaticMethodEventHandler const&>(r).function == function;
+        }
+        auto StaticMethodEventHandler::Method()->DefaultMethodType
+        {
+            return function;
+        }
+#pragma endregion
+
+#pragma region TargetMethodEventHandler impl
+        TargetMethodEventHandler::TargetMethodEventHandler(GameObject* target, DefaultMethodType method) :
+            target{ target },
+            method{ method }
+        {
+
+        }
+        void TargetMethodEventHandler::Invoke(GameObject* sender, EventArgs* args) const
+        {
+            (target->*method)(sender, args);
+        }
+        bool TargetMethodEventHandler::IsEqual(EventHandler const& r)
+        {
+            if (dynamic_cast<TargetMethodEventHandler const*>(&r) == nullptr)
+            {
+                return false;
+            }
+            auto const& rhs{ static_cast<TargetMethodEventHandler const&>(r) };
+
+            return rhs.target == target && rhs.method == method;
+        }
+        GameObject* TargetMethodEventHandler::Target()
+        {
+            return target;
+        }
+        auto TargetMethodEventHandler::Method()->DefaultMethodType
+        {
+            return method;
+        }
+#pragma endregion
+
+        
+        EventBase::~EventBase()
+        {
+            for (auto& pair : weakPtrListeners)
+            {
+                GameObject* target{ pair.first };
+                void(GameObject:: * method)(EventBase*) { pair.second };
+                (target->*method)(this);
+            }
+        }
+
+        void EventBase::Remove(StaticMethodEventHandler::DefaultMethodType method)
+        {
+            auto it{ eventHandlers.begin() };
+            auto const end{ eventHandlers.end() };
+            while (it != end)
+            {
+                if (typeid(*it->get()).before(typeid(StaticMethodEventHandler)))
+                {
+                    auto* handler{ static_cast<StaticMethodEventHandler*>(it->get()) };
+                    if (handler->Method() == method)
+                    {
+                        it = eventHandlers.erase(it);
+                        continue;
+                    }
+                }
+                ++it;
+            }
+        }
+
+        void EventBase::Remove(GameObject* target, TargetMethodEventHandler::DefaultMethodType method)
+        {
+            auto it{ eventHandlers.begin() };
+            auto const end{ eventHandlers.end() };
+            while (it != end)
+            {
+                if (typeid(*it->get()) == typeid(TargetMethodEventHandler))
+                {
+                    auto* handler{ static_cast<TargetMethodEventHandler*>(it->get()) };
+                    if (handler->Target() == target &&
+                        handler->Method() == method)
+                    {
+                        it = eventHandlers.erase(it);
+                        continue;
+                    }
+                }
+                ++it;
+            }
+        }
+
+        void EventBase::RemoveTarget(GameObject* target)
+        {
+            auto it{ eventHandlers.begin() };
+            auto const end{ eventHandlers.end() };
+            while (it != end)
+            {
+                if (typeid(*it->get()) == typeid(TargetMethodEventHandler))
+                {
+                    auto* handler{ static_cast<TargetMethodEventHandler*>(it->get()) };
+                    if (handler->Target() == target)
+                    {
+                        it = eventHandlers.erase(it);
+                        continue;
+                    }
+                }
+                ++it;
+            }
+        }
+
+    }
+}

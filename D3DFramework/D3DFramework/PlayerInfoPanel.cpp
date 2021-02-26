@@ -85,7 +85,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     Button* statBtn3 = mainPanel->AddChild<Button>(L"statBtn3", new Button(L"stat_panel (3)", Vector2(-57, 131)));
     statBtn1->SetTextureHover(L"stat_panel (1)_hover");
     statBtn1->SetTexturePressed(L"stat_panel (1)_pressed");
-    statBtn1->Click += ClickStatButton;
+    statBtn1->Click += KST::ES::Handler(this, &PlayerInfoPanel::PlayerPanel_OnClick);
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()
@@ -310,6 +310,11 @@ void PlayerInfoPanel::SetTarget(Champion* _target)
     slotSpell3->SetIcon(champion->eTexKey);
     slotSpell4->SetIcon(champion->rTexKey);
     slotPassive->SetIcon(champion->passiveTexKey);
+}
+
+void PlayerInfoPanel::PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg)
+{
+    ClickStatButton();
 }
 
 void PlayerInfoPanel::ClickStatButton()

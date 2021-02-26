@@ -6,7 +6,11 @@ class Label;
 
 namespace PKH
 {
+    class MouseEventArg : public KST::ES::EventArgs
+    {
+    public:
 
+    };
     class UI : public GameObject
     {
     public:
@@ -69,7 +73,7 @@ namespace PKH
         wstring text;
     public:
         // 이벤트 (RW)
-        Event Click;
+
         Event DoubleClick;
         Event LButtonDown;
         Event LButtonUp;
@@ -79,7 +83,7 @@ namespace PKH
         Event Leave;
         Event TextChanged;
         Event EnabledChanged;
-
+        KST::ES::Event<MouseEventArg> Click;
     protected:
         // 이벤트 관련 
         bool isHover = false;
