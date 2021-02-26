@@ -60,27 +60,10 @@ namespace KST
 		{
 		public:
 			using DefaultMethodType = void(*)(GameObject*, EventArgs* args);
-			StaticMethodEventHandler(DefaultMethodType handler):
-				function{handler}
-			{
-
-			}
-			void Invoke(GameObject* sender, EventArgs* args) const
-			{
-				function(sender, args);
-			}
-			virtual bool IsEqual(EventHandler const& r)
-			{
-				if (typeid(r) != typeid(StaticMethodEventHandler))
-				{
-					return false;
-				}
-				return static_cast<StaticMethodEventHandler const&>(r).function == function;
-			}
-			DefaultMethodType Method()
-			{
-				return function;
-			}
+			StaticMethodEventHandler(DefaultMethodType handler);
+			void Invoke(GameObject* sender, EventArgs* args) const;
+			virtual bool IsEqual(EventHandler const& r) override;
+			DefaultMethodType Method();
 		private:
 			DefaultMethodType function;
 		};
@@ -88,34 +71,11 @@ namespace KST
 		{
 		public:
 			using DefaultMethodType = void(GameObject::*)(GameObject*, EventArgs* args);
-			TargetMethodEventHandler(GameObject* target, DefaultMethodType method):
-				target{ target },
-				method{ method }
-			{
-
-			}
-			void Invoke(GameObject* sender, EventArgs* args) const
-			{
-				(target->*method)(sender, args);
-			}
-			virtual bool IsEqual(EventHandler const& r)
-			{
-				if (dynamic_cast<TargetMethodEventHandler const*>(&r) == nullptr)
-				{
-					return false;
-				}
-				auto const& rhs{ static_cast<TargetMethodEventHandler const&>(r) };
-
-				return rhs.target == target && rhs.method == method;
-			}
-			GameObject* Target()
-			{
-				return target;
-			}
-			DefaultMethodType Method()
-			{
-				return method;
-			}
+			TargetMethodEventHandler(GameObject* target, DefaultMethodType method);
+			void Invoke(GameObject* sender, EventArgs* args) const;
+			virtual bool IsEqual(EventHandler const& r);
+			GameObject* Target();
+			DefaultMethodType Method();
 		private:
 			GameObject* target;
 			DefaultMethodType method;
@@ -126,90 +86,17 @@ namespace KST
 		{
 		public:
 
-			virtual ~EventBase()
-			{
-				for (auto& pair : weakPtrListeners)
-				{
-					GameObject* target{ pair.first };
-					void(GameObject:: * method)(EventBase*) { pair.second };
-					(target->*method)(this);
-				}
-			}
-			void Remove(StaticMethodEventHandler::DefaultMethodType method)
-			{
-				auto it{ eventHandlers.begin() };
-				auto const end{ eventHandlers.end() };
-				while (it != end)
-				{
-					if (typeid(*it->get()).before(typeid(StaticMethodEventHandler)))
-					{
-						auto* handler{ static_cast<StaticMethodEventHandler*>(it->get()) };
-						if (handler->Method() == method)
-						{
-							it = eventHandlers.erase(it);
-							continue;
-						}
-					}
-					++it;
-				}
-			}
-			void Remove(GameObject* target, TargetMethodEventHandler::DefaultMethodType method)
-			{
-				auto it{ eventHandlers.begin() };
-				auto const end{ eventHandlers.end() };
-				while (it != end)
-				{
-					if (typeid(*it->get()) == typeid(TargetMethodEventHandler))
-					{
-						auto* handler{ static_cast<TargetMethodEventHandler*>(it->get()) };
-						if (handler->Target() == target &&
-							handler->Method() == method)
-						{
-							it = eventHandlers.erase(it);
-							continue;
-						}
-					}
-					++it;
-				}
-			}
-			void RemoveTarget(GameObject* target)
-			{
-				auto it{ eventHandlers.begin() };
-				auto const end{ eventHandlers.end() };
-				while (it != end)
-				{
-					if (typeid(*it->get()) == typeid(TargetMethodEventHandler))
-					{
-						auto* handler{ static_cast<TargetMethodEventHandler*>(it->get()) };
-						if (handler->Target() == target)
-						{
-							it = eventHandlers.erase(it);
-							continue;
-						}
-					}
-					++it;
-				}
-			}
+			virtual ~EventBase();
+			void Remove(StaticMethodEventHandler::DefaultMethodType method);
+			void Remove(GameObject* target, TargetMethodEventHandler::DefaultMethodType method);
+			void RemoveTarget(GameObject* target);
 			template<typename T>
 			void AddWeakRef(T* target, void(T::* method)(EventBase*))
 			{
 				weakPtrListeners.emplace_back((GameObject*)target, (void(GameObject::*)(EventBase*))(method));
 			}
 			template<typename T>
-			void RemoveWeakRef(T* target)
-			{
-				auto it = weakPtrListeners.begin();
-				auto const end = weakPtrListeners.end();
-				while (it != end)
-				{
-					if (it->first == target)
-					{
-						it = weakPtrListeners.remove(it);
-						continue;
-					}
-					++it;
-				}
-			}
+			void RemoveWeakRef(T* target);
 		protected:
 			std::list<std::pair<GameObject*, void(GameObject::*)(EventBase*)> > weakPtrListeners;
 			std::list <std::unique_ptr<EventHandler> > eventHandlers;
@@ -250,24 +137,9 @@ namespace KST
 			template<typename T, typename MethodArgsClass>
 			using TargetMethodType2 = void(T::*)(GameObject*, MethodArgsClass*);
 			template<typename MethodArgType>
-			void AddMethod(_StaticFunction<MethodArgType> staticMethod)
-			{
-				eventHandlers.push_back(std::unique_ptr< EventHandler>{new StaticMethodEventHandler{ (StaticMethodEventHandler::DefaultMethodType)staticMethod }});
-			}
+			void AddMethod(_StaticFunction<MethodArgType> staticMethod);
 			template<typename T, typename MethodArgType>
-			void AddMethod(T* target, TargetMethodType2<T, MethodArgType> method)
-			{
-				//타입 제약들.
-				//멤버함수의 매개인자의 타입은 이 이벤트의 매개인자의 부모여야 한다(그래야 문제가 없다)
-				static_assert(std::is_base_of< MethodArgType, EventArgClass>::value, "");
-				//이 이벤트의 매개인자는, EventArgs의 파생이여야 한다.
-				static_assert(std::is_base_of< EventArgs, EventArgClass>::value, "");
-				//타입제약이다. 클래스 타입 T는 GameObject의 파생이여야 한다.
-				static_assert(std::is_base_of< PKH::GameObject, T>::value, "Bind Class Type must be drived by 'PKH::GameObject'");
-				eventHandlers.push_back(std::unique_ptr< EventHandler>{ new TargetMethodEventHandler{ static_cast<GameObject*>(target),(TargetMethodEventHandler::DefaultMethodType)(TargetMethodType)method }});
-				//
-				((GameObject*)target)->AddWeak(this);
-			}
+			void AddMethod(T* target, TargetMethodType2<T, MethodArgType> method);
 			template<typename T, typename MethodArgType>
 			void operator += (EventAddMethodParam<T, MethodArgType> const& param)
 			{
@@ -278,13 +150,51 @@ namespace KST
 			{
 				AddMethod<MethodArgType>(param);
 			}
-			void Invoke(GameObject* sender, EventArgClass& arg)
-			{
-				for (auto const& it : eventHandlers)
-				{
-					it->Invoke(sender, &arg);
-				}
-			}
+			void Invoke(GameObject* sender, EventArgClass& arg);
 		};
-	}
+		template<typename T>
+		inline void EventBase::RemoveWeakRef(T* target)
+		{
+			auto it = weakPtrListeners.begin();
+			auto const end = weakPtrListeners.end();
+			while (it != end)
+			{
+				if (it->first == target)
+				{
+					it = weakPtrListeners.remove(it);
+					continue;
+				}
+				++it;
+			}
+		}
+		template<typename EventArgClass>
+		template<typename MethodArgType>
+		inline void Event<EventArgClass>::AddMethod(_StaticFunction<MethodArgType> staticMethod)
+		{
+			eventHandlers.push_back(std::unique_ptr< EventHandler>{new StaticMethodEventHandler{ (StaticMethodEventHandler::DefaultMethodType)staticMethod }});
+		}
+		template<typename EventArgClass>
+		template<typename T, typename MethodArgType>
+		inline void Event<EventArgClass>::AddMethod(T* target, TargetMethodType2<T, MethodArgType> method)
+		{
+			//타입 제약들.
+			//멤버함수의 매개인자의 타입은 이 이벤트의 매개인자의 부모여야 한다(그래야 문제가 없다)
+			static_assert(std::is_base_of< MethodArgType, EventArgClass>::value, "");
+			//이 이벤트의 매개인자는, EventArgs의 파생이여야 한다.
+			static_assert(std::is_base_of< EventArgs, EventArgClass>::value, "");
+			//타입제약이다. 클래스 타입 T는 GameObject의 파생이여야 한다.
+			static_assert(std::is_base_of< PKH::GameObject, T>::value, "Bind Class Type must be drived by 'PKH::GameObject'");
+			eventHandlers.push_back(std::unique_ptr< EventHandler>{ new TargetMethodEventHandler{ static_cast<GameObject*>(target),(TargetMethodEventHandler::DefaultMethodType)(TargetMethodType)method }});
+			//
+			((GameObject*)target)->AddWeak(this);
+		}
+		template<typename EventArgClass>
+		inline void Event<EventArgClass>::Invoke(GameObject* sender, EventArgClass& arg)
+		{
+			for (auto const& it : eventHandlers)
+			{
+				it->Invoke(sender, &arg);
+			}
+		}
+}
 }
