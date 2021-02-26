@@ -22,6 +22,11 @@ Engine::GameObject::~GameObject()
 		delete iter.second;
 	}
 	children.clear();
+
+	for (auto* evt : events)
+	{
+		evt->RemoveTarget(this);
+	}
 }
 
 void Engine::GameObject::Update()
@@ -218,6 +223,17 @@ void Engine::GameObject::Hide()
 		child.second->Hide();
 	}
 	isVisible = false;
+}
+
+void Engine::GameObject::AddWeak(Engine::EventBase* evt)
+{
+	evt->AddWeakRef(this, &GameObject::OnEventDelete);
+	events.emplace(evt);
+}
+
+void Engine::GameObject::OnEventDelete(Engine::EventBase* evt)
+{
+	events.erase(evt);
 }
 
 IComponent* Engine::GameObject::AddComponent(const wstring& _key, IComponent* _component)

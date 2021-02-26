@@ -73,7 +73,9 @@ namespace Engine
 		T* AddChild(const wstring& _tag, T* _child);
 		template<class T>
 		T* CreateChild(const wstring& _key);
-
+		//event관련하여
+		void AddWeak(Engine::EventBase* evt);
+		void OnEventDelete(Engine::EventBase* evt);
 	public:
 		wstring name;
 		wstring tag;
@@ -87,6 +89,7 @@ namespace Engine
 		map<wstring, GameObject*> children;
 
 		map<wstring, Engine::IComponent*> components;
+		std::set<Engine::EventBase*> events;
 	protected:
 		bool destroyFlag = false;
 	private:

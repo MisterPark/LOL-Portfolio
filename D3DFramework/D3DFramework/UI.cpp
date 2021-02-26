@@ -159,52 +159,62 @@ void UI::ClearEvent()
 
 void UI::OnHover()
 {
-	Hover.Invoke();
+	MouseEventArg args{};
+	Hover.Invoke(this, args);
 }
 
 void UI::OnLeave()
 {
-	Leave.Invoke();
+	MouseEventArg args{};
+	Leave.Invoke(this, args);
 }
 
 void UI::OnLButtonDown()
 {
-	LButtonDown.Invoke();
+	MouseEventArg args{};
+	LButtonDown.Invoke(this, args);
 }
 
 void UI::OnLButtonUp()
 {
-	LButtonUp.Invoke();
+	MouseEventArg args{};
+	LButtonUp.Invoke(this, args);
 }
 
 void UI::OnRButtonDown()
 {
-	RButtonDown.Invoke();
+	MouseEventArg args{};
+	RButtonDown.Invoke(this, args);
 }
 
 void UI::OnRButtonUp()
 {
-	RButtonUp.Invoke();
+	MouseEventArg args{};
+	RButtonUp.Invoke(this, args);
 }
 
 void UI::OnClick()
 {
-	Click.Invoke();
+	MouseEventArg args{};
+	Click.Invoke(this, args);
 }
 
 void Engine::UI::OnDoubleClick()
 {
-	DoubleClick.Invoke();
+	MouseEventArg args{};
+	DoubleClick.Invoke(this, args);
 }
 
 void Engine::UI::OnEnabledChanged()
 {
-	EnabledChanged.Invoke();
+	MouseEventArg args{};
+	EnabledChanged.Invoke(this, args);
 }
 
 void Engine::UI::OnTextChanged()
 {
-	TextChanged.Invoke();
+	MouseEventArg args{};
+	TextChanged.Invoke(this, args);
 }
 
 Vector2 Engine::UI::GetSize()

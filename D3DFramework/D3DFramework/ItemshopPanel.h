@@ -14,4 +14,5 @@ public:
 	virtual void Update();
 
 	static void Close();
+	void ItemShop_Panel(GameObject* sender, MouseEventArg* args);
 };

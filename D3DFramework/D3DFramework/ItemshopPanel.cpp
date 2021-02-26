@@ -80,7 +80,7 @@ ItemshopPanel::ItemshopPanel()
     btn_close->transform->scale = { 0.625f, 0.625f, 0.f };
     btn_close->SetTextureHover(L"itemshop_button_close_hover");
     btn_close->SetTexturePressed(L"itemshop_button_close_pressed");
-    btn_close->Click += Close;
+    btn_close->Click += Engine::Handler(this, &ItemshopPanel::ItemShop_Panel);
 
     int startx = 57;
     int starty = 106;
@@ -141,5 +141,9 @@ void ItemshopPanel::Update()
 
 void ItemshopPanel::Close()
 {
-    pItemshopPanel->Hide();
+}
+
+void ItemshopPanel::ItemShop_Panel(GameObject* sender, MouseEventArg* args)
+{
+    this->Hide();
 }

@@ -6,7 +6,11 @@ class Label;
 
 namespace Engine
 {
+    class MouseEventArg : public EventArgs
+    {
+    public:
 
+    };
     class UI : public GameObject
     {
     public:
@@ -69,17 +73,17 @@ namespace Engine
         wstring text;
     public:
         // 이벤트 (RW)
-        Event Click;
-        Event DoubleClick;
-        Event LButtonDown;
-        Event LButtonUp;
-        Event RButtonDown;
-        Event RButtonUp;
-        Event Hover;
-        Event Leave;
-        Event TextChanged;
-        Event EnabledChanged;
 
+        Event<MouseEventArg> DoubleClick;
+        Event<MouseEventArg> LButtonDown;
+        Event<MouseEventArg> LButtonUp;
+        Event<MouseEventArg> RButtonDown;
+        Event<MouseEventArg> RButtonUp;
+        Event<MouseEventArg> Hover;
+        Event<MouseEventArg> Leave;
+        Event<MouseEventArg> TextChanged;
+        Event<MouseEventArg> EnabledChanged;
+        Event<MouseEventArg> Click;
     protected:
         // 이벤트 관련 
         bool isHover = false;
