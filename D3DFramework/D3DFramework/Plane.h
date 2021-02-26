@@ -1,7 +1,7 @@
 #pragma once
 #include "CustomMesh.h"
 
-namespace PKH
+namespace Engine
 {
 	class Plane : public CustomMesh
 	{
@@ -16,7 +16,7 @@ namespace PKH
 
 
 		// CustomMesh을(를) 통해 상속됨
-		virtual PKH::IComponent* Clone() override;
+		virtual Engine::IComponent* Clone() override;
 
 	};
 }

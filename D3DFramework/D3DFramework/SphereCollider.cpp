@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "SphereCollider.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::SphereCollider::SphereCollider(GameObject* owner)
+Engine::SphereCollider::SphereCollider(GameObject* owner)
     :Collider(owner)
 {
     type = ColliderType::Sphere;
@@ -55,16 +55,16 @@ PKH::SphereCollider::SphereCollider(GameObject* owner)
     SetMeshInformation();
 }
 
-PKH::SphereCollider::SphereCollider(const SphereCollider& rhs)
+Engine::SphereCollider::SphereCollider(const SphereCollider& rhs)
     :Collider(rhs)
 {
 }
 
-PKH::SphereCollider::~SphereCollider()
+Engine::SphereCollider::~SphereCollider()
 {
 }
 
-void PKH::SphereCollider::Render()
+void Engine::SphereCollider::Render()
 {
     if (pMesh == nullptr)return;
     if (gameObject == nullptr)return;
@@ -102,12 +102,12 @@ void PKH::SphereCollider::Render()
     RenderManager::UnlockDevice();
 }
 
-IComponent* PKH::SphereCollider::Clone()
+IComponent* Engine::SphereCollider::Clone()
 {
     return new SphereCollider(*this);
 }
 
-bool PKH::SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
+bool Engine::SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
     // c = center of Sphere
     Vector3 worldCenter = GetWorldPosition();
@@ -161,7 +161,7 @@ bool PKH::SphereCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDist
     return false;
 }
 
-void PKH::SphereCollider::SetRadius(float _radius)
+void Engine::SphereCollider::SetRadius(float _radius)
 {
     radius = _radius;
     //transform->scale.x = _radius;
@@ -169,7 +169,7 @@ void PKH::SphereCollider::SetRadius(float _radius)
     //transform->scale.z = _radius;
 }
 
-float PKH::SphereCollider::GetRadius()
+float Engine::SphereCollider::GetRadius()
 {
     return radius;
 }

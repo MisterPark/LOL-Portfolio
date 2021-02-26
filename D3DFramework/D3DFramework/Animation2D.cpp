@@ -2,22 +2,22 @@
 #include "Animation2D.h"
 
 
-PKH::Animation2D::Animation2D(GameObject* owner)
+Engine::Animation2D::Animation2D(GameObject* owner)
 	:IComponent(owner)
 {
 
 }
 
-PKH::Animation2D::Animation2D(const Animation2D& rhs)
+Engine::Animation2D::Animation2D(const Animation2D& rhs)
 	:IComponent(rhs)
 {
 }
 
-PKH::Animation2D::~Animation2D()
+Engine::Animation2D::~Animation2D()
 {
 }
 
-void PKH::Animation2D::Update()
+void Engine::Animation2D::Update()
 {
 	if (nullptr == gameObject)
 	{
@@ -56,7 +56,7 @@ void PKH::Animation2D::Update()
 
 }
 
-void PKH::Animation2D::SetSprite(TextureID _startTexture, TextureID _endTexture)
+void Engine::Animation2D::SetSprite(TextureID _startTexture, TextureID _endTexture)
 {
 	startTexture = _startTexture;
 	endTexture = _endTexture;
@@ -68,47 +68,47 @@ void PKH::Animation2D::SetSprite(TextureID _startTexture, TextureID _endTexture)
 	
 }
 
-void PKH::Animation2D::SetCurrentSprite(TextureID _currentTexture)
+void Engine::Animation2D::SetCurrentSprite(TextureID _currentTexture)
 {
 	currentTexture = _currentTexture;
 }
 
-void PKH::Animation2D::SetLoop(bool _isLoop)
+void Engine::Animation2D::SetLoop(bool _isLoop)
 {
 	isLoop = _isLoop;
 }
 
-void PKH::Animation2D::SetDelay(float _delay)
+void Engine::Animation2D::SetDelay(float _delay)
 {
 	delay = _delay;
 }
 
-void PKH::Animation2D::SetTick(float _tick)
+void Engine::Animation2D::SetTick(float _tick)
 {
 	tick = _tick;
 }
 
-TextureID PKH::Animation2D::GetCurrentSprite()
+TextureID Engine::Animation2D::GetCurrentSprite()
 {
 	return currentTexture;
 }
 
-TextureID PKH::Animation2D::GetStartSprite()
+TextureID Engine::Animation2D::GetStartSprite()
 {
 	return startTexture;
 }
 
-TextureID PKH::Animation2D::GetEndSprite()
+TextureID Engine::Animation2D::GetEndSprite()
 {
 	return endTexture;
 }
 
-bool PKH::Animation2D::IsEndFrame()
+bool Engine::Animation2D::IsEndFrame()
 {
 	return isEndFrame;
 }
 
-IComponent* PKH::Animation2D::Clone()
+IComponent* Engine::Animation2D::Clone()
 {
     return nullptr;
 }

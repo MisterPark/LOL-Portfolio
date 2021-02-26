@@ -268,6 +268,12 @@
     <Filter Include="GameObject\UI\ItemshopPanel">
       <UniqueIdentifier>{1e6af0ea-f596-4583-b33c-7e0a2694dc89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\BehaviorTree">
+      <UniqueIdentifier>{ace10917-297b-4250-a205-6a5325551e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\Node">
+      <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -786,6 +792,9 @@
     </ClInclude>
     <ClInclude Include="OutlinedSlot.h">
       <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorTree.h">
+      <Filter>Component\BehaviorTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1368,6 +1377,9 @@
     </ClCompile>
     <ClCompile Include="OutlinedSlot.cpp">
       <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="BehaviorTree.cpp">
+      <Filter>Component\BehaviorTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

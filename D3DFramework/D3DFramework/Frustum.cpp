@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Frustum.h"
 
-using namespace PKH;
+using namespace Engine;
 
 Frustum* pFrustum = nullptr;
 
@@ -27,7 +27,7 @@ void Frustum::Initialize()
 	point[7] = Vector3(-1.f, -1.f, 1.f);
 }
 
-Frustum* PKH::Frustum::GetInstance()
+Frustum* Engine::Frustum::GetInstance()
 {
 	if (pFrustum == nullptr)
 	{
@@ -36,7 +36,7 @@ Frustum* PKH::Frustum::GetInstance()
 	return pFrustum;
 }
 
-void PKH::Frustum::Destroy()
+void Engine::Frustum::Destroy()
 {
 	if (pFrustum)
 	{
@@ -45,7 +45,7 @@ void PKH::Frustum::Destroy()
 	}
 }
 
-void PKH::Frustum::Update()
+void Engine::Frustum::Update()
 {
 	pFrustum->Initialize();
 
@@ -81,7 +81,7 @@ void PKH::Frustum::Update()
 
 }
 
-bool PKH::Frustum::Intersect(const Vector3* pWorldPos)
+bool Engine::Frustum::Intersect(const Vector3* pWorldPos)
 {
 	float result = 0.f;
 

@@ -4,20 +4,20 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::CollisionManager* pCollisionManager = nullptr;
+Engine::CollisionManager* pCollisionManager = nullptr;
 
-PKH::CollisionManager::CollisionManager()
+Engine::CollisionManager::CollisionManager()
 {
 }
 
-PKH::CollisionManager::~CollisionManager()
+Engine::CollisionManager::~CollisionManager()
 {
 	Release();
 }
 
-void PKH::CollisionManager::Release()
+void Engine::CollisionManager::Release()
 {
 	int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; ++i)
@@ -26,7 +26,7 @@ void PKH::CollisionManager::Release()
 	}
 }
 
-PKH::CollisionManager* CollisionManager::GetInstance()
+Engine::CollisionManager* CollisionManager::GetInstance()
 {
 	if (pCollisionManager == nullptr)
 	{
@@ -36,7 +36,7 @@ PKH::CollisionManager* CollisionManager::GetInstance()
 	return pCollisionManager;
 }
 
-void PKH::CollisionManager::Destroy()
+void Engine::CollisionManager::Destroy()
 {
 	if (pCollisionManager)
 	{
@@ -46,7 +46,7 @@ void PKH::CollisionManager::Destroy()
 	
 }
 
-void PKH::CollisionManager::Update()
+void Engine::CollisionManager::Update()
 {
 	// TODO : CollisionManager 과부하가 너무 심해서 일단 주석
 	//int layerCount = MaxOfEnum<Layer>();
@@ -62,7 +62,7 @@ void PKH::CollisionManager::Update()
 }
 
 
-void PKH::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
+void Engine::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
 {
 	for (auto& srcElem : objectList[(int)srcType])
 	{
@@ -80,7 +80,7 @@ void PKH::CollisionManager::CollisionCheck(Layer srcType, Layer dstType)
 	}
 }
 
-void PKH::CollisionManager::RegisterObject(Layer colType, Collider* _pObj)
+void Engine::CollisionManager::RegisterObject(Layer colType, Collider* _pObj)
 {
 	if (FindObject(colType, _pObj))
 	{
@@ -90,7 +90,7 @@ void PKH::CollisionManager::RegisterObject(Layer colType, Collider* _pObj)
 	pCollisionManager->objectList[(int)colType].push_back(_pObj);
 }
 
-void PKH::CollisionManager::DisregisterObject(Collider* obj)
+void Engine::CollisionManager::DisregisterObject(Collider* obj)
 {
 	int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; ++i)
@@ -104,7 +104,7 @@ void PKH::CollisionManager::DisregisterObject(Collider* obj)
 	}
 }
 
-void PKH::CollisionManager::DisregisterObject(Layer colType, Collider* _pObj)
+void Engine::CollisionManager::DisregisterObject(Layer colType, Collider* _pObj)
 {
 	if (_pObj == nullptr) return;
 
@@ -120,7 +120,7 @@ void PKH::CollisionManager::DisregisterObject(Layer colType, Collider* _pObj)
 	}
 }
 
-bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
+bool Engine::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 {
 	if (_pObj == nullptr) return false;
 	for (auto iter : pCollisionManager->objectList[(int)colType])
@@ -132,7 +132,7 @@ bool PKH::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 	return false;
 }
 
-bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
+bool Engine::CollisionManager::IsCollided(Collider* src, Collider* dst)
 {
 	// TODO : 이거 각자의 콜라이더에서 상대 콜라이더 타입에 따른 충돌처리로 변경해야함
 	// 콜라이더 타입 판별
@@ -181,7 +181,7 @@ bool PKH::CollisionManager::IsCollided(Collider* src, Collider* dst)
 	return false;
 }
 
-bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereCollider* dest)
+bool Engine::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereCollider* dest)
 {
 	// 거리 계산
 	Vector3 srcWorldPos = src->GetWorldPosition();
@@ -195,7 +195,7 @@ bool PKH::CollisionManager::CheckSphereCollision(SphereCollider* src, SphereColl
 	return true;
 }
 
-bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* dest)
+bool Engine::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* dest)
 {
 	// 거리 계산
 	Vector3 srcWorldPos = src->GetWorldPosition();
@@ -239,7 +239,7 @@ bool PKH::CollisionManager::CheckAABBCollision(BoxCollider* src, BoxCollider* de
 	return true;
 }
 
-bool PKH::CollisionManager::CheckOBBCollision(BoxCollider* src, BoxCollider* dest)
+bool Engine::CollisionManager::CheckOBBCollision(BoxCollider* src, BoxCollider* dest)
 {
 	// 거리 계산
 	Vector3 srcWorldPos = src->GetWorldPosition();

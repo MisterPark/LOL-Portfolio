@@ -3,18 +3,18 @@
 #include"DynamicMesh.h"
 #include"RenderSystem.h"
 #include<vector>
-namespace KST
+namespace Engine
 {
 
 	class SkinnedMeshRenderer :
 		public Renderer
 	{
 	public:
-		static KST::RendererType constexpr RenderingType = KST::RendererType::Forward;
+		static Engine::RendererType constexpr RenderingType = Engine::RendererType::Forward;
 	public:
-		SkinnedMeshRenderer(PKH::GameObject* owner);
+		SkinnedMeshRenderer(Engine::GameObject* owner);
 		virtual void Render();
-		PKH::IComponent* Clone() { return nullptr; }
+		Engine::IComponent* Clone() { return nullptr; }
 		void SetMesh(DynamicMesh* mesh);
 	private:
 		void RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container);

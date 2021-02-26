@@ -359,8 +359,8 @@ void TestScene::OnLoaded()
 	dirLight.Direction = v;
 	dirLight.Diffuse = D3DCOLORVALUE{ 1.f, 1.f, 1.f, 1.f };
 	dirLight.Ambient = D3DCOLORVALUE{ 0.7f, 0.7f, 0.7f, 1.0f};
-	KST::RenderSystem::AddLight(L"dir1", dirLight);
-	KST::RenderSystem::EnableShadow(L"dir1");
+	Engine::RenderSystem::AddLight(L"dir1", dirLight);
+	Engine::RenderSystem::EnableShadow(L"dir1");
 	// �̴Ͼ�
 	//obj = ObjectManager::GetInstance()->CreateObject<OrderMinionMelee>(Layer::Unit);
 	//obj->transform->position = { 23,68,38 };

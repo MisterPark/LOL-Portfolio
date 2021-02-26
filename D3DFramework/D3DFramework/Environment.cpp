@@ -13,7 +13,7 @@ Environment::Environment()
 	//transform->eulerAngles.y = D3DXToRadian(180.f);
 	TerrainMesh* mesh = RenderManager::CloneTerrainMesh(L"summoner_rift");
 	AddComponent(L"TerrainMesh", mesh);
-	KST::DeferredStaticMeshRenderer* renderer = new KST::DeferredStaticMeshRenderer(this);
+	Engine::DeferredStaticMeshRenderer* renderer = new Engine::DeferredStaticMeshRenderer(this);
 	AddComponent(L"terrain_renderer", renderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableAlphaTest(0.4f);

@@ -2,7 +2,7 @@
 
 #include "IScene.h"
 
-namespace PKH
+namespace Engine
 {
 	class SceneManager
 	{

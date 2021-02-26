@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
-namespace KST
+namespace Engine
 {
-	Renderer::Renderer(PKH::GameObject* owner, RendererType rendererType):
+	Renderer::Renderer(Engine::GameObject* owner, RendererType rendererType):
 		IComponent{ owner },
 		attached{ false },
 		shadow{ false },

@@ -22,8 +22,8 @@ Turret::Turret()
 	bar->SetTarget(this);
 
 	SetAttackRange(7.75f);
-	KST::DeferredStaticMeshRenderer* renderer =
-		(KST::DeferredStaticMeshRenderer*)AddComponent<KST::DeferredStaticMeshRenderer>(L"renderer");
+	Engine::DeferredStaticMeshRenderer* renderer =
+		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
 	renderer->SetMesh(mesh);
 
 }

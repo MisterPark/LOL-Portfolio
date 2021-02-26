@@ -1,7 +1,7 @@
 #pragma once
 #include "Mesh.h"
 
-namespace PKH
+namespace Engine
 {
     struct BoundingBox
     {

@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::SceneManager* pSceneManager = nullptr;
+Engine::SceneManager* pSceneManager = nullptr;
 
-PKH::SceneManager::SceneManager()
+Engine::SceneManager::SceneManager()
 {
 
 }
-PKH::SceneManager::~SceneManager()
+Engine::SceneManager::~SceneManager()
 {
 	if (pCurrentScene != nullptr)
 	{
@@ -22,7 +22,7 @@ PKH::SceneManager::~SceneManager()
 	}
 }
 
-void PKH::SceneManager::LoadScene(IScene * pScene)
+void Engine::SceneManager::LoadScene(IScene * pScene)
 {
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)
@@ -32,7 +32,7 @@ void PKH::SceneManager::LoadScene(IScene * pScene)
 	self.pReadyScene = pScene;
 }
 
-SceneManager* PKH::SceneManager::GetInstance()
+SceneManager* Engine::SceneManager::GetInstance()
 {
 	if (pSceneManager == nullptr)
 	{
@@ -42,12 +42,12 @@ SceneManager* PKH::SceneManager::GetInstance()
 }
 
 
-void PKH::SceneManager::Destroy()
+void Engine::SceneManager::Destroy()
 {
 	delete pSceneManager;
 }
 
-void PKH::SceneManager::Update()
+void Engine::SceneManager::Update()
 {
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)

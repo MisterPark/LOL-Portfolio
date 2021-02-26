@@ -2,7 +2,7 @@
 #include "IComponent.h"
 
 enum class RenderGroupID :int;
-namespace PKH
+namespace Engine
 {
 	enum class MeshType
 	{

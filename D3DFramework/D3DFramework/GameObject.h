@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "Layer.h"
 
-using namespace PKH;
+using namespace Engine;
 
 
-namespace PKH
+namespace Engine
 {
 	class IComponent;
 	class Transform;
@@ -86,7 +86,7 @@ namespace PKH
 		GameObject* parent = nullptr;
 		map<wstring, GameObject*> children;
 
-		map<wstring, PKH::IComponent*> components;
+		map<wstring, Engine::IComponent*> components;
 	protected:
 		bool destroyFlag = false;
 	private:

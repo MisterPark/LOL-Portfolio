@@ -1,23 +1,23 @@
 #include "stdafx.h"
 #include "Plane.h"
 
-PKH::Plane::Plane(GameObject* owner)
+Engine::Plane::Plane(GameObject* owner)
 	:CustomMesh(owner)
 {
 	CreateCustomMesh();
 }
 
-PKH::Plane::Plane(const Plane& rhs)
+Engine::Plane::Plane(const Plane& rhs)
 	:CustomMesh(rhs)
 {
 	CreateCustomMesh();
 }
 
-PKH::Plane::~Plane()
+Engine::Plane::~Plane()
 {
 }
 
-void PKH::Plane::CreateCustomMesh()
+void Engine::Plane::CreateCustomMesh()
 {
 	this->vertexCount = 4;
 	this->vertexSize = sizeof(Vertex);
@@ -73,7 +73,7 @@ void PKH::Plane::CreateCustomMesh()
 	triangles->Unlock();
 }
 
-PKH::IComponent* PKH::Plane::Clone()
+Engine::IComponent* Engine::Plane::Clone()
 {
 	return new Plane(*this);
 }

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<typeinfo>
-namespace KST
+namespace Engine
 {
 	enum class RendererType :int
 	{
@@ -48,4 +48,4 @@ namespace KST
 	extern wchar_t const* const LIGHT_SPECULAR;
 	extern wchar_t const* const LIGHT_DIFFUSE;
 }
-using RenderSystem = KST::RenderSystem;
+using RenderSystem = Engine::RenderSystem;

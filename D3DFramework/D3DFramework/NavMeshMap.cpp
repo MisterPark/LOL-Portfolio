@@ -2,9 +2,9 @@
 #include "NavMeshMap.h"
 #include "MeshCollider.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::NavMeshMap::NavMeshMap()
+Engine::NavMeshMap::NavMeshMap()
 {
 	isVisible = false;
 	transform->scale = { 0.1f,0.1f, 0.1f };
@@ -21,22 +21,22 @@ PKH::NavMeshMap::NavMeshMap()
 
 }
 
-PKH::NavMeshMap::~NavMeshMap()
+Engine::NavMeshMap::~NavMeshMap()
 {
 	delete pPathFinder;
 	pPathFinder = nullptr;
 
 }
 
-void PKH::NavMeshMap::Initialize()
+void Engine::NavMeshMap::Initialize()
 {
 }
 
-void PKH::NavMeshMap::Release()
+void Engine::NavMeshMap::Release()
 {
 }
 
-void PKH::NavMeshMap::Update()
+void Engine::NavMeshMap::Update()
 {
 	GameObject::Update();
 
@@ -46,7 +46,7 @@ void PKH::NavMeshMap::Update()
 	}
 }
 
-void PKH::NavMeshMap::SetNavigationInfo()
+void Engine::NavMeshMap::SetNavigationInfo()
 {
 	DWORD triangleCount = navMesh->GetFaceCount();
 	Vector3* pVertices = navMesh->GetVertices();
@@ -91,7 +91,7 @@ void PKH::NavMeshMap::SetNavigationInfo()
 	
 }
 
-void PKH::NavMeshMap::LoadNavigationInfo()
+void Engine::NavMeshMap::LoadNavigationInfo()
 {
 	map<int, vector<int>> adjacencyInfo;
 
@@ -141,17 +141,17 @@ void PKH::NavMeshMap::LoadNavigationInfo()
 	FileManager::CloseFile();
 }
 
-bool PKH::NavMeshMap::Search(const Vector3& start, const Vector3& dest)
+bool Engine::NavMeshMap::Search(const Vector3& start, const Vector3& dest)
 {
 	return pPathFinder->Search(start, dest);
 }
 
-PathFinder::Node* PKH::NavMeshMap::GetResultNode()
+PathFinder::Node* Engine::NavMeshMap::GetResultNode()
 {
 	return pPathFinder->GetResultNode();
 }
 
-list<PathFinder::Node*>* PKH::NavMeshMap::GetPath()
+list<PathFinder::Node*>* Engine::NavMeshMap::GetPath()
 {
 	return pPathFinder->GetPath();
 }

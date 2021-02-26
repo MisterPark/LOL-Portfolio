@@ -2,19 +2,19 @@
 #include "FileManager.h"
 #include <direct.h>
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::FileManager* pFileManager = nullptr;
+Engine::FileManager* pFileManager = nullptr;
 
-PKH::FileManager::FileManager()
+Engine::FileManager::FileManager()
 {
 }
 
-PKH::FileManager::~FileManager()
+Engine::FileManager::~FileManager()
 {
 }
 
-PKH::FileManager * FileManager::GetInstance()
+Engine::FileManager * FileManager::GetInstance()
 {
 	if (pFileManager == nullptr)
 	{
@@ -24,12 +24,12 @@ PKH::FileManager * FileManager::GetInstance()
 	return pFileManager;
 }
 
-void PKH::FileManager::Destroy()
+void Engine::FileManager::Destroy()
 {
 	delete pFileManager;
 }
 
-int PKH::FileManager::MakeDirectory(const char * _directory)
+int Engine::FileManager::MakeDirectory(const char * _directory)
 {
 	int ret = _mkdir(_directory);
 	
@@ -41,7 +41,7 @@ int PKH::FileManager::MakeDirectory(const char * _directory)
 	return ret;
 }
 
-int PKH::FileManager::MakeDirectory(const wchar_t* _directory)
+int Engine::FileManager::MakeDirectory(const wchar_t* _directory)
 {
 	int ret = _wmkdir(_directory);
 
@@ -52,7 +52,7 @@ int PKH::FileManager::MakeDirectory(const wchar_t* _directory)
 	return ret;
 }
 
-void PKH::FileManager::SetDirectory(const char * _directory)
+void Engine::FileManager::SetDirectory(const char * _directory)
 {
 	int srcLen = strlen(_directory);
 	int cpyLen = (srcLen < (dfMAX_DIRECTORY_LENGTH - 1)) ? srcLen : (dfMAX_DIRECTORY_LENGTH - 1);
@@ -60,16 +60,16 @@ void PKH::FileManager::SetDirectory(const char * _directory)
 	memcpy(pFileManager->directory, _directory, cpyLen);
 }
 
-void PKH::FileManager::SetDirectory(const wchar_t* _directory)
+void Engine::FileManager::SetDirectory(const wchar_t* _directory)
 {
 }
 
-errno_t PKH::FileManager::OpenFile(const char * _mode)
+errno_t Engine::FileManager::OpenFile(const char * _mode)
 {
 	return fopen_s(&pFileManager->file, pFileManager->directory, _mode);
 }
 
-void PKH::FileManager::CloseFile()
+void Engine::FileManager::CloseFile()
 {
 	if (pFileManager->file == nullptr) return;
 
@@ -77,17 +77,17 @@ void PKH::FileManager::CloseFile()
 	pFileManager->file = nullptr;
 }
 
-size_t PKH::FileManager::ReadFile(void * _buffer, size_t _elementSize, size_t _elementCount)
+size_t Engine::FileManager::ReadFile(void * _buffer, size_t _elementSize, size_t _elementCount)
 {
 	return fread(_buffer, _elementSize, _elementCount, pFileManager->file);
 }
 
-size_t PKH::FileManager::WriteFile(const void * _buffer, size_t _elementSize, size_t _elementCount)
+size_t Engine::FileManager::WriteFile(const void * _buffer, size_t _elementSize, size_t _elementCount)
 {
 	return fwrite(_buffer, _elementSize, _elementCount, pFileManager->file);
 }
 
-int PKH::FileManager::Seek(long _offset, int origin)
+int Engine::FileManager::Seek(long _offset, int origin)
 {
 	return fseek(pFileManager->file, _offset, origin);
 }

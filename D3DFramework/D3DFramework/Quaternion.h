@@ -1,7 +1,7 @@
 #pragma once
 #include <d3dx9math.h>
 
-namespace PKH
+namespace Engine
 {
 	class Quaternion : public D3DXQUATERNION
 	{

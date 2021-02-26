@@ -4,7 +4,7 @@ FloatingHPBar::FloatingHPBar()
 {
 	offset = { -0.2f,2.1f,-0.5f };
 
-	mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
+	mesh = (Engine::Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetTexture(L"bar_float (5)");
 	mesh->SetBlendMode(BlendMode::ALPHA_TEST);
 

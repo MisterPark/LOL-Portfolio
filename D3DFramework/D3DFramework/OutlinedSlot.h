@@ -3,7 +3,7 @@
 
 
 class OutlinedSlot :
-    public PKH::UI
+    public Engine::UI
 {
     enum class type { outline, icon, end };
 

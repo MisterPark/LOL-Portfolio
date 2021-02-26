@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 
-namespace PKH
+namespace Engine
 {
     enum class ColliderType
     {

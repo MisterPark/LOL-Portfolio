@@ -4,7 +4,7 @@
 using namespace Microsoft::WRL;
 
 
-KST::SkinnedMeshRenderer::SkinnedMeshRenderer(PKH::GameObject* owner):
+Engine::SkinnedMeshRenderer::SkinnedMeshRenderer(Engine::GameObject* owner):
 	Renderer(owner, RendererType::Deferred)
 {
 	albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
@@ -15,7 +15,7 @@ KST::SkinnedMeshRenderer::SkinnedMeshRenderer(PKH::GameObject* owner):
 	shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 }
 
-void KST::SkinnedMeshRenderer::Render()
+void Engine::SkinnedMeshRenderer::Render()
 {
 
 	IDirect3DDevice9* device = RenderManager::GetDevice();
@@ -56,12 +56,12 @@ void KST::SkinnedMeshRenderer::Render()
 	}
 }
 
-void KST::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
+void Engine::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
 {
 	this->mesh = mesh;
 }
 
-void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
+void Engine::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
 {
 	IDirect3DDevice9* device = RenderManager::GetDevice();
 
@@ -118,7 +118,7 @@ void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* contai
 
 }
 
-void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
+void Engine::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
 {
 	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
 

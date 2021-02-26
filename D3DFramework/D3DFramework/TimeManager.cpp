@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "TimeManager.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::TimeManager* pTime = nullptr;
+Engine::TimeManager* pTime = nullptr;
 
-PKH::TimeManager::TimeManager()
+Engine::TimeManager::TimeManager()
 {
 }
 
-PKH::TimeManager::~TimeManager()
+Engine::TimeManager::~TimeManager()
 {
 }
 
-PKH::TimeManager* TimeManager::GetInstance()
+Engine::TimeManager* TimeManager::GetInstance()
 {
     if (pTime == nullptr)
     {
@@ -23,7 +23,7 @@ PKH::TimeManager* TimeManager::GetInstance()
     return pTime;
 }
 
-void PKH::TimeManager::Destroy()
+void Engine::TimeManager::Destroy()
 {
     if (pTime)
     {
@@ -32,7 +32,7 @@ void PKH::TimeManager::Destroy()
     }
 }
 
-void PKH::TimeManager::Initialize()
+void Engine::TimeManager::Initialize()
 {
     if (QueryPerformanceFrequency(&pTime->frequency))
     {
@@ -41,11 +41,11 @@ void PKH::TimeManager::Initialize()
     }
 }
 
-void PKH::TimeManager::Release()
+void Engine::TimeManager::Release()
 {
 }
 
-bool PKH::TimeManager::SkipFrame()
+bool Engine::TimeManager::SkipFrame()
 {
     LARGE_INTEGER time;
     __int64 curTime;
@@ -102,22 +102,22 @@ bool PKH::TimeManager::SkipFrame()
     return false;
 }
 
-int PKH::TimeManager::GetFPS()
+int Engine::TimeManager::GetFPS()
 {
     return pTime->fps;
 }
 
-void PKH::TimeManager::SetFPS(int _fps)
+void Engine::TimeManager::SetFPS(int _fps)
 {
     pTime->fps = _fps;
     pTime->targetFrame = (int)(1000.f / _fps);
 }
 
-float PKH::TimeManager::DeltaTime()
+float Engine::TimeManager::DeltaTime()
 {
     return pTime->deltaTime;
 }
 
-void PKH::TimeManager::RenderFPS()
+void Engine::TimeManager::RenderFPS()
 {
 }

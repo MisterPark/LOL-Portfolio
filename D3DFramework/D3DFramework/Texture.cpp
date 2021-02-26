@@ -1,24 +1,24 @@
 #include "stdafx.h"
 #include "Texture.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::Texture::Texture()
+Engine::Texture::Texture()
 {
 	memset(&imageInfo, 0, sizeof(D3DXIMAGE_INFO));
 }
 
-PKH::Texture::~Texture()
+Engine::Texture::~Texture()
 {
 }
 
-int PKH::Texture::GetSpriteWidth()const
+int Engine::Texture::GetSpriteWidth()const
 {
 	//if (this == nullptr) return 0;
 	return imageInfo.Width / colCount;
 }
 
-int PKH::Texture::GetSpriteHeight()const
+int Engine::Texture::GetSpriteHeight()const
 {
 	if (this == nullptr) return 0;
 	return imageInfo.Height / rowCount;

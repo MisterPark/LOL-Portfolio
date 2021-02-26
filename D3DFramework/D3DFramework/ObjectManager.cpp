@@ -4,21 +4,21 @@
 #include "Cursor.h"
 #include "PlayerInfoPanel.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::ObjectManager* pObjectManager = nullptr;
+Engine::ObjectManager* pObjectManager = nullptr;
 int lastUid = 0;
 
-PKH::ObjectManager::ObjectManager()
+Engine::ObjectManager::ObjectManager()
 {
 }
 
-PKH::ObjectManager::~ObjectManager()
+Engine::ObjectManager::~ObjectManager()
 {
 	Release();
 }
 
-ObjectManager * PKH::ObjectManager::GetInstance()
+ObjectManager * Engine::ObjectManager::GetInstance()
 {
 	if (pObjectManager == nullptr)
 	{
@@ -27,13 +27,13 @@ ObjectManager * PKH::ObjectManager::GetInstance()
 	return pObjectManager;
 }
 
-void PKH::ObjectManager::Destroy()
+void Engine::ObjectManager::Destroy()
 {
 	delete pObjectManager;
 	pObjectManager = nullptr;
 }
 
-void PKH::ObjectManager::Release()
+void Engine::ObjectManager::Release()
 {
 	auto objTable = pObjectManager->objectTable;
 	int layerCount = MaxOfEnum<Layer>();
@@ -54,7 +54,7 @@ void PKH::ObjectManager::Release()
 }
 
 
-bool PKH::ObjectManager::DeleteObject(GameObject * _target)
+bool Engine::ObjectManager::DeleteObject(GameObject * _target)
 {
 	if (_target == nullptr) return false;
 	auto& objList = pObjectManager->objectTable[(int)_target->GetLayer()];
@@ -68,7 +68,7 @@ bool PKH::ObjectManager::DeleteObject(GameObject * _target)
 	return false;
 }
 
-void PKH::ObjectManager::DestroyAll()
+void Engine::ObjectManager::DestroyAll()
 {
 	auto objTable = pObjectManager->objectTable;
 	int layerCount = MaxOfEnum<Layer>();
@@ -83,19 +83,19 @@ void PKH::ObjectManager::DestroyAll()
 	}
 }
 
-void PKH::ObjectManager::AddObject(GameObject* _obj, Layer _layer)
+void Engine::ObjectManager::AddObject(GameObject* _obj, Layer _layer)
 {
 	pObjectManager->objectTable[(int)_layer].push_back(_obj);
 }
 
-void PKH::ObjectManager::RemoveObject(GameObject* _obj)
+void Engine::ObjectManager::RemoveObject(GameObject* _obj)
 {
 	pObjectManager->objectTable[(int)_obj->GetLayer()].remove(_obj);
 }
 
 
 
-void PKH::ObjectManager::Update()
+void Engine::ObjectManager::Update()
 {
 	auto objTable = pObjectManager->objectTable;
 	int layerCount = MaxOfEnum<Layer>();
@@ -110,7 +110,7 @@ void PKH::ObjectManager::Update()
 	}
 }
 
-void PKH::ObjectManager::PostUpdate()
+void Engine::ObjectManager::PostUpdate()
 {
 	GameObject* target = nullptr;
 
@@ -149,22 +149,22 @@ void PKH::ObjectManager::PostUpdate()
 	
 }
 
-bool PKH::ObjectManager::CompareY(GameObject* a, GameObject* b)
+bool Engine::ObjectManager::CompareY(GameObject* a, GameObject* b)
 {
 	return a->transform->position.y < b->transform->position.y;
 }
 
-bool PKH::ObjectManager::CompareZ(GameObject* a, GameObject* b)
+bool Engine::ObjectManager::CompareZ(GameObject* a, GameObject* b)
 {
 	return a->transform->zOrder > b->transform->zOrder;
 }
 
-bool PKH::ObjectManager::IsVisibleCollider()
+bool Engine::ObjectManager::IsVisibleCollider()
 {
 	return pObjectManager->isVisibleCollider;
 }
 
-void PKH::ObjectManager::SetVisibleCollider(bool _isVisible)
+void Engine::ObjectManager::SetVisibleCollider(bool _isVisible)
 {
 	pObjectManager->isVisibleCollider = _isVisible;
 }

@@ -1,17 +1,17 @@
 #include "stdafx.h"
 #include "InputManager.h"
 
-PKH::InputManager* pInputManager = nullptr;
+Engine::InputManager* pInputManager = nullptr;
 
-PKH::InputManager::InputManager()
+Engine::InputManager::InputManager()
 {
 }
 
-PKH::InputManager::~InputManager()
+Engine::InputManager::~InputManager()
 {
 }
 
-PKH::InputManager* InputManager::GetInstance()
+Engine::InputManager* InputManager::GetInstance()
 {
 	if (pInputManager == nullptr)
 	{
@@ -21,7 +21,7 @@ PKH::InputManager* InputManager::GetInstance()
 	return pInputManager;
 }
 
-void PKH::InputManager::Update()
+void Engine::InputManager::Update()
 {
 	Clear();
 
@@ -35,7 +35,7 @@ void PKH::InputManager::Update()
 	
 }
 
-void PKH::InputManager::Initialize()
+void Engine::InputManager::Initialize()
 {
 	memset(pInputManager->keys, 0, RANGE_OF_KEYS);
 	memset(pInputManager->keyDowns, 0, RANGE_OF_KEYS);
@@ -43,13 +43,13 @@ void PKH::InputManager::Initialize()
 
 }
 
-void PKH::InputManager::Destroy()
+void Engine::InputManager::Destroy()
 {
 	delete pInputManager;
 	pInputManager = nullptr;
 }
 
-void PKH::InputManager::Clear()
+void Engine::InputManager::Clear()
 {
 	memset(pInputManager->keys, 0, RANGE_OF_KEYS);
 	memset(pInputManager->keyDowns, 0, RANGE_OF_KEYS);
@@ -58,7 +58,7 @@ void PKH::InputManager::Clear()
 	ClearMouseState();
 }
 
-void PKH::InputManager::ClearMouseState()
+void Engine::InputManager::ClearMouseState()
 {
 	int count = MaxOfEnum<Keys>();
 	for (int i = 2; i < count; i++)
@@ -77,72 +77,72 @@ void PKH::InputManager::ClearMouseState()
 
 }
 
-bool PKH::InputManager::GetKey(int _vkey)
+bool Engine::InputManager::GetKey(int _vkey)
 {
 	return pInputManager->keys[_vkey];
 }
 
-bool PKH::InputManager::GetKeyDown(int _vkey)
+bool Engine::InputManager::GetKeyDown(int _vkey)
 {
 	return pInputManager->keyDowns[_vkey];
 }
 
-bool PKH::InputManager::GetKeyUp(int _vkey)
+bool Engine::InputManager::GetKeyUp(int _vkey)
 {
 	return pInputManager->keyUps[_vkey];
 }
 
-bool PKH::InputManager::GetMouseLButton()
+bool Engine::InputManager::GetMouseLButton()
 {
 	return pInputManager->mouse[(int)Keys::LBUTTON];
 }
 
-bool PKH::InputManager::GetMouseLButtonUp()
+bool Engine::InputManager::GetMouseLButtonUp()
 {
 	return pInputManager->mouse[(int)Keys::LBUTTON_UP];
 }
 
-bool PKH::InputManager::GetMouseLButtonDown()
+bool Engine::InputManager::GetMouseLButtonDown()
 {
 	return pInputManager->mouse[(int)Keys::LBUTTON_DOWN];
 }
 
-bool PKH::InputManager::GetMouseLButtonDouble()
+bool Engine::InputManager::GetMouseLButtonDouble()
 {
 	return pInputManager->mouse[(int)Keys::LBUTTON_DOUBLE];
 }
 
-bool PKH::InputManager::GetMouseRButton()
+bool Engine::InputManager::GetMouseRButton()
 {
 	return pInputManager->mouse[(int)Keys::RBUTTON];
 }
 
-bool PKH::InputManager::GetMouseRButtonUp()
+bool Engine::InputManager::GetMouseRButtonUp()
 {
 	return pInputManager->mouse[(int)Keys::RBUTTON_UP];
 }
 
-bool PKH::InputManager::GetMouseRButtonDown()
+bool Engine::InputManager::GetMouseRButtonDown()
 {
 	return pInputManager->mouse[(int)Keys::RBUTTON_DOWN];
 }
 
-bool PKH::InputManager::GetMouseRButtonDouble()
+bool Engine::InputManager::GetMouseRButtonDouble()
 {
 	return pInputManager->mouse[(int)Keys::RBUTTON_DOUBLE];
 }
 
-bool PKH::InputManager::GetMouseWheelUp()
+bool Engine::InputManager::GetMouseWheelUp()
 {
 	return pInputManager->mouse[(int)Keys::WHEEL_UP];
 }
 
-bool PKH::InputManager::GetMouseWheelDown()
+bool Engine::InputManager::GetMouseWheelDown()
 {
 	return pInputManager->mouse[(int)Keys::WHEEL_DOWN];
 }
 
-Vector3 PKH::InputManager::GetMousePosition()
+Vector3 Engine::InputManager::GetMousePosition()
 {
 	POINT pt;
 	GetCursorPos(&pt);

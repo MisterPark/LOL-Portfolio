@@ -2,7 +2,7 @@
 #include "Physics.h"
 #include "Collider.h"
 
-bool PKH::Physics::Raycast(Ray ray, RaycastHit* outHit, float maxDistance, int layerMask)
+bool Engine::Physics::Raycast(Ray ray, RaycastHit* outHit, float maxDistance, int layerMask)
 {
     auto colliderTable = CollisionManager::GetInstance()->objectList;
     int beginLayer = (int)Layer::Default;
@@ -25,7 +25,7 @@ bool PKH::Physics::Raycast(Ray ray, RaycastHit* outHit, float maxDistance, int l
     return false;
 }
 
-bool PKH::Physics::Raycast(Vector3 origin, Vector3 direction, float maxDistance, int layerMask)
+bool Engine::Physics::Raycast(Vector3 origin, Vector3 direction, float maxDistance, int layerMask)
 {
     Ray ray;
     ray.origin = origin;

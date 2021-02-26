@@ -5,14 +5,14 @@
 #include "StaticMesh.h"
 #include "Collider.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::GameObject::GameObject()
+Engine::GameObject::GameObject()
 {
 	transform = (Transform*)AddComponent<Transform>(L"Transform");
 }
 
-PKH::GameObject::~GameObject()
+Engine::GameObject::~GameObject()
 {
 	ReleaseComponents();
 
@@ -24,7 +24,7 @@ PKH::GameObject::~GameObject()
 	children.clear();
 }
 
-void PKH::GameObject::Update()
+void Engine::GameObject::Update()
 {
 	for (auto& comp : components)
 	{
@@ -37,7 +37,7 @@ void PKH::GameObject::Update()
 	}
 }
 
-void PKH::GameObject::PostUpdate()
+void Engine::GameObject::PostUpdate()
 {
 	for (auto& comp : components)
 	{
@@ -52,19 +52,19 @@ void PKH::GameObject::PostUpdate()
 
 
 
-void PKH::GameObject::Destroy()
+void Engine::GameObject::Destroy()
 {
 	if (dontDestroy) return;
 	destroyFlag = true;
 }
 
-void PKH::GameObject::OnCollisionEnter(Collider* target)
+void Engine::GameObject::OnCollisionEnter(Collider* target)
 {
 
 
 }
 
-void PKH::GameObject::Move(Vector3 _direction)
+void Engine::GameObject::Move(Vector3 _direction)
 {
 	Vector3::Normalize(&_direction);
 	transform->position.x += _direction.x * TimeManager::DeltaTime();
@@ -72,7 +72,7 @@ void PKH::GameObject::Move(Vector3 _direction)
 	transform->position.z += _direction.z * TimeManager::DeltaTime();
 }
 
-void PKH::GameObject::Move(Vector3 _direction, float _speed)
+void Engine::GameObject::Move(Vector3 _direction, float _speed)
 {
 	Vector3::Normalize(&_direction);
 	transform->position.x += _direction.x * _speed * TimeManager::DeltaTime();
@@ -80,7 +80,7 @@ void PKH::GameObject::Move(Vector3 _direction, float _speed)
 	transform->position.z += _direction.z * _speed * TimeManager::DeltaTime();
 }
 
-void PKH::GameObject::MoveToTarget(Vector3 _target)
+void Engine::GameObject::MoveToTarget(Vector3 _target)
 {
 	Vector3 dir = _target - transform->position;
 	Vector3::Normalize(&dir);
@@ -89,7 +89,7 @@ void PKH::GameObject::MoveToTarget(Vector3 _target)
 	transform->position.z += dir.z * TimeManager::DeltaTime();
 }
 
-void PKH::GameObject::MoveToTarget(Vector3 _target, float _speed)
+void Engine::GameObject::MoveToTarget(Vector3 _target, float _speed)
 {
 	Vector3 dir = _target - transform->position;
 	Vector3::Normalize(&dir);
@@ -98,37 +98,37 @@ void PKH::GameObject::MoveToTarget(Vector3 _target, float _speed)
 	transform->position.z += dir.z * _speed * TimeManager::DeltaTime();
 }
 
-void PKH::GameObject::FollowTarget(const GameObject* _target)
+void Engine::GameObject::FollowTarget(const GameObject* _target)
 {
 	MoveToTarget(_target->transform->position);
 }
 
-void PKH::GameObject::FollowTarget(const Transform& _targetTransform)
+void Engine::GameObject::FollowTarget(const Transform& _targetTransform)
 {
 	MoveToTarget(_targetTransform.position);
 }
 
-void PKH::GameObject::FollowTarget(const Vector3& _targetPos)
+void Engine::GameObject::FollowTarget(const Vector3& _targetPos)
 {
 	MoveToTarget(_targetPos);
 }
 
-void PKH::GameObject::FaceTarget(const GameObject* _target)
+void Engine::GameObject::FaceTarget(const GameObject* _target)
 {
 	transform->LookAt(_target->transform->position);
 }
 
-void PKH::GameObject::FaceTarget(const Transform& _targetTransform)
+void Engine::GameObject::FaceTarget(const Transform& _targetTransform)
 {
 	transform->LookAt(_targetTransform.position);
 }
 
-void PKH::GameObject::FaceTarget(const Vector3& _targetPos)
+void Engine::GameObject::FaceTarget(const Vector3& _targetPos)
 {
 	transform->LookAt(_targetPos);
 }
 
-void PKH::GameObject::Billboard()
+void Engine::GameObject::Billboard()
 {
 	D3DXMATRIX matScale, matView;
 	D3DXMatrixIdentity(&matView);
@@ -148,7 +148,7 @@ void PKH::GameObject::Billboard()
 	transform->localMatrix = matScale*matView;
 }
 
-void PKH::GameObject::BillboardYaw()
+void Engine::GameObject::BillboardYaw()
 {
 	D3DXMATRIX matScale, matView, matBill;
 	
@@ -179,12 +179,12 @@ void PKH::GameObject::BillboardYaw()
 }
 
 
-void PKH::GameObject::SetPosition(Vector3 _vPos)
+void Engine::GameObject::SetPosition(Vector3 _vPos)
 {
 	transform->position = _vPos;
 }
 
-void PKH::GameObject::Show()
+void Engine::GameObject::Show()
 {
 	auto iter = components.begin();
 	auto end = components.end();
@@ -202,7 +202,7 @@ void PKH::GameObject::Show()
 	isVisible = true;
 }
 
-void PKH::GameObject::Hide()
+void Engine::GameObject::Hide()
 {
 	auto iter = components.begin();
 	auto end = components.end();
@@ -220,7 +220,7 @@ void PKH::GameObject::Hide()
 	isVisible = false;
 }
 
-IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)
+IComponent* Engine::GameObject::AddComponent(const wstring& _key, IComponent* _component)
 {
 	if (_component == nullptr) return nullptr;
 	_component->gameObject = this;
@@ -229,7 +229,7 @@ IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _comp
 	return _component;
 }
 
-void PKH::GameObject::ReleaseComponents()
+void Engine::GameObject::ReleaseComponents()
 {
 	auto iter = components.begin();
 	auto end = components.end();
@@ -240,7 +240,7 @@ void PKH::GameObject::ReleaseComponents()
 	components.clear();
 }
 
-void PKH::GameObject::RemoveComponent(IComponent* _target)
+void Engine::GameObject::RemoveComponent(IComponent* _target)
 {
 	auto iter = components.begin();
 	auto end = components.end();
@@ -255,24 +255,24 @@ void PKH::GameObject::RemoveComponent(IComponent* _target)
 	}
 }
 
-void PKH::GameObject::RemoveComponent(const wstring& _key)
+void Engine::GameObject::RemoveComponent(const wstring& _key)
 {
 	components.erase(_key);
 }
 
-IComponent* PKH::GameObject::GetComponent(const wstring& _key)
+IComponent* Engine::GameObject::GetComponent(const wstring& _key)
 {
 	auto f = components.find(_key);
 	if (f == components.end()) return nullptr;
 	return f->second;
 }
 
-bool PKH::GameObject::IsDestroy()
+bool Engine::GameObject::IsDestroy()
 {
 	return destroyFlag;
 }
 
-bool PKH::GameObject::SetLayer(Layer _layer)
+bool Engine::GameObject::SetLayer(Layer _layer)
 {
 	if (this->layer == _layer) return false;
 
@@ -291,7 +291,7 @@ bool PKH::GameObject::SetLayer(Layer _layer)
 	return true;
 }
 
-void PKH::GameObject::SetParent(GameObject* _parent)
+void Engine::GameObject::SetParent(GameObject* _parent)
 {
 	this->parent = _parent;
 }

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Unit.h"
 #include "SphereCollider.h"
 #include "NavMeshAgent.h"
@@ -23,6 +23,20 @@ Unit::Unit()
 
 	stat = (UnitStat*)AddComponent<UnitStat>(L"UnitStat");
 	SetAttackPerSec(0.625f);
+
+	// TODO : í–‰ë™íŠ¸ë¦¬
+	//bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
+	//
+	//SelectorNode* root = new SelectorNode();
+	//bt->SetRoot(root);
+	//
+	//ConditionNode<Unit>* deathCondition = new ConditionNode<Unit>();
+	//deathCondition->SetCondition(this, &Unit::IsDead);
+	//root->AddChild(deathCondition);
+
+	//ActionNode<Unit>* deathAction = new ActionNode<Unit>();
+	//deathAction->SetAction(this, );
+	//deathCondition->SetChild(deathAction);
 }
 
 Unit::~Unit()
@@ -32,6 +46,7 @@ Unit::~Unit()
 	anim = nullptr;
 	agent = nullptr;
 	stat = nullptr;
+	bt = nullptr;
 
 	//attackIndicator->SetTarget(nullptr);
 	//attackIndicator->Destroy();
@@ -57,6 +72,7 @@ void Unit::Update()
 	GameObject::Update();
 
 	attackIndicator->Update();
+
 }
 
 
@@ -100,7 +116,7 @@ void Unit::UpdateState()
 		Vector3 direction = attackTarget->transform->position - transform->position;
 		float dist = direction.Length();
 		float targetRadius = attackTarget->collider->GetRadius();
-		if (dist <= attackRange +targetRadius) // °ø°İ °Å¸® ÀÌ³»
+		if (dist <= attackRange +targetRadius) // ê³µê²© ê±°ë¦¬ ì´ë‚´
 		{
 			agent->Stop();
 			LookRotation(direction.Normalized());
@@ -179,7 +195,7 @@ void Unit::SetDestination(Vector3 _target)
 	Vector3 direction = _target - transform->position;
 	Vector3::Normalize(&direction);
 
-	// ÀÌµ¿
+	// ì´ë™
 	Ray ray2;
 	RaycastHit hit2;
 	ray2.origin = transform->position;
@@ -189,13 +205,13 @@ void Unit::SetDestination(Vector3 _target)
 	int mask2 = LayerMask::GetMask(Layer::Wall);
 	if (Physics::Raycast(ray2, &hit2, dist, mask2))
 	{
-		// Á÷¼±»ó¿¡ º®ÀÌ ÀÖÀ» °æ¿ì
-		Debug::Print("Á÷¼±»ó¿¡ º®ÀÌÀÖÀ½\n");
+		// ì§ì„ ìƒì— ë²½ì´ ìˆì„ ê²½ìš°
+		Debug::Print("ì§ì„ ìƒì— ë²½ì´ìˆìŒ\n");
 		agent->SetDestination(_target);
 	}
 	else
 	{
-		// Á÷¼±»ó¿¡ º®ÀÌ ¾øÀ» °æ¿ì
+		// ì§ì„ ìƒì— ë²½ì´ ì—†ì„ ê²½ìš°
 		agent->SetDestination(_target, true);
 	}
 }
@@ -523,7 +539,7 @@ void Unit::ReqMove(Vector3 _dest, bool _noSearch)
 	}
 	Network::SendPacket(pack);
 	delete pack;
-	Debug::PrintLine("[Debug] ReqMove ¿äÃ» / °æÀ¯Áö : %d", pathCount);
+	Debug::PrintLine("[Debug] ReqMove ìš”ì²­ / ê²½ìœ ì§€ : %d", pathCount);
 }
 
 void Unit::ReqAttack(Unit* _target)
@@ -535,7 +551,7 @@ void Unit::ReqAttack(Unit* _target)
 
 	Network::SendPacket(pack);
 	delete pack;
-	Debug::PrintLine("[Debug] ReqAttack ¿äÃ» / °ø°İÀÚID : %d / Å¸°ÙID : %d", this->GetID(), unitID);
+	Debug::PrintLine("[Debug] ReqAttack ìš”ì²­ / ê³µê²©ìID : %d / íƒ€ê²ŸID : %d", this->GetID(), unitID);
 }
 
 void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
@@ -546,5 +562,5 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 
 	Network::SendPacket(pack);
 	delete pack;
-	Debug::PrintLine("[Debug] ReqDamage ¿äÃ» / °ø°İÀÚID : %d / Å¸°ÙID : %d", _attackerID, _targetID);
+	Debug::PrintLine("[Debug] ReqDamage ìš”ì²­ / ê³µê²©ìID : %d / íƒ€ê²ŸID : %d", _attackerID, _targetID);
 }

@@ -5,10 +5,10 @@
 #include <wrl.h>
 #include <wrl/module.h>
 using namespace Microsoft::WRL;
-namespace KST
+namespace Engine
 {
 
-	DeferredStaticMeshRenderer::DeferredStaticMeshRenderer(PKH::GameObject* owner) :
+	DeferredStaticMeshRenderer::DeferredStaticMeshRenderer(Engine::GameObject* owner) :
 		Renderer{ owner, RendererType::Deferred }
 	{
 		alphaTest = false;
@@ -36,7 +36,7 @@ namespace KST
 		return alphaTest;
 	}
 
-	void DeferredStaticMeshRenderer::SetMesh(PKH::Mesh* mesh)
+	void DeferredStaticMeshRenderer::SetMesh(Engine::Mesh* mesh)
 	{
 		this->mesh = mesh;
 	}

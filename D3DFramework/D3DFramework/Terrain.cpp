@@ -2,19 +2,19 @@
 #include "Terrain.h"
 
 
-PKH::Terrain::Terrain(GameObject* owner)
+Engine::Terrain::Terrain(GameObject* owner)
 	:CustomMesh(owner)
 {
 	CreateCustomMesh();
 }
 
-PKH::Terrain::Terrain(const Terrain& rhs)
+Engine::Terrain::Terrain(const Terrain& rhs)
 	:CustomMesh(rhs)
 {
 	CreateCustomMesh();
 }
 
-PKH::Terrain::~Terrain()
+Engine::Terrain::~Terrain()
 {
 	if (vertexInfo)
 	{
@@ -25,7 +25,7 @@ PKH::Terrain::~Terrain()
 		
 }
 
-void PKH::Terrain::CreateCustomMesh()
+void Engine::Terrain::CreateCustomMesh()
 {
 	width = dfTERRAIN_WIDTH;
 	height = dfTERRAIN_HEIGHT;
@@ -80,16 +80,16 @@ void PKH::Terrain::CreateCustomMesh()
 	SetNormalVector();
 }
 
-void PKH::Terrain::Update()
+void Engine::Terrain::Update()
 {
 }
 
-IComponent* PKH::Terrain::Clone()
+IComponent* Engine::Terrain::Clone()
 {
     return nullptr;
 }
 
-void PKH::Terrain::LoadHeightMap(const string& filePath)
+void Engine::Terrain::LoadHeightMap(const string& filePath)
 {
 	BITMAPFILEHEADER fileHeader;
 	BITMAPINFOHEADER infoHeader;
@@ -136,7 +136,7 @@ void PKH::Terrain::LoadHeightMap(const string& filePath)
 	SetNormalVector();
 }
 
-bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
+bool Engine::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
 {
 	if (_outY == nullptr)return false;
 	if (_x < 0)return false;
@@ -184,7 +184,7 @@ bool PKH::Terrain::GetYFromPoint(float* _outY, float _x, float _z)
 	return true;
 }
 
-void PKH::Terrain::SetNormalVector()
+void Engine::Terrain::SetNormalVector()
 {
 	Vertex* vertices;
 	int index = 0;

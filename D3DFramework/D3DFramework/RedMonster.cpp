@@ -11,7 +11,7 @@ RedMonster::RedMonster()
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 }

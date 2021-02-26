@@ -3,23 +3,23 @@
 #include "NavMeshMap.h"
 #include "Unit.h"
 
-PKH::NavMeshAgent::NavMeshAgent(GameObject* owner)
+Engine::NavMeshAgent::NavMeshAgent(GameObject* owner)
     :IComponent(owner)
 {
     unit = dynamic_cast<Unit*>(owner);
     navMeshMap = (NavMeshMap*)ObjectManager::GetInstance()->FindObject<NavMeshMap>();
 }
 
-PKH::NavMeshAgent::NavMeshAgent(const NavMeshAgent& rhs)
+Engine::NavMeshAgent::NavMeshAgent(const NavMeshAgent& rhs)
     :IComponent(rhs)
 {
 }
 
-PKH::NavMeshAgent::~NavMeshAgent()
+Engine::NavMeshAgent::~NavMeshAgent()
 {
 }
 
-void PKH::NavMeshAgent::Update()
+void Engine::NavMeshAgent::Update()
 {
     if (isMoving)
     {
@@ -58,12 +58,12 @@ void PKH::NavMeshAgent::Update()
     }
 }
 
-IComponent* PKH::NavMeshAgent::Clone()
+IComponent* Engine::NavMeshAgent::Clone()
 {
     return new NavMeshAgent(*this);
 }
 
-bool PKH::NavMeshAgent::Search(const Vector3& dest, list<Vector3>* outPath)
+bool Engine::NavMeshAgent::Search(const Vector3& dest, list<Vector3>* outPath)
 {
     bool result = navMeshMap->Search(transform->position, dest);
     if (result)
@@ -81,7 +81,7 @@ bool PKH::NavMeshAgent::Search(const Vector3& dest, list<Vector3>* outPath)
     return result;
 }
 
-bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
+bool Engine::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
 {
     bool result = false;
     isDestination = false;
@@ -121,39 +121,39 @@ bool PKH::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
     return result;
 }
 
-void PKH::NavMeshAgent::Stop()
+void Engine::NavMeshAgent::Stop()
 {
     isDestination = true;
     path.clear();
 }
 
-void PKH::NavMeshAgent::Pause()
+void Engine::NavMeshAgent::Pause()
 {
     isMoving = false;
 }
 
-void PKH::NavMeshAgent::Resume()
+void Engine::NavMeshAgent::Resume()
 {
     isMoving = true;
 }
 
-void PKH::NavMeshAgent::Move(const Vector3& offset)
+void Engine::NavMeshAgent::Move(const Vector3& offset)
 {
 
 }
 
-void PKH::NavMeshAgent::ResetPath()
+void Engine::NavMeshAgent::ResetPath()
 {
     path.clear();
     
 }
 
-void PKH::NavMeshAgent::SetStoppingDistance(float _dist)
+void Engine::NavMeshAgent::SetStoppingDistance(float _dist)
 {
     stoppingDistance = _dist;
 }
 
-void PKH::NavMeshAgent::SetPath(list<Vector3>& _path)
+void Engine::NavMeshAgent::SetPath(list<Vector3>& _path)
 {
     ResetPath();
     isDestination = false;
@@ -172,7 +172,7 @@ void PKH::NavMeshAgent::SetPath(list<Vector3>& _path)
     path.erase(path.begin());
 }
 
-void PKH::NavMeshAgent::PushLayover(const Vector3& _point)
+void Engine::NavMeshAgent::PushLayover(const Vector3& _point)
 {
     isDestination = false;
     destination = _point;
@@ -180,7 +180,7 @@ void PKH::NavMeshAgent::PushLayover(const Vector3& _point)
     //nextPosition = _point;
 }
 
-void PKH::NavMeshAgent::SetSpeed(float _speed)
+void Engine::NavMeshAgent::SetSpeed(float _speed)
 {
     speed = _speed;
 }

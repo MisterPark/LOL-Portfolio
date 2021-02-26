@@ -1,12 +1,12 @@
 ﻿#include "stdafx.h"
 #include "StaticMesh.h"
-PKH::StaticMesh::StaticMesh(GameObject* owner)
+Engine::StaticMesh::StaticMesh(GameObject* owner)
 	:Mesh(owner)
 {
 	type = MeshType::STATIC_MESH;
 }
 
-PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
+Engine::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	: Mesh(rhs)
 	, pAdjacency(rhs.pAdjacency)
 	, pSubset(rhs.pSubset)
@@ -35,7 +35,7 @@ PKH::StaticMesh::StaticMesh(const StaticMesh& rhs)
 	Safe_AddRef(&pSubset);
 }
 
-PKH::StaticMesh::~StaticMesh()
+Engine::StaticMesh::~StaticMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
 		Safe_Release(&ppTextures[i]);
@@ -56,23 +56,23 @@ PKH::StaticMesh::~StaticMesh()
 
 }
 
-IComponent* PKH::StaticMesh::Clone()
+IComponent* Engine::StaticMesh::Clone()
 {
 	return new StaticMesh(*this);
 }
 
 
-int PKH::StaticMesh::GetSubsetCount()
+int Engine::StaticMesh::GetSubsetCount()
 {
 	return static_cast<int>(subsetCount);
 }
 
-IDirect3DTexture9* PKH::StaticMesh::GetSubsetTexture(int index)
+IDirect3DTexture9* Engine::StaticMesh::GetSubsetTexture(int index)
 {
 	return ppTextures[index];
 }
 
-HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
 
@@ -221,7 +221,7 @@ HRESULT PKH::StaticMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName
 }
 
 
-void PKH::StaticMesh::RenderSubset(int index)
+void Engine::StaticMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
 	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);

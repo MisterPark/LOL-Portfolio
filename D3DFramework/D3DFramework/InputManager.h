@@ -3,7 +3,7 @@
 #define RANGE_OF_KEYS 256
 #define dfINPUT_LIFE_FRAME 2
 
-namespace PKH
+namespace Engine
 {
 	enum class Keys
 	{

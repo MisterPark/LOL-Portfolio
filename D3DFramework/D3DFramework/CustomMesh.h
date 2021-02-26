@@ -1,7 +1,7 @@
 #pragma once
 #include "Mesh.h"
 
-namespace PKH
+namespace Engine
 {
 	enum class BlendMode { NONE, ALPHA_BLEND, ALPHA_TEST, };
 	enum class CullMode { NONE, CW, CCW };
@@ -23,7 +23,7 @@ namespace PKH
 		virtual void RenderSubset(int index) override;
 		virtual IDirect3DTexture9* GetSubsetTexture(int index);
 
-		virtual PKH::IComponent* Clone() = 0;
+		virtual Engine::IComponent* Clone() = 0;
 
 		// getter
 		

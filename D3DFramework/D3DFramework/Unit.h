@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 #include "Animation.h"
 #include "Stat.h"
@@ -98,6 +98,7 @@ public:
 	void SetID(INT _id);
 
 	bool IsDead();
+
 	INT GetID();
 	float GetHP();
 	float GetMP();
@@ -116,7 +117,7 @@ public:
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
 
-	// ¸ÖÆ¼
+	// ë©€í‹°
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
@@ -131,11 +132,12 @@ public:
 	SphereCollider* collider = nullptr;
 	Indicator* attackIndicator = nullptr;
 	UnitStat* stat = nullptr;
+	BehaviorTree* bt = nullptr;
 
 protected:
 	UnitState state = UnitState::IDLE1;
 	
-	// ±âº»°ø°İ °ü·Ã
+	// ê¸°ë³¸ê³µê²© ê´€ë ¨
 	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
 	float attackRange = 1.25f;
@@ -143,20 +145,20 @@ protected:
 	float attackPerSec = 0.625f;
 	UnitState attackState = UnitState::ATTACK1;
 
-	// ¸¶Áö¸·À¸·Î ³ª¸¦ °ø°İÇÑ À¯´Ö
+	// ë§ˆì§€ë§‰ìœ¼ë¡œ ë‚˜ë¥¼ ê³µê²©í•œ ìœ ë‹›
 	Unit* lastAttacker = nullptr;
 	float lastAttackTick = 0.f;
 	float lastAttackDuration = 5.f;
 
 	bool isDamaged = false;
-	// Ãß°İ °ü·Ã
+	// ì¶”ê²© ê´€ë ¨
 	float chaseTick = 0.f;
 	float chaseDelay = 0.3f;
 
-	// »ç¸Á °ü·Ã
+	// ì‚¬ë§ ê´€ë ¨
 	bool isDead = false;
 	
-	// ³×Æ®¿öÅ© °ü·Ã
+	// ë„¤íŠ¸ì›Œí¬ ê´€ë ¨
 	INT unitID = -1;
 public:
 };

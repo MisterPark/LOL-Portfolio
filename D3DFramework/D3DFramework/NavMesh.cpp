@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "NavMesh.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::NavMesh::NavMesh(GameObject* owner)
+Engine::NavMesh::NavMesh(GameObject* owner)
     :Mesh(owner)
 {
 	type = MeshType::NAV_MESH;
 }
 
-PKH::NavMesh::NavMesh(const NavMesh& rhs)
+Engine::NavMesh::NavMesh(const NavMesh& rhs)
     :Mesh(rhs)
 	, pAdjacency(rhs.pAdjacency)
 	, pSubset(rhs.pSubset)
@@ -39,7 +39,7 @@ PKH::NavMesh::NavMesh(const NavMesh& rhs)
 	Safe_AddRef(&pSubset);
 }
 
-PKH::NavMesh::~NavMesh()
+Engine::NavMesh::~NavMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
 		Safe_Release(&ppTextures[i]);
@@ -60,12 +60,12 @@ PKH::NavMesh::~NavMesh()
 	Safe_Release(&pMesh);
 }
 
-IComponent* PKH::NavMesh::Clone()
+IComponent* Engine::NavMesh::Clone()
 {
 	return new NavMesh(*this);
 }
 
-HRESULT PKH::NavMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::NavMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
 

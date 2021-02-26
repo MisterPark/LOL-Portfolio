@@ -2,7 +2,7 @@
 #include "IComponent.h"
 #include "NavMeshAgent.h"
 
-using namespace PKH;
+using namespace Engine;
 
 class Unit;
 
@@ -21,7 +21,7 @@ public:
     void SetTargetMode(bool _mode);
 
 public:
-    PKH::NavMeshAgent* agent = nullptr;
+    Engine::NavMeshAgent* agent = nullptr;
     bool targetMode = false;
     Unit* unit = nullptr;
 };

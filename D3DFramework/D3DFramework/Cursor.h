@@ -1,7 +1,7 @@
 #pragma once
 #include "UI.h"
 
-namespace PKH
+namespace Engine
 {
 	enum class CursorMode { Normal, SingleTarget };
 

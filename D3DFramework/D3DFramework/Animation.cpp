@@ -2,23 +2,23 @@
 #include "Animation.h"
 #include "Unit.h"
 
-PKH::Animation::Animation(GameObject* owner)
+Engine::Animation::Animation(GameObject* owner)
     :IComponent(owner)
 {
     
 }
 
-PKH::Animation::Animation(const Animation& rhs)
+Engine::Animation::Animation(const Animation& rhs)
     :IComponent(rhs)
 {
 }
 
-PKH::Animation::~Animation()
+Engine::Animation::~Animation()
 {
     animsets.clear();
 }
 
-void PKH::Animation::PostUpdate()
+void Engine::Animation::PostUpdate()
 {
     if (dmesh == nullptr) return;
 
@@ -46,12 +46,12 @@ void PKH::Animation::PostUpdate()
     dmesh->animSpeed += animSpeed;
 }
 
-IComponent* PKH::Animation::Clone()
+IComponent* Engine::Animation::Clone()
 {
     return new Animation(*this);
 }
 
-void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
+void Engine::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
 {
     this->dmesh = _dmesh;
 
@@ -80,7 +80,7 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
     currentAnim = idleIndex;
 }
 
-string PKH::Animation::GetNameByState(int _state)
+string Engine::Animation::GetNameByState(int _state)
 {
     string name;
     UnitState unitState = (UnitState)_state;
@@ -168,43 +168,43 @@ string PKH::Animation::GetNameByState(int _state)
     return name;
 }
 
-UINT PKH::Animation::GetIndexByState(int _state)
+UINT Engine::Animation::GetIndexByState(int _state)
 {
     return animsets[_state].index;
 }
 
-UINT PKH::Animation::GetCurrentAnimation()
+UINT Engine::Animation::GetCurrentAnimation()
 {
     return currentAnim;
 }
 
-void PKH::Animation::SetState(int _state)
+void Engine::Animation::SetState(int _state)
 {
     state = _state;
 }
 
-void PKH::Animation::SetLoop(int _state, bool loop)
+void Engine::Animation::SetLoop(int _state, bool loop)
 {
     animsets[_state].isLoop = loop;
 }
 
-void PKH::Animation::SetSpeed(int _state, float speed)
+void Engine::Animation::SetSpeed(int _state, float speed)
 {
     animsets[_state].speed = speed;
 }
 
-bool PKH::Animation::IsFrameEnd()
+bool Engine::Animation::IsFrameEnd()
 {
     if (dmesh == nullptr) return false;
     return dmesh->IsAnimationSetEnd();
 }
 
-void PKH::Animation::Stop()
+void Engine::Animation::Stop()
 {
     stopFlag = true;
 }
 
-void PKH::Animation::Resume()
+void Engine::Animation::Resume()
 {
     stopFlag = false;
 }

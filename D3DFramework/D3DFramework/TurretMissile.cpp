@@ -5,7 +5,7 @@
 
 TurretMissile::TurretMissile()
 {
-	mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
+	mesh = (Engine::Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);

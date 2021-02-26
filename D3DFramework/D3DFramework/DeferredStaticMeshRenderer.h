@@ -3,18 +3,18 @@
 #include"RenderSystem.h"
 #include"Mesh.h"
 class RenderTarget;
-namespace KST
+namespace Engine
 {
 
 	class DeferredStaticMeshRenderer : public Renderer
 	{
 	public:
-		DeferredStaticMeshRenderer(PKH::GameObject* owner);
+		DeferredStaticMeshRenderer(Engine::GameObject* owner);
 		void EnableAlphaTest(float threshold);
 		void DisableAlphaTest();
 		bool IsAlphaTest();
-		void SetMesh(PKH::Mesh* mesh);
-		PKH::IComponent* Clone() { return nullptr; }
+		void SetMesh(Engine::Mesh* mesh);
+		Engine::IComponent* Clone() { return nullptr; }
 	public:
 		virtual void Render() override;
 		bool NeedShadow = true;
@@ -32,7 +32,7 @@ namespace KST
 		RenderTarget* depthRenderTarget;
 		ID3DXEffect* renderingShader;
 		ID3DXEffect* shadowMapShader;
-		PKH::Mesh* mesh;
+		Engine::Mesh* mesh;
 
 	};
 }

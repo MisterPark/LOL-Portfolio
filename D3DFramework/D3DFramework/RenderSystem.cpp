@@ -4,7 +4,7 @@
 #include<map>
 #include<list>
 #include<wrl.h>
-namespace KST
+namespace Engine
 {
 	wchar_t const* const RENDER_TARGET_DEFERRED_RESULT{ L"RT_DEFERRED_RESULT" };
 	wchar_t const* const RENDER_TARGET_ALBEDO{ L"RT_ALBEDO" };
@@ -507,7 +507,7 @@ namespace KST
 	{
 
 	}
-	void KST::RenderSystem::Add(Renderer* renderer)
+	void Engine::RenderSystem::Add(Renderer* renderer)
 	{
 		auto& renderers = rendererTable[(unsigned)renderer->rendererType];
 		auto findIt = std::find(renderers.begin(), renderers.end(), renderer);
@@ -518,7 +518,7 @@ namespace KST
 		renderers.emplace_back(renderer);
 	}
 
-	void KST::RenderSystem::Remove(Renderer* renderer)
+	void Engine::RenderSystem::Remove(Renderer* renderer)
 	{
 		auto& renderers = rendererTable[(unsigned)renderer->rendererType];
 		auto findIt = std::find(renderers.begin(), renderers.end(), renderer);

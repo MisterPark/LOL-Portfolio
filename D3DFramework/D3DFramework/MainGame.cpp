@@ -7,19 +7,19 @@
 #include "TestLoadingScene.h"
 
 #include "RenderSystem.h"
-using namespace PKH;
+using namespace Engine;
 
-PKH::MainGame* pMainGame = nullptr;
+Engine::MainGame* pMainGame = nullptr;
 
-PKH::MainGame::MainGame()
+Engine::MainGame::MainGame()
 {
 }
 
-PKH::MainGame::~MainGame()
+Engine::MainGame::~MainGame()
 {
 }
 
-PKH::MainGame* MainGame::GetInstance()
+Engine::MainGame* MainGame::GetInstance()
 {
     if (pMainGame == nullptr)
     {
@@ -29,7 +29,7 @@ PKH::MainGame* MainGame::GetInstance()
     return pMainGame;
 }
 
-void PKH::MainGame::Destroy()
+void Engine::MainGame::Destroy()
 {
     if (pMainGame)
     {
@@ -38,7 +38,7 @@ void PKH::MainGame::Destroy()
     }
 }
 
-void PKH::MainGame::Initialize(int screenW, int screenH)
+void Engine::MainGame::Initialize(int screenW, int screenH)
 {
 	pMainGame->width = screenW;
 	pMainGame->height = screenH;
@@ -88,7 +88,7 @@ void PKH::MainGame::Initialize(int screenW, int screenH)
 	//SceneManager::LoadScene<TestScene>();
 }
 
-void PKH::MainGame::Update()
+void Engine::MainGame::Update()
 {
 	// 1. 인풋 먼저
 	InputManager::Update();
@@ -122,7 +122,7 @@ void PKH::MainGame::Update()
 #endif
 }
 
-void PKH::MainGame::Release()
+void Engine::MainGame::Release()
 {
 	// 다른 모든 매니저 해제
 	LoadManager::Destroy();
@@ -147,31 +147,31 @@ void PKH::MainGame::Release()
 	NavNodeManager::Destroy();
 }
 
-void PKH::MainGame::Pause()
+void Engine::MainGame::Pause()
 {
 }
 
-void PKH::MainGame::Resume()
+void Engine::MainGame::Resume()
 {
 }
 
-void PKH::MainGame::Shutdown()
+void Engine::MainGame::Shutdown()
 {
 	PostQuitMessage(0);
 }
 
-int PKH::MainGame::GetWidth()
+int Engine::MainGame::GetWidth()
 {
 	return pMainGame->width;
 }
 
-int PKH::MainGame::GetHeight()
+int Engine::MainGame::GetHeight()
 {
 	return pMainGame->height;
 }
 
 
-void PKH::MainGame::LoadUISprite()
+void Engine::MainGame::LoadUISprite()
 {
 	// 리소스 로드
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
