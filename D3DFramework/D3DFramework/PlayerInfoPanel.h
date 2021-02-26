@@ -28,7 +28,7 @@ public:
 	//void RenderBar();
 
 	void SetTarget(Champion* _target);
-
+	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
 public:
 
 	int screenW = 1280;

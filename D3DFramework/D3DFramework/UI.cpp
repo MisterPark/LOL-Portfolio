@@ -189,7 +189,8 @@ void UI::OnRButtonUp()
 
 void UI::OnClick()
 {
-	Click.Invoke();
+	MouseEventArg args{};
+	Click.Invoke(this, args);
 }
 
 void PKH::UI::OnDoubleClick()

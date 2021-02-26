@@ -2,7 +2,13 @@
 #include "Layer.h"
 
 using namespace PKH;
-
+namespace KST
+{
+	namespace ES
+	{
+		class EventBase;
+	}
+}
 
 namespace PKH
 {
@@ -73,7 +79,9 @@ namespace PKH
 		T* AddChild(const wstring& _tag, T* _child);
 		template<class T>
 		T* CreateChild(const wstring& _key);
-
+		//event관련하여
+		void AddWeak(KST::ES::EventBase* evt);
+		void OnEventDelete(KST::ES::EventBase* evt);
 	public:
 		wstring name;
 		wstring tag;
@@ -87,6 +95,7 @@ namespace PKH
 		map<wstring, GameObject*> children;
 
 		map<wstring, PKH::IComponent*> components;
+		std::set<KST::ES::EventBase*> events;
 	protected:
 		bool destroyFlag = false;
 	private:

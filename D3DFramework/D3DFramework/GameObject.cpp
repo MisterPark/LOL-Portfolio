@@ -22,6 +22,11 @@ PKH::GameObject::~GameObject()
 		delete iter.second;
 	}
 	children.clear();
+
+	for (auto* evt : events)
+	{
+		evt->RemoveTarget(this);
+	}
 }
 
 void PKH::GameObject::Update()
@@ -218,6 +223,17 @@ void PKH::GameObject::Hide()
 		child.second->Hide();
 	}
 	isVisible = false;
+}
+
+void PKH::GameObject::AddWeak(KST::ES::EventBase* evt)
+{
+	evt->AddWeakRef(this, &GameObject::OnEventDelete);
+	events.emplace(evt);
+}
+
+void PKH::GameObject::OnEventDelete(KST::ES::EventBase* evt)
+{
+	events.erase(evt);
 }
 
 IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)
