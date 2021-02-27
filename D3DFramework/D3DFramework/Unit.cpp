@@ -25,18 +25,27 @@ Unit::Unit()
 	SetAttackPerSec(0.625f);
 
 	// TODO : 행동트리
-	//bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
-	//
-	//SelectorNode* root = new SelectorNode();
-	//bt->SetRoot(root);
-	//
-	//ConditionNode<Unit>* deathCondition = new ConditionNode<Unit>();
-	//deathCondition->SetCondition(this, &Unit::IsDead);
-	//root->AddChild(deathCondition);
+	bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
+	
+	SelectorNode* root = new SelectorNode();
+	bt->SetRoot(root);
+	
+	ConditionNode<Unit>* deathCondition = new ConditionNode<Unit>();
+	deathCondition->SetCondition(this, &Unit::IsDead);
+	root->AddChild(deathCondition);
 
-	//ActionNode<Unit>* deathAction = new ActionNode<Unit>();
-	//deathAction->SetAction(this, );
-	//deathCondition->SetChild(deathAction);
+	ActionNode<Unit>* deathAction = new ActionNode<Unit>();
+	deathAction->SetAction(this, &Unit::DeadAction);
+	deathCondition->SetChild(deathAction);
+
+	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
+	attackCondition->SetCondition(this, &Unit::HasAttackTarget);
+	root->AddChild(attackCondition);
+
+	ActionNode<Unit>* attackAction = new ActionNode<Unit>();
+	attackAction->SetAction(this, &Unit::AttackAction);
+	attackCondition->SetChild(attackAction);
+	
 }
 
 Unit::~Unit()
@@ -47,10 +56,6 @@ Unit::~Unit()
 	agent = nullptr;
 	stat = nullptr;
 	bt = nullptr;
-
-	//attackIndicator->SetTarget(nullptr);
-	//attackIndicator->Destroy();
-	//delete attackIndicator;
 	attackIndicator = nullptr;
 }
 
@@ -66,7 +71,6 @@ void Unit::Update()
 {
 	state = UnitState::IDLE1;
 
-	UpdateState();
 	UpdateLastAttacker();
 
 	GameObject::Update();
@@ -75,103 +79,6 @@ void Unit::Update()
 
 }
 
-
-void Unit::UpdateState()
-{
-	float dt = TimeManager::DeltaTime();
-	
-	if (isDead)
-	{
-		SetState(UnitState::DEATH);
-		attackTarget = nullptr;
-		UINT curAnim = anim->GetCurrentAnimation();
-		UINT deathAnim = anim->GetIndexByState((int)UnitState::DEATH);
-		if (curAnim == deathAnim && anim->IsFrameEnd())
-		{
-			anim->Stop();
-		}
-		return;
-	}
-
-	if (anim->IsFrameEnd())
-	{
-		int rand = Random::Range(0, 9);
-		if (rand < 5)
-		{
-			attackState = UnitState::ATTACK1;
-		}
-		else
-		{
-			attackState = UnitState::ATTACK2;
-		}
-	}
-
-	if (attackTarget != nullptr)
-	{
-		if (attackTarget->IsDead())
-		{
-			attackTarget = nullptr;
-			return;
-		}
-		Vector3 direction = attackTarget->transform->position - transform->position;
-		float dist = direction.Length();
-		float targetRadius = attackTarget->collider->GetRadius();
-		if (dist <= attackRange +targetRadius) // 공격 거리 이내
-		{
-			agent->Stop();
-			LookRotation(direction.Normalized());
-			SetState(attackState);
-
-			attackTick += dt;
-			float attackDelay = 1.f / attackPerSec;
-			if (attackTick > attackDelay)
-			{
-				attackTick = 0.f;
-				isDamaged = false;
-			}
-			float damageDelay = attackDelay * 0.2f;
-			if (attackTick > damageDelay)
-			{
-				if (isDamaged == false)
-				{
-					isDamaged = true;
-					Network* net = Network::GetInstance();
-					
-					if (net->isMultiGame)
-					{
-						if (net->number == unitID)
-						{
-							ReqDamage(unitID, attackTarget->GetID(), stat->attackDamage.GetValue());
-						}
-						else if (unitID > 9 && net->number == 0)
-						{
-							ReqDamage(unitID, attackTarget->GetID(), stat->attackDamage.GetValue());
-						}
-					}
-					else
-					{
-						attackTarget->SetLastAttacker(this);
-						attackTarget->TakeDamage(stat->attackDamage.GetValue());
-					}
-				}
-			}
-			
-		}
-		else
-		{
-			attackTick = 0.f;
-			isDamaged = false;
-			Chase(attackTarget->transform->position);
-			
-		}
-	}
-	else
-	{
-		attackTick = 0.f;
-		isDamaged = false;
-	}
-	
-}
 
 void Unit::UpdateLastAttacker()
 {
@@ -240,8 +147,6 @@ void Unit::Attack(Unit* target)
 
 	attackTarget = target;
 	
-	//agent->SetStoppingDistance(attackRange);
-	//SetDestination(attackTarget->transform->position);
 }
 
 void Unit::Spell1()
@@ -264,6 +169,78 @@ void Unit::Die()
 {
 	isDead = true;
 	collider->enable = false;
+}
+
+void Unit::DeadAction()
+{
+	SetState(UnitState::DEATH);
+	attackTarget = nullptr;
+	UINT curAnim = anim->GetCurrentAnimation();
+	UINT deathAnim = anim->GetIndexByState((int)UnitState::DEATH);
+	if (curAnim == deathAnim && anim->IsFrameEnd())
+	{
+		anim->Stop();
+	}
+}
+
+void Unit::AttackAction()
+{
+	float dt = TimeManager::DeltaTime();
+
+	if (anim->IsFrameEnd())
+	{
+		int rand = Random::Range(0, 9);
+		if (rand < 5)
+		{
+			attackState = UnitState::ATTACK1;
+		}
+		else
+		{
+			attackState = UnitState::ATTACK2;
+		}
+	}
+
+	if (attackTarget->IsDead())
+	{
+		attackTarget = nullptr;
+		return;
+	}
+	Vector3 direction = attackTarget->transform->position - transform->position;
+	float dist = direction.Length();
+	float targetRadius = attackTarget->collider->GetRadius();
+	if (dist <= attackRange + targetRadius) // 공격 거리 이내
+	{
+		agent->Stop();
+		LookRotation(direction.Normalized());
+		SetState(attackState);
+
+		attackTick += dt;
+		float attackDelay = 1.f / attackPerSec;
+		if (attackTick > attackDelay)
+		{
+			attackTick = 0.f;
+			isDamaged = false;
+		}
+		float damageDelay = attackDelay * 0.2f;
+		if (attackTick > damageDelay)
+		{
+			if (isDamaged == false)
+			{
+				isDamaged = true;
+
+				attackTarget->SetLastAttacker(this);
+				attackTarget->TakeDamage(stat->attackDamage.GetValue());
+			}
+		}
+
+	}
+	else
+	{
+		attackTick = 0.f;
+		isDamaged = false;
+		Chase(attackTarget->transform->position);
+
+	}
 }
 
 void Unit::PushedOut(Unit* other)
@@ -402,6 +379,11 @@ void Unit::SetID(INT _id)
 bool Unit::IsDead()
 {
 	return isDead;
+}
+
+bool Unit::HasAttackTarget()
+{
+	return (attackTarget != nullptr);
 }
 
 INT Unit::GetID()
@@ -564,3 +546,4 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 	delete pack;
 	Debug::PrintLine("[Debug] ReqDamage 요청 / 공격자ID : %d / 타겟ID : %d", _attackerID, _targetID);
 }
+

@@ -51,9 +51,6 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-
-
-	virtual void UpdateState();
 	void UpdateLastAttacker();
 
 	void LookRotation(Vector3 _direction);
@@ -68,6 +65,9 @@ public:
 	virtual void Spell4();
 
 	virtual void Die();
+	// 행동
+	void DeadAction();
+	void AttackAction();
 
 	void PushedOut(Unit* other);
 
@@ -98,6 +98,7 @@ public:
 	void SetID(INT _id);
 
 	bool IsDead();
+	bool HasAttackTarget();
 
 	INT GetID();
 	float GetHP();
