@@ -38,14 +38,28 @@ Unit::Unit()
 	deathAction->SetAction(this, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
 
+	SelectorNode* attackSelector = new SelectorNode();
+	root->AddChild(attackSelector);
+
 	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
 	attackCondition->SetCondition(this, &Unit::HasAttackTarget);
-	root->AddChild(attackCondition);
+	attackSelector->AddChild(attackCondition);
 
 	ActionNode<Unit>* attackAction = new ActionNode<Unit>();
 	attackAction->SetAction(this, &Unit::AttackAction);
 	attackCondition->SetChild(attackAction);
+
+	ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
+	countAttackCondition->SetCondition(this, &Unit::HasLastAttacker);
+	attackSelector->AddChild(countAttackCondition);
+
+	ActionNode<Unit>* countAttackAction = new ActionNode<Unit>();
+	countAttackAction->SetAction(this, &Unit::CounterAttack);
+	countAttackCondition->SetChild(countAttackAction);
 	
+	ActionNode<Unit>* idleAction = new ActionNode<Unit>();
+	idleAction->SetAction(this, &Unit::IdleAction);
+	root->AddChild(idleAction);
 }
 
 Unit::~Unit()
@@ -181,6 +195,7 @@ void Unit::DeadAction()
 	{
 		anim->Stop();
 	}
+	agent->Stop();
 }
 
 void Unit::AttackAction()
@@ -241,6 +256,18 @@ void Unit::AttackAction()
 		Chase(attackTarget->transform->position);
 
 	}
+}
+
+void Unit::CounterAttack()
+{
+	attackTarget = lastAttacker;
+}
+
+void Unit::IdleAction()
+{
+	SetState(UnitState::IDLE1);
+	attackTick = 0.f;
+	isDamaged = false;
 }
 
 void Unit::PushedOut(Unit* other)
@@ -384,6 +411,11 @@ bool Unit::IsDead()
 bool Unit::HasAttackTarget()
 {
 	return (attackTarget != nullptr);
+}
+
+bool Unit::HasLastAttacker()
+{
+	return (lastAttacker != nullptr);
 }
 
 INT Unit::GetID()
