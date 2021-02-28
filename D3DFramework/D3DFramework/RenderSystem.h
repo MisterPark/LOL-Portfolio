@@ -46,5 +46,6 @@ namespace Engine
 	extern wchar_t const* const RENDER_TARGET_SHARPNESS;
 	extern wchar_t const* const LIGHT_SPECULAR;
 	extern wchar_t const* const LIGHT_DIFFUSE;
+	extern wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR;
 }
 using RenderSystem = Engine::RenderSystem;

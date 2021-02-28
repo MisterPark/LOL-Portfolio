@@ -14,6 +14,7 @@ sampler DiffuseTextureSampler = sampler_state
 };
 
 //for no specularmap
+float4 g_vRimLightColor;
 float4 g_vSpecular;
 struct VSIn
 {
@@ -39,6 +40,7 @@ struct PSOut
 	float4 diffuse:COLOR0;
 	float4 normal:COLOR1;
 	float4 specular:COLOR2;
+	float4 rimLight:COLOR3;
 };
 VSOut VS_main(VSIn input)
 {
@@ -49,6 +51,7 @@ VSOut VS_main(VSIn input)
 	output.vPosition = vPosition;
 	output.vClipPosition = vPosition;
 	output.vNormal = mul(float4(input.vNormal.xyz, 0.f), g_mWorld);
+	output.vNormal = normalize(mul(float4(output.vNormal.xyz, 0.f), g_mView));
 
 	output.vUV = input.vUV;
 	return output;
@@ -64,13 +67,11 @@ PSOut PS_main_NonAlpha(PSIn input)
 	float3 vNormal = input.vNormal.xyz;
 	float2 packingNormal = (float2)0;
 	float2 depths = float2(depth, input.vClipPosition.w);
-	float scale = 1.7777;
-	packingNormal = vNormal.xy / (vNormal.z + 1);
-	packingNormal /= packingNormal;
-	packingNormal = packingNormal * 0.5 + 0.5;
+	float p = sqrt(vNormal.z * 8 + 8);
+	packingNormal = vNormal.xy / p + 0.5f;
 
 	output.normal = float4(packingNormal, depths);
-
+	output.rimLight = g_vRimLightColor;
 	return output;
 }
 float g_alphaThreshold;
@@ -91,12 +92,11 @@ PSOut PS_main_AlphaTest(PSIn input)
 	float3 vNormal = input.vNormal.xyz;
 	float2 packingNormal = (float2)0;
 	float2 depths = float2(depth, input.vClipPosition.w);
-	float scale = 1.7777;
-	packingNormal = vNormal.xy / (vNormal.z + 1);
-	packingNormal /= packingNormal;
-	packingNormal = packingNormal * 0.5 + 0.5;
+	float p = sqrt(vNormal.z * 8 + 8);
+	packingNormal = vNormal.xy / p + 0.5f;
 
 	output.normal = float4(packingNormal, depths);
+	output.rimLight = g_vRimLightColor;
 
 	return output;
 }

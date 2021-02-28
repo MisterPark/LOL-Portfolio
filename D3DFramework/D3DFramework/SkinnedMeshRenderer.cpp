@@ -10,8 +10,10 @@ Engine::SkinnedMeshRenderer::SkinnedMeshRenderer(Engine::GameObject* owner):
 	albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 	normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 	sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
+	rimLightRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
 	renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 	shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
+	rimLightColor = Vector3{ 0.f, 0.f, 0.f };
 }
 
 void Engine::SkinnedMeshRenderer::Render()
@@ -58,6 +60,18 @@ void Engine::SkinnedMeshRenderer::Render()
 void Engine::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
 {
 	this->mesh = mesh;
+}
+
+void Engine::SkinnedMeshRenderer::EnableRimLight(Vector3 const& color)
+{
+	rimLightEnable = true;
+	rimLightColor = color;
+}
+
+void Engine::SkinnedMeshRenderer::DisableRimLight()
+{
+	rimLightEnable = false;
+	rimLightColor = Vector3(0.f, 0.f, 0.f);
 }
 
 void Engine::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
@@ -128,13 +142,17 @@ void Engine::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* conta
 	ComPtr<IDirect3DSurface9> albedoSurface;
 	ComPtr<IDirect3DSurface9> normalSurface;
 	ComPtr<IDirect3DSurface9> sharpnessSurface;
+	ComPtr<IDirect3DSurface9> rimLightSurface;
+	
 	albedoRenderTarget->GetSurface(&albedoSurface);
 	normalRenderTarget->GetSurface(&normalSurface);
 	sharpnessRenderTarget->GetSurface(&sharpnessSurface);
+	rimLightRenderTarget->GetSurface(&rimLightSurface);
 
 	device->SetRenderTarget(0, albedoSurface.Get());
 	device->SetRenderTarget(1, normalSurface.Get());
 	device->SetRenderTarget(2, sharpnessSurface.Get());
+	device->SetRenderTarget(3, rimLightSurface.Get());
 	//device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 	UINT passCount = 0;
 	UINT passNum = 0;
@@ -145,7 +163,11 @@ void Engine::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* conta
 	renderingShader->SetMatrix("g_mViewSpace", &mViewSpace);
 	renderingShader->SetMatrix("g_mProjSpace", &mProjSpace);
 	renderingShader->SetMatrix("g_mViewProj", &mViewProj);
+	renderingShader->SetMatrix("g_mView", &mViewSpace);
 	renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+	D3DXVECTOR4 rimLightColor{ this->rimLightColor };
+	rimLightColor.w = 1.f;
+	renderingShader->SetVector("g_vRimLightColor", &rimLightColor);
 	renderingShader->Begin(&passCount, 0);
 	renderingShader->BeginPass(passNum);
 	for (ULONG i = 0; i < container->NumMaterials; ++i)

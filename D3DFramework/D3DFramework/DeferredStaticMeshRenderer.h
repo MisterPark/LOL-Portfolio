@@ -13,6 +13,9 @@ namespace Engine
 		void EnableAlphaTest(float threshold);
 		void DisableAlphaTest();
 		bool IsAlphaTest();
+		void EnableRimLight(Vector3 const& color);
+		void DisableRimLight();
+
 		void SetMesh(Engine::Mesh* mesh);
 		Engine::IComponent* Clone() { return nullptr; }
 	public:
@@ -25,10 +28,13 @@ namespace Engine
 	private:
 		bool alphaTest;
 		float threshold;
+		bool rimLightEnable;
+		Vector3 rimLightColor;
 	private:
 		RenderTarget* albedoRenderTarget;
 		RenderTarget* normalRenderTarget;
 		RenderTarget* sharpnessRenderTarget;
+		RenderTarget* rimLightRenderTarget;
 		ID3DXEffect* renderingShader;
 		ID3DXEffect* shadowMapShader;
 		Engine::Mesh* mesh;

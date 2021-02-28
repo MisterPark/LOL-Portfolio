@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Garen.h"
 #include "Animation.h"
 #include "SkinnedMeshRenderer.h"
@@ -10,21 +10,22 @@ Garen::Garen()
 	AddComponent(L"DynamicMesh", dmesh);
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
+	renderer->EnableRimLight(Vector3{ 1.f, 0.f, 0.f });
 	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	// ¾ó±¼ ¾ÆÀÌÄÜ
+	// ì–¼êµ´ ì•„ì´ì½˜
 	faceCircleTexkey = L"garen_circle";
 	faceSquareTexkey = L"garen_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"garen_q";
 	wTexKey = L"garen_w";
 	eTexKey = L"garen_e1";
 	rTexKey = L"garen_r";
 	passiveTexKey = L"garen_passive";
 
-	// ½ºÅÈ
+	// ìŠ¤íƒ¯
 	SetHP(620.f);
 	SetMP(100.f);
 	SetHPRegen(8.f);
@@ -59,7 +60,7 @@ void Garen::Update()
 
 void Garen::Spell1()
 {
-	printf("°¡·» Q\n");
+	printf("ê°€ë Œ Q\n");
 }
 
 void Garen::Spell2()

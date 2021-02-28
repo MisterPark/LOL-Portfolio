@@ -28,6 +28,7 @@ texture g_shadeMap;
 texture g_albedoMap;
 texture g_shadowMap;
 texture g_shadowOptionMap;
+texture g_rimLightMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -62,11 +63,9 @@ sampler ShadowMapSampler = sampler_state
 	minfilter = linear;
 	magfilter = linear;
 };
-sampler ShadowMapOptionSampler = sampler_state
+sampler RimLightMapSampler = sampler_state
 {
-	texture = g_shadowOptionMap;
-	minfilter = linear;
-	magfilter = linear;
+	texture = g_rimLightMap;
 };
 VS_OUT vs_main(VS_IN input)
 {
@@ -76,6 +75,30 @@ VS_OUT vs_main(VS_IN input)
 	output.vClipPosition = output.vPosition;
 	output.vUV = input.vUV;
 	return output;
+}
+matrix g_mView;
+float2 TexelKernel[4];
+float3 DecodeNormal(float2 enc)
+{
+	float2 fenc = enc * 4 - 2;
+	float f = dot(fenc, fenc);
+	float g = sqrt(1 - f / 4.f);
+	float3 n;
+	n.xy = fenc * g;
+	n.z = 1 - f / 2.f;
+	return n;
+}
+float3 GetNormal(float2 tex)
+{
+	return DecodeNormal(tex2D(NormalMapSampler, tex).rg);
+}
+float EdgeDetect(float2 tex)
+{
+	float3 orig = GetNormal(tex);
+	float sum = 0;
+	for (int i = 0; i < 4; i++)
+		sum += saturate(1 - dot(orig, GetNormal( tex + TexelKernel[i])));
+	return smoothstep(0.5f, 1.1f, sum);
 }
 float4 ps_combine(PS_IN input) :COLOR0
 {
@@ -87,30 +110,15 @@ float4 ps_combine(PS_IN input) :COLOR0
 	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
 	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
 	float4 vColor = vSpecular + vAlbedo * vShade;
-	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
-
-	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
-	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
-	//vColor = fogFactor * vColor + (1.f - fogFactor);
-	vColor.a = vAlbedo.a;
-	return vColor;
-}
-float4 ps_tone_combine(PS_IN input) :COLOR0
-{
-	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
-	if (vAlbedo.a < 0.1f)
-	{
-		discard;
-	}
-	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
-	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
-	float4 vColor = vSpecular + vAlbedo * vShade;
-	//vColor.r += 0.5f;
-	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
-
-	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
-	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
-	//vColor = fogFactor * vColor + (1.f - fogFactor);
+	//아웃라인 구현을 위한 추가 코드
+	float4 vNormalMapFactor = tex2D(NormalMapSampler, input.vUV);
+	float3 vNormal = DecodeNormal(vNormalMapFactor.rg);
+	//vNormal = mul(float4(vNormal, 0.f), g_mView).xyz;
+	//vNormal *= -1.f;
+	//
+	float4 vRimLightColor = tex2D(RimLightMapSampler, input.vUV);
+	float rimLightAlpha = EdgeDetect(input.vUV) * vRimLightColor.a;
+	vColor.rgb = vColor.rgb * (1 - rimLightAlpha) + vRimLightColor * rimLightAlpha;
 	vColor.a = vAlbedo.a;
 	return vColor;
 }
@@ -163,20 +171,15 @@ PS_OUT ps_directional_light(PS_IN input)
 	shadowMapUV.x = vLightSpacePosition.x * 0.5f + 0.5f;
 	shadowMapUV.y = -vLightSpacePosition.y * 0.5f + 0.5f;
 
-	float2 shadowDepthColor = tex2D(ShadowMapSampler, saturate(shadowMapUV) );
-	int shadowOption = tex2D(ShadowMapOptionSampler, saturate(shadowMapUV));
+	float2 shadowDepthColor = tex2D(ShadowMapSampler, shadowMapUV);
 	//shadowMapUV = abs(shadowMapUV);
 	
 	float shadowDepth = shadowDepthColor.r/(shadowDepthColor.g * 2000.f) ;
-	float4 vDiffuse = g_vLightAmbient;
+	float4 vDiffuse = (float4)1.f;
 	
 	float currentDepth = (vLightSpacePosition.z / vLightSpacePosition.w);
-	if (shadowMapUV.x < 0.f || shadowMapUV.x > 1.f || shadowMapUV.y < 0.f || shadowMapUV.y > 1.f)
-	{
-		vDiffuse = float4(1.f, 1.f, 1.f, 1.f);
-	}
 	//현재 깊이가 그림자 맵의 뎁스보다 작아야, 조명을 계산한다
-	else if (currentDepth - 0.0000125f < shadowDepth)
+	if (currentDepth - 0.0000125f < shadowDepth)
 	{
 		
 		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
@@ -189,7 +192,11 @@ PS_OUT ps_directional_light(PS_IN input)
 			output.vSpecular.a = 1.f;
 		}
 	}
-	output.vShadow = float4(shadowOption.xx, 0.f, 0.f);
+	else
+	{
+		vDiffuse = g_vLightAmbient;
+	}
+	output.vShadow = float4(0.f,0.f, 0.f, 0.f);
 	output.vColor = vDiffuse;
 	return output;
 }
