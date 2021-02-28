@@ -104,6 +104,7 @@ ItemshopPanel::ItemshopPanel()
     // 임시
     slot[0]->SetIcon(L"1001_class_t1_bootsofspeed");
 
+    Hide();
 }
 
 ItemshopPanel::~ItemshopPanel()
