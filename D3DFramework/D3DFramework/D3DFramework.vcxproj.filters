@@ -274,6 +274,9 @@
     <Filter Include="Component\BehaviorTree\Node">
       <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\DamageObject">
+      <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -795,6 +798,9 @@
     </ClInclude>
     <ClInclude Include="BehaviorTree.h">
       <Filter>Component\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject.h">
+      <Filter>GameObject\DamageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1380,6 +1386,9 @@
     </ClCompile>
     <ClCompile Include="BehaviorTree.cpp">
       <Filter>Component\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject.cpp">
+      <Filter>GameObject\DamageObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

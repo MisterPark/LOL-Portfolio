@@ -1,7 +1,9 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Garen.h"
 #include "Animation.h"
 #include "SkinnedMeshRenderer.h"
+#include "DamageObject.h"
+
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -14,17 +16,17 @@ Garen::Garen()
 
 	anim->AttachToDynamicMesh(dmesh);
 
-	// ¾ó±¼ ¾ÆÀÌÄÜ
+	// ì–¼êµ´ ì•„ì´ì½˜
 	faceCircleTexkey = L"garen_circle";
 	faceSquareTexkey = L"garen_square";
-	// ½ºÅ³ ¾ÆÀÌÄÜ
+	// ìŠ¤í‚¬ ì•„ì´ì½˜
 	qTexKey = L"garen_q";
 	wTexKey = L"garen_w";
 	eTexKey = L"garen_e1";
 	rTexKey = L"garen_r";
 	passiveTexKey = L"garen_passive";
 
-	// ½ºÅÈ
+	// ìŠ¤íƒ¯
 	SetHP(620.f);
 	SetMP(100.f);
 	SetHPRegen(8.f);
@@ -59,7 +61,7 @@ void Garen::Update()
 
 void Garen::Spell1()
 {
-	printf("°¡·» Q\n");
+	printf("ê°€ë Œ Q\n");
 }
 
 void Garen::Spell2()
@@ -68,6 +70,8 @@ void Garen::Spell2()
 
 void Garen::Spell3()
 {
+	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 5.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.2f);
 }
 
 void Garen::Spell4()

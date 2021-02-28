@@ -6,11 +6,6 @@
 
 class Indicator;
 
-enum class Team
-{
-	NEUTRAL, BLUE, RED, END
-};
-
 enum class UnitState
 {
 	IDLE1,

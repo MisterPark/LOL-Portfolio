@@ -3,6 +3,10 @@
 
 using namespace Engine;
 
+enum class Team
+{
+	NEUTRAL, BLUE, RED, END
+};
 
 namespace Engine
 {
