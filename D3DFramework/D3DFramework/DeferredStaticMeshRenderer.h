@@ -29,7 +29,6 @@ namespace Engine
 		RenderTarget* albedoRenderTarget;
 		RenderTarget* normalRenderTarget;
 		RenderTarget* sharpnessRenderTarget;
-		RenderTarget* depthRenderTarget;
 		ID3DXEffect* renderingShader;
 		ID3DXEffect* shadowMapShader;
 		Engine::Mesh* mesh;

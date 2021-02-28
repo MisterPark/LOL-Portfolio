@@ -15,7 +15,6 @@ namespace Engine
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
-		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 		shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 	}
@@ -113,16 +112,13 @@ namespace Engine
 		ComPtr<IDirect3DSurface9> albedoSurface;
 		ComPtr<IDirect3DSurface9> normalSurface;
 		ComPtr<IDirect3DSurface9> sharpnessSurface;
-		ComPtr<IDirect3DSurface9> depthSurface;
 		albedoRenderTarget->GetSurface(&albedoSurface);
 		normalRenderTarget->GetSurface(&normalSurface);
 		sharpnessRenderTarget->GetSurface(&sharpnessSurface);
-		depthRenderTarget->GetSurface(&depthSurface);
 
 		device->SetRenderTarget(0, albedoSurface.Get());
 		device->SetRenderTarget(1, normalSurface.Get());
 		device->SetRenderTarget(2, sharpnessSurface.Get());
-		device->SetRenderTarget(3, depthSurface.Get());
 		//device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 		UINT passCount = 0;
 		UINT passNum = 0;

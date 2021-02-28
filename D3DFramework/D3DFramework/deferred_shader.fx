@@ -140,9 +140,21 @@ PS_OUT ps_directional_light(PS_IN input)
 	vSpecular.w = 1.f;
 
 	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
-	
-	float depth = tex2D(DepthMapSampler, input.vUV).r;
-	float z = tex2D(DepthMapSampler, input.vUV).g;
+	float3 vNormal;
+	{
+		float scale = 1.7777;
+		float3 enc = float3(vNormalFactor.rg, 0.f);
+		float3 nn =
+			enc.xyz * float3(2 * scale, 2 * scale, 0) +
+			float3(-scale, -scale, 1);
+		float g = 2.0 / dot(nn.xyz, nn.xyz);
+		float3 n;
+		n.xy = g * nn.xy;
+		n.z = g - 1;
+		vNormal = n;
+	}
+	float depth = vNormalFactor.b;
+	float z = vNormalFactor.a;
 	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
 	float4 vLightSpacePosition = mul(vPosition, g_mLightSpace);
 	//투영좌표를 UV좌표로 변환시킨다.
@@ -161,12 +173,12 @@ PS_OUT ps_directional_light(PS_IN input)
 	float currentDepth = (vLightSpacePosition.z / vLightSpacePosition.w);
 	if (shadowMapUV.x < 0.f || shadowMapUV.x > 1.f || shadowMapUV.y < 0.f || shadowMapUV.y > 1.f)
 	{
-
+		vDiffuse = float4(1.f, 1.f, 1.f, 1.f);
 	}
 	//현재 깊이가 그림자 맵의 뎁스보다 작아야, 조명을 계산한다
-	else if (currentDepth < shadowDepth + 0.0000125f)
+	else if (currentDepth - 0.0000125f < shadowDepth)
 	{
-		float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
+		
 		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
 		float intensity = saturate(dot(vLightDir * -1, vNormal));
 		vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
@@ -178,34 +190,6 @@ PS_OUT ps_directional_light(PS_IN input)
 		}
 	}
 	output.vShadow = float4(shadowOption.xx, 0.f, 0.f);
-	output.vColor = vDiffuse;
-	return output;
-}
-PS_OUT ps_directional_light_noshadow(PS_IN input)
-{
-	PS_OUT output;
-	output.vSpecular = float4(0.f, 0.f, 0.f, 1.f);
-	output.vShadow = float4(1.f, 1.f, 1.f, 1.f);
-	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
-	float4 fPower = vSpecular.w;
-	vSpecular.w = 1.f;
-
-	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
-
-	float depth = tex2D(DepthMapSampler, input.vUV).r;
-	float z = tex2D(DepthMapSampler, input.vUV).g;
-	float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
-
-	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
-	float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
-	float intensity = saturate(dot(vLightDir * -1, vNormal));
-	float4 vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
-	vDiffuse.a = intensity;
-	if (intensity > 0.f)
-	{
-		output.vSpecular = CalcSpecular(vSpecular, vLightDir.xyz, vNormal.xyz, vPosition.xyz, fPower);
-		output.vSpecular.a = 1.f;
-	}
 	output.vColor = vDiffuse;
 	return output;
 }
@@ -229,15 +213,5 @@ technique Default_Device
 		BlendOp = Add;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light();
-	}
-	pass directioanl_no_shadow
-	{
-		ZEnable = false;
-		AlphaBlendEnable = true;
-		SrcBlend = One;
-		DestBlend = One;
-		BlendOp = Add;
-		VertexShader = compile vs_3_0 vs_main();
-		PixelShader = compile ps_3_0 ps_directional_light_noshadow();
 	}
 }

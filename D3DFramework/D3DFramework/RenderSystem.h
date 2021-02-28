@@ -43,7 +43,6 @@ namespace Engine
 	};
 	extern wchar_t const* const RENDER_TARGET_ALBEDO;
 	extern wchar_t const* const RENDER_TARGET_NORMAL;
-	extern wchar_t const* const RENDER_TARGET_DEPTH;
 	extern wchar_t const* const RENDER_TARGET_SHARPNESS;
 	extern wchar_t const* const LIGHT_SPECULAR;
 	extern wchar_t const* const LIGHT_DIFFUSE;
