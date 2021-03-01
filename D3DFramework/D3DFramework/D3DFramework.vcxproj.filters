@@ -274,6 +274,9 @@
     <Filter Include="Component\BehaviorTree\Node">
       <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\FogOfWar">
+      <UniqueIdentifier>{520ad5fd-c572-4a3e-8d3d-34b08ac1d5d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -795,6 +798,15 @@
     </ClInclude>
     <ClInclude Include="BehaviorTree.h">
       <Filter>Component\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderSystem.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarObstacleRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1381,6 +1393,15 @@
     <ClCompile Include="BehaviorTree.cpp">
       <Filter>Component\BehaviorTree</Filter>
     </ClCompile>
+    <ClCompile Include="FogOfWarRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarRenderSystem.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarObstacleRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
@@ -1413,5 +1434,10 @@
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="shadow_map_shader.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="fogOfWar_render.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "Garen.h"
 #include "Animation.h"
 #include "SkinnedMeshRenderer.h"
+#include "FogOfWarRenderer.h"
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -9,9 +10,12 @@ Garen::Garen()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
+	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 15.f);
+
 	renderer->SetMesh(dmesh);
 	renderer->EnableRimLight(Vector3{ 1.f, 0.f, 0.f });
 	AddComponent(L"renderer", renderer);
+	AddComponent(L"fogRenderer", fogOfWarRenderer);
 
 	anim->AttachToDynamicMesh(dmesh);
 

@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Wall.h"
 #include "MeshCollider.h"
-
+#include "FogOfWarObstacleRenderer.h"
 Wall::Wall()
 {
 	isVisible = false;
@@ -11,6 +11,10 @@ Wall::Wall()
 	StaticMesh* smesh = RenderManager::CloneStaticMesh(L"nav_wall");
 	AddComponent(L"NavMesh", smesh);
 	AddComponent<MeshCollider>(L"MeshCollider");
+
+	FogOfWarObstacleRenderer* renderer = new FogOfWarObstacleRenderer{ this };
+	renderer->SetMesh(smesh);
+	AddComponent(L"renderer", renderer);
 }
 
 Wall::~Wall()

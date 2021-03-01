@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
+#include "FogOfWarRenderSystem.h"
 #include<map>
 #include<list>
 #include<wrl.h>
@@ -11,12 +12,15 @@ namespace Engine
 	wchar_t const* const RENDER_TARGET_ALBEDO{ L"RT_ALBEDO" };
 	wchar_t const* const RENDER_TARGET_NORMAL{ L"RT_NORMAL" };
 	wchar_t const* const RENDER_TARGET_SHARPNESS{ L"RT_SHARPNESS" };
+	wchar_t const* const RENDER_TARGET_FOG_OF_WAR{ L"RT_FOG_OF_WAR" };
+	wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR{ L"RT_HEIGHT_FOG_OF_WAR" };
 	wchar_t const* const LIGHT_SPECULAR = L"light_specular";
 	wchar_t const* const LIGHT_DIFFUSE = L"light_diffuse";
 	const char ID_TEX_NORMAL_MAP[] = "g_normalMap";
 	const char ID_TEX_SPECULAR_MAP[] = "g_specularMap";
 	const char ID_CONST_INVERSE_VIEW_PROJ_MATRIX[]{ "g_mInverseViewProj" };
 	const char ID_TEX_RIM_LIGHT_COLOR[] = "g_rimLightMap";
+	const char ID_TEX_FOR_OF_WAR[] = "g_fogOfWarMap";
 	using namespace Microsoft::WRL;
 	std::list< Renderer*> rendererTable[(unsigned)RendererType::END];
 	struct ShadowMap;
@@ -45,6 +49,7 @@ namespace Engine
 	RenderTarget* sharpnessRenderTarget;
 	RenderTarget* shadowRenderTarget;
 	RenderTarget* rimLightColorRenderTarget;
+	RenderTarget* fogOfWarRenderTarget;
 
 	RenderTarget* lightSpecularRenderTarget;
 	RenderTarget* lightDiffuseRenderTarget;
@@ -54,6 +59,7 @@ namespace Engine
 
 	Matrix mViewProj;
 
+	ComPtr<ID3DXSprite> sprite_;
 
 	struct PPVertexFVF { D3DXVECTOR3 xyz; D3DXVECTOR2 uv; };
 	static constexpr DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
@@ -103,6 +109,7 @@ namespace Engine
 		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A32B32G32R32F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_FOG_OF_WAR, 128, 128, D3DFMT_R16F);
 
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
@@ -112,21 +119,26 @@ namespace Engine
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
 		rimLightColorRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
+		fogOfWarRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR);
 		lightSpecularRenderTarget = RenderManager::GetRenderTarget(LIGHT_SPECULAR);
 		lightDiffuseRenderTarget = RenderManager::GetRenderTarget(LIGHT_DIFFUSE);
 
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 		deferredShader = RenderManager::LoadEffect(L"./deferred_shader.fx");
 
+		D3DXCreateSprite(device, &sprite_);
+		FogOfWarRenderSystem::Initialize();
 	}
 	void RenderSystem::Destory()
 	{
+		FogOfWarRenderSystem::Destory();
 		indexBuffer.Reset();
 		vertexBuffer.Reset();
 		idleShadowMap.clear();
 		usingShadowMap.clear();
 		lights.clear();
 		lightNames.clear();
+		sprite_ = nullptr;
 	}
 	void RenderSystem::AddLight(const wchar_t* name, const D3DLIGHT9& init)
 	{
@@ -233,38 +245,47 @@ namespace Engine
 		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
 		device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0xFFFFFFFF, 1.f, 0);
 		mViewProj = Camera::main->GetViewMatrix() * Camera::main->GetProjectionMatrix();
+		FogOfWarRenderSystem::Begin();
+		
 		RednerEarlyForward();
+
+		FogOfWarRenderSystem::End();
+
+
 		SetupShadowMap();
 		RednerDeferred();
+		
+
+
 		RenderLigting();
 		RenderCombine();
+
 		RenderForward();
 		RenderUI();
+#pragma region DEBUG_SHOW_RENDERTARGET
 
-		if (usingShadowMap.empty() == false)
-		{
-			//const int width = MainGame::GetInstance()->width;
-			//const int height = MainGame::GetInstance()->height;
-			//auto it = *usingShadowMap.begin();
-			//ComPtr<IDirect3DTexture9> texture;
-			//it->renderTarget->GetTexture(&texture);
-			//D3DXMATRIX mMatrix;
-			//D3DXMATRIX mPos;
-			//D3DXMatrixScaling(&mMatrix,400.f/ 4096.f, 400.f / 4096.f, 1.f);
-			//sprite_->Begin(D3DXSPRITE_ALPHABLEND);
-			//sprite_->SetTransform(&mMatrix);
-			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		//const int width = MainGame::GetInstance()->width;
+		//const int height = MainGame::GetInstance()->height;
 
-			//texture.Reset();
-			//shadowRenderTarget->GetTexture(&texture);
-			//D3DXMatrixScaling(&mMatrix, 400.f / width, 400.f / height, 1.f);
-			//D3DXMatrixTranslation(&mPos, 400.f , 0.f , 0.f);
-			//mMatrix = mMatrix * mPos;
-			//sprite_->SetTransform(&mMatrix);
-			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		//ComPtr<IDirect3DTexture9> texture;
+		//RenderManager::GetRenderTarget(RENDER_TARGET_HEIGHT_FOG_OF_WAR)->GetTexture(&texture);
+		//D3DXMATRIX mMatrix;
+		//D3DXMATRIX mTranslation;
+		//D3DXMATRIX mPos;
+		//D3DXMatrixScaling(&mMatrix, 0.125f, 0.125f , 1.f);
+		//D3DXMatrixTranslation(&mTranslation, 512.f, 0.f, 0.f);
 
-			//sprite_->End();
-		}
+		//sprite_->Begin(D3DXSPRITE_ALPHABLEND);
+		//sprite_->SetTransform(&mMatrix);
+		//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		//mMatrix = mMatrix * mTranslation;
+		//sprite_->SetTransform(&mMatrix);
+		//texture.Reset();
+		//RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR)->GetTexture(&texture);
+		//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		//sprite_->End();
+
+#pragma endregion
 
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
@@ -290,6 +311,18 @@ namespace Engine
 	long RenderSystem::GetUniqueID()
 	{
 		return InterlockedIncrement(&lastUid);
+	}
+	void RenderSystem::SetupPostProcessing()
+	{
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		device->SetFVF(FVF);
+		device->SetIndices(indexBuffer.Get());
+		device->SetStreamSource(0, vertexBuffer.Get(), 0, sizeof(PPVertexFVF));
+	}
+	void RenderSystem::ExecutePostProcessing()
+	{
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 	}
 	void RenderSystem::SetupShadowMap()
 	{
@@ -356,6 +389,8 @@ namespace Engine
 		{
 			forwardRenderer->Render();
 		}
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		device->Clear(0, nullptr,  D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
 	}
 	void RenderSystem::RednerDeferred()
 	{
@@ -412,9 +447,7 @@ namespace Engine
 	void RenderSystem::RenderLigting()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
-		device->SetFVF(FVF);
-		device->SetIndices(indexBuffer.Get());
-		device->SetStreamSource(0, vertexBuffer.Get(), 0, sizeof(PPVertexFVF));
+		SetupPostProcessing();
 		UINT passCount = 0;
 
 		deferredShader->Begin(&passCount, 0);
@@ -427,6 +460,7 @@ namespace Engine
 		ComPtr<IDirect3DTexture9> sharpnessTexture{};
 		ComPtr<IDirect3DTexture9> lightDiffuseTexture{};
 		ComPtr<IDirect3DTexture9> lightSpecularTexture{};
+		ComPtr<IDirect3DTexture9> fogOfWarTexture{};
 		ComPtr<IDirect3DTexture9> rimLightColorTexture{};
 		ComPtr<IDirect3DSurface9> lightDiffuseSurface{};
 		ComPtr<IDirect3DSurface9> lightSpecularSurface{};
@@ -438,10 +472,10 @@ namespace Engine
 		sharpnessRenderTarget->GetTexture(&sharpnessTexture);
 		albedoRenderTarget->GetTexture(&albedoTexture);
 		rimLightColorRenderTarget->GetTexture(&rimLightColorTexture);
+		fogOfWarRenderTarget->GetTexture(&fogOfWarTexture);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->SetTexture(ID_TEX_SPECULAR_MAP, sharpnessTexture.Get());
 		deferredShader->SetTexture("g_albedoMap", albedoTexture.Get());
-
 		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
 		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
 		shadowRenderTarget->GetSurface(&shadowSurface);
@@ -484,7 +518,7 @@ namespace Engine
 			}
 			if (passNum == 0)continue;
 			deferredShader->BeginPass(passNum);
-			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+			ExecutePostProcessing();
 			deferredShader->EndPass();
 		}
 		D3DXVECTOR4 screenSize{ (float)MainGame::GetInstance()->width, (float)MainGame::GetInstance()->height,1.f, 1.f };
@@ -500,6 +534,9 @@ namespace Engine
 		};
 		
 		ComPtr<IDirect3DSurface9> backbuffer;
+		Matrix mFogOfWarSpace{};
+		D3DXMatrixScaling(&mFogOfWarSpace, 2 / 110.f, 1.f, 2 / 110.f);
+
 		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
 		device->SetRenderTarget(0, backbuffer.Get());
 		device->SetRenderTarget(1, nullptr);
@@ -508,15 +545,17 @@ namespace Engine
 		lightDiffuseRenderTarget->GetTexture(&lightDiffuseTexture);
 		lightSpecularRenderTarget->GetTexture(&lightSpecularTexture);
 		deferredShader->SetMatrix("g_mView", &mView);
+		deferredShader->SetMatrix("g_mForOfWarSpace", &mFogOfWarSpace);
 		deferredShader->SetTexture("g_shadeMap", lightDiffuseTexture.Get());
 		deferredShader->SetTexture("g_specularMap", lightSpecularTexture.Get());
 		deferredShader->SetTexture(ID_TEX_RIM_LIGHT_COLOR, rimLightColorTexture.Get());
+		deferredShader->SetTexture(ID_TEX_FOR_OF_WAR, fogOfWarTexture.Get());
 		
 		deferredShader->SetVectorArray("TexelKernel", texelKernel, 8);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->CommitChanges();
 		deferredShader->BeginPass(0);
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+		ExecutePostProcessing();
 		deferredShader->EndPass();
 		deferredShader->End();
 	}
