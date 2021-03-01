@@ -15,7 +15,7 @@ namespace Engine
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
-		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
+		rimLightRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 		shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
 	}
@@ -34,6 +34,18 @@ namespace Engine
 	bool DeferredStaticMeshRenderer::IsAlphaTest()
 	{
 		return alphaTest;
+	}
+
+	void DeferredStaticMeshRenderer::EnableRimLight(Vector3 const& color)
+	{
+		this->rimLightEnable = true;
+		this->rimLightColor = color;
+	}
+
+	void DeferredStaticMeshRenderer::DisableRimLight()
+	{
+		this->rimLightEnable = false;
+		this->rimLightColor = Vector3(0.f, 0.f, 0.f);
 	}
 
 	void DeferredStaticMeshRenderer::SetMesh(Engine::Mesh* mesh)
@@ -113,16 +125,15 @@ namespace Engine
 		ComPtr<IDirect3DSurface9> albedoSurface;
 		ComPtr<IDirect3DSurface9> normalSurface;
 		ComPtr<IDirect3DSurface9> sharpnessSurface;
-		ComPtr<IDirect3DSurface9> depthSurface;
+		ComPtr<IDirect3DSurface9> rimLightSurface;
 		albedoRenderTarget->GetSurface(&albedoSurface);
 		normalRenderTarget->GetSurface(&normalSurface);
 		sharpnessRenderTarget->GetSurface(&sharpnessSurface);
-		depthRenderTarget->GetSurface(&depthSurface);
-
+		rimLightRenderTarget->GetSurface(&rimLightSurface);
 		device->SetRenderTarget(0, albedoSurface.Get());
 		device->SetRenderTarget(1, normalSurface.Get());
 		device->SetRenderTarget(2, sharpnessSurface.Get());
-		device->SetRenderTarget(3, depthSurface.Get());
+		device->SetRenderTarget(3, rimLightSurface.Get());
 		//device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 		UINT passCount = 0;
 		UINT passNum = 0;
@@ -133,8 +144,13 @@ namespace Engine
 		renderingShader->SetMatrix("g_mViewSpace", &mViewSpace);
 		renderingShader->SetMatrix("g_mProjSpace", &mProjSpace);
 		renderingShader->SetMatrix("g_mViewProj", &mViewProj);
+		renderingShader->SetMatrix("g_mView", &mViewSpace);
 		renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
-
+		D3DXVECTOR4 rimLightColor{ this->rimLightColor };
+		constexpr float a = (8.f / UINT16_MAX);
+		rimLightColor.w = rimLightEnable?static_cast<uint16_t>(RenderSystem::GetUniqueID())/static_cast<float>(UINT16_MAX):0.f;
+		
+		renderingShader->SetVector("g_vRimLightColor", &rimLightColor);
 		if (alphaTest)
 		{
 			passNum = 1;

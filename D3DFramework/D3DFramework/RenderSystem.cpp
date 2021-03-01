@@ -6,17 +6,17 @@
 #include<wrl.h>
 namespace Engine
 {
+	wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR{ L"RT_RIN_LIGHT_COLOR" };
 	wchar_t const* const RENDER_TARGET_DEFERRED_RESULT{ L"RT_DEFERRED_RESULT" };
 	wchar_t const* const RENDER_TARGET_ALBEDO{ L"RT_ALBEDO" };
 	wchar_t const* const RENDER_TARGET_NORMAL{ L"RT_NORMAL" };
-	wchar_t const* const RENDER_TARGET_DEPTH{ L"RT_DEPTH" };
 	wchar_t const* const RENDER_TARGET_SHARPNESS{ L"RT_SHARPNESS" };
 	wchar_t const* const LIGHT_SPECULAR = L"light_specular";
 	wchar_t const* const LIGHT_DIFFUSE = L"light_diffuse";
 	const char ID_TEX_NORMAL_MAP[] = "g_normalMap";
 	const char ID_TEX_SPECULAR_MAP[] = "g_specularMap";
 	const char ID_CONST_INVERSE_VIEW_PROJ_MATRIX[]{ "g_mInverseViewProj" };
-	const char ID_TEX_DEPTH_MAP[]{ "g_depthMap" };
+	const char ID_TEX_RIM_LIGHT_COLOR[] = "g_rimLightMap";
 	using namespace Microsoft::WRL;
 	std::list< Renderer*> rendererTable[(unsigned)RendererType::END];
 	struct ShadowMap;
@@ -34,7 +34,7 @@ namespace Engine
 	};
 	std::set<std::shared_ptr< ShadowMap> > usingShadowMap;
 	std::set<std::shared_ptr< ShadowMap> > idleShadowMap;
-
+	long lastUid = 0;
 	std::vector<std::wstring> lightNames;
 	std::map <std::wstring, LightAdditionalInfo> lights;
 	ComPtr<IDirect3DVertexBuffer9> vertexBuffer;
@@ -43,8 +43,8 @@ namespace Engine
 	RenderTarget* albedoRenderTarget;
 	RenderTarget* normalRenderTarget;
 	RenderTarget* sharpnessRenderTarget;
-	RenderTarget* depthRenderTarget;
 	RenderTarget* shadowRenderTarget;
+	RenderTarget* rimLightColorRenderTarget;
 
 	RenderTarget* lightSpecularRenderTarget;
 	RenderTarget* lightDiffuseRenderTarget;
@@ -100,9 +100,10 @@ namespace Engine
 		const int width = MainGame::GetInstance()->width;
 		const int height = MainGame::GetInstance()->height;
 		RenderManager::CreateRenderTarget(RENDER_TARGET_ALBEDO, width, height, D3DFMT_A8R8G8B8);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A16B16G16R16F);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A32B32G32R32F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_DEPTH, width, height, D3DFMT_G32R32F);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
+
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_A16B16G16R16F);
@@ -110,7 +111,7 @@ namespace Engine
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
-		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
+		rimLightColorRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
 		lightSpecularRenderTarget = RenderManager::GetRenderTarget(LIGHT_SPECULAR);
 		lightDiffuseRenderTarget = RenderManager::GetRenderTarget(LIGHT_DIFFUSE);
 
@@ -226,6 +227,7 @@ namespace Engine
 	}
 	void RenderSystem::Render()
 	{
+		lastUid = 0;
 		IDirect3DDevice9* device = RenderManager::GetDevice();
 		device->BeginScene();
 		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
@@ -285,6 +287,10 @@ namespace Engine
 		*proj = findIt->second.projectionMatrix;
 		return true;
 	}
+	long RenderSystem::GetUniqueID()
+	{
+		return InterlockedIncrement(&lastUid);
+	}
 	void RenderSystem::SetupShadowMap()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
@@ -337,7 +343,7 @@ namespace Engine
 			D3DXMatrixLookAtLH(&mView, &lightPosition, &focusAt, &(Vector3&)mCameraTransform.m[1]);
 			//mView = Camera::main->GetViewMatrix();
 			//D3DXMatrixPerspectiveFovLH(&mProjection, D3DX_PI * 0.75f, 1.f, 0.1f, 2000.f);
-			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 900.f, 1000.f * vCameraPosition.y / 900.f, 0.1f, 2000.f);
+			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 1000.f, 1000.f * vCameraPosition.y / 1000.f, 0.1f, 2000.f);
 			pair.second.projectionMatrix = mView * mProjection;
 		}
 	}
@@ -358,16 +364,15 @@ namespace Engine
 		ComPtr<IDirect3DSurface9> albedoSurface;
 		ComPtr<IDirect3DSurface9> normalSurface;
 		ComPtr<IDirect3DSurface9> sharpnessSurface;
-		ComPtr<IDirect3DSurface9> depthSurface;
+		ComPtr<IDirect3DSurface9> rimLightSurface;
 		albedoRenderTarget->GetSurface(&albedoSurface);
 		normalRenderTarget->GetSurface(&normalSurface);
 		sharpnessRenderTarget->GetSurface(&sharpnessSurface);
-		depthRenderTarget->GetSurface(&depthSurface);
-
+		rimLightColorRenderTarget->GetSurface(&rimLightSurface);
 		device->SetRenderTarget(0, albedoSurface.Get());
 		device->SetRenderTarget(1, normalSurface.Get());
 		device->SetRenderTarget(2, sharpnessSurface.Get());
-		device->SetRenderTarget(3, depthSurface.Get());
+		device->SetRenderTarget(3, rimLightSurface.Get());
 		device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 		auto& deferredRenderers = rendererTable[(unsigned)RendererType::Deferred];
 		for (Renderer* renderer : deferredRenderers)
@@ -416,14 +421,13 @@ namespace Engine
 
 		D3DXVECTOR4 vCameraPosition{ Camera::main->GetPosition(), 1.f };
 		Matrix	mInverseViewProj;
-
+		Matrix  mView = Camera::main->GetViewMatrix();
 		ComPtr<IDirect3DTexture9> albedoTexture{};
 		ComPtr<IDirect3DTexture9> normalTexture{};
 		ComPtr<IDirect3DTexture9> sharpnessTexture{};
-		ComPtr<IDirect3DTexture9> depthTexture{};
 		ComPtr<IDirect3DTexture9> lightDiffuseTexture{};
 		ComPtr<IDirect3DTexture9> lightSpecularTexture{};
-
+		ComPtr<IDirect3DTexture9> rimLightColorTexture{};
 		ComPtr<IDirect3DSurface9> lightDiffuseSurface{};
 		ComPtr<IDirect3DSurface9> lightSpecularSurface{};
 		ComPtr<IDirect3DSurface9> shadowSurface{};
@@ -432,12 +436,10 @@ namespace Engine
 
 		normalRenderTarget->GetTexture(&normalTexture);
 		sharpnessRenderTarget->GetTexture(&sharpnessTexture);
-		depthRenderTarget->GetTexture(&depthTexture);
 		albedoRenderTarget->GetTexture(&albedoTexture);
-
+		rimLightColorRenderTarget->GetTexture(&rimLightColorTexture);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->SetTexture(ID_TEX_SPECULAR_MAP, sharpnessTexture.Get());
-		deferredShader->SetTexture(ID_TEX_DEPTH_MAP, depthTexture.Get());
 		deferredShader->SetTexture("g_albedoMap", albedoTexture.Get());
 
 		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
@@ -470,7 +472,9 @@ namespace Engine
 						deferredShader->SetTexture("g_shadowMap", texture.Get());
 						deferredShader->SetMatrix("g_mLightSpace", &pair.second.projectionMatrix);
 					}
-					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 1.f);
+					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 0.f);
+					D3DXVec4Transform(&vLightDir, &vLightDir, &mView);
+					vLightDir.w = 1.f;
 					deferredShader->SetVector("g_vLightDirectionAndPower", &vLightDir);
 					deferredShader->SetVector("g_vLightAmbient", reinterpret_cast<D3DXVECTOR4 const*>(&light.Ambient));
 					deferredShader->SetVector("g_vLightDiffuse", reinterpret_cast<D3DXVECTOR4 const*>(&light.Diffuse));
@@ -483,9 +487,19 @@ namespace Engine
 			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 			deferredShader->EndPass();
 		}
-
+		D3DXVECTOR4 screenSize{ (float)MainGame::GetInstance()->width, (float)MainGame::GetInstance()->height,1.f, 1.f };
+		D3DXVECTOR4 texelKernel[]{
+			{0	,	+2.f / screenSize.y,0,0},
+			{0	,	-2.f / screenSize.y,0,0},
+			{+2.f / screenSize.x	,	0,0,0},
+			{-2.f / screenSize.x	,	0,0,0},
+			{0	,	+1.f/screenSize.y,0,0},
+			{0	,	-1.f/screenSize.y,0,0},
+			{+1.f/ screenSize.x	,	0,0,0},
+			{-1.f/ screenSize.x	,	0,0,0}
+		};
+		
 		ComPtr<IDirect3DSurface9> backbuffer;
-
 		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
 		device->SetRenderTarget(0, backbuffer.Get());
 		device->SetRenderTarget(1, nullptr);
@@ -493,11 +507,14 @@ namespace Engine
 		device->SetRenderTarget(3, nullptr);
 		lightDiffuseRenderTarget->GetTexture(&lightDiffuseTexture);
 		lightSpecularRenderTarget->GetTexture(&lightSpecularTexture);
-
+		deferredShader->SetMatrix("g_mView", &mView);
 		deferredShader->SetTexture("g_shadeMap", lightDiffuseTexture.Get());
 		deferredShader->SetTexture("g_specularMap", lightSpecularTexture.Get());
-		deferredShader->SetTexture("g_depthMap", depthTexture.Get());
-
+		deferredShader->SetTexture(ID_TEX_RIM_LIGHT_COLOR, rimLightColorTexture.Get());
+		
+		deferredShader->SetVectorArray("TexelKernel", texelKernel, 8);
+		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
+		deferredShader->CommitChanges();
 		deferredShader->BeginPass(0);
 		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 		deferredShader->EndPass();

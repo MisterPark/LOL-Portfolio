@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Turret.h"
 #include "SphereCollider.h"
 #include "TurretFloatingBar.h"
@@ -25,7 +25,7 @@ Turret::Turret()
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
 	renderer->SetMesh(mesh);
-
+	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
 }
 
 Turret::~Turret()
@@ -49,7 +49,7 @@ void Turret::Update()
 		GameObject::Update();
 		return;
 	}
-	// Å¸°ÙÆÃ
+	// íƒ€ê²ŸíŒ…
 	if (attackTarget == nullptr)
 	{
 		attackTarget = GetNearestEnemy(transform->position, attackRange);

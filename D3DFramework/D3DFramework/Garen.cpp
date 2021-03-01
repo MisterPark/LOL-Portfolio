@@ -12,6 +12,7 @@ Garen::Garen()
 	AddComponent(L"DynamicMesh", dmesh);
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
+	renderer->EnableRimLight(Vector3{ 1.f, 0.f, 0.f });
 	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
