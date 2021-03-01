@@ -34,7 +34,7 @@ namespace Engine
 	};
 	std::set<std::shared_ptr< ShadowMap> > usingShadowMap;
 	std::set<std::shared_ptr< ShadowMap> > idleShadowMap;
-
+	long lastUid = 0;
 	std::vector<std::wstring> lightNames;
 	std::map <std::wstring, LightAdditionalInfo> lights;
 	ComPtr<IDirect3DVertexBuffer9> vertexBuffer;
@@ -102,7 +102,7 @@ namespace Engine
 		RenderManager::CreateRenderTarget(RENDER_TARGET_ALBEDO, width, height, D3DFMT_A8R8G8B8);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A32B32G32R32F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A8R8G8B8);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
 
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
@@ -227,6 +227,7 @@ namespace Engine
 	}
 	void RenderSystem::Render()
 	{
+		lastUid = 0;
 		IDirect3DDevice9* device = RenderManager::GetDevice();
 		device->BeginScene();
 		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
@@ -286,6 +287,10 @@ namespace Engine
 		*proj = findIt->second.projectionMatrix;
 		return true;
 	}
+	long RenderSystem::GetUniqueID()
+	{
+		return InterlockedIncrement(&lastUid);
+	}
 	void RenderSystem::SetupShadowMap()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
@@ -338,7 +343,7 @@ namespace Engine
 			D3DXMatrixLookAtLH(&mView, &lightPosition, &focusAt, &(Vector3&)mCameraTransform.m[1]);
 			//mView = Camera::main->GetViewMatrix();
 			//D3DXMatrixPerspectiveFovLH(&mProjection, D3DX_PI * 0.75f, 1.f, 0.1f, 2000.f);
-			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 1500.f, 1000.f * vCameraPosition.y / 1500.f, 0.1f, 2000.f);
+			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 1000.f, 1000.f * vCameraPosition.y / 1000.f, 0.1f, 2000.f);
 			pair.second.projectionMatrix = mView * mProjection;
 		}
 	}
@@ -483,11 +488,15 @@ namespace Engine
 			deferredShader->EndPass();
 		}
 		D3DXVECTOR4 screenSize{ (float)MainGame::GetInstance()->width, (float)MainGame::GetInstance()->height,1.f, 1.f };
-		D3DXVECTOR4 texelKernel[4]{
-			{+1.f/ screenSize.x	,	+1.f/screenSize.y,0,0},
-			{+1.f/ screenSize.x	,	-1.f/screenSize.y,0,0},
-			{-1.f/ screenSize.x	,	+1.f/screenSize.y,0,0},
-			{-1.f/ screenSize.x	,	-1.f/screenSize.y,0,0}
+		D3DXVECTOR4 texelKernel[]{
+			{0	,	+2.f / screenSize.y,0,0},
+			{0	,	-2.f / screenSize.y,0,0},
+			{+2.f / screenSize.x	,	0,0,0},
+			{-2.f / screenSize.x	,	0,0,0},
+			{0	,	+1.f/screenSize.y,0,0},
+			{0	,	-1.f/screenSize.y,0,0},
+			{+1.f/ screenSize.x	,	0,0,0},
+			{-1.f/ screenSize.x	,	0,0,0}
 		};
 		
 		ComPtr<IDirect3DSurface9> backbuffer;
@@ -503,7 +512,7 @@ namespace Engine
 		deferredShader->SetTexture("g_specularMap", lightSpecularTexture.Get());
 		deferredShader->SetTexture(ID_TEX_RIM_LIGHT_COLOR, rimLightColorTexture.Get());
 		
-		deferredShader->SetVectorArray("TexelKernel", texelKernel, 4);
+		deferredShader->SetVectorArray("TexelKernel", texelKernel, 8);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->CommitChanges();
 		deferredShader->BeginPass(0);

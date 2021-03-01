@@ -27,8 +27,8 @@ namespace Engine
 		static void			EnableShadow(const wchar_t* lightName);
 		static void			DisableShadow(const wchar_t* lightName);
 		static void			Render();
-		static bool GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, IDirect3DSurface9** depthBuffer, Matrix* proj);
-		
+		static bool			GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, IDirect3DSurface9** depthBuffer, Matrix* proj);
+		static long			GetUniqueID();
 	private:
 		static void SetupShadowMap();
 		static void RednerEarlyForward();

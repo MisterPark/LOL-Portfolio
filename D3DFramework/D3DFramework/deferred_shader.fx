@@ -77,7 +77,7 @@ VS_OUT vs_main(VS_IN input)
 	return output;
 }
 matrix g_mView;
-float2 TexelKernel[4];
+float2 TexelKernel[8];
 float3 DecodeNormal(float2 enc)
 {
 	float2 fenc = enc * 4 - 2;
@@ -96,9 +96,19 @@ float EdgeDetect(float2 tex)
 {
 	float3 orig = GetNormal(tex);
 	float sum = 0;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 		sum += saturate(1 - dot(orig, GetNormal( tex + TexelKernel[i])));
-	return smoothstep(0.5f, 1.1f, sum);
+	return smoothstep(0.5f, 1.5f, sum);
+}
+float RimLight(float2 tex)
+{
+	//림라이트의 4번째 요소는 오브젝트의 ID를 박았다.
+	//이것의 차로 엣지를 디텍트하자.
+	float orig = tex2D(RimLightMapSampler, tex).a;
+	float sum = 0;
+	for (int i = 0; i < 8; i++)
+		sum += abs(orig - tex2D(RimLightMapSampler, tex + TexelKernel[i]).a);
+	return smoothstep(0.f, 0.0001220721751f/4.f, sum);
 }
 float4 ps_combine(PS_IN input) :COLOR0
 {
@@ -116,8 +126,8 @@ float4 ps_combine(PS_IN input) :COLOR0
 	//vNormal = mul(float4(vNormal, 0.f), g_mView).xyz;
 	//vNormal *= -1.f;
 	//
-	float4 vRimLightColor = tex2D(RimLightMapSampler, input.vUV);
-	float rimLightAlpha = EdgeDetect(input.vUV) * vRimLightColor.a;
+	float3 vRimLightColor = tex2D(RimLightMapSampler, input.vUV).rgb;
+	float rimLightAlpha = RimLight(input.vUV);
 	vColor.rgb = vColor.rgb * (1 - rimLightAlpha) + vRimLightColor * rimLightAlpha;
 	vColor.a = vAlbedo.a;
 	return vColor;

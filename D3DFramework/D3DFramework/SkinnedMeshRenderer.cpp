@@ -166,7 +166,8 @@ void Engine::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* conta
 	renderingShader->SetMatrix("g_mView", &mViewSpace);
 	renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 	D3DXVECTOR4 rimLightColor{ this->rimLightColor };
-	rimLightColor.w = 1.f;
+	rimLightColor.w = rimLightEnable ? static_cast<uint16_t>(RenderSystem::GetUniqueID()) / static_cast<float>(UINT16_MAX) : 0.f;
+
 	renderingShader->SetVector("g_vRimLightColor", &rimLightColor);
 	renderingShader->Begin(&passCount, 0);
 	renderingShader->BeginPass(passNum);

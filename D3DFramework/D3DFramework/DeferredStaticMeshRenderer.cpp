@@ -147,7 +147,9 @@ namespace Engine
 		renderingShader->SetMatrix("g_mView", &mViewSpace);
 		renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
 		D3DXVECTOR4 rimLightColor{ this->rimLightColor };
-		rimLightColor.w = rimLightEnable?1.f:0.f;
+		constexpr float a = (8.f / UINT16_MAX);
+		rimLightColor.w = rimLightEnable?static_cast<uint16_t>(RenderSystem::GetUniqueID())/static_cast<float>(UINT16_MAX):0.f;
+		
 		renderingShader->SetVector("g_vRimLightColor", &rimLightColor);
 		if (alphaTest)
 		{
