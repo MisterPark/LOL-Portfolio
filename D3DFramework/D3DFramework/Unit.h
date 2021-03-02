@@ -81,9 +81,13 @@ public:
 	void SetHPRegen(float _per5Sec);
 	void SetMPRegen(float _per5Sec);
 	void SetAttackDamage(float _damage);
+	void SetADPenetrate(float _penetrate);
+	void SetADPenetratePercent(float _penetratePercent);
 	void SetAttackPerSec(float _attackPerSec);
 	void SetAttackRange(float _range);
 	void SetAbilityPower(float _ap);
+	void SetAPPenetrate(float _penetrate);
+	void SetAPPenetratePercent(float _penetratePercent);
 	void SetMovementSpeed(float _speed);
 	void SetArmor(float _armor);
 	void SetMagicResistance(float _magicResist);
@@ -105,9 +109,13 @@ public:
 	float GetMaxHP();
 	float GetMaxMP();
 	float GetAttackDamage();
+	float GetADPenetrate();
+	float GetADPenetratePercent();
 	float GetAttackPerSec();
 	float GetAttackRange();
 	float GetAbilityPower();
+	float GetAPPenetrate();
+	float GetAPPenetratePercent();
 	float GetMovementSpeed();
 	float GetArmor();
 	float GetMagicResistance();
@@ -151,6 +159,7 @@ protected:
 	float lastAttackDuration = 5.f;
 
 	bool isDamaged = false;
+
 	// 추격 관련
 	float chaseTick = 0.f;
 	float chaseDelay = 0.3f;

@@ -15,6 +15,7 @@ Razorbeak::Razorbeak()
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)UnitState::IDLE1, true);
+	SetArmor(300.f);
 }
 
 Razorbeak::~Razorbeak()
