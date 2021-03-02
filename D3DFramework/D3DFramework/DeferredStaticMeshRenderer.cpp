@@ -168,7 +168,6 @@ namespace Engine
 		}
 		renderingShader->EndPass();
 		renderingShader->End();
-
 	}
 
 }

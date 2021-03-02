@@ -27,8 +27,8 @@ texture g_depthMap;
 texture g_shadeMap;
 texture g_albedoMap;
 texture g_shadowMap;
-texture g_shadowOptionMap;
 texture g_rimLightMap;
+texture g_fogOfWarMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -63,6 +63,12 @@ sampler ShadowMapSampler = sampler_state
 	minfilter = linear;
 	magfilter = linear;
 };
+sampler FogOfWarSampler = sampler_state
+{
+	texture = g_fogOfWarMap;
+	minfilter = linear;
+	magfilter = linear;
+};
 sampler RimLightMapSampler = sampler_state
 {
 	texture = g_rimLightMap;
@@ -78,6 +84,14 @@ VS_OUT vs_main(VS_IN input)
 }
 matrix g_mView;
 float2 TexelKernel[8];
+matrix g_mForOfWarSpace;
+matrix g_mLightSpace;
+matrix g_mInverseViewProj;
+float4 g_vLightDirectionAndPower;
+float4 g_vLightDiffuse;
+float4 g_vLightAmbient;
+float4 g_vCameraPosition;
+
 float3 DecodeNormal(float2 enc)
 {
 	float2 fenc = enc * 4 - 2;
@@ -110,6 +124,25 @@ float RimLight(float2 tex)
 		sum += abs(orig - tex2D(RimLightMapSampler, tex + TexelKernel[i]).a);
 	return smoothstep(0.f, 0.0001220721751f/4.f, sum);
 }
+float FogOfWar(float2 tex, float2 vProjPosition)
+{
+	float4 vNormalFactor = tex2D(NormalMapSampler, tex);
+	float depth = vNormalFactor.b;
+	float z = vNormalFactor.a;
+	float4 vPosition = mul(float4(vProjPosition, depth, 1.f) * z, g_mInverseViewProj);
+	vPosition = mul(vPosition, g_mForOfWarSpace);
+	float2 absPos = abs(vPosition).xy;
+	if (absPos.x > 1.f || absPos.y > 1.f)
+	{
+		return 1.f;
+	}
+	float2 fogTextureTex = float2(vPosition.x, vPosition.y);
+	fogTextureTex *= 0.5f;
+	fogTextureTex += 0.5f;
+	fogTextureTex.y *= -1.f;
+	float r1 = tex2D(FogOfWarSampler, fogTextureTex).r;
+	return  (r1 ) * 0.5f + 0.5f;
+}
 float4 ps_combine(PS_IN input) :COLOR0
 {
 	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
@@ -130,14 +163,10 @@ float4 ps_combine(PS_IN input) :COLOR0
 	float rimLightAlpha = RimLight(input.vUV);
 	vColor.rgb = vColor.rgb * (1 - rimLightAlpha) + vRimLightColor * rimLightAlpha;
 	vColor.a = vAlbedo.a;
+	//fog of war
+	vColor.rgb *= FogOfWar(input.vUV, input.vClipPosition);
 	return vColor;
 }
-matrix g_mLightSpace;
-matrix g_mInverseViewProj;
-float4 g_vLightDirectionAndPower;
-float4 g_vLightDiffuse;
-float4 g_vLightAmbient;
-float4 g_vCameraPosition;
 
 float4 CalcSpecular(float4 vMatSpecular, float3 vLightDir, float3 vNormal, float3 vPosition, float fPower)
 {

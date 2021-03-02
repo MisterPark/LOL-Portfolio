@@ -274,6 +274,12 @@
     <Filter Include="Component\BehaviorTree\Node">
       <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\FogOfWar">
+      <UniqueIdentifier>{520ad5fd-c572-4a3e-8d3d-34b08ac1d5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\UIRenderer\MiniMapRenderer">
+      <UniqueIdentifier>{3ffb2e73-5f74-4a47-8a1f-c40b44b5ca32}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\DamageObject">
       <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
     </Filter>
@@ -801,6 +807,15 @@
     </ClInclude>
     <ClInclude Include="DamageObject.h">
       <Filter>GameObject\DamageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderSystem.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarObstacleRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1390,6 +1405,15 @@
     <ClCompile Include="DamageObject.cpp">
       <Filter>GameObject\DamageObject</Filter>
     </ClCompile>
+    <ClCompile Include="FogOfWarRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarRenderSystem.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarObstacleRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
@@ -1422,5 +1446,13 @@
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="shadow_map_shader.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="fogOfWar_render.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="blur.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
