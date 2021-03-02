@@ -50,7 +50,7 @@ VS_OUT vs_height_main(VS_IN input)
 float4 ps_height(PS_IN input) :COLOR
 {
 
-	return float4(step(0.1f, (input.vUV.xxx - 60.f)/20.f), 1.f);
+	return float4(step(0.1f, input.vUV.xxx), 1.f);
 }
 
 
@@ -69,7 +69,6 @@ float4 ps_fogOfWar(PS_IN input) :COLOR
 	float4 vSightPosition = g_vSightPosition;
 	float4 vPixelPosition = input.vClipPosition;
 	
-	vSightPosition.yz = vSightPosition.zy;
 	vSightPosition.wz = float2(0.f, 0.f);
 	vPixelPosition.wz = float2(0.f, 0.f);
 	half len = g_sightRadius - length(vPixelPosition - vSightPosition);
@@ -78,6 +77,7 @@ float4 ps_fogOfWar(PS_IN input) :COLOR
 	{
 		discard;
 	}
+
 	float2 d = (vPixelPosition - vSightPosition).xy;
 	float height;
 	half2 xy = vSightPosition.xy;
@@ -89,9 +89,9 @@ float4 ps_fogOfWar(PS_IN input) :COLOR
 	half3 prevPosition = half3(xy.x, height, xy.y);
 	float prevHeight = height;
 	half sight = 1.f;
-	for (int i = 0; i < 75; ++i)
+	for (int i = 0; i < 100; ++i)
 	{
-		xy += d * 1 / 75.f;
+		xy += d * 1 / 100.f;
 		tex = xy * 0.5f + 0.5f;
 		tex.y *= -1.f;
 		float nowHeight = tex2D(HeightMapSampler, tex).r;
@@ -112,6 +112,7 @@ technique Default_Device
 {
 	pass height
 	{
+		CullMode = None;
 		VertexShader = compile vs_3_0 vs_height_main();
 		PixelShader = compile ps_3_0 ps_height();
 	}

@@ -28,8 +28,7 @@ texture g_shadeMap;
 texture g_albedoMap;
 texture g_shadowMap;
 texture g_rimLightMap;
-texture g_fogOfWarMap1;
-texture g_fogOfWarMap2;
+texture g_fogOfWarMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -64,15 +63,9 @@ sampler ShadowMapSampler = sampler_state
 	minfilter = linear;
 	magfilter = linear;
 };
-sampler FogOfWarSampler1 = sampler_state
+sampler FogOfWarSampler = sampler_state
 {
-	texture = g_fogOfWarMap1;
-	minfilter = linear;
-	magfilter = linear;
-};
-sampler FogOfWarSampler2 = sampler_state
-{
-	texture = g_fogOfWarMap2;
+	texture = g_fogOfWarMap;
 	minfilter = linear;
 	magfilter = linear;
 };
@@ -138,13 +131,17 @@ float FogOfWar(float2 tex, float2 vProjPosition)
 	float z = vNormalFactor.a;
 	float4 vPosition = mul(float4(vProjPosition, depth, 1.f) * z, g_mInverseViewProj);
 	vPosition = mul(vPosition, g_mForOfWarSpace);
-	float2 fogTextureTex = float2(vPosition.x, vPosition.z);
+	float2 absPos = abs(vPosition).xy;
+	if (absPos.x > 1.f || absPos.y > 1.f)
+	{
+		return 1.f;
+	}
+	float2 fogTextureTex = float2(vPosition.x, vPosition.y);
 	fogTextureTex *= 0.5f;
 	fogTextureTex += 0.5f;
 	fogTextureTex.y *= -1.f;
-	float r1 = tex2D(FogOfWarSampler1, fogTextureTex).r;
-	float r2 = tex2D(FogOfWarSampler2, fogTextureTex).r;
-	return  (r1 + r2) * 0.25f + 0.5f;
+	float r1 = tex2D(FogOfWarSampler, fogTextureTex).r;
+	return  (r1 ) * 0.5f + 0.5f;
 }
 float4 ps_combine(PS_IN input) :COLOR0
 {

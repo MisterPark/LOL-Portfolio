@@ -21,10 +21,10 @@ void Engine::FogOfWarObstacleRenderer::Render()
     heightFogOfWarRenderTarget->GetSurface(&heightSurface);
     FogOfWarRenderSystem::GetDepthBuffer(&depth);
 
-   // device->GetDepthStencilSurface(&oldDepthSurface);
+    device->GetDepthStencilSurface(&oldDepthSurface);
     device->GetRenderTarget(0, &oldSurface);
     device->SetRenderTarget(0, heightSurface.Get());
-    //device->SetDepthStencilSurface(depth.Get());
+    device->SetDepthStencilSurface(depth.Get());
     UINT passCount{};
     Matrix mWorld{ transform->GetWorldMatrix() };
 
@@ -39,7 +39,7 @@ void Engine::FogOfWarObstacleRenderer::Render()
     fogOfWarShader->EndPass();
     fogOfWarShader->End();
     device->SetRenderTarget(0, oldSurface.Get());
-    //device->SetDepthStencilSurface(oldDepthSurface.Get());
+    device->SetDepthStencilSurface(oldDepthSurface.Get());
 }
 
 void Engine::FogOfWarObstacleRenderer::SetMesh(Engine::Mesh* mesh)

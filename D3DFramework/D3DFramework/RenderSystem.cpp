@@ -109,7 +109,7 @@ namespace Engine
 		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A32B32G32R32F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_FOG_OF_WAR, 128, 128, D3DFMT_R16F);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_FOG_OF_WAR, 256, 256, D3DFMT_R32F);
 
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
@@ -264,26 +264,28 @@ namespace Engine
 		RenderUI();
 #pragma region DEBUG_SHOW_RENDERTARGET
 
-		//const int width = MainGame::GetInstance()->width;
-		//const int height = MainGame::GetInstance()->height;
+		const int width = MainGame::GetInstance()->width;
+		const int height = MainGame::GetInstance()->height;
 
-		//ComPtr<IDirect3DTexture9> texture;
-		//RenderManager::GetRenderTarget(RENDER_TARGET_HEIGHT_FOG_OF_WAR)->GetTexture(&texture);
-		//D3DXMATRIX mMatrix;
-		//D3DXMATRIX mTranslation;
-		//D3DXMATRIX mPos;
-		//D3DXMatrixScaling(&mMatrix, 0.125f, 0.125f , 1.f);
-		//D3DXMatrixTranslation(&mTranslation, 512.f, 0.f, 0.f);
-
-		//sprite_->Begin(D3DXSPRITE_ALPHABLEND);
-		//sprite_->SetTransform(&mMatrix);
-		//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
-		//mMatrix = mMatrix * mTranslation;
-		//sprite_->SetTransform(&mMatrix);
-		//texture.Reset();
-		//RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR)->GetTexture(&texture);
-		//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
-		//sprite_->End();
+		ComPtr<IDirect3DTexture9> texture;
+		RenderManager::GetRenderTarget(RENDER_TARGET_HEIGHT_FOG_OF_WAR)->GetTexture(&texture);
+		D3DXMATRIX mMatrix;
+		D3DXMATRIX mRotate;
+		D3DXMATRIX mTranslation;
+		D3DXMATRIX mPos;
+		D3DXVECTOR3 vCenter{ 128.f, 128.f,0.f };
+		D3DXMatrixScaling(&mMatrix, 0.125f, 0.125f , 1.f);
+		D3DXMatrixTranslation(&mTranslation, 256.f, 0.f, 0.f);
+		sprite_->Begin(D3DXSPRITE_ALPHABLEND);
+		sprite_->SetTransform(&mMatrix);
+		sprite_->Draw(texture.Get(), nullptr, &vCenter, nullptr, D3DCOLOR_COLORVALUE(1.f, 0.f, 0.f, 1.f));
+		
+		mMatrix = mTranslation;
+		sprite_->SetTransform(&mMatrix);
+		texture.Reset();
+		RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR)->GetTexture(&texture);
+		sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 0.f, 0.f, 1.f));
+		sprite_->End();
 
 #pragma endregion
 
@@ -321,8 +323,9 @@ namespace Engine
 	}
 	void RenderSystem::ExecutePostProcessing()
 	{
+		HRESULT hr{};
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+		hr = device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 	}
 	void RenderSystem::SetupShadowMap()
 	{
@@ -472,7 +475,7 @@ namespace Engine
 		sharpnessRenderTarget->GetTexture(&sharpnessTexture);
 		albedoRenderTarget->GetTexture(&albedoTexture);
 		rimLightColorRenderTarget->GetTexture(&rimLightColorTexture);
-		fogOfWarRenderTarget->GetTexture(&fogOfWarTexture);
+		RenderManager::GetRenderTarget(L"FogOfWarRenderSystem_Blur2")->GetTexture(&fogOfWarTexture);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->SetTexture(ID_TEX_SPECULAR_MAP, sharpnessTexture.Get());
 		deferredShader->SetTexture("g_albedoMap", albedoTexture.Get());
@@ -535,7 +538,7 @@ namespace Engine
 		
 		ComPtr<IDirect3DSurface9> backbuffer;
 		Matrix mFogOfWarSpace{};
-		D3DXMatrixScaling(&mFogOfWarSpace, 2 / 110.f, 1.f, 2 / 110.f);
+		FogOfWarRenderSystem::GetMapSpace(&mFogOfWarSpace);
 
 		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
 		device->SetRenderTarget(0, backbuffer.Get());
