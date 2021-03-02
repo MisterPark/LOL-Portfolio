@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Monster.h"
 #include "Plane.h"
 #include "Rectangle.h"
@@ -12,7 +12,7 @@ Monster::Monster()
 	bar = (MinionFloatingBar*)ObjectManager::GetInstance()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 	
-	AddComponent<MonsterAI>(L"MosnterAi");
+	AddComponent<MonsterAI>(L"MonsterAI");
 	collider->SetRadius(0.2f);
 	collider->center = { 0.f,0.25f,0.f };
 }

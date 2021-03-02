@@ -197,6 +197,7 @@
     <ClInclude Include="ChaosMinionMelee.h" />
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="DamageObject.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
@@ -368,6 +369,7 @@
     <ClCompile Include="ChaosMinionSuper.cpp" />
     <ClCompile Include="ChaosMinionMelee.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="Darius.cpp" />
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />

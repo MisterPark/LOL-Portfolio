@@ -6,11 +6,6 @@
 
 class Indicator;
 
-enum class Team
-{
-	NEUTRAL, BLUE, RED, END
-};
-
 enum class UnitState
 {
 	IDLE1,
@@ -68,6 +63,8 @@ public:
 	// 행동
 	void DeadAction();
 	void AttackAction();
+	void CounterAttack();
+	void IdleAction();
 
 	void PushedOut(Unit* other);
 
@@ -99,6 +96,7 @@ public:
 
 	bool IsDead();
 	bool HasAttackTarget();
+	bool HasLastAttacker();
 
 	INT GetID();
 	float GetHP();

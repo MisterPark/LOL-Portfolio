@@ -280,6 +280,9 @@
     <Filter Include="Component\Renderer\UIRenderer\MiniMapRenderer">
       <UniqueIdentifier>{3ffb2e73-5f74-4a47-8a1f-c40b44b5ca32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\DamageObject">
+      <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -801,6 +804,9 @@
     </ClInclude>
     <ClInclude Include="BehaviorTree.h">
       <Filter>Component\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject.h">
+      <Filter>GameObject\DamageObject</Filter>
     </ClInclude>
     <ClInclude Include="FogOfWarRenderer.h">
       <Filter>Component\Renderer\FogOfWar</Filter>
@@ -1395,6 +1401,9 @@
     </ClCompile>
     <ClCompile Include="BehaviorTree.cpp">
       <Filter>Component\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject.cpp">
+      <Filter>GameObject\DamageObject</Filter>
     </ClCompile>
     <ClCompile Include="FogOfWarRenderer.cpp">
       <Filter>Component\Renderer\FogOfWar</Filter>

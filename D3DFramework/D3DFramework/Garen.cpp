@@ -3,6 +3,8 @@
 #include "Animation.h"
 #include "SkinnedMeshRenderer.h"
 #include "FogOfWarRenderer.h"
+#include "DamageObject.h"
+
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -73,6 +75,8 @@ void Garen::Spell2()
 
 void Garen::Spell3()
 {
+	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 5.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.2f);
 }
 
 void Garen::Spell4()
