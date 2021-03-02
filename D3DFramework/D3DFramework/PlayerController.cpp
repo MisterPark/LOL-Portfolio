@@ -60,11 +60,6 @@ void PlayerController::Update()
         unit->Spell4();
     }
     
-    if (InputManager::GetKeyDown('L'))
-    {
-        ObjectManager::SetVisibleCollider(!ObjectManager::IsVisibleCollider());
-    }
-
 
     if (InputManager::GetMouseWheelUp())
     {

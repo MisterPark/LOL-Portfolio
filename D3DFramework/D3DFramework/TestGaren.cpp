@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TestGaren.h"
 #include "SphereCollider.h"
 #include "NavMeshAgent.h"
@@ -42,7 +42,7 @@ void TestGaren::Update()
 	if (dmesh != nullptr)
 	{
 		dmesh->SetAnimationSet(currentAnimKey);
-		dmesh->PlayAnimation(TimeManager::DeltaTime());
+		dmesh->PlayAnimation(Time::DeltaTime());
 	}
 	//transform->Update();
 	GameObject::Update();

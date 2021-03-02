@@ -33,7 +33,7 @@ void TurretMissile::Update()
 		Vector3 targetPos = attackTarget->transform->position;
 		targetPos.y += 1.f;
 		Vector3 to =  targetPos - transform->position;
-		transform->position += to.Normalized() * movementSpeed * TimeManager::DeltaTime();
+		transform->position += to.Normalized() * movementSpeed * Time::DeltaTime();
 
 		float dist = to.Length();
 		if (dist < 0.1f)

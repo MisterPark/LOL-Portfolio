@@ -22,7 +22,7 @@ void Engine::Animation::PostUpdate()
 {
     if (dmesh == nullptr) return;
 
-    float dt = TimeManager::DeltaTime();
+    float dt = Time::DeltaTime();
 
     Animation::Node animNode = animsets[state];
     currentAnim = animNode.index;

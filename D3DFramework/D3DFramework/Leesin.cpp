@@ -48,7 +48,7 @@ void Leesin::Release()
 
 void Leesin::Update()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	if (InputManager::GetKey(VK_UP))
 	{

@@ -71,7 +71,7 @@ void Garen::Spell2()
 
 void Garen::Spell3()
 {
-	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
 	damageObj->Set_DamageObject(this, transform->GetPos(), 5.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.2f);
 }
 

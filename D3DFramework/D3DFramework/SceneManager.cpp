@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SceneManager.h"
 
 using namespace Engine;
@@ -22,7 +22,7 @@ Engine::SceneManager::~SceneManager()
 	}
 }
 
-void Engine::SceneManager::LoadScene(IScene * pScene)
+void Engine::SceneManager::LoadScene(Scene * pScene)
 {
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)
@@ -52,7 +52,7 @@ void Engine::SceneManager::Update()
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)
 	{
-		IScene* pReadyScene = self.pReadyScene;
+		Scene* pReadyScene = self.pReadyScene;
 		self.pReadyScene = nullptr;
 		if (self.pCurrentScene != nullptr)
 		{
@@ -66,5 +66,19 @@ void Engine::SceneManager::Update()
 	{
 		self.pCurrentScene->Update();
 	}
+}
+
+void Engine::SceneManager::PostUpdate()
+{
+	auto& self = *pSceneManager;
+	if (self.pCurrentScene)
+	{
+		self.pCurrentScene->PostUpdate();
+	}
+}
+
+Scene* Engine::SceneManager::GetCurrentScene()
+{
+	return pSceneManager->pCurrentScene;
 }
 

@@ -17,7 +17,7 @@ Unit::Unit()
 
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
 
-	attackIndicator = (Indicator*)ObjectManager::GetInstance()->CreateObject<Indicator>(Layer::Indicator);
+	attackIndicator = (Indicator*)SceneManager::GetCurrentScene()->CreateObject<Indicator>(Layer::Indicator);
 	//attackIndicator = new Indicator;
 	attackIndicator->SetTarget(this);
 
@@ -37,6 +37,14 @@ Unit::Unit()
 	ActionNode<Unit>* deathAction = new ActionNode<Unit>();
 	deathAction->SetAction(this, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
+
+	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
+	moveCondition->SetCondition(agent, &NavMeshAgent::IsPathRemain);
+	root->AddChild(moveCondition);
+
+	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
+	moveAction->SetAction(this, &Unit::MoveAction);
+	moveCondition->SetChild(moveAction);
 
 	SelectorNode* attackSelector = new SelectorNode();
 	root->AddChild(attackSelector);
@@ -96,7 +104,7 @@ void Unit::Update()
 
 void Unit::UpdateLastAttacker()
 {
-	lastAttackTick += TimeManager::DeltaTime();
+	lastAttackTick += Time::DeltaTime();
 	if (lastAttackTick > lastAttackDuration)
 	{
 		lastAttackTick = 0.f;
@@ -146,7 +154,7 @@ void Unit::Move(Vector3 _target)
 
 void Unit::Chase(Vector3 _target)
 {
-	chaseTick += TimeManager::DeltaTime();
+	chaseTick += Time::DeltaTime();
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
@@ -200,7 +208,7 @@ void Unit::DeadAction()
 
 void Unit::AttackAction()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	if (anim->IsFrameEnd())
 	{
@@ -268,6 +276,11 @@ void Unit::IdleAction()
 	SetState(UnitState::IDLE1);
 	attackTick = 0.f;
 	isDamaged = false;
+}
+
+void Unit::MoveAction()
+{
+	SetState(UnitState::RUN);
 }
 
 void Unit::PushedOut(Unit* other)

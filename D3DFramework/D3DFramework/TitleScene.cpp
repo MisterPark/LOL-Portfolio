@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TitleScene.h"
 
 void TitleScene::OnLoaded()
@@ -12,9 +12,9 @@ void TitleScene::OnLoaded()
 
 void TitleScene::OnUnloaded()
 {
-	ObjectManager::DestroyAll();
 }
 
 void TitleScene::Update()
 {
+	Scene::Update();
 }

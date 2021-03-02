@@ -65,6 +65,7 @@ public:
 	void AttackAction();
 	void CounterAttack();
 	void IdleAction();
+	void MoveAction();
 
 	void PushedOut(Unit* other);
 

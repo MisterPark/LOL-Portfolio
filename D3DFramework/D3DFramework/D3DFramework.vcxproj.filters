@@ -288,13 +288,7 @@
     <ClInclude Include="InputManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
@@ -310,9 +304,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
@@ -802,6 +793,12 @@
     <ClInclude Include="DamageObject.h">
       <Filter>GameObject\DamageObject</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -813,13 +810,7 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
@@ -832,9 +823,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
@@ -921,9 +909,6 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
@@ -958,9 +943,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
@@ -1389,6 +1371,12 @@
     </ClCompile>
     <ClCompile Include="DamageObject.cpp">
       <Filter>GameObject\DamageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

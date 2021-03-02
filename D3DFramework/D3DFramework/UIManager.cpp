@@ -39,7 +39,7 @@ void UIManager::DestroyInstance()
 void UIManager::AddUI(UI* _ui)
 {
     ui.push_back(_ui);
-    ObjectManager::GetInstance()->AddObject(_ui, Layer::UI);
+    SceneManager::GetCurrentScene()->AddObject(_ui, Layer::UI);
 }
 
 void UIManager::DeleteListAll()

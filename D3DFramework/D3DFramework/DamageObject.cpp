@@ -32,7 +32,7 @@ void DamageObject::Update()
 		Destroy();
 		return;
 	}
-	float deltaTime = TimeManager::DeltaTime();
+	float deltaTime = Time::DeltaTime();
 	lifeTime -= deltaTime;
 
 	if (startTime <= 0.f) {

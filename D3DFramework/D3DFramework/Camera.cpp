@@ -62,7 +62,7 @@ void Engine::Camera::Destroy()
 
 void Engine::Camera::Update()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 	
 	if (InputManager::GetKey(VK_UP))
 	{
@@ -336,7 +336,7 @@ void Engine::Camera::UpdateShake()
 {
 	if (isShake)
 	{
-		shakeDuration -= TimeManager::DeltaTime();
+		shakeDuration -= Time::DeltaTime();
 
 		if (0 >= shakeDuration)
 		{

@@ -72,35 +72,35 @@ void Engine::GameObject::OnCollisionEnter(Collider* target)
 void Engine::GameObject::Move(Vector3 _direction)
 {
 	Vector3::Normalize(&_direction);
-	transform->position.x += _direction.x * TimeManager::DeltaTime();
-	transform->position.y += _direction.y * TimeManager::DeltaTime();
-	transform->position.z += _direction.z * TimeManager::DeltaTime();
+	transform->position.x += _direction.x * Time::DeltaTime();
+	transform->position.y += _direction.y * Time::DeltaTime();
+	transform->position.z += _direction.z * Time::DeltaTime();
 }
 
 void Engine::GameObject::Move(Vector3 _direction, float _speed)
 {
 	Vector3::Normalize(&_direction);
-	transform->position.x += _direction.x * _speed * TimeManager::DeltaTime();
-	transform->position.y += _direction.y * _speed * TimeManager::DeltaTime();
-	transform->position.z += _direction.z * _speed * TimeManager::DeltaTime();
+	transform->position.x += _direction.x * _speed * Time::DeltaTime();
+	transform->position.y += _direction.y * _speed * Time::DeltaTime();
+	transform->position.z += _direction.z * _speed * Time::DeltaTime();
 }
 
 void Engine::GameObject::MoveToTarget(Vector3 _target)
 {
 	Vector3 dir = _target - transform->position;
 	Vector3::Normalize(&dir);
-	transform->position.x += dir.x * TimeManager::DeltaTime();
-	transform->position.y += dir.y * TimeManager::DeltaTime();
-	transform->position.z += dir.z * TimeManager::DeltaTime();
+	transform->position.x += dir.x * Time::DeltaTime();
+	transform->position.y += dir.y * Time::DeltaTime();
+	transform->position.z += dir.z * Time::DeltaTime();
 }
 
 void Engine::GameObject::MoveToTarget(Vector3 _target, float _speed)
 {
 	Vector3 dir = _target - transform->position;
 	Vector3::Normalize(&dir);
-	transform->position.x += dir.x * _speed * TimeManager::DeltaTime();
-	transform->position.y += dir.y * _speed * TimeManager::DeltaTime();
-	transform->position.z += dir.z * _speed * TimeManager::DeltaTime();
+	transform->position.x += dir.x * _speed * Time::DeltaTime();
+	transform->position.y += dir.y * _speed * Time::DeltaTime();
+	transform->position.z += dir.z * _speed * Time::DeltaTime();
 }
 
 void Engine::GameObject::FollowTarget(const GameObject* _target)
@@ -293,8 +293,8 @@ bool Engine::GameObject::SetLayer(Layer _layer)
 	if (this->layer == _layer) return false;
 
 	this->layer = _layer;
-	ObjectManager::RemoveObject(this);
-	ObjectManager::AddObject(this, _layer);
+	SceneManager::GetCurrentScene()->RemoveObject(this);
+	SceneManager::GetCurrentScene()->AddObject(this, _layer);
 	for (auto iter : components)
 	{
 		IComponent* comp = iter.second;

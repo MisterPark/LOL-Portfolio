@@ -52,7 +52,7 @@ void UI::Update()
 
 void UI::UpdateEvent()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 	Vector3 cursorPos = Cursor::GetMousePos();
 
 	// Hover & Leave
