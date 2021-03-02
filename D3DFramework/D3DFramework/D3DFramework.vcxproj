@@ -197,6 +197,11 @@
     <ClInclude Include="ChaosMinionMelee.h" />
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="DamageCalc.h" />
+    <ClInclude Include="DamageCalc_Basic.h" />
+    <ClInclude Include="DamageCalc_CurrentHpPercent.h" />
+    <ClInclude Include="DamageCalc_LostHpPercent.h" />
+    <ClInclude Include="DamageCalc_MaxHpPercent.h" />
     <ClInclude Include="DamageObject.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
@@ -366,6 +371,11 @@
     <ClCompile Include="ChaosMinionSuper.cpp" />
     <ClCompile Include="ChaosMinionMelee.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="DamageCalc.cpp" />
+    <ClCompile Include="DamageCalc_Basic.cpp" />
+    <ClCompile Include="DamageCalc_CurrentHpPercent.cpp" />
+    <ClCompile Include="DamageCalc_LostHpPercent.cpp" />
+    <ClCompile Include="DamageCalc_MaxHpPercent.cpp" />
     <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="Darius.cpp" />
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />

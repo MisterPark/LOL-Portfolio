@@ -277,6 +277,9 @@
     <Filter Include="GameObject\DamageObject">
       <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\DamageCalc">
+      <UniqueIdentifier>{19317473-c790-4252-9872-91495981060a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -801,6 +804,21 @@
     </ClInclude>
     <ClInclude Include="DamageObject.h">
       <Filter>GameObject\DamageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_Basic.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_LostHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_CurrentHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_MaxHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1389,6 +1407,21 @@
     </ClCompile>
     <ClCompile Include="DamageObject.cpp">
       <Filter>GameObject\DamageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_Basic.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_LostHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_CurrentHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_MaxHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

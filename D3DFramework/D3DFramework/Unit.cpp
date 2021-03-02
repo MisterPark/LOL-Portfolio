@@ -337,6 +337,16 @@ void Unit::SetAttackDamage(float _damage)
 	stat->attackDamage = _damage;
 }
 
+void Unit::SetADPenetrate(float _penetrate)
+{
+	stat->adPenetrate = _penetrate;
+}
+
+void Unit::SetADPenetratePercent(float _penetratePercent)
+{
+	stat->adPenetratePercent = _penetratePercent;
+}
+
 void Unit::SetAttackPerSec(float _attackPerSec)
 {
 	attackPerSec = _attackPerSec;
@@ -355,6 +365,16 @@ void Unit::SetAttackRange(float _range)
 void Unit::SetAbilityPower(float _ap)
 {
 	stat->abilityPower = _ap;
+}
+
+void Unit::SetAPPenetrate(float _penetrate)
+{
+	stat->apPenetrate = _penetrate;
+}
+
+void Unit::SetAPPenetratePercent(float _penetratePercent)
+{
+	stat->apPenetratePercent = _penetratePercent;
 }
 
 void Unit::SetMovementSpeed(float _speed)
@@ -391,6 +411,7 @@ void Unit::SetLastAttacker(Unit* _attacker)
 
 void Unit::TakeDamage(float _damage)
 {
+
 	stat->hp -= _damage;
 	if (stat->hp <= 0.f)
 	{
@@ -448,6 +469,16 @@ float Unit::GetAttackDamage()
 	return stat->attackDamage.baseValue;
 }
 
+float Unit::GetADPenetrate()
+{
+	return stat->adPenetrate.baseValue;
+}
+
+float Unit::GetADPenetratePercent()
+{
+	return stat->adPenetratePercent.baseValue;
+}
+
 float Unit::GetAttackRange()
 {
 	return attackRange;
@@ -456,6 +487,16 @@ float Unit::GetAttackRange()
 float Unit::GetAbilityPower()
 {
 	return stat->abilityPower.GetValue();
+}
+
+float Unit::GetAPPenetrate()
+{
+	return stat->apPenetrate.baseValue;
+}
+
+float Unit::GetAPPenetratePercent()
+{
+	return stat->apPenetratePercent.baseValue;
 }
 
 float Unit::GetAttackPerSec()

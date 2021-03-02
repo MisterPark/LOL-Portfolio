@@ -3,6 +3,10 @@
 #include "Animation.h"
 #include "SkinnedMeshRenderer.h"
 #include "DamageObject.h"
+#include "DamageCalc_Basic.h"
+#include "DamageCalc_LostHpPercent.h"
+#include "DamageCalc_CurrentHpPercent.h"
+#include "DamageCalc_MaxHpPercent.h"
 
 Garen::Garen()
 {
@@ -39,6 +43,8 @@ Garen::Garen()
 	SetArmor(36.f);
 	SetMagicResistance(32.1f);
 
+	SetADPenetratePercent(30.f);
+
 
 
 }
@@ -63,18 +69,38 @@ void Garen::Update()
 void Garen::Spell1()
 {
 	printf("가렌 Q\n");
+	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.5f);
+	damageObj->Set_ObjectFollow(this);
+	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
 }
 
 void Garen::Spell2()
 {
+	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, 0.f, 2.f, 0.5f);
+	damageObj->Set_ObjectFollow(this);
+	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
+	damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(10.f));
 }
 
 void Garen::Spell3()
 {
 	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
-	damageObj->Set_DamageObject(this, transform->GetPos(), 5.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.2f);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, GetAttackDamage() * 0.f, 2.f, 0.5f);
+	damageObj->Set_ObjectFollow(this);
+	//제일처음에 Basic만 잘 입혀줄것
+	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
+	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(10.f));
+	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(10.f));
+	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
 }
 
 void Garen::Spell4()
 {
+	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, 0.f, 2.f, 0.5f);
+	damageObj->Set_ObjectFollow(this);
+	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
+	damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
 }
