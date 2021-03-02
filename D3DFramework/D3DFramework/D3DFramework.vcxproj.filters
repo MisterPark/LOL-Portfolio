@@ -291,9 +291,6 @@
     <ClInclude Include="FileManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
@@ -814,15 +811,15 @@
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
@@ -928,9 +925,6 @@
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
@@ -1401,6 +1395,9 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Lib\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

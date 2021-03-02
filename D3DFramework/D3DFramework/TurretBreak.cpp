@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TurretBreak.h"
 #include "Animation.h"
 #include "Unit.h"
@@ -45,13 +45,13 @@ void TurretBreak::Release()
 
 void TurretBreak::Update()
 {
-	if (InputManager::GetKey('N'))
+	if (Input::GetKey('N'))
 	{
 		transform->scale.x += 0.1f;
 		transform->scale.y += 0.1f;
 		transform->scale.z += 0.1f;
 	}
-	if (InputManager::GetKey('M'))
+	if (Input::GetKey('M'))
 	{
 		transform->scale.x -= 0.1f;
 		transform->scale.y -= 0.1f;

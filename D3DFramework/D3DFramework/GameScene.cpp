@@ -113,9 +113,9 @@ void GameScene::Update()
 		ReqTime();
 	}
 
-	if (InputManager::GetKey(VK_SHIFT))
+	if (Input::GetKey(VK_SHIFT))
 	{
-		if (InputManager::GetKeyDown('M'))
+		if (Input::GetKeyDown('M'))
 		{
 			ReqCreateMinionCaster();
 		}

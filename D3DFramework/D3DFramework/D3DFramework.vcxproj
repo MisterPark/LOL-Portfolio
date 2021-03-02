@@ -288,7 +288,7 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IComponent.h" />
-    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="LobbyWindow.h" />
     <ClInclude Include="MainGame.h" />
@@ -455,7 +455,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IComponent.cpp" />
-    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="MainGame.cpp" />

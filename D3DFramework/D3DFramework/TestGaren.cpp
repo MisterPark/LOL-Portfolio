@@ -33,7 +33,7 @@ void TestGaren::Release()
 
 void TestGaren::Update()
 {
-	if (InputManager::GetMouseLButtonDown())
+	if (Input::GetMouseLButtonDown())
 	{
 		currentAnimKey++;
 	}

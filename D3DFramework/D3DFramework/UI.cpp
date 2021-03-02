@@ -76,7 +76,7 @@ void UI::UpdateEvent()
 		isLeave = true;
 	}
 
-	if (InputManager::GetMouseLButtonDown())
+	if (Input::GetMouseLButtonDown())
 	{
 		if (isHover)
 		{
@@ -90,7 +90,7 @@ void UI::UpdateEvent()
 		}
 		
 	}
-	if (InputManager::GetMouseLButtonUp())
+	if (Input::GetMouseLButtonUp())
 	{
 		if (isHover)
 		{
@@ -103,7 +103,7 @@ void UI::UpdateEvent()
 		}
 		isLButtonDown = false;
 	}
-	if (InputManager::GetMouseRButtonDown())
+	if (Input::GetMouseRButtonDown())
 	{
 		if (isHover)
 		{
@@ -111,7 +111,7 @@ void UI::UpdateEvent()
 			OnRButtonDown();
 		}
 	}
-	if (InputManager::GetMouseRButtonUp())
+	if (Input::GetMouseRButtonUp())
 	{
 		if (isHover)
 		{

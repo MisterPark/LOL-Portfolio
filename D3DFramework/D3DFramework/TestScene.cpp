@@ -395,25 +395,25 @@ void TestScene::Update()
 
 	if (testUnit != nullptr)
 	{
-		if (InputManager::GetKey(VK_UP))
+		if (Input::GetKey(VK_UP))
 		{
 			testUnit->transform->position.z -= Time::DeltaTime();
 			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
 
 		}
-		if (InputManager::GetKey(VK_DOWN))
+		if (Input::GetKey(VK_DOWN))
 		{
 			testUnit->transform->position.z += Time::DeltaTime();
 			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
 
 		}
-		if (InputManager::GetKey(VK_LEFT))
+		if (Input::GetKey(VK_LEFT))
 		{
 			testUnit->transform->position.x += Time::DeltaTime();
 			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
 
 		}
-		if (InputManager::GetKey(VK_RIGHT))
+		if (Input::GetKey(VK_RIGHT))
 		{
 			testUnit->transform->position.x -= Time::DeltaTime();
 			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
@@ -421,7 +421,7 @@ void TestScene::Update()
 		}
 	}
 	
-	if (InputManager::GetKeyDown('M'))
+	if (Input::GetKeyDown('M'))
 	{
 		CreateMinionCaster();
 	}

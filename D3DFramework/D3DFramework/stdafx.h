@@ -106,7 +106,7 @@ using namespace std;
 #include "UIManager.h"
 
 #include "CollisionManager.h"
-#include "InputManager.h"
+#include "Input.h"
 #include "Time.h"
 #include "SceneManager.h"
 #include "LightManager.h"

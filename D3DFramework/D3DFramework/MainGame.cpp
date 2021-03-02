@@ -60,7 +60,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 	//ObjectManager::GetInstance();
 	CollisionManager::GetInstance();
 	LightManager::GetInstance();
-	InputManager::GetInstance();
+	Input::GetInstance();
 	SkyBox::GetInstance();
 
 	//RenderManager::GetInstance();
@@ -91,7 +91,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 void Engine::MainGame::Update()
 {
 	// 1. 인풋 먼저
-	InputManager::Update();
+	Input::Update();
 
 	// 2. 씬 매니저 업데이트
 	SceneManager::Update();
@@ -136,7 +136,7 @@ void Engine::MainGame::Release()
 	UIManager::DestroyInstance();
 	RenderSystem::Destory();
 	RenderManager::Destroy();
-	InputManager::Destroy();
+	Input::Destroy();
 	Camera::Destroy();
 	FileManager::Destroy();
 	LightManager::Destroy();

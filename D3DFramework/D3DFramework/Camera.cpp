@@ -64,52 +64,52 @@ void Engine::Camera::Update()
 {
 	float dt = Time::DeltaTime();
 	
-	if (InputManager::GetKey(VK_UP))
+	if (Input::GetKey(VK_UP))
 	{
 		//offset.y += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_DOWN))
+	if (Input::GetKey(VK_DOWN))
 	{
 		//offset.y -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD7))
+	if (Input::GetKey(VK_NUMPAD7))
 	{
 		//transform->position.y += 100.f * dt;
 		topViewPos.y += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD9))
+	if (Input::GetKey(VK_NUMPAD9))
 	{
 		//transform->position.y -= 100.f * dt;
 		topViewPos.y -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD8)) // 위
+	if (Input::GetKey(VK_NUMPAD8)) // 위
 	{
 		topViewPos.z += 10.f * dt;
 		topViewLook.z += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD5)) // 아래
+	if (Input::GetKey(VK_NUMPAD5)) // 아래
 	{
 		topViewPos.z -= 10.f * dt;
 		topViewLook.z -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD4)) // 왼
+	if (Input::GetKey(VK_NUMPAD4)) // 왼
 	{
 		topViewPos.x -= 10.f * dt;
 		topViewLook.x -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD6)) // 오른
+	if (Input::GetKey(VK_NUMPAD6)) // 오른
 	{
 		topViewPos.x += 10.f * dt;
 		topViewLook.x += 10.f * dt;
 	}
-	if (InputManager::GetKeyDown('U'))
+	if (Input::GetKeyDown('U'))
 	{
 		printf("look :%d,%d,%d\n", (int)transform->look.x, (int)transform->look.y, (int)transform->look.z);
 		printf("pos :%d,%d,%d\n", (int)transform->position.x, (int)transform->position.y, (int)transform->position.z);
 		topViewFlag = !topViewFlag;
 	}
 
-	if (InputManager::GetMouseWheelUp())
+	if (Input::GetMouseWheelUp())
 	{
 		if (target != nullptr)
 		{
@@ -119,7 +119,7 @@ void Engine::Camera::Update()
 			
 		}
 	}
-	else if (InputManager::GetMouseWheelDown())
+	else if (Input::GetMouseWheelDown())
 	{
 		if (target != nullptr)
 		{

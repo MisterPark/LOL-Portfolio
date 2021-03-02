@@ -40,7 +40,7 @@ void Engine::NavMeshMap::Update()
 {
 	GameObject::Update();
 
-	if (InputManager::GetKeyDown('L'))
+	if (Input::GetKeyDown('L'))
 	{
 		isVisible = !isVisible;
 	}

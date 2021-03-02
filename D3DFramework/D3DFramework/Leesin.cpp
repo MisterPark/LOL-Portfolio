@@ -50,19 +50,19 @@ void Leesin::Update()
 {
 	float dt = Time::DeltaTime();
 
-	if (InputManager::GetKey(VK_UP))
+	if (Input::GetKey(VK_UP))
 	{
 		transform->position.z -= stat->movementSpeed.GetValue() * dt;
 	}
-	if (InputManager::GetKey(VK_DOWN))
+	if (Input::GetKey(VK_DOWN))
 	{
 		transform->position.z += stat->movementSpeed.GetValue() * dt;
 	}
-	if (InputManager::GetKey(VK_LEFT))
+	if (Input::GetKey(VK_LEFT))
 	{
 		transform->position.x += stat->movementSpeed.GetValue() * dt;
 	}
-	if (InputManager::GetKey(VK_RIGHT))
+	if (Input::GetKey(VK_RIGHT))
 	{
 		transform->position.x -= stat->movementSpeed.GetValue() * dt;
 	}
