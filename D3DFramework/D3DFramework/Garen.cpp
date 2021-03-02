@@ -73,7 +73,7 @@ void Garen::Update()
 void Garen::Spell1()
 {
 	printf("가렌 Q\n");
-	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
 	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, GetAttackDamage() * 0.1f, 2.f, 0.5f);
 	damageObj->Set_ObjectFollow(this);
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
@@ -81,7 +81,7 @@ void Garen::Spell1()
 
 void Garen::Spell2()
 {
-	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
 	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, 0.f, 2.f, 0.5f);
 	damageObj->Set_ObjectFollow(this);
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
@@ -90,7 +90,7 @@ void Garen::Spell2()
 
 void Garen::Spell3()
 {
-	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
 	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, GetAttackDamage() * 0.f, 2.f, 0.5f);
 	damageObj->Set_ObjectFollow(this);
 	//제일처음에 Basic만 잘 입혀줄것
@@ -102,7 +102,7 @@ void Garen::Spell3()
 
 void Garen::Spell4()
 {
-	DamageObject* damageObj = (DamageObject*)ObjectManager::GetInstance()->CreateObject<DamageObject>(Layer::Unit);
+	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
 	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, 0.f, 2.f, 0.5f);
 	damageObj->Set_ObjectFollow(this);
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
