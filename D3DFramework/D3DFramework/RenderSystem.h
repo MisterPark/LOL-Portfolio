@@ -29,6 +29,8 @@ namespace Engine
 		static void			Render();
 		static bool			GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, IDirect3DSurface9** depthBuffer, Matrix* proj);
 		static long			GetUniqueID();
+		static void			SetupPostProcessing();
+		static void			ExecutePostProcessing();
 	private:
 		static void SetupShadowMap();
 		static void RednerEarlyForward();
@@ -47,5 +49,7 @@ namespace Engine
 	extern wchar_t const* const LIGHT_SPECULAR;
 	extern wchar_t const* const LIGHT_DIFFUSE;
 	extern wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR;
+	extern wchar_t const* const RENDER_TARGET_FOG_OF_WAR;
+	extern wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR;
 }
 using RenderSystem = Engine::RenderSystem;

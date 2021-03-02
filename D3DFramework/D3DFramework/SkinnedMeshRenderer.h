@@ -10,8 +10,6 @@ namespace Engine
 		public Renderer
 	{
 	public:
-		static Engine::RendererType constexpr RenderingType = Engine::RendererType::Forward;
-	public:
 		SkinnedMeshRenderer(Engine::GameObject* owner);
 		virtual void Render();
 		Engine::IComponent* Clone() { return nullptr; }

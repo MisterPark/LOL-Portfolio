@@ -227,7 +227,7 @@ void Engine::StaticMesh::RenderSubset(int index)
 	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
 
 	// TODO : Render 반경 계산 해야할듯?
-	if (Frustum::Intersect(&worldPos, 1.f) == false) return;
+	//if (Frustum::Intersect(&worldPos, 1.f) == false) return;
 	device->SetFVF(fvf);
 	pMesh->DrawSubset(index);
 }
