@@ -1,5 +1,5 @@
-#pragma once
-
+﻿#pragma once
+#include "Buff.h"
 class Stat
 {
 public:
@@ -37,7 +37,8 @@ public:
     bool operator>(const Stat& rhs);
     bool operator<(const Stat& rhs);
 
-    void AddModifier(float _modifier);
+    void AddBuff(Buff)
+    void AddBuff(float _modifier);
     void RemoveModifier(float _modifier);
 
     float GetValue();
@@ -45,6 +46,6 @@ public:
 public:
     float baseValue = 0.f;
 private:
-    list<float> modifiers;
+    list<Buff> modifiers;
 };
 

@@ -832,6 +832,7 @@
     <ClInclude Include="Input.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Buff.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -934,9 +935,6 @@
       <Filter>Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
@@ -1432,6 +1430,7 @@
     <ClCompile Include="Input.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Buff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

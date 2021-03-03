@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Stat.h"
 
 
@@ -171,7 +171,7 @@ bool Stat::operator<(const Stat& rhs)
     return (this->baseValue < rhs.baseValue);
 }
 
-void Stat::AddModifier(float _modifier)
+void Stat::AddBuff(float _modifier)
 {
     modifiers.push_back(_modifier);
 }

@@ -186,6 +186,7 @@
     <ClInclude Include="Blitzcrank.h" />
     <ClInclude Include="BlueMonster.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Button.h" />
@@ -363,6 +364,7 @@
     <ClCompile Include="Blitzcrank.cpp" />
     <ClCompile Include="BlueMonster.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Button.cpp" />
