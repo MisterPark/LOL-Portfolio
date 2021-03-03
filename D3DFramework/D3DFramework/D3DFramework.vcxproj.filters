@@ -286,6 +286,12 @@
     <Filter Include="Lib\DamageCalc">
       <UniqueIdentifier>{19317473-c790-4252-9872-91495981060a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{b7fb0d1a-4a53-4fdf-b5c7-2a8beccc9ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Garen">
+      <UniqueIdentifier>{999d1ba4-d270-4566-bb14-e2cfa910612e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -832,6 +838,10 @@
     <ClInclude Include="Input.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_Q.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -934,9 +944,6 @@
       <Filter>Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
@@ -1432,6 +1439,10 @@
     <ClCompile Include="Input.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_Q.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

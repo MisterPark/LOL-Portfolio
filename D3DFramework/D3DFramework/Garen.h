@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Champion.h"
 class Garen :
     public Champion
@@ -15,5 +15,10 @@ public:
     virtual void Spell2();
     virtual void Spell3();
     virtual void Spell4();
+
+    virtual void SkillQAction();
+    virtual void SkillWAction();
+    virtual void SkillEAction();
+    virtual void SkillRAction();
 };
 
