@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "NavMeshAgent.h"
 #include "NavMeshMap.h"
 #include "Unit.h"
@@ -7,7 +7,7 @@ Engine::NavMeshAgent::NavMeshAgent(GameObject* owner)
     :IComponent(owner)
 {
     unit = dynamic_cast<Unit*>(owner);
-    navMeshMap = (NavMeshMap*)ObjectManager::GetInstance()->FindObject<NavMeshMap>();
+    navMeshMap = (NavMeshMap*)SceneManager::GetCurrentScene()->FindObject<NavMeshMap>();
 }
 
 Engine::NavMeshAgent::NavMeshAgent(const NavMeshAgent& rhs)
@@ -28,32 +28,30 @@ void Engine::NavMeshAgent::Update()
         Vector3 remain = nextPosition - transform->position;
         Vector3 direction = remain.Normalized();
         float remainDist = remain.Length();
-        // ³²Àº °Å¸®°¡ ¸ØÃâ °Å¸®º¸´Ù ÀÛ°Å³ª °°À¸¸é(°æÀ¯Áöor ¸ñÀûÁö¿¡ µµÂø)
+        // ë‚¨ì€ ê±°ë¦¬ê°€ ë©ˆì¶œ ê±°ë¦¬ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ìœ¼ë©´(ê²½ìœ ì§€or ëª©ì ì§€ì— ë„ì°©)
         if (remainDist <= stoppingDistance)
         {
-            // °¡¾ßÇÒ °æ·Î°¡ ÀÖ´Ù¸é
+            // ê°€ì•¼í•  ê²½ë¡œê°€ ìˆë‹¤ë©´
             if (path.empty() == false)
             {
-                // nextPosition »õ·Î ¼¼ÆÃ
+                // nextPosition ìƒˆë¡œ ì„¸íŒ…
                 nextPosition = path.front();
                 path.erase(path.begin());
             }
-            else // ÃÖÁ¾°æ·Î¿¡ µµÂøÇß´Ù¸é
+            else // ìµœì¢…ê²½ë¡œì— ë„ì°©í–ˆë‹¤ë©´
             {
                 isDestination = true;
                 return;
             }
         }
-        else // ³²Àº °Å¸®°¡ ÀÖ´Ù¸é
+        else // ë‚¨ì€ ê±°ë¦¬ê°€ ìˆë‹¤ë©´
         {
-            // »óÅÂ
+            // ìƒíƒœ
             unit->SetState(UnitState::RUN);
-            // È¸Àü
-            //float angle = Vector3::AngleY(Vector3(0, 0, 1), direction);
-            //gameObject->transform->eulerAngles.y = angle;
+            // íšŒì „
             unit->LookRotation(direction);
-            // ÀÌµ¿
-            transform->position += direction * speed * TimeManager::DeltaTime();
+            // ì´ë™
+            transform->position += direction * speed * Time::DeltaTime();
         }
     }
 }
@@ -95,11 +93,11 @@ bool Engine::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
     }
     else
     {
-        // ±æÃ£±â »õ·Î ¼öÇà
+        // ê¸¸ì°¾ê¸° ìƒˆë¡œ ìˆ˜í–‰
         result = navMeshMap->Search(transform->position, target);
         if (result == true)
         {
-            // ±æÃ£±â °á°ú ÀúÀå
+            // ê¸¸ì°¾ê¸° ê²°ê³¼ ì €ì¥
             list<PathFinder::Node*>* resultPath = navMeshMap->GetPath();
             auto iter = resultPath->begin();
             auto end = resultPath->end();
@@ -107,10 +105,10 @@ bool Engine::NavMeshAgent::SetDestination(const Vector3& target, bool noSearch)
             {
                 path.push_back((*iter)->position);
             }
-            // destination ¼¼ÆÃ
+            // destination ì„¸íŒ…
             destination = target;
             path.push_back(target);
-            // nextPosition ¼¼ÆÃ
+            // nextPosition ì„¸íŒ…
             nextPosition = path.front();
             path.erase(path.begin());
             
@@ -165,9 +163,9 @@ void Engine::NavMeshAgent::SetPath(list<Vector3>& _path)
         path.push_back((*iter));
         dest = (*iter);
     }
-    // destination ¼¼ÆÃ
+    // destination ì„¸íŒ…
     destination = dest;
-    // nextPosition ¼¼ÆÃ
+    // nextPosition ì„¸íŒ…
     nextPosition = path.front();
     path.erase(path.begin());
 }
@@ -183,4 +181,9 @@ void Engine::NavMeshAgent::PushLayover(const Vector3& _point)
 void Engine::NavMeshAgent::SetSpeed(float _speed)
 {
     speed = _speed;
+}
+
+bool Engine::NavMeshAgent::IsPathRemain()
+{
+    return (path.size() > 0);
 }

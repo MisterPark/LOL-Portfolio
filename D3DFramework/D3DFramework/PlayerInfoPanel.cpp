@@ -120,22 +120,22 @@ void PlayerInfoPanel::Release()
 
 void PlayerInfoPanel::Update()
 {
-    //if (InputManager::GetKeyDown(VK_UP))
+    //if (Input::GetKeyDown(VK_UP))
     //{
     //    barTipOffset1.y -= 1;
     //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
     //}
-    //if (InputManager::GetKeyDown(VK_DOWN))
+    //if (Input::GetKeyDown(VK_DOWN))
     //{
     //    barTipOffset1.y += 1;
     //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
     //}
-    //if (InputManager::GetKeyDown(VK_LEFT))
+    //if (Input::GetKeyDown(VK_LEFT))
     //{
     //    barTipOffset1.x -= 1;
     //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);
     //}
-    //if (InputManager::GetKeyDown(VK_RIGHT))
+    //if (Input::GetKeyDown(VK_RIGHT))
     //{
     //    barTipOffset1.x += 1;
     //    printf("offset X : %d / Y : %d\n", (int)barTipOffset1.x, (int)barTipOffset1.y);

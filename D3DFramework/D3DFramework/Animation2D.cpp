@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Animation2D.h"
 
 
@@ -25,7 +25,7 @@ void Engine::Animation2D::Update()
 	}
 		
 
-	tick += TimeManager::DeltaTime();
+	tick += Time::DeltaTime();
 	if (tick > delay)
 	{
 		tick = 0;

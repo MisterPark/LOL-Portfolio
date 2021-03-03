@@ -133,7 +133,7 @@ void ItemshopPanel::Update()
 {
     GameObject::Update();
 
-    if (InputManager::GetKeyDown('P'))
+    if (Input::GetKeyDown('P'))
     {
         isVisible = !isVisible;
         isVisible ? Show() : Hide();

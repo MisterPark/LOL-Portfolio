@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "NavNodeManager.h"
 #include "NavNode.h"
 #include "SphereCollider.h"
@@ -63,7 +63,7 @@ void NavNodeManager::Save()
     }
 
     FileManager::CloseFile();
-    Debug::Print("NavNode ÀúÀå");
+    Debug::Print("NavNode ì €ìž¥");
 }
 
 void NavNodeManager::Load()
@@ -78,7 +78,7 @@ void NavNodeManager::Load()
 
     for (int i = 0; i < count; i++)
     {
-        NavNode* node = (NavNode*)ObjectManager::GetInstance()->CreateObject<NavNode>(Layer::Node);
+        NavNode* node = (NavNode*)SceneManager::GetCurrentScene()->CreateObject<NavNode>(Layer::Node);
         FileManager::ReadFile(&node->uniqueID, sizeof(int), 1);
         FileManager::ReadFile(&node->transform->position.x, sizeof(float), 1);
         FileManager::ReadFile(&node->transform->position.y, sizeof(float), 1);
@@ -112,7 +112,7 @@ void NavNodeManager::LoadDebug()
 
     for (int i = 0; i < count; i++)
     {
-        NavNode* node = (NavNode*)ObjectManager::GetInstance()->CreateObject<NavNode>(Layer::Node);
+        NavNode* node = (NavNode*)SceneManager::GetCurrentScene()->CreateObject<NavNode>(Layer::Node);
         FileManager::ReadFile(&node->uniqueID, sizeof(int), 1);
         FileManager::ReadFile(&node->transform->position.x, sizeof(float), 1);
         FileManager::ReadFile(&node->transform->position.y, sizeof(float), 1);
@@ -131,7 +131,7 @@ void NavNodeManager::LoadDebug()
     }
 
     FileManager::CloseFile();
-    Debug::Print("NavNode ºÒ·¯¿À±â");
+    Debug::Print("NavNode ë¶ˆëŸ¬ì˜¤ê¸°");
 }
 
 void NavNodeManager::AddNode(NavNode* node)

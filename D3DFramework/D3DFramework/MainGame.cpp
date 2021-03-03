@@ -49,18 +49,18 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 	Random::InitState();
 
 	// 다른 모든 매니저 초기화
-	TimeManager::GetInstance();
-	TimeManager::SetFPS(100);
+	Time::GetInstance();
+	Time::SetFPS(100);
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
 
 	LoadUISprite();
 
-	ObjectManager::GetInstance();
+	//ObjectManager::GetInstance();
 	CollisionManager::GetInstance();
 	LightManager::GetInstance();
-	InputManager::GetInstance();
+	Input::GetInstance();
 	SkyBox::GetInstance();
 
 	//RenderManager::GetInstance();
@@ -91,7 +91,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 void Engine::MainGame::Update()
 {
 	// 1. 인풋 먼저
-	InputManager::Update();
+	Input::Update();
 
 	// 2. 씬 매니저 업데이트
 	SceneManager::Update();
@@ -99,7 +99,7 @@ void Engine::MainGame::Update()
 	// 3. Player 업데이트
 
 	// 4. Obj 업데이트
-	ObjectManager::Update();
+	//ObjectManager::Update();
 	Cursor::GetInstance()->Update();
 
 	Camera::GetInstance()->Update();
@@ -107,16 +107,17 @@ void Engine::MainGame::Update()
 	Frustum::Update();
 	
 	CollisionManager::GetInstance()->Update();
-	ObjectManager::PostUpdate();
+	//ObjectManager::PostUpdate();
+	SceneManager::PostUpdate();
 	SoundManager::Update();
 
 #if 0
-	if (!TimeManager::SkipFrame())
+	if (!Time::SkipFrame())
 	{
 		RenderSystem::Render();
 	}
 #else
-	TimeManager::SkipFrame();
+	Time::SkipFrame();
 
 	RenderSystem::Render();
 #endif
@@ -127,15 +128,15 @@ void Engine::MainGame::Release()
 	// 다른 모든 매니저 해제
 	LoadManager::Destroy();
 	SceneManager::Destroy();
-	TimeManager::Destroy();
-	ObjectManager::Destroy();
+	Time::Destroy();
+	//ObjectManager::Destroy();
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
 	//RenderManager::Release();
 	UIManager::DestroyInstance();
 	RenderSystem::Destory();
 	RenderManager::Destroy();
-	InputManager::Destroy();
+	Input::Destroy();
 	Camera::Destroy();
 	FileManager::Destroy();
 	LightManager::Destroy();

@@ -3,6 +3,8 @@
 #include "Animation.h"
 #include "Stat.h"
 #include "UnitStat.h"
+#include "DamageCalc.h"
+#include "Skill.h"
 
 class Indicator;
 
@@ -65,6 +67,11 @@ public:
 	void AttackAction();
 	void CounterAttack();
 	void IdleAction();
+	void MoveAction();
+	virtual void SkillQAction();
+	virtual void SkillWAction();
+	virtual void SkillEAction();
+	virtual void SkillRAction();
 
 	void PushedOut(Unit* other);
 
@@ -80,9 +87,13 @@ public:
 	void SetHPRegen(float _per5Sec);
 	void SetMPRegen(float _per5Sec);
 	void SetAttackDamage(float _damage);
+	void SetADPenetrate(float _penetrate);
+	void SetADPenetratePercent(float _penetratePercent);
 	void SetAttackPerSec(float _attackPerSec);
 	void SetAttackRange(float _range);
 	void SetAbilityPower(float _ap);
+	void SetAPPenetrate(float _penetrate);
+	void SetAPPenetratePercent(float _penetratePercent);
 	void SetMovementSpeed(float _speed);
 	void SetArmor(float _armor);
 	void SetMagicResistance(float _magicResist);
@@ -98,15 +109,21 @@ public:
 	bool HasAttackTarget();
 	bool HasLastAttacker();
 
+	void Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat);
+
 	INT GetID();
 	float GetHP();
 	float GetMP();
 	float GetMaxHP();
 	float GetMaxMP();
 	float GetAttackDamage();
+	float GetADPenetrate();
+	float GetADPenetratePercent();
 	float GetAttackPerSec();
 	float GetAttackRange();
 	float GetAbilityPower();
+	float GetAPPenetrate();
+	float GetAPPenetratePercent();
 	float GetMovementSpeed();
 	float GetArmor();
 	float GetMagicResistance();
@@ -144,12 +161,18 @@ protected:
 	float attackPerSec = 0.625f;
 	UnitState attackState = UnitState::ATTACK1;
 
+	// 스킬 관련
+	Skill* skillList[7];
+	// 데미지계산관련
+	list<DamageCalc*> damageCalcList;
+
 	// 마지막으로 나를 공격한 유닛
 	Unit* lastAttacker = nullptr;
 	float lastAttackTick = 0.f;
 	float lastAttackDuration = 5.f;
 
 	bool isDamaged = false;
+
 	// 추격 관련
 	float chaseTick = 0.f;
 	float chaseDelay = 0.3f;

@@ -1,29 +1,29 @@
-#include "stdafx.h"
-#include "TimeManager.h"
+ï»¿#include "stdafx.h"
+#include "Time.h"
 
 using namespace Engine;
 
-Engine::TimeManager* pTime = nullptr;
+Engine::Time* pTime = nullptr;
 
-Engine::TimeManager::TimeManager()
+Engine::Time::Time()
 {
 }
 
-Engine::TimeManager::~TimeManager()
+Engine::Time::~Time()
 {
 }
 
-Engine::TimeManager* TimeManager::GetInstance()
+Engine::Time* Time::GetInstance()
 {
     if (pTime == nullptr)
     {
-        pTime = new TimeManager;
+        pTime = new Time;
         Initialize();
     }
     return pTime;
 }
 
-void Engine::TimeManager::Destroy()
+void Engine::Time::Destroy()
 {
     if (pTime)
     {
@@ -32,7 +32,7 @@ void Engine::TimeManager::Destroy()
     }
 }
 
-void Engine::TimeManager::Initialize()
+void Engine::Time::Initialize()
 {
     if (QueryPerformanceFrequency(&pTime->frequency))
     {
@@ -41,15 +41,15 @@ void Engine::TimeManager::Initialize()
     }
 }
 
-void Engine::TimeManager::Release()
+void Engine::Time::Release()
 {
 }
 
-bool Engine::TimeManager::SkipFrame()
+bool Engine::Time::SkipFrame()
 {
     LARGE_INTEGER time;
     __int64 curTime;
-    __int64 elapsed; // 1ÇÁ·¹ÀÓ °æ°ú½Ã°£(ms)
+    __int64 elapsed; // 1í”„ë ˆìž„ ê²½ê³¼ì‹œê°„(ms)
 
     QueryPerformanceCounter(&time);
     curTime = time.QuadPart;
@@ -60,19 +60,19 @@ bool Engine::TimeManager::SkipFrame()
         return false;
     }
 
-    // ÇÁ·¹ÀÓ´ç °É¸° ½Ã°£ (¸¶ÀÌÅ©·Î¼¼ÄÁ) -> ¹Ð¸®¼¼ÄÁ
+    // í”„ë ˆìž„ë‹¹ ê±¸ë¦° ì‹œê°„ (ë§ˆì´í¬ë¡œì„¸ì»¨) -> ë°€ë¦¬ì„¸ì»¨
     elapsed = (curTime - pTime->oldTime) / pTime->cpuTick;
 
     pTime->elapseSum += elapsed;
-    // ¿ÃµåÅ¸ÀÓ °»½Å
+    // ì˜¬ë“œíƒ€ìž„ ê°±ì‹ 
     pTime->oldTime = curTime;
-    // µ¨Å¸Å¸ÀÓ °»½Å (ÃÊ´ÜÀ§)
+    // ë¸íƒ€íƒ€ìž„ ê°±ì‹  (ì´ˆë‹¨ìœ„)
     pTime->deltaTime = float(elapsed) / 1000;
 
-    //ÇÁ·¹ÀÓ Ä«¿îÆ®
+    //í”„ë ˆìž„ ì¹´ìš´íŠ¸
     pTime->frameCount++;
 
-    if (pTime->elapseSum >= 1000) // 1ÃÊ °æ°ú½Ã
+    if (pTime->elapseSum >= 1000) // 1ì´ˆ ê²½ê³¼ì‹œ
     {
         WCHAR str[64] = {};
         wsprintfW(str, L"FPS : %d / Render : %d",pTime->frameCount, pTime->renderCount);
@@ -85,15 +85,15 @@ bool Engine::TimeManager::SkipFrame()
         pTime->renderCount = 0;
     }
     
-    // ÇÁ·¹ÀÓ´ç ÃÊ°ú/¹Ì¸¸ ½Ã°£ ´©Àû
+    // í”„ë ˆìž„ë‹¹ ì´ˆê³¼/ë¯¸ë§Œ ì‹œê°„ ëˆ„ì 
     pTime->timeStack += (int)(elapsed - pTime->targetFrame);
 
-    if (pTime->timeStack >= pTime->targetFrame) // ´À¸±¶§
+    if (pTime->timeStack >= pTime->targetFrame) // ëŠë¦´ë•Œ
     {
         pTime->timeStack -= pTime->targetFrame;
         return true;
     }
-    else // ºü¸¦¶§
+    else // ë¹ ë¥¼ë•Œ
     {
         //Sleep(abs(pTime->timeStack));
     }
@@ -102,22 +102,22 @@ bool Engine::TimeManager::SkipFrame()
     return false;
 }
 
-int Engine::TimeManager::GetFPS()
+int Engine::Time::GetFPS()
 {
     return pTime->fps;
 }
 
-void Engine::TimeManager::SetFPS(int _fps)
+void Engine::Time::SetFPS(int _fps)
 {
     pTime->fps = _fps;
     pTime->targetFrame = (int)(1000.f / _fps);
 }
 
-float Engine::TimeManager::DeltaTime()
+float Engine::Time::DeltaTime()
 {
     return pTime->deltaTime;
 }
 
-void Engine::TimeManager::RenderFPS()
+void Engine::Time::RenderFPS()
 {
 }

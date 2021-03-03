@@ -283,6 +283,15 @@
     <Filter Include="GameObject\DamageObject">
       <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\DamageCalc">
+      <UniqueIdentifier>{19317473-c790-4252-9872-91495981060a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{b7fb0d1a-4a53-4fdf-b5c7-2a8beccc9ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Garen">
+      <UniqueIdentifier>{999d1ba4-d270-4566-bb14-e2cfa910612e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -291,16 +300,7 @@
     <ClInclude Include="FileManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
@@ -316,9 +316,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
@@ -808,6 +805,21 @@
     <ClInclude Include="DamageObject.h">
       <Filter>GameObject\DamageObject</Filter>
     </ClInclude>
+    <ClInclude Include="DamageCalc.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_Basic.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_LostHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_CurrentHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_MaxHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
     <ClInclude Include="FogOfWarRenderer.h">
       <Filter>Component\Renderer\FogOfWar</Filter>
     </ClInclude>
@@ -817,6 +829,20 @@
     <ClInclude Include="FogOfWarObstacleRenderer.h">
       <Filter>Component\Renderer\FogOfWar</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_Q.h" />
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="MiniMapRenderer.h">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClInclude>
@@ -828,16 +854,7 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
@@ -850,9 +867,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
@@ -936,19 +950,10 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
@@ -976,9 +981,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
@@ -1408,6 +1410,21 @@
     <ClCompile Include="DamageObject.cpp">
       <Filter>GameObject\DamageObject</Filter>
     </ClCompile>
+    <ClCompile Include="DamageCalc.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_Basic.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_LostHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_CurrentHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_MaxHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
     <ClCompile Include="FogOfWarRenderer.cpp">
       <Filter>Component\Renderer\FogOfWar</Filter>
     </ClCompile>
@@ -1417,6 +1434,20 @@
     <ClCompile Include="FogOfWarObstacleRenderer.cpp">
       <Filter>Component\Renderer\FogOfWar</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_Q.cpp" />
+    <ClCompile Include="Buff.cpp" />
     <ClCompile Include="MiniMapRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>

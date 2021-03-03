@@ -9,7 +9,7 @@
 
 Monster::Monster()
 {
-	bar = (MinionFloatingBar*)ObjectManager::GetInstance()->CreateObject<MinionFloatingBar>(Layer::UI);
+	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 	
 	AddComponent<MonsterAI>(L"MonsterAI");

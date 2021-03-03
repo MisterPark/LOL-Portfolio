@@ -1,5 +1,5 @@
-#pragma once
-#include "IScene.h"
+ï»¿#pragma once
+#include "Scene.h"
 
 class Label;
 class Champion;
@@ -65,11 +65,11 @@ enum class UnitID
 };
 
 class GameScene :
-    public IScene
+    public Scene
 {
 public:
     GameScene();
-    // ISceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // Sceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;
@@ -103,7 +103,7 @@ public:
     PlayerInfoPanel* playerInfo;
 
     map<INT,Unit*> unitMap;
-    // ½Ã°£ÃøÁ¤
+    // ì‹œê°„ì¸¡ì •
     DWORD oldTime = 0;
     float sendTick = 0.f;
     float sendDelay = 1.f;

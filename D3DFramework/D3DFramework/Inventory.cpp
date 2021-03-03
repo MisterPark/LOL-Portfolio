@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Inventory.h"
 #include "Item.h"
 
@@ -82,19 +82,19 @@ bool Inventory::Push(Item* item)
     for (int i = 0; i < dfMAX_SLOT_COUNT; i++)
     {
         Item* iter = pInventory->slots[i].GetItem();
-        if (iter != nullptr) // ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ ¶§
+        if (iter != nullptr) // ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ìž¬í•  ë•Œ
         {
             if (iter->type != item->type) continue;
             
             item->Destroy();
-            //Å¸ÀÔÀÌ °°À¸¸é ¼ö·® Áõ°¡
+            //íƒ€ìž…ì´ ê°™ìœ¼ë©´ ìˆ˜ëŸ‰ ì¦ê°€
             iter->count++;
             return true;
         }
 
-        // ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ¼Â            
+        // ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´ ì…‹            
         pInventory->slots[i].SetItem(item);
-        ObjectManager::RemoveObject(item);
+        SceneManager::GetCurrentScene()->RemoveObject(item);
 
         
         return true;

@@ -17,7 +17,7 @@ Unit::Unit()
 
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
 
-	attackIndicator = (Indicator*)ObjectManager::GetInstance()->CreateObject<Indicator>(Layer::Indicator);
+	attackIndicator = (Indicator*)SceneManager::GetCurrentScene()->CreateObject<Indicator>(Layer::Indicator);
 	//attackIndicator = new Indicator;
 	attackIndicator->SetTarget(this);
 
@@ -37,6 +37,14 @@ Unit::Unit()
 	ActionNode<Unit>* deathAction = new ActionNode<Unit>();
 	deathAction->SetAction(this, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
+
+	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
+	moveCondition->SetCondition(agent, &NavMeshAgent::IsPathRemain);
+	root->AddChild(moveCondition);
+
+	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
+	moveAction->SetAction(this, &Unit::MoveAction);
+	moveCondition->SetChild(moveAction);
 
 	SelectorNode* attackSelector = new SelectorNode();
 	root->AddChild(attackSelector);
@@ -71,6 +79,11 @@ Unit::~Unit()
 	stat = nullptr;
 	bt = nullptr;
 	attackIndicator = nullptr;
+
+	for (auto calc : damageCalcList)
+	{
+		delete calc;
+	}
 }
 
 void Unit::Initialize()
@@ -96,7 +109,7 @@ void Unit::Update()
 
 void Unit::UpdateLastAttacker()
 {
-	lastAttackTick += TimeManager::DeltaTime();
+	lastAttackTick += Time::DeltaTime();
 	if (lastAttackTick > lastAttackDuration)
 	{
 		lastAttackTick = 0.f;
@@ -146,7 +159,7 @@ void Unit::Move(Vector3 _target)
 
 void Unit::Chase(Vector3 _target)
 {
-	chaseTick += TimeManager::DeltaTime();
+	chaseTick += Time::DeltaTime();
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
@@ -200,7 +213,7 @@ void Unit::DeadAction()
 
 void Unit::AttackAction()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	if (anim->IsFrameEnd())
 	{
@@ -244,7 +257,9 @@ void Unit::AttackAction()
 				isDamaged = true;
 
 				attackTarget->SetLastAttacker(this);
-				attackTarget->TakeDamage(stat->attackDamage.GetValue());
+				float finalDamage = stat->attackDamage.GetValue();
+				Calc_FinalDamage(&finalDamage, stat, attackTarget->stat);
+				attackTarget->TakeDamage(finalDamage);
 			}
 		}
 
@@ -268,6 +283,27 @@ void Unit::IdleAction()
 	SetState(UnitState::IDLE1);
 	attackTick = 0.f;
 	isDamaged = false;
+}
+
+void Unit::MoveAction()
+{
+	SetState(UnitState::RUN);
+}
+
+void Unit::SkillQAction()
+{
+}
+
+void Unit::SkillWAction()
+{
+}
+
+void Unit::SkillEAction()
+{
+}
+
+void Unit::SkillRAction()
+{
 }
 
 void Unit::PushedOut(Unit* other)
@@ -337,6 +373,16 @@ void Unit::SetAttackDamage(float _damage)
 	stat->attackDamage = _damage;
 }
 
+void Unit::SetADPenetrate(float _penetrate)
+{
+	stat->adPenetrate = _penetrate;
+}
+
+void Unit::SetADPenetratePercent(float _penetratePercent)
+{
+	stat->adPenetratePercent = _penetratePercent;
+}
+
 void Unit::SetAttackPerSec(float _attackPerSec)
 {
 	attackPerSec = _attackPerSec;
@@ -355,6 +401,16 @@ void Unit::SetAttackRange(float _range)
 void Unit::SetAbilityPower(float _ap)
 {
 	stat->abilityPower = _ap;
+}
+
+void Unit::SetAPPenetrate(float _penetrate)
+{
+	stat->apPenetrate = _penetrate;
+}
+
+void Unit::SetAPPenetratePercent(float _penetratePercent)
+{
+	stat->apPenetratePercent = _penetratePercent;
 }
 
 void Unit::SetMovementSpeed(float _speed)
@@ -391,6 +447,7 @@ void Unit::SetLastAttacker(Unit* _attacker)
 
 void Unit::TakeDamage(float _damage)
 {
+
 	stat->hp -= _damage;
 	if (stat->hp <= 0.f)
 	{
@@ -416,6 +473,14 @@ bool Unit::HasAttackTarget()
 bool Unit::HasLastAttacker()
 {
 	return (lastAttacker != nullptr);
+}
+
+void Unit::Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+{
+	for (auto& calc : damageCalcList)
+	{
+		calc->Calc(_damage, _myStat, _targetStat);
+	}
 }
 
 INT Unit::GetID()
@@ -448,6 +513,16 @@ float Unit::GetAttackDamage()
 	return stat->attackDamage.baseValue;
 }
 
+float Unit::GetADPenetrate()
+{
+	return stat->adPenetrate.baseValue;
+}
+
+float Unit::GetADPenetratePercent()
+{
+	return stat->adPenetratePercent.baseValue;
+}
+
 float Unit::GetAttackRange()
 {
 	return attackRange;
@@ -456,6 +531,16 @@ float Unit::GetAttackRange()
 float Unit::GetAbilityPower()
 {
 	return stat->abilityPower.GetValue();
+}
+
+float Unit::GetAPPenetrate()
+{
+	return stat->apPenetrate.baseValue;
+}
+
+float Unit::GetAPPenetratePercent()
+{
+	return stat->apPenetratePercent.baseValue;
 }
 
 float Unit::GetAttackPerSec()

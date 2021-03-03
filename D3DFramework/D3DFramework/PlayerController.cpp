@@ -29,57 +29,52 @@ void PlayerController::Update()
     if (gameObject == nullptr)return;
 
     
-    if (InputManager::GetKeyDown('A'))
+    if (Input::GetKeyDown('A'))
     {
         SetTargetMode(!targetMode);
     }
-    if (InputManager::GetKeyDown('S'))
+    if (Input::GetKeyDown('S'))
     {
         agent->Stop();
         unit->SetAttackTarget(nullptr);
     }
-    if (InputManager::GetKeyDown('D'))
+    if (Input::GetKeyDown('D'))
     {
         unit->SetMovementSpeed(5.f);
     }
 
-    if (InputManager::GetKeyDown('Q'))
+    if (Input::GetKeyDown('Q'))
     {
         unit->Spell1();
     }
-    if (InputManager::GetKeyDown('W'))
+    if (Input::GetKeyDown('W'))
     {
         unit->Spell2();
     }
-    if (InputManager::GetKeyDown('E'))
+    if (Input::GetKeyDown('E'))
     {
         unit->Spell3();
     }
-    if (InputManager::GetKeyDown('R'))
+    if (Input::GetKeyDown('R'))
     {
         unit->Spell4();
     }
     
-    if (InputManager::GetKeyDown('L'))
-    {
-        ObjectManager::SetVisibleCollider(!ObjectManager::IsVisibleCollider());
-    }
 
-
-    if (InputManager::GetMouseWheelUp())
+    if (Input::GetMouseWheelUp())
     {
         Camera* cam = Camera::GetInstance();
         cam->Move(cam->transform->look ,10.f);
     }
-    else if (InputManager::GetMouseWheelDown())
+    else if (Input::GetMouseWheelDown())
     {
         Camera* cam = Camera::GetInstance();
         cam->Move(-cam->transform->look ,10.f);
     }
 
-    if (InputManager::GetMouseLButtonDown())
+    if (Input::GetMouseLButtonDown())
     {
-        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
         
@@ -119,9 +114,9 @@ void PlayerController::Update()
         SetTargetMode(false);
         
     }
-    else if (InputManager::GetMouseRButtonDown())
+    else if (Input::GetMouseRButtonDown())
     {
-        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
 
         int mask = LayerMask::GetMask(Layer::Ground);

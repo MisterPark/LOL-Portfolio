@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IComponent.h"
 #include "Stat.h"
 
@@ -15,6 +15,10 @@ public:
 public:
 	Stat attackDamage = 15.f;
 	Stat abilityPower = 0.f;
+	Stat adPenetrate = 0.f;
+	Stat adPenetratePercent = 0.f;
+	Stat apPenetrate = 0.f;
+	Stat apPenetratePercent = 0.f;
 	Stat armor = 1;
 	Stat magicResistance = 1.f;
 	Stat movementSpeed = 3.5f;
@@ -29,9 +33,10 @@ public:
 	Stat maxExp = 100.f;
 	int level = 1;
 
-	// 5ÃÊ´ç
+	// 5ì´ˆë‹¹
 	Stat hpRegen = 1.f;
-	// 5ÃÊ´ç
+	// 5ì´ˆë‹¹
 	Stat mpRegen = 1.f;
+
 };
 

@@ -18,7 +18,7 @@ Turret::Turret()
 
 	collider->SetRadius(0.6f);
 
-	bar = (TurretFloatingBar*)ObjectManager::GetInstance()->CreateObject<TurretFloatingBar>(Layer::UI);
+	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 
 	SetAttackRange(7.75f);
@@ -38,7 +38,7 @@ Turret::~Turret()
 
 void Turret::Update()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	if (isDead)
 	{
@@ -75,7 +75,7 @@ void Turret::Update()
 		}
 		attackIndicator->isVisible = true;
 
-		attackTick += TimeManager::DeltaTime();
+		attackTick += Time::DeltaTime();
 		float delay = 1.f / attackPerSec;
 		if (attackTick >= delay)
 		{
@@ -85,7 +85,7 @@ void Turret::Update()
 			missilePos += transform->right.Normalized();
 			missilePos.y += 3.f;
 
-			TurretMissile* missile = (TurretMissile*)ObjectManager::GetInstance()->CreateObject<TurretMissile>(Layer::Effect);
+			TurretMissile* missile = (TurretMissile*)SceneManager::GetCurrentScene()->CreateObject<TurretMissile>(Layer::Effect);
 			missile->transform->position = missilePos;
 			missile->SetTeam(team);
 			missile->SetAttackTarget(attackTarget);

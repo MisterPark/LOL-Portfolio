@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IComponent.h"
 
 class Unit;
@@ -16,7 +16,7 @@ namespace Engine
 
 		virtual void Update();
 
-		// IComponentÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+		// IComponentì„(ë¥¼) í†µí•´ ìƒì†ë¨
 		virtual IComponent* Clone() override;
 
 	public:
@@ -29,9 +29,11 @@ namespace Engine
 		void ResetPath();
 		void SetStoppingDistance(float _dist);
 		void SetPath(list<Vector3>& _path);
-		// °æÀ¯Áö ÀÓÀÇ »ğÀÔ
+		// ê²½ìœ ì§€ ì„ì˜ ì‚½ì…
 		void PushLayover(const Vector3& _point);
 		void SetSpeed(float _speed);
+
+		bool IsPathRemain();
 
 	private:
 		Unit* unit = nullptr;

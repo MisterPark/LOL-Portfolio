@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #define RANGE_OF_KEYS 256
 #define dfINPUT_LIFE_FRAME 2
@@ -21,25 +21,25 @@ namespace Engine
 		END
 	};
 
-	class InputManager
+	class Input
 	{
 	private:
-		InputManager();
-		~InputManager();
+		Input();
+		~Input();
 
 	public:
-		static InputManager* GetInstance();
+		static Input* GetInstance();
 		static void Update();
 		static void Initialize();
 		static void Destroy();
 		static void Clear();
 		static void ClearMouseState();
 
-		// Å° ÇÁ·¹½º
+		// í‚¤ í”„ë ˆìŠ¤
 		static bool GetKey(int _vkey);
-		// Å° ´Ù¿î
+		// í‚¤ ë‹¤ìš´
 		static bool GetKeyDown(int _vkey);
-		// Å° ¾÷
+		// í‚¤ ì—…
 		static bool GetKeyUp(int _vkey);
 
 
@@ -55,7 +55,7 @@ namespace Engine
 		static bool GetMouseWheelUp();
 		static bool GetMouseWheelDown();
 
-		// À©µµ¿ì ÁÂÇ¥»óÀÇ ¸¶¿ì½º À§Ä¡
+		// ìœˆë„ìš° ì¢Œí‘œìƒì˜ ë§ˆìš°ìŠ¤ ìœ„ì¹˜
 		static Vector3 GetMousePosition();
 
 
@@ -64,7 +64,7 @@ namespace Engine
 		bool keyDowns[RANGE_OF_KEYS] = {};
 		bool keyUps[RANGE_OF_KEYS] = {};
 
-		// ¸¶¿ì½º ¹öÆ°ÀÇ ´­¸²»óÅÂ¸¦ À¯ÁöÇÏ´Â ÇÁ·¹ÀÓ ¼ö
+		// ë§ˆìš°ìŠ¤ ë²„íŠ¼ì˜ ëˆŒë¦¼ìƒíƒœë¥¼ ìœ ì§€í•˜ëŠ” í”„ë ˆì„ ìˆ˜
 		int mouseFrameCount[MaxOfEnum<Keys>()] = {};
 	public:
 		bool mouse[MaxOfEnum<Keys>()] = {};

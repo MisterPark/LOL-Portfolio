@@ -101,14 +101,13 @@ using namespace std;
 // 매니저
 #include "SoundManager.h"
 #include "MainGame.h"
-#include "ObjectManager.h"
 #include "RenderManager.h"
 #include "FileManager.h"
 #include "UIManager.h"
 
 #include "CollisionManager.h"
-#include "InputManager.h"
-#include "TimeManager.h"
+#include "Input.h"
+#include "Time.h"
 #include "SceneManager.h"
 #include "LightManager.h"
 #include "LoadManager.h"
@@ -121,8 +120,6 @@ using namespace std;
 #include "Camera.h"
 #include "Texture.h"
 #include "Animation2D.h"
-
-#include "SkillManager.h"
 
 // 
 #include "HierarchyLoader.h"

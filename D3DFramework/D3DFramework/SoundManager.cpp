@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "SoundManager.h"
 #include "fmod.h"
 #include <io.h>
@@ -42,7 +42,7 @@ void Engine::SoundManager::Initialize()
 {
 	FMOD_System_Create(&pSoundManager->pSystem);
 	
-	// 1. ½Ã½ºÅÛ Æ÷ÀÎÅÍ, 2. »ç¿ëÇÒ °¡»óÃ¤³Î ¼ö , ÃÊ±âÈ­ ¹æ½Ä) 
+	// 1. ì‹œìŠ¤í…œ í¬ì¸í„°, 2. ì‚¬ìš©í•  ê°€ìƒì±„ë„ ìˆ˜ , ì´ˆê¸°í™” ë°©ì‹) 
 	FMOD_System_Init(pSoundManager->pSystem, 32, FMOD_INIT_NORMAL, NULL);
 
 	LoadSoundFile(); 
@@ -53,7 +53,7 @@ void Engine::SoundManager::Update()
 	{
 		if (pair.second.first)
 		{
-			pair.second.second -= TimeManager::DeltaTime();
+			pair.second.second -= Time::DeltaTime();
 
 			if (0.f > pair.second.second)
 			{

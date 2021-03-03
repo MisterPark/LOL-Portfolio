@@ -122,10 +122,10 @@ namespace Engine
 				reinterpret_cast<D3DXVECTOR3 const*>(&vPosition),
 				&mapSpace
 			);
-			vPosition.x *= 128.f;
-			vPosition.y *= 128.f;
-			vPosition.x = round(vPosition.x)/128.f;
-			vPosition.y = round(vPosition.y)/128.f;
+			vPosition.x *= 256.f;
+			vPosition.y *= 256.f;
+			vPosition.x = round(vPosition.x)/ 256.f;
+			vPosition.y = round(vPosition.y)/ 256.f;
 			fogOfWarShader->SetFloat("g_sightRadius", radius1);
 			fogOfWarShader->SetFloat("g_sightRadius2", radius2);
 			fogOfWarShader->SetVector("g_vSightPosition", &vPosition);
