@@ -817,6 +817,9 @@
     <ClInclude Include="FogOfWarObstacleRenderer.h">
       <Filter>Component\Renderer\FogOfWar</Filter>
     </ClInclude>
+    <ClInclude Include="MiniMapRenderer.h">
+      <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1413,6 +1416,9 @@
     </ClCompile>
     <ClCompile Include="FogOfWarObstacleRenderer.cpp">
       <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMapRenderer.cpp">
+      <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

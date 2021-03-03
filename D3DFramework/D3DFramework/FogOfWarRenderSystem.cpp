@@ -14,7 +14,7 @@ namespace Engine
 	ID3DXEffect* fogOfWarShader;
 	ID3DXEffect* blurShader;
 	Matrix mapSpace;
-	constexpr float EDGE_LENGTH = 110.f;
+	constexpr float EDGE_LENGTH = 98.f;
 	ComPtr<IDirect3DSurface9> depthBuffer;
 	void FogOfWarRenderSystem::Initialize()
 	{
@@ -32,8 +32,8 @@ namespace Engine
 		Vector3 vEye;
 		Vector3 vUp;
 		Vector3 vAt;
-		vEye = Vector3{ 0.f, 2000.f, 0.f };
-		vAt = Vector3{ 0.f, 0.f, 0.f };
+		vEye = Vector3{ 3.f, 2000.f, -4.f };
+		vAt = Vector3{ -3.f, 0.f, 4.f };
 		vUp = Vector3{ 0.f, 0.f, -1.f };
 		Matrix mProj;
 		Matrix mView;
