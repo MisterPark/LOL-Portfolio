@@ -79,6 +79,11 @@ Unit::~Unit()
 	stat = nullptr;
 	bt = nullptr;
 	attackIndicator = nullptr;
+
+	for (auto calc : damageCalcList)
+	{
+		delete calc;
+	}
 }
 
 void Unit::Initialize()
@@ -252,7 +257,9 @@ void Unit::AttackAction()
 				isDamaged = true;
 
 				attackTarget->SetLastAttacker(this);
-				attackTarget->TakeDamage(stat->attackDamage.GetValue());
+				float finalDamage = stat->attackDamage.GetValue();
+				Calc_FinalDamage(&finalDamage, stat, attackTarget->stat);
+				attackTarget->TakeDamage(finalDamage);
 			}
 		}
 
@@ -281,6 +288,22 @@ void Unit::IdleAction()
 void Unit::MoveAction()
 {
 	SetState(UnitState::RUN);
+}
+
+void Unit::SkillQAction()
+{
+}
+
+void Unit::SkillWAction()
+{
+}
+
+void Unit::SkillEAction()
+{
+}
+
+void Unit::SkillRAction()
+{
 }
 
 void Unit::PushedOut(Unit* other)
@@ -450,6 +473,14 @@ bool Unit::HasAttackTarget()
 bool Unit::HasLastAttacker()
 {
 	return (lastAttacker != nullptr);
+}
+
+void Unit::Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+{
+	for (auto& calc : damageCalcList)
+	{
+		calc->Calc(_damage, _myStat, _targetStat);
+	}
 }
 
 INT Unit::GetID()
