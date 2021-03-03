@@ -1,5 +1,7 @@
 ﻿#pragma once
-#include "Unit.h"
+
+class Unit;
+
 class Skill abstract
 {
 public:

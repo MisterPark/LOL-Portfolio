@@ -37,5 +37,6 @@ public:
 	Stat hpRegen = 1.f;
 	// 5초당
 	Stat mpRegen = 1.f;
+
 };
 

@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Skill_Garen_Q.h"
+#include "Unit.h"
 
 Skill_Garen_Q::Skill_Garen_Q()
 {

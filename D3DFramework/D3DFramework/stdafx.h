@@ -121,8 +121,6 @@ using namespace std;
 #include "Texture.h"
 #include "Animation2D.h"
 
-#include "SkillManager.h"
-
 // 
 #include "HierarchyLoader.h"
 #include "AnimationController.h"

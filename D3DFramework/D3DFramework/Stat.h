@@ -37,8 +37,7 @@ public:
     bool operator>(const Stat& rhs);
     bool operator<(const Stat& rhs);
 
-    void AddBuff(Buff)
-    void AddBuff(float _modifier);
+    void AddModifier(float _modifier);
     void RemoveModifier(float _modifier);
 
     float GetValue();
@@ -46,6 +45,6 @@ public:
 public:
     float baseValue = 0.f;
 private:
-    list<Buff> modifiers;
+    list<float> modifiers;
 };
 
