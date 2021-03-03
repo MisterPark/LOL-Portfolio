@@ -48,7 +48,7 @@ Garen::Garen()
 	SetMagicResistance(32.1f);
 
 	SetADPenetratePercent(30.f);
-
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
 
 
 }
@@ -108,3 +108,20 @@ void Garen::Spell4()
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
 	damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
 }
+
+void Garen::SkillQAction()
+{
+}
+
+void Garen::SkillWAction()
+{
+}
+
+void Garen::SkillEAction()
+{
+}
+
+void Garen::SkillRAction()
+{
+}
+

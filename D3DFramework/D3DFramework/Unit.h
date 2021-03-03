@@ -3,6 +3,8 @@
 #include "Animation.h"
 #include "Stat.h"
 #include "UnitStat.h"
+#include "DamageCalc.h"
+#include "Skill.h"
 
 class Indicator;
 
@@ -66,6 +68,10 @@ public:
 	void CounterAttack();
 	void IdleAction();
 	void MoveAction();
+	virtual void SkillQAction();
+	virtual void SkillWAction();
+	virtual void SkillEAction();
+	virtual void SkillRAction();
 
 	void PushedOut(Unit* other);
 
@@ -102,6 +108,8 @@ public:
 	bool IsDead();
 	bool HasAttackTarget();
 	bool HasLastAttacker();
+
+	void Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat);
 
 	INT GetID();
 	float GetHP();
@@ -152,6 +160,11 @@ protected:
 	float attackTick = 0.f;
 	float attackPerSec = 0.625f;
 	UnitState attackState = UnitState::ATTACK1;
+
+	// 스킬 관련
+	Skill* skillList[7];
+	// 데미지계산관련
+	list<DamageCalc*> damageCalcList;
 
 	// 마지막으로 나를 공격한 유닛
 	Unit* lastAttacker = nullptr;
