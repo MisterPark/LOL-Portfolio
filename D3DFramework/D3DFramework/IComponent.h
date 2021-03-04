@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 namespace Engine
@@ -12,6 +12,7 @@ namespace Engine
 		explicit IComponent(const IComponent& rhs);
 		virtual ~IComponent();
 
+		virtual void PreUpdate();
 		virtual void Update();
 		virtual void PostUpdate();
 

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "UnitStat.h"
+#include "Stat.h"
 
 enum class CalcKind
 {
@@ -15,10 +15,10 @@ namespace Engine
 
 	public:
 		~DamageCalc();
-		virtual void Calc(float* _damage, UnitStat* _myStat, UnitStat* _targetStat) = 0;
+		virtual void Calc(float* _damage, Stat* _myStat, Stat* _targetStat) = 0;
 
 	protected:
-		float Calc_Defense(float _damage, UnitStat* _myStat, UnitStat* _targetStat);
+		float Calc_Defense(float _damage, Stat* _myStat, Stat* _targetStat);
 	protected:
 		float value = 0.f;
 		bool trueDamage = false;

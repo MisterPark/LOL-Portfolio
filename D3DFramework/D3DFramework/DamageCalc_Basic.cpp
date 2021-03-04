@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DamageCalc_Basic.h"
-#include "UnitStat.h"
+#include "Stat.h"
 #include "Stat.h"
 
 DamageCalc_Basic::DamageCalc_Basic()
@@ -11,7 +11,7 @@ DamageCalc_Basic::~DamageCalc_Basic()
 {
 }
 
-void DamageCalc_Basic::Calc(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+void DamageCalc_Basic::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
 	if (trueDamage)
 		return;

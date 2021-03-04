@@ -2,13 +2,13 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Stat.h"
-#include "UnitStat.h"
+#include "Stat.h"
 #include "DamageCalc.h"
 #include "Skill.h"
 
 class Indicator;
 
-enum class UnitState
+enum class State
 {
 	IDLE1,
 	IDLE2,
@@ -75,30 +75,15 @@ public:
 
 	void PushedOut(Unit* other);
 
-	void SetState(UnitState _state);
-	UnitState GetState();
+	void SetState(State _state);
+	State GetState();
 
 	virtual void SetTeam(Team _team);
 	void SetAttackTarget(Unit* _target);
 	Unit* GetAttackTarget();
 
-	void SetHP(float _max);
-	void SetMP(float _max);
-	void SetHPRegen(float _per5Sec);
-	void SetMPRegen(float _per5Sec);
-	void SetAttackDamage(float _damage);
-	void SetADPenetrate(float _penetrate);
-	void SetADPenetratePercent(float _penetratePercent);
 	void SetAttackPerSec(float _attackPerSec);
 	void SetAttackRange(float _range);
-	void SetAbilityPower(float _ap);
-	void SetAPPenetrate(float _penetrate);
-	void SetAPPenetratePercent(float _penetratePercent);
-	void SetMovementSpeed(float _speed);
-	void SetArmor(float _armor);
-	void SetMagicResistance(float _magicResist);
-	void SetCriticalPer(float _percent);
-	void SetCooldownReduction(float _cdr);
 
 	void SetLastAttacker(Unit* _attacker);
 
@@ -109,26 +94,9 @@ public:
 	bool HasAttackTarget();
 	bool HasLastAttacker();
 
-	void Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat);
+	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
 	INT GetID();
-	float GetHP();
-	float GetMP();
-	float GetMaxHP();
-	float GetMaxMP();
-	float GetAttackDamage();
-	float GetADPenetrate();
-	float GetADPenetratePercent();
-	float GetAttackPerSec();
-	float GetAttackRange();
-	float GetAbilityPower();
-	float GetAPPenetrate();
-	float GetAPPenetratePercent();
-	float GetMovementSpeed();
-	float GetArmor();
-	float GetMagicResistance();
-	float GetCriticalPer();
-	float GetCooldownReduction();
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
@@ -147,11 +115,11 @@ public:
 	NavMeshAgent* agent = nullptr;
 	SphereCollider* collider = nullptr;
 	Indicator* attackIndicator = nullptr;
-	UnitStat* stat = nullptr;
+	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 
 protected:
-	UnitState state = UnitState::IDLE1;
+	State state = State::IDLE1;
 	
 	// 기본공격 관련
 	bool attackFlag = false;
@@ -159,7 +127,7 @@ protected:
 	float attackRange = 1.25f;
 	float attackTick = 0.f;
 	float attackPerSec = 0.625f;
-	UnitState attackState = UnitState::ATTACK1;
+	State attackState = State::ATTACK1;
 
 	// 스킬 관련
 	Skill* skillList[7];

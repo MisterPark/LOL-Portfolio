@@ -14,8 +14,9 @@ Skill_Garen_Q::~Skill_Garen_Q()
 
 void Skill_Garen_Q::Start()
 {
-	addSpeedValue = hostUnit->stat->movementSpeed.GetBaseValue() * (addSpeedPercent * 0.01f);
-	hostUnit->stat->movementSpeed.AddModifier(addSpeedValue);
+	addSpeedValue = hostUnit->stat->GetValue(StatType::MovementSpeed) * (addSpeedPercent * 0.01f);
+	// TODO : 버프로 넣어야함
+	//hostUnit->stat->movementSpeed.AddModifier(addSpeedValue);
 	durationSpeedTime = 0.35f + level * 0.65f;
 }
 
@@ -36,7 +37,7 @@ void Skill_Garen_Q::Update()
 		durationSpeedTime -= Time::DeltaTime();
 	}
 	else if (durationSpeedTime != -1.f) {
-		hostUnit->stat->movementSpeed.RemoveModifier(addSpeedValue);
+		//hostUnit->stat->movementSpeed.RemoveModifier(addSpeedValue);
 		durationSpeedTime = -1.f;
 	}
 

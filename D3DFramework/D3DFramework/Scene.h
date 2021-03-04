@@ -9,6 +9,7 @@ namespace Engine
 		virtual void OnLoaded() = 0;
 		virtual void OnUnloaded() = 0;
 
+		virtual void PreUpdate();
 		virtual void Update();
 		virtual void PostUpdate();
 

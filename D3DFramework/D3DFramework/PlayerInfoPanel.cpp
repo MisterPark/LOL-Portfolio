@@ -319,7 +319,7 @@ void PlayerInfoPanel::PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg
 
 void PlayerInfoPanel::ClickStatButton()
 {
-    pPlayerInfoPanel->statPanel->isVisible ? 
+    pPlayerInfoPanel->statPanel->visible ? 
     pPlayerInfoPanel->statPanel->Hide() :
     pPlayerInfoPanel->statPanel->Show();
 }

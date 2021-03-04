@@ -9,7 +9,7 @@ Scuttleracer::Scuttleracer()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop((int)UnitState::IDLE1, true);
+	anim->SetLoop((int)State::IDLE1, true);
 
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);

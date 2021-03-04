@@ -40,7 +40,7 @@ void PlayerController::Update()
     }
     if (Input::GetKeyDown('D'))
     {
-        unit->SetMovementSpeed(5.f);
+
     }
 
     if (Input::GetKeyDown('Q'))
@@ -146,11 +146,11 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
-        unit->attackIndicator->isVisible = true;
+        unit->attackIndicator->visible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
-        unit->attackIndicator->isVisible = false;
+        unit->attackIndicator->visible = false;
     }
 }

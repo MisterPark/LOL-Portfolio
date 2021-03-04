@@ -191,7 +191,7 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;
-		//screens[i]->isVisible = false;
+		//screens[i]->visible = false;
 	}
 	
 }

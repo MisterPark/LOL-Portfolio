@@ -94,6 +94,7 @@ void Engine::MainGame::Update()
 	Input::Update();
 
 	// 2. 씬 매니저 업데이트
+	SceneManager::PreUpdate();
 	SceneManager::Update();
 
 	// 3. Player 업데이트

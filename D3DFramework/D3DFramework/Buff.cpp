@@ -1,20 +1,26 @@
 ﻿#include "stdafx.h"
 #include "Buff.h"
 
-Buff::Buff(float _value, float _duration)
+Buff::Buff()
 {
-	this->baseValue = _value;
-	this->duration = _duration;
-	this->tick = 0.f;
 }
 
-bool Buff::Update()
+Buff::Buff(Unit* _host, float _duration)
 {
-	tick += Time::DeltaTime();
-	if (tick >= duration)
-	{
-		return false;
-	}
+	this->host = _host;
+	this->duration = _duration;
+}
 
-	return true;
+Buff::~Buff()
+{
+	host = nullptr;
+}
+
+void Buff::AddModifier(StatType _type, float _value, bool _isPercent)
+{
+	Buff::Node node;
+	node.type = _type;
+	node.value = _value;
+	node.isPercent = _isPercent;
+	modifiers.push_back(node);
 }

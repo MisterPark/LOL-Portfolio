@@ -13,6 +13,7 @@ namespace Engine
 	public:
 		static SceneManager* GetInstance();
 		static void Destroy();
+		static void PreUpdate();
 		static void Update();
 		static void PostUpdate();
 		//매개 인자가 없는 씬 생성자 호출

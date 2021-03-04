@@ -4,7 +4,7 @@
 #include "FogOfWarObstacleRenderer.h"
 Wall::Wall()
 {
-	isVisible = false;
+	visible = false;
 	transform->scale = { 0.1f,0.1f, 0.1f };
 	transform->Update();
 
@@ -35,6 +35,6 @@ void Wall::Update()
 
 	if (Input::GetKeyDown('L'))
 	{
-		isVisible = !isVisible;
+		visible = !visible;
 	}
 }

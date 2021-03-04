@@ -6,6 +6,21 @@ Engine::Scene::~Scene()
 	DeleteAllObject();
 }
 
+void Engine::Scene::PreUpdate()
+{
+	auto objTable = objectTable;
+	constexpr int layerCount = MaxOfEnum<Layer>();
+	for (int i = 0; i < layerCount; i++)
+	{
+		auto& objList = objTable[i];
+		for (auto& iter : objList)
+		{
+			if (!iter->enable) continue;
+			iter->PreUpdate();
+		}
+	}
+}
+
 void Engine::Scene::Update()
 {
 	auto objTable = objectTable;
@@ -15,7 +30,7 @@ void Engine::Scene::Update()
 		auto& objList = objTable[i];
 		for (auto& iter : objList)
 		{
-			if (!iter->isEnable) continue;
+			if (!iter->enable) continue;
 			iter->Update();
 		}
 	}
@@ -50,7 +65,10 @@ void Engine::Scene::PostUpdate()
 			}
 			else
 			{
-				target->PostUpdate();
+				if (target->enable)
+				{
+					target->PostUpdate();
+				}
 				++iter;
 			}
 		}

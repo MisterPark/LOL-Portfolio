@@ -47,7 +47,7 @@ void Engine::NavMeshAgent::Update()
         else // 남은 거리가 있다면
         {
             // 상태
-            unit->SetState(UnitState::RUN);
+            unit->SetState(State::RUN);
             // 회전
             unit->LookRotation(direction);
             // 이동

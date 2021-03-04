@@ -73,7 +73,7 @@ void Turret::Update()
 			attackTarget = nullptr;
 			return;
 		}
-		attackIndicator->isVisible = true;
+		attackIndicator->visible = true;
 
 		attackTick += Time::DeltaTime();
 		float delay = 1.f / attackPerSec;
@@ -95,7 +95,7 @@ void Turret::Update()
 	}
 	else
 	{
-		attackIndicator->isVisible = false;
+		attackIndicator->visible = false;
 	}
 
 	GameObject::Update();

@@ -13,7 +13,7 @@ KrugMini::KrugMini()
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
-	anim->SetLoop((int)UnitState::IDLE1, true);
+	anim->SetLoop((int)State::IDLE1, true);
 }
 
 KrugMini::~KrugMini()

@@ -51,28 +51,28 @@ Vector3 Engine::Cursor::GetMousePos()
 
 void Engine::Cursor::Show()
 {
-    if (pCursor->isVisible) return;
+    if (pCursor->visible) return;
 
-    pCursor->isVisible = true;
+    pCursor->visible = true;
     
 }
 
 void Engine::Cursor::Show(bool on)
 {
-    pCursor->isVisible = on;
+    pCursor->visible = on;
 }
 
 void Engine::Cursor::Hide()
 {
-    if (pCursor->isVisible == false) return;
+    if (pCursor->visible == false) return;
 
-    pCursor->isVisible = false;
+    pCursor->visible = false;
     
 }
 
 void Engine::Cursor::Update()
 {
-    if (isEnable == false)return;
+    if (enable == false)return;
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
@@ -86,7 +86,7 @@ void Engine::Cursor::Update()
 //
 //void Engine::Cursor::Render()
 //{
-//    if (isVisible == false)return;
+//    if (visible == false)return;
 //
 //    switch (mode)
 //    {
@@ -112,7 +112,7 @@ void Engine::Cursor::Release()
 
 bool Engine::Cursor::IsVisible()
 {
-    return pCursor->isVisible;
+    return pCursor->visible;
 }
 
 void Engine::Cursor::SetRenderCenter(bool isCenter)

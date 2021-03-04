@@ -5,7 +5,7 @@
 
 UI::UI()
 {
-	oldEnable = isEnable;
+	oldEnable = enable;
 
 	mesh = (Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
@@ -135,9 +135,9 @@ void UI::UpdateEvent()
 	}
 	
 	// EnabledChanged
-	if (isEnable != oldEnable)
+	if (enable != oldEnable)
 	{
-		oldEnable = isEnable;
+		oldEnable = enable;
 		OnEnabledChanged();
 	}
 
