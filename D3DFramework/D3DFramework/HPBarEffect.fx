@@ -66,8 +66,15 @@ float4 ps_sight_main(PS_IN input) :COLOR0
 		return float4(0.f, 0.f, 0.f, 0.f);
 	}
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
-	float vSight = tex2D(SightMapTextureSampler, input.vTex).r;
-	vAlbedo.rgb = vAlbedo.rgb* (vSight * 0.5f + 0.5f);
+	float2 sightTex = input.vTex;
+	
+	sightTex -= 0.5f;
+	sightTex *= 2.f;
+	//
+	sightTex *= 0.5f;
+	sightTex += 0.5f;
+	float sight = tex2D(SightMapTextureSampler, sightTex).r;
+	vAlbedo.rgb = vAlbedo.rgb* (sight * 0.5f + 0.5f);
 	return vAlbedo;
 }
 technique Default_Device
@@ -89,6 +96,6 @@ technique Default_Device
 		SrcBlend = srcalpha;
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
-		PixelShader = compile ps_3_0 ps_main();
+		PixelShader = compile ps_3_0 ps_sight_main();
 	}
 }

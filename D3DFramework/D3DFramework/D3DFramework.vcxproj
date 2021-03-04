@@ -251,6 +251,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="MinimapPanel.h" />
+    <ClInclude Include="MiniMapRenderer.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
@@ -429,6 +430,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MinimapPanel.cpp" />
+    <ClCompile Include="MiniMapRenderer.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />

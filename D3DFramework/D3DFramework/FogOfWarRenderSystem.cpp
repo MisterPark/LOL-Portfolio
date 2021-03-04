@@ -14,7 +14,7 @@ namespace Engine
 	ID3DXEffect* fogOfWarShader;
 	ID3DXEffect* blurShader;
 	Matrix mapSpace;
-	constexpr float EDGE_LENGTH = 110.f;
+	constexpr float EDGE_LENGTH = 98.f;
 	ComPtr<IDirect3DSurface9> depthBuffer;
 	void FogOfWarRenderSystem::Initialize()
 	{
@@ -32,8 +32,8 @@ namespace Engine
 		Vector3 vEye;
 		Vector3 vUp;
 		Vector3 vAt;
-		vEye = Vector3{ 0.f, 2000.f, 0.f };
-		vAt = Vector3{ 0.f, 0.f, 0.f };
+		vEye = Vector3{ 3.f, 2000.f, -4.f };
+		vAt = Vector3{ -3.f, 0.f, 4.f };
 		vUp = Vector3{ 0.f, 0.f, -1.f };
 		Matrix mProj;
 		Matrix mView;
@@ -122,10 +122,10 @@ namespace Engine
 				reinterpret_cast<D3DXVECTOR3 const*>(&vPosition),
 				&mapSpace
 			);
-			vPosition.x *= 128.f;
-			vPosition.y *= 128.f;
-			vPosition.x = round(vPosition.x)/128.f;
-			vPosition.y = round(vPosition.y)/128.f;
+			vPosition.x *= 256.f;
+			vPosition.y *= 256.f;
+			vPosition.x = round(vPosition.x)/ 256.f;
+			vPosition.y = round(vPosition.y)/ 256.f;
 			fogOfWarShader->SetFloat("g_sightRadius", radius1);
 			fogOfWarShader->SetFloat("g_sightRadius2", radius2);
 			fogOfWarShader->SetVector("g_vSightPosition", &vPosition);

@@ -16,7 +16,7 @@ Garen::Garen()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"garen");
 	AddComponent(L"DynamicMesh", dmesh);
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
-	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 15.f);
+	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 4.f);
 
 	renderer->SetMesh(dmesh);
 	renderer->EnableRimLight(Vector3{ 1.f, 0.f, 0.f });

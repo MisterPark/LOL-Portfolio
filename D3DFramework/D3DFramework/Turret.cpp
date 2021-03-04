@@ -24,7 +24,7 @@ Turret::Turret()
 	SetAttackRange(7.75f);
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
-	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 10.f);
+	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 4.f);
 	AddComponent(L"fogRenderer", fogOfWarRenderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
