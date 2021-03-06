@@ -38,6 +38,16 @@ Unit::Unit()
 	deathAction->SetAction(this, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
 
+	//
+	ConditionNode<Skill>* skillCondition = new ConditionNode<Skill>();
+	skillCondition->SetCondition(skillList[(int)SkillIndex::Q], &Skill::IsActive);
+	root->AddChild(skillCondition);
+
+	ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
+	skillQAction->SetAction(skillList[(int)SkillIndex::Q], &Skill::Active);
+	skillCondition->SetChild(skillQAction);
+	//
+
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
 	moveCondition->SetCondition(agent, &NavMeshAgent::IsPathRemain);
 	root->AddChild(moveCondition);
@@ -84,6 +94,12 @@ Unit::~Unit()
 	{
 		delete calc;
 	}
+	for (int i = 0; i < (int)SkillIndex::END; i++)
+	{
+		if (skillList[i] == nullptr)
+			continue;
+		delete skillList[i];
+	}
 }
 
 void Unit::Initialize()
@@ -104,6 +120,12 @@ void Unit::Update()
 
 	attackIndicator->Update();
 
+	for (int i = 0; i < (int)SkillIndex::END; i++)
+	{
+		if (skillList[i] == NULL)
+			continue;
+		skillList[i]->Passive();
+	}
 }
 
 
@@ -178,18 +200,22 @@ void Unit::Attack(Unit* target)
 
 void Unit::Spell1()
 {
+	skillList[(int)SkillIndex::Q]->Start();
 }
 
 void Unit::Spell2()
 {
+	skillList[(int)SkillIndex::W]->Start();
 }
 
 void Unit::Spell3()
 {
+	skillList[(int)SkillIndex::E]->Start();
 }
 
 void Unit::Spell4()
 {
+	skillList[(int)SkillIndex::R]->Start();
 }
 
 void Unit::Die()
@@ -215,7 +241,7 @@ void Unit::AttackAction()
 {
 	float dt = Time::DeltaTime();
 
-	if (anim->IsFrameEnd())
+	if (anim->IsFrameEnd() && (int)attackState == anim->GetState())
 	{
 		int rand = Random::Range(0, 9);
 		if (rand < 5)

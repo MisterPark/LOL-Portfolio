@@ -11,11 +11,6 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    virtual void Spell1();
-    virtual void Spell2();
-    virtual void Spell3();
-    virtual void Spell4();
-
     virtual void SkillQAction();
     virtual void SkillWAction();
     virtual void SkillEAction();

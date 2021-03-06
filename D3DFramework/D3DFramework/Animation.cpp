@@ -178,6 +178,11 @@ UINT Engine::Animation::GetCurrentAnimation()
     return currentAnim;
 }
 
+int Engine::Animation::GetState()
+{
+    return state;
+}
+
 void Engine::Animation::SetState(int _state)
 {
     state = _state;

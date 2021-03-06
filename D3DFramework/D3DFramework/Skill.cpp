@@ -11,3 +11,10 @@ Skill::~Skill()
 	
 }
 
+bool Skill::IsAvailable()
+{
+	if (!active)
+		return true;
+	return false;
+}
+

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "IComponent.h"
 
 namespace Engine
@@ -29,6 +29,7 @@ namespace Engine
 		string GetNameByState(int _state);
 		UINT GetIndexByState(int _state);
 		UINT GetCurrentAnimation();
+		int GetState();
 
 		void SetState(int _state);
 		void SetLoop(int _state, bool loop);
