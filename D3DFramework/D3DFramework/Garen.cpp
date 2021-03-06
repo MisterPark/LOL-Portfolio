@@ -8,6 +8,7 @@
 #include "DamageCalc_LostHpPercent.h"
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
+#include "Skill_Garen_Q.h"
 
 Garen::Garen()
 {
@@ -49,10 +50,11 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
 
-	stat->SetBaseValue(StatType::ArmorPenetrationPercent, 0.3f);
+	//stat->SetBaseValue(StatType::ArmorPenetrationPercent, 0.3f);
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
 
-
+	// 스킬
+	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
 }
 
 Garen::~Garen()
@@ -70,31 +72,21 @@ void Garen::Release()
 void Garen::Update()
 {
 	Champion::Update();
+	
 }
 
-void Garen::Spell1()
-{
-}
+//void Garen::Spell3()
+//{
+//	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
+//	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, stat->GetValue(StatType::AttackDamage) * 0.f, 2.f, 0.5f);
+//	damageObj->Set_ObjectFollow(this);
+//	//제일처음에 Basic만 잘 입혀줄것
+//	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
+//	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(10.f));
+//	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(10.f));
+//	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
+//}
 
-void Garen::Spell2()
-{
-}
-
-void Garen::Spell3()
-{
-	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
-	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, stat->GetValue(StatType::AttackDamage) * 0.f, 2.f, 0.5f);
-	damageObj->Set_ObjectFollow(this);
-	//제일처음에 Basic만 잘 입혀줄것
-	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
-	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(10.f));
-	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(10.f));
-	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
-}
-
-void Garen::Spell4()
-{
-}
 
 void Garen::SkillQAction()
 {

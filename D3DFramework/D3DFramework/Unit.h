@@ -38,6 +38,18 @@ enum class State
 	END
 };
 
+enum class SkillIndex
+{
+	Passive,
+	Q,
+	W,
+	E,
+	R,
+	D,
+	F,
+	END
+};
+
 class Unit : public GameObject
 {
 public:
@@ -56,10 +68,10 @@ public:
 	virtual void Chase(Vector3 _target);
 
 	virtual void Attack(Unit* _target);
-	virtual void Spell1();
-	virtual void Spell2();
-	virtual void Spell3();
-	virtual void Spell4();
+	void Spell1();
+	void Spell2();
+	void Spell3();
+	void Spell4();
 
 	virtual void Die();
 	// 행동
@@ -100,12 +112,12 @@ public:
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
-
+	void SetAttackState(State _attackState) { attackState = _attackState; }
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
-
+	
 	
 public:
 	static list<Unit*> unitList;
@@ -130,7 +142,8 @@ protected:
 	State attackState = State::ATTACK1;
 
 	// 스킬 관련
-	Skill* skillList[7];
+	Skill* skillList[MaxOfEnum<SkillIndex>()];
+	
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;
 
