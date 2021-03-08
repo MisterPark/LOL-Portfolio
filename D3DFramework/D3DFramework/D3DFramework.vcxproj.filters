@@ -850,6 +850,9 @@
     </ClInclude>
     <ClInclude Include="Buff_GarenQHaste.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
+    <ClInclude Include="ScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1456,6 +1459,9 @@
     </ClCompile>
     <ClCompile Include="Buff_GarenQHaste.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
+    <ClCompile Include="ScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

@@ -280,12 +280,18 @@ void Engine::UI::SetText(const wstring& _text)
 
 Engine::UI* Engine::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 {
-	UI* ui = new UI(_tag, _pos);
+	UI* ui = GameObject::CreateChild<UI>(_tag);
+	ui->SetTexture(_tag);
+	ui->SetLocation(_pos);
+
+	return ui;
+
+	/*UI* ui = new UI(_tag, _pos);
 	if (ui == nullptr) return nullptr;
 
 	children.emplace(_tag, ui);
 	ui->SetParent(this);
-	return ui;
+	return ui;*/
 }
 
 bool Engine::UI::Intersect(Vector2 _target)

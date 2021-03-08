@@ -233,15 +233,25 @@ void Engine::GameObject::Hide()
 	visible = false;
 }
 
-GameObject* Engine::GameObject::RemoveChild(const wstring& _tag)
+void Engine::GameObject::DeleteChild(const wstring& _tag)
 {
-	GameObject* child = nullptr;
 	auto find = children.find(_tag.c_str());
 	if (find != children.end())
 	{
+		delete find->second;
+		children.erase(find);
+	}
+}
+
+GameObject* Engine::GameObject::RemoveChild(const wstring& _tag)
+{
+	auto find = children.find(_tag.c_str());
+	if (find != children.end())
+	{
+		children.erase(find);
 		return find->second;
 	}
-	return child;
+	return nullptr;
 }
 
 void Engine::GameObject::AddWeak(Engine::EventBase* evt)
