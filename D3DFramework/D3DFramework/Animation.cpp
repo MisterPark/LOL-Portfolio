@@ -1,28 +1,28 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Animation.h"
 #include "Unit.h"
 
-PKH::Animation::Animation(GameObject* owner)
+Engine::Animation::Animation(GameObject* owner)
     :IComponent(owner)
 {
     
 }
 
-PKH::Animation::Animation(const Animation& rhs)
+Engine::Animation::Animation(const Animation& rhs)
     :IComponent(rhs)
 {
 }
 
-PKH::Animation::~Animation()
+Engine::Animation::~Animation()
 {
     animsets.clear();
 }
 
-void PKH::Animation::PostUpdate()
+void Engine::Animation::PostUpdate()
 {
     if (dmesh == nullptr) return;
 
-    float dt = TimeManager::DeltaTime();
+    float dt = Time::DeltaTime();
 
     Animation::Node animNode = animsets[state];
     currentAnim = animNode.index;
@@ -46,19 +46,19 @@ void PKH::Animation::PostUpdate()
     dmesh->animSpeed += animSpeed;
 }
 
-IComponent* PKH::Animation::Clone()
+IComponent* Engine::Animation::Clone()
 {
     return new Animation(*this);
 }
 
-void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
+void Engine::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
 {
     this->dmesh = _dmesh;
 
     UINT idleIndex = 0;
     dmesh->GetAnimationIndex(&idleIndex, "idle1");
 
-    int end = (int)UnitState::END;
+    int end = (int)State::END;
     for (int i = 0; i < end; i++)
     {
         UINT idx = 0;
@@ -80,85 +80,85 @@ void PKH::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
     currentAnim = idleIndex;
 }
 
-string PKH::Animation::GetNameByState(int _state)
+string Engine::Animation::GetNameByState(int _state)
 {
     string name;
-    UnitState unitState = (UnitState)_state;
-    switch (unitState)
+    State state = (State)_state;
+    switch (state)
     {
-    case UnitState::IDLE1:
+    case State::IDLE1:
         name = "idle1";
         break;
-    case UnitState::IDLE2:
+    case State::IDLE2:
         name = "idle2";
         break;
-    case UnitState::IDLE3:
+    case State::IDLE3:
         name = "idle3";
         break;
-    case UnitState::DEATH:
+    case State::DEATH:
         name = "death";
         break;
-    case UnitState::DEATH2:
+    case State::DEATH2:
         name = "death2";
         break;
-    case UnitState::RECALL:
+    case State::RECALL:
         name = "recall";
         break;
-    case UnitState::RECALL2:
+    case State::RECALL2:
         name = "recall2";
         break;
-    case UnitState::RECALL3:
+    case State::RECALL3:
         name = "recall3";
         break;
-    case UnitState::RUN:
+    case State::RUN:
         name = "run";
         break;
-    case UnitState::RUN2:
+    case State::RUN2:
         name = "run2";
         break;
-    case UnitState::RUN_HASTE:
+    case State::RUN_HASTE:
         name = "run_haste";
         break;
-    case UnitState::ATTACK1:
+    case State::ATTACK1:
         name = "attack1";
         break;
-    case UnitState::ATTACK2:
+    case State::ATTACK2:
         name = "attack2";
         break;
-    case UnitState::ATTACK3:
+    case State::ATTACK3:
         name = "attack3";
         break;
-    case UnitState::ATTACK4:
+    case State::ATTACK4:
         name = "attack4";
         break;
-    case UnitState::CRITICAL:
+    case State::CRITICAL:
         name = "crit";
         break;
-    case UnitState::Q:
+    case State::Q:
         name = "q";
         break;
-    case UnitState::W:
+    case State::W:
         name = "w";
         break;
-    case UnitState::E:
+    case State::E:
         name = "e";
         break;
-    case UnitState::R:
+    case State::R:
         name = "r";
         break;
-    case UnitState::Q2:
+    case State::Q2:
         name = "q2";
         break;
-    case UnitState::W2:
+    case State::W2:
         name = "w2";
         break;
-    case UnitState::E2:
+    case State::E2:
         name = "e2";
         break;
-    case UnitState::R2:
+    case State::R2:
         name = "r2";
         break;
-    case UnitState::SPAWN:
+    case State::SPAWN:
         name = "spawn";
         break;
     default:
@@ -168,43 +168,48 @@ string PKH::Animation::GetNameByState(int _state)
     return name;
 }
 
-UINT PKH::Animation::GetIndexByState(int _state)
+UINT Engine::Animation::GetIndexByState(int _state)
 {
     return animsets[_state].index;
 }
 
-UINT PKH::Animation::GetCurrentAnimation()
+UINT Engine::Animation::GetCurrentAnimation()
 {
     return currentAnim;
 }
 
-void PKH::Animation::SetState(int _state)
+int Engine::Animation::GetState()
+{
+    return state;
+}
+
+void Engine::Animation::SetState(int _state)
 {
     state = _state;
 }
 
-void PKH::Animation::SetLoop(int _state, bool loop)
+void Engine::Animation::SetLoop(int _state, bool loop)
 {
     animsets[_state].isLoop = loop;
 }
 
-void PKH::Animation::SetSpeed(int _state, float speed)
+void Engine::Animation::SetSpeed(int _state, float speed)
 {
     animsets[_state].speed = speed;
 }
 
-bool PKH::Animation::IsFrameEnd()
+bool Engine::Animation::IsFrameEnd()
 {
     if (dmesh == nullptr) return false;
     return dmesh->IsAnimationSetEnd();
 }
 
-void PKH::Animation::Stop()
+void Engine::Animation::Stop()
 {
     stopFlag = true;
 }
 
-void PKH::Animation::Resume()
+void Engine::Animation::Resume()
 {
     stopFlag = false;
 }

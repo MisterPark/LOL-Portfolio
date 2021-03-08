@@ -1,12 +1,12 @@
 ﻿#include "stdafx.h"
 #include "Camera.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::Camera* PKH::Camera::main = nullptr;
+Engine::Camera* Engine::Camera::main = nullptr;
 map<wstring, Camera*> Camera::cams;
 
-PKH::Camera::Camera()
+Engine::Camera::Camera()
 {
 	screenW = MainGame::GetWidth();
 	screenH = MainGame::GetHeight();
@@ -28,22 +28,22 @@ PKH::Camera::Camera()
 	isProjection3D = true;
 }
 
-PKH::Camera::~Camera()
+Engine::Camera::~Camera()
 {
 
 }
 
-PKH::Camera* PKH::Camera::GetInstance()
+Engine::Camera* Engine::Camera::GetInstance()
 {
 	if (main == nullptr)
 	{
-		main = new PKH::Camera;
+		main = new Engine::Camera;
 		cams[L"MainCamera"] = main;
 	}
 	return main;
 }
 
-void PKH::Camera::Destroy()
+void Engine::Camera::Destroy()
 {
 	if (main)
 	{
@@ -60,56 +60,56 @@ void PKH::Camera::Destroy()
 	cams.clear();
 }
 
-void PKH::Camera::Update()
+void Engine::Camera::Update()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 	
-	if (InputManager::GetKey(VK_UP))
+	if (Input::GetKey(VK_UP))
 	{
 		//offset.y += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_DOWN))
+	if (Input::GetKey(VK_DOWN))
 	{
 		//offset.y -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD7))
+	if (Input::GetKey(VK_NUMPAD7))
 	{
 		//transform->position.y += 100.f * dt;
 		topViewPos.y += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD9))
+	if (Input::GetKey(VK_NUMPAD9))
 	{
 		//transform->position.y -= 100.f * dt;
 		topViewPos.y -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD8)) // 위
+	if (Input::GetKey(VK_NUMPAD8)) // 위
 	{
 		topViewPos.z += 10.f * dt;
 		topViewLook.z += 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD5)) // 아래
+	if (Input::GetKey(VK_NUMPAD5)) // 아래
 	{
 		topViewPos.z -= 10.f * dt;
 		topViewLook.z -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD4)) // 왼
+	if (Input::GetKey(VK_NUMPAD4)) // 왼
 	{
 		topViewPos.x -= 10.f * dt;
 		topViewLook.x -= 10.f * dt;
 	}
-	if (InputManager::GetKey(VK_NUMPAD6)) // 오른
+	if (Input::GetKey(VK_NUMPAD6)) // 오른
 	{
 		topViewPos.x += 10.f * dt;
 		topViewLook.x += 10.f * dt;
 	}
-	if (InputManager::GetKeyDown('U'))
+	if (Input::GetKeyDown('U'))
 	{
 		printf("look :%d,%d,%d\n", (int)transform->look.x, (int)transform->look.y, (int)transform->look.z);
 		printf("pos :%d,%d,%d\n", (int)transform->position.x, (int)transform->position.y, (int)transform->position.z);
 		topViewFlag = !topViewFlag;
 	}
 
-	if (InputManager::GetMouseWheelUp())
+	if (Input::GetMouseWheelUp())
 	{
 		if (target != nullptr)
 		{
@@ -119,7 +119,7 @@ void PKH::Camera::Update()
 			
 		}
 	}
-	else if (InputManager::GetMouseWheelDown())
+	else if (Input::GetMouseWheelDown())
 	{
 		if (target != nullptr)
 		{
@@ -169,60 +169,60 @@ void PKH::Camera::Update()
 
 
 
-void PKH::Camera::Initialize()
+void Engine::Camera::Initialize()
 {
 }
 
-void PKH::Camera::Release()
+void Engine::Camera::Release()
 {
 }
 
-Vector3 PKH::Camera::GetPosition()
+Vector3 Engine::Camera::GetPosition()
 {
 	return transform->position;
 }
 
-float PKH::Camera::GetX()
+float Engine::Camera::GetX()
 {
 	return transform->position.x;
 }
 
-float PKH::Camera::GetY()
+float Engine::Camera::GetY()
 {
 	return transform->position.y;
 }
 
-Matrix PKH::Camera::GetViewMatrix()
+Matrix Engine::Camera::GetViewMatrix()
 {
 	return viewMatrix;
 }
 
-Matrix PKH::Camera::GetProjectionMatrix()
+Matrix Engine::Camera::GetProjectionMatrix()
 {
 	return projectionMatrix;
 }
 
-Matrix PKH::Camera::GetPerspectiveMatrix()
+Matrix Engine::Camera::GetPerspectiveMatrix()
 {
 	return perspectiveMatrix;
 }
 
-Matrix PKH::Camera::GetOrthogonalMatrix()
+Matrix Engine::Camera::GetOrthogonalMatrix()
 {
 	return orthogonalMatrix;
 }
 
-void PKH::Camera::SetProjection3D(bool ProjectionSet)
+void Engine::Camera::SetProjection3D(bool ProjectionSet)
 {
 	isProjection3D = ProjectionSet;
 }
 
-bool PKH::Camera::GetProjection3D()
+bool Engine::Camera::GetProjection3D()
 {
 	return isProjection3D;
 }
 
-Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
+Vector3 Engine::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 {
 	Matrix viewProj = viewMatrix * projectionMatrix;
 	
@@ -238,7 +238,7 @@ Vector3 PKH::Camera::ScreenToWorldPoint(const Vector3& position, float zPos)
 	return pos;
 }
 
-Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
+Vector3 Engine::Camera::WorldToScreenPoint(const Vector3& position)
 {
 	Matrix viewProj = viewMatrix * projectionMatrix;
 
@@ -251,7 +251,7 @@ Vector3 PKH::Camera::WorldToScreenPoint(const Vector3& position)
 	return pos;
 }
 
-Vector3 PKH::Camera::ScreenToWorldPointOrtho(const Vector3& position, float zPos)
+Vector3 Engine::Camera::ScreenToWorldPointOrtho(const Vector3& position, float zPos)
 {
 	Matrix viewProj = viewMatrix * orthogonalMatrix;
 
@@ -267,7 +267,7 @@ Vector3 PKH::Camera::ScreenToWorldPointOrtho(const Vector3& position, float zPos
 	return pos;
 }
 
-Vector3 PKH::Camera::WorldToScreenPointOrtho(const Vector3& position)
+Vector3 Engine::Camera::WorldToScreenPointOrtho(const Vector3& position)
 {
 	Matrix viewProj = viewMatrix * orthogonalMatrix;
 
@@ -280,7 +280,7 @@ Vector3 PKH::Camera::WorldToScreenPointOrtho(const Vector3& position)
 	return pos;
 }
 
-Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
+Ray Engine::Camera::ScreenPointToRay(Vector3 pos)
 {
 	Ray ray;
 	ray.origin = transform->position;
@@ -306,7 +306,7 @@ Ray PKH::Camera::ScreenPointToRay(Vector3 pos)
 	return ray;
 }
 
-void PKH::Camera::SetTarget(GameObject* _target)
+void Engine::Camera::SetTarget(GameObject* _target)
 {
 	target = _target;
 	if (target != nullptr)
@@ -317,14 +317,14 @@ void PKH::Camera::SetTarget(GameObject* _target)
 	}
 }
 
-void PKH::Camera::SlowChaseTarget(GameObject * tar)
+void Engine::Camera::SlowChaseTarget(GameObject * tar)
 {
 	isSlowChase = true;
 	target = tar;
 	slowTime = 0.f;
 }
 
-void PKH::Camera::Shake(float _duration, float _magnitude)
+void Engine::Camera::Shake(float _duration, float _magnitude)
 {
 	isShake = true;
 	shakeDuration = _duration;
@@ -332,11 +332,11 @@ void PKH::Camera::Shake(float _duration, float _magnitude)
 	originCamPos = transform->position;
 }
 
-void PKH::Camera::UpdateShake()
+void Engine::Camera::UpdateShake()
 {
 	if (isShake)
 	{
-		shakeDuration -= TimeManager::DeltaTime();
+		shakeDuration -= Time::DeltaTime();
 
 		if (0 >= shakeDuration)
 		{
@@ -359,17 +359,17 @@ void PKH::Camera::UpdateShake()
 	}
 }
 
-void PKH::Camera::SetShakeDuration(float _duration)
+void Engine::Camera::SetShakeDuration(float _duration)
 {
 	shakeDuration = _duration;
 }
 
-float PKH::Camera::GetFarPlane()
+float Engine::Camera::GetFarPlane()
 {
 	return farClipPlane;
 }
 
-void PKH::Camera::PerspectiveProjection()
+void Engine::Camera::PerspectiveProjection()
 {
 	perspectiveMatrix = Matrix::PerspectiveFovLH(fovY,
 		(float)screenW / screenH,
@@ -383,7 +383,7 @@ void PKH::Camera::PerspectiveProjection()
 	
 }
 
-void PKH::Camera::OrthogonalProjection() 
+void Engine::Camera::OrthogonalProjection() 
 {
 
 	//D3DXMatrixOrthoLH(&proj, (float)7.6f, (float)5.7f, 0.0f, 10.f);
@@ -394,7 +394,7 @@ void PKH::Camera::OrthogonalProjection()
 	RenderManager::SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
-Camera* PKH::Camera::CreateCamera(wstring id)
+Camera* Engine::Camera::CreateCamera(wstring id)
 {
 	auto find = cams.find(id);
 	if (find != cams.end()) return find->second; // 이미 존재하면 리턴
@@ -404,7 +404,7 @@ Camera* PKH::Camera::CreateCamera(wstring id)
 	return cam;
 }
 
-void PKH::Camera::DeleteCamera(wstring id)
+void Engine::Camera::DeleteCamera(wstring id)
 {
 	auto find = cams.find(id);
 	if (find == cams.end()) return;

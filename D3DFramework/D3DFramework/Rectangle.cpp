@@ -2,34 +2,34 @@
 #include "Rectangle.h"
 #include "Color.h"
 
-PKH::Rectangle::Rectangle(GameObject* owner)
+Engine::Rectangle::Rectangle(GameObject* owner)
 	:CustomMesh(owner)
 {
 	CreateCustomMesh();
 }
 
-PKH::Rectangle::Rectangle(const Rectangle& rhs)
+Engine::Rectangle::Rectangle(const Rectangle& rhs)
 	:CustomMesh(rhs)
 {
 	CreateCustomMesh();
 }
 
-PKH::Rectangle::~Rectangle()
+Engine::Rectangle::~Rectangle()
 {
 	
 }
 
-void PKH::Rectangle::Update()
+void Engine::Rectangle::Update()
 {
 }
 
 
-IComponent* PKH::Rectangle::Clone()
+IComponent* Engine::Rectangle::Clone()
 {
 	return new Rectangle(*this);
 }
 
-void PKH::Rectangle::CreateCustomMesh()
+void Engine::Rectangle::CreateCustomMesh()
 {
 	this->vertexCount = 4;
 	this->vertexSize = sizeof(Vertex);

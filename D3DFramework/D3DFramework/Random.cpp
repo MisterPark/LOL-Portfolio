@@ -1,29 +1,29 @@
 #include "stdafx.h"
 #include "Random.h"
 
-void PKH::Random::InitState()
+void Engine::Random::InitState()
 {
     srand(GetTickCount());
 }
 
-void PKH::Random::InitState(int seed)
+void Engine::Random::InitState(int seed)
 {
     srand(seed);
 }
 
-int PKH::Random::Value(int numOfCases)
+int Engine::Random::Value(int numOfCases)
 {
     return (rand() % numOfCases);
 }
 
-int PKH::Random::Range(int min, int max)
+int Engine::Random::Range(int min, int max)
 {
     int range = max - min + 1;
     int random = rand() % range + min;
     return random;
 }
 
-float PKH::Random::Range(float min, float max)
+float Engine::Random::Range(float min, float max)
 {
     int iMin = (int)(min * 100);
     int iMax = (int)(max * 100);

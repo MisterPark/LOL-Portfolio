@@ -1,39 +1,43 @@
-#pragma once
+ï»¿#pragma once
 
-#include "IScene.h"
+#include "Scene.h"
 
-namespace PKH
+namespace Engine
 {
 	class SceneManager
 	{
 	private:
 		SceneManager();
 		~SceneManager();
-		static void LoadScene(IScene* pScene);
+		static void LoadScene(Scene* pScene);
 	public:
 		static SceneManager* GetInstance();
 		static void Destroy();
+		static void PreUpdate();
 		static void Update();
-		//¸Å°³ ÀÎÀÚ°¡ ¾ø´Â ¾À »ı¼ºÀÚ È£Ãâ
+		static void PostUpdate();
+		//ë§¤ê°œ ì¸ìê°€ ì—†ëŠ” ì”¬ ìƒì„±ì í˜¸ì¶œ
 		template<typename SceneT>
 		static void LoadScene();
 		template<typename SceneT, typename ...ArgT>
 		static void LoadScene(ArgT&& ...args);
 
-		IScene* pCurrentScene = nullptr;
-		IScene* pReadyScene = nullptr;
+		static Scene* GetCurrentScene();
+	private:
+		Scene* pCurrentScene = nullptr;
+		Scene* pReadyScene = nullptr;
 	};
 
 	template<typename SceneT>
 	inline void SceneManager::LoadScene()
 	{
-		LoadScene(static_cast<IScene*>(new SceneT{}));
+		LoadScene(static_cast<Scene*>(new SceneT{}));
 	}
 
 	template<typename SceneT, typename ...ArgT>
 	inline void SceneManager::LoadScene(ArgT&& ...args)
 	{
-		LoadScene(static_cast<IScene*>(new SceneT{ std::forward<ArgT>(args) ... }));
+		LoadScene(static_cast<Scene*>(new SceneT{ std::forward<ArgT>(args) ... }));
 	}
 
 }

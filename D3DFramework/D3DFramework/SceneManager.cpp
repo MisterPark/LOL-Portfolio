@@ -1,15 +1,15 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SceneManager.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::SceneManager* pSceneManager = nullptr;
+Engine::SceneManager* pSceneManager = nullptr;
 
-PKH::SceneManager::SceneManager()
+Engine::SceneManager::SceneManager()
 {
 
 }
-PKH::SceneManager::~SceneManager()
+Engine::SceneManager::~SceneManager()
 {
 	if (pCurrentScene != nullptr)
 	{
@@ -22,7 +22,7 @@ PKH::SceneManager::~SceneManager()
 	}
 }
 
-void PKH::SceneManager::LoadScene(IScene * pScene)
+void Engine::SceneManager::LoadScene(Scene * pScene)
 {
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)
@@ -32,7 +32,7 @@ void PKH::SceneManager::LoadScene(IScene * pScene)
 	self.pReadyScene = pScene;
 }
 
-SceneManager* PKH::SceneManager::GetInstance()
+SceneManager* Engine::SceneManager::GetInstance()
 {
 	if (pSceneManager == nullptr)
 	{
@@ -42,17 +42,26 @@ SceneManager* PKH::SceneManager::GetInstance()
 }
 
 
-void PKH::SceneManager::Destroy()
+void Engine::SceneManager::Destroy()
 {
 	delete pSceneManager;
 }
 
-void PKH::SceneManager::Update()
+void Engine::SceneManager::PreUpdate()
+{
+	auto& self = *pSceneManager;
+	if (self.pCurrentScene)
+	{
+		self.pCurrentScene->PreUpdate();
+	}
+}
+
+void Engine::SceneManager::Update()
 {
 	auto& self = *pSceneManager;
 	if (self.pReadyScene != nullptr)
 	{
-		IScene* pReadyScene = self.pReadyScene;
+		Scene* pReadyScene = self.pReadyScene;
 		self.pReadyScene = nullptr;
 		if (self.pCurrentScene != nullptr)
 		{
@@ -66,5 +75,19 @@ void PKH::SceneManager::Update()
 	{
 		self.pCurrentScene->Update();
 	}
+}
+
+void Engine::SceneManager::PostUpdate()
+{
+	auto& self = *pSceneManager;
+	if (self.pCurrentScene)
+	{
+		self.pCurrentScene->PostUpdate();
+	}
+}
+
+Scene* Engine::SceneManager::GetCurrentScene()
+{
+	return pSceneManager->pCurrentScene;
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "IComponent.h"
-namespace PKH{
+namespace Engine{
 
 class Animation2D :
     public IComponent

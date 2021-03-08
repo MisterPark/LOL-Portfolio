@@ -8,7 +8,7 @@ Blitzcrank::Blitzcrank()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
@@ -21,16 +21,18 @@ Blitzcrank::Blitzcrank()
 	rTexKey = L"blitzcrank_r";
 	passiveTexKey = L"blitzcrank_passive";
 
-	SetHP(582.6f);
-	SetHPRegen(8.5f);
-	SetMP(267.2f);
-	SetMPRegen(8.5f);
-	SetAttackDamage(61.54f);
-	SetAttackPerSec(0.625f);
-	SetArmor(37.f);
-	SetMagicResistance(32.1f);
-	SetAttackRange(1.25f);
-	SetMovementSpeed(3.25f);
+	stat->SetBaseValue(StatType::MaxHealth, 582.6f);
+	stat->SetBaseValue(StatType::Health, 582.6f);
+	stat->SetBaseValue(StatType::HealthRegen, 8.5f);
+	stat->SetBaseValue(StatType::MaxMana, 267.2f);
+	stat->SetBaseValue(StatType::Mana, 267.2f);
+	stat->SetBaseValue(StatType::ManaRegen, 8.5f);
+	stat->SetBaseValue(StatType::AttackDamage, 61.54f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 37.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 1.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 }
 
 Blitzcrank::~Blitzcrank()

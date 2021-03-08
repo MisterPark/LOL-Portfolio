@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CustomMesh.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::CustomMesh::CustomMesh(GameObject* owner)
+Engine::CustomMesh::CustomMesh(GameObject* owner)
 	:Mesh(owner)
 {
 	// 머테리얼
@@ -19,7 +19,7 @@ PKH::CustomMesh::CustomMesh(GameObject* owner)
 	type = MeshType::CUSTOM_MESH;
 }
 
-PKH::CustomMesh::CustomMesh(const CustomMesh& rhs)
+Engine::CustomMesh::CustomMesh(const CustomMesh& rhs)
 	:Mesh(rhs)
 {
 	
@@ -33,7 +33,7 @@ CustomMesh::~CustomMesh()
 	Safe_Delete_Array(&pIndices);
 }
 
-void PKH::CustomMesh::RenderSubset(int index)
+void Engine::CustomMesh::RenderSubset(int index)
 {
 	device->SetStreamSource(0, vertexBuffer, 0, sizeof(Vertex));
 	device->SetFVF(Vertex::FVF);
@@ -41,7 +41,7 @@ void PKH::CustomMesh::RenderSubset(int index)
 	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, 0, triangleCount);
 }
 
-IDirect3DTexture9* PKH::CustomMesh::GetSubsetTexture(int index)
+IDirect3DTexture9* Engine::CustomMesh::GetSubsetTexture(int index)
 {
 	Texture* texture = RenderManager::GetTexture(textureKey);
 	if (texture == nullptr) return nullptr;
@@ -50,37 +50,37 @@ IDirect3DTexture9* PKH::CustomMesh::GetSubsetTexture(int index)
 }
 
 
-IDirect3DVertexBuffer9 * PKH::CustomMesh::GetVertexBuffer()
+IDirect3DVertexBuffer9 * Engine::CustomMesh::GetVertexBuffer()
 {
 	return vertexBuffer;
 }
 
-Vector3* PKH::CustomMesh::GetVertices()
+Vector3* Engine::CustomMesh::GetVertices()
 {
 	return pVertices;
 }
 
-DWORD* PKH::CustomMesh::GetIndices()
+DWORD* Engine::CustomMesh::GetIndices()
 {
 	return pIndices;
 }
 
-ULONG PKH::CustomMesh::GetVertexCount()
+ULONG Engine::CustomMesh::GetVertexCount()
 {
 	return this->vertexCount;
 }
 
-ULONG PKH::CustomMesh::GetVertexSize()
+ULONG Engine::CustomMesh::GetVertexSize()
 {
 	return this->vertexSize;
 }
 
-ULONG PKH::CustomMesh::GetFaceCount()
+ULONG Engine::CustomMesh::GetFaceCount()
 {
 	return this->triangleCount;
 }
 
-void PKH::CustomMesh::SetColor(D3DCOLOR color)
+void Engine::CustomMesh::SetColor(D3DCOLOR color)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -92,12 +92,12 @@ void PKH::CustomMesh::SetColor(D3DCOLOR color)
 	vertexBuffer->Unlock();
 }
 
-void PKH::CustomMesh::SetTexture(const wstring& id)
+void Engine::CustomMesh::SetTexture(const wstring& id)
 {
 	textureKey = id;
 }
 
-void PKH::CustomMesh::SetVertexPos(UINT index, const Vector3& pos)
+void Engine::CustomMesh::SetVertexPos(UINT index, const Vector3& pos)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -107,7 +107,7 @@ void PKH::CustomMesh::SetVertexPos(UINT index, const Vector3& pos)
 	vertexBuffer->Unlock();
 }
 
-void PKH::CustomMesh::SetUV(UINT index, float u, float v)
+void Engine::CustomMesh::SetUV(UINT index, float u, float v)
 {
 	Vertex* vertices;
 	vertexBuffer->Lock(0, 0, (void**)&vertices, 0);
@@ -116,27 +116,27 @@ void PKH::CustomMesh::SetUV(UINT index, float u, float v)
 	vertexBuffer->Unlock();
 }
 
-void PKH::CustomMesh::SetBlendMode(BlendMode _mode)
+void Engine::CustomMesh::SetBlendMode(BlendMode _mode)
 {
 	this->blendMode = _mode;
 }
 
-void PKH::CustomMesh::SetCullMode(CullMode _mode)
+void Engine::CustomMesh::SetCullMode(CullMode _mode)
 {
 	cullMode = _mode;
 }
 
-void PKH::CustomMesh::SetZReadMode(ZReadMode _mode)
+void Engine::CustomMesh::SetZReadMode(ZReadMode _mode)
 {
 	zReadMode = _mode;
 }
 
-void PKH::CustomMesh::SetZWriteMode(ZWriteMode _mode)
+void Engine::CustomMesh::SetZWriteMode(ZWriteMode _mode)
 {
 	zWriteMode = _mode;
 }
 
-void PKH::CustomMesh::SetLightMode(LightMode _mode)
+void Engine::CustomMesh::SetLightMode(LightMode _mode)
 {
 	lightMode = _mode;
 }

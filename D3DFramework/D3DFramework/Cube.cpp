@@ -2,34 +2,34 @@
 #include "Cube.h"
 
 
-PKH::Cube::Cube(GameObject* owner)
+Engine::Cube::Cube(GameObject* owner)
 	:CustomMesh(owner)
 {
 	CreateCustomMesh();
 }
 
-PKH::Cube::Cube(const Cube& rhs)
+Engine::Cube::Cube(const Cube& rhs)
 	:CustomMesh(rhs)
 {
 	CreateCustomMesh();
 }
 
-PKH::Cube::~Cube()
+Engine::Cube::~Cube()
 {
 }
 
-void PKH::Cube::Update()
+void Engine::Cube::Update()
 {
 
 }
 
 
-IComponent* PKH::Cube::Clone()
+IComponent* Engine::Cube::Clone()
 {
 	return new Cube(*this);
 }
 
-void PKH::Cube::CreateCustomMesh()
+void Engine::Cube::CreateCustomMesh()
 {
 	this->vertexCount = 8;
 	this->vertexSize = sizeof(Vertex);

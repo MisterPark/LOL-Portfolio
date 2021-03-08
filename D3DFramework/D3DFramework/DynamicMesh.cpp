@@ -3,7 +3,7 @@
 #include "HierarchyLoader.h"
 #include "AnimationController.h"
 
-PKH::DynamicMesh::DynamicMesh(GameObject* owner)
+Engine::DynamicMesh::DynamicMesh(GameObject* owner)
 	:Mesh(owner)
 	, m_pRootFrame(nullptr)
 	, m_pLoader(nullptr)
@@ -13,7 +13,7 @@ PKH::DynamicMesh::DynamicMesh(GameObject* owner)
 
 }
 
-PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
+Engine::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
 	:Mesh(rhs)
 	, m_pRootFrame(rhs.m_pRootFrame)
 	, m_pLoader(rhs.m_pLoader)
@@ -29,7 +29,7 @@ PKH::DynamicMesh::DynamicMesh(const DynamicMesh& rhs)
 	m_pAniCtrl = AnimationController::Create(*rhs.m_pAniCtrl);
 }
 
-PKH::DynamicMesh::~DynamicMesh()
+Engine::DynamicMesh::~DynamicMesh()
 {
 	Safe_Release(&m_pAniCtrl);
 
@@ -45,7 +45,7 @@ PKH::DynamicMesh::~DynamicMesh()
 	m_MeshContainerList.clear();
 }
 
-IComponent * PKH::DynamicMesh::Clone()
+IComponent * Engine::DynamicMesh::Clone()
 {
 	return new DynamicMesh(*this);
 }
@@ -129,7 +129,7 @@ HRESULT DynamicMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 	return S_OK;
 }
 
-void PKH::DynamicMesh::UpdateFrame()
+void Engine::DynamicMesh::UpdateFrame()
 {
 	if (gameObject == nullptr)return;
 
@@ -152,7 +152,7 @@ void PKH::DynamicMesh::UpdateFrame()
 	UpdateFrameMatrices((D3DXFRAME_DERIVED*)m_pRootFrame, &matTemp);
 }
 
-const list<D3DXMESHCONTAINER_DERIVED*>& PKH::DynamicMesh::GetMeshContainersRef()
+const list<D3DXMESHCONTAINER_DERIVED*>& Engine::DynamicMesh::GetMeshContainersRef()
 {
 	return m_MeshContainerList;
 }
@@ -173,7 +173,7 @@ void DynamicMesh::SetAnimationSet(const UINT& iIndex)
 	m_pAniCtrl->SetAnimationSet(iIndex);
 }
 
-void PKH::DynamicMesh::SetAnimationSet(const char* name)
+void Engine::DynamicMesh::SetAnimationSet(const char* name)
 {
 	auto end = m_AnimKeys.end();
 	auto find = m_AnimKeys.find(name);
@@ -194,7 +194,7 @@ void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 	
 }
 
-bool PKH::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
+bool Engine::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
 {
 	auto end = m_AnimKeys.end();
 	auto find = m_AnimKeys.find(name);
@@ -207,7 +207,7 @@ bool PKH::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)
 	return false;
 }
 
-double PKH::DynamicMesh::GetPeriod(const UINT& index)
+double Engine::DynamicMesh::GetPeriod(const UINT& index)
 {
 	return m_pAniCtrl->GetPeriod(index);
 }
@@ -252,7 +252,7 @@ void DynamicMesh::SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame)
 
 }
 
-void PKH::DynamicMesh::CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutCloneFrame)
+void Engine::DynamicMesh::CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutCloneFrame)
 {
 	if (nullptr == pRoot) return;
 	if (ppOutCloneFrame == nullptr) return;
@@ -275,7 +275,7 @@ void PKH::DynamicMesh::CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutClo
 
 }
 
-void PKH::DynamicMesh::DeleteFrame(D3DXFRAME* pRoot)
+void Engine::DynamicMesh::DeleteFrame(D3DXFRAME* pRoot)
 {
 	if (nullptr == pRoot)
 		return;

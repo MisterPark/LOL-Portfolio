@@ -2,7 +2,7 @@
 #include "IComponent.h"
 #include "Vector3.h"
 
-namespace PKH
+namespace Engine
 {
 	class Transform : public IComponent
 	{

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BoxCollider.h"
 
-using namespace PKH;
+using namespace Engine;
 
 BoxCollider::BoxCollider(GameObject* owner)
     :Collider(owner)

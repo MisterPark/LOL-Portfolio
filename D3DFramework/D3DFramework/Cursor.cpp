@@ -3,9 +3,9 @@
 #include "Rectangle.h"
 #include "UIRenderer.h"
 
-PKH::Cursor* pCursor = nullptr;
+Engine::Cursor* pCursor = nullptr;
 
-PKH::Cursor::Cursor()
+Engine::Cursor::Cursor()
 {
     ShowCursor(FALSE);
     
@@ -15,12 +15,12 @@ PKH::Cursor::Cursor()
     dontDestroy = true;
 }
 
-PKH::Cursor::~Cursor()
+Engine::Cursor::~Cursor()
 {
     ShowCursor(TRUE);
 }
 
-Cursor* PKH::Cursor::GetInstance()
+Cursor* Engine::Cursor::GetInstance()
 {
     if (pCursor == nullptr)
     {
@@ -29,7 +29,7 @@ Cursor* PKH::Cursor::GetInstance()
     return pCursor;
 }
 
-void PKH::Cursor::Destroy()
+void Engine::Cursor::Destroy()
 {
     if (pCursor)
     {
@@ -38,7 +38,7 @@ void PKH::Cursor::Destroy()
     }
 }
 
-Vector3 PKH::Cursor::GetMousePos()
+Vector3 Engine::Cursor::GetMousePos()
 {
     Vector3 pos;
     POINT pt;
@@ -49,30 +49,30 @@ Vector3 PKH::Cursor::GetMousePos()
     return pos;
 }
 
-void PKH::Cursor::Show()
+void Engine::Cursor::Show()
 {
-    if (pCursor->Visible) return;
+    if (pCursor->visible) return;
 
-    pCursor->Visible = true;
+    pCursor->visible = true;
     
 }
 
-void PKH::Cursor::Show(bool on)
+void Engine::Cursor::Show(bool on)
 {
-    pCursor->Visible = on;
+    pCursor->visible = on;
 }
 
-void PKH::Cursor::Hide()
+void Engine::Cursor::Hide()
 {
-    if (pCursor->Visible == false) return;
+    if (pCursor->visible == false) return;
 
-    pCursor->Visible = false;
+    pCursor->visible = false;
     
 }
 
-void PKH::Cursor::Update()
+void Engine::Cursor::Update()
 {
-    if (Enable == false)return;
+    if (enable == false)return;
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
@@ -84,16 +84,16 @@ void PKH::Cursor::Update()
     //Billboard();
 }
 //
-//void PKH::Cursor::Render()
+//void Engine::Cursor::Render()
 //{
-//    if (Visible == false)return;
+//    if (visible == false)return;
 //
 //    switch (mode)
 //    {
-//    case PKH::CursorMode::Normal:
+//    case Engine::CursorMode::Normal:
 //        RenderManager::DrawUI(L"hover_precise", *transform, 0);
 //        break;
-//    case PKH::CursorMode::SingleTarget:
+//    case Engine::CursorMode::SingleTarget:
 //        RenderManager::DrawSprite(L"singletarget", *transform, 0);
 //        break;
 //    default:
@@ -102,35 +102,35 @@ void PKH::Cursor::Update()
 //    
 //}
 
-void PKH::Cursor::Initialize()
+void Engine::Cursor::Initialize()
 {
 }
 
-void PKH::Cursor::Release()
+void Engine::Cursor::Release()
 {
 }
 
-bool PKH::Cursor::IsVisible()
+bool Engine::Cursor::IsVisible()
 {
-    return pCursor->Visible;
+    return pCursor->visible;
 }
 
-void PKH::Cursor::SetRenderCenter(bool isCenter)
+void Engine::Cursor::SetRenderCenter(bool isCenter)
 {
     pCursor->isRenderCenter = isCenter;
 }
 
-void PKH::Cursor::SetMode(CursorMode _mode)
+void Engine::Cursor::SetMode(CursorMode _mode)
 {
     pCursor->mode = _mode;
 
     switch (_mode)
     {
-    case PKH::CursorMode::Normal:
+    case Engine::CursorMode::Normal:
         pCursor->SetTexture(L"hover_precise");
         pCursor->SetSizeByTexture();
         break;
-    case PKH::CursorMode::SingleTarget:
+    case Engine::CursorMode::SingleTarget:
         pCursor->SetTexture(L"singletarget");
         pCursor->SetSizeByTexture();
         break;
@@ -139,14 +139,14 @@ void PKH::Cursor::SetMode(CursorMode _mode)
     }
 }
 
-void PKH::Cursor::ChangeMode()
+void Engine::Cursor::ChangeMode()
 {
     switch (pCursor->mode)
     {
-    case PKH::CursorMode::Normal:
+    case Engine::CursorMode::Normal:
         SetMode(CursorMode::SingleTarget);
         break;
-    case PKH::CursorMode::SingleTarget:
+    case Engine::CursorMode::SingleTarget:
         SetMode(CursorMode::Normal);
         break;
     default:

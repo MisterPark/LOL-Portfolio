@@ -1,12 +1,12 @@
-#pragma once
-#include "IScene.h"
+ï»¿#pragma once
+#include "Scene.h"
 #include "LobbyWindow.h"
 
 class TitleScene :
-    public IScene
+    public Scene
 {
 public:
-    // ISceneÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // Sceneì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;

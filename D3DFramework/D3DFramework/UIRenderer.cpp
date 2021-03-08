@@ -4,7 +4,7 @@
 #include "RenderManager.h"
 int UIRenderer::uniqueZIndex = 0;
 
-KST::UIRenderer::UIRenderer(GameObject* owner)
+Engine::UIRenderer::UIRenderer(GameObject* owner)
 	: Renderer{ owner, RendererType::UI }
 {
 	ui = (UI*)owner;
@@ -12,12 +12,12 @@ KST::UIRenderer::UIRenderer(GameObject* owner)
 	effect = RenderManager::LoadEffect(L"./HPBarEffect.fx");
 }
 
-IComponent* KST::UIRenderer::Clone()
+IComponent* Engine::UIRenderer::Clone()
 {
 	return new UIRenderer(*this);
 }
 
-void KST::UIRenderer::Render()
+void Engine::UIRenderer::Render()
 {
 	if (visible == false) return;
 	if (ui == nullptr) return;
@@ -54,12 +54,12 @@ void KST::UIRenderer::Render()
 	effect->End();
 }
 
-void KST::UIRenderer::SetMesh(PKH::Mesh* mesh)
+void Engine::UIRenderer::SetMesh(Engine::Mesh* mesh)
 {
 	this->mesh = mesh;
 }
 
-void KST::UIRenderer::BringToTop()
+void Engine::UIRenderer::BringToTop()
 {
 	transform->zIndex = UIRenderer::uniqueZIndex;
 }

@@ -1,22 +1,26 @@
 ﻿#include "stdafx.h"
 #include "Renderer.h"
 #include "RenderSystem.h"
+#include "FogOfWarRenderSystem.h"
 #include<map>
 #include<list>
 #include<wrl.h>
-namespace KST
+namespace Engine
 {
+	wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR{ L"RT_RIN_LIGHT_COLOR" };
 	wchar_t const* const RENDER_TARGET_DEFERRED_RESULT{ L"RT_DEFERRED_RESULT" };
 	wchar_t const* const RENDER_TARGET_ALBEDO{ L"RT_ALBEDO" };
 	wchar_t const* const RENDER_TARGET_NORMAL{ L"RT_NORMAL" };
-	wchar_t const* const RENDER_TARGET_DEPTH{ L"RT_DEPTH" };
 	wchar_t const* const RENDER_TARGET_SHARPNESS{ L"RT_SHARPNESS" };
+	wchar_t const* const RENDER_TARGET_FOG_OF_WAR{ L"RT_FOG_OF_WAR" };
+	wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR{ L"RT_HEIGHT_FOG_OF_WAR" };
 	wchar_t const* const LIGHT_SPECULAR = L"light_specular";
 	wchar_t const* const LIGHT_DIFFUSE = L"light_diffuse";
 	const char ID_TEX_NORMAL_MAP[] = "g_normalMap";
 	const char ID_TEX_SPECULAR_MAP[] = "g_specularMap";
 	const char ID_CONST_INVERSE_VIEW_PROJ_MATRIX[]{ "g_mInverseViewProj" };
-	const char ID_TEX_DEPTH_MAP[]{ "g_depthMap" };
+	const char ID_TEX_RIM_LIGHT_COLOR[] = "g_rimLightMap";
+	const char ID_TEX_FOR_OF_WAR[] = "g_fogOfWarMap";
 	using namespace Microsoft::WRL;
 	std::list< Renderer*> rendererTable[(unsigned)RendererType::END];
 	struct ShadowMap;
@@ -34,7 +38,7 @@ namespace KST
 	};
 	std::set<std::shared_ptr< ShadowMap> > usingShadowMap;
 	std::set<std::shared_ptr< ShadowMap> > idleShadowMap;
-
+	long lastUid = 0;
 	std::vector<std::wstring> lightNames;
 	std::map <std::wstring, LightAdditionalInfo> lights;
 	ComPtr<IDirect3DVertexBuffer9> vertexBuffer;
@@ -43,8 +47,9 @@ namespace KST
 	RenderTarget* albedoRenderTarget;
 	RenderTarget* normalRenderTarget;
 	RenderTarget* sharpnessRenderTarget;
-	RenderTarget* depthRenderTarget;
 	RenderTarget* shadowRenderTarget;
+	RenderTarget* rimLightColorRenderTarget;
+	RenderTarget* fogOfWarRenderTarget;
 
 	RenderTarget* lightSpecularRenderTarget;
 	RenderTarget* lightDiffuseRenderTarget;
@@ -54,6 +59,7 @@ namespace KST
 
 	Matrix mViewProj;
 
+	ComPtr<ID3DXSprite> sprite_;
 
 	struct PPVertexFVF { D3DXVECTOR3 xyz; D3DXVECTOR2 uv; };
 	static constexpr DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
@@ -100,9 +106,11 @@ namespace KST
 		const int width = MainGame::GetInstance()->width;
 		const int height = MainGame::GetInstance()->height;
 		RenderManager::CreateRenderTarget(RENDER_TARGET_ALBEDO, width, height, D3DFMT_A8R8G8B8);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A16B16G16R16F);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_NORMAL, width, height, D3DFMT_A32B32G32R32F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
-		RenderManager::CreateRenderTarget(RENDER_TARGET_DEPTH, width, height, D3DFMT_G32R32F);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_FOG_OF_WAR, 256, 256, D3DFMT_R32F);
+
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_A16B16G16R16F);
@@ -110,22 +118,27 @@ namespace KST
 		albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 		sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
-		depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
+		rimLightColorRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
+		fogOfWarRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR);
 		lightSpecularRenderTarget = RenderManager::GetRenderTarget(LIGHT_SPECULAR);
 		lightDiffuseRenderTarget = RenderManager::GetRenderTarget(LIGHT_DIFFUSE);
 
 		renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 		deferredShader = RenderManager::LoadEffect(L"./deferred_shader.fx");
 
+		D3DXCreateSprite(device, &sprite_);
+		FogOfWarRenderSystem::Initialize();
 	}
 	void RenderSystem::Destory()
 	{
+		FogOfWarRenderSystem::Destory();
 		indexBuffer.Reset();
 		vertexBuffer.Reset();
 		idleShadowMap.clear();
 		usingShadowMap.clear();
 		lights.clear();
 		lightNames.clear();
+		sprite_ = nullptr;
 	}
 	void RenderSystem::AddLight(const wchar_t* name, const D3DLIGHT9& init)
 	{
@@ -226,43 +239,55 @@ namespace KST
 	}
 	void RenderSystem::Render()
 	{
+		lastUid = 0;
 		IDirect3DDevice9* device = RenderManager::GetDevice();
 		device->BeginScene();
 		//device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0, 1.f, 0);
 		device->Clear(0, nullptr, D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, 0xFFFFFFFF, 1.f, 0);
 		mViewProj = Camera::main->GetViewMatrix() * Camera::main->GetProjectionMatrix();
+		FogOfWarRenderSystem::Begin();
+		
 		RednerEarlyForward();
+
+		FogOfWarRenderSystem::End();
+
+
 		SetupShadowMap();
 		RednerDeferred();
+		
+
+
 		RenderLigting();
 		RenderCombine();
+
 		RenderForward();
 		RenderUI();
+#pragma region DEBUG_SHOW_RENDERTARGET
 
-		if (usingShadowMap.empty() == false)
-		{
-			//const int width = MainGame::GetInstance()->width;
-			//const int height = MainGame::GetInstance()->height;
-			//auto it = *usingShadowMap.begin();
-			//ComPtr<IDirect3DTexture9> texture;
-			//it->renderTarget->GetTexture(&texture);
-			//D3DXMATRIX mMatrix;
-			//D3DXMATRIX mPos;
-			//D3DXMatrixScaling(&mMatrix,400.f/ 4096.f, 400.f / 4096.f, 1.f);
-			//sprite_->Begin(D3DXSPRITE_ALPHABLEND);
-			//sprite_->SetTransform(&mMatrix);
-			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		const int width = MainGame::GetInstance()->width;
+		const int height = MainGame::GetInstance()->height;
 
-			//texture.Reset();
-			//shadowRenderTarget->GetTexture(&texture);
-			//D3DXMatrixScaling(&mMatrix, 400.f / width, 400.f / height, 1.f);
-			//D3DXMatrixTranslation(&mPos, 400.f , 0.f , 0.f);
-			//mMatrix = mMatrix * mPos;
-			//sprite_->SetTransform(&mMatrix);
-			//sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f));
+		ComPtr<IDirect3DTexture9> texture;
+		RenderManager::GetRenderTarget(RENDER_TARGET_HEIGHT_FOG_OF_WAR)->GetTexture(&texture);
+		D3DXMATRIX mMatrix;
+		D3DXMATRIX mRotate;
+		D3DXMATRIX mTranslation;
+		D3DXMATRIX mPos;
+		D3DXVECTOR3 vCenter{ 128.f, 128.f,0.f };
+		D3DXMatrixScaling(&mMatrix, 0.125f, 0.125f , 1.f);
+		D3DXMatrixTranslation(&mTranslation, 256.f, 0.f, 0.f);
+		sprite_->Begin(D3DXSPRITE_ALPHABLEND);
+		sprite_->SetTransform(&mMatrix);
+		sprite_->Draw(texture.Get(), nullptr, &vCenter, nullptr, D3DCOLOR_COLORVALUE(1.f, 0.f, 0.f, 1.f));
+		
+		mMatrix = mTranslation;
+		sprite_->SetTransform(&mMatrix);
+		texture.Reset();
+		RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR)->GetTexture(&texture);
+		sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 0.f, 0.f, 1.f));
+		sprite_->End();
 
-			//sprite_->End();
-		}
+#pragma endregion
 
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
@@ -284,6 +309,23 @@ namespace KST
 		*renderTarget = findIt->second.shadowMap->renderTarget.get();
 		*proj = findIt->second.projectionMatrix;
 		return true;
+	}
+	long RenderSystem::GetUniqueID()
+	{
+		return InterlockedIncrement(&lastUid);
+	}
+	void RenderSystem::SetupPostProcessing()
+	{
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		device->SetFVF(FVF);
+		device->SetIndices(indexBuffer.Get());
+		device->SetStreamSource(0, vertexBuffer.Get(), 0, sizeof(PPVertexFVF));
+	}
+	void RenderSystem::ExecutePostProcessing()
+	{
+		HRESULT hr{};
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		hr = device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
 	}
 	void RenderSystem::SetupShadowMap()
 	{
@@ -337,7 +379,7 @@ namespace KST
 			D3DXMatrixLookAtLH(&mView, &lightPosition, &focusAt, &(Vector3&)mCameraTransform.m[1]);
 			//mView = Camera::main->GetViewMatrix();
 			//D3DXMatrixPerspectiveFovLH(&mProjection, D3DX_PI * 0.75f, 1.f, 0.1f, 2000.f);
-			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 900.f, 1000.f * vCameraPosition.y / 900.f, 0.1f, 2000.f);
+			D3DXMatrixOrthoLH(&mProjection, 1000.f * vCameraPosition.y / 1000.f, 1000.f * vCameraPosition.y / 1000.f, 0.1f, 2000.f);
 			pair.second.projectionMatrix = mView * mProjection;
 		}
 	}
@@ -350,6 +392,8 @@ namespace KST
 		{
 			forwardRenderer->Render();
 		}
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		device->Clear(0, nullptr,  D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_COLORVALUE(1.f, 1.f, 1.f, 1.f), 1.f, 0);
 	}
 	void RenderSystem::RednerDeferred()
 	{
@@ -358,16 +402,15 @@ namespace KST
 		ComPtr<IDirect3DSurface9> albedoSurface;
 		ComPtr<IDirect3DSurface9> normalSurface;
 		ComPtr<IDirect3DSurface9> sharpnessSurface;
-		ComPtr<IDirect3DSurface9> depthSurface;
+		ComPtr<IDirect3DSurface9> rimLightSurface;
 		albedoRenderTarget->GetSurface(&albedoSurface);
 		normalRenderTarget->GetSurface(&normalSurface);
 		sharpnessRenderTarget->GetSurface(&sharpnessSurface);
-		depthRenderTarget->GetSurface(&depthSurface);
-
+		rimLightColorRenderTarget->GetSurface(&rimLightSurface);
 		device->SetRenderTarget(0, albedoSurface.Get());
 		device->SetRenderTarget(1, normalSurface.Get());
 		device->SetRenderTarget(2, sharpnessSurface.Get());
-		device->SetRenderTarget(3, depthSurface.Get());
+		device->SetRenderTarget(3, rimLightSurface.Get());
 		device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 		auto& deferredRenderers = rendererTable[(unsigned)RendererType::Deferred];
 		for (Renderer* renderer : deferredRenderers)
@@ -407,23 +450,21 @@ namespace KST
 	void RenderSystem::RenderLigting()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
-		device->SetFVF(FVF);
-		device->SetIndices(indexBuffer.Get());
-		device->SetStreamSource(0, vertexBuffer.Get(), 0, sizeof(PPVertexFVF));
+		SetupPostProcessing();
 		UINT passCount = 0;
 
 		deferredShader->Begin(&passCount, 0);
 
 		D3DXVECTOR4 vCameraPosition{ Camera::main->GetPosition(), 1.f };
 		Matrix	mInverseViewProj;
-
+		Matrix  mView = Camera::main->GetViewMatrix();
 		ComPtr<IDirect3DTexture9> albedoTexture{};
 		ComPtr<IDirect3DTexture9> normalTexture{};
 		ComPtr<IDirect3DTexture9> sharpnessTexture{};
-		ComPtr<IDirect3DTexture9> depthTexture{};
 		ComPtr<IDirect3DTexture9> lightDiffuseTexture{};
 		ComPtr<IDirect3DTexture9> lightSpecularTexture{};
-
+		ComPtr<IDirect3DTexture9> fogOfWarTexture{};
+		ComPtr<IDirect3DTexture9> rimLightColorTexture{};
 		ComPtr<IDirect3DSurface9> lightDiffuseSurface{};
 		ComPtr<IDirect3DSurface9> lightSpecularSurface{};
 		ComPtr<IDirect3DSurface9> shadowSurface{};
@@ -432,14 +473,12 @@ namespace KST
 
 		normalRenderTarget->GetTexture(&normalTexture);
 		sharpnessRenderTarget->GetTexture(&sharpnessTexture);
-		depthRenderTarget->GetTexture(&depthTexture);
 		albedoRenderTarget->GetTexture(&albedoTexture);
-
+		rimLightColorRenderTarget->GetTexture(&rimLightColorTexture);
+		RenderManager::GetRenderTarget(L"FogOfWarRenderSystem_Blur2")->GetTexture(&fogOfWarTexture);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
 		deferredShader->SetTexture(ID_TEX_SPECULAR_MAP, sharpnessTexture.Get());
-		deferredShader->SetTexture(ID_TEX_DEPTH_MAP, depthTexture.Get());
 		deferredShader->SetTexture("g_albedoMap", albedoTexture.Get());
-
 		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
 		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
 		shadowRenderTarget->GetSurface(&shadowSurface);
@@ -470,7 +509,9 @@ namespace KST
 						deferredShader->SetTexture("g_shadowMap", texture.Get());
 						deferredShader->SetMatrix("g_mLightSpace", &pair.second.projectionMatrix);
 					}
-					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 1.f);
+					D3DXVECTOR4 vLightDir = D3DXVECTOR4(light.Direction, 0.f);
+					D3DXVec4Transform(&vLightDir, &vLightDir, &mView);
+					vLightDir.w = 1.f;
 					deferredShader->SetVector("g_vLightDirectionAndPower", &vLightDir);
 					deferredShader->SetVector("g_vLightAmbient", reinterpret_cast<D3DXVECTOR4 const*>(&light.Ambient));
 					deferredShader->SetVector("g_vLightDiffuse", reinterpret_cast<D3DXVECTOR4 const*>(&light.Diffuse));
@@ -480,11 +521,24 @@ namespace KST
 			}
 			if (passNum == 0)continue;
 			deferredShader->BeginPass(passNum);
-			device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+			ExecutePostProcessing();
 			deferredShader->EndPass();
 		}
-
+		D3DXVECTOR4 screenSize{ (float)MainGame::GetInstance()->width, (float)MainGame::GetInstance()->height,1.f, 1.f };
+		D3DXVECTOR4 texelKernel[]{
+			{0	,	+2.f / screenSize.y,0,0},
+			{0	,	-2.f / screenSize.y,0,0},
+			{+2.f / screenSize.x	,	0,0,0},
+			{-2.f / screenSize.x	,	0,0,0},
+			{0	,	+1.f/screenSize.y,0,0},
+			{0	,	-1.f/screenSize.y,0,0},
+			{+1.f/ screenSize.x	,	0,0,0},
+			{-1.f/ screenSize.x	,	0,0,0}
+		};
+		
 		ComPtr<IDirect3DSurface9> backbuffer;
+		Matrix mFogOfWarSpace{};
+		FogOfWarRenderSystem::GetMapSpace(&mFogOfWarSpace);
 
 		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
 		device->SetRenderTarget(0, backbuffer.Get());
@@ -493,13 +547,18 @@ namespace KST
 		device->SetRenderTarget(3, nullptr);
 		lightDiffuseRenderTarget->GetTexture(&lightDiffuseTexture);
 		lightSpecularRenderTarget->GetTexture(&lightSpecularTexture);
-
+		deferredShader->SetMatrix("g_mView", &mView);
+		deferredShader->SetMatrix("g_mForOfWarSpace", &mFogOfWarSpace);
 		deferredShader->SetTexture("g_shadeMap", lightDiffuseTexture.Get());
 		deferredShader->SetTexture("g_specularMap", lightSpecularTexture.Get());
-		deferredShader->SetTexture("g_depthMap", depthTexture.Get());
-
+		deferredShader->SetTexture(ID_TEX_RIM_LIGHT_COLOR, rimLightColorTexture.Get());
+		deferredShader->SetTexture(ID_TEX_FOR_OF_WAR, fogOfWarTexture.Get());
+		
+		deferredShader->SetVectorArray("TexelKernel", texelKernel, 8);
+		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
+		deferredShader->CommitChanges();
 		deferredShader->BeginPass(0);
-		device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4, 0, 2);
+		ExecutePostProcessing();
 		deferredShader->EndPass();
 		deferredShader->End();
 	}
@@ -507,7 +566,7 @@ namespace KST
 	{
 
 	}
-	void KST::RenderSystem::Add(Renderer* renderer)
+	void Engine::RenderSystem::Add(Renderer* renderer)
 	{
 		auto& renderers = rendererTable[(unsigned)renderer->rendererType];
 		auto findIt = std::find(renderers.begin(), renderers.end(), renderer);
@@ -518,7 +577,7 @@ namespace KST
 		renderers.emplace_back(renderer);
 	}
 
-	void KST::RenderSystem::Remove(Renderer* renderer)
+	void Engine::RenderSystem::Remove(Renderer* renderer)
 	{
 		auto& renderers = rendererTable[(unsigned)renderer->rendererType];
 		auto findIt = std::find(renderers.begin(), renderers.end(), renderer);

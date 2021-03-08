@@ -1,8 +1,8 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Environment.h"
 #include "Terrain.h"
 #include "DeferredStaticMeshRenderer.h"
-
+#include "FogOfWarObstacleRenderer.h"
 Environment::Environment()
 {
 	//CustomMesh* mesh = (CustomMesh*)AddComponent<Terrain>(L"CustomMesh");
@@ -13,11 +13,14 @@ Environment::Environment()
 	//transform->eulerAngles.y = D3DXToRadian(180.f);
 	TerrainMesh* mesh = RenderManager::CloneTerrainMesh(L"summoner_rift");
 	AddComponent(L"TerrainMesh", mesh);
-	KST::DeferredStaticMeshRenderer* renderer = new KST::DeferredStaticMeshRenderer(this);
+	Engine::DeferredStaticMeshRenderer* renderer = new Engine::DeferredStaticMeshRenderer(this);
 	AddComponent(L"terrain_renderer", renderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableAlphaTest(0.4f);
 	renderer->NeedShadow = false;
+
+
+
 	//mesh->renderGroupID = RenderGroupID::Deferred;
 	//GameRenderer::Register(mesh);
 	

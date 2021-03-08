@@ -2,7 +2,7 @@
 
 
 
-namespace PKH
+namespace Engine
 {
 	enum class PathFinderType
 	{
@@ -40,8 +40,8 @@ namespace PKH
 		
 	protected:
 		// Search 전에 해줘야 할 것들 (매번)
-		PKH::PathFinder::Node* FindStartNode(const Vector3& startPos, float radius = INFINITY);
-		PKH::PathFinder::Node* FindDestinationNode(const Vector3& destPos, float radius = INFINITY);
+		Engine::PathFinder::Node* FindStartNode(const Vector3& startPos, float radius = INFINITY);
+		Engine::PathFinder::Node* FindDestinationNode(const Vector3& destPos, float radius = INFINITY);
 		void SetDestination(PathFinder::Node* dest);
 		// 탐색 완료시 경로 리스트에 저장
 		void SetPath();
@@ -63,14 +63,14 @@ namespace PKH
 		// resultNode 의 parent를 타고 타고 가다보면 출발지가 나옴
 		// 연결되어있는 모든 노드는 경로임.
 		// p.s 결과가 true인데 resultNode의 parent가 nullptr이면 이미 도착지인것
-		PKH::PathFinder::Node* GetResultNode();
-		list<PKH::PathFinder::Node*>* GetPath();
+		Engine::PathFinder::Node* GetResultNode();
+		list<Engine::PathFinder::Node*>* GetPath();
 		
 	protected:
 		// 멤버
-		map<int, PKH::PathFinder::Node*> nodes;
+		map<int, Engine::PathFinder::Node*> nodes;
 		PathFinderType type = PathFinderType::None;
-		PKH::PathFinder::Node* resultNode = nullptr;
+		Engine::PathFinder::Node* resultNode = nullptr;
 		list<PathFinder::Node*> path;
 
 		// 시작노드 후보

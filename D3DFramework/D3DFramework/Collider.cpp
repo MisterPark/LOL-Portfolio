@@ -2,7 +2,7 @@
 #include "Collider.h"
 
 
-PKH::Collider::Collider(GameObject* owner)
+Engine::Collider::Collider(GameObject* owner)
 	:IComponent(owner)
 {
 	if (owner == nullptr)return;
@@ -10,13 +10,13 @@ PKH::Collider::Collider(GameObject* owner)
 	CollisionManager::RegisterObject(owner->GetLayer(), this);
 }
 
-PKH::Collider::Collider(const Collider& rhs)
+Engine::Collider::Collider(const Collider& rhs)
 	: IComponent(rhs)
 {
 	
 }
 
-PKH::Collider::~Collider()
+Engine::Collider::~Collider()
 {
 	
 	if (gameObject != nullptr)
@@ -31,7 +31,7 @@ PKH::Collider::~Collider()
 	indices = nullptr;
 }
 
-void PKH::Collider::Update()
+void Engine::Collider::Update()
 {
 	if (gameObject == nullptr)return;
 	if (transform == nullptr)return;
@@ -43,7 +43,7 @@ void PKH::Collider::Update()
 	world._43 = center.z + transform->position.z;
 }
 
-void PKH::Collider::Render()
+void Engine::Collider::Render()
 {
 	if (pMesh == nullptr)return;
 	if (gameObject == nullptr)return;
@@ -79,28 +79,28 @@ void PKH::Collider::Render()
 
 }
 
-void PKH::Collider::OnCollisionEnter(Collider* other)
+void Engine::Collider::OnCollisionEnter(Collider* other)
 {
 	if (gameObject == nullptr) return;
 
 	gameObject->OnCollisionEnter(other);
 }
 
-Vector3 PKH::Collider::GetWorldPosition()
+Vector3 Engine::Collider::GetWorldPosition()
 {
 	if (transform == nullptr) return Vector3(0, 0, 0);
 	Vector3 worldPos = transform->position + center;
 	return worldPos;
 }
 
-Matrix PKH::Collider::GetWorldMatrix()
+Matrix Engine::Collider::GetWorldMatrix()
 {
 	if (transform == nullptr)return Matrix::identity;
 
 	return transform->localMatrix;
 }
 
-void PKH::Collider::SetColor(D3DCOLOR color)
+void Engine::Collider::SetColor(D3DCOLOR color)
 {
 	if (pMesh == nullptr)return;
 	void* pVertex = nullptr;
@@ -131,13 +131,13 @@ void PKH::Collider::SetColor(D3DCOLOR color)
 	pMesh->UnlockVertexBuffer();
 }
 
-void PKH::Collider::SetLayer(Layer layer)
+void Engine::Collider::SetLayer(Layer layer)
 {
 	CollisionManager::GetInstance()->DisregisterObject(this);
 	CollisionManager::RegisterObject(layer, this);
 }
 
-void PKH::Collider::SetMeshInformation()
+void Engine::Collider::SetMeshInformation()
 {
 	if (pMesh == nullptr)return;
 	void* pVertex = nullptr;

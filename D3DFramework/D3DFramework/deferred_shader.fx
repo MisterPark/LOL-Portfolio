@@ -27,7 +27,8 @@ texture g_depthMap;
 texture g_shadeMap;
 texture g_albedoMap;
 texture g_shadowMap;
-texture g_shadowOptionMap;
+texture g_rimLightMap;
+texture g_fogOfWarMap;
 sampler ShadeMapSampler = sampler_state
 {
 	texture = g_shadeMap;
@@ -62,11 +63,15 @@ sampler ShadowMapSampler = sampler_state
 	minfilter = linear;
 	magfilter = linear;
 };
-sampler ShadowMapOptionSampler = sampler_state
+sampler FogOfWarSampler = sampler_state
 {
-	texture = g_shadowOptionMap;
+	texture = g_fogOfWarMap;
 	minfilter = linear;
 	magfilter = linear;
+};
+sampler RimLightMapSampler = sampler_state
+{
+	texture = g_rimLightMap;
 };
 VS_OUT vs_main(VS_IN input)
 {
@@ -76,6 +81,67 @@ VS_OUT vs_main(VS_IN input)
 	output.vClipPosition = output.vPosition;
 	output.vUV = input.vUV;
 	return output;
+}
+matrix g_mView;
+float2 TexelKernel[8];
+matrix g_mForOfWarSpace;
+matrix g_mLightSpace;
+matrix g_mInverseViewProj;
+float4 g_vLightDirectionAndPower;
+float4 g_vLightDiffuse;
+float4 g_vLightAmbient;
+float4 g_vCameraPosition;
+
+float3 DecodeNormal(float2 enc)
+{
+	float2 fenc = enc * 4 - 2;
+	float f = dot(fenc, fenc);
+	float g = sqrt(1 - f / 4.f);
+	float3 n;
+	n.xy = fenc * g;
+	n.z = 1 - f / 2.f;
+	return n;
+}
+float3 GetNormal(float2 tex)
+{
+	return DecodeNormal(tex2D(NormalMapSampler, tex).rg);
+}
+float EdgeDetect(float2 tex)
+{
+	float3 orig = GetNormal(tex);
+	float sum = 0;
+	for (int i = 0; i < 8; i++)
+		sum += saturate(1 - dot(orig, GetNormal( tex + TexelKernel[i])));
+	return smoothstep(0.5f, 1.5f, sum);
+}
+float RimLight(float2 tex)
+{
+	//림라이트의 4번째 요소는 오브젝트의 ID를 박았다.
+	//이것의 차로 엣지를 디텍트하자.
+	float orig = tex2D(RimLightMapSampler, tex).a;
+	float sum = 0;
+	for (int i = 0; i < 8; i++)
+		sum += abs(orig - tex2D(RimLightMapSampler, tex + TexelKernel[i]).a);
+	return smoothstep(0.f, 0.0001220721751f/4.f, sum);
+}
+float FogOfWar(float2 tex, float2 vProjPosition)
+{
+	float4 vNormalFactor = tex2D(NormalMapSampler, tex);
+	float depth = vNormalFactor.b;
+	float z = vNormalFactor.a;
+	float4 vPosition = mul(float4(vProjPosition, depth, 1.f) * z, g_mInverseViewProj);
+	vPosition = mul(vPosition, g_mForOfWarSpace);
+	float2 absPos = abs(vPosition).xy;
+	if (absPos.x > 1.f || absPos.y > 1.f)
+	{
+		return 1.f;
+	}
+	float2 fogTextureTex = float2(vPosition.x, vPosition.y);
+	fogTextureTex *= 0.5f;
+	fogTextureTex += 0.5f;
+	fogTextureTex.y *= -1.f;
+	float r1 = tex2D(FogOfWarSampler, fogTextureTex).r;
+	return  (r1 ) * 0.5f + 0.5f;
 }
 float4 ps_combine(PS_IN input) :COLOR0
 {
@@ -87,39 +153,20 @@ float4 ps_combine(PS_IN input) :COLOR0
 	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
 	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
 	float4 vColor = vSpecular + vAlbedo * vShade;
-	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
-
-	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
-	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
-	//vColor = fogFactor * vColor + (1.f - fogFactor);
+	//아웃라인 구현을 위한 추가 코드
+	float4 vNormalMapFactor = tex2D(NormalMapSampler, input.vUV);
+	float3 vNormal = DecodeNormal(vNormalMapFactor.rg);
+	//vNormal = mul(float4(vNormal, 0.f), g_mView).xyz;
+	//vNormal *= -1.f;
+	//
+	float3 vRimLightColor = tex2D(RimLightMapSampler, input.vUV).rgb;
+	float rimLightAlpha = RimLight(input.vUV);
+	vColor.rgb = vColor.rgb * (1 - rimLightAlpha) + vRimLightColor * rimLightAlpha;
 	vColor.a = vAlbedo.a;
+	//fog of war
+	vColor.rgb *= FogOfWar(input.vUV, input.vClipPosition);
 	return vColor;
 }
-float4 ps_tone_combine(PS_IN input) :COLOR0
-{
-	float4 vAlbedo = tex2D(AlbedoMapSampler, input.vUV);
-	if (vAlbedo.a < 0.1f)
-	{
-		discard;
-	}
-	float4 vShade = tex2D(ShadeMapSampler, input.vUV);
-	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
-	float4 vColor = vSpecular + vAlbedo * vShade;
-	//vColor.r += 0.5f;
-	//float z = tex2D(DepthMapSampler, input.vUV).g / g_farZ;
-
-	//float fogFactor = 1.0f / pow(2.71828f, pow(z * 0.66f, 3));
-	//finalColor = input.fogFactor * textureColor + (1.0 - input.fogFactor) * fogColor;
-	//vColor = fogFactor * vColor + (1.f - fogFactor);
-	vColor.a = vAlbedo.a;
-	return vColor;
-}
-matrix g_mLightSpace;
-matrix g_mInverseViewProj;
-float4 g_vLightDirectionAndPower;
-float4 g_vLightDiffuse;
-float4 g_vLightAmbient;
-float4 g_vCameraPosition;
 
 float4 CalcSpecular(float4 vMatSpecular, float3 vLightDir, float3 vNormal, float3 vPosition, float fPower)
 {
@@ -140,9 +187,21 @@ PS_OUT ps_directional_light(PS_IN input)
 	vSpecular.w = 1.f;
 
 	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
-	
-	float depth = tex2D(DepthMapSampler, input.vUV).r;
-	float z = tex2D(DepthMapSampler, input.vUV).g;
+	float3 vNormal;
+	{
+		float scale = 1.7777;
+		float3 enc = float3(vNormalFactor.rg, 0.f);
+		float3 nn =
+			enc.xyz * float3(2 * scale, 2 * scale, 0) +
+			float3(-scale, -scale, 1);
+		float g = 2.0 / dot(nn.xyz, nn.xyz);
+		float3 n;
+		n.xy = g * nn.xy;
+		n.z = g - 1;
+		vNormal = n;
+	}
+	float depth = vNormalFactor.b;
+	float z = vNormalFactor.a;
 	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
 	float4 vLightSpacePosition = mul(vPosition, g_mLightSpace);
 	//투영좌표를 UV좌표로 변환시킨다.
@@ -151,22 +210,17 @@ PS_OUT ps_directional_light(PS_IN input)
 	shadowMapUV.x = vLightSpacePosition.x * 0.5f + 0.5f;
 	shadowMapUV.y = -vLightSpacePosition.y * 0.5f + 0.5f;
 
-	float2 shadowDepthColor = tex2D(ShadowMapSampler, saturate(shadowMapUV) );
-	int shadowOption = tex2D(ShadowMapOptionSampler, saturate(shadowMapUV));
+	float2 shadowDepthColor = tex2D(ShadowMapSampler, shadowMapUV);
 	//shadowMapUV = abs(shadowMapUV);
 	
 	float shadowDepth = shadowDepthColor.r/(shadowDepthColor.g * 2000.f) ;
-	float4 vDiffuse = g_vLightAmbient;
+	float4 vDiffuse = (float4)1.f;
 	
 	float currentDepth = (vLightSpacePosition.z / vLightSpacePosition.w);
-	if (shadowMapUV.x < 0.f || shadowMapUV.x > 1.f || shadowMapUV.y < 0.f || shadowMapUV.y > 1.f)
-	{
-
-	}
 	//현재 깊이가 그림자 맵의 뎁스보다 작아야, 조명을 계산한다
-	else if (currentDepth < shadowDepth + 0.0000125f)
+	if (currentDepth - 0.0000125f < shadowDepth)
 	{
-		float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
+		
 		float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
 		float intensity = saturate(dot(vLightDir * -1, vNormal));
 		vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
@@ -177,35 +231,11 @@ PS_OUT ps_directional_light(PS_IN input)
 			output.vSpecular.a = 1.f;
 		}
 	}
-	output.vShadow = float4(shadowOption.xx, 0.f, 0.f);
-	output.vColor = vDiffuse;
-	return output;
-}
-PS_OUT ps_directional_light_noshadow(PS_IN input)
-{
-	PS_OUT output;
-	output.vSpecular = float4(0.f, 0.f, 0.f, 1.f);
-	output.vShadow = float4(1.f, 1.f, 1.f, 1.f);
-	float4 vSpecular = tex2D(SpecularMapSampler, input.vUV);
-	float4 fPower = vSpecular.w;
-	vSpecular.w = 1.f;
-
-	float4 vNormalFactor = tex2D(NormalMapSampler, input.vUV);
-
-	float depth = tex2D(DepthMapSampler, input.vUV).r;
-	float z = tex2D(DepthMapSampler, input.vUV).g;
-	float3 vNormal = normalize(vNormalFactor.xyz * 2.f - 1.f);
-
-	float4 vPosition = mul(float4(input.vClipPosition.xy, depth, 1.f) * z, g_mInverseViewProj);
-	float4 vLightDir = normalize(float4(g_vLightDirectionAndPower.xyz, 0.f));
-	float intensity = saturate(dot(vLightDir * -1, vNormal));
-	float4 vDiffuse = intensity * g_vLightDiffuse + g_vLightAmbient;
-	vDiffuse.a = intensity;
-	if (intensity > 0.f)
+	else
 	{
-		output.vSpecular = CalcSpecular(vSpecular, vLightDir.xyz, vNormal.xyz, vPosition.xyz, fPower);
-		output.vSpecular.a = 1.f;
+		vDiffuse = g_vLightAmbient;
 	}
+	output.vShadow = float4(0.f,0.f, 0.f, 0.f);
 	output.vColor = vDiffuse;
 	return output;
 }
@@ -229,15 +259,5 @@ technique Default_Device
 		BlendOp = Add;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_directional_light();
-	}
-	pass directioanl_no_shadow
-	{
-		ZEnable = false;
-		AlphaBlendEnable = true;
-		SrcBlend = One;
-		DestBlend = One;
-		BlendOp = Add;
-		VertexShader = compile vs_3_0 vs_main();
-		PixelShader = compile ps_3_0 ps_directional_light_noshadow();
 	}
 }

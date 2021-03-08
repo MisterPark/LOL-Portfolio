@@ -9,7 +9,7 @@ Leesin::Leesin()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
@@ -22,16 +22,18 @@ Leesin::Leesin()
 	rTexKey = L"leesin_r";
 	passiveTexKey = L"leesin_passive";
 
-	SetHP(575.f);
-	SetHPRegen(7.5f);
-	SetMP(200.f);
-	SetMPRegen(50.f);
-	SetAttackDamage(70.f);
-	SetAttackPerSec(0.651f);
-	SetArmor(36.f);
-	SetMagicResistance(32.1f);
-	SetAttackRange(1.25f);
-	SetMovementSpeed(3.45f);
+	stat->SetBaseValue(StatType::MaxHealth, 575.f);
+	stat->SetBaseValue(StatType::Health, 575.f);
+	stat->SetBaseValue(StatType::HealthRegen, 7.5f);
+	stat->SetBaseValue(StatType::MaxMana, 200.f);
+	stat->SetBaseValue(StatType::Mana, 200.f);
+	stat->SetBaseValue(StatType::ManaRegen, 50.f);
+	stat->SetBaseValue(StatType::AttackDamage, 70.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.651f);
+	stat->SetBaseValue(StatType::Armor, 36.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 1.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.45f);
 }
 
 Leesin::~Leesin()
@@ -44,27 +46,4 @@ void Leesin::Initialize()
 
 void Leesin::Release()
 {
-}
-
-void Leesin::Update()
-{
-	float dt = TimeManager::DeltaTime();
-
-	if (InputManager::GetKey(VK_UP))
-	{
-		transform->position.z -= stat->movementSpeed.GetValue() * dt;
-	}
-	if (InputManager::GetKey(VK_DOWN))
-	{
-		transform->position.z += stat->movementSpeed.GetValue() * dt;
-	}
-	if (InputManager::GetKey(VK_LEFT))
-	{
-		transform->position.x += stat->movementSpeed.GetValue() * dt;
-	}
-	if (InputManager::GetKey(VK_RIGHT))
-	{
-		transform->position.x -= stat->movementSpeed.GetValue() * dt;
-	}
-	Champion::Update();
 }

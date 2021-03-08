@@ -5,24 +5,24 @@
 
 UI::UI()
 {
-	oldEnable = Enable;
+	oldEnable = enable;
 
-	mesh = (Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
+	mesh = (Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 
-	KST::UIRenderer* renderer = new KST::UIRenderer(this);
+	Engine::UIRenderer* renderer = new Engine::UIRenderer(this);
 	renderer->SetMesh(mesh);
 	AddComponent(L"renderer", renderer);
 
 }
 
-PKH::UI::UI(const Vector2& pos)
+Engine::UI::UI(const Vector2& pos)
 	: UI()
 {
 	SetLocation(pos);
 }
 
-PKH::UI::UI(const std::wstring& _tag, const Vector2& pos)
+Engine::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
 	SetTexture(_tag);
@@ -36,11 +36,11 @@ UI::~UI()
 	texture = nullptr;
 }
 
-void PKH::UI::Initialize()
+void Engine::UI::Initialize()
 {
 }
 
-void PKH::UI::Release()
+void Engine::UI::Release()
 {
 }
 
@@ -52,7 +52,7 @@ void UI::Update()
 
 void UI::UpdateEvent()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 	Vector3 cursorPos = Cursor::GetMousePos();
 
 	// Hover & Leave
@@ -76,7 +76,7 @@ void UI::UpdateEvent()
 		isLeave = true;
 	}
 
-	if (InputManager::GetMouseLButtonDown())
+	if (Input::GetMouseLButtonDown())
 	{
 		if (isHover)
 		{
@@ -90,7 +90,7 @@ void UI::UpdateEvent()
 		}
 		
 	}
-	if (InputManager::GetMouseLButtonUp())
+	if (Input::GetMouseLButtonUp())
 	{
 		if (isHover)
 		{
@@ -103,7 +103,7 @@ void UI::UpdateEvent()
 		}
 		isLButtonDown = false;
 	}
-	if (InputManager::GetMouseRButtonDown())
+	if (Input::GetMouseRButtonDown())
 	{
 		if (isHover)
 		{
@@ -111,7 +111,7 @@ void UI::UpdateEvent()
 			OnRButtonDown();
 		}
 	}
-	if (InputManager::GetMouseRButtonUp())
+	if (Input::GetMouseRButtonUp())
 	{
 		if (isHover)
 		{
@@ -135,9 +135,9 @@ void UI::UpdateEvent()
 	}
 	
 	// EnabledChanged
-	if (Enable != oldEnable)
+	if (enable != oldEnable)
 	{
-		oldEnable = Enable;
+		oldEnable = enable;
 		OnEnabledChanged();
 	}
 
@@ -159,55 +159,65 @@ void UI::ClearEvent()
 
 void UI::OnHover()
 {
-	Hover.Invoke();
+	MouseEventArg args{};
+	Hover.Invoke(this, args);
 }
 
 void UI::OnLeave()
 {
-	Leave.Invoke();
+	MouseEventArg args{};
+	Leave.Invoke(this, args);
 }
 
 void UI::OnLButtonDown()
 {
-	LButtonDown.Invoke();
+	MouseEventArg args{};
+	LButtonDown.Invoke(this, args);
 }
 
 void UI::OnLButtonUp()
 {
-	LButtonUp.Invoke();
+	MouseEventArg args{};
+	LButtonUp.Invoke(this, args);
 }
 
 void UI::OnRButtonDown()
 {
-	RButtonDown.Invoke();
+	MouseEventArg args{};
+	RButtonDown.Invoke(this, args);
 }
 
 void UI::OnRButtonUp()
 {
-	RButtonUp.Invoke();
+	MouseEventArg args{};
+	RButtonUp.Invoke(this, args);
 }
 
 void UI::OnClick()
 {
-	Click.Invoke();
+	MouseEventArg args{};
+	Click.Invoke(this, args);
 }
 
-void PKH::UI::OnDoubleClick()
+void Engine::UI::OnDoubleClick()
 {
-	DoubleClick.Invoke();
+	MouseEventArg args{};
+	DoubleClick.Invoke(this, args);
 }
 
-void PKH::UI::OnEnabledChanged()
+void Engine::UI::OnEnabledChanged()
 {
-	EnabledChanged.Invoke();
+	MouseEventArg args{};
+	EnabledChanged.Invoke(this, args);
 }
 
-void PKH::UI::OnTextChanged()
+void Engine::UI::OnTextChanged()
 {
-	TextChanged.Invoke();
+	MouseEventArg args{};
+	TextChanged.Invoke(this, args);
 }
 
-Vector2 PKH::UI::GetSize()
+Vector2 Engine::UI::GetSize()
 {
 	Matrix world = transform->GetWorldMatrix();
 	Vector2 size = this->size;
@@ -216,7 +226,7 @@ Vector2 PKH::UI::GetSize()
 	return size;
 }
 
-Vector2 PKH::UI::GetLocation()
+Vector2 Engine::UI::GetLocation()
 {
 	Matrix world = transform->GetWorldMatrix();
 	Vector2 screenPos;
@@ -232,25 +242,25 @@ void UI::SetSize(int w, int h)
 	size.y = (FLOAT)h;
 }
 
-void PKH::UI::SetSizeByTexture()
+void Engine::UI::SetSizeByTexture()
 {
 	if (texture == nullptr)return;
 	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 }
 
-void PKH::UI::SetLocation(int x, int y)
+void Engine::UI::SetLocation(int x, int y)
 {
 	transform->position.x = (float)x;
 	transform->position.y = (float)y;
 }
 
-void PKH::UI::SetLocation(float x, float y)
+void Engine::UI::SetLocation(float x, float y)
 {
 	transform->position.x = x;
 	transform->position.y = y;
 }
 
-void PKH::UI::SetLocation(Vector2 pos)
+void Engine::UI::SetLocation(Vector2 pos)
 {
 	transform->position.x = pos.x;
 	transform->position.y = pos.y;
@@ -263,12 +273,12 @@ void UI::SetTexture(const wstring& _key)
 	SetSizeByTexture();
 }
 
-void PKH::UI::SetText(const wstring& _text)
+void Engine::UI::SetText(const wstring& _text)
 {
 	text = _text;
 }
 
-PKH::UI* PKH::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
+Engine::UI* Engine::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 {
 	UI* ui = GameObject::CreateChild<UI>(_tag);
 	ui->SetTexture(_tag);
@@ -284,7 +294,7 @@ PKH::UI* PKH::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 	return ui;*/
 }
 
-bool PKH::UI::Intersect(Vector2 _target)
+bool Engine::UI::Intersect(Vector2 _target)
 {
 	RECT rc = GetRect();
 	if (_target.x < rc.left) return false;
@@ -294,7 +304,7 @@ bool PKH::UI::Intersect(Vector2 _target)
 	return true;
 }
 
-RECT PKH::UI::GetRect()
+RECT Engine::UI::GetRect()
 {
 	RECT rc;
 	Matrix world = transform->GetWorldMatrix();
@@ -305,12 +315,12 @@ RECT PKH::UI::GetRect()
 	return rc;
 }
 
-Texture* PKH::UI::GetTexture()
+Texture* Engine::UI::GetTexture()
 {
 	return texture;
 }
 
-void PKH::UI::BringToTop()
+void Engine::UI::BringToTop()
 {
 	UIRenderer* renderer = (UIRenderer*)GetComponent<UIRenderer>();
 	renderer->BringToTop();

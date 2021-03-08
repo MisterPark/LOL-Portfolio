@@ -5,7 +5,7 @@
 
 TurretMissile::TurretMissile()
 {
-	mesh = (PKH::Rectangle*)AddComponent<PKH::Rectangle>(L"Mesh");
+	mesh = (Engine::Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);
@@ -33,7 +33,7 @@ void TurretMissile::Update()
 		Vector3 targetPos = attackTarget->transform->position;
 		targetPos.y += 1.f;
 		Vector3 to =  targetPos - transform->position;
-		transform->position += to.Normalized() * movementSpeed * TimeManager::DeltaTime();
+		transform->position += to.Normalized() * movementSpeed * Time::DeltaTime();
 
 		float dist = to.Length();
 		if (dist < 0.1f)

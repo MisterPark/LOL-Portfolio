@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-PKH::Mesh::Mesh(GameObject* owner)
+Engine::Mesh::Mesh(GameObject* owner)
 	:IComponent(owner)
 	,isClone(false)
 {
@@ -9,7 +9,7 @@ PKH::Mesh::Mesh(GameObject* owner)
 	type = MeshType::NONE;
 }
 
-PKH::Mesh::Mesh(const Mesh& rhs)
+Engine::Mesh::Mesh(const Mesh& rhs)
 	:IComponent(rhs)
 	,isClone(true)
 	,type(rhs.type)
@@ -17,21 +17,21 @@ PKH::Mesh::Mesh(const Mesh& rhs)
 	device = RenderManager::GetDevice();
 }
 
-PKH::Mesh::~Mesh()
+Engine::Mesh::~Mesh()
 {
 }
 
-int PKH::Mesh::GetSubsetCount()
+int Engine::Mesh::GetSubsetCount()
 {
 	return 1;
 }
 
-void PKH::Mesh::RenderSubset(int index)
+void Engine::Mesh::RenderSubset(int index)
 {
 
 }
 
-IDirect3DTexture9* PKH::Mesh::GetSubsetTexture(int index)
+IDirect3DTexture9* Engine::Mesh::GetSubsetTexture(int index)
 {
 	return nullptr;
 }

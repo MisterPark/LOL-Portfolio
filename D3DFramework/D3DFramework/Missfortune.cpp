@@ -8,7 +8,7 @@ Missfortune::Missfortune()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
@@ -21,16 +21,18 @@ Missfortune::Missfortune()
 	rTexKey = L"missfortune_r";
 	passiveTexKey = L"missfortune_passive";
 
-	SetHP(570.f);
-	SetHPRegen(3.75f);
-	SetMP(325.84f);
-	SetMPRegen(8.f);
-	SetAttackDamage(52.f);
-	SetAttackPerSec(0.656f);
-	SetArmor(28.f);
-	SetMagicResistance(30.f);
-	SetAttackRange(5.5f);
-	SetMovementSpeed(3.25f);
+	stat->SetBaseValue(StatType::MaxHealth, 570.f);
+	stat->SetBaseValue(StatType::Health, 570.f);
+	stat->SetBaseValue(StatType::HealthRegen, 3.75f);
+	stat->SetBaseValue(StatType::MaxMana, 325.84f);
+	stat->SetBaseValue(StatType::Mana, 325.84f);
+	stat->SetBaseValue(StatType::ManaRegen, 8.f);
+	stat->SetBaseValue(StatType::AttackDamage, 52.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.656f);
+	stat->SetBaseValue(StatType::Armor, 28.f);
+	stat->SetBaseValue(StatType::MagicResistance, 30.f);
+	stat->SetBaseValue(StatType::Range, 5.5f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 }
 
 Missfortune::~Missfortune()

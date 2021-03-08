@@ -11,5 +11,7 @@ public:
     static void DestroyInstance();
 
     static void TestFunc();
+    void Minimap_MouseClick(GameObject* sender, MouseEventArg* arg);
+    static void Static_Minimap_MouseClick(GameObject* sender, MouseEventArg* arg);
 };
 

@@ -2,23 +2,23 @@
 #include "RenderManager.h"
 #include "RenderTarget.h"
 #include "Texture.h"
-using namespace PKH;
+using namespace Engine;
 
-PKH::RenderManager* pRenderManager = nullptr;
+Engine::RenderManager* pRenderManager = nullptr;
 TextureID uniqueTextureID = 0;
 
-PKH::RenderManager::RenderManager()
+Engine::RenderManager::RenderManager()
 {
 	InitializeCriticalSection(&csDevice);
 }
 
-PKH::RenderManager::~RenderManager()
+Engine::RenderManager::~RenderManager()
 {
 	DeleteCriticalSection(&csDevice);
 	Release();
 }
 
-RenderManager* PKH::RenderManager::GetInstance()
+RenderManager* Engine::RenderManager::GetInstance()
 {
 	if (pRenderManager == nullptr)
 	{
@@ -27,7 +27,7 @@ RenderManager* PKH::RenderManager::GetInstance()
 	return pRenderManager;
 }
 
-void PKH::RenderManager::Destroy()
+void Engine::RenderManager::Destroy()
 {
 	if (pRenderManager)
 	{
@@ -36,7 +36,7 @@ void PKH::RenderManager::Destroy()
 	}
 }
 
-HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
+HRESULT Engine::RenderManager::Initialize(int screenW, int screenH)
 {
 	D3DCAPS9 DeviceCaps;
 	ZeroMemory(&DeviceCaps, sizeof(D3DCAPS9));
@@ -112,7 +112,7 @@ HRESULT PKH::RenderManager::Initialize(int screenW, int screenH)
 	return S_OK;
 }
 
-void PKH::RenderManager::Release()
+void Engine::RenderManager::Release()
 {
 	for (auto pair : pRenderManager->textureMap)
 	{
@@ -174,7 +174,7 @@ void PKH::RenderManager::Release()
 	}
 }
 
-void PKH::RenderManager::Clear()
+void Engine::RenderManager::Clear()
 {
 	//EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, Color::Gray.value, 1.f, 0);
@@ -182,7 +182,7 @@ void PKH::RenderManager::Clear()
 	//LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::Present(HWND renderTarget)
+void Engine::RenderManager::Present(HWND renderTarget)
 {
 	//EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pDevice->EndScene();
@@ -190,17 +190,17 @@ void PKH::RenderManager::Present(HWND renderTarget)
 	//LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-LPDIRECT3DDEVICE9 PKH::RenderManager::GetDevice()
+LPDIRECT3DDEVICE9 Engine::RenderManager::GetDevice()
 {
 	return pRenderManager->pDevice;
 }
 
-LPD3DXSPRITE PKH::RenderManager::GetSprite()
+LPD3DXSPRITE Engine::RenderManager::GetSprite()
 {
 	return pRenderManager->pSprite;
 }
 
-Texture * PKH::RenderManager::GetTexture(const wstring& _key)
+Texture * Engine::RenderManager::GetTexture(const wstring& _key)
 {
 	auto find = pRenderManager->textureMap.find(_key);
 	if (find == pRenderManager->textureMap.end())
@@ -212,12 +212,12 @@ Texture * PKH::RenderManager::GetTexture(const wstring& _key)
 	return find->second;
 }
 
-LPD3DXLINE PKH::RenderManager::GetLine()
+LPD3DXLINE Engine::RenderManager::GetLine()
 {
 	return pRenderManager->pLine;
 }
 
-TextureID PKH::RenderManager::GetTextureID(const wstring& _key)
+TextureID Engine::RenderManager::GetTextureID(const wstring& _key)
 {
 	auto find = pRenderManager->textureMap.find(_key);
 	if (find == pRenderManager->textureMap.end())
@@ -228,7 +228,7 @@ TextureID PKH::RenderManager::GetTextureID(const wstring& _key)
 	return find->second->id;
 }
 
-wstring PKH::RenderManager::GetTextureKey(TextureID id)
+wstring Engine::RenderManager::GetTextureKey(TextureID id)
 {
 	auto find = pRenderManager->textureIDMap.find(id);
 	if (find == pRenderManager->textureIDMap.end())
@@ -239,7 +239,7 @@ wstring PKH::RenderManager::GetTextureKey(TextureID id)
 }
 
 
-HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& fileName, DWORD row, DWORD col)
+HRESULT Engine::RenderManager::LoadSprite(const wstring& filePath, const wstring& fileName, DWORD row, DWORD col)
 {
 	
 	WCHAR fullName[MAX_PATH] = {};
@@ -308,7 +308,7 @@ HRESULT PKH::RenderManager::LoadSprite(const wstring& filePath, const wstring& f
 	return S_OK;
 }
 
-void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int index)
+void Engine::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -350,7 +350,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, Vector3 pos, int i
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& transform, int index)
+void Engine::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -393,7 +393,7 @@ void PKH::RenderManager::DrawSprite(const wstring& spriteKey, const Transform& t
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& transform, int index)
+void Engine::RenderManager::DrawUI(const wstring& spriteKey, const Transform& transform, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -434,7 +434,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, const Transform& trans
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index)
+void Engine::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -474,7 +474,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, int index
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index)
+void Engine::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -515,7 +515,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
+void Engine::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -556,7 +556,7 @@ void PKH::RenderManager::DrawUI(const wstring& spriteKey, Vector3 pos, Vector3 s
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer)
+void Engine::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float horizontalPer)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -597,7 +597,7 @@ void PKH::RenderManager::DrawUIHorizontal(const wstring& spriteKey, Vector3 pos,
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
+void Engine::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, Vector3 scale, int index, float verticalPer)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -638,7 +638,7 @@ void PKH::RenderManager::DrawUIVertical(const wstring& spriteKey, Vector3 pos, V
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform& transform, DWORD row, DWORD col)
+void Engine::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform& transform, DWORD row, DWORD col)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -678,7 +678,7 @@ void PKH::RenderManager::DrawCharacter(const wstring& spriteKey, const Transform
 
 }
 
-void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& transform)
+void Engine::RenderManager::DrawImage(const wstring& spriteKey, const Transform& transform)
 {
 	auto find = pRenderManager->textureMap.find(spriteKey);
 	if (find == pRenderManager->textureMap.end())
@@ -708,7 +708,7 @@ void PKH::RenderManager::DrawImage(const wstring& spriteKey, const Transform& tr
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float verticalPer)
+void Engine::RenderManager::DrawImage(const wstring& id, float x, float y, float verticalPer)
 {
 	auto find = pRenderManager->textureMap.find(id);
 	if (find == pRenderManager->textureMap.end())
@@ -742,7 +742,7 @@ void PKH::RenderManager::DrawImage(const wstring& id, float x, float y, float ve
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawFont(const string & text)
+void Engine::RenderManager::DrawFont(const string & text)
 {
 	Matrix world;
 	D3DXMatrixIdentity(&world);
@@ -756,7 +756,7 @@ void PKH::RenderManager::DrawFont(const string & text)
 
 }
 
-void PKH::RenderManager::DrawFont(const wstring & text)
+void Engine::RenderManager::DrawFont(const wstring & text)
 {
 	Matrix world;
 	D3DXMatrixIdentity(&world);
@@ -768,7 +768,7 @@ void PKH::RenderManager::DrawFont(const wstring & text)
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawFont(const wstring & text, float x, float y, D3DXCOLOR color)
+void Engine::RenderManager::DrawFont(const wstring & text, float x, float y, D3DXCOLOR color)
 {
 	Matrix world;
 	D3DXMatrixTranslation(&world, x, y, 0.f);
@@ -780,7 +780,7 @@ void PKH::RenderManager::DrawFont(const wstring & text, float x, float y, D3DXCO
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawFont(const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
+void Engine::RenderManager::DrawFont(const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
 {
 	Matrix world;
 	D3DXMatrixTranslation(&world, x, y, 0.f);
@@ -792,7 +792,7 @@ void PKH::RenderManager::DrawFont(const wstring& text, float x, float y, D3DXCOL
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawFont(const wstring& text, Vector3 pos, Vector3 scale, D3DXCOLOR color)
+void Engine::RenderManager::DrawFont(const wstring& text, Vector3 pos, Vector3 scale, D3DXCOLOR color)
 {
 	
 	Matrix matWorld, matPos, matScale;
@@ -808,7 +808,7 @@ void PKH::RenderManager::DrawFont(const wstring& text, Vector3 pos, Vector3 scal
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color)
+void Engine::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color)
 {
 	if (font == nullptr) return;
 	Matrix world;
@@ -823,7 +823,7 @@ void PKH::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x,
 
 }
 
-void PKH::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
+void Engine::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x, float y, D3DXCOLOR color, RECT* outRect)
 {
 	if (font == nullptr) return;
 	Matrix world;
@@ -838,7 +838,7 @@ void PKH::RenderManager::DrawFont(LPD3DXFONT font, const wstring& text, float x,
 
 }
 
-void PKH::RenderManager::DrawLine(float sx, float sy, float ex, float ey)
+void Engine::RenderManager::DrawLine(float sx, float sy, float ex, float ey)
 {
 	D3DXVECTOR2 point[2] = {};
 	point[0].x = sx;
@@ -851,7 +851,7 @@ void PKH::RenderManager::DrawLine(float sx, float sy, float ex, float ey)
 	pRenderManager->pLine->End();
 }
 
-void PKH::RenderManager::DrawLine(float sx, float sy, float ex, float ey, D3DXCOLOR color)
+void Engine::RenderManager::DrawLine(float sx, float sy, float ex, float ey, D3DXCOLOR color)
 {
 	D3DXVECTOR2 point[2] = {};
 	point[0].x = sx;
@@ -864,7 +864,7 @@ void PKH::RenderManager::DrawLine(float sx, float sy, float ex, float ey, D3DXCO
 	pRenderManager->pLine->End();
 }
 
-void PKH::RenderManager::DrawLine(Vector3 start, Vector3 end, D3DCOLOR color)
+void Engine::RenderManager::DrawLine(Vector3 start, Vector3 end, D3DCOLOR color)
 {
 	Vector3 point[2];
 	Matrix matView, matProj;
@@ -886,7 +886,7 @@ void PKH::RenderManager::DrawLine(Vector3 start, Vector3 end, D3DCOLOR color)
 	pRenderManager->pLine->End();
 }
 
-HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& fileName)
+HRESULT Engine::RenderManager::LoadTexture(const wstring& filePath, const wstring& fileName)
 {
 	WCHAR fullName[MAX_PATH] = {};
 	lstrcpy(fullName, filePath.c_str());
@@ -927,7 +927,7 @@ HRESULT PKH::RenderManager::LoadTexture(const wstring& filePath, const wstring& 
 	return S_OK;
 }
 
-HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstring& fileName)
+HRESULT Engine::RenderManager::LoadCubeTexture(const wstring& filePath, const wstring& fileName)
 {
 	WCHAR fullName[MAX_PATH] = {};
 	lstrcpy(fullName, filePath.c_str());
@@ -969,7 +969,7 @@ HRESULT PKH::RenderManager::LoadCubeTexture(const wstring& filePath, const wstri
 	return S_OK;
 }
 
-void PKH::RenderManager::SetTexture(const wstring& id)
+void Engine::RenderManager::SetTexture(const wstring& id)
 {
 	auto find = pRenderManager->textureMap.find(id);
 
@@ -979,17 +979,17 @@ void PKH::RenderManager::SetTexture(const wstring& id)
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::LockDevice()
+void Engine::RenderManager::LockDevice()
 {
 	EnterCriticalSection(&pRenderManager->csDevice);
 }
 
-void PKH::RenderManager::UnlockDevice()
+void Engine::RenderManager::UnlockDevice()
 {
 	LeaveCriticalSection(&pRenderManager->csDevice);
 }
 
-HRESULT PKH::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D3DMATRIX* pMatrix)
+HRESULT Engine::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D3DMATRIX* pMatrix)
 {
 	EnterCriticalSection(&pRenderManager->csDevice);
 	pRenderManager->pDevice->SetTransform(State, pMatrix);
@@ -997,7 +997,7 @@ HRESULT PKH::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D3DM
 	return E_NOTIMPL;
 }
 
-HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 
 	StaticMesh* smesh = new StaticMesh(nullptr);
@@ -1023,7 +1023,7 @@ HRESULT PKH::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* 
 	return S_OK;
 }
 
-StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& id)
+StaticMesh* Engine::RenderManager::CloneStaticMesh(const wstring& id)
 {
 	auto smesh = pRenderManager->staticMeshMap.find(id);
 	if (smesh == pRenderManager->staticMeshMap.end())
@@ -1035,7 +1035,7 @@ StaticMesh* PKH::RenderManager::CloneStaticMesh(const wstring& id)
 	return (StaticMesh*)smesh->second->Clone();
 }
 
-HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	DynamicMesh* mesh = new DynamicMesh(nullptr);
 	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
@@ -1060,7 +1060,7 @@ HRESULT PKH::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR*
 	return S_OK;
 }
 
-DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& id)
+DynamicMesh* Engine::RenderManager::CloneDynamicMesh(const wstring& id)
 {
 	auto dmesh = pRenderManager->dynamicMeshMap.find(id);
 	if (dmesh == pRenderManager->dynamicMeshMap.end())
@@ -1072,7 +1072,7 @@ DynamicMesh* PKH::RenderManager::CloneDynamicMesh(const wstring& id)
 	return (DynamicMesh*)dmesh->second->Clone();
 }
 
-HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	TerrainMesh* mesh = new TerrainMesh(nullptr);
 	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
@@ -1097,7 +1097,7 @@ HRESULT PKH::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR*
 	return S_OK;
 }
 
-TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& id)
+TerrainMesh* Engine::RenderManager::CloneTerrainMesh(const wstring& id)
 {
 	auto mesh = pRenderManager->terrainMeshMap.find(id);
 	if (mesh == pRenderManager->terrainMeshMap.end())
@@ -1109,7 +1109,7 @@ TerrainMesh* PKH::RenderManager::CloneTerrainMesh(const wstring& id)
 	return (TerrainMesh*)mesh->second->Clone();
 }
 
-HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	NavMesh* mesh = new NavMesh(nullptr);
 	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
@@ -1134,7 +1134,7 @@ HRESULT PKH::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFi
 	return S_OK;
 }
 
-NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& id)
+NavMesh* Engine::RenderManager::CloneNavMesh(const wstring& id)
 {
 	auto mesh = pRenderManager->navMeshMap.find(id);
 	if (mesh == pRenderManager->navMeshMap.end())
@@ -1146,7 +1146,7 @@ NavMesh* PKH::RenderManager::CloneNavMesh(const wstring& id)
 	return (NavMesh*)mesh->second->Clone();
 }
 
-HRESULT PKH::RenderManager::CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt)
+HRESULT Engine::RenderManager::CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt)
 {
 	map<wstring, RenderTarget*>& renderTagets = pRenderManager->renderTargetMap;
 	RenderTarget* renderTarget = nullptr;
@@ -1161,7 +1161,7 @@ HRESULT PKH::RenderManager::CreateRenderTarget(const WCHAR* renderTargetID, int 
 	return S_OK;
 }
 
-RenderTarget* PKH::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
+RenderTarget* Engine::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
 {
 	RenderManager* const self = pRenderManager;
 	map<wstring, RenderTarget*>& renderTargetMap = self->renderTargetMap;
@@ -1173,7 +1173,7 @@ RenderTarget* PKH::RenderManager::GetRenderTarget(const WCHAR* renderTargetID)
 	return findIt->second;
 }
 
-ID3DXEffect* PKH::RenderManager::LoadEffect(const WCHAR* path)
+ID3DXEffect* Engine::RenderManager::LoadEffect(const WCHAR* path)
 {
 	HRESULT hr{};
 	RenderManager* const self = pRenderManager;

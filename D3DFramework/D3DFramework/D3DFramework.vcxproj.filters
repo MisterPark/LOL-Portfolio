@@ -268,6 +268,33 @@
     <Filter Include="GameObject\UI\ItemshopPanel">
       <UniqueIdentifier>{1e6af0ea-f596-4583-b33c-7e0a2694dc89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\BehaviorTree">
+      <UniqueIdentifier>{ace10917-297b-4250-a205-6a5325551e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\Node">
+      <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\FogOfWar">
+      <UniqueIdentifier>{520ad5fd-c572-4a3e-8d3d-34b08ac1d5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer\UIRenderer\MiniMapRenderer">
+      <UniqueIdentifier>{3ffb2e73-5f74-4a47-8a1f-c40b44b5ca32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\DamageObject">
+      <UniqueIdentifier>{e0ae6b56-f81d-4c5a-bef3-6b395a844c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\DamageCalc">
+      <UniqueIdentifier>{19317473-c790-4252-9872-91495981060a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{b7fb0d1a-4a53-4fdf-b5c7-2a8beccc9ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Garen">
+      <UniqueIdentifier>{999d1ba4-d270-4566-bb14-e2cfa910612e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff">
+      <UniqueIdentifier>{ec3753fd-8502-46b2-bcb6-6b2dc7ebc851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -276,16 +303,7 @@
     <ClInclude Include="FileManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
       <Filter>Lib\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
@@ -301,9 +319,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
@@ -726,9 +741,6 @@
     <ClInclude Include="Stat.h">
       <Filter>Component\Stat</Filter>
     </ClInclude>
-    <ClInclude Include="UnitStat.h">
-      <Filter>Component\Stat</Filter>
-    </ClInclude>
     <ClInclude Include="LabelRenderer.h">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
@@ -787,6 +799,57 @@
     <ClInclude Include="OutlinedSlot.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
+    <ClInclude Include="BehaviorTree.h">
+      <Filter>Component\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject.h">
+      <Filter>GameObject\DamageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_Basic.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_LostHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_CurrentHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_MaxHpPercent.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarRenderSystem.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="FogOfWarObstacleRenderer.h">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Lib\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_Q.h" />
+    <ClInclude Include="MiniMapRenderer.h">
+      <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="ScorePanel.h">
       <Filter>GameObject\UI\ScorePanel</Filter>
     </ClInclude>
@@ -798,16 +861,7 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
@@ -820,9 +874,6 @@
       <Filter>Lib\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
@@ -906,19 +957,10 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
       <Filter>Lib\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
@@ -946,9 +988,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
@@ -1319,9 +1358,6 @@
     <ClCompile Include="Stat.cpp">
       <Filter>Component\Stat</Filter>
     </ClCompile>
-    <ClCompile Include="UnitStat.cpp">
-      <Filter>Component\Stat</Filter>
-    </ClCompile>
     <ClCompile Include="LabelRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
@@ -1372,6 +1408,57 @@
     <ClCompile Include="OutlinedSlot.cpp">
       <Filter>GameObject\UI\Control</Filter>
     </ClCompile>
+    <ClCompile Include="BehaviorTree.cpp">
+      <Filter>Component\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject.cpp">
+      <Filter>GameObject\DamageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_Basic.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_LostHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_CurrentHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_MaxHpPercent.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarRenderSystem.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="FogOfWarObstacleRenderer.cpp">
+      <Filter>Component\Renderer\FogOfWar</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Lib\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_Q.cpp" />
+    <ClCompile Include="MiniMapRenderer.cpp">
+      <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff.cpp">
+      <Filter>Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="ScorePanel.cpp">
       <Filter>GameObject\UI\ScorePanel</Filter>
     </ClCompile>
@@ -1407,5 +1494,13 @@
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="shadow_map_shader.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="fogOfWar_render.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="blur.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

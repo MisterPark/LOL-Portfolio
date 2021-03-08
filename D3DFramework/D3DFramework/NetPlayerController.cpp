@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "NetPlayerController.h"
 #include "Collider.h"
 #include "NavMeshAgent.h"
@@ -30,40 +30,40 @@ void NetPlayerController::Update()
     if (gameObject == nullptr)return;
 
 
-    if (InputManager::GetKeyDown('W'))
+    if (Input::GetKeyDown('W'))
     {
 
     }
-    if (InputManager::GetKeyDown('A'))
+    if (Input::GetKeyDown('A'))
     {
         SetTargetMode(!targetMode);
     }
-    if (InputManager::GetKeyDown('S'))
+    if (Input::GetKeyDown('S'))
     {
 
     }
-    if (InputManager::GetKeyDown('D'))
-    {
-
-    }
-
-    if (InputManager::GetKeyDown('Q'))
-    {
-
-    }
-    if (InputManager::GetKeyDown('E'))
+    if (Input::GetKeyDown('D'))
     {
 
     }
 
+    if (Input::GetKeyDown('Q'))
+    {
+
+    }
+    if (Input::GetKeyDown('E'))
+    {
+
+    }
 
 
-    if (InputManager::GetMouseWheelUp())
+
+    if (Input::GetMouseWheelUp())
     {
         Camera* cam = Camera::GetInstance();
         cam->Move(cam->transform->look, 10.f);
     }
-    else if (InputManager::GetMouseWheelDown())
+    else if (Input::GetMouseWheelDown())
     {
         Camera* cam = Camera::GetInstance();
         cam->Move(-cam->transform->look, 10.f);
@@ -74,9 +74,9 @@ void NetPlayerController::Update()
         return;
     }
 
-    if (InputManager::GetMouseLButtonDown())
+    if (Input::GetMouseLButtonDown())
     {
-        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
         int groundMask = LayerMask::GetMask(Layer::Ground);
         
@@ -112,11 +112,11 @@ void NetPlayerController::Update()
 
         SetTargetMode(false);
     }
-    else if (InputManager::GetMouseRButtonDown())
+    else if (Input::GetMouseRButtonDown())
     {
         SetTargetMode(false);
 
-        Ray ray = Camera::main->ScreenPointToRay(InputManager::GetMousePosition());
+        Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
 
         int mask = LayerMask::GetMask(Layer::Ground);
@@ -125,7 +125,7 @@ void NetPlayerController::Update()
             Vector3 direction = hit.point - transform->position;
             Vector3::Normalize(&direction);
 
-            // ÀÌµ¿
+            // ì´ë™
             Ray ray2;
             RaycastHit hit2;
             ray2.origin = transform->position;
@@ -135,12 +135,12 @@ void NetPlayerController::Update()
             int mask2 = LayerMask::GetMask(Layer::Wall);
             if (Physics::Raycast(ray2, &hit2, dist, mask2))
             {
-                // Á÷¼±»ó¿¡ º®ÀÌ ÀÖÀ» °æ¿ì
+                // ì§ì„ ìƒì— ë²½ì´ ìˆì„ ê²½ìš°
                 ReqMove(hit.point);
             }
             else
             {
-                // Á÷¼±»ó¿¡ º®ÀÌ ¾øÀ» °æ¿ì
+                // ì§ì„ ìƒì— ë²½ì´ ì—†ì„ ê²½ìš°
                 ReqMove(hit.point, true);
             }
             
@@ -206,7 +206,7 @@ void NetPlayerController::ReqMove(Vector3 _dest, bool _noSearch)
     }
     Network::SendPacket(pack);
     delete pack;
-    Debug::PrintLine("[Debug] ReqMove ¿äÃ» / °æÀ¯Áö : %d", pathCount);
+    Debug::PrintLine("[Debug] ReqMove ìš”ì²­ / ê²½ìœ ì§€ : %d", pathCount);
     
 }
 
@@ -220,5 +220,5 @@ void NetPlayerController::ReqAttack(Unit* _target)
 
     Network::SendPacket(pack);
     delete pack;
-    Debug::PrintLine("[Debug] ReqAttack ¿äÃ» / °ø°İÀÚID : %d / Å¸°ÙID : %d", net->number, unitID);
+    Debug::PrintLine("[Debug] ReqAttack ìš”ì²­ / ê³µê²©ìID : %d / íƒ€ê²ŸID : %d", net->number, unitID);
 }

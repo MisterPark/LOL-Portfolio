@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "TerrainMesh.h"
-PKH::TerrainMesh::TerrainMesh(GameObject* owner)
+Engine::TerrainMesh::TerrainMesh(GameObject* owner)
     :Mesh(owner)
 {
 	type = MeshType::TERRAIN_MESH;
 }
 
-PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
+Engine::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	: Mesh(rhs)
 	, pAdjacency(rhs.pAdjacency)
 	, pSubset(rhs.pSubset)
@@ -41,7 +41,7 @@ PKH::TerrainMesh::TerrainMesh(const TerrainMesh& rhs)
 	Safe_AddRef(&indexBuffer);
 }
 
-PKH::TerrainMesh::~TerrainMesh()
+Engine::TerrainMesh::~TerrainMesh()
 {
 	for (ULONG i = 0; i < subsetCount; ++i)
 		Safe_Release(&ppTextures[i]);
@@ -65,12 +65,12 @@ PKH::TerrainMesh::~TerrainMesh()
 	Safe_Release(&indexBuffer);
 }
 
-IComponent* PKH::TerrainMesh::Clone()
+IComponent* Engine::TerrainMesh::Clone()
 {
     return new TerrainMesh(*this);
 }
 
-HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+HRESULT Engine::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 	WCHAR		szFullPath[MAX_PATH] = L"";
 
@@ -318,7 +318,7 @@ HRESULT PKH::TerrainMesh::LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileNam
 	return S_OK;
 }
 
-void PKH::TerrainMesh::RenderSubset(int index)
+void Engine::TerrainMesh::RenderSubset(int index)
 {
 	auto device = RenderManager::GetDevice();
 	Vector3 worldCenter;
@@ -333,12 +333,12 @@ void PKH::TerrainMesh::RenderSubset(int index)
 	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexCount, pAttributeTable[index].FaceStart * 3, pAttributeTable[index].FaceCount);
 }
 
-int PKH::TerrainMesh::GetSubsetCount()
+int Engine::TerrainMesh::GetSubsetCount()
 {
 	return (int)subsetCount;
 }
 
-IDirect3DTexture9* PKH::TerrainMesh::GetSubsetTexture(int index)
+IDirect3DTexture9* Engine::TerrainMesh::GetSubsetTexture(int index)
 {
 	return ppTextures[index];
 }

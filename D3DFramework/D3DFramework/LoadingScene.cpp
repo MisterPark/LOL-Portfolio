@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "LoadingScene.h"
 #include "Label.h"
 #include "TestScene.h"
@@ -42,7 +42,7 @@ void LoadingScene::OnLoaded()
 	Camera::GetInstance()->SetPosition(Vector3(0, 0, -1));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
-	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
+	SceneManager::GetCurrentScene()->CreateObject<LoadingBackGround>(Layer::UI);
 	
 	CreateChampPanel(borderW, borderH, padding);
 
@@ -51,20 +51,20 @@ void LoadingScene::OnLoaded()
 
 void LoadingScene::OnUnloaded()
 {
-	ObjectManager::DestroyAll();
 }
 
 void LoadingScene::Update()
 {
+	Scene::Update();
 	Network* net = Network::GetInstance();
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	connectTick += dt;
 
-	// ¿¬°á ¾ÈµÇ¾îÀÖÀ¸¸é Àç¿¬°á
+	// ì—°ê²° ì•ˆë˜ì–´ìžˆìœ¼ë©´ ìž¬ì—°ê²°
 	if (isConnected == false)
 	{
-		// ÃÖÁ¾ÀûÀ¸·Î ¿¬°áµÈ »óÅÂ¸é Áö³ª°¨
+		// ìµœì¢…ì ìœ¼ë¡œ ì—°ê²°ëœ ìƒíƒœë©´ ì§€ë‚˜ê°
 		if (net->isConnected == false)
 		{
 			isConnected = true;
@@ -76,7 +76,7 @@ void LoadingScene::Update()
 	{
 		NetProc();
 
-		// Á¢¼Ó ÆÐÅ¶º¸³»±â (¿¬°áÀÌ º¸ÀåµÇ¾îÀÖ´Â »óÈ²)
+		// ì ‘ì† íŒ¨í‚·ë³´ë‚´ê¸° (ì—°ê²°ì´ ë³´ìž¥ë˜ì–´ìžˆëŠ” ìƒí™©)
 		if (isEnterGame == false)
 		{
 			isEnterGame = true;
@@ -105,7 +105,7 @@ void LoadingScene::Update()
 	}
 	
 
-	// ÀÏÁ¤ ½Ã°£ Àç¿¬°á À¯µµ
+	// ì¼ì • ì‹œê°„ ìž¬ì—°ê²° ìœ ë„
 	if (connectTick > connectDelay)
 	{
 		connectTick = 0.f;
@@ -117,10 +117,10 @@ void LoadingScene::LoadResources()
 {
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/", L"malp.X", Count);
 
-	// ¿ÀºêÁ§Æ®
+	// ì˜¤ë¸Œì íŠ¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/", L"bush.x", Count);
 
-	// ¸ó½ºÅÍ
+	// ëª¬ìŠ¤í„°
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/scuttleracer/", L"scuttleracer.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_blue/", L"sru_blue.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_gromp/", L"sru_gromp.x", Count);
@@ -133,7 +133,7 @@ void LoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeakmini/", L"sru_razorbeakmini.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_red/", L"sru_red.x", Count);
 
-	// Ã¨ÇÇ¾ð
+	// ì±”í”¼ì–¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/blitzcrank/", L"blitzcrank.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/darius/", L"darius.X", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/diana/", L"diana.X", Count);
@@ -145,7 +145,7 @@ void LoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/", L"jax.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/", L"jinx.x", Count);
 
-	// ¹Ì´Ï¾ð
+	// ë¯¸ë‹ˆì–¸
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/", L"order_minion_caster.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_melee/", L"order_minion_melee.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_siege/", L"order_minion_siege.x", Count);
@@ -157,13 +157,13 @@ void LoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/", L"chaos_minion_super.x", Count);
 
 
-	// ÅÍ·¿
+	// í„°ë ›
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/", L"turret_order.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break1.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break2.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/", L"sruap_orderturret1_break3.x", Count);
 
-	// ³Ø¼­½º
+	// ë„¥ì„œìŠ¤
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/", L"sruap_ordernexus.x", Count);
 
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/", L"summoner_rift_nav.x", Count);
@@ -209,7 +209,7 @@ void LoadingScene::PacketProc(CPacket* pPacket)
 		break;
 
 	default:
-		Debug::Print("[Warning] Á¤ÀÇµÇÁö ¾ÊÀº ÆÐÅ¶ Å¸ÀÔ °¨Áö\n");
+		Debug::Print("[Warning] ì •ì˜ë˜ì§€ ì•Šì€ íŒ¨í‚· íƒ€ìž… ê°ì§€\n");
 		break;
 	}
 }
@@ -231,7 +231,7 @@ void LoadingScene::ResTest(CPacket* pack)
 
 void LoadingScene::ReqEnterGame()
 {
-	printf("[INFO] ReqEnterGame ¿äÃ»\n");
+	printf("[INFO] ReqEnterGame ìš”ì²­\n");
 	CPacket* pack = new CPacket();
 	pack->Clear();
 	*pack << (WORD)GAME_REQ_ENTER_GAME;
@@ -286,7 +286,7 @@ void LoadingScene::ResEnterGame(CPacket* pack)
 
 void LoadingScene::ReqLoading(int percent)
 {
-	printf("[INFO] ResEnterGame ¿äÃ»\n");
+	printf("[INFO] ResEnterGame ìš”ì²­\n");
 	CPacket* pack = new CPacket();
 	pack->Clear();
 	*pack << (WORD)GAME_REQ_LOADING << percent;
@@ -319,7 +319,7 @@ void LoadingScene::ReqCompleteLoading()
 
 void LoadingScene::ResCompleteLoading(CPacket* pack)
 {
-	printf("·Îµù ¿Ï·á\n");
+	printf("ë¡œë”© ì™„ë£Œ\n");
 	SceneManager::LoadScene<GameScene>();
 }
 
@@ -353,7 +353,7 @@ void LoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 			texKey = L"loadingFrameRed";
 		}
 
-		screens[i] = (LoadingChampScreen*)ObjectManager::GetInstance()->CreateObject<LoadingChampScreen>(Layer::UI);
+		screens[i] = (LoadingChampScreen*)SceneManager::GetCurrentScene()->CreateObject<LoadingChampScreen>(Layer::UI);
 		screens[i]->border->SetSize(borderW, borderH);
 		screens[i]->border->SetLocation(borderX, borderY);
 		screens[i]->border->SetTexture(texKey);

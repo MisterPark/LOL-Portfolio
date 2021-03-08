@@ -1,33 +1,33 @@
 #include "stdafx.h"
 #include "MeshCollider.h"
 
-PKH::MeshCollider::MeshCollider(GameObject* owner)
+Engine::MeshCollider::MeshCollider(GameObject* owner)
     :Collider(owner)
 {
     SetSharedMesh();
 }
 
-PKH::MeshCollider::MeshCollider(const MeshCollider& rhs)
+Engine::MeshCollider::MeshCollider(const MeshCollider& rhs)
     :Collider(rhs)
 {
     
 }
 
-PKH::MeshCollider::~MeshCollider()
+Engine::MeshCollider::~MeshCollider()
 {
     sharedMesh = nullptr;
 }
 
-void PKH::MeshCollider::Render()
+void Engine::MeshCollider::Render()
 {
 }
 
-IComponent* PKH::MeshCollider::Clone()
+IComponent* Engine::MeshCollider::Clone()
 {
     return new MeshCollider(*this);
 }
 
-bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
+bool Engine::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistance)
 {
     Mesh* sharedMesh = GetSharedMesh();
     if (sharedMesh == nullptr) return false;
@@ -85,7 +85,7 @@ bool PKH::MeshCollider::Raycast(Ray ray, RaycastHit* outHitInfo, float maxDistan
     return false;
 }
 
-void PKH::MeshCollider::SetSharedMesh()
+void Engine::MeshCollider::SetSharedMesh()
 {
     // 참조하는 메쉬 지정 (다이나믹 메쉬의 정점 정보를 얻기 힘드므로 이런 코드가 불가피)
     StaticMesh* smesh = (StaticMesh*)gameObject->GetComponent<StaticMesh>();
@@ -106,7 +106,7 @@ void PKH::MeshCollider::SetSharedMesh()
     }
 }
 
-Mesh* PKH::MeshCollider::GetSharedMesh()
+Mesh* Engine::MeshCollider::GetSharedMesh()
 {
     return sharedMesh;
 }

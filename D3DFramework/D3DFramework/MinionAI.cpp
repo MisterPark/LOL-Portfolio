@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "MinionAI.h"
 #include "Unit.h"
 
@@ -26,7 +26,7 @@ void MinionAI::Update()
     {
         return;
     }
-    float dt = TimeManager::DeltaTime();
+    float dt = Time::DeltaTime();
 
     if (unit->GetAttackTarget() == nullptr)
     {

@@ -9,11 +9,11 @@ Ahri::Ahri()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
-	anim->SetLoop((int)UnitState::IDLE1, true);
+	anim->SetLoop((int)State::IDLE1, true);
 
 	faceCircleTexkey = L"ahri_circle";
 	faceSquareTexkey = L"ahri_square";
@@ -24,16 +24,18 @@ Ahri::Ahri()
 	rTexKey = L"ahri_r";
 	passiveTexKey = L"ahri_passive";
 
-	SetHP(526.f);
-	SetHPRegen(5.5f);
-	SetMP(418.f);
-	SetMPRegen(8.f);
-	SetAttackDamage(53.04f);
-	SetAttackPerSec(0.668f);
-	SetArmor(20.88f);
-	SetMagicResistance(30.f);
-	SetAttackRange(5.5f);
-	SetMovementSpeed(3.3f);
+	stat->SetBaseValue(StatType::MaxHealth, 526.f);
+	stat->SetBaseValue(StatType::Health, 526.f);
+	stat->SetBaseValue(StatType::HealthRegen, 5.5f);
+	stat->SetBaseValue(StatType::MaxMana, 418.f);
+	stat->SetBaseValue(StatType::Mana, 418.f);
+	stat->SetBaseValue(StatType::ManaRegen, 8.f);
+	stat->SetBaseValue(StatType::AttackDamage, 53.04f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.668f);
+	stat->SetBaseValue(StatType::Armor, 20.88f);
+	stat->SetBaseValue(StatType::MagicResistance, 30.f);
+	stat->SetBaseValue(StatType::Range, 5.5f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.3f);
 }
 
 Ahri::~Ahri()

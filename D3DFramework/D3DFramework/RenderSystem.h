@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include<typeinfo>
-namespace KST
+namespace Engine
 {
 	enum class RendererType :int
 	{
@@ -27,8 +27,10 @@ namespace KST
 		static void			EnableShadow(const wchar_t* lightName);
 		static void			DisableShadow(const wchar_t* lightName);
 		static void			Render();
-		static bool GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, IDirect3DSurface9** depthBuffer, Matrix* proj);
-		
+		static bool			GetShadowMap(const wchar_t* lightName, RenderTarget** renderTarget, IDirect3DSurface9** depthBuffer, Matrix* proj);
+		static long			GetUniqueID();
+		static void			SetupPostProcessing();
+		static void			ExecutePostProcessing();
 	private:
 		static void SetupShadowMap();
 		static void RednerEarlyForward();
@@ -43,9 +45,11 @@ namespace KST
 	};
 	extern wchar_t const* const RENDER_TARGET_ALBEDO;
 	extern wchar_t const* const RENDER_TARGET_NORMAL;
-	extern wchar_t const* const RENDER_TARGET_DEPTH;
 	extern wchar_t const* const RENDER_TARGET_SHARPNESS;
 	extern wchar_t const* const LIGHT_SPECULAR;
 	extern wchar_t const* const LIGHT_DIFFUSE;
+	extern wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR;
+	extern wchar_t const* const RENDER_TARGET_FOG_OF_WAR;
+	extern wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR;
 }
-using RenderSystem = KST::RenderSystem;
+using RenderSystem = Engine::RenderSystem;

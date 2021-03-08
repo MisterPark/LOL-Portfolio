@@ -182,9 +182,13 @@
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="BehaviorTree.h" />
     <ClInclude Include="Blitzcrank.h" />
     <ClInclude Include="BlueMonster.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Buff.h" />
+    <ClInclude Include="Buff_GarenQAttack.h" />
+    <ClInclude Include="Buff_GarenQHaste.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Button.h" />
@@ -196,6 +200,12 @@
     <ClInclude Include="ChaosMinionMelee.h" />
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="DamageCalc.h" />
+    <ClInclude Include="DamageCalc_Basic.h" />
+    <ClInclude Include="DamageCalc_CurrentHpPercent.h" />
+    <ClInclude Include="DamageCalc_LostHpPercent.h" />
+    <ClInclude Include="DamageCalc_MaxHpPercent.h" />
+    <ClInclude Include="DamageObject.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
@@ -205,6 +215,9 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="FloatingBar.h" />
     <ClInclude Include="FloatingHPBar.h" />
+    <ClInclude Include="FogOfWarObstacleRenderer.h" />
+    <ClInclude Include="FogOfWarRenderer.h" />
+    <ClInclude Include="FogOfWarRenderSystem.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Garen.h" />
@@ -240,6 +253,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCollider.h" />
     <ClInclude Include="MinimapPanel.h" />
+    <ClInclude Include="MiniMapRenderer.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
@@ -283,15 +297,14 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IComponent.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IScene.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="LobbyWindow.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="CustomMesh.h" />
     <ClInclude Include="Network.h" />
-    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
@@ -305,6 +318,8 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScorePanel.h" />
     <ClInclude Include="Scuttleracer.h" />
+    <ClInclude Include="Skill.h" />
+    <ClInclude Include="Skill_Garen_Q.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
@@ -324,7 +339,7 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TextParser.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
@@ -338,7 +353,6 @@
     <ClInclude Include="UI_Spell.h" />
     <ClInclude Include="UI_Title.h" />
     <ClInclude Include="Unit.h" />
-    <ClInclude Include="UnitStat.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
@@ -351,9 +365,13 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Bar.cpp" />
+    <ClCompile Include="BehaviorTree.cpp" />
     <ClCompile Include="Blitzcrank.cpp" />
     <ClCompile Include="BlueMonster.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Buff.cpp" />
+    <ClCompile Include="Buff_GarenQAttack.cpp" />
+    <ClCompile Include="Buff_GarenQHaste.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -364,6 +382,12 @@
     <ClCompile Include="ChaosMinionSuper.cpp" />
     <ClCompile Include="ChaosMinionMelee.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="DamageCalc.cpp" />
+    <ClCompile Include="DamageCalc_Basic.cpp" />
+    <ClCompile Include="DamageCalc_CurrentHpPercent.cpp" />
+    <ClCompile Include="DamageCalc_LostHpPercent.cpp" />
+    <ClCompile Include="DamageCalc_MaxHpPercent.cpp" />
+    <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="Darius.cpp" />
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />
@@ -373,6 +397,9 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FloatingBar.cpp" />
     <ClCompile Include="FloatingHPBar.cpp" />
+    <ClCompile Include="FogOfWarObstacleRenderer.cpp" />
+    <ClCompile Include="FogOfWarRenderer.cpp" />
+    <ClCompile Include="FogOfWarRenderSystem.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Garen.cpp" />
@@ -408,6 +435,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MinimapPanel.cpp" />
+    <ClCompile Include="MiniMapRenderer.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
@@ -447,14 +475,13 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IComponent.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="CustomMesh.cpp" />
     <ClCompile Include="Network.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Quaternion.cpp" />
@@ -466,6 +493,8 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScorePanel.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
+    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Skill_Garen_Q.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
@@ -487,7 +516,7 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TextParser.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
@@ -501,7 +530,6 @@
     <ClCompile Include="UI_Spell.cpp" />
     <ClCompile Include="UI_Title.cpp" />
     <ClCompile Include="Unit.cpp" />
-    <ClCompile Include="UnitStat.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -556,6 +584,44 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="blur.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+    </FxCompile>
+    <FxCompile Include="fogOfWar_render.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

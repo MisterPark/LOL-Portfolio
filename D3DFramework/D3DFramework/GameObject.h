@@ -1,10 +1,14 @@
 ﻿#pragma once
 #include "Layer.h"
 
-using namespace PKH;
+using namespace Engine;
 
+enum class Team
+{
+	NEUTRAL, BLUE, RED, END
+};
 
-namespace PKH
+namespace Engine
 {
 	class IComponent;
 	class Transform;
@@ -18,6 +22,7 @@ namespace PKH
 		
 		virtual void Initialize() = 0;
 		virtual void Release() = 0;
+		virtual void PreUpdate();
 		virtual void Update() = 0;
 		virtual void PostUpdate();
 
@@ -72,26 +77,28 @@ namespace PKH
 		// child
 		template<class T>
 		T* AddChild(const wstring& _tag, T* _child);
+		GameObject* RemoveChild(const wstring& _tag);
 		template<class T>
 		T* CreateChild(const wstring& _key);
-
 		void DeleteChild(const wstring& _tag);
-		GameObject* RemoveChild(const wstring& _tag);
-
-
+		
+		//event관련하여
+		void AddWeak(Engine::EventBase* evt);
+		void OnEventDelete(Engine::EventBase* evt);
 	public:
 		wstring name;
 		wstring tag;
 		Transform* transform = nullptr;
 		
-		bool Visible = true;
-		bool Enable = true;
+		bool visible = true;
+		bool enable = true;
 		bool dontDestroy = false;
 
 		GameObject* parent = nullptr;
 		map<wstring, GameObject*> children;
 
-		map<wstring, PKH::IComponent*> components;
+		map<wstring, Engine::IComponent*> components;
+		std::set<Engine::EventBase*> events;
 	protected:
 		bool destroyFlag = false;
 	private:

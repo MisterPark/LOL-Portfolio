@@ -42,7 +42,7 @@ void TestLoadingScene::OnLoaded()
 
 	Cursor::GetInstance()->Show();
 
-	ObjectManager::GetInstance()->CreateObject<LoadingBackGround>(Layer::UI);
+	SceneManager::GetCurrentScene()->CreateObject<LoadingBackGround>(Layer::UI);
 	for (int i = 0; i < 10; ++i) {
 		screens[i] = new LoadingChampScreen();
 		UIManager::GetInstance()->AddUI(screens[i]);
@@ -61,11 +61,11 @@ void TestLoadingScene::OnLoaded()
 void TestLoadingScene::OnUnloaded()
 {
 	UIManager::GetInstance()->DeleteListAll();
-	ObjectManager::DestroyAll();
 }
 
 void TestLoadingScene::Update()
 {
+	Scene::Update();
 	int loadPercent =  (int)(((float)resourceLoadCnt / resourceMax) * 100);
 	WCHAR buf[16] = {};
 	swprintf_s(buf, L"%d%%", loadPercent);
@@ -194,7 +194,7 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;
-		//screens[i]->Visible = false;
+		//screens[i]->visible = false;
 	}
 	
 }

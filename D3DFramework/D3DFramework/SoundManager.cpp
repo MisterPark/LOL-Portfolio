@@ -1,14 +1,14 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "SoundManager.h"
 #include "fmod.h"
 #include <io.h>
 #include <algorithm>
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::SoundManager* pSoundManager = nullptr;
+Engine::SoundManager* pSoundManager = nullptr;
 
-SoundManager* PKH::SoundManager::GetInstance()
+SoundManager* Engine::SoundManager::GetInstance()
 {
 	if (pSoundManager == nullptr)
 	{
@@ -17,7 +17,7 @@ SoundManager* PKH::SoundManager::GetInstance()
 	return pSoundManager;
 }
 
-void PKH::SoundManager::Destroy()
+void Engine::SoundManager::Destroy()
 {
 	if (pSoundManager)
 	{
@@ -26,34 +26,34 @@ void PKH::SoundManager::Destroy()
 	}
 }
 
-PKH::SoundManager::SoundManager()
+Engine::SoundManager::SoundManager()
 {
 	pSystem = nullptr; 
 	volume = 0.5f;
 }
 
 
-PKH::SoundManager::~SoundManager()
+Engine::SoundManager::~SoundManager()
 {
 	Release();
 }
 
-void PKH::SoundManager::Initialize()
+void Engine::SoundManager::Initialize()
 {
 	FMOD_System_Create(&pSoundManager->pSystem);
 	
-	// 1. ½Ã½ºÅÛ Æ÷ÀÎÅÍ, 2. »ç¿ëÇÒ °¡»óÃ¤³Î ¼ö , ÃÊ±âÈ­ ¹æ½Ä) 
+	// 1. ì‹œìŠ¤í…œ í¬ì¸í„°, 2. ì‚¬ìš©í•  ê°€ìƒì±„ë„ ìˆ˜ , ì´ˆê¸°í™” ë°©ì‹) 
 	FMOD_System_Init(pSoundManager->pSystem, 32, FMOD_INIT_NORMAL, NULL);
 
 	LoadSoundFile(); 
 }
-void PKH::SoundManager::Update()
+void Engine::SoundManager::Update()
 {
 	for (auto& pair : pSoundManager->soundTimeMap)
 	{
 		if (pair.second.first)
 		{
-			pair.second.second -= TimeManager::DeltaTime();
+			pair.second.second -= Time::DeltaTime();
 
 			if (0.f > pair.second.second)
 			{
@@ -64,7 +64,7 @@ void PKH::SoundManager::Update()
 	}
 }
 
-void PKH::SoundManager::Release()
+void Engine::SoundManager::Release()
 {
 	for (auto& Mypair : pSoundManager->soundMap)
 	{
@@ -79,7 +79,7 @@ void PKH::SoundManager::Release()
 
 
 
-void PKH::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
+void Engine::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter; 
 
@@ -100,7 +100,7 @@ void PKH::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
-void PKH::SoundManager::PlayOverlapSound(const TCHAR * pSoundKey, SoundChannel eID, float offsetVolume, float duration)
+void Engine::SoundManager::PlayOverlapSound(const TCHAR * pSoundKey, SoundChannel eID, float offsetVolume, float duration)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -128,7 +128,7 @@ void PKH::SoundManager::PlayOverlapSound(const TCHAR * pSoundKey, SoundChannel e
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
-void PKH::SoundManager::PlayOverlapSoundWithAmp(const TCHAR * pSoundKey, SoundChannel eID)
+void Engine::SoundManager::PlayOverlapSoundWithAmp(const TCHAR * pSoundKey, SoundChannel eID)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -146,7 +146,7 @@ void PKH::SoundManager::PlayOverlapSoundWithAmp(const TCHAR * pSoundKey, SoundCh
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
-void PKH::SoundManager::PlayBGM(const TCHAR * pSoundKey)
+void Engine::SoundManager::PlayBGM(const TCHAR * pSoundKey)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -164,24 +164,24 @@ void PKH::SoundManager::PlayBGM(const TCHAR * pSoundKey)
 	FMOD_System_Update(pSoundManager->pSystem);
 }
 
-void PKH::SoundManager::StopSound(SoundChannel eID)
+void Engine::SoundManager::StopSound(SoundChannel eID)
 {
 	FMOD_Channel_Stop(pSoundManager->channels[eID]);
 }
 
-void PKH::SoundManager::StopAll()
+void Engine::SoundManager::StopAll()
 {
 	for (int i = 0 ; i < MAXCHANNEL ; ++i)
 		FMOD_Channel_Stop(pSoundManager->channels[i]);
 }
 
-void PKH::SoundManager::SetVolume(SoundChannel channel, float per)
+void Engine::SoundManager::SetVolume(SoundChannel channel, float per)
 {
 	FMOD_Channel_SetVolume(pSoundManager->channels[channel], per);
 }
 
 
-void PKH::SoundManager::LoadSoundFile()
+void Engine::SoundManager::LoadSoundFile()
 {
 	_finddata_t fd; 
 

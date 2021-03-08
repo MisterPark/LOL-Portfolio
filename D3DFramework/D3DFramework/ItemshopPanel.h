@@ -15,4 +15,5 @@ public:
 
 	static void ToggleVisible();
 	static void Close();
+	void ItemShop_Panel(GameObject* sender, MouseEventArg* args);
 };

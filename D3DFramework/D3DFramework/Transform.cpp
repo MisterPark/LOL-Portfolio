@@ -1,14 +1,14 @@
 ﻿#include "stdafx.h"
 #include "transform.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::Transform::Transform(GameObject* owner)
+Engine::Transform::Transform(GameObject* owner)
 	:IComponent(owner)
 {
 }
 
-PKH::Transform::Transform(const Transform& rhs)
+Engine::Transform::Transform(const Transform& rhs)
 	:IComponent(rhs)
 	,position(rhs.position)
 	,eulerAngles(rhs.eulerAngles)
@@ -22,11 +22,11 @@ PKH::Transform::Transform(const Transform& rhs)
 {
 }
 
-PKH::Transform::~Transform()
+Engine::Transform::~Transform()
 {
 }
 
-void PKH::Transform::Update()
+void Engine::Transform::Update()
 {
 	Matrix matView = Camera::main->GetViewMatrix();
 
@@ -75,17 +75,17 @@ void PKH::Transform::Update()
 	localMatrix = matScale * matRotation * matTrans;
 }
 
-void PKH::Transform::PostUpdate()
+void Engine::Transform::PostUpdate()
 {
 	worldMatrix = GetWorldMatrix();
 }
 
-IComponent* PKH::Transform::Clone()
+IComponent* Engine::Transform::Clone()
 {
     return new Transform(*this);
 }
 
-void PKH::Transform::Rotate(Vector3 _axis, float _angle)
+void Engine::Transform::Rotate(Vector3 _axis, float _angle)
 {
 	Quaternion qRot;
 	D3DXQuaternionRotationAxis(&qRot, &_axis, _angle);
@@ -93,7 +93,7 @@ void PKH::Transform::Rotate(Vector3 _axis, float _angle)
 	eulerAngles = euler;
 }
 
-void PKH::Transform::LookAt(Transform _target, Vector3 _worldUp)
+void Engine::Transform::LookAt(Transform _target, Vector3 _worldUp)
 {
 	
 	Vector3 dir = _target.position - position;
@@ -107,7 +107,7 @@ void PKH::Transform::LookAt(Transform _target, Vector3 _worldUp)
 
 }
 
-void PKH::Transform::LookAt(Vector3 _target, Vector3 _worldUp)
+void Engine::Transform::LookAt(Vector3 _target, Vector3 _worldUp)
 {
 	Vector3 dir = _target - position;
 	Quaternion qRot;
@@ -119,43 +119,43 @@ void PKH::Transform::LookAt(Vector3 _target, Vector3 _worldUp)
 	eulerAngles = euler;
 }
 
-void PKH::Transform::RotatePitch(float _angle)
+void Engine::Transform::RotatePitch(float _angle)
 {
 	Rotate(right, _angle);
 }
 
-void PKH::Transform::RotateYaw(float _angle)
+void Engine::Transform::RotateYaw(float _angle)
 {
 	Rotate(up, _angle);
 }
 
-void PKH::Transform::RotateRoll(float _angle)
+void Engine::Transform::RotateRoll(float _angle)
 {
 	Rotate(look, _angle);
 }
 
-void PKH::Transform::RotateX(float _angle)
+void Engine::Transform::RotateX(float _angle)
 {
 	Rotate(Vector3::RIGHT, _angle);
 }
 
-void PKH::Transform::RotateY(float _angle)
+void Engine::Transform::RotateY(float _angle)
 {
 	Rotate(Vector3::UP, _angle);
 }
 
-void PKH::Transform::RotateZ(float _angle)
+void Engine::Transform::RotateZ(float _angle)
 {
 	Rotate(Vector3::FORWARD, _angle);
 }
 
-Matrix PKH::Transform::GetLocalMatrix()
+Matrix Engine::Transform::GetLocalMatrix()
 {
 	Update();
 	return localMatrix;
 }
 
-Matrix PKH::Transform::GetWorldMatrix()
+Matrix Engine::Transform::GetWorldMatrix()
 {
 	if (gameObject->parent == nullptr)
 	{

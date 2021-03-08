@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Champion.h"
 class Leesin :
     public Champion
@@ -9,6 +9,5 @@ public:
 
     virtual void Initialize() override;
     virtual void Release() override;
-    virtual void Update() override;
 };
 

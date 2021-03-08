@@ -4,18 +4,19 @@
 using namespace Microsoft::WRL;
 
 
-KST::SkinnedMeshRenderer::SkinnedMeshRenderer(PKH::GameObject* owner):
+Engine::SkinnedMeshRenderer::SkinnedMeshRenderer(Engine::GameObject* owner):
 	Renderer(owner, RendererType::Deferred)
 {
 	albedoRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_ALBEDO);
 	normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
 	sharpnessRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_SHARPNESS);
-	depthRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_DEPTH);
+	rimLightRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR);
 	renderingShader = RenderManager::LoadEffect(L"./deferred_render.fx");
 	shadowMapShader = RenderManager::LoadEffect(L"./shadow_map_shader.fx");
+	rimLightColor = Vector3{ 0.f, 0.f, 0.f };
 }
 
-void KST::SkinnedMeshRenderer::Render()
+void Engine::SkinnedMeshRenderer::Render()
 {
 
 	IDirect3DDevice9* device = RenderManager::GetDevice();
@@ -56,12 +57,24 @@ void KST::SkinnedMeshRenderer::Render()
 	}
 }
 
-void KST::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
+void Engine::SkinnedMeshRenderer::SetMesh(DynamicMesh* mesh)
 {
 	this->mesh = mesh;
 }
 
-void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
+void Engine::SkinnedMeshRenderer::EnableRimLight(Vector3 const& color)
+{
+	rimLightEnable = true;
+	rimLightColor = color;
+}
+
+void Engine::SkinnedMeshRenderer::DisableRimLight()
+{
+	rimLightEnable = false;
+	rimLightColor = Vector3(0.f, 0.f, 0.f);
+}
+
+void Engine::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* container)
 {
 	IDirect3DDevice9* device = RenderManager::GetDevice();
 
@@ -118,7 +131,7 @@ void KST::SkinnedMeshRenderer::RenderShadowMap(D3DXMESHCONTAINER_DERIVED* contai
 
 }
 
-void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
+void Engine::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* container)
 {
 	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
 
@@ -129,16 +142,17 @@ void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* containe
 	ComPtr<IDirect3DSurface9> albedoSurface;
 	ComPtr<IDirect3DSurface9> normalSurface;
 	ComPtr<IDirect3DSurface9> sharpnessSurface;
-	ComPtr<IDirect3DSurface9> depthSurface;
+	ComPtr<IDirect3DSurface9> rimLightSurface;
+	
 	albedoRenderTarget->GetSurface(&albedoSurface);
 	normalRenderTarget->GetSurface(&normalSurface);
 	sharpnessRenderTarget->GetSurface(&sharpnessSurface);
-	depthRenderTarget->GetSurface(&depthSurface);
+	rimLightRenderTarget->GetSurface(&rimLightSurface);
 
 	device->SetRenderTarget(0, albedoSurface.Get());
 	device->SetRenderTarget(1, normalSurface.Get());
 	device->SetRenderTarget(2, sharpnessSurface.Get());
-	device->SetRenderTarget(3, depthSurface.Get());
+	device->SetRenderTarget(3, rimLightSurface.Get());
 	//device->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_COLORVALUE(0.f, 0.f, 0.f, 0.f), 1.f, 0);
 	UINT passCount = 0;
 	UINT passNum = 0;
@@ -149,7 +163,12 @@ void KST::SkinnedMeshRenderer::RenderGBuffer(D3DXMESHCONTAINER_DERIVED* containe
 	renderingShader->SetMatrix("g_mViewSpace", &mViewSpace);
 	renderingShader->SetMatrix("g_mProjSpace", &mProjSpace);
 	renderingShader->SetMatrix("g_mViewProj", &mViewProj);
+	renderingShader->SetMatrix("g_mView", &mViewSpace);
 	renderingShader->SetMatrix("g_mWorld", &transform->worldMatrix);
+	D3DXVECTOR4 rimLightColor{ this->rimLightColor };
+	rimLightColor.w = rimLightEnable ? static_cast<uint16_t>(RenderSystem::GetUniqueID()) / static_cast<float>(UINT16_MAX) : 0.f;
+
+	renderingShader->SetVector("g_vRimLightColor", &rimLightColor);
 	renderingShader->Begin(&passCount, 0);
 	renderingShader->BeginPass(passNum);
 	for (ULONG i = 0; i < container->NumMaterials; ++i)

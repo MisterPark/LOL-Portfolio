@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Rectangle.h"
 
-using namespace PKH;
+using namespace Engine;
 
 class FloatingHPBar : public GameObject
 {
@@ -20,6 +20,6 @@ protected:
 	GameObject* target = nullptr;
 
 	Vector3 offset;
-	PKH::Rectangle* mesh = nullptr;
+	Engine::Rectangle* mesh = nullptr;
 };
 

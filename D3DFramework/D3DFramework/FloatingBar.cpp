@@ -46,7 +46,7 @@ void FloatingBar::PostUpdate()
 
 	if (target != nullptr)
 	{
-		Visible = !target->IsDead();
+		visible = !target->IsDead();
 
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);
@@ -61,10 +61,10 @@ void FloatingBar::PostUpdate()
 
 		Vector2 hpRatio = { 0,1 };
 		Vector2 mpRatio = { 0,1 };
-		float hp = target->GetHP();
-		float mp = target->GetMP();
-		float maxHp = target->GetMaxHP();
-		float maxMp = target->GetMaxMP();
+		float hp = target->stat->GetValue(StatType::Health);
+		float mp = target->stat->GetValue(StatType::Mana);
+		float maxHp = target->stat->GetValue(StatType::MaxHealth);
+		float maxMp = target->stat->GetValue(StatType::MaxMana);
 
 		if (maxHp != 0)
 		{

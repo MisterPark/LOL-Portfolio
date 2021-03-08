@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "MinimapPanel.h"
-
+#include "MiniMapRenderer.h"
 MinimapPanel* self = nullptr;
 
 MinimapPanel::MinimapPanel()
@@ -13,9 +13,17 @@ MinimapPanel::MinimapPanel()
     this->SetLocation(screenW - borderSize.x, screenH - borderSize.y);
 
     UI* minimap = CreateChild(L"map11", Vector2(20, 12));
+    MinimapRenderer* renderer = new MinimapRenderer(minimap);
+    renderer->SetMesh((Mesh*) minimap->GetComponent(L"Mesh") );
+    delete  minimap->GetComponent(L"renderer");
+    minimap->RemoveComponent(L"renderer");
+    minimap->AddComponent(L"renderer", renderer);
     minimap->transform->scale = { 0.5625f,0.5625f, 1.f };
-    
-    minimap->Click += TestFunc;
+
+    minimap->Click += Engine::Handler(this, &MinimapPanel::Minimap_MouseClick);
+    minimap->Click += Engine::Handler(Static_Minimap_MouseClick);
+
+
 }
 
 MinimapPanel::~MinimapPanel()
@@ -43,4 +51,15 @@ void MinimapPanel::DestroyInstance()
 void MinimapPanel::TestFunc()
 {
     Debug::PrintLine("테스트");
+}
+
+void MinimapPanel::Minimap_MouseClick(GameObject* sender, MouseEventArg* arg)
+{
+    Debug::PrintLine("테스트1");
+
+}
+
+void MinimapPanel::Static_Minimap_MouseClick(GameObject* sender, MouseEventArg* arg)
+{
+    Debug::PrintLine("테스트2");
 }

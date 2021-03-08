@@ -35,8 +35,8 @@ private:
 	
 public:
 	Vector3 position;
-	bool Enable = false;
-	bool Visible = false;
+	bool enable = false;
+	bool visible = false;
 
 };
 

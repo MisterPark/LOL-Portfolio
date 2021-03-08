@@ -9,9 +9,9 @@ RedMonster::RedMonster()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	anim->SetLoop((int)UnitState::IDLE1, true);
+	anim->SetLoop((int)State::IDLE1, true);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 }

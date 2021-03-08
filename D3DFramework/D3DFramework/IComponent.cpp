@@ -1,32 +1,36 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "IComponent.h"
 #include "Transform.h"
 
-using namespace PKH;
+using namespace Engine;
 
 
-PKH::IComponent::IComponent(GameObject* owner)
+Engine::IComponent::IComponent(GameObject* owner)
 {
 	gameObject = owner;
 	if(owner != nullptr)
 		transform = owner->transform;
 }
 
-PKH::IComponent::IComponent(const PKH::IComponent & rhs)
+Engine::IComponent::IComponent(const Engine::IComponent & rhs)
 {
 	
 }
 
-PKH::IComponent::~IComponent()
+Engine::IComponent::~IComponent()
 {
 	gameObject = nullptr;
 	transform = nullptr;
 }
 
-void PKH::IComponent::Update()
+void Engine::IComponent::PreUpdate()
 {
 }
 
-void PKH::IComponent::PostUpdate()
+void Engine::IComponent::Update()
+{
+}
+
+void Engine::IComponent::PostUpdate()
 {
 }

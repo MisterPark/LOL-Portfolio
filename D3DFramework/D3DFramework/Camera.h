@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 
-namespace PKH
+namespace Engine
 {
 	class Camera : public GameObject
 	{

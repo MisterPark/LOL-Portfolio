@@ -14,6 +14,7 @@ sampler DiffuseTextureSampler = sampler_state
 };
 
 //for no specularmap
+float4 g_vRimLightColor;
 float4 g_vSpecular;
 struct VSIn
 {
@@ -39,7 +40,7 @@ struct PSOut
 	float4 diffuse:COLOR0;
 	float4 normal:COLOR1;
 	float4 specular:COLOR2;
-	float4 depth:COLOR3;
+	float4 rimLight:COLOR3;
 };
 VSOut VS_main(VSIn input)
 {
@@ -50,6 +51,7 @@ VSOut VS_main(VSIn input)
 	output.vPosition = vPosition;
 	output.vClipPosition = vPosition;
 	output.vNormal = mul(float4(input.vNormal.xyz, 0.f), g_mWorld);
+	output.vNormal = normalize(mul(float4(output.vNormal.xyz, 0.f), g_mView));
 
 	output.vUV = input.vUV;
 	return output;
@@ -62,19 +64,14 @@ PSOut PS_main_NonAlpha(PSIn input)
 	output.diffuse = tex2D(DiffuseTextureSampler, input.vUV);
 	output.diffuse.a = 1.f;
 	output.specular = g_vSpecular;
-	float3 vN = input.vNormal.xyz;
+	float3 vNormal = input.vNormal.xyz;
+	float2 packingNormal = (float2)0;
+	float2 depths = float2(depth, input.vClipPosition.w);
+	float p = sqrt(vNormal.z * 8 + 8);
+	packingNormal = vNormal.xy / p + 0.5f;
 
-	//float p = sqrt(vN.z * 8 + 8);
-	//output.normal.rg = vN.xy / p + 0.5f;
-	//output.normal.b = depth;
-	//output.normal.a = input.vClipPosition.w;
-
-	output.normal.xyz = vN * 0.5f + 0.5f;
-	output.normal.w = 1.f;
-
-	output.depth.rgba = 0.f;
-	output.depth.r = depth;
-	output.depth.g = input.vClipPosition.w;
+	output.normal = float4(packingNormal, depths);
+	output.rimLight = g_vRimLightColor;
 	return output;
 }
 float g_alphaThreshold;
@@ -92,14 +89,15 @@ PSOut PS_main_AlphaTest(PSIn input)
 	float depth = input.vClipPosition.z / input.vClipPosition.w;
 
 	output.specular = g_vSpecular;
-	float3 vN = input.vNormal;
+	float3 vNormal = input.vNormal.xyz;
+	float2 packingNormal = (float2)0;
+	float2 depths = float2(depth, input.vClipPosition.w);
+	float p = sqrt(vNormal.z * 8 + 8);
+	packingNormal = vNormal.xy / p + 0.5f;
 
-	output.normal.xyz = vN * 0.5f + 0.5f;
-	output.normal.w = 1.f;
+	output.normal = float4(packingNormal, depths);
+	output.rimLight = g_vRimLightColor;
 
-	output.depth.rgba = 0.f;
-	output.depth.r = depth;
-	output.depth.g = input.vClipPosition.w;
 	return output;
 }
 

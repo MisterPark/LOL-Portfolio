@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Minion.h"
 #include "MinionFloatingBar.h"
 #include "MinionAI.h"
@@ -6,7 +6,7 @@
 
 Minion::Minion()
 {
-	bar = (MinionFloatingBar*)ObjectManager::GetInstance()->CreateObject<MinionFloatingBar>(Layer::UI);
+	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 
 	ai =(MinionAI*)AddComponent<MinionAI>(L"AI");
@@ -23,7 +23,7 @@ void Minion::OnCollisionEnter(Collider* target)
 	if (dynamic_cast<Unit*>(target->gameObject))
 	{
 		Unit* unit = (Unit*)target->gameObject;
-		if (unit->GetState() == UnitState::RUN)
+		if (unit->GetState() == State::RUN)
 		{
 			unit->PushedOut(this);
 		}

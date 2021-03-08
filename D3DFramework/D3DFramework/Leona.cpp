@@ -9,7 +9,7 @@ Leona::Leona()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
@@ -22,16 +22,18 @@ Leona::Leona()
 	rTexKey = L"leona_r";
 	passiveTexKey = L"leona_passive";
 
-	SetHP(576.16f);
-	SetHPRegen(8.5f);
-	SetMP(302.2f);
-	SetMPRegen(6.f);
-	SetAttackDamage(60.f);
-	SetAttackPerSec(0.625f);
-	SetArmor(47.f);
-	SetMagicResistance(32.1f);
-	SetAttackRange(1.25f);
-	SetMovementSpeed(3.35f);
+	stat->SetBaseValue(StatType::MaxHealth, 576.16f);
+	stat->SetBaseValue(StatType::Health, 576.16f);
+	stat->SetBaseValue(StatType::HealthRegen, 8.5f);
+	stat->SetBaseValue(StatType::MaxMana, 302.2f);
+	stat->SetBaseValue(StatType::Mana, 302.2f);
+	stat->SetBaseValue(StatType::ManaRegen, 6.f);
+	stat->SetBaseValue(StatType::AttackDamage, 60.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 47.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 1.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
 }
 
 Leona::~Leona()

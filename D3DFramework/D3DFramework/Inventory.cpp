@@ -94,7 +94,7 @@ bool Inventory::Push(Item* item)
 
         // 슬롯에 아이템이 존재하지 않으면 셋            
         pInventory->slots[i].SetItem(item);
-        ObjectManager::RemoveObject(item);
+        SceneManager::GetCurrentScene()->RemoveObject(item);
 
         
         return true;

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Renderer.h"
 
-namespace KST
+namespace Engine
 {
 	class UIRenderer :
 		public Renderer
@@ -12,14 +12,14 @@ namespace KST
 		virtual IComponent* Clone() override;
 		virtual void Render() override;
 
-		void SetMesh(PKH::Mesh* mesh);
+		void SetMesh(Engine::Mesh* mesh);
 
 		void BringToTop();
 	public:
 		int zOrder = 0;
 	protected:
-		PKH::Mesh* mesh = nullptr;
-		PKH::UI* ui = nullptr;
+		Engine::Mesh* mesh = nullptr;
+		Engine::UI* ui = nullptr;
 		ID3DXEffect* effect = nullptr;
 	private:
 		static int uniqueZIndex;

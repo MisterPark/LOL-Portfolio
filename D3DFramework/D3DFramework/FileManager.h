@@ -2,7 +2,7 @@
 
 #define dfMAX_DIRECTORY_LENGTH 128
 
-namespace PKH
+namespace Engine
 {
 	class FileManager
 	{

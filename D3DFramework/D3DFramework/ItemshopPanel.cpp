@@ -80,7 +80,7 @@ ItemshopPanel::ItemshopPanel()
     btn_close->transform->scale = { 0.625f, 0.625f, 0.f };
     btn_close->SetTextureHover(L"itemshop_button_close_hover");
     btn_close->SetTexturePressed(L"itemshop_button_close_pressed");
-    btn_close->Click += Close;
+    btn_close->Click += Engine::Handler(this, &ItemshopPanel::ItemShop_Panel);
 
     int startX = 57;
     int startY = 106;
@@ -106,6 +106,7 @@ ItemshopPanel::ItemshopPanel()
     // 임시
     slot[0]->SetIcon(L"1001_class_t1_bootsofspeed");
 
+    Hide();
 }
 
 ItemshopPanel::~ItemshopPanel()
@@ -134,21 +135,25 @@ void ItemshopPanel::Update()
 {
     GameObject::Update();
 
-    if (InputManager::GetKeyDown('P'))
+    if (Input::GetKeyDown('P'))
     {
-        Visible = !Visible;
-        Visible ? Show() : Hide();
+        visible = !visible;
+        visible ? Show() : Hide();
     }
 }
 
 void ItemshopPanel::ToggleVisible()
 {
-    pItemshopPanel->Visible ?
+    pItemshopPanel->visible ?
         pItemshopPanel->Hide() :
         pItemshopPanel->Show();
 }
 
 void ItemshopPanel::Close()
 {
-    pItemshopPanel->Hide();
+}
+
+void ItemshopPanel::ItemShop_Panel(GameObject* sender, MouseEventArg* args)
+{
+    this->Hide();
 }

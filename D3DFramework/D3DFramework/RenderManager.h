@@ -6,7 +6,7 @@
 #include "TerrainMesh.h"
 #include "NavMesh.h"
 #include "RenderTarget.h"
-namespace PKH
+namespace Engine
 {
 
 	class RenderManager

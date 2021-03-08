@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Triangle.h"
 
-PKH::Triangle::Triangle(GameObject* owner)
+Engine::Triangle::Triangle(GameObject* owner)
 	:CustomMesh(owner)
 {
 	CreateCustomMesh();
 }
 
-PKH::Triangle::Triangle(const Triangle& rhs)
+Engine::Triangle::Triangle(const Triangle& rhs)
 	:CustomMesh(rhs)
 {
 	CreateCustomMesh();
@@ -17,7 +17,7 @@ Triangle::~Triangle()
 {
 }
 
-void PKH::Triangle::CreateCustomMesh()
+void Engine::Triangle::CreateCustomMesh()
 {
 	this->vertexCount = 3;
 	this->vertexSize = sizeof(Vertex);
@@ -76,7 +76,7 @@ void Triangle::Update()
 {
 }
 
-PKH::IComponent * PKH::Triangle::Clone()
+Engine::IComponent * Engine::Triangle::Clone()
 {
 	return new Triangle(*this);
 }

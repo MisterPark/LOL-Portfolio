@@ -3,13 +3,13 @@
 #include "Plane.h"
 #include "Rectangle.h"
 
-using namespace PKH;
+using namespace Engine;
 
 Indicator::Indicator()
 {
-	Visible = false;
+	visible = false;
 
-	PKH::Plane* mesh = (PKH::Plane*)AddComponent<PKH::Plane>(L"Mesh");
+	Engine::Plane* mesh = (Engine::Plane*)AddComponent<Engine::Plane>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetTexture(L"circularrangeindicator");
 
@@ -36,7 +36,7 @@ void Indicator::Update()
 	{
 		transform->position = target->transform->position;
 		transform->position.y += 0.1f;
-		float range = target->GetAttackRange();
+		float range = target->stat->GetValue(StatType::Range);
 		transform->scale.x = range;
 		transform->scale.z = range;
 

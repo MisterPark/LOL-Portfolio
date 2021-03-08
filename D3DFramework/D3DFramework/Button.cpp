@@ -72,7 +72,7 @@ void Button::OnClick()
 void Button::OnEnabledChanged()
 {
 	UI::OnEnabledChanged();
-	if (Enable == false)
+	if (enable == false)
 	{
 		mesh->SetTexture(disableTexture);
 		SetSizeByTexture();

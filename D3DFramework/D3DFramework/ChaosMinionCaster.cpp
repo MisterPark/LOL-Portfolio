@@ -8,7 +8,7 @@ ChaosMinionCaster::ChaosMinionCaster()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"chaos_minion_caster");
 	AddComponent(L"DynamicMesh", dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 

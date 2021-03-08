@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "Astar.h"
 
-using namespace PKH;
+using namespace Engine;
 
-PKH::Astar::Astar()
+Engine::Astar::Astar()
 {
     type = PathFinderType::Astar;
 }
 
-PKH::Astar::~Astar()
+Engine::Astar::~Astar()
 {
 }
 
-bool PKH::Astar::Search(const Vector3& start, const Vector3& dest)
+bool Engine::Astar::Search(const Vector3& start, const Vector3& dest)
 {
     path.clear();
     // ¿ÀÇÂ¸®½ºÆ®

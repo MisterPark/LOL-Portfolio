@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "PathFinder.h"
 
 
@@ -6,22 +6,22 @@
 //	PathFinderNode
 //=======================================================
 
-PKH::PathFinder::Node::Node()
+Engine::PathFinder::Node::Node()
 {
 }
 
-PKH::PathFinder::Node::Node(PathFinder::Node* parent, Vector3 position)
+Engine::PathFinder::Node::Node(PathFinder::Node* parent, Vector3 position)
 {
 	this->parent = parent;
 	this->position = position;
 }
 
-PKH::PathFinder::Node::~Node()
+Engine::PathFinder::Node::~Node()
 {
 }
 
 
-int PKH::PathFinder::Node::G()
+int Engine::PathFinder::Node::G()
 {
 	if (parent == nullptr) return 0;
 	
@@ -31,7 +31,7 @@ int PKH::PathFinder::Node::G()
 	return (int)len;
 }
 
-int PKH::PathFinder::Node::H(Node* dest)
+int Engine::PathFinder::Node::H(Node* dest)
 {
 	Vector3 dir = dest->position - position;
 	float len = dir.Length();
@@ -39,7 +39,7 @@ int PKH::PathFinder::Node::H(Node* dest)
 	return (int)len;
 }
 
-int PKH::PathFinder::Node::F(Node* dest)
+int Engine::PathFinder::Node::F(Node* dest)
 {
 	return G() + H(dest);
 }
@@ -48,11 +48,11 @@ int PKH::PathFinder::Node::F(Node* dest)
 //	PathFinder
 //=======================================================
 
-PKH::PathFinder::PathFinder()
+Engine::PathFinder::PathFinder()
 {
 }
 
-PKH::PathFinder::~PathFinder()
+Engine::PathFinder::~PathFinder()
 {
 	for (auto node : nodes)
 	{
@@ -62,17 +62,17 @@ PKH::PathFinder::~PathFinder()
 	nodes.clear();
 }
 
-PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos, float radius)
+Engine::PathFinder::Node* Engine::PathFinder::FindStartNode(const Vector3& startPos, float radius)
 {
-	// nodes Áß¿¡¼­ startPos¿Í °¡Àå °¡±î¿î Æ÷Áö¼ÇÀÇ ³ëµå Ã£±â
-	//  +  ÀÎÁ¢³ëµå¸®½ºÆ®µµ Ãß°¡
+	// nodes ì¤‘ì—ì„œ startPosì™€ ê°€ì¥ ê°€ê¹Œìš´ í¬ì§€ì…˜ì˜ ë…¸ë“œ ì°¾ê¸°
+	//  +  ì¸ì ‘ë…¸ë“œë¦¬ìŠ¤íŠ¸ë„ ì¶”ê°€
 	candidatesStart.clear();
 
 	PathFinder::Node* result = nullptr;
 
 	int mask = LayerMask::GetMask(Layer::Wall);
 
-	// nodes Áß¿¡¼­
+	// nodes ì¤‘ì—ì„œ
 	for (auto node : nodes)
 	{
 		Vector3 to = node.second->position - startPos;
@@ -80,15 +80,15 @@ PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos, f
 		ray.origin = startPos;
 		ray.direction = to.Normalized();
 		float dist = to.Length();
-		// °Å¸®°¡ ±âÁØ¹İ°æ ¾È¿¡ ¾øÀ¸¸é continue;
+		// ê±°ë¦¬ê°€ ê¸°ì¤€ë°˜ê²½ ì•ˆì— ì—†ìœ¼ë©´ continue;
 		if (dist > radius) continue;
 
-		// ½ÃÀÛÁöÁ¡°ú ³ëµå»çÀÌ¿¡ º®ÀÌ ÀÖÀ¸¸é continue;
+		// ì‹œì‘ì§€ì ê³¼ ë…¸ë“œì‚¬ì´ì— ë²½ì´ ìˆìœ¼ë©´ continue;
 		RaycastHit hit;
 		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
-		// ±âÁØ¹İ°æ ¾È¿¡ ÀÖÀ¸¸é¼­, »çÀÌ¿¡ º®ÀÌ ¾ø´Â ³ëµå.
-		int id = (int)(dist * 100); // Á¤¹Ğµµ¸¦ À§ÇÑ °ö¼À
+		// ê¸°ì¤€ë°˜ê²½ ì•ˆì— ìˆìœ¼ë©´ì„œ, ì‚¬ì´ì— ë²½ì´ ì—†ëŠ” ë…¸ë“œ.
+		int id = (int)(dist * 100); // ì •ë°€ë„ë¥¼ ìœ„í•œ ê³±ì…ˆ
 		candidatesStart[id]= node.second;
 	}
 
@@ -99,7 +99,7 @@ PKH::PathFinder::Node* PKH::PathFinder::FindStartNode(const Vector3& startPos, f
 	return result;
 }
 
-PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destPos, float radius)
+Engine::PathFinder::Node* Engine::PathFinder::FindDestinationNode(const Vector3& destPos, float radius)
 {
 	candidatesDest.clear();
 
@@ -107,7 +107,7 @@ PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destP
 
 	int mask = LayerMask::GetMask(Layer::Wall);
 
-	// nodes Áß¿¡¼­
+	// nodes ì¤‘ì—ì„œ
 	for (auto node : nodes)
 	{
 		Vector3 to = node.second->position - destPos;
@@ -115,15 +115,15 @@ PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destP
 		ray.origin = destPos;
 		ray.direction = to.Normalized();
 		float dist = to.Length();
-		// °Å¸®°¡ ±âÁØ¹İ°æ ¾È¿¡ ¾øÀ¸¸é continue;
+		// ê±°ë¦¬ê°€ ê¸°ì¤€ë°˜ê²½ ì•ˆì— ì—†ìœ¼ë©´ continue;
 		if (dist > radius) continue;
 
-		// ½ÃÀÛÁöÁ¡°ú ³ëµå»çÀÌ¿¡ º®ÀÌ ÀÖÀ¸¸é continue;
+		// ì‹œì‘ì§€ì ê³¼ ë…¸ë“œì‚¬ì´ì— ë²½ì´ ìˆìœ¼ë©´ continue;
 		RaycastHit hit;
 		if (Physics::Raycast(ray, &hit, dist, mask)) continue;
 
-		// ±âÁØ¹İ°æ ¾È¿¡ ÀÖÀ¸¸é¼­, »çÀÌ¿¡ º®ÀÌ ¾ø´Â ³ëµå.
-		int id = (int)(dist * 100); // Á¤¹Ğµµ¸¦ À§ÇÑ °ö¼À
+		// ê¸°ì¤€ë°˜ê²½ ì•ˆì— ìˆìœ¼ë©´ì„œ, ì‚¬ì´ì— ë²½ì´ ì—†ëŠ” ë…¸ë“œ.
+		int id = (int)(dist * 100); // ì •ë°€ë„ë¥¼ ìœ„í•œ ê³±ì…ˆ
 		candidatesDest[id] = node.second;
 	}
 
@@ -134,16 +134,16 @@ PKH::PathFinder::Node* PKH::PathFinder::FindDestinationNode(const Vector3& destP
 	return result;
 }
 
-void PKH::PathFinder::SetDestination(PKH::PathFinder::Node* dest)
+void Engine::PathFinder::SetDestination(Engine::PathFinder::Node* dest)
 {
-	// nodesÀÇ ¸ğµç ³ëµåÀÇ µµÂøÁö º¯°æ
+	// nodesì˜ ëª¨ë“  ë…¸ë“œì˜ ë„ì°©ì§€ ë³€ê²½
 	for (auto node : nodes)
 	{
 		node.second->destination = dest;
 	}
 }
 
-void PKH::PathFinder::SetPath()
+void Engine::PathFinder::SetPath()
 {
 	PathFinder::Node* iter = resultNode;
 	while (iter != nullptr)
@@ -154,13 +154,13 @@ void PKH::PathFinder::SetPath()
 	path.reverse();
 }
 
-void PKH::PathFinder::OptimizeStartNode()
+void Engine::PathFinder::OptimizeStartNode()
 {
-	// Áß°£°æ·Î¿¡ ½ÃÀÛÈÄº¸°¡ ÀÖÀ¸¸é
-	// ½ÃÀÛ³ëµå¸¦ ¹Ù²Ù±â
-	// stackÀÌ´Ï ¿ª¼øÀ¸·Î °¡´Ù°¡ ¸¸³ª¸é À§¿¡²¨ ´Ù³¯¸®¸éµÊ parent = nullptr
+	// ì¤‘ê°„ê²½ë¡œì— ì‹œì‘í›„ë³´ê°€ ìˆìœ¼ë©´
+	// ì‹œì‘ë…¸ë“œë¥¼ ë°”ê¾¸ê¸°
+	// stackì´ë‹ˆ ì—­ìˆœìœ¼ë¡œ ê°€ë‹¤ê°€ ë§Œë‚˜ë©´ ìœ„ì—êº¼ ë‹¤ë‚ ë¦¬ë©´ë¨ parent = nullptr
 
-	PKH::PathFinder::Node* iter = resultNode;
+	Engine::PathFinder::Node* iter = resultNode;
 	while (iter != nullptr)
 	{
 		for (auto candidate : candidatesStart)
@@ -178,7 +178,7 @@ void PKH::PathFinder::OptimizeStartNode()
 
 }
 
-void PKH::PathFinder::OptimizeDestinationNode(const Vector3& destPos)
+void Engine::PathFinder::OptimizeDestinationNode(const Vector3& destPos)
 {
 	auto iter = path.begin();
 	auto end = path.end();
@@ -205,9 +205,9 @@ void PKH::PathFinder::OptimizeDestinationNode(const Vector3& destPos)
 
 }
 
-void PKH::PathFinder::Optimize()
+void Engine::PathFinder::Optimize()
 {
-	list<PKH::PathFinder::Node*>::iterator head1, head2, iter, end;
+	list<Engine::PathFinder::Node*>::iterator head1, head2, iter, end;
 	int mask = LayerMask::GetMask(Layer::Wall);
 
 	iter = path.begin();
@@ -246,28 +246,28 @@ void PKH::PathFinder::Optimize()
 	}
 }
 
-void PKH::PathFinder::AddNode(DWORD index, PKH::PathFinder::Node* pNode)
+void Engine::PathFinder::AddNode(DWORD index, Engine::PathFinder::Node* pNode)
 {
 	nodes[index] = pNode;
 }
 
-void PKH::PathFinder::LinkNode(DWORD srcIndex, DWORD destIndex)
+void Engine::PathFinder::LinkNode(DWORD srcIndex, DWORD destIndex)
 {
 	nodes[srcIndex]->adjacency.push_back(nodes[destIndex]);
 }
 
 
-PathFinderType PKH::PathFinder::GetType()
+PathFinderType Engine::PathFinder::GetType()
 {
 	return type;
 }
 
-PKH::PathFinder::Node* PKH::PathFinder::GetResultNode()
+Engine::PathFinder::Node* Engine::PathFinder::GetResultNode()
 {
 	return resultNode;
 }
 
-list<PKH::PathFinder::Node*>* PKH::PathFinder::GetPath()
+list<Engine::PathFinder::Node*>* Engine::PathFinder::GetPath()
 {
 	return &path;
 }

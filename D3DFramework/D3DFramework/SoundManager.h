@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PKH
+namespace Engine
 {
 	enum SoundChannel { BGM, PLAYER, PLAYER_EFFECT, MONSTER, EFFECT, MAXCHANNEL };
 

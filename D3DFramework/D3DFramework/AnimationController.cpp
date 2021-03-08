@@ -34,7 +34,7 @@ HRESULT AnimationController::Ready_AnimationCtrl(void)
 	return S_OK;
 }
 
-bool PKH::AnimationController::GetAnimationName(char** outName, UINT index)
+bool Engine::AnimationController::GetAnimationName(char** outName, UINT index)
 {
 	LPD3DXANIMATIONSET pAS = NULL;
 	HRESULT res = m_pAniCtrl->GetAnimationSet(index, &pAS);
@@ -47,7 +47,7 @@ bool PKH::AnimationController::GetAnimationName(char** outName, UINT index)
 	return false;
 }
 
-bool PKH::AnimationController::GetAnimationIndex(UINT* outIndex, const char* name)
+bool Engine::AnimationController::GetAnimationIndex(UINT* outIndex, const char* name)
 {
 	LPD3DXANIMATIONSET pAS = NULL;
 	UINT animCount = m_pAniCtrl->GetNumAnimationSets();
@@ -69,12 +69,12 @@ bool PKH::AnimationController::GetAnimationIndex(UINT* outIndex, const char* nam
 	return false;
 }
 
-UINT PKH::AnimationController::GetNumAnimations()
+UINT Engine::AnimationController::GetNumAnimations()
 {
 	return m_pAniCtrl->GetNumAnimationSets();
 }
 
-double PKH::AnimationController::GetPeriod(const UINT& index)
+double Engine::AnimationController::GetPeriod(const UINT& index)
 {
 	LPD3DXANIMATIONSET		pAS = NULL;
 

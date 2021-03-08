@@ -4,7 +4,7 @@
 
 class Champion;
 class Label;
-class PKH::UI;
+class Engine::UI;
 class OutlinedSlot;
 
 class PlayerInfoPanel : public Panel
@@ -28,17 +28,17 @@ public:
 	//void RenderBar();
 
 	void SetTarget(Champion* _target);
-
+	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
 public:
 
 	int screenW = 1280;
 	int screenH = 720;
 private:
-	PKH::UI* statPanel = nullptr;
-	PKH::UI* mainPanel = nullptr;
-	PKH::UI* invenPanel = nullptr;
-	PKH::UI* faceBorder = nullptr;
-	PKH::UI* facePanel = nullptr;
+	Engine::UI* statPanel = nullptr;
+	Engine::UI* mainPanel = nullptr;
+	Engine::UI* invenPanel = nullptr;
+	Engine::UI* faceBorder = nullptr;
+	Engine::UI* facePanel = nullptr;
 	Label* hpLabel = nullptr;
 	Label* mpLabel = nullptr;
 

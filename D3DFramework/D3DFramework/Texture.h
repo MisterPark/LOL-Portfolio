@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PKH
+namespace Engine
 {
 	typedef DWORD TextureID;
 

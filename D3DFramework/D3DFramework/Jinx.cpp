@@ -8,7 +8,7 @@ Jinx::Jinx()
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
 
-	KST::SkinnedMeshRenderer* renderer = new KST::SkinnedMeshRenderer(this);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
@@ -21,16 +21,18 @@ Jinx::Jinx()
 	rTexKey = L"jinx_r";
 	passiveTexKey = L"jinx_passive";
 
-	SetHP(610.f);
-	SetHPRegen(3.75f);
-	SetMP(245.6f);
-	SetMPRegen(6.5f);
-	SetAttackDamage(57.f);
-	SetAttackPerSec(0.625f);
-	SetArmor(28.f);
-	SetMagicResistance(30.f);
-	SetAttackRange(5.25f);
-	SetMovementSpeed(3.25f);
+	stat->SetBaseValue(StatType::MaxHealth, 610.f);
+	stat->SetBaseValue(StatType::Health, 610.f);
+	stat->SetBaseValue(StatType::HealthRegen, 3.75f);
+	stat->SetBaseValue(StatType::MaxMana, 245.6f);
+	stat->SetBaseValue(StatType::Mana, 245.6f);
+	stat->SetBaseValue(StatType::ManaRegen, 6.5f);
+	stat->SetBaseValue(StatType::AttackDamage, 57.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 28.f);
+	stat->SetBaseValue(StatType::MagicResistance, 30.f);
+	stat->SetBaseValue(StatType::Range, 5.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 }
 
 Jinx::~Jinx()

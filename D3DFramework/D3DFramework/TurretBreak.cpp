@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TurretBreak.h"
 #include "Animation.h"
 #include "Unit.h"
@@ -17,18 +17,18 @@ TurretBreak::TurretBreak()
 	anim1->AttachToDynamicMesh(mesh1);
 	//anim2->AttachToDynamicMesh(mesh2);
 	//anim3->AttachToDynamicMesh(mesh3);
-	anim1->SetState((int)UnitState::DEATH);
-	//anim2->SetState((int)UnitState::DEATH);
-	//anim3->SetState((int)UnitState::DEATH);
+	anim1->SetState((int)State::DEATH);
+	//anim2->SetState((int)State::DEATH);
+	//anim3->SetState((int)State::DEATH);
 
 	
-	anim1->SetLoop((int)UnitState::DEATH, true);
+	anim1->SetLoop((int)State::DEATH, true);
 	anim1->animsets[0].index = anim1->animsets[3].index;
 	anim1->animsets[0].isLoop = anim1->animsets[3].isLoop;
 	anim1->animsets[0].period = anim1->animsets[3].period;
 	anim1->animsets[0].speed = anim1->animsets[3].speed;
-	//anim2->SetLoop((int)UnitState::DEATH, true);
-	//anim3->SetLoop((int)UnitState::DEATH, true);
+	//anim2->SetLoop((int)State::DEATH, true);
+	//anim3->SetLoop((int)State::DEATH, true);
 }
 
 TurretBreak::~TurretBreak()
@@ -45,13 +45,13 @@ void TurretBreak::Release()
 
 void TurretBreak::Update()
 {
-	if (InputManager::GetKey('N'))
+	if (Input::GetKey('N'))
 	{
 		transform->scale.x += 0.1f;
 		transform->scale.y += 0.1f;
 		transform->scale.z += 0.1f;
 	}
-	if (InputManager::GetKey('M'))
+	if (Input::GetKey('M'))
 	{
 		transform->scale.x -= 0.1f;
 		transform->scale.y -= 0.1f;

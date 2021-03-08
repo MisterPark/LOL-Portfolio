@@ -6,7 +6,7 @@
 #include "Indicator.h"
 #include "TurretBreak.h"
 #include "DeferredStaticMeshRenderer.h"
-
+#include "FogOfWarRenderer.h"
 
 Turret::Turret()
 {
@@ -18,14 +18,17 @@ Turret::Turret()
 
 	collider->SetRadius(0.6f);
 
-	bar = (TurretFloatingBar*)ObjectManager::GetInstance()->CreateObject<TurretFloatingBar>(Layer::UI);
+	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 
-	SetAttackRange(7.75f);
-	KST::DeferredStaticMeshRenderer* renderer =
-		(KST::DeferredStaticMeshRenderer*)AddComponent<KST::DeferredStaticMeshRenderer>(L"renderer");
-	renderer->SetMesh(mesh);
+	stat->SetBaseValue(StatType::Range, 7.75f);
 
+	Engine::DeferredStaticMeshRenderer* renderer =
+		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
+	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 4.f);
+	AddComponent(L"fogRenderer", fogOfWarRenderer);
+	renderer->SetMesh(mesh);
+	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
 }
 
 Turret::~Turret()
@@ -36,7 +39,7 @@ Turret::~Turret()
 
 void Turret::Update()
 {
-	float dt = TimeManager::DeltaTime();
+	float dt = Time::DeltaTime();
 
 	if (isDead)
 	{
@@ -52,13 +55,13 @@ void Turret::Update()
 	// 타겟팅
 	if (attackTarget == nullptr)
 	{
-		attackTarget = GetNearestEnemy(transform->position, attackRange);
+		attackTarget = GetNearestEnemy(transform->position, (*stat)[StatType::Range]);
 	}
 	else
 	{
 		Vector3 to = attackTarget->transform->position - transform->position;
 		float dist = to.Length();
-		if (dist > attackRange)
+		if (dist > (*stat)[StatType::Range])
 		{
 			attackTarget = nullptr;
 		}
@@ -71,10 +74,10 @@ void Turret::Update()
 			attackTarget = nullptr;
 			return;
 		}
-		attackIndicator->Visible = true;
+		attackIndicator->visible = true;
 
-		attackTick += TimeManager::DeltaTime();
-		float delay = 1.f / attackPerSec;
+		attackTick += Time::DeltaTime();
+		float delay = 1.f / (*stat)[StatType::AttackSpeed];
 		if (attackTick >= delay)
 		{
 			attackTick = 0.f;
@@ -83,7 +86,7 @@ void Turret::Update()
 			missilePos += transform->right.Normalized();
 			missilePos.y += 3.f;
 
-			TurretMissile* missile = (TurretMissile*)ObjectManager::GetInstance()->CreateObject<TurretMissile>(Layer::Effect);
+			TurretMissile* missile = (TurretMissile*)SceneManager::GetCurrentScene()->CreateObject<TurretMissile>(Layer::Effect);
 			missile->transform->position = missilePos;
 			missile->SetTeam(team);
 			missile->SetAttackTarget(attackTarget);
@@ -93,7 +96,7 @@ void Turret::Update()
 	}
 	else
 	{
-		attackIndicator->Visible = false;
+		attackIndicator->visible = false;
 	}
 
 	GameObject::Update();

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Champion.h"
 #include "FloatingBar.h"
 #include "FloatingHPBar.h"
@@ -6,9 +6,9 @@
 
 Champion::Champion()
 {
-	bar = (FloatingBar*)ObjectManager::GetInstance()->CreateObject<FloatingBar>(Layer::UI);
+	bar = (FloatingBar*)SceneManager::GetCurrentScene()->CreateObject<FloatingBar>(Layer::UI);
 	bar->SetTarget(this);
-	hpBar = (FloatingHPBar*)ObjectManager::GetInstance()->CreateObject<FloatingHPBar>(Layer::UI);
+	hpBar = (FloatingHPBar*)SceneManager::GetCurrentScene()->CreateObject<FloatingHPBar>(Layer::UI);
 	hpBar->SetTarget(this);
 }
 
@@ -38,7 +38,7 @@ void Champion::OnCollisionEnter(Collider* target)
 	if (dynamic_cast<Unit*>(target->gameObject))
 	{
 		Unit* unit = (Unit*)target->gameObject;
-		if (unit->GetState() == UnitState::RUN)
+		if (unit->GetState() == State::RUN)
 		{
 			unit->PushedOut(this);
 		}

@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
-namespace PKH
+namespace Engine
 {
 	class Transform;
 
@@ -12,6 +12,7 @@ namespace PKH
 		explicit IComponent(const IComponent& rhs);
 		virtual ~IComponent();
 
+		virtual void PreUpdate();
 		virtual void Update();
 		virtual void PostUpdate();
 

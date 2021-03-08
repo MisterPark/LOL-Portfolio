@@ -207,35 +207,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_LBUTTONDOWN:
-        InputManager::GetInstance()->mouse[(int)Keys::LBUTTON_DOWN] = true;
-        InputManager::GetInstance()->mouse[(int)Keys::LBUTTON] = true;
+        Input::GetInstance()->mouse[(int)Keys::LBUTTON_DOWN] = true;
+        Input::GetInstance()->mouse[(int)Keys::LBUTTON] = true;
         break;
     case WM_RBUTTONDOWN:
-        InputManager::GetInstance()->mouse[(int)Keys::RBUTTON_DOWN] = true;
-        InputManager::GetInstance()->mouse[(int)Keys::RBUTTON] = true;
+        Input::GetInstance()->mouse[(int)Keys::RBUTTON_DOWN] = true;
+        Input::GetInstance()->mouse[(int)Keys::RBUTTON] = true;
         break;
     case WM_LBUTTONUP:
-        InputManager::GetInstance()->mouse[(int)Keys::LBUTTON_UP] = true;
-        InputManager::GetInstance()->mouse[(int)Keys::LBUTTON] = false;
+        Input::GetInstance()->mouse[(int)Keys::LBUTTON_UP] = true;
+        Input::GetInstance()->mouse[(int)Keys::LBUTTON] = false;
         break;
     case WM_RBUTTONUP:
-        InputManager::GetInstance()->mouse[(int)Keys::RBUTTON_UP] = true;
-        InputManager::GetInstance()->mouse[(int)Keys::RBUTTON] = false;
+        Input::GetInstance()->mouse[(int)Keys::RBUTTON_UP] = true;
+        Input::GetInstance()->mouse[(int)Keys::RBUTTON] = false;
         break;
     case WM_LBUTTONDBLCLK:
-        InputManager::GetInstance()->mouse[(int)Keys::LBUTTON_DOUBLE] = true;
+        Input::GetInstance()->mouse[(int)Keys::LBUTTON_DOUBLE] = true;
         break;
     case WM_RBUTTONDBLCLK:
-        InputManager::GetInstance()->mouse[(int)Keys::RBUTTON_DOUBLE] = true;
+        Input::GetInstance()->mouse[(int)Keys::RBUTTON_DOUBLE] = true;
         break;
 	case WM_MOUSEWHEEL:
 		if ((SHORT)HIWORD(wParam) > 0)
 		{
-			InputManager::GetInstance()->mouse[(int)Keys::WHEEL_UP] = true;
+			Input::GetInstance()->mouse[(int)Keys::WHEEL_UP] = true;
 		}
 		else
 		{
-			InputManager::GetInstance()->mouse[(int)Keys::WHEEL_DOWN] = true;
+			Input::GetInstance()->mouse[(int)Keys::WHEEL_DOWN] = true;
 		}
         break;
     
@@ -248,14 +248,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
         if (wParam < 0)break;
         if (wParam > 256)break;
-        InputManager::GetInstance()->keyDowns[wParam] = true;
-        InputManager::GetInstance()->keys[wParam] = true;
+        Input::GetInstance()->keyDowns[wParam] = true;
+        Input::GetInstance()->keys[wParam] = true;
 		break;
     case WM_KEYUP:
         if (wParam < 0)break;
         if (wParam > 256)break;
-        InputManager::GetInstance()->keyUps[wParam] = true;
-        InputManager::GetInstance()->keys[wParam] = false;
+        Input::GetInstance()->keyUps[wParam] = true;
+        Input::GetInstance()->keys[wParam] = false;
         break;
 
     case WM_DESTROY:

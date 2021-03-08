@@ -1,7 +1,7 @@
 #pragma once
 #include <d3dx9.h>
 
-namespace PKH
+namespace Engine
 {
 	class Vector3 : public D3DXVECTOR3
 	{

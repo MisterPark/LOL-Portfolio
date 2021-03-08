@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 
-namespace PKH
+namespace Engine
 {
-	class TimeManager
+	class Time
 	{
 	private:
-		TimeManager();
-		~TimeManager();
+		Time();
+		~Time();
 
 	public:
-		static TimeManager* GetInstance();
+		static Time* GetInstance();
 		static void Destroy();
 
 		static void Initialize();
@@ -22,7 +22,7 @@ namespace PKH
 
 		static float DeltaTime();
 
-		// µğ¹ö±×¿ë
+		// ë””ë²„ê·¸ìš©
 		static void RenderFPS();
 
 	private:
@@ -37,7 +37,7 @@ namespace PKH
 		float deltaTime = 0.f;
 		int frameCount = 0;
 		int targetFrame = 0;
-		int timeStack = 0; // ÇÁ·¹ÀÓ´ç ÃÊ°ú ¹Ì¸¸ ½Ã°£ ´©Àû
+		int timeStack = 0; // í”„ë ˆì„ë‹¹ ì´ˆê³¼ ë¯¸ë§Œ ì‹œê°„ ëˆ„ì 
 
 		int renderCount = 0;
 

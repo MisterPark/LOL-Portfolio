@@ -1,14 +1,14 @@
 ﻿#pragma once
-#include "IScene.h"
+#include "Scene.h"
 
-using namespace PKH;
+using namespace Engine;
 
 class Label;
 
 class TestScene :
-    public IScene
+    public Scene
 {
-    // IScene을(를) 통해 상속됨
+    // Scene을(를) 통해 상속됨
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;

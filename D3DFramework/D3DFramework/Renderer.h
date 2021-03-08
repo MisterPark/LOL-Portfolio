@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 #include <typeinfo>
-namespace KST
+namespace Engine
 {
 	enum class RendererType :int;
 	class Renderer;
@@ -10,7 +10,7 @@ namespace KST
 	class Renderer : public IComponent
 	{
 	protected:
-		Renderer(PKH::GameObject* owner, RendererType rendererType);
+		Renderer(Engine::GameObject* owner, RendererType rendererType);
 	public:
 		~Renderer();
 		virtual void Render() PURE;

@@ -1,20 +1,23 @@
-#pragma once
+﻿#pragma once
 #include"Renderer.h"
 #include"RenderSystem.h"
 #include"Mesh.h"
 class RenderTarget;
-namespace KST
+namespace Engine
 {
 
 	class DeferredStaticMeshRenderer : public Renderer
 	{
 	public:
-		DeferredStaticMeshRenderer(PKH::GameObject* owner);
+		DeferredStaticMeshRenderer(Engine::GameObject* owner);
 		void EnableAlphaTest(float threshold);
 		void DisableAlphaTest();
 		bool IsAlphaTest();
-		void SetMesh(PKH::Mesh* mesh);
-		PKH::IComponent* Clone() { return nullptr; }
+		void EnableRimLight(Vector3 const& color);
+		void DisableRimLight();
+
+		void SetMesh(Engine::Mesh* mesh);
+		Engine::IComponent* Clone() { return nullptr; }
 	public:
 		virtual void Render() override;
 		bool NeedShadow = true;
@@ -25,14 +28,16 @@ namespace KST
 	private:
 		bool alphaTest;
 		float threshold;
+		bool rimLightEnable;
+		Vector3 rimLightColor;
 	private:
 		RenderTarget* albedoRenderTarget;
 		RenderTarget* normalRenderTarget;
 		RenderTarget* sharpnessRenderTarget;
-		RenderTarget* depthRenderTarget;
+		RenderTarget* rimLightRenderTarget;
 		ID3DXEffect* renderingShader;
 		ID3DXEffect* shadowMapShader;
-		PKH::Mesh* mesh;
+		Engine::Mesh* mesh;
 
 	};
 }
