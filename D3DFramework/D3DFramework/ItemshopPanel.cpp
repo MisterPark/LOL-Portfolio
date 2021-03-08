@@ -4,7 +4,6 @@
 #include "Button.h"
 #include "Label.h"
 #include "OutlinedSlot.h"
-#include <sstream>
 
 ItemshopPanel* pItemshopPanel = nullptr;
 
@@ -142,7 +141,7 @@ void ItemshopPanel::Update()
     }
 }
 
-void ItemshopPanel::ToggleVisible()
+void ItemshopPanel::ToggleVisible(GameObject* sender, MouseEventArg* arg)
 {
     pItemshopPanel->visible ?
         pItemshopPanel->Hide() :

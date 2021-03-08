@@ -54,7 +54,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     itemshopBtn->SetTextureDisable(L"button_gold (1)");
     itemshopBtn->SetTextureHover(L"button_gold (3)");
     itemshopBtn->SetTexturePressed(L"button_gold (4)");
-    itemshopBtn->Click += ItemshopPanel::ToggleVisible;
+    itemshopBtn->Click += Engine::Handler(&ItemshopPanel::ToggleVisible);
 
 	Label* Item1Label = invenPanel->AddChild<Label>(L"Item1Label", new Label(15));
     Item1Label->SetText(1);

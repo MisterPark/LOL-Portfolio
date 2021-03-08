@@ -13,7 +13,7 @@ public:
 
 	virtual void Update();
 
-	static void ToggleVisible();
+	static void ToggleVisible(GameObject* sender, MouseEventArg* arg);
 	static void Close();
 	void ItemShop_Panel(GameObject* sender, MouseEventArg* args);
 };

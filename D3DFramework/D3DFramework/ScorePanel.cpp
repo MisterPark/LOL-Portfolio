@@ -195,16 +195,16 @@ void ScorePanel::DestroyInstance()
 
 void ScorePanel::Update()
 {
-	if (InputManager::GetKeyDown('O'))
+	if (Input::GetKeyDown('O'))
 	{
-		Visible = !Visible;
-		Visible ? Show() : Hide();
+		visible = !visible;
+		visible ? Show() : Hide();
 	}
 
-	if (Visible)
+	if (visible)
 	{
 		for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
-			int j;
+			size_t j;
 			for (j = 0; j < ChampionInfo[i].size(); j++)
 			{
 				auto* ui = ChampionScoreUI[i][j];
