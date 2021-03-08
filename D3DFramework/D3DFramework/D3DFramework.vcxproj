@@ -187,6 +187,8 @@
     <ClInclude Include="BlueMonster.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Buff.h" />
+    <ClInclude Include="Buff_GarenQAttack.h" />
+    <ClInclude Include="Buff_GarenQHaste.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Button.h" />
@@ -367,6 +369,8 @@
     <ClCompile Include="BlueMonster.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Buff.cpp" />
+    <ClCompile Include="Buff_GarenQAttack.cpp" />
+    <ClCompile Include="Buff_GarenQHaste.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Button.cpp" />

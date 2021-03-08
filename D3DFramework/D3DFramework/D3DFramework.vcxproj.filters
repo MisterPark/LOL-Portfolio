@@ -292,6 +292,9 @@
     <Filter Include="Skill\Garen">
       <UniqueIdentifier>{999d1ba4-d270-4566-bb14-e2cfa910612e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buff">
+      <UniqueIdentifier>{ec3753fd-8502-46b2-bcb6-6b2dc7ebc851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -839,10 +842,14 @@
       <Filter>Skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill_Garen_Q.h" />
-    <ClInclude Include="Buff.h" />
     <ClInclude Include="MiniMapRenderer.h">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_GarenQAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1441,10 +1448,14 @@
       <Filter>Skill</Filter>
     </ClCompile>
     <ClCompile Include="Skill_Garen_Q.cpp" />
-    <ClCompile Include="Buff.cpp" />
     <ClCompile Include="MiniMapRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="Buff.cpp">
+      <Filter>Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_GarenQAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

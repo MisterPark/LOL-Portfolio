@@ -9,6 +9,7 @@
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
 #include "Skill_Garen_Q.h"
+#include "Buff_GarenQAttack.h"
 
 Garen::Garen()
 {
@@ -73,6 +74,11 @@ void Garen::Update()
 {
 	Champion::Update();
 	
+}
+
+void Garen::Attacked()
+{
+	stat->RemoveBuff<Buff_GarenQAttack>();
 }
 
 //void Garen::Spell3()

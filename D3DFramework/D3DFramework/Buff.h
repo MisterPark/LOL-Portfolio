@@ -11,9 +11,10 @@ public:
 		float value;
 		bool isPercent;
 	};
-	Buff();
 	Buff(Unit* _host, float _duration);
-	~Buff();
+	virtual ~Buff();
+
+	virtual void Update();
 
 	void AddModifier(StatType _type, float _value, bool _isPercent = false);
 

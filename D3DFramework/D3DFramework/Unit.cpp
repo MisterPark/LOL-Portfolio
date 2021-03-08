@@ -112,8 +112,7 @@ void Unit::Release()
 
 void Unit::Update()
 {
-	state = State::IDLE1;
-
+	
 	UpdateLastAttacker();
 
 	GameObject::Update();
@@ -185,7 +184,7 @@ void Unit::Chase(Vector3 _target)
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
-		agent->SetStoppingDistance(attackRange);
+		agent->SetStoppingDistance((*stat)[StatType::Range]);
 		SetDestination(_target);
 	}
 }
@@ -196,6 +195,10 @@ void Unit::Attack(Unit* target)
 
 	attackTarget = target;
 	
+}
+
+void Unit::Attacked()
+{
 }
 
 void Unit::Spell1()
@@ -252,6 +255,7 @@ void Unit::AttackAction()
 		{
 			attackState = State::ATTACK2;
 		}
+		Attacked();
 	}
 
 	if (attackTarget->IsDead())
@@ -262,14 +266,14 @@ void Unit::AttackAction()
 	Vector3 direction = attackTarget->transform->position - transform->position;
 	float dist = direction.Length();
 	float targetRadius = attackTarget->collider->GetRadius();
-	if (dist <= attackRange + targetRadius) // 공격 거리 이내
+	if (dist <= (*stat)[StatType::Range] + targetRadius) // 공격 거리 이내
 	{
 		agent->Stop();
 		LookRotation(direction.Normalized());
 		SetState(attackState);
 
 		attackTick += dt;
-		float attackDelay = 1.f / attackPerSec;
+		float attackDelay = 1.f / (*stat)[StatType::AttackSpeed];
 		if (attackTick > attackDelay)
 		{
 			attackTick = 0.f;
@@ -286,6 +290,7 @@ void Unit::AttackAction()
 				float finalDamage = (*stat)[StatType::AttackDamage];
 				Calc_FinalDamage(&finalDamage, stat, attackTarget->stat);
 				attackTarget->TakeDamage(finalDamage);
+				
 			}
 		}
 
@@ -374,17 +379,11 @@ Unit* Unit::GetAttackTarget()
 
 void Unit::SetAttackPerSec(float _attackPerSec)
 {
-	attackPerSec = _attackPerSec;
 	anim->SetSpeed((int)State::ATTACK1, _attackPerSec);
 	anim->SetSpeed((int)State::ATTACK2, _attackPerSec);
 	anim->SetSpeed((int)State::ATTACK3, _attackPerSec);
 	anim->SetSpeed((int)State::ATTACK4, _attackPerSec);
 	anim->SetSpeed((int)State::CRITICAL, _attackPerSec);
-}
-
-void Unit::SetAttackRange(float _range)
-{
-	attackRange = _range;
 }
 
 void Unit::SetLastAttacker(Unit* _attacker)

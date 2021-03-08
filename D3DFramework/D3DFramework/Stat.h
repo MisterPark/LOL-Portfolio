@@ -45,6 +45,10 @@ public:
 	float GetValue(StatType _type);
 
 	void AddBuff(Buff* buff);
+	void RemoveBuff(Buff* buff);
+
+	template<class T>
+	void RemoveBuff();
 
 private:
 	Unit* unit = nullptr;
@@ -55,3 +59,12 @@ private:
 	list<Buff*> buffList;
 };
 
+template<class T>
+inline void Stat::RemoveBuff()
+{
+	for (auto& buff : buffList)
+	{
+		if (dynamic_cast<T*>(buff) == nullptr) continue;
+		buff->tick = buff->duration;
+	}
+}

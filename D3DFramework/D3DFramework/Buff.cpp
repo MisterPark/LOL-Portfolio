@@ -1,9 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Buff.h"
 
-Buff::Buff()
-{
-}
 
 Buff::Buff(Unit* _host, float _duration)
 {
@@ -14,6 +11,10 @@ Buff::Buff(Unit* _host, float _duration)
 Buff::~Buff()
 {
 	host = nullptr;
+}
+
+void Buff::Update()
+{
 }
 
 void Buff::AddModifier(StatType _type, float _value, bool _isPercent)

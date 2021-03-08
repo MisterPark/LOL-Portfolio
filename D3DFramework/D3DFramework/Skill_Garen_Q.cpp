@@ -2,6 +2,8 @@
 #include "Skill_Garen_Q.h"
 #include "Unit.h"
 #include "Buff.h"
+#include "Buff_GarenQHaste.h"
+#include "Buff_GarenQAttack.h"
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
@@ -19,10 +21,11 @@ void Skill_Garen_Q::Start()
 	if (coolTime > 0.f)
 		return;
 
-	durationSpeedTime = 1.5f;// 0.35f + level * 0.65f;
-	Buff* speedBuff = new Buff(hostUnit, durationSpeedTime);
-	speedBuff->AddModifier(StatType::MovementSpeed, 0.3f, true);
+	durationSpeedTime = 2.5f;// 0.35f + level * 0.65f;
+	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
 	hostUnit->stat->AddBuff(speedBuff);
+	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f);
+	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;
 	active = true;
@@ -49,7 +52,6 @@ void Skill_Garen_Q::Active()
 
 	//사용효과
 	duration -= Time::DeltaTime();
-	hostUnit->SetAttackState(State::Q);
 }
 
 

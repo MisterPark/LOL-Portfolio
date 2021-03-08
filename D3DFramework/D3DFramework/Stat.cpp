@@ -63,6 +63,8 @@ void Stat::PreUpdate()
             
         }
 
+        (*buff)->Update();
+
         ++buff;
     }
 
@@ -150,4 +152,9 @@ float Stat::GetValue(StatType _type)
 void Stat::AddBuff(Buff* buff)
 {
     buffList.push_back(buff);
+}
+
+void Stat::RemoveBuff(Buff* buff)
+{
+    buff->tick = buff->duration;
 }

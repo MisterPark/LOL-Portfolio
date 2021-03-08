@@ -68,6 +68,7 @@ public:
 	virtual void Chase(Vector3 _target);
 
 	virtual void Attack(Unit* _target);
+	virtual void Attacked();
 	void Spell1();
 	void Spell2();
 	void Spell3();
@@ -95,7 +96,6 @@ public:
 	Unit* GetAttackTarget();
 
 	void SetAttackPerSec(float _attackPerSec);
-	void SetAttackRange(float _range);
 
 	void SetLastAttacker(Unit* _attacker);
 
@@ -130,16 +130,18 @@ public:
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 
-protected:
+public:
+	// 이동모션 관련
+	State moveState = State::RUN;
+	State attackState = State::ATTACK1;
 	State state = State::IDLE1;
 	
 	// 기본공격 관련
 	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
-	float attackRange = 1.25f;
 	float attackTick = 0.f;
-	float attackPerSec = 0.625f;
-	State attackState = State::ATTACK1;
+protected:
+	
 
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];

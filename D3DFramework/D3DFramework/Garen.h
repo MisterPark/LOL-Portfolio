@@ -11,6 +11,8 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
+    virtual void Attacked() override;
+
     virtual void SkillQAction();
     virtual void SkillWAction();
     virtual void SkillEAction();

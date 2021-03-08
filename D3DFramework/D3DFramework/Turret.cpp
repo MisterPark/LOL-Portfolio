@@ -21,7 +21,8 @@ Turret::Turret()
 	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 
-	SetAttackRange(7.75f);
+	stat->SetBaseValue(StatType::Range, 7.75f);
+
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 4.f);
@@ -54,13 +55,13 @@ void Turret::Update()
 	// 타겟팅
 	if (attackTarget == nullptr)
 	{
-		attackTarget = GetNearestEnemy(transform->position, attackRange);
+		attackTarget = GetNearestEnemy(transform->position, (*stat)[StatType::Range]);
 	}
 	else
 	{
 		Vector3 to = attackTarget->transform->position - transform->position;
 		float dist = to.Length();
-		if (dist > attackRange)
+		if (dist > (*stat)[StatType::Range])
 		{
 			attackTarget = nullptr;
 		}
@@ -76,7 +77,7 @@ void Turret::Update()
 		attackIndicator->visible = true;
 
 		attackTick += Time::DeltaTime();
-		float delay = 1.f / attackPerSec;
+		float delay = 1.f / (*stat)[StatType::AttackSpeed];
 		if (attackTick >= delay)
 		{
 			attackTick = 0.f;
