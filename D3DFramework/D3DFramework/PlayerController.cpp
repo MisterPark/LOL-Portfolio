@@ -151,11 +151,11 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
-        unit->attackIndicator->isVisible = true;
+        unit->attackIndicator->Visible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
-        unit->attackIndicator->isVisible = false;
+        unit->attackIndicator->Visible = false;
     }
 }

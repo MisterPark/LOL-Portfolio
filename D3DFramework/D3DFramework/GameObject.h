@@ -69,18 +69,23 @@ namespace PKH
 		void Show();
 		void Hide();
 
+		// child
 		template<class T>
 		T* AddChild(const wstring& _tag, T* _child);
 		template<class T>
 		T* CreateChild(const wstring& _key);
+
+		void DeleteChild(const wstring& _tag);
+		GameObject* RemoveChild(const wstring& _tag);
+
 
 	public:
 		wstring name;
 		wstring tag;
 		Transform* transform = nullptr;
 		
-		bool isVisible = true;
-		bool isEnable = true;
+		bool Visible = true;
+		bool Enable = true;
 		bool dontDestroy = false;
 
 		GameObject* parent = nullptr;
@@ -163,7 +168,7 @@ namespace PKH
 		auto findIter = childKeyCount.find(_tag);
 		if (findIter != childKeyCount.end())
 		{
-			count = findIter->second++;
+			count = ++findIter->second;
 		}
 		else
 		{
@@ -180,7 +185,7 @@ namespace PKH
 		child->tag = appliedTag;
 		children.emplace(child->tag, child);
 		child->SetParent(this);
-		return child;
+		return dynamic_cast<T*>(child);
 	}
 }
 

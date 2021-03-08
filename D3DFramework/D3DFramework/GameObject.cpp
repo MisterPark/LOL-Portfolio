@@ -199,7 +199,7 @@ void PKH::GameObject::Show()
 	{
 		child.second->Show();
 	}
-	isVisible = true;
+	Visible = true;
 }
 
 void PKH::GameObject::Hide()
@@ -217,7 +217,28 @@ void PKH::GameObject::Hide()
 	{
 		child.second->Hide();
 	}
-	isVisible = false;
+	Visible = false;
+}
+
+void PKH::GameObject::DeleteChild(const wstring& _tag)
+{
+	auto find = children.find(_tag.c_str());
+	if (find != children.end())
+	{
+		delete find->second;
+		children.erase(find);
+	}
+}
+
+GameObject* PKH::GameObject::RemoveChild(const wstring& _tag)
+{
+	auto find = children.find(_tag.c_str());
+	if (find != children.end())
+	{
+		children.erase(find);
+		return find->second;
+	}
+	return nullptr;
 }
 
 IComponent* PKH::GameObject::AddComponent(const wstring& _key, IComponent* _component)

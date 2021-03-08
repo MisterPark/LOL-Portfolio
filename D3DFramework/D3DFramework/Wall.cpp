@@ -4,7 +4,7 @@
 
 Wall::Wall()
 {
-	isVisible = false;
+	Visible = false;
 	transform->scale = { 0.1f,0.1f, 0.1f };
 	transform->Update();
 
@@ -31,6 +31,6 @@ void Wall::Update()
 
 	if (InputManager::GetKeyDown('L'))
 	{
-		isVisible = !isVisible;
+		Visible = !Visible;
 	}
 }

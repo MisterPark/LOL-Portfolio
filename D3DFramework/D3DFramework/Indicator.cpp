@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Indicator.h"
 #include "Plane.h"
 #include "Rectangle.h"
@@ -7,7 +7,7 @@ using namespace PKH;
 
 Indicator::Indicator()
 {
-	isVisible = false;
+	Visible = false;
 
 	PKH::Plane* mesh = (PKH::Plane*)AddComponent<PKH::Plane>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);

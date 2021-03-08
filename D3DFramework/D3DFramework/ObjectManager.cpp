@@ -104,7 +104,7 @@ void PKH::ObjectManager::Update()
 		auto& objList = objTable[i];
 		for (auto& iter : objList)
 		{
-			if (!iter->isEnable) continue;
+			if (!iter->Enable) continue;
 			iter->Update();
 		}
 	}

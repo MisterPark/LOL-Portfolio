@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Turret.h"
 #include "SphereCollider.h"
 #include "TurretFloatingBar.h"
@@ -49,7 +49,7 @@ void Turret::Update()
 		GameObject::Update();
 		return;
 	}
-	// Å¸°ÙÆÃ
+	// íƒ€ê²ŸíŒ…
 	if (attackTarget == nullptr)
 	{
 		attackTarget = GetNearestEnemy(transform->position, attackRange);
@@ -71,7 +71,7 @@ void Turret::Update()
 			attackTarget = nullptr;
 			return;
 		}
-		attackIndicator->isVisible = true;
+		attackIndicator->Visible = true;
 
 		attackTick += TimeManager::DeltaTime();
 		float delay = 1.f / attackPerSec;
@@ -93,7 +93,7 @@ void Turret::Update()
 	}
 	else
 	{
-		attackIndicator->isVisible = false;
+		attackIndicator->Visible = false;
 	}
 
 	GameObject::Update();

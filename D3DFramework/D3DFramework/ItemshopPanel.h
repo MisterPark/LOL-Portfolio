@@ -13,5 +13,6 @@ public:
 
 	virtual void Update();
 
+	static void ToggleVisible();
 	static void Close();
 };

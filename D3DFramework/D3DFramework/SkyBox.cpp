@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SkyBox.h"
 #include "Rectangle.h"
 
@@ -6,7 +6,7 @@ SkyBox* pSkyBox = nullptr;
 
 PKH::SkyBox::SkyBox()
 {
-	isVisible = false;
+	Visible = false;
 	transform->scale = { 3,3,3 };
 	transform->position = { 0,0,0 };
 
@@ -102,12 +102,12 @@ void PKH::SkyBox::Destroy()
 
 void PKH::SkyBox::Show()
 {
-	pSkyBox->isVisible = true;
+	pSkyBox->Visible = true;
 }
 
 void PKH::SkyBox::Hide()
 {
-	pSkyBox->isVisible = false;
+	pSkyBox->Visible = false;
 }
 
 void PKH::SkyBox::SetTexture(TextureID upTexture)

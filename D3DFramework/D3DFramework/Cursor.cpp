@@ -51,28 +51,28 @@ Vector3 PKH::Cursor::GetMousePos()
 
 void PKH::Cursor::Show()
 {
-    if (pCursor->isVisible) return;
+    if (pCursor->Visible) return;
 
-    pCursor->isVisible = true;
+    pCursor->Visible = true;
     
 }
 
 void PKH::Cursor::Show(bool on)
 {
-    pCursor->isVisible = on;
+    pCursor->Visible = on;
 }
 
 void PKH::Cursor::Hide()
 {
-    if (pCursor->isVisible == false) return;
+    if (pCursor->Visible == false) return;
 
-    pCursor->isVisible = false;
+    pCursor->Visible = false;
     
 }
 
 void PKH::Cursor::Update()
 {
-    if (isEnable == false)return;
+    if (Enable == false)return;
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
@@ -86,7 +86,7 @@ void PKH::Cursor::Update()
 //
 //void PKH::Cursor::Render()
 //{
-//    if (isVisible == false)return;
+//    if (Visible == false)return;
 //
 //    switch (mode)
 //    {
@@ -112,7 +112,7 @@ void PKH::Cursor::Release()
 
 bool PKH::Cursor::IsVisible()
 {
-    return pCursor->isVisible;
+    return pCursor->Visible;
 }
 
 void PKH::Cursor::SetRenderCenter(bool isCenter)

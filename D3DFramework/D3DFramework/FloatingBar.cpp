@@ -46,7 +46,7 @@ void FloatingBar::PostUpdate()
 
 	if (target != nullptr)
 	{
-		isVisible = !target->IsDead();
+		Visible = !target->IsDead();
 
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);

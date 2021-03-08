@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #define dfSLOT_COL_COUNT 5
 #define dfSLOT_ROW_COUNT 3
 #define dfMAX_SLOT_COUNT (dfSLOT_COL_COUNT * dfSLOT_ROW_COUNT)
@@ -35,8 +35,8 @@ private:
 	
 public:
 	Vector3 position;
-	bool isEnable = false;
-	bool isVisible = false;
+	bool Enable = false;
+	bool Visible = false;
 
 };
 

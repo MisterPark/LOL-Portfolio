@@ -787,6 +787,9 @@
     <ClInclude Include="OutlinedSlot.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
+    <ClInclude Include="ScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1368,6 +1371,9 @@
     </ClCompile>
     <ClCompile Include="OutlinedSlot.cpp">
       <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="ScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

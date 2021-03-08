@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Inventory.h"
 #include "Item.h"
 
@@ -7,7 +7,7 @@ Inventory* pInventory = nullptr;
 Inventory::Inventory()
 {
     position = { 700,200,0 };
-    isVisible = false;
+    Visible = false;
     
 }
 
@@ -43,13 +43,13 @@ void Inventory::Destroy()
 
 void Inventory::Show()
 {
-    pInventory->isVisible = true;
+    pInventory->Visible = true;
     Cursor::Show();
 }
 
 void Inventory::Show(bool on)
 {
-    pInventory->isVisible = on;
+    pInventory->Visible = on;
     if (on)
     {
         Cursor::Show();
@@ -62,7 +62,7 @@ void Inventory::Show(bool on)
 
 void Inventory::Hide()
 {
-    pInventory->isVisible = false;
+    pInventory->Visible = false;
     Cursor::Hide();
 }
 
@@ -82,17 +82,17 @@ bool Inventory::Push(Item* item)
     for (int i = 0; i < dfMAX_SLOT_COUNT; i++)
     {
         Item* iter = pInventory->slots[i].GetItem();
-        if (iter != nullptr) // ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ ¶§
+        if (iter != nullptr) // ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ìž¬í•  ë•Œ
         {
             if (iter->type != item->type) continue;
             
             item->Destroy();
-            //Å¸ÀÔÀÌ °°À¸¸é ¼ö·® Áõ°¡
+            //íƒ€ìž…ì´ ê°™ìœ¼ë©´ ìˆ˜ëŸ‰ ì¦ê°€
             iter->count++;
             return true;
         }
 
-        // ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ¼Â            
+        // ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ìž¬í•˜ì§€ ì•Šìœ¼ë©´ ì…‹            
         pInventory->slots[i].SetItem(item);
         ObjectManager::RemoveObject(item);
 
