@@ -97,6 +97,7 @@ void Engine::MainGame::Update()
 	SceneManager::PreUpdate();
 	SceneManager::Update();
 
+
 	// 3. Player 업데이트
 
 	// 4. Obj 업데이트

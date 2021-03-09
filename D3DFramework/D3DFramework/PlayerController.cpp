@@ -116,6 +116,8 @@ void PlayerController::Update()
     }
     else if (Input::GetMouseRButtonDown())
     {
+        //if (UI::IsPointerOverUI()) return;
+
         Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
 

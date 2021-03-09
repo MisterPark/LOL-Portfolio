@@ -168,12 +168,12 @@ string Engine::Animation::GetNameByState(int _state)
     return name;
 }
 
-UINT Engine::Animation::GetIndexByState(int _state)
+AnimationIndex Engine::Animation::GetIndexByState(int _state)
 {
     return animsets[_state].index;
 }
 
-UINT Engine::Animation::GetCurrentAnimation()
+AnimationIndex Engine::Animation::GetCurrentAnimation()
 {
     return currentAnim;
 }

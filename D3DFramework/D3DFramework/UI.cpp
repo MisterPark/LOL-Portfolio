@@ -3,6 +3,8 @@
 #include "UIRenderer.h"
 #include "Label.h"
 
+bool UI::isPointerOverUI = false;
+
 UI::UI()
 {
 	oldEnable = enable;
@@ -64,7 +66,7 @@ void UI::UpdateEvent()
 		}
 		isLeave = false;
 		isHover = true;
-		
+		isPointerOverUI = true;
 	}
 	else
 	{
@@ -318,5 +320,15 @@ void Engine::UI::BringToTop()
 {
 	UIRenderer* renderer = (UIRenderer*)GetComponent<UIRenderer>();
 	renderer->BringToTop();
+}
+
+void Engine::UI::SetPointerOverUI(bool _isOver)
+{
+	isPointerOverUI = _isOver;
+}
+
+bool Engine::UI::IsPointerOverUI()
+{
+	return isPointerOverUI;
 }
 
