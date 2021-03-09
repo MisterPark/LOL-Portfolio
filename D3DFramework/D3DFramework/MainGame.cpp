@@ -94,7 +94,9 @@ void Engine::MainGame::Update()
 	Input::Update();
 
 	// 2. 씬 매니저 업데이트
+	SceneManager::PreUpdate();
 	SceneManager::Update();
+
 
 	// 3. Player 업데이트
 
@@ -321,7 +323,48 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_hover.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
 
+	// item
 	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1001_class_t1_bootsofspeed.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1004_class_t1_faeriecharm.dds");
+
+	// scoreboard
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_champborder_alive.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_champborder_dead.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dead.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_playermark.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mia.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_itemempty.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_break.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_cloud.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_infernal.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_mountain.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_ocean.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_cloud_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_cloud_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_infernal_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_infernal_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_mountain_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_mountain_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_ocean_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_ocean_2.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mobtimepanel.png");
+
+	// summoner spell
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_boost.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_exhaust.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_flash.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_haste.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_heal.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_smite.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_teleport.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerbarrier.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerignite.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonermana.png");
 
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");

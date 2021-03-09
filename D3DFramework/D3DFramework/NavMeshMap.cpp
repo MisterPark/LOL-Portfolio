@@ -6,7 +6,7 @@ using namespace Engine;
 
 Engine::NavMeshMap::NavMeshMap()
 {
-	isVisible = false;
+	visible = false;
 	transform->scale = { 0.1f,0.1f, 0.1f };
 	transform->Update();
 
@@ -42,7 +42,7 @@ void Engine::NavMeshMap::Update()
 
 	if (Input::GetKeyDown('L'))
 	{
-		isVisible = !isVisible;
+		visible = !visible;
 	}
 }
 

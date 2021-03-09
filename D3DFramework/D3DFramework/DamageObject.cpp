@@ -52,7 +52,7 @@ void DamageObject::OnCollisionEnter(Collider* target)
 		return;
 
 	if (attackCheck && !Check_DamagedOverlap(target->gameObject)) {
-		float damage = attackDamage.GetValue();
+		float damage = pUnit->stat->GetValue(StatType::AttackDamage);
 		Calc_FinalDamage(&damage, hostObject->stat, pUnit->stat);
 		pUnit->SetLastAttacker(hostObject);
 		pUnit->TakeDamage(damage);
@@ -133,7 +133,7 @@ void DamageObject::Calc_StartOfInterval()
 	}
 }
 
-void DamageObject::Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+void DamageObject::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
 	for (auto& calc : damageCalcList)
 	{

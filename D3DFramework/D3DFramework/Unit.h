@@ -2,13 +2,13 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Stat.h"
-#include "UnitStat.h"
+#include "Stat.h"
 #include "DamageCalc.h"
 #include "Skill.h"
 
 class Indicator;
 
-enum class UnitState
+enum class State
 {
 	IDLE1,
 	IDLE2,
@@ -38,6 +38,18 @@ enum class UnitState
 	END
 };
 
+enum class SkillIndex
+{
+	Passive,
+	Q,
+	W,
+	E,
+	R,
+	D,
+	F,
+	END
+};
+
 class Unit : public GameObject
 {
 public:
@@ -56,10 +68,12 @@ public:
 	virtual void Chase(Vector3 _target);
 
 	virtual void Attack(Unit* _target);
-	virtual void Spell1();
-	virtual void Spell2();
-	virtual void Spell3();
-	virtual void Spell4();
+	virtual void OnAttackBegin();
+	virtual void OnAttackEnd();
+	void Spell1();
+	void Spell2();
+	void Spell3();
+	void Spell4();
 
 	virtual void Die();
 	// 행동
@@ -75,30 +89,15 @@ public:
 
 	void PushedOut(Unit* other);
 
-	void SetState(UnitState _state);
-	UnitState GetState();
+	void SetState(State _state);
+	State GetState();
 
 	virtual void SetTeam(Team _team);
+	Team GetTeam();
 	void SetAttackTarget(Unit* _target);
 	Unit* GetAttackTarget();
 
-	void SetHP(float _max);
-	void SetMP(float _max);
-	void SetHPRegen(float _per5Sec);
-	void SetMPRegen(float _per5Sec);
-	void SetAttackDamage(float _damage);
-	void SetADPenetrate(float _penetrate);
-	void SetADPenetratePercent(float _penetratePercent);
 	void SetAttackPerSec(float _attackPerSec);
-	void SetAttackRange(float _range);
-	void SetAbilityPower(float _ap);
-	void SetAPPenetrate(float _penetrate);
-	void SetAPPenetratePercent(float _penetratePercent);
-	void SetMovementSpeed(float _speed);
-	void SetArmor(float _armor);
-	void SetMagicResistance(float _magicResist);
-	void SetCriticalPer(float _percent);
-	void SetCooldownReduction(float _cdr);
 
 	void SetLastAttacker(Unit* _attacker);
 
@@ -109,35 +108,18 @@ public:
 	bool HasAttackTarget();
 	bool HasLastAttacker();
 
-	void Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat);
+	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
 	INT GetID();
-	float GetHP();
-	float GetMP();
-	float GetMaxHP();
-	float GetMaxMP();
-	float GetAttackDamage();
-	float GetADPenetrate();
-	float GetADPenetratePercent();
-	float GetAttackPerSec();
-	float GetAttackRange();
-	float GetAbilityPower();
-	float GetAPPenetrate();
-	float GetAPPenetratePercent();
-	float GetMovementSpeed();
-	float GetArmor();
-	float GetMagicResistance();
-	float GetCriticalPer();
-	float GetCooldownReduction();
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
-
+	void SetAttackState(State _attackState) { attackState = _attackState; }
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
-
+	
 	
 public:
 	static list<Unit*> unitList;
@@ -147,22 +129,26 @@ public:
 	NavMeshAgent* agent = nullptr;
 	SphereCollider* collider = nullptr;
 	Indicator* attackIndicator = nullptr;
-	UnitStat* stat = nullptr;
+	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 
-protected:
-	UnitState state = UnitState::IDLE1;
+public:
+	// 이동모션 관련
+	State moveState = State::RUN;
+	State attackState = State::ATTACK1;
+	State state = State::IDLE1;
 	
 	// 기본공격 관련
 	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
-	float attackRange = 1.25f;
 	float attackTick = 0.f;
-	float attackPerSec = 0.625f;
-	UnitState attackState = UnitState::ATTACK1;
+	bool isDamaged = false;
+protected:
+	
 
 	// 스킬 관련
-	Skill* skillList[7];
+	Skill* skillList[MaxOfEnum<SkillIndex>()];
+	
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;
 
@@ -171,7 +157,6 @@ protected:
 	float lastAttackTick = 0.f;
 	float lastAttackDuration = 5.f;
 
-	bool isDamaged = false;
 
 	// 추격 관련
 	float chaseTick = 0.f;
@@ -182,6 +167,8 @@ protected:
 	
 	// 네트워크 관련
 	INT unitID = -1;
-public:
+private:
+	State oldAttackState = State::IDLE1;
+	bool beginAttackFlag = false;
 };
 

@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DamageCalc_CurrentHpPercent.h"
-#include "UnitStat.h"
+#include "Stat.h"
 #include "Stat.h"
 
 DamageCalc_CurrentHpPercent::DamageCalc_CurrentHpPercent()
@@ -11,9 +11,9 @@ DamageCalc_CurrentHpPercent::~DamageCalc_CurrentHpPercent()
 {
 }
 
-void DamageCalc_CurrentHpPercent::Calc(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+void DamageCalc_CurrentHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
-	float currentHpDamage = _targetStat->hp.GetValue() * (value * 0.01f);
+	float currentHpDamage = _targetStat->GetValue(StatType::Health) * (value * 0.01f);
 	if (trueDamage) {
 		*_damage += currentHpDamage;
 		return;

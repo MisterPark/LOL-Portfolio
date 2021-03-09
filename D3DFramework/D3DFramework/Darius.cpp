@@ -14,7 +14,7 @@ Darius::Darius()
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
-	anim->SetLoop((int)UnitState::IDLE1, true);
+	anim->SetLoop((int)State::IDLE1, true);
 
 	faceCircleTexkey = L"darius_circle";
 	faceSquareTexkey = L"darius_square";
@@ -25,16 +25,18 @@ Darius::Darius()
 	rTexKey = L"darius_r";
 	passiveTexKey = L"darius_passive";
 
-	SetHP(582.f);
-	SetHPRegen(10.f);
-	SetMP(263.f);
-	SetMPRegen(6.6f);
-	SetAttackDamage(64.f);
-	SetAttackPerSec(0.625f);
-	SetArmor(39.f);
-	SetMagicResistance(32.1f);
-	SetAttackRange(1.75f);
-	SetMovementSpeed(3.4f);
+	stat->SetBaseValue(StatType::MaxHealth, 582.f);
+	stat->SetBaseValue(StatType::Health, 582.f);
+	stat->SetBaseValue(StatType::HealthRegen, 10.f);
+	stat->SetBaseValue(StatType::MaxMana, 263.f);
+	stat->SetBaseValue(StatType::Mana, 263.f);
+	stat->SetBaseValue(StatType::ManaRegen, 6.6f);
+	stat->SetBaseValue(StatType::AttackDamage, 64.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 39.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 1.75f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
 }
 
 Darius::~Darius()

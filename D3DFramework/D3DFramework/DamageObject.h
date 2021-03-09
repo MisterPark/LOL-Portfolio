@@ -32,11 +32,11 @@ public:
 private:
     void ObjectFollowMove();
     void Calc_StartOfInterval();
-    void Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat);
+    void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
 private:
     Team team = Team::NEUTRAL;
-    Stat attackDamage = 0.f;
+    float attackDamage = 0.f;
     float lifeTime = 0.f;                   //살아있는시간
     float interval_Init = 0.f;              //때리는주기초기화
     float interval_Time = 0.f;              //때리는주기실시간

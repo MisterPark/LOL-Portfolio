@@ -9,7 +9,9 @@
 #include "LoadingChampScreen.h"
 #include "Label.h"
 
-#include "PlayerInfoPanel.h" // TODO : 테스트 끝나면 빼기
+// TODO : 테스트 끝나면 빼기
+#include "PlayerInfoPanel.h"
+#include "ScorePanel.h"
 
 long resourceMax = 39;
 long resourceLoadCnt = 0;
@@ -46,8 +48,9 @@ void TestLoadingScene::OnLoaded()
 		UIManager::GetInstance()->AddUI(screens[i]);
 	}
 
-#if 0 // TODO : 임시 코드니까 다되면 꼭 빼야됨
-	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
+#if 1 // TODO : 임시 코드니까 다되면 꼭 빼야됨
+	//UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
+	//UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 #endif
 
 	CreateChampPanel(borderW, borderH, padding);
@@ -191,7 +194,7 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;
-		//screens[i]->isVisible = false;
+		//screens[i]->visible = false;
 	}
 	
 }

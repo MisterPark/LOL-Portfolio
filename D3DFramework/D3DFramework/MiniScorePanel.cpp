@@ -59,9 +59,9 @@ MiniScorePanel::MiniScorePanel()
 
 	blueKillLabel->SetText(0);
 	redKillLabel->SetText(0);
-	kdaLabel->SetText(L"0/0/0");
+	kdaLabel->SetText(L"%d/%d/%d", 0, 0, 0);
 	minionLabel->SetText(0);
-	timeLabel->SetText(L"00:00");
+	timeLabel->SetText(L"%02d:%02d", 0, 0);
 
 	AddChild(L"blueKillLabel", blueKillLabel);
 	AddChild(L"redKillLabel", redKillLabel);
@@ -103,27 +103,21 @@ void MiniScorePanel::SetKillScore(int _value)
 {
 	kill = _value;
 
-	WCHAR wstr[16] = {};
-	swprintf_s(wstr, L"%d/%d/%d", kill, death, assist);
-	kdaLabel->SetText(wstr);
+	kdaLabel->SetText(L"%d/%d/%d", kill, death, assist);
 }
 
 void MiniScorePanel::SetDeathScore(int _value)
 {
 	death = _value;
 
-	WCHAR wstr[16] = {};
-	swprintf_s(wstr, L"%d/%d/%d", kill, death, assist);
-	kdaLabel->SetText(wstr);
+	kdaLabel->SetText(L"%d/%d/%d", kill, death, assist);
 }
 
 void MiniScorePanel::SetAssistScore(int _value)
 {
 	assist = _value;
 
-	WCHAR wstr[16] = {};
-	swprintf_s(wstr, L"%d/%d/%d", kill, death, assist);
-	kdaLabel->SetText(wstr);
+	kdaLabel->SetText(L"%d/%d/%d", kill, death, assist);
 }
 
 void MiniScorePanel::SetMinionScore(int _value)
@@ -133,7 +127,5 @@ void MiniScorePanel::SetMinionScore(int _value)
 
 void MiniScorePanel::SetTime(int _minute, int _second)
 {
-	WCHAR wstr[16] = {};
-	swprintf_s(wstr, L"%02d:%02d", _minute, _second);
-	timeLabel->SetText(wstr);
+	timeLabel->SetText(L"%02d:%02d", _minute, _second);
 }

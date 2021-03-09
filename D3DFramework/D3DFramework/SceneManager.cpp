@@ -47,6 +47,15 @@ void Engine::SceneManager::Destroy()
 	delete pSceneManager;
 }
 
+void Engine::SceneManager::PreUpdate()
+{
+	auto& self = *pSceneManager;
+	if (self.pCurrentScene)
+	{
+		self.pCurrentScene->PreUpdate();
+	}
+}
+
 void Engine::SceneManager::Update()
 {
 	auto& self = *pSceneManager;

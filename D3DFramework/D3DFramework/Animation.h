@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "IComponent.h"
 
 namespace Engine
 {
+	typedef UINT AnimationIndex;
 
 	class Animation :
 		public IComponent
@@ -10,7 +11,7 @@ namespace Engine
 	public:
 		struct Node
 		{
-			UINT index = 0;
+			AnimationIndex index = 0;
 			string name;
 			bool isLoop = false;
 			float period = 0.f;
@@ -27,8 +28,9 @@ namespace Engine
 	public:
 		void AttachToDynamicMesh(DynamicMesh* dmesh);
 		string GetNameByState(int _state);
-		UINT GetIndexByState(int _state);
-		UINT GetCurrentAnimation();
+		AnimationIndex GetIndexByState(int _state);
+		AnimationIndex GetCurrentAnimation();
+		int GetState();
 
 		void SetState(int _state);
 		void SetLoop(int _state, bool loop);
@@ -42,7 +44,7 @@ namespace Engine
 		int state = 0;
 		DynamicMesh* dmesh = nullptr;
 		
-		UINT currentAnim = 0;
+		AnimationIndex currentAnim = 0;
 		bool stopFlag = false;
 	public:
 		map<UINT, Animation::Node> animsets;

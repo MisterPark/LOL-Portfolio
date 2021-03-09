@@ -295,6 +295,12 @@
     <Filter Include="Component\Renderer\DistortionRenderer">
       <UniqueIdentifier>{30dfee91-4323-4b66-aa16-75a0fca2242d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buff">
+      <UniqueIdentifier>{ec3753fd-8502-46b2-bcb6-6b2dc7ebc851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Garen">
+      <UniqueIdentifier>{cca0deb1-6a2b-48ca-9f44-1a04084d32e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -741,9 +747,6 @@
     <ClInclude Include="Stat.h">
       <Filter>Component\Stat</Filter>
     </ClInclude>
-    <ClInclude Include="UnitStat.h">
-      <Filter>Component\Stat</Filter>
-    </ClInclude>
     <ClInclude Include="LabelRenderer.h">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClInclude>
@@ -844,13 +847,32 @@
     <ClInclude Include="Skill.h">
       <Filter>Skill</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Garen_Q.h" />
-    <ClInclude Include="Buff.h" />
     <ClInclude Include="MiniMapRenderer.h">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClInclude>
     <ClInclude Include="DistortionRenderer.h">
       <Filter>Component\Renderer\DistortionRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="ScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQAttack.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_Q.h">
+      <Filter>Skill\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQAttack.h">
+      <Filter>Buff\Garen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1357,9 +1379,6 @@
     <ClCompile Include="Stat.cpp">
       <Filter>Component\Stat</Filter>
     </ClCompile>
-    <ClCompile Include="UnitStat.cpp">
-      <Filter>Component\Stat</Filter>
-    </ClCompile>
     <ClCompile Include="LabelRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer</Filter>
     </ClCompile>
@@ -1452,13 +1471,32 @@
     <ClCompile Include="Skill.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Garen_Q.cpp" />
-    <ClCompile Include="Buff.cpp" />
     <ClCompile Include="MiniMapRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>
     <ClCompile Include="DistortionRenderer.cpp">
       <Filter>Component\Renderer\DistortionRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff.cpp">
+      <Filter>Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="ScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQAttack.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_Q.cpp">
+      <Filter>Skill\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQAttack.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp">
+      <Filter>Buff\Garen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

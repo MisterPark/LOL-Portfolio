@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "IComponent.h"
 #include "Transform.h"
 
@@ -21,6 +21,10 @@ Engine::IComponent::~IComponent()
 {
 	gameObject = nullptr;
 	transform = nullptr;
+}
+
+void Engine::IComponent::PreUpdate()
+{
 }
 
 void Engine::IComponent::Update()

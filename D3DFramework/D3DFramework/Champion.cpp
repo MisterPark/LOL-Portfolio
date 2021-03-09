@@ -38,7 +38,7 @@ void Champion::OnCollisionEnter(Collider* target)
 	if (dynamic_cast<Unit*>(target->gameObject))
 	{
 		Unit* unit = (Unit*)target->gameObject;
-		if (unit->GetState() == UnitState::RUN)
+		if (unit->GetState() == State::RUN)
 		{
 			unit->PushedOut(this);
 		}

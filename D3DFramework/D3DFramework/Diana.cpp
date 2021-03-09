@@ -21,16 +21,18 @@ Diana::Diana()
 	rTexKey = L"diana_r";
 	passiveTexKey = L"diana_passive";
 
-	SetHP(570.f);
-	SetHPRegen(7.5f);
-	SetMP(375.f);
-	SetMPRegen(8.f);
-	SetAttackDamage(57.f);
-	SetAttackPerSec(0.625f);
-	SetArmor(31.f);
-	SetMagicResistance(32.1f);
-	SetAttackRange(1.5f);
-	SetMovementSpeed(3.45f);
+	stat->SetBaseValue(StatType::MaxHealth, 570.f);
+	stat->SetBaseValue(StatType::Health, 570.f);
+	stat->SetBaseValue(StatType::HealthRegen, 7.5f);
+	stat->SetBaseValue(StatType::MaxMana, 375.f);
+	stat->SetBaseValue(StatType::Mana, 375.f);
+	stat->SetBaseValue(StatType::ManaRegen, 8.f);
+	stat->SetBaseValue(StatType::AttackDamage, 57.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 31.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 1.5f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.45f);
 }
 
 Diana::~Diana()

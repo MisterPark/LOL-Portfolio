@@ -21,7 +21,7 @@ Unit::Unit()
 	//attackIndicator = new Indicator;
 	attackIndicator->SetTarget(this);
 
-	stat = (UnitStat*)AddComponent<UnitStat>(L"UnitStat");
+	stat = (Stat*)AddComponent<Stat>(L"Stat");
 	SetAttackPerSec(0.625f);
 
 	// TODO : 행동트리
@@ -37,6 +37,16 @@ Unit::Unit()
 	ActionNode<Unit>* deathAction = new ActionNode<Unit>();
 	deathAction->SetAction(this, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
+
+	//
+	ConditionNode<Skill>* skillCondition = new ConditionNode<Skill>();
+	skillCondition->SetCondition(skillList[(int)SkillIndex::Q], &Skill::IsActive);
+	root->AddChild(skillCondition);
+
+	ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
+	skillQAction->SetAction(skillList[(int)SkillIndex::Q], &Skill::Active);
+	skillCondition->SetChild(skillQAction);
+	//
 
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
 	moveCondition->SetCondition(agent, &NavMeshAgent::IsPathRemain);
@@ -84,6 +94,12 @@ Unit::~Unit()
 	{
 		delete calc;
 	}
+	for (int i = 0; i < (int)SkillIndex::END; i++)
+	{
+		if (skillList[i] == nullptr)
+			continue;
+		delete skillList[i];
+	}
 }
 
 void Unit::Initialize()
@@ -96,14 +112,19 @@ void Unit::Release()
 
 void Unit::Update()
 {
-	state = UnitState::IDLE1;
-
+	
 	UpdateLastAttacker();
 
 	GameObject::Update();
 
 	attackIndicator->Update();
 
+	for (int i = 0; i < (int)SkillIndex::END; i++)
+	{
+		if (skillList[i] == NULL)
+			continue;
+		skillList[i]->Passive();
+	}
 }
 
 
@@ -163,7 +184,7 @@ void Unit::Chase(Vector3 _target)
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
-		agent->SetStoppingDistance(attackRange);
+		agent->SetStoppingDistance((*stat)[StatType::Range]);
 		SetDestination(_target);
 	}
 }
@@ -176,20 +197,49 @@ void Unit::Attack(Unit* target)
 	
 }
 
+void Unit::OnAttackBegin()
+{
+	beginAttackFlag = true;
+	anim->SetSpeed((int)State::ATTACK1, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK2, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK3, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK4, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::CRITICAL, (*stat)[StatType::AttackSpeed]);
+}
+
+void Unit::OnAttackEnd()
+{
+	beginAttackFlag = false;
+	oldAttackState = attackState;
+
+	if (attackState == State::ATTACK1)
+	{
+		attackState = State::ATTACK2;
+	}
+	else if (attackState == State::ATTACK2)
+	{
+		attackState = State::ATTACK1;
+	}
+}
+
 void Unit::Spell1()
 {
+	skillList[(int)SkillIndex::Q]->Start();
 }
 
 void Unit::Spell2()
 {
+	skillList[(int)SkillIndex::W]->Start();
 }
 
 void Unit::Spell3()
 {
+	skillList[(int)SkillIndex::E]->Start();
 }
 
 void Unit::Spell4()
 {
+	skillList[(int)SkillIndex::R]->Start();
 }
 
 void Unit::Die()
@@ -200,10 +250,10 @@ void Unit::Die()
 
 void Unit::DeadAction()
 {
-	SetState(UnitState::DEATH);
+	SetState(State::DEATH);
 	attackTarget = nullptr;
 	UINT curAnim = anim->GetCurrentAnimation();
-	UINT deathAnim = anim->GetIndexByState((int)UnitState::DEATH);
+	UINT deathAnim = anim->GetIndexByState((int)State::DEATH);
 	if (curAnim == deathAnim && anim->IsFrameEnd())
 	{
 		anim->Stop();
@@ -215,17 +265,9 @@ void Unit::AttackAction()
 {
 	float dt = Time::DeltaTime();
 
-	if (anim->IsFrameEnd())
+	if (anim->IsFrameEnd() && anim->GetIndexByState((int)attackState) == anim->GetCurrentAnimation())
 	{
-		int rand = Random::Range(0, 9);
-		if (rand < 5)
-		{
-			attackState = UnitState::ATTACK1;
-		}
-		else
-		{
-			attackState = UnitState::ATTACK2;
-		}
+		OnAttackEnd();
 	}
 
 	if (attackTarget->IsDead())
@@ -233,23 +275,28 @@ void Unit::AttackAction()
 		attackTarget = nullptr;
 		return;
 	}
+
 	Vector3 direction = attackTarget->transform->position - transform->position;
 	float dist = direction.Length();
 	float targetRadius = attackTarget->collider->GetRadius();
-	if (dist <= attackRange + targetRadius) // 공격 거리 이내
+	if (dist <= (*stat)[StatType::Range] + targetRadius) // 공격 거리 이내
 	{
 		agent->Stop();
 		LookRotation(direction.Normalized());
 		SetState(attackState);
+		if (beginAttackFlag == false)
+		{
+			OnAttackBegin();
+		}
 
 		attackTick += dt;
-		float attackDelay = 1.f / attackPerSec;
+		float attackDelay = 1.f / (*stat)[StatType::AttackSpeed];
 		if (attackTick > attackDelay)
 		{
 			attackTick = 0.f;
 			isDamaged = false;
 		}
-		float damageDelay = attackDelay * 0.2f;
+		float damageDelay = attackDelay * 0.15f;
 		if (attackTick > damageDelay)
 		{
 			if (isDamaged == false)
@@ -257,9 +304,10 @@ void Unit::AttackAction()
 				isDamaged = true;
 
 				attackTarget->SetLastAttacker(this);
-				float finalDamage = stat->attackDamage.GetValue();
+				float finalDamage = (*stat)[StatType::AttackDamage];
 				Calc_FinalDamage(&finalDamage, stat, attackTarget->stat);
 				attackTarget->TakeDamage(finalDamage);
+				
 			}
 		}
 
@@ -280,14 +328,16 @@ void Unit::CounterAttack()
 
 void Unit::IdleAction()
 {
-	SetState(UnitState::IDLE1);
+	SetState(State::IDLE1);
 	attackTick = 0.f;
 	isDamaged = false;
 }
 
 void Unit::MoveAction()
 {
-	SetState(UnitState::RUN);
+	SetState(State::RUN);
+	attackTick = 0.f;
+	isDamaged = false;
 }
 
 void Unit::SkillQAction()
@@ -320,13 +370,13 @@ void Unit::PushedOut(Unit* other)
 	}
 }
 
-void Unit::SetState(UnitState _state)
+void Unit::SetState(State _state)
 {
 	state = _state;
 	anim->SetState((int)_state);
 }
 
-UnitState Unit::GetState()
+State Unit::GetState()
 {
 	return state;
 }
@@ -334,6 +384,10 @@ UnitState Unit::GetState()
 void Unit::SetTeam(Team _team)
 {
 	team = _team;
+}
+Team Unit::GetTeam()
+{
+	return team;
 }
 
 void Unit::SetAttackTarget(Unit* _target)
@@ -346,97 +400,13 @@ Unit* Unit::GetAttackTarget()
 	return attackTarget;
 }
 
-void Unit::SetHP(float _max)
-{
-	stat->maxHp = _max;
-	stat->hp = _max;
-}
-
-void Unit::SetMP(float _max)
-{
-	stat->maxMp = _max;
-	stat->mp = _max;
-}
-
-void Unit::SetHPRegen(float _per5Sec)
-{
-	stat->hpRegen = _per5Sec;
-}
-
-void Unit::SetMPRegen(float _per5Sec)
-{
-	stat->mpRegen = _per5Sec;
-}
-
-void Unit::SetAttackDamage(float _damage)
-{
-	stat->attackDamage = _damage;
-}
-
-void Unit::SetADPenetrate(float _penetrate)
-{
-	stat->adPenetrate = _penetrate;
-}
-
-void Unit::SetADPenetratePercent(float _penetratePercent)
-{
-	stat->adPenetratePercent = _penetratePercent;
-}
-
 void Unit::SetAttackPerSec(float _attackPerSec)
 {
-	attackPerSec = _attackPerSec;
-	anim->SetSpeed((int)UnitState::ATTACK1, _attackPerSec);
-	anim->SetSpeed((int)UnitState::ATTACK2, _attackPerSec);
-	anim->SetSpeed((int)UnitState::ATTACK3, _attackPerSec);
-	anim->SetSpeed((int)UnitState::ATTACK4, _attackPerSec);
-	anim->SetSpeed((int)UnitState::CRITICAL, _attackPerSec);
-}
-
-void Unit::SetAttackRange(float _range)
-{
-	attackRange = _range;
-}
-
-void Unit::SetAbilityPower(float _ap)
-{
-	stat->abilityPower = _ap;
-}
-
-void Unit::SetAPPenetrate(float _penetrate)
-{
-	stat->apPenetrate = _penetrate;
-}
-
-void Unit::SetAPPenetratePercent(float _penetratePercent)
-{
-	stat->apPenetratePercent = _penetratePercent;
-}
-
-void Unit::SetMovementSpeed(float _speed)
-{
-	stat->movementSpeed = _speed;
-	agent->SetSpeed(_speed);
-}
-
-void Unit::SetArmor(float _armor)
-{
-	stat->armor = _armor;
-}
-
-void Unit::SetMagicResistance(float _magicResist)
-{
-	stat->magicResistance = _magicResist;
-}
-
-void Unit::SetCriticalPer(float _percent)
-{
-	stat->criticalPer = _percent;
-}
-
-void Unit::SetCooldownReduction(float _cdr)
-{
-	stat->cooldownReduction = _cdr;
+	anim->SetSpeed((int)State::ATTACK1, _attackPerSec);
+	anim->SetSpeed((int)State::ATTACK2, _attackPerSec);
+	anim->SetSpeed((int)State::ATTACK3, _attackPerSec);
+	anim->SetSpeed((int)State::ATTACK4, _attackPerSec);
+	anim->SetSpeed((int)State::CRITICAL, _attackPerSec);
 }
 
 void Unit::SetLastAttacker(Unit* _attacker)
@@ -447,12 +417,7 @@ void Unit::SetLastAttacker(Unit* _attacker)
 
 void Unit::TakeDamage(float _damage)
 {
-
-	stat->hp -= _damage;
-	if (stat->hp <= 0.f)
-	{
-		Die();
-	}
+	stat->DecreaseBaseValue(StatType::Health, _damage);
 }
 
 void Unit::SetID(INT _id)
@@ -475,7 +440,7 @@ bool Unit::HasLastAttacker()
 	return (lastAttacker != nullptr);
 }
 
-void Unit::Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+void Unit::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
 	for (auto& calc : damageCalcList)
 	{
@@ -486,91 +451,6 @@ void Unit::Calc_FinalDamage(float* _damage, UnitStat* _myStat, UnitStat* _target
 INT Unit::GetID()
 {
 	return unitID;
-}
-
-float Unit::GetHP()
-{
-	return stat->hp.GetValue();
-}
-
-float Unit::GetMP()
-{
-	return stat->mp.GetValue();
-}
-
-float Unit::GetMaxHP()
-{
-	return stat->maxHp.GetValue();
-}
-
-float Unit::GetMaxMP()
-{
-	return stat->maxMp.GetValue();
-}
-
-float Unit::GetAttackDamage()
-{
-	return stat->attackDamage.baseValue;
-}
-
-float Unit::GetADPenetrate()
-{
-	return stat->adPenetrate.baseValue;
-}
-
-float Unit::GetADPenetratePercent()
-{
-	return stat->adPenetratePercent.baseValue;
-}
-
-float Unit::GetAttackRange()
-{
-	return attackRange;
-}
-
-float Unit::GetAbilityPower()
-{
-	return stat->abilityPower.GetValue();
-}
-
-float Unit::GetAPPenetrate()
-{
-	return stat->apPenetrate.baseValue;
-}
-
-float Unit::GetAPPenetratePercent()
-{
-	return stat->apPenetratePercent.baseValue;
-}
-
-float Unit::GetAttackPerSec()
-{
-	return attackPerSec;
-}
-
-float Unit::GetMovementSpeed()
-{
-	return stat->movementSpeed.GetValue();
-}
-
-float Unit::GetArmor()
-{
-	return stat->armor.GetValue();
-}
-
-float Unit::GetMagicResistance()
-{
-	return stat->magicResistance.GetValue();
-}
-
-float Unit::GetCriticalPer()
-{
-	return stat->criticalPer.GetValue();
-}
-
-float Unit::GetCooldownReduction()
-{
-	return stat->cooldownReduction.GetValue();
 }
 
 Unit* Unit::GetLastAttacker()

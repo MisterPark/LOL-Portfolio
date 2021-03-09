@@ -40,6 +40,8 @@ private:
 public:
     Label::Align  align  = Label::Align::Left;
     Label::VAlign valign = Label::VAlign::Top;
+    bool outline = false;
+    bool shadow = false;
 
     LPD3DXFONT        pFont = nullptr;
     LPD3DXSPRITE      pSprite = nullptr;
@@ -48,5 +50,7 @@ public:
 
     wstring text;
     D3DCOLOR foreColor = D3DCOLOR_ARGB(255, 254, 254, 254);
+    D3DCOLOR shadowColor = D3DCOLOR_ARGB(255, 0, 0, 0);
+    D3DCOLOR outlineColor = D3DCOLOR_ARGB(255, 0, 0, 0);
 };
 

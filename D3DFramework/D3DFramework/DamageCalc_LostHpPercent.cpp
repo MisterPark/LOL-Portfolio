@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DamageCalc_LostHpPercent.h"
-#include "UnitStat.h"
+#include "Stat.h"
 #include "Stat.h"
 
 DamageCalc_LostHpPercent::DamageCalc_LostHpPercent()
@@ -11,9 +11,9 @@ DamageCalc_LostHpPercent::~DamageCalc_LostHpPercent()
 {
 }
 
-void DamageCalc_LostHpPercent::Calc(float* _damage, UnitStat* _myStat, UnitStat* _targetStat)
+void DamageCalc_LostHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
-	float targetLostHp = _targetStat->maxHp.GetValue() - _targetStat->hp.GetValue();
+	float targetLostHp = _targetStat->GetValue(StatType::MaxHealth) - _targetStat->GetValue(StatType::Health);
 	float lostHpDamage = targetLostHp * (value * 0.01f);
 	if (trueDamage) {
 		*_damage += lostHpDamage;

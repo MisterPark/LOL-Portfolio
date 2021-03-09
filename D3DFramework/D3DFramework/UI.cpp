@@ -3,9 +3,11 @@
 #include "UIRenderer.h"
 #include "Label.h"
 
+bool UI::isPointerOverUI = false;
+
 UI::UI()
 {
-	oldEnable = isEnable;
+	oldEnable = enable;
 
 	mesh = (Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
@@ -64,7 +66,7 @@ void UI::UpdateEvent()
 		}
 		isLeave = false;
 		isHover = true;
-		
+		isPointerOverUI = true;
 	}
 	else
 	{
@@ -135,9 +137,9 @@ void UI::UpdateEvent()
 	}
 	
 	// EnabledChanged
-	if (isEnable != oldEnable)
+	if (enable != oldEnable)
 	{
-		oldEnable = isEnable;
+		oldEnable = enable;
 		OnEnabledChanged();
 	}
 
@@ -280,12 +282,18 @@ void Engine::UI::SetText(const wstring& _text)
 
 Engine::UI* Engine::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 {
-	UI* ui = new UI(_tag, _pos);
+	UI* ui = GameObject::CreateChild<UI>(_tag);
+	ui->SetTexture(_tag);
+	ui->SetLocation(_pos);
+
+	return ui;
+
+	/*UI* ui = new UI(_tag, _pos);
 	if (ui == nullptr) return nullptr;
 
 	children.emplace(_tag, ui);
 	ui->SetParent(this);
-	return ui;
+	return ui;*/
 }
 
 bool Engine::UI::Intersect(Vector2 _target)
@@ -318,5 +326,15 @@ void Engine::UI::BringToTop()
 {
 	UIRenderer* renderer = (UIRenderer*)GetComponent<UIRenderer>();
 	renderer->BringToTop();
+}
+
+void Engine::UI::SetPointerOverUI(bool _isOver)
+{
+	isPointerOverUI = _isOver;
+}
+
+bool Engine::UI::IsPointerOverUI()
+{
+	return isPointerOverUI;
 }
 

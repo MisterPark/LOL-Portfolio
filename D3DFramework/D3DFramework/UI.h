@@ -62,6 +62,9 @@ namespace Engine
 
         void BringToTop();
 
+        static void SetPointerOverUI(bool _isOver);
+        static bool IsPointerOverUI();
+
     public:
 
         Rectangle* mesh = nullptr;
@@ -98,8 +101,8 @@ namespace Engine
         bool oldEnable = false;
 
         wstring oldText;
-
-
+    private:
+        static bool isPointerOverUI;
     };
 
 

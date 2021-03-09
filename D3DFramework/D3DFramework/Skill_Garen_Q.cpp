@@ -1,11 +1,15 @@
 ﻿#include "stdafx.h"
 #include "Skill_Garen_Q.h"
 #include "Unit.h"
+#include "Buff.h"
+#include "Buff_GarenQHaste.h"
+#include "Buff_GarenQAttack.h"
 
-Skill_Garen_Q::Skill_Garen_Q()
+Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
 	coolTime_Init = 8.f;
-	duration = 4.5f;
+	duration = 0.f;
+	hostUnit = _hostUnit;
 }
 
 Skill_Garen_Q::~Skill_Garen_Q()
@@ -14,35 +18,46 @@ Skill_Garen_Q::~Skill_Garen_Q()
 
 void Skill_Garen_Q::Start()
 {
-	addSpeedValue = hostUnit->stat->movementSpeed.GetBaseValue() * (addSpeedPercent * 0.01f);
-	hostUnit->stat->movementSpeed.AddModifier(addSpeedValue);
-	durationSpeedTime = 0.35f + level * 0.65f;
+	if (coolTime > 0.f)
+		return;
+
+	durationSpeedTime = 2.5f;// 0.35f + level * 0.65f;
+	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
+	hostUnit->stat->AddBuff(speedBuff);
+	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f);
+	hostUnit->stat->AddBuff(attackBuff);
+
+	coolTime = coolTime_Init;
+	active = true;
+	hostUnit->attackTick = 0.f;
+	hostUnit->isDamaged = false;
+	
 }
 
-void Skill_Garen_Q::Update()
+void Skill_Garen_Q::Passive()
 {
 	if (coolTime > 0.f) {
 		coolTime -= Time::DeltaTime();
 	}
-	//if (!hostUnit->skill어떤거돌고잇는지체크)
-//		return;
-	if(duration <= 0.f){
+
+}
+
+void Skill_Garen_Q::Active()
+{
+	//if (!active)
+		//return;
+
+	if (duration <= 0.f) {
 		End();
 		return;
 	}
 
+	//사용효과
 	duration -= Time::DeltaTime();
-	if (durationSpeedTime > 0.f) {
-		durationSpeedTime -= Time::DeltaTime();
-	}
-	else if (durationSpeedTime != -1.f) {
-		hostUnit->stat->movementSpeed.RemoveModifier(addSpeedValue);
-		durationSpeedTime = -1.f;
-	}
-
 }
+
 
 void Skill_Garen_Q::End()
 {
-	
+	active = false;
 }

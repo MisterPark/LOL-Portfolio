@@ -40,7 +40,7 @@ void PlayerController::Update()
     }
     if (Input::GetKeyDown('D'))
     {
-        unit->SetMovementSpeed(5.f);
+
     }
 
     if (Input::GetKeyDown('Q'))
@@ -116,6 +116,8 @@ void PlayerController::Update()
     }
     else if (Input::GetMouseRButtonDown())
     {
+        //if (UI::IsPointerOverUI()) return;
+
         Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
         RaycastHit hit;
 
@@ -131,7 +133,6 @@ void PlayerController::Update()
         SetTargetMode(false);
     }
 
-    
 
 }
 
@@ -146,11 +147,11 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
-        unit->attackIndicator->isVisible = true;
+        unit->attackIndicator->visible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
-        unit->attackIndicator->isVisible = false;
+        unit->attackIndicator->visible = false;
     }
 }

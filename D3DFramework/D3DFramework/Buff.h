@@ -1,16 +1,26 @@
 ﻿#pragma once
-
+#include "Stat.h"
 class Unit;
 
 class Buff
 {
-	Buff(float _value, float _duration);
+public:
+	struct Node
+	{
+		StatType type;
+		float value;
+		bool isPercent;
+	};
+	Buff(Unit* _host, float _duration);
+	virtual ~Buff();
 
-	bool Update();
+	virtual void Update();
+
+	void AddModifier(StatType _type, float _value, bool _isPercent = false);
 
 public:
 	Unit* host = nullptr;
-	float baseValue = 0.f;
+	list<Buff::Node> modifiers;
 	float tick = 0.f;
 	float duration = 0.f;
 };

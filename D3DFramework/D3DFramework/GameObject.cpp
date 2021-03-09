@@ -29,6 +29,14 @@ Engine::GameObject::~GameObject()
 	}
 }
 
+void Engine::GameObject::PreUpdate()
+{
+	for (auto& comp : components)
+	{
+		comp.second->PreUpdate();
+	}
+}
+
 void Engine::GameObject::Update()
 {
 	for (auto& comp : components)
@@ -204,7 +212,7 @@ void Engine::GameObject::Show()
 	{
 		child.second->Show();
 	}
-	isVisible = true;
+	visible = true;
 }
 
 void Engine::GameObject::Hide()
@@ -222,7 +230,28 @@ void Engine::GameObject::Hide()
 	{
 		child.second->Hide();
 	}
-	isVisible = false;
+	visible = false;
+}
+
+void Engine::GameObject::DeleteChild(const wstring& _tag)
+{
+	auto find = children.find(_tag.c_str());
+	if (find != children.end())
+	{
+		delete find->second;
+		children.erase(find);
+	}
+}
+
+GameObject* Engine::GameObject::RemoveChild(const wstring& _tag)
+{
+	auto find = children.find(_tag.c_str());
+	if (find != children.end())
+	{
+		children.erase(find);
+		return find->second;
+	}
+	return nullptr;
 }
 
 void Engine::GameObject::AddWeak(Engine::EventBase* evt)

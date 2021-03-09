@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Animation.h"
 #include "Unit.h"
 
@@ -58,7 +58,7 @@ void Engine::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
     UINT idleIndex = 0;
     dmesh->GetAnimationIndex(&idleIndex, "idle1");
 
-    int end = (int)UnitState::END;
+    int end = (int)State::END;
     for (int i = 0; i < end; i++)
     {
         UINT idx = 0;
@@ -83,82 +83,82 @@ void Engine::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
 string Engine::Animation::GetNameByState(int _state)
 {
     string name;
-    UnitState unitState = (UnitState)_state;
-    switch (unitState)
+    State state = (State)_state;
+    switch (state)
     {
-    case UnitState::IDLE1:
+    case State::IDLE1:
         name = "idle1";
         break;
-    case UnitState::IDLE2:
+    case State::IDLE2:
         name = "idle2";
         break;
-    case UnitState::IDLE3:
+    case State::IDLE3:
         name = "idle3";
         break;
-    case UnitState::DEATH:
+    case State::DEATH:
         name = "death";
         break;
-    case UnitState::DEATH2:
+    case State::DEATH2:
         name = "death2";
         break;
-    case UnitState::RECALL:
+    case State::RECALL:
         name = "recall";
         break;
-    case UnitState::RECALL2:
+    case State::RECALL2:
         name = "recall2";
         break;
-    case UnitState::RECALL3:
+    case State::RECALL3:
         name = "recall3";
         break;
-    case UnitState::RUN:
+    case State::RUN:
         name = "run";
         break;
-    case UnitState::RUN2:
+    case State::RUN2:
         name = "run2";
         break;
-    case UnitState::RUN_HASTE:
+    case State::RUN_HASTE:
         name = "run_haste";
         break;
-    case UnitState::ATTACK1:
+    case State::ATTACK1:
         name = "attack1";
         break;
-    case UnitState::ATTACK2:
+    case State::ATTACK2:
         name = "attack2";
         break;
-    case UnitState::ATTACK3:
+    case State::ATTACK3:
         name = "attack3";
         break;
-    case UnitState::ATTACK4:
+    case State::ATTACK4:
         name = "attack4";
         break;
-    case UnitState::CRITICAL:
+    case State::CRITICAL:
         name = "crit";
         break;
-    case UnitState::Q:
+    case State::Q:
         name = "q";
         break;
-    case UnitState::W:
+    case State::W:
         name = "w";
         break;
-    case UnitState::E:
+    case State::E:
         name = "e";
         break;
-    case UnitState::R:
+    case State::R:
         name = "r";
         break;
-    case UnitState::Q2:
+    case State::Q2:
         name = "q2";
         break;
-    case UnitState::W2:
+    case State::W2:
         name = "w2";
         break;
-    case UnitState::E2:
+    case State::E2:
         name = "e2";
         break;
-    case UnitState::R2:
+    case State::R2:
         name = "r2";
         break;
-    case UnitState::SPAWN:
+    case State::SPAWN:
         name = "spawn";
         break;
     default:
@@ -168,14 +168,19 @@ string Engine::Animation::GetNameByState(int _state)
     return name;
 }
 
-UINT Engine::Animation::GetIndexByState(int _state)
+AnimationIndex Engine::Animation::GetIndexByState(int _state)
 {
     return animsets[_state].index;
 }
 
-UINT Engine::Animation::GetCurrentAnimation()
+AnimationIndex Engine::Animation::GetCurrentAnimation()
 {
     return currentAnim;
+}
+
+int Engine::Animation::GetState()
+{
+    return state;
 }
 
 void Engine::Animation::SetState(int _state)

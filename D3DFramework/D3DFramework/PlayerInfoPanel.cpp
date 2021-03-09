@@ -3,6 +3,7 @@
 #include "Rectangle.h"
 #include "UI.h"
 #include "Champion.h"
+#include "ItemshopPanel.h"
 // Control
 #include "Label.h"
 #include "OutlinedSlot.h"
@@ -21,14 +22,14 @@ PlayerInfoPanel::PlayerInfoPanel()
 
 // StatPanel
     statPanel = AddChild<UI>(L"statPanel", new UI(L"stat_panel (5)_icon", Vector2(-293, 21)));
-    statLabel[0] = statPanel->AddChild<Label>(L"stat1", new Label(15));
-    statLabel[1] = statPanel->AddChild<Label>(L"stat2", new Label(15));
-    statLabel[2] = statPanel->AddChild<Label>(L"stat3", new Label(15));
-    statLabel[3] = statPanel->AddChild<Label>(L"stat4", new Label(15));
-    statLabel[4] = statPanel->AddChild<Label>(L"stat5", new Label(15));
-    statLabel[5] = statPanel->AddChild<Label>(L"stat6", new Label(15));
-    statLabel[6] = statPanel->AddChild<Label>(L"stat7", new Label(15));
-    statLabel[7] = statPanel->AddChild<Label>(L"stat8", new Label(15));
+    statLabel[0] = statPanel->AddChild<Label>(L"stat1", new Label(18));
+    statLabel[1] = statPanel->AddChild<Label>(L"stat2", new Label(18));
+    statLabel[2] = statPanel->AddChild<Label>(L"stat3", new Label(18));
+    statLabel[3] = statPanel->AddChild<Label>(L"stat4", new Label(18));
+    statLabel[4] = statPanel->AddChild<Label>(L"stat5", new Label(18));
+    statLabel[5] = statPanel->AddChild<Label>(L"stat6", new Label(18));
+    statLabel[6] = statPanel->AddChild<Label>(L"stat7", new Label(18));
+    statLabel[7] = statPanel->AddChild<Label>(L"stat8", new Label(18));
     int statstartx = 45;
     int statstarty = 31;
     int statinvx = 105;
@@ -46,10 +47,71 @@ PlayerInfoPanel::PlayerInfoPanel()
     }
 
 // InvenPanel
-    invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(548, 6)));
+    invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(558, 6)));
     invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30)));
     invenPanel->AddChild<OutlinedSlot>(L"recallSlot", new OutlinedSlot(L"border_skill (6)", Vector2(176, 82)));
-    invenPanel->AddChild<Button>(L"itemstoreBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
+    auto itemshopBtn = invenPanel->AddChild<Button>(L"itemsshopBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
+    itemshopBtn->SetTextureDisable(L"button_gold (1)");
+    itemshopBtn->SetTextureHover(L"button_gold (3)");
+    itemshopBtn->SetTexturePressed(L"button_gold (4)");
+    itemshopBtn->Click += Engine::Handler(&ItemshopPanel::ToggleVisible);
+
+	Label* Item1Label = invenPanel->AddChild<Label>(L"Item1Label", new Label(15));
+    Item1Label->SetText(1);
+    Item1Label->SetLocation(Vector2(16, 68));
+    Item1Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+    Item1Label->align = Label::Align::Center;
+    Item1Label->valign = Label::VAlign::Middle;
+
+	Label* Item2Label = invenPanel->AddChild<Label>(L"Item2Label", new Label(15));
+	Item2Label->SetText(2);
+	Item2Label->SetLocation(Vector2(68, 68));
+	Item2Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Item2Label->align = Label::Align::Center;
+	Item2Label->valign = Label::VAlign::Middle;
+
+	Label* Item3Label = invenPanel->AddChild<Label>(L"Item3Label", new Label(15));
+	Item3Label->SetText(3);
+	Item3Label->SetLocation(Vector2(120, 68));
+	Item3Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Item3Label->align = Label::Align::Center;
+	Item3Label->valign = Label::VAlign::Middle;
+
+	Label* Item5Label = invenPanel->AddChild<Label>(L"Item5Label", new Label(15));
+	Item5Label->SetText(5);
+	Item5Label->SetLocation(Vector2(16, 120));
+	Item5Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Item5Label->align = Label::Align::Center;
+	Item5Label->valign = Label::VAlign::Middle;
+
+	Label* Item6Label = invenPanel->AddChild<Label>(L"Item6Label", new Label(15));
+	Item6Label->SetText(6);
+	Item6Label->SetLocation(Vector2(68, 120));
+	Item6Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Item6Label->align = Label::Align::Center;
+	Item6Label->valign = Label::VAlign::Middle;
+
+	Label* Item7Label = invenPanel->AddChild<Label>(L"Item7Label", new Label(15));
+	Item7Label->SetText(7);
+	Item7Label->SetLocation(Vector2(120, 120));
+	Item7Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Item7Label->align = Label::Align::Center;
+	Item7Label->valign = Label::VAlign::Middle;
+
+
+	Label* Item4Label = invenPanel->AddChild<Label>(L"Item4Label", new Label(15));
+	Item4Label->SetText(4);
+	Item4Label->SetLocation(Vector2(180, 60));
+	Item4Label->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
+	Item4Label->align = Label::Align::Center;
+	Item4Label->valign = Label::VAlign::Middle;
+
+	Label* RecallLabel = invenPanel->AddChild<Label>(L"RecallLabel", new Label(15));
+	RecallLabel->SetText(L"B");
+	RecallLabel->SetLocation(Vector2(180, 111));
+	RecallLabel->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
+	RecallLabel->align = Label::Align::Center;
+	RecallLabel->valign = Label::VAlign::Middle;
 
 // mainPanel
     mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0, 0)));
@@ -70,6 +132,49 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotPassive->icon->transform->scale = { 0.71f, 0.71f, 0 };
     slotSummoner1->icon->transform->scale = { 0.71f, 0.71f, 0 };
     slotSummoner2->icon->transform->scale = { 0.71f, 0.71f, 0 };
+
+	Label* QLabel = mainPanel->AddChild<Label>(L"QLabel", new Label(15));
+	Label* WLabel = mainPanel->AddChild<Label>(L"WLabel", new Label(15));
+	Label* ELabel = mainPanel->AddChild<Label>(L"ELabel", new Label(15));
+	Label* RLabel = mainPanel->AddChild<Label>(L"RLabel", new Label(15));
+	Label* DLabel = mainPanel->AddChild<Label>(L"DLabel", new Label(15));
+	Label* FLabel = mainPanel->AddChild<Label>(L"FLabel", new Label(15));
+	QLabel->SetLocation(Vector2(129, 96));
+	WLabel->SetLocation(Vector2(203, 96));
+	ELabel->SetLocation(Vector2(277, 96));
+	RLabel->SetLocation(Vector2(351, 96));
+	DLabel->SetLocation(Vector2(436, 78));
+	FLabel->SetLocation(Vector2(492, 78));
+	QLabel->SetText(L"Q");
+	WLabel->SetText(L"W");
+	ELabel->SetText(L"E");
+	RLabel->SetText(L"R");
+	DLabel->SetText(L"D");
+	FLabel->SetText(L"F");
+	QLabel->align = Label::Align::Center;
+	WLabel->align = Label::Align::Center;
+	ELabel->align = Label::Align::Center;
+	RLabel->align = Label::Align::Center;
+	DLabel->align = Label::Align::Center;
+	FLabel->align = Label::Align::Center;
+	QLabel->valign = Label::VAlign::Middle;
+	WLabel->valign = Label::VAlign::Middle;
+	ELabel->valign = Label::VAlign::Middle;
+	RLabel->valign = Label::VAlign::Middle;
+	DLabel->valign = Label::VAlign::Middle;
+	FLabel->valign = Label::VAlign::Middle;
+    QLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	WLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	ELabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	RLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	DLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	FLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+	QLabel->outline = true;
+	WLabel->outline = true;
+	ELabel->outline = true;
+	RLabel->outline = true;
+	DLabel->outline = true;
+	FLabel->outline = true;
 
     facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
     mainPanel->AddChild<UI>(L"expBar", new UI(L"bar_exp", Vector2(14, 21)));
@@ -319,7 +424,7 @@ void PlayerInfoPanel::PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg
 
 void PlayerInfoPanel::ClickStatButton()
 {
-    pPlayerInfoPanel->statPanel->isVisible ? 
+    pPlayerInfoPanel->statPanel->visible ? 
     pPlayerInfoPanel->statPanel->Hide() :
     pPlayerInfoPanel->statPanel->Show();
 }

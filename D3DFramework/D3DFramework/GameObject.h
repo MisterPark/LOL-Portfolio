@@ -22,6 +22,7 @@ namespace Engine
 		
 		virtual void Initialize() = 0;
 		virtual void Release() = 0;
+		virtual void PreUpdate();
 		virtual void Update() = 0;
 		virtual void PostUpdate();
 
@@ -73,10 +74,14 @@ namespace Engine
 		void Show();
 		void Hide();
 
+		// child
 		template<class T>
 		T* AddChild(const wstring& _tag, T* _child);
+		GameObject* RemoveChild(const wstring& _tag);
 		template<class T>
 		T* CreateChild(const wstring& _key);
+		void DeleteChild(const wstring& _tag);
+		
 		//event관련하여
 		void AddWeak(Engine::EventBase* evt);
 		void OnEventDelete(Engine::EventBase* evt);
@@ -85,8 +90,8 @@ namespace Engine
 		wstring tag;
 		Transform* transform = nullptr;
 		
-		bool isVisible = true;
-		bool isEnable = true;
+		bool visible = true;
+		bool enable = true;
 		bool dontDestroy = false;
 
 		GameObject* parent = nullptr;
@@ -171,7 +176,7 @@ namespace Engine
 		auto findIter = childKeyCount.find(_tag);
 		if (findIter != childKeyCount.end())
 		{
-			count = findIter->second++;
+			count = ++findIter->second;
 		}
 		else
 		{
@@ -188,7 +193,7 @@ namespace Engine
 		child->tag = appliedTag;
 		children.emplace(child->tag, child);
 		child->SetParent(this);
-		return child;
+		return dynamic_cast<T*>(child);
 	}
 }
 

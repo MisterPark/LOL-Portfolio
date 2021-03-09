@@ -22,16 +22,18 @@ Jax::Jax()
 	rTexKey = L"jax_r";
 	passiveTexKey = L"jax_passive";
 
-	SetHP(592.8f);
-	SetHPRegen(8.5f);
-	SetMP(338.8f);
-	SetMPRegen(7.5f);
-	SetAttackDamage(68.f);
-	SetAttackPerSec(0.638f);
-	SetArmor(36.f);
-	SetMagicResistance(31.25f);
-	SetAttackRange(1.25f);
-	SetMovementSpeed(3.5f);
+	stat->SetBaseValue(StatType::MaxHealth, 592.8f);
+	stat->SetBaseValue(StatType::Health, 592.8f);
+	stat->SetBaseValue(StatType::HealthRegen, 8.5f);
+	stat->SetBaseValue(StatType::MaxMana, 338.8f);
+	stat->SetBaseValue(StatType::Mana, 338.8f);
+	stat->SetBaseValue(StatType::ManaRegen, 7.5f);
+	stat->SetBaseValue(StatType::AttackDamage, 68.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.638f);
+	stat->SetBaseValue(StatType::Armor, 36.f);
+	stat->SetBaseValue(StatType::MagicResistance, 31.25f);
+	stat->SetBaseValue(StatType::Range, 1.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.5f);
 }
 
 Jax::~Jax()

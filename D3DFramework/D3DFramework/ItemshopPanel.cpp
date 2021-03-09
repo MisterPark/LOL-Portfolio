@@ -4,7 +4,6 @@
 #include "Button.h"
 #include "Label.h"
 #include "OutlinedSlot.h"
-#include <sstream>
 
 ItemshopPanel* pItemshopPanel = nullptr;
 
@@ -82,22 +81,24 @@ ItemshopPanel::ItemshopPanel()
     btn_close->SetTexturePressed(L"itemshop_button_close_pressed");
     btn_close->Click += Engine::Handler(this, &ItemshopPanel::ItemShop_Panel);
 
-    int startx = 57;
-    int starty = 106;
-    int intervalx = 51;
-    int intervaly = 75;
+    int startX = 57;
+    int startY = 106;
+    int intervalX = 51;
+    int intervalY = 75;
     const int itemslotX = 10;
     const int itemslotY = 6;
     vector<OutlinedSlot*> slot;
     slot.resize(itemslotX * itemslotY);
-     
+    vector<Button*> slotbutton;
+    slot.resize(itemslotX * itemslotY);
+
     for (int y = 0; y < itemslotY; ++y) {
         for (int x = 0; x < itemslotX; ++x) {
             int index = x + (y * itemslotX);
-            std::wstringstream ws;
-            ws << L"leftslot" << index;
-            
-            slot[index] = (OutlinedSlot*)AddChild<OutlinedSlot>(ws.str(), new OutlinedSlot(L"itemshop_item_outline", Vector2(startx + (x * intervalx), starty + (y * intervaly)), false));
+
+            AddChild<Button>(L"leftslotbutton", new Button(L"", Vector2(startX + (x * intervalX), startY + (y * intervalY))));
+
+            slot[index] = (OutlinedSlot*)AddChild<OutlinedSlot>(L"leftslot", new OutlinedSlot(L"itemshop_item_outline", Vector2(startX + (x * intervalX), startY + (y * intervalY)), false));
             slot[index]->icon->transform->scale = { 0.56f, 0.56f, 0.f };
         }
     }
@@ -135,9 +136,16 @@ void ItemshopPanel::Update()
 
     if (Input::GetKeyDown('P'))
     {
-        isVisible = !isVisible;
-        isVisible ? Show() : Hide();
+        visible = !visible;
+        visible ? Show() : Hide();
     }
+}
+
+void ItemshopPanel::ToggleVisible(GameObject* sender, MouseEventArg* arg)
+{
+    pItemshopPanel->visible ?
+        pItemshopPanel->Hide() :
+        pItemshopPanel->Show();
 }
 
 void ItemshopPanel::Close()
