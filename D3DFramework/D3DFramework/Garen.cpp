@@ -76,8 +76,15 @@ void Garen::Update()
 	
 }
 
+void Garen::OnAttackBegin()
+{
+	Unit::OnAttackBegin();
+	anim->SetSpeed((int)State::Q, (*stat)[StatType::AttackSpeed]);
+}
+
 void Garen::OnAttackEnd()
 {
+	Unit::OnAttackEnd();
 	stat->RemoveBuff<Buff_GarenQAttack>();
 }
 

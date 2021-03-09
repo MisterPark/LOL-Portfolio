@@ -844,17 +844,23 @@
     <ClInclude Include="Skill.h">
       <Filter>Skill</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Garen_Q.h" />
     <ClInclude Include="MiniMapRenderer.h">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Buff.h">
       <Filter>Buff</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_GarenQHaste.h" />
-    <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="ScorePanel.h">
       <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQAttack.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_Q.h">
+      <Filter>Skill\Garen</Filter>
     </ClInclude>
     <ClInclude Include="Buff_GarenQHaste.h">
       <Filter>Buff\Garen</Filter>
@@ -1459,17 +1465,23 @@
     <ClCompile Include="Skill.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Garen_Q.cpp" />
     <ClCompile Include="MiniMapRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>
     <ClCompile Include="Buff.cpp">
       <Filter>Buff</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_GarenQHaste.cpp" />
-    <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="ScorePanel.cpp">
       <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQAttack.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_Q.cpp">
+      <Filter>Skill\Garen</Filter>
     </ClCompile>
     <ClCompile Include="Buff_GarenQAttack.cpp">
       <Filter>Buff\Garen</Filter>

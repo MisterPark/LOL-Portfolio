@@ -142,6 +142,7 @@ public:
 	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
 	float attackTick = 0.f;
+	bool isDamaged = false;
 protected:
 	
 
@@ -156,7 +157,6 @@ protected:
 	float lastAttackTick = 0.f;
 	float lastAttackDuration = 5.f;
 
-	bool isDamaged = false;
 
 	// 추격 관련
 	float chaseTick = 0.f;
