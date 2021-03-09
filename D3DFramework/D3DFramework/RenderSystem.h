@@ -8,6 +8,7 @@ namespace Engine
 		EarlyForward,
 		Deferred,
 		Forward,
+		PostProcessEffect,
 		UI,
 		END
 	};
@@ -36,6 +37,7 @@ namespace Engine
 		static void RednerEarlyForward();
 		static void RednerDeferred();
 		static void RenderForward();
+		static void RenderPostProcessing();
 		static void RenderUI();
 		static void RenderLigting();
 		static void RenderCombine();
@@ -51,5 +53,6 @@ namespace Engine
 	extern wchar_t const* const RENDER_TARGET_RIMLIGHT_COLOR;
 	extern wchar_t const* const RENDER_TARGET_FOG_OF_WAR;
 	extern wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR;
+	extern wchar_t const* const RENDER_TARGET_SCREEN;
 }
 using RenderSystem = Engine::RenderSystem;
