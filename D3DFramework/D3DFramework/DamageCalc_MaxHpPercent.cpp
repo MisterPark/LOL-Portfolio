@@ -13,7 +13,7 @@ DamageCalc_MaxHpPercent::~DamageCalc_MaxHpPercent()
 
 void DamageCalc_MaxHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
-	float maxHpDamage = _targetStat->GetValue(StatType::MaxHealth) * (value * 0.01f);
+	float maxHpDamage = _targetStat->GetValue(StatType::MaxHealth);
 	if (trueDamage) {
 		*_damage += maxHpDamage;
 		return;

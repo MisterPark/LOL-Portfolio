@@ -189,6 +189,7 @@
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_OnHit.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Button.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="DamageCalc_CurrentHpPercent.h" />
     <ClInclude Include="DamageCalc_LostHpPercent.h" />
     <ClInclude Include="DamageCalc_MaxHpPercent.h" />
+    <ClInclude Include="DamageCalc_OnHit.h" />
     <ClInclude Include="DamageObject.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
@@ -371,6 +373,7 @@
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_OnHit.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -386,6 +389,7 @@
     <ClCompile Include="DamageCalc_CurrentHpPercent.cpp" />
     <ClCompile Include="DamageCalc_LostHpPercent.cpp" />
     <ClCompile Include="DamageCalc_MaxHpPercent.cpp" />
+    <ClCompile Include="DamageCalc_OnHit.cpp" />
     <ClCompile Include="DamageObject.cpp" />
     <ClCompile Include="Darius.cpp" />
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />

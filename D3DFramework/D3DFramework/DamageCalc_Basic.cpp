@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DamageCalc_Basic.h"
 #include "Stat.h"
-#include "Stat.h"
 
 DamageCalc_Basic::DamageCalc_Basic()
 {

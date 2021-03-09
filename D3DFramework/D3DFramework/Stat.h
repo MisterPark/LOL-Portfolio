@@ -43,7 +43,7 @@ public:
 	float DecreaseBaseValue(StatType _type, float _modifier);
 
 	float GetValue(StatType _type);
-
+	list<Buff*>* GetBuffList() { return &buffList; }
 	void AddBuff(Buff* buff);
 	void RemoveBuff(Buff* buff);
 
