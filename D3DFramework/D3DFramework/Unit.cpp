@@ -378,6 +378,10 @@ void Unit::SetTeam(Team _team)
 {
 	team = _team;
 }
+Team Unit::GetTeam()
+{
+	return team;
+}
 
 void Unit::SetAttackTarget(Unit* _target)
 {

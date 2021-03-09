@@ -851,6 +851,11 @@
     <ClInclude Include="Buff.h">
       <Filter>Buff</Filter>
     </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_GarenQAttack.h" />
+    <ClInclude Include="ScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
     <ClInclude Include="Buff_GarenQHaste.h">
       <Filter>Buff\Garen</Filter>
     </ClInclude>
@@ -1460,6 +1465,11 @@
     </ClCompile>
     <ClCompile Include="Buff.cpp">
       <Filter>Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_GarenQAttack.cpp" />
+    <ClCompile Include="ScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
     </ClCompile>
     <ClCompile Include="Buff_GarenQAttack.cpp">
       <Filter>Buff\Garen</Filter>

@@ -93,6 +93,7 @@ public:
 	State GetState();
 
 	virtual void SetTeam(Team _team);
+	Team GetTeam();
 	void SetAttackTarget(Unit* _target);
 	Unit* GetAttackTarget();
 

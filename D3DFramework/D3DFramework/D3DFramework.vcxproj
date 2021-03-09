@@ -316,6 +316,7 @@
     <ClInclude Include="RenderTargetImpl.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScorePanel.h" />
     <ClInclude Include="Scuttleracer.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Skill_Garen_Q.h" />
@@ -490,6 +491,7 @@
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RenderTargetImpl.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScorePanel.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Skill_Garen_Q.cpp" />
