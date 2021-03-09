@@ -197,8 +197,24 @@ void Unit::Attack(Unit* target)
 	
 }
 
-void Unit::Attacked()
+void Unit::OnAttackBegin()
 {
+	beginAttackFlag = true;
+}
+
+void Unit::OnAttackEnd()
+{
+	beginAttackFlag = false;
+	oldAttackState = attackState;
+
+	if (attackState == State::ATTACK1)
+	{
+		attackState = State::ATTACK2;
+	}
+	else if (attackState == State::ATTACK2)
+	{
+		attackState = State::ATTACK1;
+	}
 }
 
 void Unit::Spell1()
@@ -244,18 +260,9 @@ void Unit::AttackAction()
 {
 	float dt = Time::DeltaTime();
 
-	if (anim->IsFrameEnd() && (int)attackState == anim->GetState())
+	if (anim->IsFrameEnd() && anim->GetIndexByState((int)attackState) == anim->GetCurrentAnimation())
 	{
-		int rand = Random::Range(0, 9);
-		if (rand < 5)
-		{
-			attackState = State::ATTACK1;
-		}
-		else
-		{
-			attackState = State::ATTACK2;
-		}
-		Attacked();
+		OnAttackEnd();
 	}
 
 	if (attackTarget->IsDead())
@@ -263,6 +270,7 @@ void Unit::AttackAction()
 		attackTarget = nullptr;
 		return;
 	}
+
 	Vector3 direction = attackTarget->transform->position - transform->position;
 	float dist = direction.Length();
 	float targetRadius = attackTarget->collider->GetRadius();
@@ -271,6 +279,10 @@ void Unit::AttackAction()
 		agent->Stop();
 		LookRotation(direction.Normalized());
 		SetState(attackState);
+		if (beginAttackFlag == false)
+		{
+			OnAttackBegin();
+		}
 
 		attackTick += dt;
 		float attackDelay = 1.f / (*stat)[StatType::AttackSpeed];
@@ -365,6 +377,10 @@ State Unit::GetState()
 void Unit::SetTeam(Team _team)
 {
 	team = _team;
+}
+Team Unit::GetTeam()
+{
+	return team;
 }
 
 void Unit::SetAttackTarget(Unit* _target)

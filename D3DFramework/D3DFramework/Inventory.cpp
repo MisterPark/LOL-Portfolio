@@ -7,7 +7,7 @@ Inventory* pInventory = nullptr;
 Inventory::Inventory()
 {
     position = { 700,200,0 };
-    isVisible = false;
+    visible = false;
     
 }
 
@@ -43,13 +43,13 @@ void Inventory::Destroy()
 
 void Inventory::Show()
 {
-    pInventory->isVisible = true;
+    pInventory->visible = true;
     Cursor::Show();
 }
 
 void Inventory::Show(bool on)
 {
-    pInventory->isVisible = on;
+    pInventory->visible = on;
     if (on)
     {
         Cursor::Show();
@@ -62,7 +62,7 @@ void Inventory::Show(bool on)
 
 void Inventory::Hide()
 {
-    pInventory->isVisible = false;
+    pInventory->visible = false;
     Cursor::Hide();
 }
 

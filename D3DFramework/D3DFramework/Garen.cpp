@@ -78,7 +78,7 @@ void Garen::Update()
 	
 }
 
-void Garen::Attacked()
+void Garen::OnAttackEnd()
 {
 	stat->RemoveBuff<Buff_GarenQAttack>();
 }

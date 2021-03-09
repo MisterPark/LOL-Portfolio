@@ -295,6 +295,9 @@
     <Filter Include="Buff">
       <UniqueIdentifier>{ec3753fd-8502-46b2-bcb6-6b2dc7ebc851}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buff\Garen">
+      <UniqueIdentifier>{cca0deb1-6a2b-48ca-9f44-1a04084d32e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -850,6 +853,15 @@
     </ClInclude>
     <ClInclude Include="Buff_GarenQHaste.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
+    <ClInclude Include="ScorePanel.h">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQHaste.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenQAttack.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
     <ClInclude Include="Buff_OnHit.h">
       <Filter>Buff</Filter>
     </ClInclude>
@@ -1462,6 +1474,15 @@
     </ClCompile>
     <ClCompile Include="Buff_GarenQHaste.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
+    <ClCompile Include="ScorePanel.cpp">
+      <Filter>GameObject\UI\ScorePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQAttack.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenQHaste.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
     <ClCompile Include="Buff_OnHit.cpp">
       <Filter>Buff</Filter>
     </ClCompile>

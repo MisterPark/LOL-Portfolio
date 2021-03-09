@@ -47,8 +47,38 @@ void LabelRenderer::Render()
 	}
 
 	label->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+	// Shadow
+	if (label->shadow)
+	{
+		Matrix matWorldShadow = matWorld;
+		matWorldShadow._41 += 2;
+		matWorldShadow._42 += 2;
+
+		label->pSprite->SetTransform(&matWorldShadow);
+		label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->shadowColor);
+	}
+
+	if (label->outline)
+	{
+		Matrix matWorldOutline[4] = { matWorld, matWorld, matWorld, matWorld };
+
+		matWorldOutline[0]._41 -= 1;
+		matWorldOutline[1]._41 += 1;
+		matWorldOutline[2]._42 -= 1;
+		matWorldOutline[3]._42 += 1;
+
+		for (int i = 0; i < 4; ++i)
+		{
+			label->pSprite->SetTransform(&matWorldOutline[i]);
+			label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->outlineColor);
+		}
+	}
+
+	// Normal
 	label->pSprite->SetTransform(&matWorld);
 	label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->foreColor);
+
 	label->pSprite->End();
 }
 

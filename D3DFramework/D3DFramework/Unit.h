@@ -68,7 +68,8 @@ public:
 	virtual void Chase(Vector3 _target);
 
 	virtual void Attack(Unit* _target);
-	virtual void Attacked();
+	virtual void OnAttackBegin();
+	virtual void OnAttackEnd();
 	void Spell1();
 	void Spell2();
 	void Spell3();
@@ -92,6 +93,7 @@ public:
 	State GetState();
 
 	virtual void SetTeam(Team _team);
+	Team GetTeam();
 	void SetAttackTarget(Unit* _target);
 	Unit* GetAttackTarget();
 
@@ -165,6 +167,8 @@ protected:
 	
 	// 네트워크 관련
 	INT unitID = -1;
-public:
+private:
+	State oldAttackState = State::IDLE1;
+	bool beginAttackFlag = false;
 };
 

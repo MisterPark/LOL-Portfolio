@@ -8,6 +8,7 @@
 #include "FloatingBar.h"
 #include "MiniScorePanel.h"
 #include "ItemshopPanel.h"
+#include "ScorePanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -172,6 +173,7 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
 	champ->bar->SetNickname(L"테스트닉네임");
+	champ->SetID((UINT)0);
 	
 
 	//obj = PlayerInfoPanel::GetInstance();
@@ -378,11 +380,18 @@ void TestScene::OnLoaded()
 	//obj = SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSuper>(Layer::Unit);
 	//obj->transform->position = { 17,68,39 };
 
+	// UI 생성 및 추가
 	UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MinimapPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
+	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
+
+	ItemshopPanel::GetInstance()->Hide();
+	ScorePanel::GetInstance()->Hide();
+
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
+	ScorePanel::GetInstance()->AddChampion(champ, true);
 }
 
 void TestScene::OnUnloaded()
