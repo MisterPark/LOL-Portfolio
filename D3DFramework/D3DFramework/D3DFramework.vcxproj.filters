@@ -292,6 +292,9 @@
     <Filter Include="Skill\Garen">
       <UniqueIdentifier>{999d1ba4-d270-4566-bb14-e2cfa910612e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\DistortionRenderer">
+      <UniqueIdentifier>{30dfee91-4323-4b66-aa16-75a0fca2242d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -845,6 +848,9 @@
     <ClInclude Include="Buff.h" />
     <ClInclude Include="MiniMapRenderer.h">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DistortionRenderer.h">
+      <Filter>Component\Renderer\DistortionRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1451,6 +1457,9 @@
     <ClCompile Include="MiniMapRenderer.cpp">
       <Filter>Component\Renderer\UIRenderer\MiniMapRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="DistortionRenderer.cpp">
+      <Filter>Component\Renderer\DistortionRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
@@ -1489,6 +1498,9 @@
       <Filter>Lib\Graphics\shader</Filter>
     </FxCompile>
     <FxCompile Include="blur.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="distortion.fx">
       <Filter>Lib\Graphics\shader</Filter>
     </FxCompile>
   </ItemGroup>

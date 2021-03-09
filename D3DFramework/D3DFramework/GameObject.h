@@ -62,7 +62,7 @@ namespace Engine
 		// getter
 		IComponent* GetComponent(const wstring& _key);
 		template<class T>
-		IComponent* GetComponent();
+		T* GetComponent();
 		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
 
@@ -118,13 +118,14 @@ namespace Engine
 		return comp;
 	}
 	template<class T>
-	inline IComponent* GameObject::GetComponent()
+	inline T* GameObject::GetComponent()
 	{
 		for (auto& iter : components)
 		{
-			if (dynamic_cast<T*>(iter.second))
+			T* com = dynamic_cast<T*>(iter.second);
+			if (com)
 			{
-				return iter.second;
+				return com;
 			}
 		}
 		return nullptr;

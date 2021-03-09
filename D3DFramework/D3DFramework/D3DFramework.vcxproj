@@ -208,6 +208,7 @@
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
     <ClInclude Include="Dijkstra.h" />
+    <ClInclude Include="DistortionRenderer.h" />
     <ClInclude Include="DynamicMesh.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Event.h" />
@@ -388,6 +389,7 @@
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="DistortionRenderer.cpp" />
     <ClCompile Include="DynamicMesh.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -599,6 +601,29 @@
       </EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </EntryPointName>
+    </FxCompile>
+    <FxCompile Include="distortion.fx">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <FileType>Document</FileType>
     </FxCompile>
     <FxCompile Include="fogOfWar_render.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>

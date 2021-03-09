@@ -16,7 +16,9 @@ struct PS_IN
 };
 texture g_texture;
 texture g_sightMap;
+texture g_timerMap;
 float4 g_uvRatio;
+float g_timerThresHold;
 matrix g_mWorld;
 matrix g_mViewProj;
 matrix g_mSightSpace;
@@ -32,6 +34,15 @@ sampler TextureSampler = sampler_state
 sampler SightMapTextureSampler = sampler_state
 {
 	texture = g_sightMap;
+	minfilter = linear;
+	magfilter = linear;
+
+	addressU = clamp;
+	addressV = clamp;
+};
+sampler TimerMapTextureSampler = sampler_state
+{
+	texture = g_timerMap;
 	minfilter = linear;
 	magfilter = linear;
 
@@ -55,7 +66,10 @@ float4 ps_main(PS_IN input) :COLOR0
 	{
 		return float4(0.f, 0.f, 0.f, 0.f);
 	}
+	float2 timerTex = vTex / g_uvRatio.xy;
+	float timer = step(1.f - g_timerThresHold, tex2D(TimerMapTextureSampler, timerTex).r);
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+	vAlbedo.rgb *= timer * 0.5f + 0.5f;
 	return vAlbedo;
 }
 float4 ps_sight_main(PS_IN input) :COLOR0
@@ -77,6 +91,22 @@ float4 ps_sight_main(PS_IN input) :COLOR0
 	vAlbedo.rgb = vAlbedo.rgb* (sight * 0.5f + 0.5f);
 	return vAlbedo;
 }
+
+
+float4 ps_timer_main(PS_IN input) :COLOR0
+{
+	float2 vTex = input.vTex;
+	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
+	{
+		return float4(0.f, 0.f, 0.f, 0.f);
+	}
+	float2 timerTex = vTex / g_uvRatio.xy;
+	float timer = step(1.f - g_timerThresHold, tex2D(TimerMapTextureSampler, timerTex).r);
+	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+	vAlbedo.rgb *= timer * 0.5f + 0.5f;
+	return vAlbedo;
+}
+
 technique Default_Device
 {
 	pass HPBar
@@ -97,5 +127,15 @@ technique Default_Device
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_sight_main();
+	}
+
+	pass Timer
+	{
+		ZEnable = false;
+		AlphaBlendEnable = true;
+		SrcBlend = srcalpha;
+		DestBlend = invsrcalpha;
+		VertexShader = compile vs_3_0 vs_main();
+		PixelShader = compile ps_3_0 ps_timer_main();
 	}
 }
