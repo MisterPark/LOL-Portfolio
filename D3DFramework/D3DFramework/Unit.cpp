@@ -201,6 +201,11 @@ void Unit::Attack(Unit* target)
 void Unit::OnAttackBegin()
 {
 	beginAttackFlag = true;
+	anim->SetSpeed((int)State::ATTACK1, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK2, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK3, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::ATTACK4, (*stat)[StatType::AttackSpeed]);
+	anim->SetSpeed((int)State::CRITICAL, (*stat)[StatType::AttackSpeed]);
 }
 
 void Unit::OnAttackEnd()
@@ -292,7 +297,7 @@ void Unit::AttackAction()
 			attackTick = 0.f;
 			isDamaged = false;
 		}
-		float damageDelay = attackDelay * 0.2f;
+		float damageDelay = attackDelay * 0.15f;
 		if (attackTick > damageDelay)
 		{
 			if (isDamaged == false)
@@ -332,6 +337,8 @@ void Unit::IdleAction()
 void Unit::MoveAction()
 {
 	SetState(State::RUN);
+	attackTick = 0.f;
+	isDamaged = false;
 }
 
 void Unit::SkillQAction()

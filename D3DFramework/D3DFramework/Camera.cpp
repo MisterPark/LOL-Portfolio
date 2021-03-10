@@ -111,22 +111,11 @@ void Engine::Camera::Update()
 
 	if (Input::GetMouseWheelUp())
 	{
-		if (target != nullptr)
-		{
-			Vector3 direction = transform->look - transform->position;
-			Vector3::Normalize(&direction);
-			offset += direction * zoomSpeed;// *dt;
-			
-		}
+		ZoomIn();
 	}
 	else if (Input::GetMouseWheelDown())
 	{
-		if (target != nullptr)
-		{
-			Vector3 direction = transform->look - transform->position;
-			Vector3::Normalize(&direction);
-			offset -= direction * zoomSpeed;// *dt;
-		}
+		ZoomOut();
 	}
 	
 	// 포즈, 룩 세팅
@@ -362,6 +351,39 @@ void Engine::Camera::UpdateShake()
 void Engine::Camera::SetShakeDuration(float _duration)
 {
 	shakeDuration = _duration;
+}
+
+void Engine::Camera::ZoomIn()
+{
+	if (target != nullptr)
+	{
+		Vector3 direction = -offset;
+		Vector3::Normalize(&direction);
+
+		float dist = offset.Length();
+		if (dist > minZoom)
+		{
+			offset += direction * zoomSpeed;// *dt;
+		}
+
+	}
+}
+
+void Engine::Camera::ZoomOut()
+{
+	if (target != nullptr)
+	{
+		Vector3 direction = -offset;
+		Vector3::Normalize(&direction);
+
+		Vector3 minOffset = { 0,2,1 };
+
+		float dist = offset.Length();
+		if (dist < maxZoom)
+		{
+			offset -= direction * zoomSpeed;// *dt;
+		}
+	}
 }
 
 float Engine::Camera::GetFarPlane()

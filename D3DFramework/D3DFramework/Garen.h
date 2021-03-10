@@ -11,6 +11,7 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
+    virtual void OnAttackBegin() override;
     virtual void OnAttackEnd() override;
 
     virtual void SkillQAction();

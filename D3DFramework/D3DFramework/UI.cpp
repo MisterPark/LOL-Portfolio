@@ -46,6 +46,11 @@ void Engine::UI::Release()
 {
 }
 
+void Engine::UI::PreUpdate()
+{
+	
+}
+
 void UI::Update()
 {
 	UpdateEvent();

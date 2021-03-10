@@ -15,5 +15,7 @@ public:
 	void AddUI(UI* _ui);
 	void DeleteListAll(); // 리스트에서 삭제만 해주는것
 
+
+
 	list<UI*> ui;
 };

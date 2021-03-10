@@ -19,5 +19,7 @@ public:
 
     UI* outline = nullptr;
     UI* icon = nullptr;
+    UIRenderer* renderer;
+    float cooltime;
 };
 

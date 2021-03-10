@@ -41,6 +41,9 @@ namespace Engine
 		void Shake(float _duration = 0.05f, float _magnitude = 0.03f);
 		void UpdateShake();
 		void SetShakeDuration(float _duration);
+		// 카메라 줌
+		void ZoomIn();
+		void ZoomOut();
 
 		float GetFarPlane();
 	private:
@@ -75,6 +78,8 @@ namespace Engine
 		// 카메라 줌인 아웃
 		float zoomSpeed = 1.f;
 		Vector3 offset = { 0,6,3 };
+		float minZoom = 3.f;
+		float maxZoom = 10.f;
 
 		// 윈도우 사이즈
 		int screenW = dfCLIENT_WIDTH;

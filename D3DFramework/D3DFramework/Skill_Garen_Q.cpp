@@ -29,6 +29,8 @@ void Skill_Garen_Q::Start()
 
 	coolTime = coolTime_Init;
 	active = true;
+	hostUnit->attackTick = 0.f;
+	hostUnit->isDamaged = false;
 	
 }
 

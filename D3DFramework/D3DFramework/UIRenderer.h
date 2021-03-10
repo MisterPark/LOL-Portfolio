@@ -13,6 +13,7 @@ namespace Engine
 		virtual void Render() override;
 
 		void SetMesh(Engine::Mesh* mesh);
+		void SetTimerRatio(float ratio);
 
 		void BringToTop();
 	public:
@@ -21,6 +22,8 @@ namespace Engine
 		Engine::Mesh* mesh = nullptr;
 		Engine::UI* ui = nullptr;
 		ID3DXEffect* effect = nullptr;
+		Texture* timerGradientTex;
+		float ratio;
 	private:
 		static int uniqueZIndex;
 	};
