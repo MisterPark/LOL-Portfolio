@@ -4,19 +4,19 @@
 
 class Champion;
 
-enum class Drake
+enum class Dragon
 {
-	CLOUD,		// 바람
-	INFERNAL,	// 화염
-	MOUNTAIN,	// 대지
-	OCEAN,		// 바다
-	BREAK,		// X
+	WIND,	// 바람
+	FIRE,	// 화염
+	EARTH,	// 대지
+	WATER,	// 바다
+	BREAK,	// X
 	END
 };
 
-extern std::wstring drakeCountTex[(UINT)Drake::END];
-extern std::wstring drakeSoulTex1[(UINT)Drake::END];
-extern std::wstring drakeSoulTex2[(UINT)Drake::END];
+extern std::wstring dragonCountTex[(UINT)Dragon::END];
+extern std::wstring dragonSoulTex1[(UINT)Dragon::END];
+extern std::wstring dragonSoulTex2[(UINT)Dragon::END];
 
 class ScorePanel :
 	public Panel
@@ -33,24 +33,24 @@ public:
 	void AddChampion(Champion* _champ, bool _isPlayer = false);
 	
 	// 용
-	void AddDrake(Drake _drake, Team _team);
-	void SetDrakeSoul(Drake _drake); // 3용 이후 용 결정될 때
-	void SetDrakeSoulBuf(); // 4용 버프 적용될 때
+	void AddDragon(Dragon _dragon, Team _team);
+	void SetDragonSoul(Dragon _dragon); // 3용 이후 용 결정될 때
+	void SetDragonSoulBuf(); // 4용 버프 적용될 때
 
 	
 protected:
-	vector<Drake> DrakeCount[(UINT)Team::END];
+	vector<Dragon> dragonCount[(UINT)Team::END];
 
-	UI* DrakeSoulUI = nullptr;
-	UI* DrakeCountUI[(UINT)Team::END][4] = { nullptr, };
+	UI* dragonSoulUI = nullptr;
+	UI* dragonCountUI[(UINT)Team::END][4] = { nullptr, };
 	
-	vector<Champion*> ChampionInfo[(UINT)Team::END];
-	vector<UI*> ChampionScoreUI[(UINT)Team::END];
+	vector<Champion*> championInfo[(UINT)Team::END];
+	vector<UI*> championScoreUI[(UINT)Team::END];
 	
-	Label* TurretCountLabel[(UINT)Team::END] = { nullptr, };
-	Label* KillCountLabel[(UINT)Team::END] = { nullptr, };
+	Label* turretCountLabel[(UINT)Team::END] = { nullptr, };
+	Label* killCountLabel[(UINT)Team::END] = { nullptr, };
 
-	Drake DrakeSoul;
+	Dragon dragonSoul;
 
 	
 };

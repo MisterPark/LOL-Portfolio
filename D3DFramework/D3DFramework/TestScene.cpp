@@ -172,7 +172,7 @@ void TestScene::OnLoaded()
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
-	champ->bar->SetNickname(L"테스트닉네임");
+	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
 	
 

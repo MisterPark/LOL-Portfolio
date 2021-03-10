@@ -59,3 +59,9 @@ void Champion::SetTeam(Team _team)
 		bar->SetTextureHP(L"bar_float (2)");
 	}
 }
+
+void Champion::SetNickname(const std::wstring& _nickname)
+{
+	nickname = _nickname;
+	bar->SetNickname(_nickname);
+}

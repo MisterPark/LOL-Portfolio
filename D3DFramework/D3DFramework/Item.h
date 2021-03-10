@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 
 using namespace Engine;
@@ -7,14 +7,15 @@ using namespace Engine;
 enum class ItemType
 {
 	None,
-
+	Boots,
+	End
 };
 
 class Item :
 	public GameObject
 {
 public:
-	// GameObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// GameObjectì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	virtual void Initialize() override;
 	virtual void Release() override;
 	virtual void Update() override;
