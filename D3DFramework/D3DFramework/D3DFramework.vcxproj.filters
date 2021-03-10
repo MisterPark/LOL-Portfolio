@@ -874,6 +874,21 @@
     <ClInclude Include="Buff_GarenQAttack.h">
       <Filter>Buff\Garen</Filter>
     </ClInclude>
+    <ClInclude Include="Buff_OnHit.h">
+      <Filter>Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_OnHit.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenWReduction.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_W.h">
+      <Filter>Skill\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenWShield.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1496,6 +1511,21 @@
       <Filter>Buff\Garen</Filter>
     </ClCompile>
     <ClCompile Include="Buff_GarenQHaste.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_OnHit.cpp">
+      <Filter>Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageCalc_OnHit.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenWReduction.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_W.cpp">
+      <Filter>Skill\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenWShield.cpp">
       <Filter>Buff\Garen</Filter>
     </ClCompile>
   </ItemGroup>

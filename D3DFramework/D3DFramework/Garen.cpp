@@ -9,7 +9,9 @@
 #include "DamageCalc_LostHpPercent.h"
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
+#include "DamageCalc_OnHit.h"
 #include "Skill_Garen_Q.h"
+#include "Skill_Garen_W.h"
 #include "Buff_GarenQAttack.h"
 
 Garen::Garen()
@@ -53,9 +55,11 @@ Garen::Garen()
 
 	//stat->SetBaseValue(StatType::ArmorPenetrationPercent, 0.3f);
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
+	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc());
 
 	// 스킬
 	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
+	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 }
 
 Garen::~Garen()
@@ -73,7 +77,6 @@ void Garen::Release()
 void Garen::Update()
 {
 	Champion::Update();
-	
 }
 
 void Garen::OnAttackBegin()
@@ -86,6 +89,7 @@ void Garen::OnAttackEnd()
 {
 	Unit::OnAttackEnd();
 	stat->RemoveBuff<Buff_GarenQAttack>();
+	Unit::OnAttackEnd();
 }
 
 //void Garen::Spell3()
@@ -95,9 +99,9 @@ void Garen::OnAttackEnd()
 //	damageObj->Set_ObjectFollow(this);
 //	//제일처음에 Basic만 잘 입혀줄것
 //	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
-//	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(10.f));
-//	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(10.f));
-//	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(10.f));
+//	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f));
+//	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(0.1f));
+//	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(0.1f));
 //}
 
 

@@ -3,6 +3,7 @@
 #include "SphereCollider.h"
 #include "NavMeshAgent.h"
 #include "Indicator.h"
+#include "Buff.h"
 
 list<Unit*> Unit::unitList;
 
@@ -421,7 +422,31 @@ void Unit::SetLastAttacker(Unit* _attacker)
 
 void Unit::TakeDamage(float _damage)
 {
+	_damage = DecreaseShieldBuff(_damage);
+
 	stat->DecreaseBaseValue(StatType::Health, _damage);
+}
+
+float Unit::DecreaseShieldBuff(float _damage)
+{
+	for (auto& buff : *stat->GetBuffList())
+	{
+		for (auto& modi : buff->modifiers) {
+			if (modi.type == StatType::Shield) {
+				if (modi.value > _damage) {
+					modi.value -= _damage;
+					return 0.f; // 실드에 데미지가 다 막힘.
+				}
+				else {
+					_damage -= modi.value;
+					modi.value = 0.f;
+					buff->duration = 9999.f; // 실드를 다 써서 실드버프삭제
+					continue;
+				}
+			}
+		}
+	}
+	return _damage; // 실드가 데미지를 다 못막아서 남은 데미지를 반환
 }
 
 void Unit::SetID(INT _id)

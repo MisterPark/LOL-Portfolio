@@ -19,6 +19,7 @@ enum class StatType{
 	HealAndShieldPower, // 회복 및 보호막효과
 	Tenacity, SlowResist, // 강인함, 둔화 저항
 	Range,AttackSpeed, // 사거리, 1초당 공격속도(횟수)
+	DamageReduction,
 	Level,
 	END
 };
@@ -43,7 +44,7 @@ public:
 	float DecreaseBaseValue(StatType _type, float _modifier);
 
 	float GetValue(StatType _type);
-
+	list<Buff*>* GetBuffList() { return &buffList; }
 	void AddBuff(Buff* buff);
 	void RemoveBuff(Buff* buff);
 
