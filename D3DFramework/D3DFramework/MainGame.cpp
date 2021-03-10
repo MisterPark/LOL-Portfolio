@@ -94,6 +94,7 @@ void Engine::MainGame::Update()
 	Input::Update();
 
 	// 2. 씬 매니저 업데이트
+	UI::SetPointerOverUI(false);
 	SceneManager::PreUpdate();
 	SceneManager::Update();
 

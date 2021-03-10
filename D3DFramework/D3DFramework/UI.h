@@ -21,6 +21,7 @@ namespace Engine
 
         virtual void Initialize() override;
         virtual void Release() override;
+        virtual void PreUpdate() override;
         virtual void Update() override;
 
 
