@@ -6,6 +6,7 @@
 #include "MonsterAI.h"
 #include "Collider.h"
 #include "SphereCollider.h"
+#include "DamageCalc_Basic.h"
 
 Monster::Monster()
 {
@@ -19,10 +20,12 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::MaxHealth, 500.f);
 	stat->SetBaseValue(StatType::Health, 500.f);
 	stat->SetBaseValue(StatType::HealthRegen, 8.5f);
-	stat->SetBaseValue(StatType::AttackDamage, 1.f);
+	stat->SetBaseValue(StatType::AttackDamage, 20.f);
 	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
+
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
 }
 
 Monster::~Monster()

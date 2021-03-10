@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Razorbeak.h"
+#include "Buff_GarenWReduction.h"
 
 Razorbeak::Razorbeak()
 {
@@ -15,6 +16,11 @@ Razorbeak::Razorbeak()
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)State::IDLE1, true);
+
+	// Test용
+	//Buff_GarenWReduction* testBuff = new Buff_GarenWReduction(this, 999.f, 0.5f);
+	//stat->AddBuff(testBuff);
+	//
 }
 
 Razorbeak::~Razorbeak()

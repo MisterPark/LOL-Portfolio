@@ -19,6 +19,7 @@ void DamageCalc_MaxHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetS
 		return;
 	}
 
+	maxHpDamage -= maxHpDamage * (_targetStat->GetValue(StatType::DamageReduction));
 	*_damage += Calc_Defense(maxHpDamage, _myStat, _targetStat);
 }
 

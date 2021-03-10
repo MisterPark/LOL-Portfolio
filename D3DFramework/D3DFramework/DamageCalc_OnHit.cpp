@@ -12,10 +12,7 @@ DamageCalc_OnHit::~DamageCalc_OnHit()
 }
 
 void DamageCalc_OnHit::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
-{
-	if (trueDamage)
-		return;
-	
+{	
 	float increaseDamage = 0.f;
 	for (auto& _buff : *_myStat->GetBuffList()) {
 		Buff_OnHit* onHit = dynamic_cast<Buff_OnHit*>(_buff);
@@ -25,6 +22,12 @@ void DamageCalc_OnHit::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 		increaseDamage += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
 	}
 
+	if (trueDamage) {
+		*_damage += increaseDamage;
+		return;
+	}
+
+	increaseDamage -= increaseDamage * (_targetStat->GetValue(StatType::DamageReduction));
 	*_damage += Calc_Defense(increaseDamage, _myStat, _targetStat);
 }
 

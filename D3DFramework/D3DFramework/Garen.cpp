@@ -10,6 +10,7 @@
 #include "DamageCalc_MaxHpPercent.h"
 #include "DamageCalc_OnHit.h"
 #include "Skill_Garen_Q.h"
+#include "Skill_Garen_W.h"
 #include "Buff_GarenQAttack.h"
 
 Garen::Garen()
@@ -58,6 +59,7 @@ Garen::Garen()
 
 	// 스킬
 	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
+	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 }
 
 Garen::~Garen()
@@ -75,12 +77,12 @@ void Garen::Release()
 void Garen::Update()
 {
 	Champion::Update();
-	
 }
 
 void Garen::OnAttackEnd()
 {
 	stat->RemoveBuff<Buff_GarenQAttack>();
+	Unit::OnAttackEnd();
 }
 
 //void Garen::Spell3()

@@ -15,6 +15,7 @@ void DamageCalc_Basic::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 	if (trueDamage)
 		return;
 
+	*_damage -= *_damage * (_targetStat->GetValue(StatType::DamageReduction));
 	*_damage = Calc_Defense(*_damage, _myStat, _targetStat);
 }
 

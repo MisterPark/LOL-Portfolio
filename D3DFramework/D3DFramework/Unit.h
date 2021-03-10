@@ -102,6 +102,7 @@ public:
 	void SetLastAttacker(Unit* _attacker);
 
 	void TakeDamage(float _damage);
+	float DecreaseShieldBuff(float _damage);
 	void SetID(INT _id);
 
 	bool IsDead();
