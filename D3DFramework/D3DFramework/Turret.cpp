@@ -6,6 +6,7 @@
 #include "Indicator.h"
 #include "TurretBreak.h"
 #include "DeferredStaticMeshRenderer.h"
+#include "DistortionRenderer.h"
 #include "FogOfWarRenderer.h"
 
 Turret::Turret()
@@ -29,6 +30,10 @@ Turret::Turret()
 	AddComponent(L"fogRenderer", fogOfWarRenderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
+	Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
+	AddComponent(L"distortionRenderer", distortionRenderer);
+	distortionRenderer->SetMesh(mesh);
+	distortionRenderer->SetOpacity(1.0f);
 }
 
 Turret::~Turret()

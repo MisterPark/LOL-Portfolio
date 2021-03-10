@@ -14,6 +14,10 @@ namespace Engine
 	wchar_t const* const RENDER_TARGET_SHARPNESS{ L"RT_SHARPNESS" };
 	wchar_t const* const RENDER_TARGET_FOG_OF_WAR{ L"RT_FOG_OF_WAR" };
 	wchar_t const* const RENDER_TARGET_HEIGHT_FOG_OF_WAR{ L"RT_HEIGHT_FOG_OF_WAR" };
+	wchar_t const* const RENDER_TARGET_SCREEN{ L"RT_SCREEN" };
+	wchar_t const* const RENDER_TARGET_SCREEN_ORIGIN{ L"RT_SCREEN_ORIGIN" };
+
+	
 	wchar_t const* const LIGHT_SPECULAR = L"light_specular";
 	wchar_t const* const LIGHT_DIFFUSE = L"light_diffuse";
 	const char ID_TEX_NORMAL_MAP[] = "g_normalMap";
@@ -110,7 +114,9 @@ namespace Engine
 		RenderManager::CreateRenderTarget(RENDER_TARGET_SHARPNESS, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_RIMLIGHT_COLOR, width, height, D3DFMT_A16B16G16R16);
 		RenderManager::CreateRenderTarget(RENDER_TARGET_FOG_OF_WAR, 256, 256, D3DFMT_R32F);
-
+		RenderManager::CreateRenderTarget(RENDER_TARGET_SCREEN, width, height, D3DFMT_A8R8G8B8);
+		RenderManager::CreateRenderTarget(RENDER_TARGET_SCREEN_ORIGIN, width, height, D3DFMT_A8R8G8B8);
+		
 		RenderManager::CreateRenderTarget(LIGHT_SPECULAR, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(LIGHT_DIFFUSE, width, height, D3DFMT_A16B16G16R16F);
 		RenderManager::CreateRenderTarget(L"shadow_1", width, height, D3DFMT_A16B16G16R16F);
@@ -261,6 +267,9 @@ namespace Engine
 		RenderCombine();
 
 		RenderForward();
+
+		RenderPostProcessing();
+
 		RenderUI();
 #pragma region DEBUG_SHOW_RENDERTARGET
 
@@ -430,6 +439,26 @@ namespace Engine
 			forwardRenderer->Render();
 		}
 	}
+	void RenderSystem::RenderPostProcessing()
+	{
+		HRESULT hr{};
+		IDirect3DDevice9* device = RenderManager::GetDevice();
+		auto& PPEfects = rendererTable[(unsigned)RendererType::PostProcessEffect];
+		PPEfects.sort(CompareZ);
+
+		RenderTarget* screen = RenderManager::GetRenderTarget(RENDER_TARGET_SCREEN);
+		
+		for (auto* processingRenderer : PPEfects)
+		{
+			ComPtr<IDirect3DSurface9> screenTexture;
+			ComPtr<IDirect3DSurface9> backbuffer;
+			device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
+			screen->GetSurface(&screenTexture);
+			hr = device->StretchRect(backbuffer.Get(), nullptr, screenTexture.Get(), nullptr, D3DTEXF_NONE);
+			processingRenderer->Render();
+		}
+
+	}
 	void RenderSystem::RenderUI()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
@@ -524,18 +553,48 @@ namespace Engine
 			ExecutePostProcessing();
 			deferredShader->EndPass();
 		}
+		deferredShader->End();
+	}
+	void RenderSystem::RenderCombine()
+	{
+		IDirect3DDevice9* const device = RenderManager::GetDevice();
+		ComPtr<IDirect3DTexture9> albedoTexture{};
+		ComPtr<IDirect3DTexture9> normalTexture{};
+		ComPtr<IDirect3DTexture9> sharpnessTexture{};
+		ComPtr<IDirect3DTexture9> lightDiffuseTexture{};
+		ComPtr<IDirect3DTexture9> lightSpecularTexture{};
+		ComPtr<IDirect3DTexture9> fogOfWarTexture{};
+		ComPtr<IDirect3DTexture9> rimLightColorTexture{};
+		ComPtr<IDirect3DSurface9> lightDiffuseSurface{};
+		ComPtr<IDirect3DSurface9> lightSpecularSurface{};
+		ComPtr<IDirect3DSurface9> shadowSurface{};
+		Matrix  mView = Camera::main->GetViewMatrix();
+
+		normalRenderTarget->GetTexture(&normalTexture);
+		sharpnessRenderTarget->GetTexture(&sharpnessTexture);
+		albedoRenderTarget->GetTexture(&albedoTexture);
+		rimLightColorRenderTarget->GetTexture(&rimLightColorTexture);
+		RenderManager::GetRenderTarget(L"FogOfWarRenderSystem_Blur2")->GetTexture(&fogOfWarTexture);
+		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
+		deferredShader->SetTexture(ID_TEX_SPECULAR_MAP, sharpnessTexture.Get());
+		deferredShader->SetTexture("g_albedoMap", albedoTexture.Get());
+		lightDiffuseRenderTarget->GetSurface(&lightDiffuseSurface);
+		lightSpecularRenderTarget->GetSurface(&lightSpecularSurface);
+		shadowRenderTarget->GetSurface(&shadowSurface);
+
+
 		D3DXVECTOR4 screenSize{ (float)MainGame::GetInstance()->width, (float)MainGame::GetInstance()->height,1.f, 1.f };
 		D3DXVECTOR4 texelKernel[]{
 			{0	,	+2.f / screenSize.y,0,0},
 			{0	,	-2.f / screenSize.y,0,0},
 			{+2.f / screenSize.x	,	0,0,0},
 			{-2.f / screenSize.x	,	0,0,0},
-			{0	,	+1.f/screenSize.y,0,0},
-			{0	,	-1.f/screenSize.y,0,0},
-			{+1.f/ screenSize.x	,	0,0,0},
-			{-1.f/ screenSize.x	,	0,0,0}
+			{0	,	+1.f / screenSize.y,0,0},
+			{0	,	-1.f / screenSize.y,0,0},
+			{+1.f / screenSize.x	,	0,0,0},
+			{-1.f / screenSize.x	,	0,0,0}
 		};
-		
+
 		ComPtr<IDirect3DSurface9> backbuffer;
 		Matrix mFogOfWarSpace{};
 		FogOfWarRenderSystem::GetMapSpace(&mFogOfWarSpace);
@@ -553,18 +612,18 @@ namespace Engine
 		deferredShader->SetTexture("g_specularMap", lightSpecularTexture.Get());
 		deferredShader->SetTexture(ID_TEX_RIM_LIGHT_COLOR, rimLightColorTexture.Get());
 		deferredShader->SetTexture(ID_TEX_FOR_OF_WAR, fogOfWarTexture.Get());
-		
+
 		deferredShader->SetVectorArray("TexelKernel", texelKernel, 8);
 		deferredShader->SetTexture(ID_TEX_NORMAL_MAP, normalTexture.Get());
-		deferredShader->CommitChanges();
+
+
+		UINT passCount = 0;
+		SetupPostProcessing();
+		deferredShader->Begin(&passCount, 0);
 		deferredShader->BeginPass(0);
 		ExecutePostProcessing();
 		deferredShader->EndPass();
 		deferredShader->End();
-	}
-	void RenderSystem::RenderCombine()
-	{
-
 	}
 	void Engine::RenderSystem::Add(Renderer* renderer)
 	{

@@ -10,6 +10,10 @@ Engine::UIRenderer::UIRenderer(GameObject* owner)
 	ui = (UI*)owner;
 	ui->transform->zIndex = uniqueZIndex++;
 	effect = RenderManager::LoadEffect(L"./HPBarEffect.fx");
+
+	RenderManager::LoadTexture(L"Resource/texture/", L"timer.png");
+	timerGradientTex = RenderManager::GetTexture(L"timer");
+	ratio = 1.f;
 }
 
 IComponent* Engine::UIRenderer::Clone()
@@ -46,6 +50,8 @@ void Engine::UIRenderer::Render()
 	effect->SetMatrix("g_mWorld", &matWorld);
 	effect->SetTexture("g_texture", mesh->GetSubsetTexture(0));
 	effect->SetVector("g_uvRatio",&vecUVMax);
+	effect->SetTexture("g_timerMap", timerGradientTex->pTexture);
+	effect->SetFloat("g_timerThresHold", ratio);
 	effect->BeginPass(0);
 
 	mesh->RenderSubset(0);
@@ -57,6 +63,11 @@ void Engine::UIRenderer::Render()
 void Engine::UIRenderer::SetMesh(Engine::Mesh* mesh)
 {
 	this->mesh = mesh;
+}
+
+void Engine::UIRenderer::SetTimerRatio(float ratio)
+{
+	this->ratio = ratio;
 }
 
 void Engine::UIRenderer::BringToTop()
