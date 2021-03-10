@@ -17,5 +17,6 @@ namespace Engine
 		static void GetMapSpace(Matrix* out);
 		static void AddSight(FogSight const& fogSight);
 		static void GetDepthBuffer(IDirect3DSurface9** surface);
+		static bool IsInSight(Vector3 const& pos);
 	};
 }

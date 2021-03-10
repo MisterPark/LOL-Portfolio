@@ -5,6 +5,7 @@
 #include "NavNode.h"
 #include "Unit.h"
 #include "Indicator.h"
+#include "PlayerInfoPanel.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -133,7 +134,10 @@ void PlayerController::Update()
         SetTargetMode(false);
     }
 
-
+    PlayerInfoPanel::GetInstance()->SetHP(
+        (int)unit->stat->GetValue(StatType::Health),
+        (int)unit->stat->GetValue(StatType::MaxHealth)
+    );
 }
 
 IComponent* PlayerController::Clone()

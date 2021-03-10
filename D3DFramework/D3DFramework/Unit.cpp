@@ -225,21 +225,25 @@ void Unit::OnAttackEnd()
 
 void Unit::Spell1()
 {
+	if (skillList[(int)SkillIndex::Q] == nullptr) return;
 	skillList[(int)SkillIndex::Q]->Start();
 }
 
 void Unit::Spell2()
 {
+	if (skillList[(int)SkillIndex::W] == nullptr) return;
 	skillList[(int)SkillIndex::W]->Start();
 }
 
 void Unit::Spell3()
 {
+	if (skillList[(int)SkillIndex::E] == nullptr) return;
 	skillList[(int)SkillIndex::E]->Start();
 }
 
 void Unit::Spell4()
 {
+	if (skillList[(int)SkillIndex::R] == nullptr) return;
 	skillList[(int)SkillIndex::R]->Start();
 }
 

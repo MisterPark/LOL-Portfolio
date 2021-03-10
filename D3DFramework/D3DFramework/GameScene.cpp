@@ -395,7 +395,7 @@ void GameScene::CreateChampion()
 			}
 
 			unitMap[userNum]->transform->position = spawnPos[userNum];
-			champion->bar->SetNickname(iter.second.nickname);
+			champion->SetNickname(iter.second.nickname);
 		}
 	}
 }

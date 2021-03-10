@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Unit.h"
 
 class FloatingBar;
@@ -19,6 +19,7 @@ public:
     virtual void OnCollisionEnter(Collider* target);
 
     virtual void SetTeam(Team _team);
+    void SetNickname(const std::wstring& _nickname);
 
 public:
     FloatingBar* bar = nullptr;
@@ -31,5 +32,7 @@ public:
     wstring eTexKey;
     wstring rTexKey;
     wstring passiveTexKey;
+
+    wstring nickname;
 };
 

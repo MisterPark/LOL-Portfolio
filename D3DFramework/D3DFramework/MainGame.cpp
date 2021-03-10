@@ -220,6 +220,8 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big3.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big4.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_exp.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big_red.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big_marker.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (1).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_float (2).png");
@@ -337,21 +339,21 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mia.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_itemempty.png");
 
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_break.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_cloud.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_infernal.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_mountain.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakecount_ocean.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragoncount_break.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragoncount_wind.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragoncount_fire.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragoncount_earth.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragoncount_water.png");
 
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_cloud_1.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_cloud_2.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_infernal_1.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_infernal_2.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_mountain_1.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_mountain_2.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_ocean_1.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_drakesimbol_ocean_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_default.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_wind_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_wind_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_fire_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_fire_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_earth_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_earth_2.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_water_1.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_water_2.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mobtimepanel.png");
 

@@ -27,6 +27,9 @@ public:
 	//void RenderMini();
 	//void RenderBar();
 
+	void SetHP(float _value, float _maxValue);
+	void SetMP(float _value, float _maxValue);
+
 	void SetTarget(Champion* _target);
 	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
 public:
@@ -39,8 +42,22 @@ private:
 	Engine::UI* invenPanel = nullptr;
 	Engine::UI* faceBorder = nullptr;
 	Engine::UI* facePanel = nullptr;
+
+	// hp bar
+	Engine::UI* hpBarBack = nullptr;
+	Engine::UI* hpBar = nullptr;
+	Engine::UI* hpBarMarker = nullptr;
 	Label* hpLabel = nullptr;
+	float hpBarBackRatio = 1.f;
+	float hp;
+	float hpMax;
+
+	// mp bar
 	Label* mpLabel = nullptr;
+	Engine::UI* mpBar = nullptr;
+	Engine::UI* mpBarMarker = nullptr;
+	float mp;
+	float mpMax;
 
 	Label* statLabel[8] = { nullptr, };
 	Label* level = nullptr;
