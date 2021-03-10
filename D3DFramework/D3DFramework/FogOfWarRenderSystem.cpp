@@ -3,6 +3,7 @@
 #include "FogOfWarObstacleRenderer.h"
 #include "Wall.h"
 #include <wrl.h>
+#include <array>
 using namespace Microsoft::WRL;
 namespace Engine
 {
@@ -16,6 +17,8 @@ namespace Engine
 	Matrix mapSpace;
 	constexpr float EDGE_LENGTH = 98.f;
 	ComPtr<IDirect3DSurface9> depthBuffer;
+	std::array<std::array<bool, 256>, 256> sightMap;
+	ComPtr<IDirect3DTexture9> fogCopyTexture;
 	void FogOfWarRenderSystem::Initialize()
 	{
 		IDirect3DDevice9* const device = RenderManager::GetDevice();
@@ -44,6 +47,7 @@ namespace Engine
 		fogOfWarShader->SetMatrix("g_mMapSpace", &mViewProj);
 		mapSpace = mViewProj;
 
+		device->CreateTexture(256, 256, 1, 0, D3DFMT_R32F, D3DPOOL_SYSTEMMEM, &fogCopyTexture, nullptr);
 	}
 	void FogOfWarRenderSystem::Destory()
 	{
@@ -188,12 +192,30 @@ namespace Engine
 		//
 		Safe_Release(&fogOfWarTexture);
 		Safe_Release(&oldSurface);
-		Safe_Release(&fogOfWarSurface);
+
 		Safe_Release(&heightMapTexture);
 		Safe_Release(&blurSurface1);
 		Safe_Release(&blurSurface2);
 		Safe_Release(&blurTexture1);
 		sights.clear();
+
+		D3DLOCKED_RECT rc{};
+		ComPtr<IDirect3DSurface9> fogCopySurface;
+		fogCopyTexture->GetSurfaceLevel(0, &fogCopySurface);
+
+		hr = device->GetRenderTargetData(fogOfWarSurface, fogCopySurface.Get());
+		hr = fogCopyTexture->LockRect(0, &rc, nullptr, D3DLOCK_READONLY);
+		auto const& fogs = *(std::array<std::array<float, 256>, 256> const*) rc.pBits;
+		for (int row = 0; row < 256; ++row)
+		{
+			for (int cols = 0; cols < 256; ++cols)
+			{
+				float level = fogs[row][cols];
+				sightMap[row][cols] = level >= 0.1f ? true : false;
+			}
+		}
+		fogCopyTexture->UnlockRect(0);
+		Safe_Release(&fogOfWarSurface);
 	}
 
 	void FogOfWarRenderSystem::GetMapSpace(Matrix* out)
@@ -209,5 +231,25 @@ namespace Engine
 	{
 		*surface = depthBuffer.Get();
 		depthBuffer->AddRef();
+	}
+	bool FogOfWarRenderSystem::IsInSight(Vector3 const& pos)
+	{
+		Vector3 vPosition;
+		D3DXVec3TransformCoord(
+			&vPosition,
+			&pos,
+			&mapSpace
+		);
+		vPosition.x *= 256.f;
+		vPosition.y *= 256.f;
+		vPosition.x = round(vPosition.x) / 256.f;
+		vPosition.y = round(vPosition.y) / 256.f;
+
+		vPosition.y *= -1.f;
+		Vector3 delta{ 0.5f, 0.5f, 0.f };
+		vPosition =  vPosition * 0.5f + delta;
+		vPosition.x *= 256.f;
+		vPosition.y *= 256.f;
+		return sightMap[(int)vPosition.y][(int)vPosition.x];
 	}
 }

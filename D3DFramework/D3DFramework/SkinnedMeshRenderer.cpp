@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "SkinnedMeshRenderer.h"
+#include "FogOfWarRenderSystem.h"
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
@@ -23,8 +24,11 @@ void Engine::SkinnedMeshRenderer::Render()
 
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();
-
 	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+	if (FogOfWarRenderSystem::IsInSight(worldPos) == false)
+	{
+		return;
+	}
 
 	// TODO : Render 반경 계산 해야할듯?
 	if (Frustum::Intersect(&worldPos, 1.f) == false) return;
@@ -52,6 +56,8 @@ void Engine::SkinnedMeshRenderer::Render()
 			pDestVtx);						// 변환된 정보를 담기 위한 메쉬의 정점 정보
 		pMeshContainer->pOriMesh->UnlockVertexBuffer();
 		pMeshContainer->MeshData.pMesh->UnlockVertexBuffer();
+
+
 		RenderShadowMap(pMeshContainer);
 		RenderGBuffer(pMeshContainer);
 	}
