@@ -41,7 +41,7 @@ public:
     Label::Align  align  = Label::Align::Left;
     Label::VAlign valign = Label::VAlign::Top;
     bool outline = false;
-    bool shadow = false;
+    bool shadow = true;
 
     LPD3DXFONT        pFont = nullptr;
     LPD3DXSPRITE      pSprite = nullptr;

@@ -4,26 +4,26 @@
 #include "Label.h"
 
 ScorePanel* pScorePanel = nullptr;
-std::wstring drakeCountTex[(UINT)Drake::END] = {
-	L"scoreboard_drakecount_cloud",
-	L"scoreboard_drakecount_infernal",
-	L"scoreboard_drakecount_mountain",
-	L"scoreboard_drakecount_ocean",
-	L"scoreboard_drakecount_break"
+std::wstring dragonCountTex[(UINT)Dragon::END] = {
+	L"scoreboard_dragoncount_wind",
+	L"scoreboard_dragoncount_fire",
+	L"scoreboard_dragoncount_earth",
+	L"scoreboard_dragoncount_water",
+	L"scoreboard_dragoncount_break"
 };
 
-std::wstring drakeSoulTex1[(UINT)Drake::END] = {
-	L"scoreboard_drakesimbol_cloud_1",
-	L"scoreboard_drakesimbol_infernal_1",
-	L"scoreboard_drakesimbol_mountain_1",
-	L"scoreboard_drakesimbol_ocean_1"
+std::wstring dragonSoulTex1[(UINT)Dragon::END] = {
+	L"scoreboard_dragonsimbol_wind_1",
+	L"scoreboard_dragonsimbol_fire_1",
+	L"scoreboard_dragonsimbol_earth_1",
+	L"scoreboard_dragonsimbol_water_1"
 };
 
-std::wstring drakeSoulTex2[(UINT)Drake::END] = {
-	L"scoreboard_drakesimbol_cloud_2",
-	L"scoreboard_drakesimbol_infernal_2",
-	L"scoreboard_drakesimbol_mountain_2",
-	L"scoreboard_drakesimbol_ocean_2"
+std::wstring dragonSoulTex2[(UINT)Dragon::END] = {
+	L"scoreboard_dragonsimbol_wind_2",
+	L"scoreboard_dragonsimbol_fire_2",
+	L"scoreboard_dragonsimbol_earth_2",
+	L"scoreboard_dragonsimbol_water_2"
 };
 
 ScorePanel::ScorePanel()
@@ -40,66 +40,66 @@ ScorePanel::ScorePanel()
 	UI* mainPanel = CreateChild(L"scoreboard_mainpanel", Vector2((screenW * 0.5f) - (mainpanelTex->GetSpriteWidth() * 0.5f), (screenH * 0.5f) - (mainpanelTex->GetSpriteHeight() * 0.5f)));
 
 // 용
-	DrakeSoulUI = mainPanel->CreateChild(L"scoreboard_drakesimbol_default", Vector2(460, 10));
-	DrakeSoulUI->transform->scale = { 0.75f, 0.75f, 0.75f };
+	dragonSoulUI = mainPanel->CreateChild(L"scoreboard_dragonsimbol_default", Vector2(460, 10));
+	dragonSoulUI->transform->scale = { 0.75f, 0.75f, 0.75f };
 
 	// 용 카운트
 	for (int i = 0; i < 4; ++i) {
-		DrakeCountUI[(UINT)Team::BLUE][i] = mainPanel->CreateChild(L"", Vector2(400 - (46 * i), 20));
-		DrakeCountUI[(UINT)Team::BLUE][i]->transform->scale = { 0.75f, 0.75f, 0.75f };
+		dragonCountUI[(UINT)Team::BLUE][i] = mainPanel->CreateChild(L"", Vector2(400 - (46 * i), 20));
+		dragonCountUI[(UINT)Team::BLUE][i]->transform->scale = { 0.75f, 0.75f, 0.75f };
 
-		DrakeCountUI[(UINT)Team::RED][i] = mainPanel->CreateChild(L"", Vector2(543 + (46 * i), 20));
-		DrakeCountUI[(UINT)Team::RED][i]->transform->scale = { 0.75f, 0.75f, 0.75f };
+		dragonCountUI[(UINT)Team::RED][i] = mainPanel->CreateChild(L"", Vector2(543 + (46 * i), 20));
+		dragonCountUI[(UINT)Team::RED][i]->transform->scale = { 0.75f, 0.75f, 0.75f };
 	}
 
 	// 용추가 예시
 	// 한 팀이 4개가 되면 자동으로 나머지 빈 자리는 부셔지는 아이콘이 들어감
-	//AddDrake(Drake::INFERNAL, Team::BLUE);
-	//AddDrake(Drake::OCEAN, Team::RED);
-	//AddDrake(Drake::OCEAN, Team::RED);
-	//SetDrakeSoul(Drake::OCEAN); // 3용 이후 용 결정될 때 호출
-	//AddDrake(Drake::OCEAN, Team::RED);
-	//AddDrake(Drake::OCEAN, Team::RED);
-	//SetDrakeSoulBuf(); // 4용 버프 적용될 때 호출
+	//AddDragon(Dragon::INFERNAL, Team::BLUE);
+	//AddDragon(Dragon::OCEAN, Team::RED);
+	//AddDragon(Dragon::OCEAN, Team::RED);
+	//SetDragonSoul(Dragon::OCEAN); // 3용 이후 용 결정될 때 호출
+	//AddDragon(Dragon::OCEAN, Team::RED);
+	//AddDragon(Dragon::OCEAN, Team::RED);
+	//SetDragonSoulBuf(); // 4용 버프 적용될 때 호출
 
 // 라벨
-	TurretCountLabel[(UINT)Team::BLUE] = new Label(15);
-	mainPanel->AddChild<Label>(L"BlueTurretCount", TurretCountLabel[(UINT)Team::BLUE]);
-	TurretCountLabel[(UINT)Team::BLUE]->SetLocation(381, 91);
-	TurretCountLabel[(UINT)Team::BLUE]->SetText(0);
-	TurretCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
-	TurretCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
-	TurretCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
+	turretCountLabel[(UINT)Team::BLUE] = new Label(15);
+	mainPanel->AddChild<Label>(L"BlueTurretCount", turretCountLabel[(UINT)Team::BLUE]);
+	turretCountLabel[(UINT)Team::BLUE]->SetLocation(381, 91);
+	turretCountLabel[(UINT)Team::BLUE]->SetText(0);
+	turretCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
+	turretCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
+	turretCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
 
-	TurretCountLabel[(UINT)Team::RED] = new Label(15);
-	mainPanel->AddChild<Label>(L"RedTurretCount", TurretCountLabel[(UINT)Team::RED]);
-	TurretCountLabel[(UINT)Team::RED]->SetLocation(588, 91);
-	TurretCountLabel[(UINT)Team::RED]->SetText(0);
-	TurretCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
-	TurretCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
-	TurretCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
+	turretCountLabel[(UINT)Team::RED] = new Label(15);
+	mainPanel->AddChild<Label>(L"RedTurretCount", turretCountLabel[(UINT)Team::RED]);
+	turretCountLabel[(UINT)Team::RED]->SetLocation(588, 91);
+	turretCountLabel[(UINT)Team::RED]->SetText(0);
+	turretCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
+	turretCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
+	turretCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
 
-	KillCountLabel[(UINT)Team::BLUE] = new Label(20);
-	mainPanel->AddChild<Label>(L"BlueKillCount", KillCountLabel[(UINT)Team::BLUE]);
-	KillCountLabel[(UINT)Team::BLUE]->SetLocation(466, 91);
-	KillCountLabel[(UINT)Team::BLUE]->SetText(0);
-	KillCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
-	KillCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
-	KillCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
+	killCountLabel[(UINT)Team::BLUE] = new Label(20);
+	mainPanel->AddChild<Label>(L"BlueKillCount", killCountLabel[(UINT)Team::BLUE]);
+	killCountLabel[(UINT)Team::BLUE]->SetLocation(466, 91);
+	killCountLabel[(UINT)Team::BLUE]->SetText(0);
+	killCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
+	killCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
+	killCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
 
-	KillCountLabel[(UINT)Team::RED] = new Label(20);
-	mainPanel->AddChild<Label>(L"RedKillCount", KillCountLabel[(UINT)Team::RED]);
-	KillCountLabel[(UINT)Team::RED]->SetLocation(497, 91);
-	KillCountLabel[(UINT)Team::RED]->SetText(0);
-	KillCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
-	KillCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
-	KillCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
+	killCountLabel[(UINT)Team::RED] = new Label(20);
+	mainPanel->AddChild<Label>(L"RedKillCount", killCountLabel[(UINT)Team::RED]);
+	killCountLabel[(UINT)Team::RED]->SetLocation(497, 91);
+	killCountLabel[(UINT)Team::RED]->SetText(0);
+	killCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
+	killCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
+	killCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
 
 // 챔피언 정보
 	for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
 		for (int j = 0; j < 5; ++j) {
-			ChampionScoreUI[i].push_back(mainPanel->CreateChild(L"Champion", Vector2(9 + (475 * (i - (UINT)Team::BLUE)), 120 + (63 * j))));
-			UI* champPanel = ChampionScoreUI[i][j];
+			championScoreUI[i].push_back(mainPanel->CreateChild(L"Champion", Vector2(9 + (475 * (i - (UINT)Team::BLUE)), 120 + (63 * j))));
+			UI* champPanel = championScoreUI[i][j];
 
 			// 배경
 			champPanel->CreateChild(L"scoreboard_dead", Vector2(0, 2));
@@ -166,7 +166,7 @@ ScorePanel::ScorePanel()
 			}
 			itemslot[0]->SetTexture(L"1004_class_t1_faeriecharm");
 
-			ChampionScoreUI[i][j]->Hide();
+			championScoreUI[i][j]->Hide();
 		}
 	}
 }
@@ -205,10 +205,10 @@ void ScorePanel::Update()
 	{
 		for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
 			size_t j;
-			for (j = 0; j < ChampionInfo[i].size(); j++)
+			for (j = 0; j < championInfo[i].size(); j++)
 			{
-				auto* ui = ChampionScoreUI[i][j];
-				auto* champ = ChampionInfo[i][j];
+				auto* ui = championScoreUI[i][j];
+				auto* champ = championInfo[i][j];
 
 				// 사망 표시
 				if (champ->IsDead())	ui->children[L"scoreboard_dead"]->Show();
@@ -241,7 +241,7 @@ void ScorePanel::Update()
 			}
 			for (; j < 5; j++)
 			{
-				ChampionScoreUI[i][j]->Hide();
+				championScoreUI[i][j]->Hide();
 			}
 		}
 	}
@@ -250,54 +250,54 @@ void ScorePanel::Update()
 void ScorePanel::AddChampion(Champion* _champ, bool _isPlayer/* = false*/)
 {
 	// 5인
-	if (ChampionInfo[(UINT)_champ->GetTeam()].size() >= 5) return;
+	if (championInfo[(UINT)_champ->GetTeam()].size() >= 5) return;
 	
 	// 중복 확인
-	for (auto Champ : ChampionInfo[(UINT)_champ->GetTeam()]) {
+	for (auto Champ : championInfo[(UINT)_champ->GetTeam()]) {
 		if (Champ->GetID() == _champ->GetID()) return;
 	}
 
-	UINT index = ChampionInfo[(UINT)_champ->GetTeam()].size();
+	UINT index = championInfo[(UINT)_champ->GetTeam()].size();
 
-	ChampionInfo[(UINT)_champ->GetTeam()].push_back(_champ);
+	championInfo[(UINT)_champ->GetTeam()].push_back(_champ);
 
-	UI* ui = ChampionScoreUI[(UINT)_champ->GetTeam()][index];
+	UI* ui = championScoreUI[(UINT)_champ->GetTeam()][index];
 
 	dynamic_cast<UI*>(ui->children[L"Portrait"])->SetTexture(_champ->faceCircleTexkey);
-	dynamic_cast<Label*>(ui->children[L"NameLabel"])->SetText(_champ->name);
+	dynamic_cast<Label*>(ui->children[L"NameLabel"])->SetText(_champ->nickname);
 
 	if (_isPlayer) {
 
 	}
 	else {
-		//ui->DeleteChild(L"scoreboard_playermark");
+		ui->DeleteChild(L"scoreboard_playermark");
 	}
 }
 
-void ScorePanel::AddDrake(Drake _drake, Team _team)
+void ScorePanel::AddDragon(Dragon _dragon, Team _team)
 {
-	int size = DrakeCount[(UINT)_team].size();
+	int size = dragonCount[(UINT)_team].size();
 	int index = size;
 	if (size == 4) return;
 
-	DrakeCount[(UINT)_team].push_back(_drake);
-	DrakeCountUI[(UINT)_team][index]->SetTexture(drakeCountTex[(UINT)_drake]);
+	dragonCount[(UINT)_team].push_back(_dragon);
+	dragonCountUI[(UINT)_team][index]->SetTexture(dragonCountTex[(UINT)_dragon]);
 
 	if (index == 3) {
-		for (int i = DrakeCount[(UINT)Team::BLUE].size(); i < 4; ++i)
-			DrakeCountUI[(UINT)Team::BLUE][i]->SetTexture(drakeCountTex[(UINT)Drake::BREAK]);
-		for (int i = DrakeCount[(UINT)Team::RED].size(); i < 4; ++i)
-			DrakeCountUI[(UINT)Team::RED][i]->SetTexture(drakeCountTex[(UINT)Drake::BREAK]);
+		for (int i = dragonCount[(UINT)Team::BLUE].size(); i < 4; ++i)
+			dragonCountUI[(UINT)Team::BLUE][i]->SetTexture(dragonCountTex[(UINT)Dragon::BREAK]);
+		for (int i = dragonCount[(UINT)Team::RED].size(); i < 4; ++i)
+			dragonCountUI[(UINT)Team::RED][i]->SetTexture(dragonCountTex[(UINT)Dragon::BREAK]);
 	}
 }
 
-void ScorePanel::SetDrakeSoul(Drake _drake)
+void ScorePanel::SetDragonSoul(Dragon _dragon)
 {
-	DrakeSoulUI->SetTexture(drakeSoulTex1[(UINT)_drake]);
-	DrakeSoul = _drake;
+	dragonSoulUI->SetTexture(dragonSoulTex1[(UINT)_dragon]);
+	dragonSoul = _dragon;
 }
 
-void ScorePanel::SetDrakeSoulBuf()
+void ScorePanel::SetDragonSoulBuf()
 {
-	DrakeSoulUI->SetTexture(drakeSoulTex2[(UINT)DrakeSoul]);
+	dragonSoulUI->SetTexture(dragonSoulTex2[(UINT)dragonSoul]);
 }

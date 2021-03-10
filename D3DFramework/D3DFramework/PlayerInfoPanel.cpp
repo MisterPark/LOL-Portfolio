@@ -43,6 +43,7 @@ PlayerInfoPanel::PlayerInfoPanel()
             statLabel[index]->align = Label::Align::Left;
             statLabel[index]->valign = Label::VAlign::Middle;
             statLabel[index]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+            
         }
     }
 
@@ -115,12 +116,34 @@ PlayerInfoPanel::PlayerInfoPanel()
 
 // mainPanel
     mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0, 0)));
-    auto HPBar = mainPanel->AddChild<UI>(L"HPBar", new UI(L"bar_big1", Vector2(74, 123)));
-    auto MPBar = mainPanel->AddChild<UI>(L"MPBar", new UI(L"bar_big2", Vector2(74, 143)));
+    
+    // HP Bar, MP Bar
+    hpBarBack = mainPanel->AddChild<UI>(L"HPBarBack", new UI(L"bar_big_red", Vector2(74, 123)));
+    hpBar     = mainPanel->AddChild<UI>(L"HPBar",     new UI(L"bar_big1",    Vector2(74, 123)));
+    mpBar     = mainPanel->AddChild<UI>(L"MPBar",     new UI(L"bar_big2",    Vector2(74, 143)));
     mainPanel->AddChild<UI>(L"HPBarTipL", new UI(L"bar_tip (1)", Vector2(71, 123)));
     mainPanel->AddChild<UI>(L"HPBarTipR", new UI(L"bar_tip (2)", Vector2(534, 123)));
     mainPanel->AddChild<UI>(L"MPBarTipL", new UI(L"bar_tip (1)", Vector2(71, 143)));
-    mainPanel->AddChild<UI>(L"MPBarTipR", new UI(L"bar_tip (2)", Vector2(534, 143)));
+	mainPanel->AddChild<UI>(L"MPBarTipR", new UI(L"bar_tip (2)", Vector2(534, 143)));
+
+	auto barTex = RenderManager::GetTexture(L"bar_big1");
+    auto markerTex = RenderManager::GetTexture(L"bar_big_marker");
+	hpBarMarker = hpBar->AddChild<UI>(L"HPBarMarker", new UI(L"bar_big_marker", Vector2((barTex->GetSpriteWidth()) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f))));
+	mpBarMarker = mpBar->AddChild<UI>(L"MPBarMarker", new UI(L"bar_big_marker", Vector2((barTex->GetSpriteWidth()) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f))));
+
+    hpLabel = hpBar->AddChild<Label>(L"HPLabel", new Label(18));
+	hpLabel->SetLocation(hpBar->GetSize().x * 0.5f, hpBar->GetSize().y * 0.5f);
+	hpLabel->SetText(L"%d/%d", 100, 100);
+    hpLabel->align = Label::Align::Center;
+    hpLabel->valign = Label::VAlign::Middle;
+    hpLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+
+	mpLabel = mpBar->AddChild<Label>(L"MPLabel", new Label(18));
+	mpLabel->SetLocation(mpBar->GetSize().x * 0.5f, mpBar->GetSize().y * 0.5f);
+	mpLabel->SetText(L"%d/%d", 100, 100);
+	mpLabel->align = Label::Align::Center;
+	mpLabel->valign = Label::VAlign::Middle;
+	mpLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 
     slotSpell1    = mainPanel->AddChild<OutlinedSlot>(L"Spell1",  new OutlinedSlot(L"border_skill (1)", Vector2(125, 30)));
     slotSpell2    = mainPanel->AddChild<OutlinedSlot>(L"Spell2",  new OutlinedSlot(L"border_skill (1)", Vector2(199, 30)));
@@ -133,12 +156,12 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotSummoner1->icon->transform->scale = { 0.71f, 0.71f, 0 };
     slotSummoner2->icon->transform->scale = { 0.71f, 0.71f, 0 };
 
-	Label* QLabel = mainPanel->AddChild<Label>(L"QLabel", new Label(15));
-	Label* WLabel = mainPanel->AddChild<Label>(L"WLabel", new Label(15));
-	Label* ELabel = mainPanel->AddChild<Label>(L"ELabel", new Label(15));
-	Label* RLabel = mainPanel->AddChild<Label>(L"RLabel", new Label(15));
-	Label* DLabel = mainPanel->AddChild<Label>(L"DLabel", new Label(15));
-	Label* FLabel = mainPanel->AddChild<Label>(L"FLabel", new Label(15));
+	Label* QLabel = mainPanel->AddChild<Label>(L"QLabel", new Label(18));
+	Label* WLabel = mainPanel->AddChild<Label>(L"WLabel", new Label(18));
+	Label* ELabel = mainPanel->AddChild<Label>(L"ELabel", new Label(18));
+	Label* RLabel = mainPanel->AddChild<Label>(L"RLabel", new Label(18));
+	Label* DLabel = mainPanel->AddChild<Label>(L"DLabel", new Label(18));
+	Label* FLabel = mainPanel->AddChild<Label>(L"FLabel", new Label(18));
 	QLabel->SetLocation(Vector2(129, 96));
 	WLabel->SetLocation(Vector2(203, 96));
 	ELabel->SetLocation(Vector2(277, 96));
@@ -184,6 +207,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     level->SetLocation(112, 137);
     level->align = Label::Align::Center;
     level->valign = Label::VAlign::Middle;
+
     mainPanel->AddChild<UI>(L"statBtnBorder", new UI(L"stat_panel (4)", Vector2(-107, 86)));
     Button* statBtn1 = mainPanel->AddChild<Button>(L"statBtn1", new Button(L"stat_panel (1)", Vector2(-100, 92)));
     Button* statBtn2 = mainPanel->AddChild<Button>(L"statBtn2", new Button(L"stat_panel (2)", Vector2(-88, 114)));
@@ -191,6 +215,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     statBtn1->SetTextureHover(L"stat_panel (1)_hover");
     statBtn1->SetTexturePressed(L"stat_panel (1)_pressed");
     statBtn1->Click += Engine::Handler(this, &PlayerInfoPanel::PlayerPanel_OnClick);
+
+    SetHP(30, 70);
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()
@@ -247,14 +273,17 @@ void PlayerInfoPanel::Update()
     //}
 
     GameObject::Update();
+    
+    // HP Bar
+    hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
+    hpBarBack->uvRatio.x = hpBarBackRatio;
+
     //mainPanel->Update();
     //invenPanel->Update();
     //faceBorder->Update();
     //facePanel->Update();
     //statPanel->Update();
     //
-    //hpLabel->Update();
-    //mpLabel->Update();
     //
     //slotSpell1->Update();
     //slotSpell2->Update();
@@ -403,6 +432,37 @@ void PlayerInfoPanel::Update()
 //    RenderManager::DrawUIHorizontal(textureKeyMP, mainPanelPos + mpOffsetPos, scaleMP, 0, ratioMP);
 //    mpLabel->Render();
 //}
+
+void PlayerInfoPanel::SetHP(float _value, float _maxValue)
+{
+    hp = _value;
+    hpMax = _maxValue;
+
+    hpBar->uvRatio.x = _value / _maxValue;
+    hpLabel->SetText(L"%d/%d", (int)_value, (int)_maxValue);
+
+    if (hpBarBackRatio < hpBar->uvRatio.x) {
+        hpBarBackRatio = hpBar->uvRatio.x;
+    }
+
+	auto barTex = RenderManager::GetTexture(L"bar_big1");
+	auto markerTex = RenderManager::GetTexture(L"bar_big_marker");
+    hpBarMarker->SetLocation((barTex->GetSpriteWidth() * (_value / _maxValue)) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f));
+
+}
+
+void PlayerInfoPanel::SetMP(float _value, float _maxValue)
+{
+    mp = _value;
+    mpMax = _maxValue;
+
+    mpBar->uvRatio.x = 1.f;
+	mpLabel->SetText(L"%d/%d", (int)_value, (int)_maxValue);
+
+	auto barTex = RenderManager::GetTexture(L"bar_big2");
+	auto markerTex = RenderManager::GetTexture(L"bar_big_marker");
+	mpBarMarker->SetLocation((barTex->GetSpriteWidth() * (_value / _maxValue)) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f));
+}
 
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {
