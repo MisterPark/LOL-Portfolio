@@ -74,7 +74,7 @@ float4 distortion(float2 tex)
 {
     float u = tex2D(NoiseSampler, tex.xy).r;
     float v = tex2D(NoiseSampler, tex.yx).r;
-    return tex2D(Sampler, tex + float2(u, v) * 0.05f);
+    return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * 0.05f);
 }
 float4 ps_distortion(PS_IN input) :COLOR
 {
