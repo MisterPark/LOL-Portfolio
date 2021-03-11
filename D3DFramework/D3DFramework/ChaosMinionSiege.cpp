@@ -13,6 +13,14 @@ ChaosMinionSiege::ChaosMinionSiege()
 	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
+
+	stat->SetBaseValue(StatType::Health, 900.f);
+	stat->SetBaseValue(StatType::MaxHealth, 900.f);
+	stat->SetBaseValue(StatType::AttackDamage, 41.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.667f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+	stat->SetBaseValue(StatType::Range, 3.f);
+	stat->SetBaseValue(StatType::Gold, 60.f);
 }
 
 ChaosMinionSiege::~ChaosMinionSiege()
