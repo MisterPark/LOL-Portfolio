@@ -356,6 +356,17 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_dragonsimbol_water_2.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mobtimepanel.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_heraldtimepanel.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_blue.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_red.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_wind.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_fire.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_earth.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_ocean.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_elder.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_baron.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_riftherald.png");
 
 	// summoner spell
 	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_boost.png");

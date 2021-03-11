@@ -71,8 +71,8 @@ namespace Engine
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
 		void SetPosition(Vector3 _vPos);
-		void Show();
-		void Hide();
+		virtual void Show();
+		virtual void Hide();
 
 		// child
 		template<class T>

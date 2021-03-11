@@ -445,10 +445,9 @@ void PlayerInfoPanel::SetHP(float _value, float _maxValue)
         hpBarBackRatio = hpBar->uvRatio.x;
     }
 
-	auto barTex = RenderManager::GetTexture(L"bar_big1");
-	auto markerTex = RenderManager::GetTexture(L"bar_big_marker");
-    hpBarMarker->SetLocation((barTex->GetSpriteWidth() * (_value / _maxValue)) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f));
-
+    Vector2 barSize = hpBar->GetSize();
+    Vector2 markerSize = hpBarMarker->GetSize();
+    hpBarMarker->SetLocation((barSize.x * (_value / _maxValue)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
 }
 
 void PlayerInfoPanel::SetMP(float _value, float _maxValue)
@@ -459,9 +458,9 @@ void PlayerInfoPanel::SetMP(float _value, float _maxValue)
     mpBar->uvRatio.x = 1.f;
 	mpLabel->SetText(L"%d/%d", (int)_value, (int)_maxValue);
 
-	auto barTex = RenderManager::GetTexture(L"bar_big2");
-	auto markerTex = RenderManager::GetTexture(L"bar_big_marker");
-	mpBarMarker->SetLocation((barTex->GetSpriteWidth() * (_value / _maxValue)) - (markerTex->GetSpriteWidth() * 0.5f), (barTex->GetSpriteHeight() * 0.5f) - (markerTex->GetSpriteHeight() * 0.5f));
+	Vector2 barSize = mpBar->GetSize();
+	Vector2 markerSize = mpBarMarker->GetSize();
+	mpBarMarker->SetLocation((barSize.x * (_value / _maxValue)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
 }
 
 void PlayerInfoPanel::SetTarget(Champion* _target)
