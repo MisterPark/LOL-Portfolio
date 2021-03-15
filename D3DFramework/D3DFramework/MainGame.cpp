@@ -268,6 +268,9 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (3).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"button_skillup (4).png");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"skilllevel_on.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"skilllevel_off.png");
+
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (1).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (2).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (3).png");

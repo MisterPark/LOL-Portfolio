@@ -289,6 +289,7 @@ void ScorePanel::Update()
 		if (mobTime[i] > 0) mobTime[i] -= Time::DeltaTime();
 	}
 
+	// ScorePanel이 활성화 상태일 때
 	if (visible)
 	{
 		for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
