@@ -24,7 +24,11 @@ void Engine::SkinnedMeshRenderer::Render()
 
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();
 	mesh->UpdateFrame();
-	Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+	
+	Matrix matrix = transform->GetWorldMatrix();
+
+	//Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
+	Vector3 worldPos = *((Vector3*)&matrix._41);
 	if (FogOfWarRenderSystem::IsInSight(worldPos) == false)
 	{
 		return;
