@@ -72,6 +72,7 @@ namespace Engine
 		void SetParent(GameObject* _parent);
 		void SetPosition(Vector3 _vPos);
 		virtual void Show();
+		virtual void Show(bool _visible);
 		virtual void Hide();
 
 		// child

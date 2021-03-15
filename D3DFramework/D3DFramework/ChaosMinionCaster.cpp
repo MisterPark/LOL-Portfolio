@@ -13,6 +13,14 @@ ChaosMinionCaster::ChaosMinionCaster()
 	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
+
+	stat->SetBaseValue(StatType::Health, 296.f);
+	stat->SetBaseValue(StatType::MaxHealth, 296.f);
+	stat->SetBaseValue(StatType::AttackDamage, 24.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.667f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+	stat->SetBaseValue(StatType::Range, 5.5f);
+	stat->SetBaseValue(StatType::Gold, 14.f);
 }
 
 ChaosMinionCaster::~ChaosMinionCaster()

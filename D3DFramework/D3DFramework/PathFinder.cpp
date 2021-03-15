@@ -31,17 +31,18 @@ int Engine::PathFinder::Node::G()
 	return (int)len;
 }
 
-int Engine::PathFinder::Node::H(Node* dest)
+int Engine::PathFinder::Node::H()
 {
-	Vector3 dir = dest->position - position;
+	if (destination == nullptr) return 0;
+	Vector3 dir = destination->position - position;
 	float len = dir.Length();
 
 	return (int)len;
 }
 
-int Engine::PathFinder::Node::F(Node* dest)
+int Engine::PathFinder::Node::F()
 {
-	return G() + H(dest);
+	return G() + H();
 }
 
 //=======================================================

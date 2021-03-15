@@ -14,13 +14,14 @@ enum class StatType {
 	Health,Mana, Experience, // 체력, 마나, 경험치
 	MaxHealth, MaxMana, MaxExperience, // 최대 체력, 최대 마나, 최대 경험치
 	HealthRegen, ManaRegen, // 체력 회복량, 마나 회복량
-	Shield,
+	Shield, // 쉴드량
 	LifeSteal, PhysicalVamp, OmniVamp, // 생명력 흡수, 물리 피해 흡혈, 모든 피해 흡혈
 	HealAndShieldPower, // 회복 및 보호막 효과
 	Tenacity, SlowResist, // 강인함, 둔화 저항
 	Range,AttackSpeed, // 사정거리, 1초당 공격속도(횟수)
 	DamageReduction,
 	Level, // 레벨
+	Gold,
 	END
 };
 

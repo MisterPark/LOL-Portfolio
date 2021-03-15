@@ -35,6 +35,10 @@ void Engine::GameObject::PreUpdate()
 	{
 		comp.second->PreUpdate();
 	}
+	for (auto iter : children)
+	{
+		iter.second->PreUpdate();
+	}
 }
 
 void Engine::GameObject::Update()
@@ -213,6 +217,24 @@ void Engine::GameObject::Show()
 		child.second->Show();
 	}
 	visible = true;
+}
+
+void Engine::GameObject::Show(bool _visible)
+{
+	auto iter = components.begin();
+	auto end = components.end();
+	for (; iter != end; ++iter)
+	{
+		auto comp = dynamic_cast<Renderer*>(iter->second);
+		if (comp == nullptr) continue;
+		comp->visible = _visible;
+	}
+
+	for (auto child : children)
+	{
+		child.second->Show();
+	}
+	visible = _visible;
 }
 
 void Engine::GameObject::Hide()

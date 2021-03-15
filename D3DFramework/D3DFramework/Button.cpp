@@ -25,10 +25,9 @@ void Button::Release()
 
 void Button::Update()
 {
-	
 	UI::Update();
-
 }
+
 
 void Button::OnHover()
 {

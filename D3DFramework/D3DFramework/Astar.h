@@ -7,7 +7,7 @@ namespace Engine
 	{
 		bool operator()(PathFinder::Node* a, PathFinder::Node* b)
 		{
-			return a->F(a->destination) > b->F(b->destination);
+			return a->F() > b->F();
 		}
 	};
 
