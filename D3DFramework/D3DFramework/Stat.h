@@ -4,23 +4,23 @@
 class Unit;
 class Buff;
 
-enum class StatType{
-	AttackDamage, AbilityPower,
-	ArmorPenetration,ArmorPenetrationPercent,
-	MagicPenetration,MagicPenetrationPercent,
-	Armor,MagicResistance,
-	MovementSpeed,CriticlaChance,
-	AbilityHaste,
-	Health,Mana, Experience,
-	MaxHealth, MaxMana, MaxExperience,
-	HealthRegen,ManaRegen,
-	Shield,
-	LifeSteal, PhysicalVamp, OmniVamp,
-	HealAndShieldPower, // 회복 및 보호막효과
+enum class StatType {
+	AttackDamage, AbilityPower, // 공격력, 주문력
+	ArmorPenetration, ArmorPenetrationPercent, // 방어구 관통력
+	MagicPenetration, MagicPenetrationPercent, // 마법 관통력
+	Armor,MagicResistance, // 방어력, 마법 저항력
+	MovementSpeed,CriticlaChance, // 이동 속도, 치명타 확률
+	AbilityHaste, // 스킬 가속
+	Health,Mana, Experience, // 체력, 마나, 경험치
+	MaxHealth, MaxMana, MaxExperience, // 최대 체력, 최대 마나, 최대 경험치
+	HealthRegen, ManaRegen, // 체력 회복량, 마나 회복량
+	Shield, // 쉴드량
+	LifeSteal, PhysicalVamp, OmniVamp, // 생명력 흡수, 물리 피해 흡혈, 모든 피해 흡혈
+	HealAndShieldPower, // 회복 및 보호막 효과
 	Tenacity, SlowResist, // 강인함, 둔화 저항
-	Range,AttackSpeed, // 사거리, 1초당 공격속도(횟수)
+	Range,AttackSpeed, // 사정거리, 1초당 공격속도(횟수)
 	DamageReduction,
-	Level,
+	Level, // 레벨
 	Gold,
 	END
 };
