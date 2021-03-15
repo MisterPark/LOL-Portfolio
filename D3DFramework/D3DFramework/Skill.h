@@ -1,7 +1,7 @@
 ﻿#pragma once
+#include "DamageCalc.h"
 
 class Unit;
-
 class Skill abstract
 {
 public:
@@ -16,6 +16,9 @@ public:
 	bool IsActive() { return active; }
 	bool IsAvailable();
 
+	void Add_DamageCalc(DamageCalc* _damageCalc);
+	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
+
 protected:
 	Unit* hostUnit = nullptr;
 	float coolTime_Init = 0.f;
@@ -24,5 +27,7 @@ protected:
 	int level = 0;
 	bool active = false;
 	
+	// 데미지계산관련
+	list<DamageCalc*> damageCalcList;
 };
 

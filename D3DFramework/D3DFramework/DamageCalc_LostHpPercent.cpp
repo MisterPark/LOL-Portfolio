@@ -14,7 +14,7 @@ DamageCalc_LostHpPercent::~DamageCalc_LostHpPercent()
 void DamageCalc_LostHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
 	float targetLostHp = _targetStat->GetValue(StatType::MaxHealth) - _targetStat->GetValue(StatType::Health);
-	float lostHpDamage = targetLostHp;
+	float lostHpDamage = targetLostHp * value;
 	if (trueDamage) {
 		*_damage += lostHpDamage;
 		return;

@@ -187,6 +187,9 @@
     <ClInclude Include="BlueMonster.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Buff.h" />
+    <ClInclude Include="Buff_GarenEArmorDec.h" />
+    <ClInclude Include="Buff_GarenEDamage.h" />
+    <ClInclude Include="Buff_GarenPHealthRegen.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="Buff_GarenQHaste.h" />
     <ClInclude Include="Buff_GarenWReduction.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="DamageCalc_MaxHpPercent.h" />
     <ClInclude Include="DamageCalc_OnHit.h" />
     <ClInclude Include="DamageObject.h" />
+    <ClInclude Include="DamageObject_Garen_E.h" />
     <ClInclude Include="Darius.h" />
     <ClInclude Include="DeferredStaticMeshRenderer.h" />
     <ClInclude Include="Diana.h" />
@@ -324,7 +328,10 @@
     <ClInclude Include="ScorePanel.h" />
     <ClInclude Include="Scuttleracer.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="Skill_Garen_E.h" />
+    <ClInclude Include="Skill_Garen_P.h" />
     <ClInclude Include="Skill_Garen_Q.h" />
+    <ClInclude Include="Skill_Garen_R.h" />
     <ClInclude Include="Skill_Garen_W.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
@@ -376,6 +383,9 @@
     <ClCompile Include="BlueMonster.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Buff.cpp" />
+    <ClCompile Include="Buff_GarenEArmorDec.cpp" />
+    <ClCompile Include="Buff_GarenEDamage.cpp" />
+    <ClCompile Include="Buff_GarenPHealthRegen.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="Buff_GarenQHaste.cpp" />
     <ClCompile Include="Buff_GarenWReduction.cpp" />
@@ -398,6 +408,7 @@
     <ClCompile Include="DamageCalc_MaxHpPercent.cpp" />
     <ClCompile Include="DamageCalc_OnHit.cpp" />
     <ClCompile Include="DamageObject.cpp" />
+    <ClCompile Include="DamageObject_Garen_E.cpp" />
     <ClCompile Include="Darius.cpp" />
     <ClCompile Include="DeferredStaticMeshRenderer.cpp" />
     <ClCompile Include="Diana.cpp" />
@@ -505,7 +516,10 @@
     <ClCompile Include="ScorePanel.cpp" />
     <ClCompile Include="Scuttleracer.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Skill_Garen_E.cpp" />
+    <ClCompile Include="Skill_Garen_P.cpp" />
     <ClCompile Include="Skill_Garen_Q.cpp" />
+    <ClCompile Include="Skill_Garen_R.cpp" />
     <ClCompile Include="Skill_Garen_W.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
