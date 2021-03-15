@@ -299,7 +299,7 @@ void PlayerInfoPanel::Update()
         statLabel[1]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[1]));
         statLabel[2]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[2]));
         statLabel[3]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[3]));
-        statLabel[4]->SetText(L"%.2f", champion->stat->GetValue(statNum[4]));
+        statLabel[4]->SetText(L"%.2f",      champion->stat->GetValue(statNum[4]));
         statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
 		statLabel[6]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[6]));
 		statLabel[7]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[7]));
