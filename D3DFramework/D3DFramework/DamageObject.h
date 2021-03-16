@@ -29,12 +29,12 @@ public:
     bool Check_DamagedOverlap(GameObject* damagedObject);
     void Add_DamageCalc(DamageCalc* _damageCalc);
 
-private:
+protected:
     void ObjectFollowMove();
     void Calc_StartOfInterval();
     void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
-private:
+protected:
     Team team = Team::NEUTRAL;
     float attackDamage = 0.f;
     float lifeTime = 0.f;                   //살아있는시간
@@ -45,6 +45,7 @@ private:
     float startTime = 0.f;
     bool attackCheck = false;
 
+    SphereCollider* collider = nullptr;
     Unit* hostObject = nullptr;
     Unit* followObject = nullptr;
     list<DamageCalc*> damageCalcList;   //데미지계산관련

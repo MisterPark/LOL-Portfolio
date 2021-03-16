@@ -13,6 +13,14 @@ ChaosMinionMelee::ChaosMinionMelee()
 	AddComponent(L"renderer", renderer);
 
 	anim->AttachToDynamicMesh(dmesh);
+
+	stat->SetBaseValue(StatType::Health, 477.f);
+	stat->SetBaseValue(StatType::MaxHealth, 477.f);
+	stat->SetBaseValue(StatType::AttackDamage, 12.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 1.25f);
+	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+	stat->SetBaseValue(StatType::Range, 1.1f);
+	stat->SetBaseValue(StatType::Gold, 21.f);
 }
 
 ChaosMinionMelee::~ChaosMinionMelee()

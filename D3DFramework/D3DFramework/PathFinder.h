@@ -28,8 +28,8 @@ namespace Engine
 			virtual ~Node();
 
 			virtual int G();
-			virtual int H(Node* dest);
-			virtual int F(Node* dest);
+			virtual int H();
+			virtual int F();
 
 		};
 

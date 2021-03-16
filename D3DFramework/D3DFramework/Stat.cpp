@@ -93,7 +93,7 @@ void Stat::Update()
 
 void Stat::PostUpdate()
 {
-    
+    // 사망처리 & 체력,마나 클램프
     if (baseValues[(int)StatType::Health] < 0)
     {
         baseValues[(int)StatType::Health] = 0;
@@ -117,6 +117,12 @@ void Stat::PostUpdate()
         baseValues[(int)StatType::Mana] = baseValues[(int)StatType::MaxMana];
     }
 
+    // 레벨업
+    if (baseValues[(int)StatType::Experience] > baseValues[(int)StatType::MaxExperience])
+    {
+        baseValues[(int)StatType::Experience] = 0;
+        baseValues[(int)StatType::Level] += 1;
+    }
 }
 
 float Stat::operator[](StatType type)
@@ -151,6 +157,16 @@ float Stat::GetValue(StatType _type)
 
 void Stat::AddBuff(Buff* buff)
 {
+    for (auto _buff : buffList)
+    {
+        if (buff->buffName == _buff->buffName) {
+            if(_buff->overlapCount < _buff->maxOverlapCount)
+                _buff->overlapCount++;
+            _buff->tick = 0.f;
+            delete buff;
+            return;
+        }
+    }
     buffList.push_back(buff);
 }
 

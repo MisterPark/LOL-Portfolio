@@ -48,17 +48,20 @@ void Engine::UI::Release()
 
 void Engine::UI::PreUpdate()
 {
-	
+	UpdateEvent();
+	GameObject::PreUpdate();
 }
 
-void UI::Update()
+void Engine::UI::Update()
 {
-	UpdateEvent();
 	GameObject::Update();
 }
 
+
 void UI::UpdateEvent()
 {
+	if (visible == false) return;
+
 	float dt = Time::DeltaTime();
 	Vector3 cursorPos = Cursor::GetMousePos();
 
