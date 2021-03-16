@@ -52,7 +52,9 @@ namespace Engine
         void SetLocation(Vector2 pos);
         virtual void SetTexture(const wstring& _key);
 
-        virtual void SetText(const wstring& _text);
+		virtual void SetText(const wstring& _text);
+		virtual void SetText(int _value);
+		virtual void SetText(LPCTSTR pszStr, ...);
 
         // child
         UI* CreateChild(const std::wstring& _tag, const Vector2& _pos);

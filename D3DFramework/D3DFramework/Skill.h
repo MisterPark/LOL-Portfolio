@@ -19,6 +19,9 @@ public:
 	void Add_DamageCalc(DamageCalc* _damageCalc);
 	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
+	float GetCooltime();
+	float GetCooltime_Init();
+
 protected:
 	Unit* hostUnit = nullptr;
 	float coolTime_Init = 0.f;

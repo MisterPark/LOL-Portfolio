@@ -51,11 +51,18 @@ PlayerInfoPanel::PlayerInfoPanel()
     invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(558, 6)));
     invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30)));
     invenPanel->AddChild<OutlinedSlot>(L"recallSlot", new OutlinedSlot(L"border_skill (6)", Vector2(176, 82)));
-    auto itemshopBtn = invenPanel->AddChild<Button>(L"itemsshopBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
+	
+	itemshopBtn = invenPanel->AddChild<Button>(L"itemsshopBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
     itemshopBtn->SetTextureDisable(L"button_gold (1)");
     itemshopBtn->SetTextureHover(L"button_gold (3)");
     itemshopBtn->SetTexturePressed(L"button_gold (4)");
     itemshopBtn->Click += Engine::Handler(&ItemshopPanel::ToggleVisible);
+	itemshopBtn->SetText(L"1000");
+	itemshopBtn->SetLabelSize(18);
+	itemshopBtn->SetLabelPosition(Vector2(127, 16));
+	itemshopBtn->SetLabelAlign(Label::Align::Center);
+	itemshopBtn->SetLabelVAlign(Label::VAlign::Middle);
+	itemshopBtn->SetLabelColor(D3DCOLOR_ARGB(255, 236, 229, 142));
 
 	Label* Item1Label = invenPanel->AddChild<Label>(L"Item1Label", new Label(15));
     Item1Label->SetText(1);
@@ -164,7 +171,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotSpell2    = mainPanel->AddChild<OutlinedSlot>(L"Spell2",  new OutlinedSlot(L"border_skill (1)", Vector2(199, 30)));
     slotSpell3    = mainPanel->AddChild<OutlinedSlot>(L"Spell3",  new OutlinedSlot(L"border_skill (1)", Vector2(273, 30)));
     slotSpell4    = mainPanel->AddChild<OutlinedSlot>(L"Spell4",  new OutlinedSlot(L"border_skill (1)", Vector2(347, 30)));
-    
+
     for(int i = 0; i < spell1LevelMax; ++i)
         spell1LevelUI[i] = mainPanel->AddChild<UI>(L"spelllevel1", new UI(L"skilllevel_off", Vector2(133 + (11 * i), 104)));
 
@@ -227,6 +234,34 @@ PlayerInfoPanel::PlayerInfoPanel()
 	DLabel->outline = true;
 	FLabel->outline = true;
 
+    spell1LevelUpButton = mainPanel->AddChild<Button>(L"spell1LevelUpButton", new Button(L"button_skillup (1)", Vector2(131, -25)));
+    spell1LevelUpButton->SetTextureHover(L"button_skillup (2)");
+    spell1LevelUpButton->SetTexturePressed(L"button_skillup (3)");
+    spell1LevelUpButton->SetTextureDisable(L"button_skillup (4)");
+
+	spell2LevelUpButton = mainPanel->AddChild<Button>(L"spell2LevelUpButton", new Button(L"button_skillup (1)", Vector2(205, -25)));
+	spell2LevelUpButton->SetTextureHover(L"button_skillup (2)");
+	spell2LevelUpButton->SetTexturePressed(L"button_skillup (3)");
+	spell2LevelUpButton->SetTextureDisable(L"button_skillup (4)");
+
+	spell3LevelUpButton = mainPanel->AddChild<Button>(L"spell3LevelUpButton", new Button(L"button_skillup (1)", Vector2(279, -25)));
+	spell3LevelUpButton->SetTextureHover(L"button_skillup (2)");
+	spell3LevelUpButton->SetTexturePressed(L"button_skillup (3)");
+	spell3LevelUpButton->SetTextureDisable(L"button_skillup (4)");
+
+	spell4LevelUpButton = mainPanel->AddChild<Button>(L"spell4LevelUpButton", new Button(L"button_skillup (1)", Vector2(353, -25)));
+	spell4LevelUpButton->SetTextureHover(L"button_skillup (2)");
+	spell4LevelUpButton->SetTexturePressed(L"button_skillup (3)");
+	spell4LevelUpButton->SetTextureDisable(L"button_skillup (4)");
+
+    spellPointLabel = mainPanel->AddChild<Label>(L"spellPointLabel", new Label());
+    spellPointLabel->SetLocation(254, -50);
+    spellPointLabel->SetText(L"레벨 업! +%d", 1);
+    spellPointLabel->align = Label::Align::Center;
+    spellPointLabel->valign = Label::VAlign::Middle;
+    spellPointLabel->foreColor = D3DCOLOR_ARGB(255, 255, 247, 153);
+    
+
     facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
     mainPanel->AddChild<UI>(L"expBar", new UI(L"bar_exp", Vector2(14, 21)));
     auto champBorder = mainPanel->AddChild<UI>(L"champBorder", new UI(L"panel (1)", Vector2(-93, 11)));
@@ -279,12 +314,41 @@ void PlayerInfoPanel::Update()
 {
     GameObject::Update();
     
-    // HP Bar
-    hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
-    hpBarBack->uvRatio.x = hpBarBackRatio;
-
-	// Stat
     if (champion != nullptr) {
+	// HP Bar
+		{
+			float hp = champion->stat->GetValue(StatType::Health);
+			if (hp < 0) hp = 0;
+			float hpMax = champion->stat->GetValue(StatType::MaxHealth);
+			hpBar->uvRatio.x = hp / hpMax;
+			hpLabel->SetText(L"%d/%d", (int)hp, (int)hpMax);
+
+			if (hpBarBackRatio < hpBar->uvRatio.x) {
+				hpBarBackRatio = hpBar->uvRatio.x;
+			}
+
+			Vector2 barSize = hpBar->GetSize();
+			Vector2 markerSize = hpBarMarker->GetSize();
+			hpBarMarker->SetLocation((barSize.x * (hp / hpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+
+			hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
+			hpBarBack->uvRatio.x = hpBarBackRatio;
+		}
+	// MP Bar
+		{
+			float mp = champion->stat->GetValue(StatType::Mana);
+			if (mp < 0) mp = 0;
+			float mpMax = champion->stat->GetValue(StatType::MaxMana);
+
+			mpBar->uvRatio.x = 1.f;
+			mpLabel->SetText(L"%d/%d", (int)mp, (int)mpMax);
+
+			Vector2 barSize = mpBar->GetSize();
+			Vector2 markerSize = mpBarMarker->GetSize();
+			mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+		}
+
+    // Stat
 		// HP Regen
         hpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::HealthRegen));
         if (champion->stat->GetValue(StatType::Health) < champion->stat->GetValue(StatType::MaxHealth)) hpRegenLabel->Show();
@@ -299,10 +363,33 @@ void PlayerInfoPanel::Update()
         statLabel[1]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[1]));
         statLabel[2]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[2]));
         statLabel[3]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[3]));
-        statLabel[4]->SetText(L"%.2f", champion->stat->GetValue(statNum[4]));
+        statLabel[4]->SetText(L"%.2f",      champion->stat->GetValue(statNum[4]));
         statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
 		statLabel[6]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[6]));
-		statLabel[7]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[7]));
+		statLabel[7]->SetText(L"%d",   (int)(champion->stat->GetValue(statNum[7]) * 100));
+
+		itemshopBtn->SetText(champion->stat->GetValue(StatType::Gold));
+
+	// Spell
+		slotSpell1->SetCooltime(
+			champion->skillList[(int)SkillIndex::Q]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::Q]->GetCooltime_Init()
+		);
+
+		slotSpell2->SetCooltime(
+			champion->skillList[(int)SkillIndex::W]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::W]->GetCooltime_Init()
+		);
+
+		slotSpell3->SetCooltime(
+			champion->skillList[(int)SkillIndex::E]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::E]->GetCooltime_Init()
+		);
+
+		slotSpell4->SetCooltime(
+			champion->skillList[(int)SkillIndex::R]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::R]->GetCooltime_Init()
+		);
     }
 }
 //
@@ -439,36 +526,6 @@ void PlayerInfoPanel::Update()
 //    RenderManager::DrawUIHorizontal(textureKeyMP, mainPanelPos + mpOffsetPos, scaleMP, 0, ratioMP);
 //    mpLabel->Render();
 //}
-
-void PlayerInfoPanel::SetHP(float _value, float _maxValue)
-{
-    hp = _value;
-    hpMax = _maxValue;
-
-    hpBar->uvRatio.x = _value / _maxValue;
-    hpLabel->SetText(L"%d/%d", (int)_value, (int)_maxValue);
-
-    if (hpBarBackRatio < hpBar->uvRatio.x) {
-        hpBarBackRatio = hpBar->uvRatio.x;
-    }
-
-    Vector2 barSize = hpBar->GetSize();
-    Vector2 markerSize = hpBarMarker->GetSize();
-    hpBarMarker->SetLocation((barSize.x * (_value / _maxValue)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
-}
-
-void PlayerInfoPanel::SetMP(float _value, float _maxValue)
-{
-    mp = _value;
-    mpMax = _maxValue;
-
-    mpBar->uvRatio.x = 1.f;
-	mpLabel->SetText(L"%d/%d", (int)_value, (int)_maxValue);
-
-	Vector2 barSize = mpBar->GetSize();
-	Vector2 markerSize = mpBarMarker->GetSize();
-	mpBarMarker->SetLocation((barSize.x * (_value / _maxValue)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
-}
 
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {
