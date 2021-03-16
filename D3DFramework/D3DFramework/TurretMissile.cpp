@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TurretMissile.h"
 #include "Rectangle.h"
 #include "SphereCollider.h"
@@ -10,6 +10,10 @@ TurretMissile::TurretMissile()
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);
 	transform->scale = { 0.5f,0.5f, 1.f };
+
+	Engine::DeferredStaticMeshRenderer* renderer =
+		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
+	renderer->SetMesh(mesh);
 }
 
 TurretMissile::~TurretMissile()

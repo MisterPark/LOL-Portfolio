@@ -85,11 +85,11 @@ public:
 
 	virtual void Die();
 	// 행동
-	void DeadAction();
-	void AttackAction();
-	void CounterAttack();
-	void IdleAction();
-	void MoveAction();
+	virtual void DeadAction();
+	virtual void AttackAction();
+	virtual void CounterAttack();
+	virtual void IdleAction();
+	virtual void MoveAction();
 	virtual void SkillQAction();
 	virtual void SkillWAction();
 	virtual void SkillEAction();
