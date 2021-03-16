@@ -18,8 +18,7 @@ Skill_Garen_Q::~Skill_Garen_Q()
 
 void Skill_Garen_Q::Start()
 {
-	if (coolTime > 0.f)
-		return;
+	Skill::Start();
 
 	durationSpeedTime = 2.5f;// 0.35f + level * 0.65f;
 	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
@@ -28,7 +27,6 @@ void Skill_Garen_Q::Start()
 	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;
-	active = true;
 	hostUnit->attackTick = 0.f;
 	hostUnit->attackFlag = false;
 	
@@ -59,5 +57,5 @@ void Skill_Garen_Q::Active()
 
 void Skill_Garen_Q::End()
 {
-	active = false;
+	Skill::End();
 }

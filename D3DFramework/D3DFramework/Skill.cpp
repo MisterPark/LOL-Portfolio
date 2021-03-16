@@ -15,6 +15,32 @@ Skill::~Skill()
 	}
 }
 
+void Skill::Start()
+{
+	if (coolTime > 0.f)
+		return;
+	active = true;
+	tick = duration;
+}
+
+void Skill::Passive()
+{
+}
+
+void Skill::Active()
+{
+}
+
+void Skill::End()
+{
+	active = false;
+}
+
+bool Skill::IsActive()
+{
+	return active;
+}
+
 bool Skill::IsAvailable()
 {
 	if (!active)

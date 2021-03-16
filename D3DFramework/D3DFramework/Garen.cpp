@@ -15,6 +15,7 @@
 #include "Skill_Garen_E.h"
 #include "Skill_Garen_R.h"
 #include "Buff_GarenQAttack.h"
+#include "ChampionSubTree.h"
 
 Garen::Garen()
 {
@@ -64,6 +65,9 @@ Garen::Garen()
 	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 	skillList[(int)SkillIndex::E] = new Skill_Garen_E(this);
 	skillList[(int)SkillIndex::R] = new Skill_Garen_R(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Garen::~Garen()

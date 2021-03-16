@@ -22,8 +22,7 @@ Skill_Garen_R::~Skill_Garen_R()
 
 void Skill_Garen_R::Start()
 {
-	if (coolTime > 0.f)
-		return;
+	Skill::Start();
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
@@ -43,7 +42,6 @@ void Skill_Garen_R::Start()
 
 
 	coolTime = coolTime_Init;
-	active = true;
 
 }
 
@@ -72,5 +70,5 @@ void Skill_Garen_R::Active()
 
 void Skill_Garen_R::End()
 {
-	active = false;
+	Skill::End();
 }
