@@ -1,8 +1,8 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TurretMissile.h"
 #include "Rectangle.h"
 #include "SphereCollider.h"
-
+#include "ForwardRenderer.h"
 TurretMissile::TurretMissile()
 {
 	mesh = (Engine::Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
@@ -10,6 +10,10 @@ TurretMissile::TurretMissile()
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);
 	transform->scale = { 0.5f,0.5f, 1.f };
+	ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
+	renderer->SetMesh(mesh);
+	renderer->SetDiffuseTextureParam("g_diffuseTexture");
+	AddComponent(L"renderer", renderer);
 }
 
 TurretMissile::~TurretMissile()
