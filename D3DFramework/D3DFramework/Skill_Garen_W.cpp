@@ -18,8 +18,7 @@ Skill_Garen_W::~Skill_Garen_W()
 
 void Skill_Garen_W::Start()
 {
-	if (coolTime > 0.f)
-		return;
+	Skill::Start();
 
 	reductionTime = 2.f;// 1.25f + level * 0.75f;
 	Buff_GarenWReduction* reductionBuff = new Buff_GarenWReduction(hostUnit, reductionTime, 0.5f);//reductionValue);
@@ -31,7 +30,6 @@ void Skill_Garen_W::Start()
 	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;
-	active = true;
 
 }
 
@@ -60,5 +58,5 @@ void Skill_Garen_W::Active()
 
 void Skill_Garen_W::End()
 {
-	active = false;
+	Skill::End();
 }

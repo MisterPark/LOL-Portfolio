@@ -17,11 +17,9 @@ Skill_Garen_P::~Skill_Garen_P()
 
 void Skill_Garen_P::Start()
 {
-	if (coolTime > 0.f)
-		return;
+	Skill::Start();
 
 	coolTime = coolTime_Init;
-	active = true;
 
 }
 
@@ -60,5 +58,5 @@ void Skill_Garen_P::Active()
 
 void Skill_Garen_P::End()
 {
-	active = false;
+	Skill::End();
 }

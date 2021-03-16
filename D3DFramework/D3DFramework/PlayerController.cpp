@@ -44,22 +44,45 @@ void PlayerController::Update()
 
     }
 
-    if (Input::GetKeyDown('Q'))
+    if (Input::GetKey(VK_CONTROL))
     {
-        unit->Spell1();
+        if (Input::GetKeyDown('Q'))
+        {
+
+        }
+        if (Input::GetKeyDown('W'))
+        {
+
+        }
+        if (Input::GetKeyDown('E'))
+        {
+
+        }
+        if (Input::GetKeyDown('R'))
+        {
+
+        }
     }
-    if (Input::GetKeyDown('W'))
+    else
     {
-        unit->Spell2();
+        if (Input::GetKeyDown('Q'))
+        {
+            unit->Spell1();
+        }
+        if (Input::GetKeyDown('W'))
+        {
+            unit->Spell2();
+        }
+        if (Input::GetKeyDown('E'))
+        {
+            unit->Spell3();
+        }
+        if (Input::GetKeyDown('R'))
+        {
+            unit->Spell4();
+        }
     }
-    if (Input::GetKeyDown('E'))
-    {
-        unit->Spell3();
-    }
-    if (Input::GetKeyDown('R'))
-    {
-        unit->Spell4();
-    }
+    
     
 
     if (Input::GetMouseWheelUp())

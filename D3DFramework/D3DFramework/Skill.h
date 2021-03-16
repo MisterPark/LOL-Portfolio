@@ -13,7 +13,7 @@ public:
 	virtual void Active() = 0;
 	virtual void End() = 0;
 	void SetActive(bool _active) { active = _active; }
-	bool IsActive() { return active; }
+	bool IsActive();
 	bool IsAvailable();
 
 	void Add_DamageCalc(DamageCalc* _damageCalc);
@@ -23,6 +23,7 @@ protected:
 	Unit* hostUnit = nullptr;
 	float coolTime_Init = 0.f;
 	float coolTime = 0.f;
+	float tick = 0.f;
 	float duration = 0.f;
 	int level = 0;
 	bool active = false;

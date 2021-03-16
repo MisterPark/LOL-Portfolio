@@ -200,6 +200,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Champion.h" />
+    <ClInclude Include="ChampionSubTree.h" />
     <ClInclude Include="ChaosMinionCaster.h" />
     <ClInclude Include="ChaosMinionSiege.h" />
     <ClInclude Include="ChaosMinionSuper.h" />
@@ -397,6 +398,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Champion.cpp" />
+    <ClCompile Include="ChampionSubTree.cpp" />
     <ClCompile Include="ChaosMinionCaster.cpp" />
     <ClCompile Include="ChaosMinionSiege.cpp" />
     <ClCompile Include="ChaosMinionSuper.cpp" />

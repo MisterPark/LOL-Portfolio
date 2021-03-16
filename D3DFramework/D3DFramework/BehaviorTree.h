@@ -67,7 +67,7 @@ namespace Engine
 		virtual BehaviorTree::Status Update() override;
 	};
 
-	class SelectorNode final : public CompositeNode
+	class SelectorNode : public CompositeNode
 	{
 	public:
 		SelectorNode();

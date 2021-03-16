@@ -9,7 +9,7 @@ TurretMissile::TurretMissile()
 	mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
 	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
 	mesh->SetCullMode(CullMode::NONE);
-	transform->scale = { 0.5f,0.5f, 1.f };
+	transform->scale = { 0.75f,0.75f, 0.75f };
 	ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
 	renderer->SetMesh(mesh);
 	renderer->SetDiffuseTextureParam("g_diffuseTexture");
@@ -49,7 +49,18 @@ void TurretMissile::Update()
 
 	if (attackTarget != nullptr)
 	{
-		FaceTarget(attackTarget->transform->position);
+		//FaceTarget(attackTarget->transform->position);
+		Billboard();
+
+		//Vector3 dir = attackTarget->transform->position - transform->position;
+		//dir.y = 0.f;
+		//Quaternion qRot;
+		//Vector3 axis = Vector3::Cross(dir, Vector3::UP);
+		//float angle = acosf(Vector3::Dot(Vector3::UP, dir.Normalized()));
+		//D3DXQuaternionRotationAxis(&qRot, &axis, angle);
+		//Vector3 euler = Quaternion::ToEulerAngles(qRot);
+
+		//transform->eulerAngles = euler;
 	}
 
 	GameObject::Update();
