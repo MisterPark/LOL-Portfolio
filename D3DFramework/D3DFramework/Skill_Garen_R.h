@@ -13,7 +13,7 @@ public:
     virtual void End();
 
 private:
-    float baseDamage = 50.f;
+    float baseDamage = 150.f;
     float growthDamage = 50.f;
     float lostHpWeight = 0.2f;
     float growthLostHpWeight = 0.05f;

@@ -31,15 +31,16 @@ void Skill_Garen_P::Passive()
 		coolTime -= Time::DeltaTime();
 	}
 
-	//TODO 999.f 말고 -1.f  를 넣어서 예외처리 하고싶음(지속시간 없는것들)
 	if (passiveBuff == nullptr && coolTime <= 0.f) {
-		passiveBuff = new Buff_GarenPHealthRegen(hostUnit, 999.f);
+		passiveBuff = new Buff_GarenPHealthRegen(hostUnit);
 		hostUnit->stat->AddBuff(passiveBuff);
 	}
 	else if(coolTime > 0.f && passiveBuff != nullptr){
 		passiveBuff->duration = 0.f;
 		passiveBuff = nullptr;
 	}
+
+	//TODO: 스위치이용해서 맞으면 쿨타임 늘리기
 }
 
 void Skill_Garen_P::Active()
