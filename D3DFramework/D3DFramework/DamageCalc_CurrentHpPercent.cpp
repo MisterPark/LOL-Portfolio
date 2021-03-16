@@ -13,7 +13,7 @@ DamageCalc_CurrentHpPercent::~DamageCalc_CurrentHpPercent()
 
 void DamageCalc_CurrentHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
-	float currentHpDamage = _targetStat->GetValue(StatType::Health);
+	float currentHpDamage = _targetStat->GetValue(StatType::Health) * value;
 	if (trueDamage) {
 		*_damage += currentHpDamage;
 		return;

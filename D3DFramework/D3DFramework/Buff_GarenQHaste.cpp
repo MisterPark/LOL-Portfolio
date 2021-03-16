@@ -4,6 +4,7 @@
 
 Buff_GarenQHaste::Buff_GarenQHaste(Unit* _host, float _duration) :Buff(_host,_duration)
 {
+	buffName = BuffName::GarenQHaste;
 	AddModifier(StatType::MovementSpeed, 0.3f, true);
 }
 

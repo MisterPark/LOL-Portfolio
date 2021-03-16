@@ -4,6 +4,7 @@
 
 Buff_GarenWReduction::Buff_GarenWReduction(Unit* _host, float _duration, float _value) :Buff(_host, _duration)
 {
+	buffName = BuffName::GarenWReduction;
 	AddModifier(StatType::DamageReduction, _value, false);
 }
 
