@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Slot.h"
 #include "Item.h"
 
@@ -60,6 +60,7 @@ void Slot::OnRButtonDown()
 
 void Slot::Use()
 {
+#if 0
 	if (item != nullptr)
 	{
 		item->Use();
@@ -70,6 +71,7 @@ void Slot::Use()
 
 		}
 	}
+#endif
 }
 
 void Slot::Initialize()

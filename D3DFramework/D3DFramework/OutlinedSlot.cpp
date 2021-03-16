@@ -14,8 +14,7 @@ OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos, 
 		icon = AddChild<UI>(L"icon", new UI(Vector2(0, 0)));
 	}
 	renderer = icon->GetComponent<UIRenderer>();
-	cooltime = 60.f;
-
+	
 	Initialize();
 }
 
@@ -46,4 +45,9 @@ void OutlinedSlot::SetIcon(const std::wstring& _tag)
 	Vector2 outlineSize = outline->GetSize();
 	Vector2 iconSize = icon->GetSize();
 	icon->SetLocation((outlineSize.x - iconSize.x) * 0.5f, (outlineSize.y - iconSize.y) * 0.5f);
+}
+
+void OutlinedSlot::SetCooltime(float _cooltime)
+{
+	cooltime = _cooltime;
 }
