@@ -301,6 +301,9 @@
     <Filter Include="Buff\Garen">
       <UniqueIdentifier>{cca0deb1-6a2b-48ca-9f44-1a04084d32e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\ForwardRenderer">
+      <UniqueIdentifier>{10662945-6726-46eb-b55a-d159ccec370b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\DamageObject\Garen">
       <UniqueIdentifier>{ef31fc88-6a72-49b8-b403-3de3a9270b12}</UniqueIdentifier>
     </Filter>
@@ -891,6 +894,9 @@
     </ClInclude>
     <ClInclude Include="Buff_GarenWShield.h">
       <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardRenderer.h">
+      <Filter>Component\Renderer\ForwardRenderer</Filter>
     </ClInclude>
     <ClInclude Include="Skill_Garen_E.h">
       <Filter>Skill\Garen</Filter>
@@ -1552,6 +1558,9 @@
     <ClCompile Include="Buff_GarenWShield.cpp">
       <Filter>Buff\Garen</Filter>
     </ClCompile>
+    <ClCompile Include="ForwardRenderer.cpp">
+      <Filter>Component\Renderer\ForwardRenderer</Filter>
+    </ClCompile>
     <ClCompile Include="Skill_Garen_E.cpp">
       <Filter>Skill\Garen</Filter>
     </ClCompile>
@@ -1614,6 +1623,9 @@
       <Filter>Lib\Graphics\shader</Filter>
     </FxCompile>
     <FxCompile Include="distortion.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="forward.fx">
       <Filter>Lib\Graphics\shader</Filter>
     </FxCompile>
   </ItemGroup>
