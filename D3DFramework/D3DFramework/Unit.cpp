@@ -114,7 +114,7 @@ void Unit::Release()
 void Unit::Update()
 {
 	
-	UpdateLastAttacker();
+	UpdateHit();
 
 	GameObject::Update();
 
@@ -129,13 +129,38 @@ void Unit::Update()
 }
 
 
-void Unit::UpdateLastAttacker()
+void Unit::UpdateHit()
 {
-	lastAttackTick += Time::DeltaTime();
+	float dt = Time::DeltaTime();
+	// 마지막 피격자 업데이트
+	lastAttackTick += dt;
 	if (lastAttackTick > lastAttackDuration)
 	{
 		lastAttackTick = 0.f;
 		lastAttacker = nullptr;
+	}
+	// 피격 트리거 업데이트
+	if (oldHitFlag == true)
+	{
+		hitFlag = false;
+	}
+	if (hitFlag != oldHitFlag)
+	{
+		oldHitFlag = hitFlag;
+	}
+	// 피격자 리스트 업데이트
+	auto iter = hitList.begin();
+	auto end = hitList.end();
+	for (;iter!=end;)
+	{
+		(*iter).tick += dt;
+		if ((*iter).tick >= (*iter).duration)
+		{
+			iter = hitList.erase(iter);
+			continue;
+		}
+
+		++iter;
 	}
 }
 
@@ -299,20 +324,24 @@ void Unit::AttackAction()
 		if (attackTick > attackDelay)
 		{
 			attackTick = 0.f;
-			isDamaged = false;
+			attackFlag = false;
 		}
 		float damageDelay = attackDelay * 0.15f;
 		if (attackTick > damageDelay)
 		{
-			if (isDamaged == false)
+			if (attackFlag == false)
 			{
-				isDamaged = true;
+				attackFlag = true;
 
 				attackTarget->SetLastAttacker(this);
 				float finalDamage = (*stat)[StatType::AttackDamage];
 				Calc_FinalDamage(&finalDamage, stat, attackTarget->stat);
 				attackTarget->TakeDamage(finalDamage);
-				
+				// 피격정보 저장
+				HitInfo info;
+				info.damageSum += finalDamage;
+				info.unit = this;
+				attackTarget->hitList.push_back(info);
 			}
 		}
 
@@ -320,7 +349,7 @@ void Unit::AttackAction()
 	else
 	{
 		attackTick = 0.f;
-		isDamaged = false;
+		attackFlag = false;
 		Chase(attackTarget->transform->position);
 
 	}
@@ -335,14 +364,14 @@ void Unit::IdleAction()
 {
 	SetState(State::IDLE1);
 	attackTick = 0.f;
-	isDamaged = false;
+	attackFlag = false;
 }
 
 void Unit::MoveAction()
 {
 	SetState(State::RUN);
 	attackTick = 0.f;
-	isDamaged = false;
+	attackFlag = false;
 }
 
 void Unit::SkillQAction()
@@ -425,6 +454,7 @@ void Unit::TakeDamage(float _damage)
 	_damage = DecreaseShieldBuff(_damage);
 
 	stat->DecreaseBaseValue(StatType::Health, _damage);
+	hitFlag = true;
 }
 
 float Unit::DecreaseShieldBuff(float _damage)

@@ -304,6 +304,9 @@
     <Filter Include="Component\Renderer\ForwardRenderer">
       <UniqueIdentifier>{10662945-6726-46eb-b55a-d159ccec370b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\DamageObject\Garen">
+      <UniqueIdentifier>{ef31fc88-6a72-49b8-b403-3de3a9270b12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -894,6 +897,27 @@
     </ClInclude>
     <ClInclude Include="ForwardRenderer.h">
       <Filter>Component\Renderer\ForwardRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_E.h">
+      <Filter>Skill\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject_Garen_E.h">
+      <Filter>GameObject\DamageObject\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenEDamage.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_R.h">
+      <Filter>Skill\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenEArmorDec.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Garen_P.h">
+      <Filter>Skill\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_GarenPHealthRegen.h">
+      <Filter>Buff\Garen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1536,6 +1560,27 @@
     </ClCompile>
     <ClCompile Include="ForwardRenderer.cpp">
       <Filter>Component\Renderer\ForwardRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_E.cpp">
+      <Filter>Skill\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject_Garen_E.cpp">
+      <Filter>GameObject\DamageObject\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenEDamage.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_R.cpp">
+      <Filter>Skill\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenEArmorDec.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Garen_P.cpp">
+      <Filter>Skill\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenPHealthRegen.cpp">
+      <Filter>Buff\Garen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

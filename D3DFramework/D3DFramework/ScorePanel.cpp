@@ -4,7 +4,7 @@
 #include "Label.h"
 
 ScorePanel* pScorePanel = nullptr;
-std::wstring dragonCountTex[(UINT)Dragon::END] = {
+std::wstring dragonCountTex[(UINT)Dragon::End] = {
 	L"scoreboard_dragoncount_wind",
 	L"scoreboard_dragoncount_fire",
 	L"scoreboard_dragoncount_earth",
@@ -12,18 +12,27 @@ std::wstring dragonCountTex[(UINT)Dragon::END] = {
 	L"scoreboard_dragoncount_break"
 };
 
-std::wstring dragonSoulTex1[(UINT)Dragon::END] = {
+std::wstring dragonSoulTex1[(UINT)Dragon::End] = {
 	L"scoreboard_dragonsimbol_wind_1",
 	L"scoreboard_dragonsimbol_fire_1",
 	L"scoreboard_dragonsimbol_earth_1",
 	L"scoreboard_dragonsimbol_water_1"
 };
 
-std::wstring dragonSoulTex2[(UINT)Dragon::END] = {
+std::wstring dragonSoulTex2[(UINT)Dragon::End] = {
 	L"scoreboard_dragonsimbol_wind_2",
 	L"scoreboard_dragonsimbol_fire_2",
 	L"scoreboard_dragonsimbol_earth_2",
 	L"scoreboard_dragonsimbol_water_2"
+};
+
+std::wstring dragonTimeSimbol[(UINT)Dragon::End] = {
+	L"scoreboard_simbol_dragon_wind",
+	L"scoreboard_simbol_dragon_fire",
+	L"scoreboard_simbol_dragon_earth",
+	L"scoreboard_simbol_dragon_ocean",
+	L"",
+	L"scoreboard_simbol_dragon_elder"
 };
 
 ScorePanel::ScorePanel()
@@ -34,7 +43,71 @@ ScorePanel::ScorePanel()
 	auto mainpanelTex = RenderManager::GetTexture(L"scoreboard_mainpanel");
 
 // 용 시간
-	//UI* MobTimePanel = CreateChild(L"scoreboard_mobtimepanel", Vector2(655, -10));
+	auto mobpanelTex = RenderManager::GetTexture(L"scoreboard_mobtimepanel"); 
+	auto heraldpanelTex = RenderManager::GetTexture(L"scoreboard_heraldtimepanel");
+
+	UI* heraldTimePanel = CreateChild(L"scoreboard_heraldtimepanel", Vector2((screenW * 0.5f) - (heraldpanelTex->GetSpriteWidth() * 0.5f), 76.f));
+	UI* mobTimePanel    = CreateChild(L"scoreboard_mobtimepanel",    Vector2((screenW * 0.5f) - (mobpanelTex->GetSpriteWidth()    * 0.5f), -4.f));
+	
+	timeLabel[(UINT)MobTimeID::WestBlue] = mobTimePanel->AddChild<Label>(L"timeWestBlueLabel", new Label());
+	timeLabel[(UINT)MobTimeID::WestBlue]->SetLocation(53, 23);
+	timeLabel[(UINT)MobTimeID::WestBlue]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::WestBlue]->foreColor = D3DCOLOR_ARGB(255, 148, 181, 194);
+
+	timeLabel[(UINT)MobTimeID::SouthRed] = mobTimePanel->AddChild<Label>(L"timeSouthRedLabel", new Label());
+	timeLabel[(UINT)MobTimeID::SouthRed]->SetLocation(132, 23);
+	timeLabel[(UINT)MobTimeID::SouthRed]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::SouthRed]->foreColor = D3DCOLOR_ARGB(255, 194, 147, 148);
+
+	timeLabel[(UINT)MobTimeID::NorthRed] = mobTimePanel->AddChild<Label>(L"timeNorthRedLabel", new Label());
+	timeLabel[(UINT)MobTimeID::NorthRed]->SetLocation(411, 23);
+	timeLabel[(UINT)MobTimeID::NorthRed]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::NorthRed]->foreColor = D3DCOLOR_ARGB(255, 194, 147, 148);
+
+	timeLabel[(UINT)MobTimeID::EastBlue] = mobTimePanel->AddChild<Label>(L"timeEastBlueLabel", new Label());
+	timeLabel[(UINT)MobTimeID::EastBlue]->SetLocation(489, 23);
+	timeLabel[(UINT)MobTimeID::EastBlue]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::EastBlue]->foreColor = D3DCOLOR_ARGB(255, 148, 181, 194);
+
+	timeLabel[(UINT)MobTimeID::Dragon] = mobTimePanel->AddChild<Label>(L"timeDragonLabel", new Label());
+	timeLabel[(UINT)MobTimeID::Dragon]->SetLocation(319, 23);
+	timeLabel[(UINT)MobTimeID::Dragon]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::Dragon]->foreColor = D3DCOLOR_ARGB(255, 199, 173, 150);
+
+	timeLabel[(UINT)MobTimeID::Baron] = mobTimePanel->AddChild<Label>(L"timeBaronLabel", new Label());
+	timeLabel[(UINT)MobTimeID::Baron]->SetLocation(224, 23);
+	timeLabel[(UINT)MobTimeID::Baron]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::Baron]->foreColor = D3DCOLOR_ARGB(255, 188, 152, 195);
+
+	timeLabel[(UINT)MobTimeID::Herald] = heraldTimePanel->AddChild<Label>(L"timeHeraldLabel", new Label());
+	timeLabel[(UINT)MobTimeID::Herald]->SetLocation(93, 17);
+	timeLabel[(UINT)MobTimeID::Herald]->SetText(L"%d:%d", 1, 30);
+	timeLabel[(UINT)MobTimeID::Herald]->foreColor = D3DCOLOR_ARGB(255, 188, 152, 195);
+
+	for (int i = 0; i < (UINT)MobTimeID::End; ++i) {
+		timeLabel[i]->align = Label::Align::Center;
+		timeLabel[i]->valign = Label::VAlign::Middle;
+	}
+
+	simbolBig[(UINT)MobTimeID::WestBlue] = mobTimePanel->AddChild<UI>(L"simbolBigWestBlue",  new UI(L"scoreboard_simbol_blue", Vector2(25, 10)));
+	simbolBig[(UINT)MobTimeID::SouthRed] = mobTimePanel->AddChild<UI>(L"simbolBigSouthRed",  new UI(L"scoreboard_simbol_red", Vector2(100, 10)));
+	simbolBig[(UINT)MobTimeID::NorthRed] = mobTimePanel->AddChild<UI>(L"simbolBigNorthRed",  new UI(L"scoreboard_simbol_red", Vector2(379, 10)));
+	simbolBig[(UINT)MobTimeID::EastBlue] = mobTimePanel->AddChild<UI>(L"simbolBigEastBlue",  new UI(L"scoreboard_simbol_blue", Vector2(461, 10)));
+	simbolBig[(UINT)MobTimeID::Dragon]   = mobTimePanel->AddChild<UI>(L"simbolBigDragon",    new UI(L"", Vector2(0, 0)));
+	simbolBig[(UINT)MobTimeID::Baron]    = mobTimePanel->AddChild<UI>(L"simbolBigBaron",     new UI(L"scoreboard_simbol_baron", Vector2(183, 10)));
+	simbolBig[(UINT)MobTimeID::Herald]   = heraldTimePanel->AddChild<UI>(L"simbolBigHerald", new UI(L"scoreboard_simbol_riftherald", Vector2(66, 2)));
+
+	simbolSmall[(UINT)MobTimeID::WestBlue] = mobTimePanel->AddChild<UI>(L"simbolBigWestBlue", new UI(L"scoreboard_simbol_blue", Vector2(39, 36)));
+	simbolSmall[(UINT)MobTimeID::SouthRed] = mobTimePanel->AddChild<UI>(L"simbolBigSouthRed", new UI(L"scoreboard_simbol_red", Vector2(114, 36)));
+	simbolSmall[(UINT)MobTimeID::NorthRed] = mobTimePanel->AddChild<UI>(L"simbolBigNorthRed", new UI(L"scoreboard_simbol_red", Vector2(395, 36)));
+	simbolSmall[(UINT)MobTimeID::EastBlue] = mobTimePanel->AddChild<UI>(L"simbolBigEastBlue", new UI(L"scoreboard_simbol_blue", Vector2(475, 36)));
+	simbolSmall[(UINT)MobTimeID::Dragon] = mobTimePanel->AddChild<UI>(L"simbolBigDragon", new UI(L"", Vector2(0, 0)));
+	simbolSmall[(UINT)MobTimeID::Baron] = mobTimePanel->AddChild<UI>(L"simbolBigBaron", new UI(L"scoreboard_simbol_baron", Vector2(204, 40)));
+	simbolSmall[(UINT)MobTimeID::Herald] = heraldTimePanel->AddChild<UI>(L"simbolBigHerald", new UI(L"scoreboard_simbol_riftherald", Vector2(80, 27)));
+	for (int i = 0; i < (UINT)MobTimeID::End; ++i)
+	{
+		simbolSmall[i]->transform->scale = { 0.5f, 0.5f, 1.f };
+	}
 
 // 메인
 	UI* mainPanel = CreateChild(L"scoreboard_mainpanel", Vector2((screenW * 0.5f) - (mainpanelTex->GetSpriteWidth() * 0.5f), (screenH * 0.5f) - (mainpanelTex->GetSpriteHeight() * 0.5f)));
@@ -169,6 +242,15 @@ ScorePanel::ScorePanel()
 			championScoreUI[i][j]->Hide();
 		}
 	}
+
+	// 몹 시간 설정 샘플
+	SetMobTime(MobTimeID::WestBlue, 90.f);
+	SetMobTime(MobTimeID::SouthRed, 90.f);
+	SetMobTime(MobTimeID::NorthRed, 90.f);
+	SetMobTime(MobTimeID::EastBlue, 90.f);
+	SetDragonTime(300.f, Dragon::Fire);
+	SetMobTime(MobTimeID::Baron, 1200.f);
+	SetMobTime(MobTimeID::Herald, 480.f);
 }
 
 ScorePanel::~ScorePanel()
@@ -201,6 +283,13 @@ void ScorePanel::Update()
 		visible ? Show() : Hide();
 	}
 
+	// 용시간 업데이트
+	for (int i = 0; i < (UINT)MobTimeID::End; ++i)
+	{
+		if (mobTime[i] > 0) mobTime[i] -= Time::DeltaTime();
+	}
+
+	// ScorePanel이 활성화 상태일 때
 	if (visible)
 	{
 		for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
@@ -244,6 +333,25 @@ void ScorePanel::Update()
 				championScoreUI[i][j]->Hide();
 			}
 		}
+
+		// 용시간
+		for (int i = 0; i < (UINT)MobTimeID::End; ++i)
+		{
+			int m = (int)mobTime[i] / 60;
+			int s = (int)mobTime[i] % 60;
+			timeLabel[i]->SetText(L"%d:%d", m, s);
+
+			if (mobTime[i] <= 1) {
+				simbolBig[i]->Show();
+				timeLabel[i]->Hide();
+				simbolSmall[i]->Hide();
+			}
+			else {
+				timeLabel[i]->Show();
+				simbolSmall[i]->Show();
+				simbolBig[i]->Hide();
+			}
+		}
 	}
 }
 
@@ -285,9 +393,9 @@ void ScorePanel::AddDragon(Dragon _dragon, Team _team)
 
 	if (index == 3) {
 		for (int i = dragonCount[(UINT)Team::BLUE].size(); i < 4; ++i)
-			dragonCountUI[(UINT)Team::BLUE][i]->SetTexture(dragonCountTex[(UINT)Dragon::BREAK]);
+			dragonCountUI[(UINT)Team::BLUE][i]->SetTexture(dragonCountTex[(UINT)Dragon::Break]);
 		for (int i = dragonCount[(UINT)Team::RED].size(); i < 4; ++i)
-			dragonCountUI[(UINT)Team::RED][i]->SetTexture(dragonCountTex[(UINT)Dragon::BREAK]);
+			dragonCountUI[(UINT)Team::RED][i]->SetTexture(dragonCountTex[(UINT)Dragon::Break]);
 	}
 }
 
@@ -300,4 +408,47 @@ void ScorePanel::SetDragonSoul(Dragon _dragon)
 void ScorePanel::SetDragonSoulBuf()
 {
 	dragonSoulUI->SetTexture(dragonSoulTex2[(UINT)dragonSoul]);
+}
+
+void ScorePanel::SetMobTime(MobTimeID _mob, float _time)
+{
+	mobTime[(UINT)_mob] = _time;
+}
+
+void ScorePanel::SetDragonTime(float _time, Dragon _dragon)
+{
+	mobTime[(UINT)MobTimeID::Dragon] = _time;
+
+	// 드래곤 심볼 센터
+	// 319, 31 - Big
+	// 319, 52 - Small
+
+	simbolBig[(UINT)MobTimeID::Dragon]->SetTexture(dragonTimeSimbol[(UINT)_dragon]);
+	simbolSmall[(UINT)MobTimeID::Dragon]->SetTexture(dragonTimeSimbol[(UINT)_dragon]);
+
+	Vector2 sizeBig = simbolBig[(UINT)MobTimeID::Dragon]->GetSize();
+	Vector2 sizeSmall = simbolSmall[(UINT)MobTimeID::Dragon]->GetSize();
+
+	simbolBig[(UINT)MobTimeID::Dragon]->SetLocation(319 - (sizeBig.x * 0.5f), 38 - (sizeBig.y * 0.5f));
+	simbolSmall[(UINT)MobTimeID::Dragon]->SetLocation(319 - (sizeSmall.x * 0.5f), 52 - (sizeSmall.y * 0.5f));
+}
+
+void ScorePanel::Show()
+{
+	GameObject::Show();
+
+	for (int i = 0; i < (UINT)MobTimeID::End; ++i)
+	{
+		if (mobTime[i] < 0) {
+			timeLabel[i]->Hide();
+			simbolSmall[i]->Hide();
+		} else {
+			simbolBig[i]->Hide();
+		}
+	}
+}
+
+void ScorePanel::Hide()
+{
+	GameObject::Hide();
 }
