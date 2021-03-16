@@ -7,7 +7,7 @@
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
-	coolTime_Init = 8.f;
+	coolTime_Init = 0.5f;//8.f;
 	duration = 0.f;
 	hostUnit = _hostUnit;
 }

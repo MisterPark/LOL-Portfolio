@@ -151,6 +151,16 @@ float Stat::GetValue(StatType _type)
 
 void Stat::AddBuff(Buff* buff)
 {
+    for (auto _buff : buffList)
+    {
+        if (buff->buffName == _buff->buffName) {
+            if(_buff->overlapCount < _buff->maxOverlapCount)
+                _buff->overlapCount++;
+            _buff->tick = 0.f;
+            delete buff;
+            return;
+        }
+    }
     buffList.push_back(buff);
 }
 
