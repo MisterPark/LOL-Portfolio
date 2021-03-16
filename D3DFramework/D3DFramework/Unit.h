@@ -53,6 +53,14 @@ enum class SkillIndex
 class Unit : public GameObject
 {
 public:
+	struct HitInfo
+	{
+		float tick = 0.f;
+		float duration = 10.f;
+		float damageSum = 0.f;
+		Unit* unit = nullptr;
+	};
+public:
     Unit();
     virtual ~Unit();
 
@@ -60,7 +68,7 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-	void UpdateLastAttacker();
+	void UpdateHit(); // 피격 업데이트
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -140,10 +148,14 @@ public:
 	State state = State::IDLE1;
 	
 	// 기본공격 관련
-	bool attackFlag = false;
 	Unit* attackTarget = nullptr;
 	float attackTick = 0.f;
-	bool isDamaged = false;
+	bool attackFlag = false; // 공격(데미지 입히기) 가능 여부
+	bool hitFlag = false; // 피격당할때(트리거)
+private:
+	bool oldHitFlag = false;
+public:
+	list<HitInfo> hitList;
 protected:
 	
 

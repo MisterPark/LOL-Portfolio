@@ -89,7 +89,7 @@ void Garen::OnAttackEnd()
 {
 	Unit::OnAttackEnd();
 	stat->RemoveBuff<Buff_GarenQAttack>();
-	Unit::OnAttackEnd();
+	//Unit::OnAttackEnd();
 }
 
 //void Garen::Spell3()
