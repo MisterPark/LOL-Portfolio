@@ -366,9 +366,30 @@ void PlayerInfoPanel::Update()
         statLabel[4]->SetText(L"%.2f",      champion->stat->GetValue(statNum[4]));
         statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
 		statLabel[6]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[6]));
-		statLabel[7]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[7]));
+		statLabel[7]->SetText(L"%d",   (int)(champion->stat->GetValue(statNum[7]) * 100));
 
 		itemshopBtn->SetText(champion->stat->GetValue(StatType::Gold));
+
+	// Spell
+		slotSpell1->SetCooltime(
+			champion->skillList[(int)SkillIndex::Q]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::Q]->GetCooltime_Init()
+		);
+
+		slotSpell2->SetCooltime(
+			champion->skillList[(int)SkillIndex::W]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::W]->GetCooltime_Init()
+		);
+
+		slotSpell3->SetCooltime(
+			champion->skillList[(int)SkillIndex::E]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::E]->GetCooltime_Init()
+		);
+
+		slotSpell4->SetCooltime(
+			champion->skillList[(int)SkillIndex::R]->GetCooltime(),
+			champion->skillList[(int)SkillIndex::R]->GetCooltime_Init()
+		);
     }
 }
 //

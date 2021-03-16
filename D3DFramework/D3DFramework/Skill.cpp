@@ -35,3 +35,13 @@ void Skill::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 	}
 }
 
+float Skill::GetCooltime()
+{
+	return coolTime;
+}
+
+float Skill::GetCooltime_Init()
+{
+	return coolTime_Init;
+}
+
