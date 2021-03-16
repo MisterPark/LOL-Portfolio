@@ -156,13 +156,10 @@ private:
 	bool oldHitFlag = false;
 public:
 	list<HitInfo> hitList;
-
+	
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
-
 protected:
-	
-
 	
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;

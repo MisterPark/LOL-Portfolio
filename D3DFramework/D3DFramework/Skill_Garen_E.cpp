@@ -20,8 +20,7 @@ Skill_Garen_E::~Skill_Garen_E()
 
 void Skill_Garen_E::Start()
 {
-	if (coolTime > 0.f)
-		return;
+	Skill::Start();
 
 	DamageObject_Garen_E* damageObj = (DamageObject_Garen_E*)SceneManager::GetCurrentScene()->CreateObject<DamageObject_Garen_E>(Layer::Unit);
 	float attackDamage = 40.f + hostUnit->stat->GetValue(StatType::AttackDamage) * 0.32f;
@@ -33,9 +32,7 @@ void Skill_Garen_E::Start()
 
 	damageBuff = new Buff_GarenEDamage(hostUnit, 3.f, damageObj);//reductionValue);
 	hostUnit->stat->AddBuff(damageBuff);
-
 	coolTime = coolTime_Init;
-	active = true;
 
 }
 
@@ -52,19 +49,21 @@ void Skill_Garen_E::Active()
 	//if (!active)
 		//return;
 
-	if (duration <= 0.f) {
+	if (tick <= 0.f) {
 		End();
 		return;
 	}
 
+	hostUnit->SetState(State::E);
+
 	//사용효과
-	duration -= Time::DeltaTime();
+	tick -= Time::DeltaTime();
 }
 
 
 void Skill_Garen_E::End()
 {
-	active = false;
+	Skill::End();
 	if (duration > 0.f) { // EE 로 빨리 취소했을때
 		damageBuff->tick = damageBuff->duration;
 		coolTime -= duration;

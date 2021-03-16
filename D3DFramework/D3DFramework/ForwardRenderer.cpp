@@ -63,6 +63,7 @@ void Engine::ForwardRenderer::Render()
 {
 	for (auto const& pair: parameterTable)
 	{
+		// TODO : 테스트해야함 (오류있을수있음) 파라미터 세팅 부분
 		std::string const& key = pair.first;
 		std::type_info const* type = pair.second.first;
 		Parameter const& param = pair.second.second;
