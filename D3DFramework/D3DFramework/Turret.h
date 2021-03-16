@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Building.h"
 
 class TurretFloatingBar;
@@ -13,6 +13,12 @@ public:
 
 
     virtual void SetTeam(Team _team);
+    
+    virtual void DeadAction()override;
+    virtual void AttackAction() override;
+    virtual void CounterAttack()override;
+    virtual void IdleAction()override;
+    virtual void MoveAction()override;
 
 public:
     TurretFloatingBar* bar = nullptr;

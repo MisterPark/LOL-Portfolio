@@ -5,6 +5,10 @@ class Unit;
 class Buff
 {
 public:
+	enum class BuffName{
+		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, GarenWShield, GarenEDamage, GarenEArmorDec,
+		END
+	};
 	struct Node
 	{
 		StatType type;
@@ -23,5 +27,8 @@ public:
 	list<Buff::Node> modifiers;
 	float tick = 0.f;
 	float duration = 0.f;
+	BuffName buffName = BuffName::END;
+	int overlapCount = 1;
+	int maxOverlapCount = 1;
 };
 

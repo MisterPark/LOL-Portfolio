@@ -62,9 +62,9 @@ namespace Engine
 	ID3DXEffect* deferredShader;
 
 	Matrix mViewProj;
-
+	
 	ComPtr<ID3DXSprite> sprite_;
-
+	
 	struct PPVertexFVF { D3DXVECTOR3 xyz; D3DXVECTOR2 uv; };
 	static constexpr DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
 	auto CompareZ(Renderer* a, Renderer* b)->bool
@@ -295,7 +295,7 @@ namespace Engine
 		RenderManager::GetRenderTarget(RENDER_TARGET_FOG_OF_WAR)->GetTexture(&texture);
 		sprite_->Draw(texture.Get(), nullptr, nullptr, nullptr, D3DCOLOR_COLORVALUE(1.f, 0.f, 0.f, 1.f));
 		sprite_->End();
-
+		
 #pragma endregion
 
 		device->EndScene();

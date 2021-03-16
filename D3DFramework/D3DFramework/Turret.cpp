@@ -34,6 +34,16 @@ Turret::Turret()
 	AddComponent(L"distortionRenderer", distortionRenderer);
 	distortionRenderer->SetMesh(mesh);
 	distortionRenderer->SetOpacity(1.0f);
+
+	// 스탯
+	stat->SetBaseValue(StatType::MaxHealth, 620.f);
+	stat->SetBaseValue(StatType::Health, 620.f);
+	stat->SetBaseValue(StatType::HealthRegen, 8.f);
+	stat->SetBaseValue(StatType::AttackDamage, 66.f);
+	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	stat->SetBaseValue(StatType::Armor, 36.f);
+	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
+	stat->SetBaseValue(StatType::Range, 7.75f);
 }
 
 Turret::~Turret()
@@ -44,19 +54,6 @@ Turret::~Turret()
 
 void Turret::Update()
 {
-	float dt = Time::DeltaTime();
-
-	if (isDead)
-	{
-
-		if (breakDist < breakHeight)
-		{
-			breakDist += dt;
-			transform->position.y -= dt;
-		}
-		GameObject::Update();
-		return;
-	}
 	// 타겟팅
 	if (attackTarget == nullptr)
 	{
@@ -70,38 +67,6 @@ void Turret::Update()
 		{
 			attackTarget = nullptr;
 		}
-	}
-
-	if (attackTarget != nullptr)
-	{
-		if (attackTarget->IsDead())
-		{
-			attackTarget = nullptr;
-			return;
-		}
-		attackIndicator->visible = true;
-
-		attackTick += Time::DeltaTime();
-		float delay = 1.f / (*stat)[StatType::AttackSpeed];
-		if (attackTick >= delay)
-		{
-			attackTick = 0.f;
-
-			Vector3 missilePos = transform->position;
-			missilePos += transform->right.Normalized();
-			missilePos.y += 3.f;
-
-			TurretMissile* missile = (TurretMissile*)SceneManager::GetCurrentScene()->CreateObject<TurretMissile>(Layer::Effect);
-			missile->transform->position = missilePos;
-			missile->SetTeam(team);
-			missile->SetAttackTarget(attackTarget);
-			missile->Billboard();
-		}
-		
-	}
-	else
-	{
-		attackIndicator->visible = false;
 	}
 
 	GameObject::Update();
@@ -120,4 +85,61 @@ void Turret::SetTeam(Team _team)
 	{
 		bar->SetTextureHP(L"bar_float (2)");
 	}
+}
+
+void Turret::DeadAction()
+{
+	float dt = Time::DeltaTime();
+
+	if (breakDist < breakHeight)
+	{
+		breakDist += dt;
+		transform->position.y -= dt;
+	}
+}
+
+void Turret::AttackAction()
+{
+	float dt = Time::DeltaTime();
+
+	if (attackTarget->IsDead())
+	{
+		attackTarget = nullptr;
+		return;
+	}
+	attackIndicator->visible = true;
+
+	attackTick += Time::DeltaTime();
+	float delay = 1.f / (*stat)[StatType::AttackSpeed];
+	if (attackTick >= delay)
+	{
+		attackTick = 0.f;
+
+		Vector3 missilePos = transform->position;
+		missilePos += transform->right.Normalized();
+		missilePos.y += 3.f;
+
+		TurretMissile* missile = (TurretMissile*)SceneManager::GetCurrentScene()->CreateObject<TurretMissile>(Layer::Effect);
+		missile->transform->position = missilePos;
+		missile->SetTeam(team);
+		missile->SetAttackTarget(attackTarget);
+		missile->Billboard();
+	}
+
+
+}
+
+void Turret::CounterAttack()
+{
+}
+
+void Turret::IdleAction()
+{
+	Unit::IdleAction();
+	attackIndicator->visible = false;
+
+}
+
+void Turret::MoveAction()
+{
 }
