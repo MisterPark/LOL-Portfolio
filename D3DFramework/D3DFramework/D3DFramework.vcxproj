@@ -272,6 +272,7 @@
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAI.h" />
+    <ClInclude Include="MonsterSubTree.h" />
     <ClInclude Include="Murkwolf.h" />
     <ClInclude Include="MurkwolfMini.h" />
     <ClInclude Include="NavMesh.h" />
@@ -469,6 +470,7 @@
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAI.cpp" />
+    <ClCompile Include="MonsterSubTree.cpp" />
     <ClCompile Include="Murkwolf.cpp" />
     <ClCompile Include="MurkwolfMini.cpp" />
     <ClCompile Include="NavMesh.cpp" />

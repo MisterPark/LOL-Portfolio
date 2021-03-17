@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "SphereCollider.h"
 #include "DamageCalc_Basic.h"
+#include "MonsterSubTree.h"
 
 Monster::Monster()
 {
@@ -26,6 +27,9 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
 
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
+
+	MonsterSubTree* subTree = new MonsterSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Monster::~Monster()
