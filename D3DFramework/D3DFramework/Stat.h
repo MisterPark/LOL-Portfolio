@@ -57,6 +57,7 @@ private:
 	float baseValues[MaxOfEnum<StatType>()] = {};
 	float additional[MaxOfEnum<StatType>()] = {};
 	float percent[MaxOfEnum<StatType>()] = {};
+	float finalValues[MaxOfEnum<StatType>()] = {};
 
 	list<Buff*> buffList;
 };
