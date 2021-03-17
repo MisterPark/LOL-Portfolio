@@ -22,7 +22,7 @@ FloatingBar::FloatingBar()
 	shieldBar = (Bar*)CreateChild(L"bar_float (3)", Vector2(26, 6));
 	shieldBar->transform->scale = { 0.97f,1.f,1.f };
 
-	overShieldBar = (Bar*)CreateChild(L"bar_float (4)", Vector2(26, 6));
+	overShieldBar = (Bar*)CreateChild(L"bar_float (3)", Vector2(26, 6));
 	overShieldBar->transform->scale = { 0.97f,1.f,1.f };
 	
 	nickLabel = new Label(22);
