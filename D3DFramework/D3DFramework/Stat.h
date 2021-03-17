@@ -21,6 +21,7 @@ enum class StatType {
 	Range,AttackSpeed, // 사정거리, 1초당 공격속도(횟수)
 	DamageReduction,
 	Level, // 레벨
+	SkillPoint,
 	Gold,
 	END
 };

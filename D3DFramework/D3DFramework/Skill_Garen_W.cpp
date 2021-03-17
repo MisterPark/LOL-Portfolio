@@ -18,6 +18,9 @@ Skill_Garen_W::~Skill_Garen_W()
 
 void Skill_Garen_W::Start()
 {
+	if (coolTime > 0.f)
+		return;
+
 	Skill::Start();
 
 	reductionTime = 2.f;// 1.25f + level * 0.75f;
@@ -26,7 +29,7 @@ void Skill_Garen_W::Start()
 
 	//TODO : 가렌W 지금은 최대체력계수로 되어있지만 나중에 추가체력계수로 바꿔야함
 	float shield = 70 + hostUnit->stat->GetValue(StatType::MaxHealth) * 0.2f;
-	Buff_GarenWShield* attackBuff = new Buff_GarenWShield(hostUnit, 999.f, shield);
+	Buff_GarenWShield* attackBuff = new Buff_GarenWShield(hostUnit, 50.f, shield);
 	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;

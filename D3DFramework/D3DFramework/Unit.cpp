@@ -430,7 +430,7 @@ float Unit::DecreaseShieldBuff(float _damage)
 				else {
 					_damage -= modi.value;
 					modi.value = 0.f;
-					buff->duration = 9999.f; // 실드를 다 써서 실드버프삭제
+					buff->tick = INFINITY; // 실드를 다 써서 실드버프삭제
 					continue;
 				}
 			}

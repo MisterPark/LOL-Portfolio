@@ -17,8 +17,6 @@ Skill::~Skill()
 
 void Skill::Start()
 {
-	if (coolTime > 0.f)
-		return;
 	active = true;
 	tick = duration;
 }

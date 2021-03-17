@@ -10,6 +10,7 @@
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
 #include "DamageCalc_OnHit.h"
+#include "Skill_Garen_P.h"
 #include "Skill_Garen_Q.h"
 #include "Skill_Garen_W.h"
 #include "Skill_Garen_E.h"
@@ -44,7 +45,7 @@ Garen::Garen()
 
 	// 스탯
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);
-	stat->SetBaseValue(StatType::Health, 620.f);
+	stat->SetBaseValue(StatType::Health, 0.f);
 	stat->SetBaseValue(StatType::HealthRegen, 8.f);
 	stat->SetBaseValue(StatType::MaxMana, 100.f);
 	stat->SetBaseValue(StatType::Mana, 100.f);
@@ -61,6 +62,7 @@ Garen::Garen()
 	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc());
 
 	// 스킬
+	skillList[(int)SkillIndex::Passive] = new Skill_Garen_P(this);
 	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
 	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 	skillList[(int)SkillIndex::E] = new Skill_Garen_E(this);
