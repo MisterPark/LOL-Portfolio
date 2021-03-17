@@ -268,6 +268,7 @@
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
+    <ClInclude Include="MinionSubTree.h" />
     <ClInclude Include="MiniScorePanel.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
@@ -466,6 +467,7 @@
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
+    <ClCompile Include="MinionSubTree.cpp" />
     <ClCompile Include="MiniScorePanel.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />

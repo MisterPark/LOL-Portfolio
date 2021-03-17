@@ -937,6 +937,9 @@
     <ClInclude Include="MonsterSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
     </ClInclude>
+    <ClInclude Include="MinionSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1605,6 +1608,9 @@
     </ClCompile>
     <ClCompile Include="MonsterSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
