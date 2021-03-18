@@ -105,13 +105,13 @@ void FloatingBar::PostUpdate()
 			mpRatio.x = mp / maxMp;
 		}
 
-		hpBar->uvRatio = hpRatio;
-		mpBar->uvRatio = mpRatio;
-		shieldBar->uvRatio = shieldRatio;
-		overShieldBar->uvRatio = overShieldRatio;
+		hpBar->uvRatioEnd = hpRatio;
+		mpBar->uvRatioEnd = mpRatio;
+		shieldBar->uvRatioEnd = shieldRatio;
+		overShieldBar->uvRatioEnd = overShieldRatio;
 
 		// hp바 끝위치 = hp바 시작위치 + (hp바 가로비율 * hp바 가로크기)
-		float hpEndX = hpBar->transform->position.x + (hpBar->uvRatio.x * (hpBar->texture->GetSpriteWidth() * hpBar->transform->scale.x));
+		float hpEndX = hpBar->transform->position.x + (hpBar->uvRatioEnd.x * (hpBar->texture->GetSpriteWidth() * hpBar->transform->scale.x));
 		// 실드위치 = 현재 체력 위치
 		shieldBar->transform->position.x = hpEndX;
 		// 초과실드 위치 = 현재 체력위치 - 초과실드 가로크기

@@ -84,6 +84,7 @@ public:
 	void Spell4();
 
 	virtual void Die();
+	virtual void OnKilled(Unit* target);
 	// 행동
 	virtual void DeadAction();
 	virtual void AttackAction();
@@ -124,6 +125,7 @@ public:
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
 	void SetAttackState(State _attackState) { attackState = _attackState; }
+	void SkillLevelUp(SkillIndex skillIndex);
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
@@ -158,7 +160,6 @@ public:
 	list<HitInfo> hitList;
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
-
 protected:
 	
 	// 데미지계산관련

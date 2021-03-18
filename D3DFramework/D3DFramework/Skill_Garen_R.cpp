@@ -8,6 +8,7 @@
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
+	maxLevel = 3;
 	coolTime_Init = 2.f;
 	duration = 0.f;
 	hostUnit = _hostUnit;
@@ -22,6 +23,9 @@ Skill_Garen_R::~Skill_Garen_R()
 
 void Skill_Garen_R::Start()
 {
+	if (coolTime > 0.f)
+		return;
+
 	Skill::Start();
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());

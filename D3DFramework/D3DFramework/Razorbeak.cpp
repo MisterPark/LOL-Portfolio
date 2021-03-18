@@ -17,7 +17,7 @@ Razorbeak::Razorbeak()
 
 	anim->SetLoop((int)State::IDLE1, true);
 
-	stat->SetBaseValue(StatType::Armor, 500.f);
+//	stat->SetBaseValue(StatType::Armor, 500.f);
 	// Test용
 	//Buff_GarenWReduction* testBuff = new Buff_GarenWReduction(this, 999.f, 0.5f);
 	//stat->AddBuff(testBuff);

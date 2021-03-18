@@ -95,7 +95,7 @@ void Stat::Update()
     if (unit->IsDead() == false)
     {
         // 체력 리젠
-        baseValues[(int)StatType::Health] += finalValues[(int)StatType::HealthRegen] *0.2f * dt;
+        baseValues[(int)StatType::Health] += finalValues[(int)StatType::HealthRegen] * 0.2f * dt;
         // 마나 리젠
         baseValues[(int)StatType::Mana] += finalValues[(int)StatType::ManaRegen] * 0.2f * dt;
     }
@@ -169,16 +169,17 @@ float Stat::GetValue(StatType _type)
 
 void Stat::AddBuff(Buff* buff)
 {
-    for (auto _buff : buffList)
+    for (auto iter = buffList.begin(); iter != buffList.end(); iter++)
     {
-        if (buff->buffName == _buff->buffName) {
-            if(_buff->overlapCount < _buff->maxOverlapCount)
-                _buff->overlapCount++;
-            _buff->tick = 0.f;
-            delete buff;
-            return;
+        if (buff->buffName == (*iter)->buffName) {
+            buff->overlapCount = (*iter)->overlapCount + 1;
+            delete (*iter);
+            iter = buffList.erase(iter);
+            break;
         }
+
     }
+
     buffList.push_back(buff);
 }
 

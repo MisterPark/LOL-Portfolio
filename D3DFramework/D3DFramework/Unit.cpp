@@ -225,6 +225,14 @@ void Unit::Die()
 {
 	isDead = true;
 	collider->enable = false;
+	for (auto& unit : hitList)
+	{
+		unit.second.unit->OnKilled(this);
+	}
+}
+
+void Unit::OnKilled(Unit* target)
+{
 }
 
 void Unit::DeadAction()
@@ -432,7 +440,7 @@ float Unit::DecreaseShieldBuff(float _damage)
 				else {
 					_damage -= modi.value;
 					modi.value = 0.f;
-					buff->duration = 9999.f; // 실드를 다 써서 실드버프삭제
+					buff->tick = INFINITY; // 실드를 다 써서 실드버프삭제
 					continue;
 				}
 			}
@@ -500,6 +508,20 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	}
 
 	return target;
+}
+
+void Unit::SkillLevelUp(SkillIndex skillIndex)
+{
+	if (stat->GetBaseValue(StatType::SkillPoint) <= 0.f)
+		return;
+	Skill* skill = skillList[(int)skillIndex];
+	if (skill->GetLevel() == skill->GetMaxLevel())
+		return;
+	// TODO:: 챔피언레벨업이 가능해지면 주석 풀것
+	//if ((float)(skill->GetLevel() * 2 + 1) > stat->GetBaseValue(StatType::Level))
+	//	return;
+	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
+	skill->AddLevel();
 }
 
 void Unit::ReqMove(Vector3 _dest, bool _noSearch)

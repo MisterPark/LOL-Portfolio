@@ -12,7 +12,7 @@ Buff_GarenPHealthRegen::~Buff_GarenPHealthRegen()
 {
 
 }
-
+	
 void Buff_GarenPHealthRegen::Update()
 {
 	modifiers.front().value = host->stat->GetValue(StatType::MaxHealth) * 0.015f;

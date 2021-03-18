@@ -10,6 +10,7 @@
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
 #include "DamageCalc_OnHit.h"
+#include "Skill_Garen_P.h"
 #include "Skill_Garen_Q.h"
 #include "Skill_Garen_W.h"
 #include "Skill_Garen_E.h"
@@ -55,12 +56,14 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
+	// Test
+	stat->SetBaseValue(StatType::SkillPoint, 18.f);
 
-	//stat->SetBaseValue(StatType::ArmorPenetrationPercent, 0.3f);
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
 	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc());
 
 	// 스킬
+	skillList[(int)SkillIndex::Passive] = new Skill_Garen_P(this);
 	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
 	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 	skillList[(int)SkillIndex::E] = new Skill_Garen_E(this);
@@ -127,5 +130,11 @@ void Garen::SkillEAction()
 
 void Garen::SkillRAction()
 {
+}
+
+void Garen::OnKilled(Unit* target)
+{
+	if (skillList[(int)SkillIndex::W] != nullptr)
+		((Skill_Garen_W*)skillList[(int)SkillIndex::W])->AddPassiveStack();
 }
 
