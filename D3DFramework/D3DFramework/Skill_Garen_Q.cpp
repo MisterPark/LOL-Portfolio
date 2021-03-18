@@ -7,6 +7,7 @@
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
+	maxLevel = 5;
 	coolTime_Init = 0.5f;//8.f;
 	duration = 0.f;
 	hostUnit = _hostUnit;
@@ -18,15 +19,15 @@ Skill_Garen_Q::~Skill_Garen_Q()
 
 void Skill_Garen_Q::Start()
 {
-	if (coolTime > 0.f)
+	if (level == 0 || coolTime > 0.f)
 		return;
 
 	Skill::Start();
 
-	durationSpeedTime = 2.5f;// 0.35f + level * 0.65f;
+	durationSpeedTime = 0.35f + level * 0.65f;
 	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
 	hostUnit->stat->AddBuff(speedBuff);
-	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f, 30.f, 1.5f);
+	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f, 30.f * level, 1.5f);
 	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;

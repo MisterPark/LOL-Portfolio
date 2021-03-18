@@ -940,6 +940,9 @@
     <ClInclude Include="MinionSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClInclude>
+    <ClInclude Include="Buff_GarenWPassive.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1611,6 +1614,9 @@
     </ClCompile>
     <ClCompile Include="MinionSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenWPassive.cpp">
+      <Filter>Buff\Garen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

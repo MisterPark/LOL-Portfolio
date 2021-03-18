@@ -6,10 +6,11 @@ Buff_GarenWShield::Buff_GarenWShield(Unit* _host, float _duration, float _value)
 {
 	buffName = BuffName::GarenWShield;
 	AddModifier(StatType::Shield, _value, false);
+	AddModifier(StatType::Tenacity, _value, false);
 }
 
 Buff_GarenWShield::~Buff_GarenWShield()
-{
+{ 
 
 }
 
