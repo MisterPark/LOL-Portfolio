@@ -316,7 +316,7 @@ void ScorePanel::Update()
 					dynamic_cast<UI*>(ui->children[L"ChampBorder"])->SetTexture(L"scoreboard_champborder_alive");
 			
 				// 레벨
-				dynamic_cast<Label*>(ui->children[L"LevelLabel"])->SetText(champ->stat->GetValue(StatType::Level));
+				dynamic_cast<Label*>(ui->children[L"LevelLabel"])->SetText((int)champ->stat->GetValue(StatType::Level));
 
 				// CS
 				dynamic_cast<Label*>(ui->children[L"CSLabel"])->SetText(0);
