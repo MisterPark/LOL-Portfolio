@@ -309,6 +309,7 @@ void Unit::AttackAction()
 						iter = hitList.erase(iter);
 						break;
 					}
+					++iter;
 				}
 
 				attackTarget->hitList.push_back(info);
