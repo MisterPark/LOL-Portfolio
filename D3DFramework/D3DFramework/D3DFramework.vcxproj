@@ -192,6 +192,7 @@
     <ClInclude Include="Buff_GarenPHealthRegen.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_GarenWPassive.h" />
     <ClInclude Include="Buff_GarenWReduction.h" />
     <ClInclude Include="Buff_GarenWShield.h" />
     <ClInclude Include="Buff_OnHit.h" />
@@ -392,6 +393,7 @@
     <ClCompile Include="Buff_GarenPHealthRegen.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_GarenWPassive.cpp" />
     <ClCompile Include="Buff_GarenWReduction.cpp" />
     <ClCompile Include="Buff_GarenWShield.cpp" />
     <ClCompile Include="Buff_OnHit.cpp" />

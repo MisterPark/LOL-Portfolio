@@ -48,19 +48,19 @@ void PlayerController::Update()
     {
         if (Input::GetKeyDown('Q'))
         {
-
+            unit->SkillLevelUp(SkillIndex::Q);
         }
         if (Input::GetKeyDown('W'))
         {
-
+            unit->SkillLevelUp(SkillIndex::W);
         }
         if (Input::GetKeyDown('E'))
         {
-
+            unit->SkillLevelUp(SkillIndex::E);
         }
         if (Input::GetKeyDown('R'))
         {
-
+            unit->SkillLevelUp(SkillIndex::R);
         }
     }
     else

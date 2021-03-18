@@ -56,8 +56,9 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
+	// Test
+	stat->SetBaseValue(StatType::SkillPoint, 18.f);
 
-	//stat->SetBaseValue(StatType::ArmorPenetrationPercent, 0.3f);
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
 	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc());
 
@@ -129,5 +130,11 @@ void Garen::SkillEAction()
 
 void Garen::SkillRAction()
 {
+}
+
+void Garen::OnKilled(Unit* target)
+{
+	if (skillList[(int)SkillIndex::W] != nullptr)
+		((Skill_Garen_W*)skillList[(int)SkillIndex::W])->AddPassiveStack();
 }
 

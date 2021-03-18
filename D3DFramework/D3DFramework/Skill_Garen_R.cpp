@@ -8,6 +8,7 @@
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
+	maxLevel = 3;
 	coolTime_Init = 2.f;
 	duration = 0.f;
 	hostUnit = _hostUnit;

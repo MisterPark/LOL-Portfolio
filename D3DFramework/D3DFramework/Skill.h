@@ -21,6 +21,9 @@ public:
 
 	float GetCooltime();
 	float GetCooltime_Init();
+	int GetLevel() { return level; }
+	int GetMaxLevel() { return maxLevel; }
+	void AddLevel() { level++; }
 
 protected:
 	Unit* hostUnit = nullptr;
@@ -29,6 +32,7 @@ protected:
 	float tick = 0.f;
 	float duration = 0.f;
 	int level = 0;
+	int maxLevel = 1;
 	bool active = false;
 	
 	// 데미지계산관련

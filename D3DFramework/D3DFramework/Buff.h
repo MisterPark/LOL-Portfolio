@@ -6,7 +6,7 @@ class Buff
 {
 public:
 	enum class BuffName{
-		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, GarenWShield, GarenEDamage, GarenEArmorDec,
+		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,
 		END
 	};
 	struct Node
