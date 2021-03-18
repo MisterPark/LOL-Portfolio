@@ -25,60 +25,9 @@ Unit::Unit()
 	stat = (Stat*)AddComponent<Stat>(L"Stat");
 	SetAttackPerSec(0.625f);
 
-	// TODO : 행동트리
+	//행동트리
 	bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
 	
-	SelectorNode* root = new SelectorNode();
-	bt->SetRoot(root);
-	
-	ConditionNode<Unit>* deathCondition = new ConditionNode<Unit>();
-	deathCondition->SetCondition(this, &Unit::IsDead);
-	root->AddChild(deathCondition);
-
-	ActionNode<Unit>* deathAction = new ActionNode<Unit>();
-	deathAction->SetAction(this, &Unit::DeadAction);
-	deathCondition->SetChild(deathAction);
-
-	//
-	ConditionNode<Skill>* skillCondition = new ConditionNode<Skill>();
-	skillCondition->SetCondition(skillList[(int)SkillIndex::Q], &Skill::IsActive);
-	root->AddChild(skillCondition);
-
-	ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
-	skillQAction->SetAction(skillList[(int)SkillIndex::Q], &Skill::Active);
-	skillCondition->SetChild(skillQAction);
-	//
-
-	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
-	moveCondition->SetCondition(agent, &NavMeshAgent::IsPathRemain);
-	root->AddChild(moveCondition);
-
-	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
-	moveAction->SetAction(this, &Unit::MoveAction);
-	moveCondition->SetChild(moveAction);
-
-	SelectorNode* attackSelector = new SelectorNode();
-	root->AddChild(attackSelector);
-
-	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
-	attackCondition->SetCondition(this, &Unit::HasAttackTarget);
-	attackSelector->AddChild(attackCondition);
-
-	ActionNode<Unit>* attackAction = new ActionNode<Unit>();
-	attackAction->SetAction(this, &Unit::AttackAction);
-	attackCondition->SetChild(attackAction);
-
-	ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
-	countAttackCondition->SetCondition(this, &Unit::HasLastAttacker);
-	attackSelector->AddChild(countAttackCondition);
-
-	ActionNode<Unit>* countAttackAction = new ActionNode<Unit>();
-	countAttackAction->SetAction(this, &Unit::CounterAttack);
-	countAttackCondition->SetChild(countAttackAction);
-	
-	ActionNode<Unit>* idleAction = new ActionNode<Unit>();
-	idleAction->SetAction(this, &Unit::IdleAction);
-	root->AddChild(idleAction);
 }
 
 Unit::~Unit()
@@ -153,8 +102,8 @@ void Unit::UpdateHit()
 	auto end = hitList.end();
 	for (;iter!=end;)
 	{
-		(*iter).tick += dt;
-		if ((*iter).tick >= (*iter).duration)
+		iter->second.tick += dt;
+		if (iter->second.tick >= iter->second.duration)
 		{
 			iter = hitList.erase(iter);
 			continue;
@@ -341,7 +290,18 @@ void Unit::AttackAction()
 				HitInfo info;
 				info.damageSum += finalDamage;
 				info.unit = this;
-				attackTarget->hitList.push_back(info);
+
+				auto find = attackTarget->hitList.find(this);
+				auto end = attackTarget->hitList.end();
+				if (find != end)
+				{
+					find->second.damageSum += info.damageSum;
+					find->second.tick = 0.f;
+				}
+				else
+				{
+					attackTarget->hitList[this] = info;
+				}
 			}
 		}
 
@@ -470,7 +430,7 @@ float Unit::DecreaseShieldBuff(float _damage)
 				else {
 					_damage -= modi.value;
 					modi.value = 0.f;
-					buff->duration = 9999.f; // 실드를 다 써서 실드버프삭제
+					buff->tick = INFINITY; // 실드를 다 써서 실드버프삭제
 					continue;
 				}
 			}

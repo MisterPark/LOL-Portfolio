@@ -3,6 +3,7 @@
 #include "MinionFloatingBar.h"
 #include "MinionAI.h"
 #include "SphereCollider.h"
+#include "MinionSubTree.h"
 
 Minion::Minion()
 {
@@ -10,6 +11,9 @@ Minion::Minion()
 	bar->SetTarget(this);
 
 	ai =(MinionAI*)AddComponent<MinionAI>(L"AI");
+
+	MinionSubTree* subTree = new MinionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Minion::~Minion()

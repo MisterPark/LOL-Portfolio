@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "FloatingHPBar.h"
 FloatingHPBar::FloatingHPBar()
 {
@@ -45,7 +45,7 @@ void FloatingHPBar::Update()
 
 	GameObject::Update();
 
-	Billboard();
+	//Billboard();
 }
 
 void FloatingHPBar::SetTarget(GameObject * target)

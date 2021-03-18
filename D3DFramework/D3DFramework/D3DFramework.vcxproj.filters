@@ -271,9 +271,6 @@
     <Filter Include="Component\BehaviorTree">
       <UniqueIdentifier>{ace10917-297b-4250-a205-6a5325551e2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\BehaviorTree\Node">
-      <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Renderer\FogOfWar">
       <UniqueIdentifier>{520ad5fd-c572-4a3e-8d3d-34b08ac1d5d4}</UniqueIdentifier>
     </Filter>
@@ -306,6 +303,21 @@
     </Filter>
     <Filter Include="GameObject\DamageObject\Garen">
       <UniqueIdentifier>{ef31fc88-6a72-49b8-b403-3de3a9270b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree">
+      <UniqueIdentifier>{b1443835-438b-40b3-8cc6-8b758200df92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\ChampTree">
+      <UniqueIdentifier>{26776f19-51ac-43c0-a24b-79ade8788b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\TurretTree">
+      <UniqueIdentifier>{d96c7955-addf-4c59-9148-90fd108fa710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\MonsterTree">
+      <UniqueIdentifier>{f4ce1a81-95da-4cc3-a83f-5d45620b2237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\MinionTree">
+      <UniqueIdentifier>{07a2b334-9d9b-4052-b9e9-18f8fbd82271}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -918,6 +930,15 @@
     </ClInclude>
     <ClInclude Include="Buff_GarenPHealthRegen.h">
       <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="ChampionSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\ChampTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1581,6 +1602,15 @@
     </ClCompile>
     <ClCompile Include="Buff_GarenPHealthRegen.cpp">
       <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="ChampionSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\ChampTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

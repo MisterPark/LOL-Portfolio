@@ -1,11 +1,13 @@
 ﻿#pragma once
 #include "Panel.h"
 #include "Stat.h"
+#include "Unit.h"
 
 class Champion;
-class Label;
 class Engine::UI;
+class Label;
 class OutlinedSlot;
+class Button;
 
 class PlayerInfoPanel : public Panel
 {
@@ -22,13 +24,6 @@ public:
 	virtual void Release() override;
 
 	virtual void Update() override;
-
-	//void RenderStat();
-	//void RenderMini();
-	//void RenderBar();
-
-	void SetHP(float _value, float _maxValue);
-	void SetMP(float _value, float _maxValue);
 
 	void SetTarget(Champion* _target);
 	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
@@ -52,16 +47,12 @@ private:
 	Label* hpLabel = nullptr;
 	Label* hpRegenLabel = nullptr;
 	float hpBarBackRatio = 1.f;
-	float hp;
-	float hpMax;
 
 	// mp bar
 	Label* mpLabel = nullptr;
 	Label* mpRegenLabel = nullptr;
 	Engine::UI* mpBar = nullptr;
 	Engine::UI* mpBarMarker = nullptr;
-	float mp;
-	float mpMax;
 
 	// stat
 	map<UINT, StatType> statNum = {
@@ -75,32 +66,40 @@ private:
 		{7, StatType::MovementSpeed   }
 	};
 	Label* statLabel[8] = { nullptr, };
-	Label* level = nullptr;
-	Label* gold = nullptr;
 
-	OutlinedSlot* slotSpell1 = nullptr;
-	OutlinedSlot* slotSpell2 = nullptr;
-	OutlinedSlot* slotSpell3 = nullptr;
-	OutlinedSlot* slotSpell4 = nullptr;
+	// Level
+	Label* levelLabel = nullptr;
+
+	// EXP Bar
+	UI* expBar = nullptr;
+
+	// Spell
+	map<UINT, SkillIndex> spellNum = {
+		{0, SkillIndex::Q },
+		{1, SkillIndex::W },
+		{2, SkillIndex::E },
+		{3, SkillIndex::R }
+	};
+	UINT spellPoint = 0;
+	int spellLevelMax[4] = { 5, 5, 5, 3 };
+	UINT spellLevel[4] = { 0, 0, 0, 0 };
+
+	OutlinedSlot* slotSpell[4] = { nullptr, };
+	Label* SpellTimeLabel[4] = { nullptr, };
+	vector<vector<UI*>> spellLevelUI;
+	Button* spellLevelUpButton[4] = { nullptr, };
+
+	Label* spellPointLabel = nullptr;
+
+	// Passive
 	OutlinedSlot* slotPassive = nullptr;
 	OutlinedSlot* slotSummoner1 = nullptr;
 	OutlinedSlot* slotSummoner2 = nullptr;
 
-	static const int spell1LevelMax = 5;
-	static const int spell2LevelMax = 5;
-	static const int spell3LevelMax = 5;
-	static const int spell4LevelMax = 3;
+	// Item
+	Button* itemshopBtn = nullptr;
 
-	UI* spell1LevelUI[spell1LevelMax] = { nullptr, };
-	UI* spell2LevelUI[spell2LevelMax] = { nullptr, };
-	UI* spell3LevelUI[spell3LevelMax] = { nullptr, };
-	UI* spell4LevelUI[spell4LevelMax] = { nullptr, };
-
-	UINT spell1Level = 0;
-	UINT spell2Level = 0;
-	UINT spell3Level = 0;
-	UINT spell4Level = 0;
-
+	// Event
 	static void ClickStatButton();
 };
 

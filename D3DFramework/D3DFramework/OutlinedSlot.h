@@ -16,10 +16,13 @@ public:
     virtual void Update() override;
 
     void SetIcon(const std::wstring& _tag);
+    void SetCooltime(float _cooltime, float _cooltimeMax);
 
     UI* outline = nullptr;
-    UI* icon = nullptr;
+	UI* icon = nullptr;
+private:
     UIRenderer* renderer;
-    float cooltime;
+    float cooltime = 0.f;
+    float cooltimeMax = 0.f;
 };
 

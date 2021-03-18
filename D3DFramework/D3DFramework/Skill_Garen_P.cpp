@@ -20,8 +20,9 @@ void Skill_Garen_P::Start()
 	if (coolTime > 0.f)
 		return;
 
+	Skill::Start();
+
 	coolTime = coolTime_Init;
-	active = true;
 
 }
 
@@ -40,6 +41,17 @@ void Skill_Garen_P::Passive()
 		passiveBuff = nullptr;
 	}
 
+	if (hostUnit->hitList.size() == 0)
+	{
+		coolTime = 0.f;
+	}
+	else {
+		Unit::HitInfo lastHitInfo = hostUnit->hitList.rbegin()->second;
+		if (lastHitInfo.tick > 8.f)
+			coolTime = 0.f;
+		else
+			coolTime = coolTime_Init - lastHitInfo.tick;
+	}
 	//TODO: 스위치이용해서 맞으면 쿨타임 늘리기
 }
 
@@ -60,5 +72,5 @@ void Skill_Garen_P::Active()
 
 void Skill_Garen_P::End()
 {
-	active = false;
+	Skill::End();
 }

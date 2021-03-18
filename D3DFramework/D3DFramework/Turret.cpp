@@ -123,7 +123,7 @@ void Turret::AttackAction()
 		missile->transform->position = missilePos;
 		missile->SetTeam(team);
 		missile->SetAttackTarget(attackTarget);
-		missile->Billboard();
+		//missile->BillboardYaw();
 	}
 
 

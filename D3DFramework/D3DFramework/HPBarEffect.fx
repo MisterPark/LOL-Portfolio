@@ -17,11 +17,14 @@ struct PS_IN
 texture g_texture;
 texture g_sightMap;
 texture g_timerMap;
-float4 g_uvRatio;
+float4 g_uvRatioStart;
+float4 g_uvRatioEnd;
 float g_timerThresHold;
+float4 g_timerColor;
 matrix g_mWorld;
 matrix g_mViewProj;
 matrix g_mSightSpace;
+bool g_grayscale;
 sampler TextureSampler = sampler_state
 {
 	texture = g_texture;
@@ -62,24 +65,34 @@ VS_OUT vs_main(VS_IN input)
 float4 ps_main(PS_IN input) :COLOR0
 {
 	float2 vTex = input.vTex;
-	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
+	if (vTex.x < g_uvRatioStart.x || vTex.x > g_uvRatioEnd.x || vTex.y < g_uvRatioStart.y || vTex.y > g_uvRatioEnd.y)
 	{
 		return float4(0.f, 0.f, 0.f, 0.f);
 	}
-	float2 timerTex = vTex / g_uvRatio.xy;
+	float2 timerTex = vTex / g_uvRatioEnd.xy;
 	float timer = step(1.f - g_timerThresHold, tex2D(TimerMapTextureSampler, timerTex).r);
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
-	vAlbedo.rgb *= timer * 0.5f + 0.5f;
+	if(g_grayscale) {
+		vAlbedo.rgb = (vAlbedo.r + vAlbedo.g + vAlbedo.b) / 3;
+	}
+	//vAlbedo.rgb *= timer * 0.5f + 0.5f;
+	//vAlbedo.rgb = (vAlbedo.rgb * (1.f - g_timerColor.a)) + (g_timerColor.rgb * g_timerColor.a * timer);
+	//vAlbedo.rgb = (vAlbedo.rgb * (1.f - g_timerColor.a)) + (g_timerColor.rgb * g_timerColor.a * timer);
+	vAlbedo.rgb = (vAlbedo.rgb * (1.f - g_timerColor.a * (!timer))) + (g_timerColor.rgb * g_timerColor.a * (!timer));
+
 	return vAlbedo;
 }
 float4 ps_sight_main(PS_IN input) :COLOR0
 {
 	float2 vTex = input.vTex;
-	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
+	if (vTex.x < g_uvRatioStart.x || vTex.x > g_uvRatioEnd.x || vTex.y < g_uvRatioStart.y || vTex.y > g_uvRatioEnd.y)
 	{
 		return float4(0.f, 0.f, 0.f, 0.f);
 	}
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+	if(g_grayscale) {
+		vAlbedo.rgb = (vAlbedo.r + vAlbedo.g + vAlbedo.b) / 3;
+	}
 	float2 sightTex = input.vTex;
 	
 	sightTex -= 0.5f;
@@ -96,13 +109,16 @@ float4 ps_sight_main(PS_IN input) :COLOR0
 float4 ps_timer_main(PS_IN input) :COLOR0
 {
 	float2 vTex = input.vTex;
-	if (vTex.x > g_uvRatio.x || vTex.y > g_uvRatio.y)
+	if (vTex.x < g_uvRatioStart.x || vTex.x > g_uvRatioEnd.x || vTex.y < g_uvRatioStart.y || vTex.y > g_uvRatioEnd.y)
 	{
 		return float4(0.f, 0.f, 0.f, 0.f);
 	}
-	float2 timerTex = vTex / g_uvRatio.xy;
+	float2 timerTex = vTex / g_uvRatioEnd.xy;
 	float timer = step(1.f - g_timerThresHold, tex2D(TimerMapTextureSampler, timerTex).r);
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+	if(g_grayscale) {
+		vAlbedo.rgb = (vAlbedo.r + vAlbedo.g + vAlbedo.b) / 3;
+	}
 	vAlbedo.rgb *= timer * 0.5f + 0.5f;
 	return vAlbedo;
 }

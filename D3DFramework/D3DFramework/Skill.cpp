@@ -15,6 +15,30 @@ Skill::~Skill()
 	}
 }
 
+void Skill::Start()
+{
+	active = true;
+	tick = duration;
+}
+
+void Skill::Passive()
+{
+}
+
+void Skill::Active()
+{
+}
+
+void Skill::End()
+{
+	active = false;
+}
+
+bool Skill::IsActive()
+{
+	return active;
+}
+
 bool Skill::IsAvailable()
 {
 	if (!active)
@@ -33,5 +57,15 @@ void Skill::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 	{
 		calc->Calc(_damage, _myStat, _targetStat);
 	}
+}
+
+float Skill::GetCooltime()
+{
+	return coolTime;
+}
+
+float Skill::GetCooltime_Init()
+{
+	return coolTime_Init;
 }
 

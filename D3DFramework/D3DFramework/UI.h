@@ -52,7 +52,9 @@ namespace Engine
         void SetLocation(Vector2 pos);
         virtual void SetTexture(const wstring& _key);
 
-        virtual void SetText(const wstring& _text);
+		virtual void SetText(const wstring& _text);
+		virtual void SetText(int _value);
+		virtual void SetText(LPCTSTR pszStr, ...);
 
         // child
         UI* CreateChild(const std::wstring& _tag, const Vector2& _pos);
@@ -70,7 +72,10 @@ namespace Engine
 
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
-        Vector2 uvRatio = { 1,1 };
+        Vector2 uvRatioStart = { 0, 0 };
+        Vector2 uvRatioEnd   = { 1, 1 };
+        _D3DCOLORVALUE timerColor{ 31, 91, 142, 200 }; // RGBA
+        bool grayscale = false;
         // 넓이 높이 (R)
         Vector2 size;
 

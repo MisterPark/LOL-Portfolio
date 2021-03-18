@@ -288,6 +288,32 @@ void Engine::UI::SetText(const wstring& _text)
 	text = _text;
 }
 
+void Engine::UI::SetText(int _value)
+{
+	WCHAR wstr[16] = {};
+	swprintf_s(wstr, L"%d", _value);
+	text = wstr;
+}
+
+void Engine::UI::SetText(LPCTSTR pszStr, ...)
+{
+	va_list args;
+	va_start(args, pszStr);
+
+	int len = _vsctprintf(pszStr, args) + 1; // for '\0'
+
+	TCHAR* pBuf = (TCHAR*)malloc(sizeof(TCHAR) * len);
+
+	if (pBuf)
+	{
+		_vstprintf_s(pBuf, len, pszStr, args);
+		text = pBuf;
+		free(pBuf);
+	}
+
+	va_end(args);
+}
+
 Engine::UI* Engine::UI::CreateChild(const std::wstring& _tag, const Vector2& _pos)
 {
 	UI* ui = GameObject::CreateChild<UI>(_tag);

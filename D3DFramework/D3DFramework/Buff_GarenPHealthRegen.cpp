@@ -12,8 +12,9 @@ Buff_GarenPHealthRegen::~Buff_GarenPHealthRegen()
 {
 
 }
-
+	
 void Buff_GarenPHealthRegen::Update()
 {
-	modifiers.front().value = host->stat->GetValue(StatType::MaxHealth) * 0.015f;
+	float test = host->stat->GetValue(StatType::MaxHealth) * 0.1f;
+	modifiers.front().value = host->stat->GetValue(StatType::MaxHealth) * 0.1f;// 0.015f;
 }

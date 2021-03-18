@@ -200,6 +200,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Champion.h" />
+    <ClInclude Include="ChampionSubTree.h" />
     <ClInclude Include="ChaosMinionCaster.h" />
     <ClInclude Include="ChaosMinionSiege.h" />
     <ClInclude Include="ChaosMinionSuper.h" />
@@ -267,10 +268,12 @@
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionAI.h" />
     <ClInclude Include="MinionFloatingBar.h" />
+    <ClInclude Include="MinionSubTree.h" />
     <ClInclude Include="MiniScorePanel.h" />
     <ClInclude Include="Missfortune.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAI.h" />
+    <ClInclude Include="MonsterSubTree.h" />
     <ClInclude Include="Murkwolf.h" />
     <ClInclude Include="MurkwolfMini.h" />
     <ClInclude Include="NavMesh.h" />
@@ -397,6 +400,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Champion.cpp" />
+    <ClCompile Include="ChampionSubTree.cpp" />
     <ClCompile Include="ChaosMinionCaster.cpp" />
     <ClCompile Include="ChaosMinionSiege.cpp" />
     <ClCompile Include="ChaosMinionSuper.cpp" />
@@ -463,10 +467,12 @@
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionAI.cpp" />
     <ClCompile Include="MinionFloatingBar.cpp" />
+    <ClCompile Include="MinionSubTree.cpp" />
     <ClCompile Include="MiniScorePanel.cpp" />
     <ClCompile Include="Missfortune.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAI.cpp" />
+    <ClCompile Include="MonsterSubTree.cpp" />
     <ClCompile Include="Murkwolf.cpp" />
     <ClCompile Include="MurkwolfMini.cpp" />
     <ClCompile Include="NavMesh.cpp" />

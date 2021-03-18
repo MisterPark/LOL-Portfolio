@@ -54,5 +54,6 @@ technique Default_Device
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_missile();
+		cullmode = none;
 	}
 }
