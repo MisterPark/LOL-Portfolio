@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "Unit.h"
 #include "Rectangle.h"
+#include "TurretMissileBase.h"
 
 using namespace Engine;
 
@@ -18,7 +19,8 @@ public:
     void SetAttackTarget(Unit* _target);
 
 private:
-    Engine::Rectangle* mesh = nullptr;
+    TurretMissileBase* base = nullptr;
+    Engine::Plane* mesh = nullptr;
 
     Team team = Team::NEUTRAL;
     Unit* attackTarget = nullptr;

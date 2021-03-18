@@ -8,6 +8,7 @@
 #include "DeferredStaticMeshRenderer.h"
 #include "DistortionRenderer.h"
 #include "FogOfWarRenderer.h"
+#include "TurretSubTree.h"
 
 Turret::Turret()
 {
@@ -44,6 +45,9 @@ Turret::Turret()
 	stat->SetBaseValue(StatType::Armor, 36.f);
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 7.75f);
+
+	TurretSubTree* subTree = new TurretSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Turret::~Turret()

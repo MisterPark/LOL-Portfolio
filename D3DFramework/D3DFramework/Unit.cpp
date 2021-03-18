@@ -102,8 +102,8 @@ void Unit::UpdateHit()
 	auto end = hitList.end();
 	for (;iter!=end;)
 	{
-		iter->second.tick += dt;
-		if (iter->second.tick >= iter->second.duration)
+		(*iter).tick += dt;
+		if ((*iter).tick >= (*iter).duration)
 		{
 			iter = hitList.erase(iter);
 			continue;
@@ -291,17 +291,19 @@ void Unit::AttackAction()
 				info.damageSum += finalDamage;
 				info.unit = this;
 
-				auto find = attackTarget->hitList.find(this);
+				auto iter = attackTarget->hitList.begin();
 				auto end = attackTarget->hitList.end();
-				if (find != end)
+				for (; iter != end;)
 				{
-					find->second.damageSum += info.damageSum;
-					find->second.tick = 0.f;
+					if ((*iter).unit == this)
+					{
+						info.damageSum += (*iter).damageSum;
+						iter = hitList.erase(iter);
+						break;
+					}
 				}
-				else
-				{
-					attackTarget->hitList[this] = info;
-				}
+
+				attackTarget->hitList.push_back(info);
 			}
 		}
 

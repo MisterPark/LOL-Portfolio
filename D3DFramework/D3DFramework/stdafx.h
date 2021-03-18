@@ -95,6 +95,7 @@ using namespace std;
 #include "Vertex.h"
 #include "CustomMesh.h"
 #include "Triangle.h"
+#include "Plane.h"
 
 // 레이어
 #include "Layer.h"

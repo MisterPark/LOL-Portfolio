@@ -940,6 +940,10 @@
     <ClInclude Include="MinionSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClInclude>
+    <ClInclude Include="TurretSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\TurretTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMissileBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1612,6 +1616,10 @@
     <ClCompile Include="MinionSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClCompile>
+    <ClCompile Include="TurretSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\TurretTree</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMissileBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
