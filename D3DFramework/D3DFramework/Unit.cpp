@@ -306,7 +306,7 @@ void Unit::AttackAction()
 					if ((*iter).unit == this)
 					{
 						info.damageSum += (*iter).damageSum;
-						iter = hitList.erase(iter);
+						iter = attackTarget->hitList.erase(iter);
 						break;
 					}
 					++iter;
