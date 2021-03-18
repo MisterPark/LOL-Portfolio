@@ -225,9 +225,9 @@ void Unit::Die()
 {
 	isDead = true;
 	collider->enable = false;
-	for (auto& unit : hitList)
+	for (auto& hitInfo : hitList)
 	{
-		unit.second.unit->OnKilled(this);
+		hitInfo.unit->OnKilled(this);
 	}
 }
 
