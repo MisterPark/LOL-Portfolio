@@ -102,8 +102,8 @@ void Unit::UpdateHit()
 	auto end = hitList.end();
 	for (;iter!=end;)
 	{
-		(*iter).tick += dt;
-		if ((*iter).tick >= (*iter).duration)
+		iter->second.tick += dt;
+		if (iter->second.tick >= iter->second.duration)
 		{
 			iter = hitList.erase(iter);
 			continue;
@@ -290,7 +290,18 @@ void Unit::AttackAction()
 				HitInfo info;
 				info.damageSum += finalDamage;
 				info.unit = this;
-				attackTarget->hitList.push_back(info);
+
+				auto find = attackTarget->hitList.find(this);
+				auto end = attackTarget->hitList.end();
+				if (find != end)
+				{
+					find->second.damageSum += info.damageSum;
+					find->second.tick = 0.f;
+				}
+				else
+				{
+					attackTarget->hitList[this] = info;
+				}
 			}
 		}
 
@@ -419,7 +430,7 @@ float Unit::DecreaseShieldBuff(float _damage)
 				else {
 					_damage -= modi.value;
 					modi.value = 0.f;
-					buff->duration = 9999.f; // 실드를 다 써서 실드버프삭제
+					buff->tick = INFINITY; // 실드를 다 써서 실드버프삭제
 					continue;
 				}
 			}

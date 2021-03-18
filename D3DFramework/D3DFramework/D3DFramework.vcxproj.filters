@@ -310,6 +310,15 @@
     <Filter Include="Component\BehaviorTree\SubTree\ChampTree">
       <UniqueIdentifier>{26776f19-51ac-43c0-a24b-79ade8788b4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\TurretTree">
+      <UniqueIdentifier>{d96c7955-addf-4c59-9148-90fd108fa710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\MonsterTree">
+      <UniqueIdentifier>{f4ce1a81-95da-4cc3-a83f-5d45620b2237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BehaviorTree\SubTree\MinionTree">
+      <UniqueIdentifier>{07a2b334-9d9b-4052-b9e9-18f8fbd82271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -924,6 +933,12 @@
     </ClInclude>
     <ClInclude Include="ChampionSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\ChampTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1590,6 +1605,12 @@
     </ClCompile>
     <ClCompile Include="ChampionSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\ChampTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\MonsterTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

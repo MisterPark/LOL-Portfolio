@@ -28,4 +28,7 @@ protected:
 
     Bar* hpBar = nullptr;
     Bar* mpBar = nullptr;
+    Bar* shieldBar = nullptr;
+    Bar* overShieldBar = nullptr;
+    Label* nickLabel = nullptr;
 };

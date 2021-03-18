@@ -21,6 +21,7 @@ enum class StatType {
 	Range,AttackSpeed, // 사정거리, 1초당 공격속도(횟수)
 	DamageReduction,
 	Level, // 레벨
+	SkillPoint,
 	Gold,
 	END
 };
@@ -57,6 +58,7 @@ private:
 	float baseValues[MaxOfEnum<StatType>()] = {};
 	float additional[MaxOfEnum<StatType>()] = {};
 	float percent[MaxOfEnum<StatType>()] = {};
+	float finalValues[MaxOfEnum<StatType>()] = {};
 
 	list<Buff*> buffList;
 };

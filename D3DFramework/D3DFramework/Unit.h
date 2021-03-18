@@ -155,7 +155,7 @@ public:
 private:
 	bool oldHitFlag = false;
 public:
-	list<HitInfo> hitList;
+	map<Unit*,HitInfo> hitList;
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
 protected:

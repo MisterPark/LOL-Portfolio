@@ -2,10 +2,13 @@
 #include "Stat.h"
 #include "Unit.h"
 #include "Buff.h"
+#include "Garen.h"
 
 Stat::Stat(GameObject* owner) :IComponent(owner)
 {
     unit = (Unit*)owner;
+
+    
 }
 
 Stat::Stat(const Stat& rhs) : IComponent(rhs)
@@ -30,6 +33,11 @@ IComponent* Stat::Clone()
 void Stat::PreUpdate()
 {
     float dt = Time::DeltaTime();
+
+    if (dynamic_cast<Garen*>(unit))
+    {
+        int a = 10;
+    }
 
     constexpr int count = MaxOfEnum<StatType>();
     memset(additional, 0, sizeof(float) * count);
@@ -71,8 +79,11 @@ void Stat::PreUpdate()
     for (int i = 0; i < count; i++)
     {
         percent[i] = 1.f - percent[i];
+        finalValues[i] = (baseValues[i] + additional[i]) * (1 + percent[i]);
     }
 
+
+   
 }
 
 void Stat::Update()
@@ -84,9 +95,9 @@ void Stat::Update()
     if (unit->IsDead() == false)
     {
         // 체력 리젠
-        baseValues[(int)StatType::Health] += baseValues[(int)StatType::HealthRegen] * 0.2f * dt;
+        baseValues[(int)StatType::Health] += finalValues[(int)StatType::HealthRegen] * 0.2f * dt;
         // 마나 리젠
-        baseValues[(int)StatType::Health] += baseValues[(int)StatType::HealthRegen] * 0.2f * dt;
+        baseValues[(int)StatType::Mana] += finalValues[(int)StatType::ManaRegen] * 0.2f * dt;
     }
     
 }
@@ -103,18 +114,18 @@ void Stat::PostUpdate()
         }
         
     }
-    else if (baseValues[(int)StatType::Health] > baseValues[(int)StatType::MaxHealth])
+    else if (baseValues[(int)StatType::Health] > finalValues[(int)StatType::MaxHealth])
     {
-        baseValues[(int)StatType::Health] = baseValues[(int)StatType::MaxHealth];
+        baseValues[(int)StatType::Health] = finalValues[(int)StatType::MaxHealth];
     }
 
     if (baseValues[(int)StatType::Mana] < 0)
     {
         baseValues[(int)StatType::Mana] = 0;
     }
-    else if (baseValues[(int)StatType::Mana] > baseValues[(int)StatType::MaxMana])
+    else if (baseValues[(int)StatType::Mana] > finalValues[(int)StatType::MaxMana])
     {
-        baseValues[(int)StatType::Mana] = baseValues[(int)StatType::MaxMana];
+        baseValues[(int)StatType::Mana] = finalValues[(int)StatType::MaxMana];
     }
 
     // 레벨업
@@ -133,6 +144,7 @@ float Stat::operator[](StatType type)
 void Stat::SetBaseValue(StatType _type, float _value)
 {
     baseValues[(int)_type] = _value;
+    finalValues[(int)_type] = _value;
 }
 
 float Stat::GetBaseValue(StatType _type)
@@ -152,21 +164,22 @@ float Stat::DecreaseBaseValue(StatType _type, float _modifier)
 
 float Stat::GetValue(StatType _type)
 {
-    return (baseValues[(int)_type] + additional[(int)_type]) * (1 + percent[(int)_type]);
+    return finalValues[(int)_type];
 }
 
 void Stat::AddBuff(Buff* buff)
 {
-    for (auto _buff : buffList)
+    for (auto iter = buffList.begin(); iter != buffList.end(); iter++)
     {
-        if (buff->buffName == _buff->buffName) {
-            if(_buff->overlapCount < _buff->maxOverlapCount)
-                _buff->overlapCount++;
-            _buff->tick = 0.f;
-            delete buff;
-            return;
+        if (buff->buffName == (*iter)->buffName) {
+            buff->overlapCount = (*iter)->overlapCount + 1;
+            delete (*iter);
+            iter = buffList.erase(iter);
+            break;
         }
+
     }
+
     buffList.push_back(buff);
 }
 
