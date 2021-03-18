@@ -23,7 +23,7 @@ namespace Engine
 		Engine::UI* ui = nullptr;
 		ID3DXEffect* effect = nullptr;
 		Texture* timerGradientTex;
-		float ratio;
+		float timerRatio;
 	private:
 		static int uniqueZIndex;
 	};

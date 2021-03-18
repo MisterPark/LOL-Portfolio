@@ -72,7 +72,10 @@ namespace Engine
 
         Rectangle* mesh = nullptr;
         Texture* texture = nullptr;
-        Vector2 uvRatio = { 1,1 };
+        Vector2 uvRatioStart = { 0, 0 };
+        Vector2 uvRatioEnd   = { 1, 1 };
+        _D3DCOLORVALUE timerColor{ 31, 91, 142, 200 }; // RGBA
+        bool grayscale = false;
         // 넓이 높이 (R)
         Vector2 size;
 

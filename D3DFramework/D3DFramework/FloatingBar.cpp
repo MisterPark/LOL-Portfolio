@@ -79,8 +79,8 @@ void FloatingBar::PostUpdate()
 			int a = 10;
 		}
 
-		hpBar->uvRatio = hpRatio;
-		mpBar->uvRatio = mpRatio;
+		hpBar->uvRatioEnd = hpRatio;
+		mpBar->uvRatioEnd = mpRatio;
 	}
 
 
