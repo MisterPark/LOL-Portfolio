@@ -46,7 +46,7 @@ void Skill_Garen_P::Passive()
 		coolTime = 0.f;
 	}
 	else {
-		Unit::HitInfo lastHitInfo = hostUnit->hitList.rbegin()->second;
+		Unit::HitInfo lastHitInfo = (*hostUnit->hitList.rbegin());
 		if (lastHitInfo.tick > 8.f)
 			coolTime = 0.f;
 		else
