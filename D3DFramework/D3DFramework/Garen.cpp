@@ -45,7 +45,7 @@ Garen::Garen()
 
 	// 스탯
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);
-	stat->SetBaseValue(StatType::Health, 0.f);
+	stat->SetBaseValue(StatType::Health, 620.f);
 	stat->SetBaseValue(StatType::HealthRegen, 8.f);
 	stat->SetBaseValue(StatType::MaxMana, 100.f);
 	stat->SetBaseValue(StatType::Mana, 100.f);

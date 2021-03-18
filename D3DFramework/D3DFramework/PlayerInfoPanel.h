@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Panel.h"
 #include "Stat.h"
+#include "Unit.h"
 
 class Champion;
 class Engine::UI;
@@ -65,37 +66,28 @@ private:
 		{7, StatType::MovementSpeed   }
 	};
 	Label* statLabel[8] = { nullptr, };
-	Label* level = nullptr;
+
+	// Level
+	Label* levelLabel = nullptr;
+
+	// EXP Bar
+	UI* expBar = nullptr;
 
 	// Spell
-	static const int spell1LevelMax = 5;
-	static const int spell2LevelMax = 5;
-	static const int spell3LevelMax = 5;
-	static const int spell4LevelMax = 3;
+	map<UINT, SkillIndex> spellNum = {
+		{0, SkillIndex::Q },
+		{1, SkillIndex::W },
+		{2, SkillIndex::E },
+		{3, SkillIndex::R }
+	};
 	UINT spellPoint = 0;
-	UINT spell1Level = 0;
-	UINT spell2Level = 0;
-	UINT spell3Level = 0;
-	UINT spell4Level = 0;
+	int spellLevelMax[4] = { 5, 5, 5, 3 };
+	UINT spellLevel[4] = { 0, 0, 0, 0 };
 
-	OutlinedSlot* slotSpell1 = nullptr;
-	OutlinedSlot* slotSpell2 = nullptr;
-	OutlinedSlot* slotSpell3 = nullptr;
-	OutlinedSlot* slotSpell4 = nullptr;
-	Label* slotSpell1Label = nullptr;
-	Label* slotSpell2Label = nullptr;
-	Label* slotSpell3Label = nullptr;
-	Label* slotSpell4Label = nullptr;
-
-	UI* spell1LevelUI[spell1LevelMax] = { nullptr, };
-	UI* spell2LevelUI[spell2LevelMax] = { nullptr, };
-	UI* spell3LevelUI[spell3LevelMax] = { nullptr, };
-	UI* spell4LevelUI[spell4LevelMax] = { nullptr, };
-
-	Button* spell1LevelUpButton = nullptr;
-	Button* spell2LevelUpButton = nullptr;
-	Button* spell3LevelUpButton = nullptr;
-	Button* spell4LevelUpButton = nullptr;
+	OutlinedSlot* slotSpell[4] = { nullptr, };
+	Label* SpellTimeLabel[4] = { nullptr, };
+	vector<vector<UI*>> spellLevelUI;
+	Button* spellLevelUpButton[4] = { nullptr, };
 
 	Label* spellPointLabel = nullptr;
 

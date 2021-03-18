@@ -158,7 +158,6 @@ public:
 	map<Unit*,HitInfo> hitList;
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
-
 protected:
 	
 	// 데미지계산관련

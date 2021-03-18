@@ -26,7 +26,8 @@ namespace Engine
 		int screenH = MainGame::GetHeight();
 		Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 		Matrix matViewProj;
-		D3DXVECTOR4 vecUVMax{ ui->uvRatio.x,ui->uvRatio.y, 0.f, 0.f };
+		D3DXVECTOR4 vecUVStart{ ui->uvRatioStart.x, ui->uvRatioStart.y, 0.f, 0.f };
+		D3DXVECTOR4 vecUVEnd  { ui->uvRatioEnd.x,   ui->uvRatioEnd.y,   0.f, 0.f };
 		device->GetTransform(D3DTS_VIEW, &matOriginView);
 		device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 		D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
@@ -45,7 +46,8 @@ namespace Engine
 		effect->SetMatrix("g_mWorld", &matWorld);
 		effect->SetTexture("g_texture", mesh->GetSubsetTexture(0));
 		effect->SetTexture("g_sightMap", sightTexture.Get());
-		effect->SetVector("g_uvRatio", &vecUVMax);
+		effect->SetVector("g_uvRatioStart", &vecUVStart);
+		effect->SetVector("g_uvRatioEnd",   &vecUVEnd);
 		effect->BeginPass(1);
 
 		mesh->RenderSubset(0);

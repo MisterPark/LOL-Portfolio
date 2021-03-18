@@ -34,7 +34,6 @@ void OutlinedSlot::Release()
 void OutlinedSlot::Update()
 {
 	UI::Update();
-	//cooltime -= Time::DeltaTime();
 
 	if (cooltimeMax <= 0.f) {
 		renderer->SetTimerRatio(0.f);

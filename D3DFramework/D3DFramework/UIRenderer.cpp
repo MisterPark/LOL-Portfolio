@@ -13,7 +13,7 @@ Engine::UIRenderer::UIRenderer(GameObject* owner)
 
 	RenderManager::LoadTexture(L"Resource/texture/", L"timer.png");
 	timerGradientTex = RenderManager::GetTexture(L"timer");
-	ratio = 1.f;
+	timerRatio = 1.f;
 }
 
 IComponent* Engine::UIRenderer::Clone()
@@ -31,7 +31,9 @@ void Engine::UIRenderer::Render()
 	int screenH = MainGame::GetHeight();
 	Matrix matWorld, matView, matProj, matOriginView, matOriginProj;
 	Matrix matViewProj;
-	D3DXVECTOR4 vecUVMax{ ui->uvRatio.x,ui->uvRatio.y, 0.f, 0.f};
+	D3DXVECTOR4 vecUVStart{ ui->uvRatioStart.x, ui->uvRatioStart.y, 0.f, 0.f};
+	D3DXVECTOR4 vecUVEnd  { ui->uvRatioEnd.x,   ui->uvRatioEnd.y, 0.f, 0.f};
+	D3DXVECTOR4 timerColor{ ui->timerColor.r / 256, ui->timerColor.g / 256, ui->timerColor.b / 256, ui->timerColor.a / 256 };
 	device->GetTransform(D3DTS_VIEW, &matOriginView);
 	device->GetTransform(D3DTS_PROJECTION, &matOriginProj);
 	D3DXMatrixOrthoLH(&matProj, (FLOAT)screenW, (FLOAT)screenH, 0.f, 1.f);
@@ -49,9 +51,12 @@ void Engine::UIRenderer::Render()
 	effect->SetMatrix("g_mViewProj", &matViewProj);
 	effect->SetMatrix("g_mWorld", &matWorld);
 	effect->SetTexture("g_texture", mesh->GetSubsetTexture(0));
-	effect->SetVector("g_uvRatio",&vecUVMax);
+	effect->SetVector("g_uvRatioStart",&vecUVStart);
+	effect->SetVector("g_uvRatioEnd",&vecUVEnd);
 	effect->SetTexture("g_timerMap", timerGradientTex->pTexture);
-	effect->SetFloat("g_timerThresHold", ratio);
+	effect->SetFloat("g_timerThresHold", timerRatio);
+	effect->SetVector("g_timerColor", &timerColor);
+	effect->SetBool("g_grayscale", ui->grayscale);
 	effect->BeginPass(0);
 
 	mesh->RenderSubset(0);
@@ -67,7 +72,7 @@ void Engine::UIRenderer::SetMesh(Engine::Mesh* mesh)
 
 void Engine::UIRenderer::SetTimerRatio(float ratio)
 {
-	this->ratio = ratio;
+	this->timerRatio = ratio;
 }
 
 void Engine::UIRenderer::BringToTop()
