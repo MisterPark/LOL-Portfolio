@@ -13,8 +13,8 @@ Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 	duration = 0.f;
 	hostUnit = _hostUnit;
 
-	Add_DamageCalc(DamageCalc_Basic::CreateCalc(0.f, true));
-	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, true));
+	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::TrueDamage));
+	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, DamageKind::TrueDamage));
 }
 
 Skill_Garen_R::~Skill_Garen_R()

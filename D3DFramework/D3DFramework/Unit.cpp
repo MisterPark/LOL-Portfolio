@@ -4,6 +4,7 @@
 #include "NavMeshAgent.h"
 #include "Indicator.h"
 #include "Buff.h"
+#include "Monster.h"
 
 list<Unit*> Unit::unitList;
 
@@ -221,6 +222,18 @@ void Unit::Spell4()
 	skillList[(int)SkillIndex::R]->Start();
 }
 
+void Unit::Spell5()
+{
+	if (skillList[(int)SkillIndex::D] == nullptr) return;
+	skillList[(int)SkillIndex::D]->Start();
+}
+
+void Unit::Spell6()
+{
+	if (skillList[(int)SkillIndex::F] == nullptr) return;
+	skillList[(int)SkillIndex::F]->Start();
+}
+
 void Unit::Die()
 {
 	isDead = true;
@@ -233,6 +246,13 @@ void Unit::Die()
 
 void Unit::OnKilled(Unit* target)
 {
+	if (dynamic_cast<Monster*>(target) != nullptr)
+	{
+		float exp = target->stat->GetBaseValue(StatType::Experience);
+		stat->IncreaseBaseValue(StatType::Experience, exp);
+		
+	}
+
 }
 
 void Unit::DeadAction()

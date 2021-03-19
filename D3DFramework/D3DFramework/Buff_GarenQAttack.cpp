@@ -2,7 +2,7 @@
 #include "Buff_GarenQAttack.h"
 #include "Unit.h"
 
-Buff_GarenQAttack::Buff_GarenQAttack(Unit* _host, float _duration, float _basicDamage, float _weightDamage) :Buff_OnHit(_host, _duration, _basicDamage, _weightDamage)
+Buff_GarenQAttack::Buff_GarenQAttack(Unit* _host, float _duration, float _basicDamage, float _weightDamage, DamageKind _damageKind) :Buff_OnHit(_host, _duration, _basicDamage, _weightDamage, _damageKind)
 {
 	buffName = BuffName::GarenQAttack;
 }

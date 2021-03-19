@@ -10,11 +10,13 @@
 #include "DamageCalc_CurrentHpPercent.h"
 #include "DamageCalc_MaxHpPercent.h"
 #include "DamageCalc_OnHit.h"
+#include "DamageCalc_Critical.h"
 #include "Skill_Garen_P.h"
 #include "Skill_Garen_Q.h"
 #include "Skill_Garen_W.h"
 #include "Skill_Garen_E.h"
 #include "Skill_Garen_R.h"
+#include "Skill_Ghost.h"
 #include "Buff_GarenQAttack.h"
 #include "ChampionSubTree.h"
 
@@ -56,11 +58,15 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
+	stat->SetBaseValue(StatType::CriticlaDamage, 1.f);
+	stat->SetBaseValue(StatType::MaxExperience, 90.f);
 	// Test
 	stat->SetBaseValue(StatType::SkillPoint, 18.f);
-
-	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
-	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc());
+	stat->SetBaseValue(StatType::CriticlaChance, 0.5f);
+	
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
+	damageCalcList.emplace_back(DamageCalc_Critical::CreateCalc());
+	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc(DamageKind::AD));
 
 	// 스킬
 	skillList[(int)SkillIndex::Passive] = new Skill_Garen_P(this);
@@ -68,6 +74,7 @@ Garen::Garen()
 	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);
 	skillList[(int)SkillIndex::E] = new Skill_Garen_E(this);
 	skillList[(int)SkillIndex::R] = new Skill_Garen_R(this);
+	skillList[(int)SkillIndex::D] = new Skill_Ghost(this);
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);
@@ -100,21 +107,7 @@ void Garen::OnAttackEnd()
 {
 	Unit::OnAttackEnd();
 	stat->RemoveBuff<Buff_GarenQAttack>();
-	//Unit::OnAttackEnd();
 }
-
-//void Garen::Spell3()
-//{
-//	DamageObject* damageObj = (DamageObject*)SceneManager::GetCurrentScene()->CreateObject<DamageObject>(Layer::Unit);
-//	damageObj->Set_DamageObject(this, transform->GetPos(), 7.f, this->team, stat->GetValue(StatType::AttackDamage) * 0.f, 2.f, 0.5f);
-//	damageObj->Set_ObjectFollow(this);
-//	//제일처음에 Basic만 잘 입혀줄것
-//	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
-//	//damageObj->Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f));
-//	damageObj->Add_DamageCalc(DamageCalc_CurrentHpPercent::CreateCalc(0.1f));
-//	//damageObj->Add_DamageCalc(DamageCalc_MaxHpPercent::CreateCalc(0.1f));
-//}
-
 
 void Garen::SkillQAction()
 {
@@ -134,6 +127,7 @@ void Garen::SkillRAction()
 
 void Garen::OnKilled(Unit* target)
 {
+	Unit::OnKilled(target);
 	if (skillList[(int)SkillIndex::W] != nullptr)
 		((Skill_Garen_W*)skillList[(int)SkillIndex::W])->AddPassiveStack();
 }

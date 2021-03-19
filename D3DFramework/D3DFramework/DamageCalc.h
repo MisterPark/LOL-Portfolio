@@ -3,7 +3,11 @@
 
 enum class CalcKind
 {
-	BASIC, MAXHP_PER, CURRENTHP_PER, LOSTHP_PER, END
+	Basic, MaxHp_Per, CurrentHp_Per, LostHp_Per, END
+};
+enum class DamageKind
+{
+	AD, AP, TrueDamage, END
 };
 
 namespace Engine
@@ -21,7 +25,7 @@ namespace Engine
 		float Calc_Defense(float _damage, Stat* _myStat, Stat* _targetStat);
 	protected:
 		float value = 0.f;
-		bool trueDamage = false;
+		DamageKind damageKind = DamageKind::END;
 	};
 }
 
