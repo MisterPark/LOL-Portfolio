@@ -10,7 +10,7 @@ public:
 
     virtual void Calc(float* _damage, Stat* _myStat, Stat* _targetStat);
 
-    static DamageCalc_LostHpPercent* CreateCalc(float _value, bool _trueDamage = false);
+    static DamageCalc_LostHpPercent* CreateCalc(float _value, DamageKind _damageKind);
 
 };
 

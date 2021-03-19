@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DamageCalc_LostHpPercent.h"
 #include "Stat.h"
-#include "Stat.h"
 
 DamageCalc_LostHpPercent::DamageCalc_LostHpPercent()
 {
@@ -15,7 +14,7 @@ void DamageCalc_LostHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _target
 {
 	float targetLostHp = _targetStat->GetValue(StatType::MaxHealth) - _targetStat->GetValue(StatType::Health);
 	float lostHpDamage = targetLostHp * value;
-	if (trueDamage) {
+	if (damageKind == DamageKind::TrueDamage) {
 		*_damage += lostHpDamage;
 		return;
 	}
@@ -24,10 +23,10 @@ void DamageCalc_LostHpPercent::Calc(float* _damage, Stat* _myStat, Stat* _target
 	*_damage += Calc_Defense(lostHpDamage, _myStat, _targetStat);
 }
 
-DamageCalc_LostHpPercent* DamageCalc_LostHpPercent::CreateCalc(float _value, bool _trueDamage)
+DamageCalc_LostHpPercent* DamageCalc_LostHpPercent::CreateCalc(float _value, DamageKind _damageKind)
 {
 	DamageCalc_LostHpPercent* damageCalc = new DamageCalc_LostHpPercent;
 	damageCalc->value = _value;
-	damageCalc->trueDamage = _trueDamage;
+	damageCalc->damageKind = _damageKind;
 	return damageCalc;
 }

@@ -131,7 +131,7 @@ void Stat::PostUpdate()
     // 레벨업
     if (baseValues[(int)StatType::Experience] > baseValues[(int)StatType::MaxExperience])
     {
-        baseValues[(int)StatType::Experience] = 0;
+        baseValues[(int)StatType::Experience] -= baseValues[(int)StatType::MaxExperience];
         baseValues[(int)StatType::Level] += 1;
     }
 }
@@ -172,7 +172,9 @@ void Stat::AddBuff(Buff* buff)
     for (auto iter = buffList.begin(); iter != buffList.end(); iter++)
     {
         if (buff->buffName == (*iter)->buffName) {
-            buff->overlapCount = (*iter)->overlapCount + 1;
+            buff->overlapCount = (*iter)->overlapCount;
+            if (buff->overlapCount < buff->maxOverlapCount)
+                buff->overlapCount++;
             delete (*iter);
             iter = buffList.erase(iter);
             break;

@@ -34,7 +34,7 @@ void Skill_Garen_E::Start()
 	damageObj->Set_DamageObject(hostUnit, hostUnit->transform->GetPos(), 3.25f, hostUnit->team, attackDamage, duration, attackInterval);
 	damageObj->Set_ObjectFollow(hostUnit);
 	//제일처음에 Basic만 잘 입혀줄것
-	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc());
+	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AD));
 
 	damageBuff = new Buff_GarenEDamage(hostUnit, 3.f, damageObj);//reductionValue);
 	hostUnit->stat->AddBuff(damageBuff);

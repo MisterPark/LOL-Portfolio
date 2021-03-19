@@ -27,7 +27,7 @@ void Skill_Garen_Q::Start()
 	durationSpeedTime = 0.35f + level * 0.65f;
 	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
 	hostUnit->stat->AddBuff(speedBuff);
-	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f, 30.f * level, 1.5f);
+	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f, 30.f * level, 1.5f, DamageKind::AD);
 	hostUnit->stat->AddBuff(attackBuff);
 
 	coolTime = coolTime_Init;

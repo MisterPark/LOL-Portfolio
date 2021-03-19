@@ -10,6 +10,6 @@ public:
 
     virtual void Calc(float* _damage, Stat* _myStat, Stat* _targetStat);
 
-    static DamageCalc_OnHit* CreateCalc(bool _trueDamage = false);
+    static DamageCalc_OnHit* CreateCalc(DamageKind _damageKind);
 };
 
