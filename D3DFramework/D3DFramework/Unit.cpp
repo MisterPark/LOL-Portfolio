@@ -62,7 +62,7 @@ void Unit::Release()
 
 void Unit::Update()
 {
-	
+	UpdateSpawn();
 	UpdateHit();
 
 	GameObject::Update();
@@ -110,6 +110,21 @@ void Unit::UpdateHit()
 		}
 
 		++iter;
+	}
+}
+
+void Unit::UpdateSpawn()
+{
+	float dt = Time::DeltaTime();
+	if (spawnFlag)
+	{
+		spawnTick += dt;
+		if (spawnTick > spawnDelay)
+		{
+			spawnFlag = false;
+			spawnTick = 0.f;
+			Respawn();
+		}
 	}
 }
 
@@ -244,6 +259,7 @@ void Unit::DeadAction()
 	if (curAnim == deathAnim && anim->IsFrameEnd())
 	{
 		anim->Stop();
+		Hide();
 	}
 	agent->Stop();
 }
@@ -340,7 +356,7 @@ void Unit::IdleAction()
 
 void Unit::MoveAction()
 {
-	SetState(State::RUN);
+	SetState(moveState);
 	attackTick = 0.f;
 	attackFlag = false;
 }
@@ -373,6 +389,10 @@ void Unit::PushedOut(Unit* other)
 		float pushDist = radiusSum - dist;
 		transform->position += direction * pushDist;
 	}
+}
+
+void Unit::Respawn()
+{
 }
 
 void Unit::SetState(State _state)

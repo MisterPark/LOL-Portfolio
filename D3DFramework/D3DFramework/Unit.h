@@ -69,6 +69,7 @@ public:
     virtual void Update() override;
 
 	void UpdateHit(); // 피격 업데이트
+	void UpdateSpawn(); // 스폰 업데이트
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -97,7 +98,9 @@ public:
 	virtual void SkillRAction();
 
 	void PushedOut(Unit* other);
+	void Respawn();
 
+	// getter, setter
 	void SetState(State _state);
 	State GetState();
 
@@ -160,6 +163,13 @@ public:
 	list<HitInfo> hitList;
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
+
+	// 스폰
+	Vector3 spawnPosition;
+private:
+	float spawnTick = 0.f;
+	float spawnDelay = 10.f;
+	bool spawnFlag = false;
 protected:
 	
 	// 데미지계산관련

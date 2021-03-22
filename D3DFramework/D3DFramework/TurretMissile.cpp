@@ -8,16 +8,6 @@
 
 TurretMissile::TurretMissile()
 {
-	//mesh = (Engine::Plane*)AddComponent<Engine::Plane>(L"Mesh");
-	//mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
-	//mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
-	//mesh->SetCullMode(CullMode::NONE);
-	//transform->scale = { 0.75f,0.75f, 0.75f };
-	//ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
-	//renderer->SetMesh(mesh);
-	//renderer->SetDiffuseTextureParam("g_diffuseTexture");
-	//AddComponent(L"renderer", renderer);
-
 	base = CreateChild<TurretMissileBase>(L"base");
 }
 
@@ -46,7 +36,7 @@ void TurretMissile::Update()
 		transform->position += to.Normalized() * movementSpeed * Time::DeltaTime();
 
 		float dist = to.Length();
-		if (dist < 0.1f)
+		if (dist < 0.5f)
 		{
 			attackTarget->TakeDamage(attackDamage);
 			Destroy();

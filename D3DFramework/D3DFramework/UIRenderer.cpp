@@ -23,8 +23,10 @@ IComponent* Engine::UIRenderer::Clone()
 
 void Engine::UIRenderer::Render()
 {
+	if (gameObject->visible == false) return;
 	if (visible == false) return;
 	if (ui == nullptr) return;
+
 	UINT passCount = 0;
 	auto device = RenderManager::GetDevice();
 	int screenW = MainGame::GetWidth();

@@ -61,6 +61,7 @@ void Skill_Garen_E::Active()
 	}
 
 	hostUnit->SetState(State::E);
+	hostUnit->moveState = State::E;
 
 	//사용효과
 	tick -= Time::DeltaTime();
@@ -74,4 +75,5 @@ void Skill_Garen_E::End()
 		coolTime -= duration;
 		damageBuff->tick = damageBuff->duration;
 	}
+	hostUnit->moveState = State::RUN;
 }

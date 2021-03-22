@@ -239,7 +239,7 @@ void Engine::GameObject::Show(bool _visible)
 
 	for (auto child : children)
 	{
-		child.second->Show();
+		child.second->Show(_visible);
 	}
 	visible = _visible;
 }
