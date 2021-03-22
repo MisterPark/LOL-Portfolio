@@ -4,7 +4,7 @@ class Buff_GarenQAttack :
     public Buff_OnHit
 {
 public:
-    Buff_GarenQAttack(Unit* _host, float _duration, float _basicDamage, float _weightDamage);
+    Buff_GarenQAttack(Unit* _host, float _duration, float _basicDamage, float _weightDamage, DamageKind _damageKind);
     virtual ~Buff_GarenQAttack();
 
     virtual void Update() override;

@@ -6,6 +6,7 @@ class Buff
 {
 public:
 	enum class BuffName{
+		Ghost,
 		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,
 		END
 	};

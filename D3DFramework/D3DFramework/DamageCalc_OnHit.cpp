@@ -13,28 +13,40 @@ DamageCalc_OnHit::~DamageCalc_OnHit()
 
 void DamageCalc_OnHit::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 {	
-	float increaseDamage = 0.f;
+	float increaseDamageAD = 0.f;
+	float increaseDamageAP = 0.f;
 	for (auto& _buff : *_myStat->GetBuffList()) {
 		Buff_OnHit* onHit = dynamic_cast<Buff_OnHit*>(_buff);
 		if (onHit == nullptr)
 			continue;
-		increaseDamage += onHit->basicDamage;
-		increaseDamage += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
+		if (onHit->damageKind == DamageKind::AD) {
+			increaseDamageAD += onHit->basicDamage;
+			increaseDamageAD += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
+		}
+		else if (onHit->damageKind == DamageKind::AP) {
+			increaseDamageAP += onHit->basicDamage;
+			increaseDamageAP += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
+		}
 	}
 
-	if (trueDamage) {
-		*_damage += increaseDamage;
+	if (damageKind == DamageKind::TrueDamage) {
+		*_damage += increaseDamageAD + increaseDamageAP;
 		return;
 	}
 
-	increaseDamage -= increaseDamage * (_targetStat->GetValue(StatType::DamageReduction));
-	*_damage += Calc_Defense(increaseDamage, _myStat, _targetStat);
+	increaseDamageAD -= increaseDamageAD * (_targetStat->GetValue(StatType::DamageReduction));
+	damageKind = DamageKind::AD;
+	*_damage += Calc_Defense(increaseDamageAD, _myStat, _targetStat);
+
+	increaseDamageAP -= increaseDamageAP * (_targetStat->GetValue(StatType::DamageReduction));
+	damageKind = DamageKind::AP;
+	*_damage += Calc_Defense(increaseDamageAP, _myStat, _targetStat);
 }
 
-DamageCalc_OnHit* DamageCalc_OnHit::CreateCalc(bool _trueDamage)
+DamageCalc_OnHit* DamageCalc_OnHit::CreateCalc(DamageKind _damageKind)
 {
 	DamageCalc_OnHit* damageCalc = new DamageCalc_OnHit;
 	//damageCalc->value = _value;
-	damageCalc->trueDamage = _trueDamage;
+	damageCalc->damageKind = _damageKind;
 	return damageCalc;
 }

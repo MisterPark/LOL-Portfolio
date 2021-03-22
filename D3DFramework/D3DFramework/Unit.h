@@ -83,6 +83,8 @@ public:
 	void Spell2();
 	void Spell3();
 	void Spell4();
+	void Spell5();
+	void Spell6();
 
 	virtual void Die();
 	virtual void OnKilled(Unit* target);

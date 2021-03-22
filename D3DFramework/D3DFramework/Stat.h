@@ -9,7 +9,7 @@ enum class StatType {
 	ArmorPenetration, ArmorPenetrationPercent, // 방어구 관통력
 	MagicPenetration, MagicPenetrationPercent, // 마법 관통력
 	Armor,MagicResistance, // 방어력, 마법 저항력
-	MovementSpeed,CriticlaChance, // 이동 속도, 치명타 확률
+	MovementSpeed, CriticlaChance, CriticlaDamage, // 이동 속도, 치명타 확률, 치명타 피해량
 	AbilityHaste, // 스킬 가속
 	Health,Mana, Experience, // 체력, 마나, 경험치
 	MaxHealth, MaxMana, MaxExperience, // 최대 체력, 최대 마나, 최대 경험치
@@ -23,7 +23,7 @@ enum class StatType {
 	Level, // 레벨
 	SkillPoint,
 	Gold,
-	END
+	END   
 };
 
 class Stat : public IComponent

@@ -81,6 +81,14 @@ void PlayerController::Update()
         {
             unit->Spell4();
         }
+        if (Input::GetKeyDown('D'))
+        {
+            unit->Spell5();
+        }
+        if (Input::GetKeyDown('F'))
+        {
+            unit->Spell6();
+        }
     }
     
     
