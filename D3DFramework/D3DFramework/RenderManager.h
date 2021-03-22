@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "Texture.h"
 #include "Mesh.h"
 #include "StaticMesh.h"
@@ -68,7 +68,7 @@ namespace Engine
 
 		//=========================================
 
-		//=================== Device ∞¸∑√ ==================
+		//=================== Device Í¥ÄÎ†® ==================
 		static void LockDevice();
 		static void UnlockDevice();
 
@@ -78,9 +78,14 @@ namespace Engine
 		//==================================================
 
 		//======================= 3D =======================
+		static HRESULT LoadStaticMesh(const WCHAR* lpszFilePath);
+		static HRESULT LoadDynamicMesh(const WCHAR* lpszFilePath);
+		static HRESULT LoadTerrainMesh(const WCHAR* lpszFilePath);
+		static HRESULT LoadNavMesh(const WCHAR* lpszFilePath);
 
 		static HRESULT LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static StaticMesh* CloneStaticMesh(const wstring& id);
+
 		static HRESULT LoadDynamicMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static DynamicMesh* CloneDynamicMesh(const wstring& id);
 		static HRESULT LoadTerrainMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
@@ -93,7 +98,7 @@ namespace Engine
 		//==================================================
 
 	private:
-		// Ω«¡˙¿˚¿∏∑Œ ¿Âƒ°∏¶ ¥Ÿ∑Í ∞¥√º. 
+		// Ïã§ÏßàÏ†ÅÏúºÎ°ú Ïû•ÏπòÎ•º Îã§Î£∞ Í∞ùÏ≤¥. 
 		LPDIRECT3DDEVICE9 pDevice = nullptr;
 		LPDIRECT3D9 pSDK = nullptr;
 		LPD3DXSPRITE pSprite = nullptr;
