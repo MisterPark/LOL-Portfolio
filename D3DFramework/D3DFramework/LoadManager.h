@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <process.h>
 #define dfMaxThreadCount 1
 
@@ -24,7 +24,6 @@ public:
 	struct LoadingElement
 	{
 		wstring filePath;
-		wstring fileName;
 		LoadType type;
 		void(*Callback)() = nullptr;
 	};
@@ -46,13 +45,13 @@ public:
 public:
 	static unsigned int __stdcall LodingThread(void* arg);
 
-	// ³î°íÀÖ´Â or ÀÏÀÌ ÀûÀº ¾²·¹µå Ã£±â
+	// ë†€ê³ ìˆëŠ” or ì¼ì´ ì ì€ ì“°ë ˆë“œ ì°¾ê¸°
 	static UINT FindUnemployedThread();
-	static void LoadStaticMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
-	static void LoadDynamicMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
-	static void LoadTerrainMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
-	static void LoadNavMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)() = nullptr);
 
+	static void LoadStaticMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
+	static void LoadDynamicMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
+	static void LoadTerrainMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
+	static void LoadNavMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
 private:
 	ThreadInfo threadInfo[dfMaxThreadCount] = {};
 	HANDLE hThread[dfMaxThreadCount] = {};

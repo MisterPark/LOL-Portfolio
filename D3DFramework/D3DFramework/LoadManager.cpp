@@ -101,22 +101,22 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
         {
         case LoadType::STATIC_MESH:
         {
-            RenderManager::LoadStaticMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            RenderManager::LoadStaticMesh(elem.filePath.c_str());
             break;
         }
         case LoadType::DYNAMIC_MESH:
         {
-            RenderManager::LoadDynamicMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            RenderManager::LoadDynamicMesh(elem.filePath.c_str());
             break;
         }
         case LoadType::TERRAIN_MESH:
         {
-            RenderManager::LoadTerrainMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            RenderManager::LoadTerrainMesh(elem.filePath.c_str());
             break;
         }
         case LoadType::NAV_MESH:
         {
-            RenderManager::LoadNavMesh(elem.filePath.c_str(), elem.fileName.c_str());
+            RenderManager::LoadNavMesh(elem.filePath.c_str());
             break;
         }
             
@@ -170,13 +170,12 @@ UINT LoadManager::FindUnemployedThread()
     return index;
 }
 
-void LoadManager::LoadStaticMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+void LoadManager::LoadStaticMeshAsync(const wstring& filePath, void(*Callback)())
 {
     UINT index = FindUnemployedThread();
 
     LoadingElement elem;
     elem.filePath = filePath;
-    elem.fileName = fileName;
     elem.type = LoadType::STATIC_MESH;
     elem.Callback = Callback;
 
@@ -187,13 +186,12 @@ void LoadManager::LoadStaticMeshAsync(const wstring& filePath, const wstring& fi
     LeaveCriticalSection(&pLoadManager->csQ[index]);
 }
 
-void LoadManager::LoadDynamicMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+void LoadManager::LoadDynamicMeshAsync(const wstring& filePath, void(*Callback)())
 {
     UINT index = FindUnemployedThread();
 
     LoadingElement elem;
     elem.filePath = filePath;
-    elem.fileName = fileName;
     elem.type = LoadType::DYNAMIC_MESH;
     elem.Callback = Callback;
 
@@ -204,13 +202,12 @@ void LoadManager::LoadDynamicMeshAsync(const wstring& filePath, const wstring& f
     LeaveCriticalSection(&pLoadManager->csQ[index]);
 }
 
-void LoadManager::LoadTerrainMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+void LoadManager::LoadTerrainMeshAsync(const wstring& filePath, void(*Callback)())
 {
     UINT index = FindUnemployedThread();
 
     LoadingElement elem;
     elem.filePath = filePath;
-    elem.fileName = fileName;
     elem.type = LoadType::TERRAIN_MESH;
     elem.Callback = Callback;
 
@@ -221,13 +218,12 @@ void LoadManager::LoadTerrainMeshAsync(const wstring& filePath, const wstring& f
     LeaveCriticalSection(&pLoadManager->csQ[index]);
 }
 
-void LoadManager::LoadNavMeshAsync(const wstring& filePath, const wstring& fileName, void(*Callback)())
+void LoadManager::LoadNavMeshAsync(const wstring& filePath, void(*Callback)())
 {
     UINT index = FindUnemployedThread();
 
     LoadingElement elem;
     elem.filePath = filePath;
-    elem.fileName = fileName;
     elem.type = LoadType::NAV_MESH;
     elem.Callback = Callback;
 
