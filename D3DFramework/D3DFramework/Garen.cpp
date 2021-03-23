@@ -19,6 +19,7 @@
 #include "Skill_Ghost.h"
 #include "Buff_GarenQAttack.h"
 #include "ChampionSubTree.h"
+#include "Skill_Attack.h"
 
 Garen::Garen()
 {
@@ -69,6 +70,7 @@ Garen::Garen()
 	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc(DamageKind::AD));
 
 	// 스킬
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
 	skillList[(int)SkillIndex::Passive] = new Skill_Garen_P(this);
 	skillList[(int)SkillIndex::Q] = new Skill_Garen_Q(this);
 	skillList[(int)SkillIndex::W] = new Skill_Garen_W(this);

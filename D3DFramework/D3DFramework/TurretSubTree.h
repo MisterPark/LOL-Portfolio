@@ -8,5 +8,7 @@ class TurretSubTree :
 public:
     TurretSubTree(Turret* owner);
     virtual~TurretSubTree();
+
+    Turret* turret = nullptr;
 };
 

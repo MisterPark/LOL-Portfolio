@@ -325,6 +325,9 @@
     <Filter Include="Buff\Spell">
       <UniqueIdentifier>{8ead9ee8-0bec-4589-bb10-c1d2850c1ba9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill\Common">
+      <UniqueIdentifier>{bfc448cb-8900-42d7-a92e-062bfefe7da9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -961,6 +964,10 @@
     </ClInclude>
     <ClInclude Include="Buff_Ghost.h">
       <Filter>Buff\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetingSkill.h" />
+    <ClInclude Include="Skill_Attack.h">
+      <Filter>Skill\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1649,6 +1656,10 @@
     </ClCompile>
     <ClCompile Include="Buff_Ghost.cpp">
       <Filter>Buff\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetingSkill.cpp" />
+    <ClCompile Include="Skill_Attack.cpp">
+      <Filter>Skill\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

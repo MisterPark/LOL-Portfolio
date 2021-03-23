@@ -8,5 +8,8 @@ class MonsterSubTree :
 public:
     MonsterSubTree(Monster* owner);
     virtual~MonsterSubTree();
+
+    Monster* monster = nullptr;
+
 };
 

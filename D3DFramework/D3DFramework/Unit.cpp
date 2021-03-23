@@ -5,6 +5,8 @@
 #include "Indicator.h"
 #include "Buff.h"
 #include "Monster.h"
+#include "Garen.h"
+#include "TargetingSkill.h"
 
 list<Unit*> Unit::unitList;
 
@@ -76,6 +78,19 @@ void Unit::Update()
 			continue;
 		skillList[i]->Passive();
 	}
+
+	if (dynamic_cast<Garen*>(this))
+	{
+		if (skillList[(int)SkillIndex::Attack]->IsActive())
+		{
+			Debug::PrintLine("Active");
+		}
+		else
+		{
+			Debug::PrintLine("None");
+		}
+	}
+	
 }
 
 
@@ -180,12 +195,17 @@ void Unit::Chase(Vector3 _target)
 	}
 }
 
-void Unit::Attack(Unit* target)
+void Unit::ChaseTarget()
 {
-	if (target == nullptr) return;
-
-	attackTarget = target;
-	
+	if (attackTarget == nullptr) return;
+	if (nextSkill == nullptr) return;
+	chaseTick += Time::DeltaTime();
+	if (chaseTick > chaseDelay)
+	{
+		chaseTick = 0.f;
+		agent->SetStoppingDistance(nextSkill->GetRange());
+		SetDestination(attackTarget->transform->position);
+	}
 }
 
 void Unit::OnAttackBegin()
@@ -213,40 +233,46 @@ void Unit::OnAttackEnd()
 	}
 }
 
+void Unit::Attack()
+{
+	if (skillList[(int)SkillIndex::Attack] == nullptr) return;
+	skillList[(int)SkillIndex::Attack]->Use();
+}
+
 void Unit::Spell1()
 {
 	if (skillList[(int)SkillIndex::Q] == nullptr) return;
-	skillList[(int)SkillIndex::Q]->Start();
+	skillList[(int)SkillIndex::Q]->Use();
 }
 
 void Unit::Spell2()
 {
 	if (skillList[(int)SkillIndex::W] == nullptr) return;
-	skillList[(int)SkillIndex::W]->Start();
+	skillList[(int)SkillIndex::W]->Use();
 }
 
 void Unit::Spell3()
 {
 	if (skillList[(int)SkillIndex::E] == nullptr) return;
-	skillList[(int)SkillIndex::E]->Start();
+	skillList[(int)SkillIndex::E]->Use();
 }
 
 void Unit::Spell4()
 {
 	if (skillList[(int)SkillIndex::R] == nullptr) return;
-	skillList[(int)SkillIndex::R]->Start();
+	skillList[(int)SkillIndex::R]->Use();
 }
 
 void Unit::Spell5()
 {
 	if (skillList[(int)SkillIndex::D] == nullptr) return;
-	skillList[(int)SkillIndex::D]->Start();
+	skillList[(int)SkillIndex::D]->Use();
 }
 
 void Unit::Spell6()
 {
 	if (skillList[(int)SkillIndex::F] == nullptr) return;
-	skillList[(int)SkillIndex::F]->Start();
+	skillList[(int)SkillIndex::F]->Use();
 }
 
 void Unit::Die()
@@ -460,6 +486,16 @@ void Unit::SetLastAttacker(Unit* _attacker)
 	lastAttackTick = 0.f;
 }
 
+void Unit::SetAttackPoint(Vector3 _pos)
+{
+	this->attackPoint = _pos;
+}
+
+void Unit::SetNextSkill(Skill* _skill)
+{
+	this->nextSkill = _skill;
+}
+
 void Unit::TakeDamage(float _damage)
 {
 	_damage = DecreaseShieldBuff(_damage);
@@ -508,6 +544,17 @@ bool Unit::HasAttackTarget()
 bool Unit::HasLastAttacker()
 {
 	return (lastAttacker != nullptr);
+}
+
+bool Unit::HasNextSkill()
+{
+	return (nextSkill != nullptr);
+}
+
+void Unit::StartNextSkill()
+{
+	this->nextSkill->Start();
+	this->nextSkill = nullptr;
 }
 
 void Unit::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)

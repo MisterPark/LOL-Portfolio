@@ -3,6 +3,7 @@
 #include "Unit.h"
 #include "DamageCalc.h"
 
+
 Skill::Skill()
 {
 }
@@ -15,10 +16,16 @@ Skill::~Skill()
 	}
 }
 
+void Skill::Use()
+{
+	Start();
+}
+
 void Skill::Start()
 {
 	active = true;
 	tick = duration;
+	coolTimeTick = coolTime;
 }
 
 void Skill::Passive()
@@ -32,6 +39,12 @@ void Skill::Active()
 void Skill::End()
 {
 	active = false;
+	tick = 0.f;
+}
+
+bool Skill::InRange()
+{
+	return true;
 }
 
 bool Skill::IsActive()
@@ -61,11 +74,11 @@ void Skill::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 
 float Skill::GetCooltime()
 {
-	return coolTime;
+	return coolTimeTick;
 }
 
 float Skill::GetCooltime_Init()
 {
-	return coolTime_Init;
+	return coolTime;
 }
 

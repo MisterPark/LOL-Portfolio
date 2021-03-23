@@ -7,6 +7,7 @@
 #include "Skill.h"
 
 class Indicator;
+class TargetingSkill;
 
 enum class State
 {
@@ -38,17 +39,7 @@ enum class State
 	END
 };
 
-enum class SkillIndex
-{
-	Passive,
-	Q,
-	W,
-	E,
-	R,
-	D,
-	F,
-	END
-};
+enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F, END };
 
 class Unit : public GameObject
 {
@@ -75,10 +66,10 @@ public:
 	void SetDestination(Vector3 _target);
 	void Move(Vector3 _target);
 	virtual void Chase(Vector3 _target);
-
-	virtual void Attack(Unit* _target);
+	void ChaseTarget();
 	virtual void OnAttackBegin();
 	virtual void OnAttackEnd();
+	void Attack();
 	void Spell1();
 	void Spell2();
 	void Spell3();
@@ -114,6 +105,8 @@ public:
 	void SetAttackPerSec(float _attackPerSec);
 
 	void SetLastAttacker(Unit* _attacker);
+	void SetAttackPoint(Vector3 _pos);
+	void SetNextSkill(Skill* _skill);
 
 	void TakeDamage(float _damage);
 	float DecreaseShieldBuff(float _damage);
@@ -122,6 +115,9 @@ public:
 	bool IsDead();
 	bool HasAttackTarget();
 	bool HasLastAttacker();
+	bool HasNextSkill();
+
+	void StartNextSkill();
 
 	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
 
@@ -156,6 +152,7 @@ public:
 	
 	// 기본공격 관련
 	Unit* attackTarget = nullptr;
+	Vector3 attackPoint;
 	float attackTick = 0.f;
 	bool attackFlag = false; // 공격(데미지 입히기) 가능 여부
 	bool hitFlag = false; // 피격당할때(트리거)
@@ -165,7 +162,7 @@ public:
 	list<HitInfo> hitList;
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
-
+	Skill* nextSkill = nullptr;
 	// 스폰
 	Vector3 spawnPosition;
 private:

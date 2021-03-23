@@ -233,7 +233,7 @@ void GameScene::ResAttack(CPacket* pack)
 		return;
 	}
 	Debug::PrintLine("공격 실행");
-	unitMap[unitID]->Attack(find2->second);
+	unitMap[unitID]->SetAttackTarget(find2->second);
 
 }
 

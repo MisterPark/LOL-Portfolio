@@ -1,10 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "IComponent.h"
 #include "NavMeshAgent.h"
 
 using namespace Engine;
 
 class Unit;
+class TargetingSkill;
 
 class PlayerController :
     public IComponent
@@ -15,14 +16,17 @@ public:
     virtual ~PlayerController();
 
     virtual void Update() override;
-    // IComponentÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // IComponentì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual IComponent* Clone() override;
 
     void SetTargetMode(bool _mode);
+    void SetTargetingSkill(TargetingSkill* _targetingSkill);
 
 public:
     Engine::NavMeshAgent* agent = nullptr;
-    bool targetMode = false;
     Unit* unit = nullptr;
+    
+    bool targetMode = false;
+    TargetingSkill* targetingSkill = nullptr;
 };
 

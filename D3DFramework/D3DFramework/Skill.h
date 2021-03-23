@@ -8,10 +8,13 @@ public:
 	Skill();
 	virtual ~Skill();
 
+	virtual void Use();
 	virtual void Start() = 0;
 	virtual void Passive() = 0;
 	virtual void Active() = 0;
 	virtual void End() = 0;
+	virtual bool InRange();
+
 	void SetActive(bool _active) { active = _active; }
 	bool IsActive();
 	bool IsAvailable();
@@ -24,16 +27,20 @@ public:
 	int GetLevel() { return level; }
 	int GetMaxLevel() { return maxLevel; }
 	void AddLevel() { level++; }
+	float GetRange() { return range; }
+	
 
 protected:
-	Unit* hostUnit = nullptr;
-	float coolTime_Init = 0.f;
+	Unit* host = nullptr;
 	float coolTime = 0.f;
+	float coolTimeTick = 0.f;
 	float tick = 0.f;
 	float duration = 0.f;
 	int level = 0;
 	int maxLevel = 1;
 	bool active = false;
+	float range = 0.f;
+
 	
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;

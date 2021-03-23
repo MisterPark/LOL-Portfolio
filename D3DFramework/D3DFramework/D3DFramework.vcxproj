@@ -180,6 +180,7 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BehaviorTree.h" />
@@ -351,6 +352,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ItemshopPanel.h" />
     <ClInclude Include="Struct.h" />
+    <ClInclude Include="TargetingSkill.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainMesh.h" />
@@ -387,6 +389,7 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
     <ClCompile Include="Blitzcrank.cpp" />
@@ -551,6 +554,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ItemshopPanel.cpp" />
+    <ClCompile Include="TargetingSkill.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="TestEncoding.cpp" />

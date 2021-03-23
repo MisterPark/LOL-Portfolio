@@ -8,9 +8,9 @@
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime_Init = 0.5f;//8.f;
+	coolTime = 0.5f;//8.f;
 	duration = 0.f;
-	hostUnit = _hostUnit;
+	host = _hostUnit;
 }
 
 Skill_Garen_Q::~Skill_Garen_Q()
@@ -19,27 +19,27 @@ Skill_Garen_Q::~Skill_Garen_Q()
 
 void Skill_Garen_Q::Start()
 {
-	if (level == 0 || coolTime > 0.f)
+	if (level == 0 || coolTimeTick > 0.f)
 		return;
 
 	Skill::Start();
 
 	durationSpeedTime = 0.35f + level * 0.65f;
-	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(hostUnit, durationSpeedTime);
-	hostUnit->stat->AddBuff(speedBuff);
-	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(hostUnit, 4.5f, 30.f * level, 1.5f, DamageKind::AD);
-	hostUnit->stat->AddBuff(attackBuff);
+	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(host, durationSpeedTime);
+	host->stat->AddBuff(speedBuff);
+	Buff_GarenQAttack* attackBuff = new Buff_GarenQAttack(host, 4.5f, 30.f * level, 1.5f, DamageKind::AD);
+	host->stat->AddBuff(attackBuff);
 
-	coolTime = coolTime_Init;
-	hostUnit->attackTick = 0.f;
-	hostUnit->attackFlag = false;
+	coolTimeTick = coolTime;
+	host->attackTick = 0.f;
+	host->attackFlag = false;
 	
 }
 
 void Skill_Garen_Q::Passive()
 {
-	if (coolTime > 0.f) {
-		coolTime -= Time::DeltaTime();
+	if (coolTimeTick > 0.f) {
+		coolTimeTick -= Time::DeltaTime();
 	}
 
 }

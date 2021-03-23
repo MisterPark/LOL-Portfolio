@@ -6,6 +6,7 @@
 #include "Unit.h"
 #include "Indicator.h"
 #include "PlayerInfoPanel.h"
+#include "TargetingSkill.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -32,7 +33,7 @@ void PlayerController::Update()
     
     if (Input::GetKeyDown('A'))
     {
-        SetTargetMode(!targetMode);
+        unit->Attack();
     }
     if (Input::GetKeyDown('S'))
     {
@@ -119,7 +120,8 @@ void PlayerController::Update()
                 Unit* target = (Unit*)info.collider->gameObject;
                 if (target->team != unit->team && !target->IsDead())
                 {
-                    unit->Attack(target);
+                    unit->SetAttackTarget(target);
+                    unit->SetAttackPoint(target->transform->position);
                 }
                    
             }
@@ -132,7 +134,7 @@ void PlayerController::Update()
                 Unit* target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {
-                    unit->Attack(target);
+                    unit->SetAttackTarget(target);
                 }
                 else
                 {
@@ -184,4 +186,9 @@ void PlayerController::SetTargetMode(bool _mode)
         Cursor::SetMode(CursorMode::Normal);
         unit->attackIndicator->visible = false;
     }
+}
+
+void PlayerController::SetTargetingSkill(TargetingSkill* _targetingSkill)
+{
+    this->targetingSkill = _targetingSkill;
 }

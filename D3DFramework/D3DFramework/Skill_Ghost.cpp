@@ -6,9 +6,9 @@
 
 Skill_Ghost::Skill_Ghost(Unit* _hostUnit)
 {
-	coolTime_Init = 0.1f;//8.f;
+	coolTime = 0.1f;//8.f;
 	duration = 0.f;
-	hostUnit = _hostUnit;
+	host = _hostUnit;
 }
 
 Skill_Ghost::~Skill_Ghost()
@@ -17,24 +17,24 @@ Skill_Ghost::~Skill_Ghost()
 
 void Skill_Ghost::Start()
 {
-	if (coolTime > 0.f)
+	if (coolTimeTick > 0.f)
 		return;
 
 	Skill::Start();
 
-	float buffTime = (float)(24 + (24 / 18 * hostUnit->stat->GetBaseValue(StatType::Level))) * 0.01f;
-	Buff_Ghost* movementSpeedBuff = new Buff_Ghost(hostUnit, 10.f, buffTime);
-	hostUnit->stat->AddBuff(movementSpeedBuff);
+	float buffTime = (float)(24 + (24 / 18 * host->stat->GetBaseValue(StatType::Level))) * 0.01f;
+	Buff_Ghost* movementSpeedBuff = new Buff_Ghost(host, 10.f, buffTime);
+	host->stat->AddBuff(movementSpeedBuff);
 
-	coolTime = coolTime_Init;
+	coolTimeTick = coolTime;
 
 
 }
 
 void Skill_Ghost::Passive()
 {
-	if (coolTime > 0.f) {
-		coolTime -= Time::DeltaTime();
+	if (coolTimeTick > 0.f) {
+		coolTimeTick -= Time::DeltaTime();
 	}
 
 }

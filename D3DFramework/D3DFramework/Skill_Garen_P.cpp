@@ -6,9 +6,9 @@
 
 Skill_Garen_P::Skill_Garen_P(Unit* _hostUnit)
 {
-	coolTime_Init = 8.f;
+	coolTime = 8.f;
 	duration = 0.f;
-	hostUnit = _hostUnit;
+	host = _hostUnit;
 }
 
 Skill_Garen_P::~Skill_Garen_P()
@@ -17,40 +17,40 @@ Skill_Garen_P::~Skill_Garen_P()
 
 void Skill_Garen_P::Start()
 {
-	if (coolTime > 0.f)
+	if (coolTimeTick > 0.f)
 		return;
 
 	Skill::Start();
 
-	coolTime = coolTime_Init;
+	coolTimeTick = coolTime;
 
 }
 
 void Skill_Garen_P::Passive()
 {
-	if (coolTime > 0.f) {
-		coolTime -= Time::DeltaTime();
+	if (coolTimeTick > 0.f) {
+		coolTimeTick -= Time::DeltaTime();
 	}
 
-	if (passiveBuff == nullptr && coolTime <= 0.f) {
-		passiveBuff = new Buff_GarenPHealthRegen(hostUnit);
-		hostUnit->stat->AddBuff(passiveBuff);
+	if (passiveBuff == nullptr && coolTimeTick <= 0.f) {
+		passiveBuff = new Buff_GarenPHealthRegen(host);
+		host->stat->AddBuff(passiveBuff);
 	}
-	else if(coolTime > 0.f && passiveBuff != nullptr){
+	else if(coolTimeTick > 0.f && passiveBuff != nullptr){
 		passiveBuff->duration = 0.f;
 		passiveBuff = nullptr;
 	}
 
-	if (hostUnit->hitList.size() == 0)
+	if (host->hitList.size() == 0)
 	{
-		coolTime = 0.f;
+		coolTimeTick = 0.f;
 	}
 	else {
-		Unit::HitInfo lastHitInfo = hostUnit->hitList.back();
+		Unit::HitInfo lastHitInfo = host->hitList.back();
 		if (lastHitInfo.tick > 8.f)
-			coolTime = 0.f;
+			coolTimeTick = 0.f;
 		else
-			coolTime = coolTime_Init - lastHitInfo.tick;
+			coolTimeTick = coolTime - lastHitInfo.tick;
 	}
 	//TODO: 스위치이용해서 맞으면 쿨타임 늘리기
 }

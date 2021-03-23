@@ -49,7 +49,7 @@ void MonsterAI::Update()
     
     if (target != nullptr)
     {
-        unit->Attack(target);
+        unit->SetAttackTarget(target);
     }
 }
 
