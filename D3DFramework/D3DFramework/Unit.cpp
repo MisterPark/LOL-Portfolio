@@ -4,6 +4,9 @@
 #include "NavMeshAgent.h"
 #include "Indicator.h"
 #include "Buff.h"
+#include "Monster.h"
+#include "Garen.h"
+#include "TargetingSkill.h"
 
 list<Unit*> Unit::unitList;
 
@@ -62,7 +65,7 @@ void Unit::Release()
 
 void Unit::Update()
 {
-	
+	UpdateSpawn();
 	UpdateHit();
 
 	GameObject::Update();
@@ -75,6 +78,19 @@ void Unit::Update()
 			continue;
 		skillList[i]->Passive();
 	}
+
+	if (dynamic_cast<Garen*>(this))
+	{
+		if (skillList[(int)SkillIndex::Attack]->IsActive())
+		{
+			Debug::PrintLine("Active");
+		}
+		else
+		{
+			Debug::PrintLine("None");
+		}
+	}
+	
 }
 
 
@@ -102,14 +118,29 @@ void Unit::UpdateHit()
 	auto end = hitList.end();
 	for (;iter!=end;)
 	{
-		iter->second.tick += dt;
-		if (iter->second.tick >= iter->second.duration)
+		(*iter).tick += dt;
+		if ((*iter).tick >= (*iter).duration)
 		{
 			iter = hitList.erase(iter);
 			continue;
 		}
 
 		++iter;
+	}
+}
+
+void Unit::UpdateSpawn()
+{
+	float dt = Time::DeltaTime();
+	if (spawnFlag)
+	{
+		spawnTick += dt;
+		if (spawnTick > spawnDelay)
+		{
+			spawnFlag = false;
+			spawnTick = 0.f;
+			Respawn();
+		}
 	}
 }
 
@@ -164,12 +195,17 @@ void Unit::Chase(Vector3 _target)
 	}
 }
 
-void Unit::Attack(Unit* target)
+void Unit::ChaseTarget()
 {
-	if (target == nullptr) return;
-
-	attackTarget = target;
-	
+	if (attackTarget == nullptr) return;
+	if (nextSkill == nullptr) return;
+	chaseTick += Time::DeltaTime();
+	if (chaseTick > chaseDelay)
+	{
+		chaseTick = 0.f;
+		agent->SetStoppingDistance(nextSkill->GetRange());
+		SetDestination(attackTarget->transform->position);
+	}
 }
 
 void Unit::OnAttackBegin()
@@ -197,34 +233,67 @@ void Unit::OnAttackEnd()
 	}
 }
 
+void Unit::Attack()
+{
+	if (skillList[(int)SkillIndex::Attack] == nullptr) return;
+	skillList[(int)SkillIndex::Attack]->Use();
+}
+
 void Unit::Spell1()
 {
 	if (skillList[(int)SkillIndex::Q] == nullptr) return;
-	skillList[(int)SkillIndex::Q]->Start();
+	skillList[(int)SkillIndex::Q]->Use();
 }
 
 void Unit::Spell2()
 {
 	if (skillList[(int)SkillIndex::W] == nullptr) return;
-	skillList[(int)SkillIndex::W]->Start();
+	skillList[(int)SkillIndex::W]->Use();
 }
 
 void Unit::Spell3()
 {
 	if (skillList[(int)SkillIndex::E] == nullptr) return;
-	skillList[(int)SkillIndex::E]->Start();
+	skillList[(int)SkillIndex::E]->Use();
 }
 
 void Unit::Spell4()
 {
 	if (skillList[(int)SkillIndex::R] == nullptr) return;
-	skillList[(int)SkillIndex::R]->Start();
+	skillList[(int)SkillIndex::R]->Use();
+}
+
+void Unit::Spell5()
+{
+	if (skillList[(int)SkillIndex::D] == nullptr) return;
+	skillList[(int)SkillIndex::D]->Use();
+}
+
+void Unit::Spell6()
+{
+	if (skillList[(int)SkillIndex::F] == nullptr) return;
+	skillList[(int)SkillIndex::F]->Use();
 }
 
 void Unit::Die()
 {
 	isDead = true;
 	collider->enable = false;
+	for (auto& hitInfo : hitList)
+	{
+		hitInfo.unit->OnKilled(this);
+	}
+}
+
+void Unit::OnKilled(Unit* target)
+{
+	if (dynamic_cast<Monster*>(target) != nullptr)
+	{
+		float exp = target->stat->GetBaseValue(StatType::Experience);
+		stat->IncreaseBaseValue(StatType::Experience, exp);
+		
+	}
+
 }
 
 void Unit::DeadAction()
@@ -236,6 +305,7 @@ void Unit::DeadAction()
 	if (curAnim == deathAnim && anim->IsFrameEnd())
 	{
 		anim->Stop();
+		Hide();
 	}
 	agent->Stop();
 }
@@ -291,17 +361,20 @@ void Unit::AttackAction()
 				info.damageSum += finalDamage;
 				info.unit = this;
 
-				auto find = attackTarget->hitList.find(this);
+				auto iter = attackTarget->hitList.begin();
 				auto end = attackTarget->hitList.end();
-				if (find != end)
+				for (; iter != end;)
 				{
-					find->second.damageSum += info.damageSum;
-					find->second.tick = 0.f;
+					if ((*iter).unit == this)
+					{
+						info.damageSum += (*iter).damageSum;
+						iter = attackTarget->hitList.erase(iter);
+						break;
+					}
+					++iter;
 				}
-				else
-				{
-					attackTarget->hitList[this] = info;
-				}
+
+				attackTarget->hitList.push_back(info);
 			}
 		}
 
@@ -329,7 +402,7 @@ void Unit::IdleAction()
 
 void Unit::MoveAction()
 {
-	SetState(State::RUN);
+	SetState(moveState);
 	attackTick = 0.f;
 	attackFlag = false;
 }
@@ -362,6 +435,10 @@ void Unit::PushedOut(Unit* other)
 		float pushDist = radiusSum - dist;
 		transform->position += direction * pushDist;
 	}
+}
+
+void Unit::Respawn()
+{
 }
 
 void Unit::SetState(State _state)
@@ -407,6 +484,16 @@ void Unit::SetLastAttacker(Unit* _attacker)
 {
 	lastAttacker = _attacker;
 	lastAttackTick = 0.f;
+}
+
+void Unit::SetAttackPoint(Vector3 _pos)
+{
+	this->attackPoint = _pos;
+}
+
+void Unit::SetNextSkill(Skill* _skill)
+{
+	this->nextSkill = _skill;
 }
 
 void Unit::TakeDamage(float _damage)
@@ -459,6 +546,17 @@ bool Unit::HasLastAttacker()
 	return (lastAttacker != nullptr);
 }
 
+bool Unit::HasNextSkill()
+{
+	return (nextSkill != nullptr);
+}
+
+void Unit::StartNextSkill()
+{
+	this->nextSkill->Start();
+	this->nextSkill = nullptr;
+}
+
 void Unit::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 {
 	for (auto& calc : damageCalcList)
@@ -498,6 +596,20 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	}
 
 	return target;
+}
+
+void Unit::SkillLevelUp(SkillIndex skillIndex)
+{
+	if (stat->GetBaseValue(StatType::SkillPoint) <= 0.f)
+		return;
+	Skill* skill = skillList[(int)skillIndex];
+	if (skill->GetLevel() == skill->GetMaxLevel())
+		return;
+	// TODO:: 챔피언레벨업이 가능해지면 주석 풀것
+	//if ((float)(skill->GetLevel() * 2 + 1) > stat->GetBaseValue(StatType::Level))
+	//	return;
+	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
+	skill->AddLevel();
 }
 
 void Unit::ReqMove(Vector3 _dest, bool _noSearch)

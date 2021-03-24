@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Quaternion.h"
 
 Engine::Quaternion::Quaternion() :D3DXQUATERNION()
@@ -31,7 +31,7 @@ Vector3 Engine::Quaternion::ToEulerAngles(const Quaternion& q1)
     float test = q1.x * q1.w - q1.y * q1.z;
     Vector3 v;
 
-    if (test > 0.4995f * unit)  // singularity at north pole // ³²¹Ý±¸
+    if (test > 0.4995f * unit)  // singularity at north pole // ë‚¨ë°˜êµ¬
     {
         v.y = 2.f * atan2f(q1.y, q1.x);
         v.x = D3DX_PI / 2;
@@ -39,7 +39,7 @@ Vector3 Engine::Quaternion::ToEulerAngles(const Quaternion& q1)
         return v;
     }
 
-    if (test < -0.4995f * unit)  // singularity at south pole // ºÏ¹Ý±¸
+    if (test < -0.4995f * unit)  // singularity at south pole // ë¶ë°˜êµ¬
     {
         v.y = -2.f * atan2f(q1.y, q1.x);
         v.x = -D3DX_PI / 2;
@@ -54,9 +54,10 @@ Vector3 Engine::Quaternion::ToEulerAngles(const Quaternion& q1)
     v.x = -asinf(2.f * (q.x * q.z - q.w * q.y));                             // Pitch
     v.z = -atan2f(2.f * q.x * q.y + 2.f * q.z * q.w, 1 - 2.f * (q.y * q.y + q.z * q.z));      // Roll
     
-    // ¿øº»¿¡¼­ ¼öÁ¤ÇÑ °Í (ÃßÈÄ ¹®Á¦½Ã ¿øº»À¸·Î º¯°æ)
-    // pitch ¿¡ ¸¶ÀÌ³Ê½º ºÎÈ£·Î ¹Ù²Þ
-    // roll ¿¡ ¸¶ÀÌ³Ê½º ºÎÈ£·Î ¹Ù²Þ
+    // ì›ë³¸ì—ì„œ ìˆ˜ì •í•œ ê²ƒ (ì¶”í›„ ë¬¸ì œì‹œ ì›ë³¸ìœ¼ë¡œ ë³€ê²½)
+    // pitch ì— ë§ˆì´ë„ˆìŠ¤ ë¶€í˜¸ë¡œ ë°”ê¿ˆ
+    // roll ì— ë§ˆì´ë„ˆìŠ¤ ë¶€í˜¸ë¡œ ë°”ê¿ˆ
+
 
     return v;
 }

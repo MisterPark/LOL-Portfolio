@@ -319,6 +319,15 @@
     <Filter Include="Component\BehaviorTree\SubTree\MinionTree">
       <UniqueIdentifier>{07a2b334-9d9b-4052-b9e9-18f8fbd82271}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill\Spell">
+      <UniqueIdentifier>{810f4f76-16c1-4fa5-b769-2adf8110fa15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Spell">
+      <UniqueIdentifier>{8ead9ee8-0bec-4589-bb10-c1d2850c1ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Common">
+      <UniqueIdentifier>{bfc448cb-8900-42d7-a92e-062bfefe7da9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -939,6 +948,26 @@
     </ClInclude>
     <ClInclude Include="MinionSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretSubTree.h">
+      <Filter>Component\BehaviorTree\SubTree\TurretTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMissileBase.h" />
+    <ClInclude Include="Buff_GarenWPassive.h">
+      <Filter>Buff\Garen</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageCalc_Critical.h">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Ghost.h">
+      <Filter>Skill\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Ghost.h">
+      <Filter>Buff\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetingSkill.h" />
+    <ClInclude Include="Skill_Attack.h">
+      <Filter>Skill\Common</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>GameObject\Item</Filter>
@@ -1614,6 +1643,26 @@
     </ClCompile>
     <ClCompile Include="MinionSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_GarenWPassive.cpp">
+      <Filter>Buff\Garen</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretSubTree.cpp">
+      <Filter>Component\BehaviorTree\SubTree\TurretTree</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMissileBase.cpp" />
+    <ClCompile Include="DamageCalc_Critical.cpp">
+      <Filter>Lib\DamageCalc</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Ghost.cpp">
+      <Filter>Skill\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Ghost.cpp">
+      <Filter>Buff\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetingSkill.cpp" />
+    <ClCompile Include="Skill_Attack.cpp">
+      <Filter>Skill\Common</Filter>
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>GameObject\Item</Filter>

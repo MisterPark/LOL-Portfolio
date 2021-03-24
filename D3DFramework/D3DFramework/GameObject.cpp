@@ -163,6 +163,13 @@ void Engine::GameObject::Billboard()
 
 	//RenderManager::SetTransform(D3DTS_WORLD, &matView);
 	//transform->localMatrix = matScale*matView;
+
+	//=====================================
+	Vector3 camDir = Camera::main->transform->look - Camera::main->transform->position;
+	Vector3::Normalize(&camDir);
+	camDir = -camDir;
+	//transform->Rotate(camDir);
+	transform->LookAt(Camera::main->transform->position);
 }
 
 void Engine::GameObject::BillboardYaw()
@@ -232,7 +239,7 @@ void Engine::GameObject::Show(bool _visible)
 
 	for (auto child : children)
 	{
-		child.second->Show();
+		child.second->Show(_visible);
 	}
 	visible = _visible;
 }

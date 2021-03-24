@@ -85,6 +85,18 @@ IComponent* Engine::Transform::Clone()
     return new Transform(*this);
 }
 
+void Engine::Transform::Rotate(Vector3 _direction)
+{
+	Vector3 dir = _direction;
+	Quaternion qRot;
+	Vector3 axis = Vector3::Cross(dir, Vector3::UP);
+	float angle = acosf(Vector3::Dot(Vector3::UP, dir.Normalized()));
+	D3DXQuaternionRotationAxis(&qRot, &axis, angle);
+	Vector3 euler = Quaternion::ToEulerAngles(qRot);
+
+	eulerAngles = euler;
+}
+
 void Engine::Transform::Rotate(Vector3 _axis, float _angle)
 {
 	Quaternion qRot;

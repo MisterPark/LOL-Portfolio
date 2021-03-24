@@ -10,6 +10,7 @@ LabelRenderer::LabelRenderer(GameObject* owner)
 
 void LabelRenderer::Render()
 {
+	if (gameObject->visible == false) return;
 	if (visible == false) return;
 	if (label == nullptr) return;
 	

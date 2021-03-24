@@ -91,10 +91,10 @@ namespace Engine
 		ConditionNode();
 		virtual BehaviorTree::Status Update() override;
 
-		void SetCondition(T* _instance, bool (T::*_Func)());
+		void SetCondition(T** _pInstance, bool (T::*_Func)());
 
 	private:
-		T* instance = nullptr;
+		T** pInstance = nullptr;
 		bool (T::*Func)() = nullptr;
 	};
 
@@ -106,17 +106,17 @@ namespace Engine
 	template<class T>
 	inline BehaviorTree::Status ConditionNode<T>::Update()
 	{
-		if(instance == nullptr) return BehaviorTree::Status::Failure;
+		if(pInstance == nullptr) return BehaviorTree::Status::Failure;
 		if (Func == nullptr) return BehaviorTree::Status::Failure;
-		if ((instance->*Func)() == false) return BehaviorTree::Status::Failure;
+		if (((*pInstance)->*Func)() == false) return BehaviorTree::Status::Failure;
 
 		return child->Update();
 	}
 
 	template<class T>
-	inline void ConditionNode<T>::SetCondition(T* _instance, bool(T::* _Func)())
+	inline void ConditionNode<T>::SetCondition(T** _pInstance, bool(T::* _Func)())
 	{
-		this->instance = _instance;
+		this->pInstance = _pInstance;
 		this->Func = _Func;
 	}
 
@@ -127,10 +127,10 @@ namespace Engine
 		ActionNode();
 		virtual BehaviorTree::Status Update() override;
 
-		void SetAction(T* _instance, void (T::* _Func)());
+		void SetAction(T** _instance, void (T::* _Func)());
 
 	private:
-		T* instance = nullptr;
+		T** instance = nullptr;
 		void (T::* Func)() = nullptr;
 	};
 
@@ -143,12 +143,12 @@ namespace Engine
 	inline BehaviorTree::Status ActionNode<T>::Update()
 	{
 		if (Func == nullptr) return BehaviorTree::Status::Failure;
-		(instance->*Func)();
+		((*instance)->*Func)();
 		return BehaviorTree::Status::Success;
 	}
 
 	template<class T>
-	inline void ActionNode<T>::SetAction(T* _instance, void(T::* _Func)())
+	inline void ActionNode<T>::SetAction(T** _instance, void(T::* _Func)())
 	{
 		this->instance = _instance;
 		this->Func = _Func;

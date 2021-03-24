@@ -2,6 +2,20 @@
 #include "RenderManager.h"
 #include "RenderTarget.h"
 #include "Texture.h"
+//C++17이전에서는 filesystem은 experimental이다. 일단 호환성을 위해 이렇게 해둠.
+#if __cplusplus < 20200000L
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+#include <experimental\filesystem>
+namespace std
+{
+namespace filesystem
+{
+	using namespace std::experimental::filesystem;
+}
+}
+#else
+#include <filesystem>
+#endif
 using namespace Engine;
 
 Engine::RenderManager* pRenderManager = nullptr;
@@ -973,6 +987,99 @@ HRESULT Engine::RenderManager::SetTransform(D3DTRANSFORMSTATETYPE State, const D
 	pRenderManager->pDevice->SetTransform(State, pMatrix);
 	LeaveCriticalSection(&pRenderManager->csDevice);
 	return E_NOTIMPL;
+}
+
+HRESULT Engine::RenderManager::LoadStaticMesh(const WCHAR* lpszFilePath)
+{
+	StaticMesh* smesh = new StaticMesh(nullptr);
+	std::filesystem::path path{ lpszFilePath };
+	auto dir{ path.parent_path() };
+	auto filename{ path.filename() };
+	auto dirPathStr{ dir.generic_wstring() };
+	dirPathStr += L"/";
+	HRESULT result = smesh->LoadMesh(
+		dirPathStr.c_str(),
+		filename.generic_wstring().c_str());
+	if (FAILED(result))
+	{
+		delete smesh;
+		return result;
+	}
+	std::wstring id{ filename.replace_extension().generic_wstring() };
+	pRenderManager->staticMeshMap[id] = smesh;
+	return S_OK;
+}
+
+HRESULT Engine::RenderManager::LoadDynamicMesh(const WCHAR* lpszFilePath)
+{
+	DynamicMesh* mesh = new DynamicMesh(nullptr);
+	std::filesystem::path path{ lpszFilePath };
+	auto dir{ path.parent_path() };
+	auto filename{ path.filename() };
+	auto dirPathStr{ dir.generic_wstring() };
+	dirPathStr += L"/";
+	HRESULT result = mesh->LoadMesh(
+		dirPathStr.c_str(),
+		filename.generic_wstring().c_str());
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring id{ filename.replace_extension("").generic_wstring() };
+	pRenderManager->dynamicMeshMap[id] = mesh;
+	return S_OK;
+}
+
+HRESULT Engine::RenderManager::LoadTerrainMesh(const WCHAR* lpszFilePath)
+{
+	TerrainMesh* mesh = new TerrainMesh(nullptr);
+	std::filesystem::path path{ lpszFilePath };
+	auto dir{ path.parent_path() };
+	auto filename{ path.filename() };
+	auto dirPathStr{ dir.generic_wstring() };
+	dirPathStr += L"/";
+	HRESULT result = mesh->LoadMesh(
+		dirPathStr.c_str(),
+		filename.generic_wstring().c_str());
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring id{ filename.replace_extension("").generic_wstring() };
+	pRenderManager->terrainMeshMap[id] = mesh;
+
+	return S_OK;
+}
+
+HRESULT Engine::RenderManager::LoadNavMesh(const WCHAR* lpszFilePath)
+{
+	NavMesh* mesh = new NavMesh(nullptr);
+	std::filesystem::path path{ lpszFilePath };
+	auto dir{ path.parent_path() };
+	auto filename{ path.filename() };
+	auto dirPathStr{ dir.generic_wstring() };
+	dirPathStr += L"/";
+	HRESULT result = mesh->LoadMesh(
+		dirPathStr.c_str(),
+		filename.generic_wstring().c_str());
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring id{ filename.replace_extension("").generic_wstring() };
+
+	pRenderManager->navMeshMap[id] = mesh;
+
+	return S_OK;
 }
 
 HRESULT Engine::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)

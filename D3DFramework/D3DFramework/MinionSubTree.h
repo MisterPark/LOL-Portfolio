@@ -8,5 +8,7 @@ class MinionSubTree :
 public:
     MinionSubTree(Minion* owner);
     virtual ~MinionSubTree();
+
+    Minion* minion = nullptr;
 };
 

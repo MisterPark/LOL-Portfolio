@@ -25,8 +25,10 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
+	stat->SetBaseValue(StatType::Experience, 50.f);
+	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
 
-	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc());
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
 
 	MonsterSubTree* subTree = new MonsterSubTree(this);
 	bt->SetRoot(subTree);

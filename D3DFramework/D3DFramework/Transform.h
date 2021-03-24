@@ -15,6 +15,8 @@ namespace Engine
 		virtual void PostUpdate() override;
 		virtual IComponent* Clone() override;
 
+		// 방향으로 회전
+		void Rotate(Vector3 _direction);
 		// 임의의 축 회전
 		void Rotate(Vector3 _axis, float _angle);
 		// 바라보기

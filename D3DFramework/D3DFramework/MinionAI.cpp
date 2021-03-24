@@ -63,7 +63,7 @@ void MinionAI::Update()
     }
     else
     {
-        unit->Attack(target);
+        unit->SetAttackTarget(target);
         
     }
 }

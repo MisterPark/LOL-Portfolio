@@ -9,18 +9,10 @@
 namespace Engine
 {
 	class ForwardRenderer : public Renderer
-	{		
-		union Parameter
-		{
-			float f32;
-			float vector4[4];
-			float matrix[16];
-			int integer;
-			IDirect3DTexture9* texture;
-		};
-
+	{
 	public:
 		ForwardRenderer(GameObject* const owner, std::wstring const & path);
+		~ForwardRenderer();
 		void SetValue(const char* parameter, float value);
 		void SetValue(const char* parameter, Vector3 const& value);
 		void SetValue(const char* parameter, D3DXVECTOR4 const& value);
@@ -34,7 +26,6 @@ namespace Engine
 	private:
 		ID3DXEffect* effect;
 		int pass;
-		std::unordered_map<std::string, std::pair<type_info const*, Parameter> > parameterTable;
 		std::string diffuseTextureHandle;
 		Mesh* mesh;
 	};

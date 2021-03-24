@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Skill.h"
+#include "TargetingSkill.h"
 class Skill_Garen_R :
-    public Skill
+    public TargetingSkill
 {
 public:
     Skill_Garen_R(Unit* _hostUnit);

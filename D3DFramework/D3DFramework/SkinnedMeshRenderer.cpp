@@ -19,7 +19,7 @@ Engine::SkinnedMeshRenderer::SkinnedMeshRenderer(Engine::GameObject* owner):
 
 void Engine::SkinnedMeshRenderer::Render()
 {
-
+	if (gameObject->visible == false) return;
 	IDirect3DDevice9* device = RenderManager::GetDevice();
 
 	std::list<D3DXMESHCONTAINER_DERIVED*> const& meshContainers = this->mesh->GetMeshContainersRef();

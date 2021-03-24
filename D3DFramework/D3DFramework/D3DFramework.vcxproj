@@ -180,6 +180,7 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BehaviorTree.h" />
@@ -192,8 +193,10 @@
     <ClInclude Include="Buff_GarenPHealthRegen.h" />
     <ClInclude Include="Buff_GarenQAttack.h" />
     <ClInclude Include="Buff_GarenQHaste.h" />
+    <ClInclude Include="Buff_GarenWPassive.h" />
     <ClInclude Include="Buff_GarenWReduction.h" />
     <ClInclude Include="Buff_GarenWShield.h" />
+    <ClInclude Include="Buff_Ghost.h" />
     <ClInclude Include="Buff_OnHit.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bush.h" />
@@ -209,6 +212,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="DamageCalc.h" />
     <ClInclude Include="DamageCalc_Basic.h" />
+    <ClInclude Include="DamageCalc_Critical.h" />
     <ClInclude Include="DamageCalc_CurrentHpPercent.h" />
     <ClInclude Include="DamageCalc_LostHpPercent.h" />
     <ClInclude Include="DamageCalc_MaxHpPercent.h" />
@@ -338,6 +342,7 @@
     <ClInclude Include="Skill_Garen_Q.h" />
     <ClInclude Include="Skill_Garen_R.h" />
     <ClInclude Include="Skill_Garen_W.h" />
+    <ClInclude Include="Skill_Ghost.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
@@ -348,6 +353,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ItemshopPanel.h" />
     <ClInclude Include="Struct.h" />
+    <ClInclude Include="TargetingSkill.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainMesh.h" />
@@ -365,6 +371,8 @@
     <ClInclude Include="TurretBreak.h" />
     <ClInclude Include="TurretFloatingBar.h" />
     <ClInclude Include="TurretMissile.h" />
+    <ClInclude Include="TurretMissileBase.h" />
+    <ClInclude Include="TurretSubTree.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIRenderer.h" />
@@ -382,6 +390,7 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
     <ClCompile Include="Blitzcrank.cpp" />
@@ -393,8 +402,10 @@
     <ClCompile Include="Buff_GarenPHealthRegen.cpp" />
     <ClCompile Include="Buff_GarenQAttack.cpp" />
     <ClCompile Include="Buff_GarenQHaste.cpp" />
+    <ClCompile Include="Buff_GarenWPassive.cpp" />
     <ClCompile Include="Buff_GarenWReduction.cpp" />
     <ClCompile Include="Buff_GarenWShield.cpp" />
+    <ClCompile Include="Buff_Ghost.cpp" />
     <ClCompile Include="Buff_OnHit.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bush.cpp" />
@@ -409,6 +420,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DamageCalc.cpp" />
     <ClCompile Include="DamageCalc_Basic.cpp" />
+    <ClCompile Include="DamageCalc_Critical.cpp" />
     <ClCompile Include="DamageCalc_CurrentHpPercent.cpp" />
     <ClCompile Include="DamageCalc_LostHpPercent.cpp" />
     <ClCompile Include="DamageCalc_MaxHpPercent.cpp" />
@@ -531,6 +543,7 @@
     <ClCompile Include="Skill_Garen_Q.cpp" />
     <ClCompile Include="Skill_Garen_R.cpp" />
     <ClCompile Include="Skill_Garen_W.cpp" />
+    <ClCompile Include="Skill_Ghost.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
@@ -543,6 +556,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ItemshopPanel.cpp" />
+    <ClCompile Include="TargetingSkill.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="TestEncoding.cpp" />
@@ -560,6 +574,8 @@
     <ClCompile Include="TurretBreak.cpp" />
     <ClCompile Include="TurretFloatingBar.cpp" />
     <ClCompile Include="TurretMissile.cpp" />
+    <ClCompile Include="TurretMissileBase.cpp" />
+    <ClCompile Include="TurretSubTree.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIRenderer.cpp" />
