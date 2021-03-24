@@ -11,7 +11,6 @@ Engine::Cursor::Cursor()
     
     SetTexture(L"hover_precise");
     SetSizeByTexture();
-    transform->scale = { 0.8f,0.8f,1.f };
     dontDestroy = true;
 }
 
@@ -44,8 +43,8 @@ Vector3 Engine::Cursor::GetMousePos()
     POINT pt;
     GetCursorPos(&pt);
     ScreenToClient(g_hwnd, &pt);
-    pos.x = (float)pt.x;
-    pos.y = (float)pt.y;
+	pos.x = (float)pt.x;
+	pos.y = (float)pt.y;
     return pos;
 }
 
@@ -76,6 +75,8 @@ void Engine::Cursor::Update()
     Vector3 mousePos = GetMousePos();
 
     transform->position = mousePos;
+	transform->position.x -= pCursor->GetTexture()->GetSpriteWidth() * 0.5f;
+	transform->position.y -= pCursor->GetTexture()->GetSpriteHeight() * 0.5f;
 
     BringToTop();
 

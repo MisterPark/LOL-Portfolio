@@ -36,7 +36,7 @@ void OutlinedSlot::Update()
 	UI::Update();
 
 	if (cooltimeMax <= 0.f) {
-		renderer->SetTimerRatio(0.f);
+		renderer->SetTimerRatio(1.f);
 	}
 	else {
 		renderer->SetTimerRatio(1.f - cooltime / cooltimeMax);

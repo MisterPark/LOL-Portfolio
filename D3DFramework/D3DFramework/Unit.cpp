@@ -563,3 +563,8 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 	Debug::PrintLine("[Debug] ReqDamage 요청 / 공격자ID : %d / 타겟ID : %d", _attackerID, _targetID);
 }
 
+bool Unit::AddItem(Item* _item)
+{
+	return inventory.Push(_item);
+}
+

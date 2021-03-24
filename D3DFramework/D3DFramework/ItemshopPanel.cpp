@@ -136,7 +136,8 @@ void ItemshopPanel::Update()
 
     if (Input::GetKeyDown('P'))
     {
-        Show(!visible);
+        if (!visible)    Show();
+        else            Hide();
     }
 }
 

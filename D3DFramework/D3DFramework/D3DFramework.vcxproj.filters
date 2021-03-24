@@ -940,6 +940,9 @@
     <ClInclude Include="MinionSubTree.h">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
     </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>GameObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1611,6 +1614,9 @@
     </ClCompile>
     <ClCompile Include="MinionSubTree.cpp">
       <Filter>Component\BehaviorTree\SubTree\MinionTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>GameObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
