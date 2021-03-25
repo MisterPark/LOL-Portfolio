@@ -179,6 +179,7 @@ private:
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;
 
+public:
 	// 인벤토리
 	Inventory inventory;
 

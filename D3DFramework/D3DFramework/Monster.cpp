@@ -8,6 +8,7 @@
 #include "SphereCollider.h"
 #include "DamageCalc_Basic.h"
 #include "MonsterSubTree.h"
+#include "Skill_Attack.h"
 
 Monster::Monster()
 {
@@ -29,6 +30,9 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
 
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
+
+	// 스킬
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
 
 	MonsterSubTree* subTree = new MonsterSubTree(this);
 	bt->SetRoot(subTree);

@@ -54,6 +54,7 @@ void MonsterAI::Update()
             target = nullptr;
         }
         unit->SetAttackTarget(target);
+        unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
     }
 }
 

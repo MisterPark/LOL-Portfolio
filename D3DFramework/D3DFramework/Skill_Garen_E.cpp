@@ -11,6 +11,7 @@ Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 {
 	maxLevel = 5;
 	coolTime = 9.f;
+	coolTimeTick = coolTime;
 	duration = 3.f;
 	host = _hostUnit;
 }
@@ -21,11 +22,11 @@ Skill_Garen_E::~Skill_Garen_E()
 
 void Skill_Garen_E::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
-	if (tick > 0.f) {
+	if (tick < duration) {
 		realCoolTimeTick -= tick;
-		tick = 0.f;
+		tick = duration;
 		damageBuff->tick = damageBuff->duration;
 		host->SetState(State::IDLE1);
 		return;
@@ -50,8 +51,9 @@ void Skill_Garen_E::Start()
 
 void Skill_Garen_E::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 	if (realCoolTimeTick > 0.f) {
 		realCoolTimeTick -= Time::DeltaTime();
@@ -62,8 +64,8 @@ void Skill_Garen_E::Passive()
 void Skill_Garen_E::Active()
 {
 
-	if (tick <= 0.f) {
-		coolTimeTick = realCoolTimeTick;
+	if (tick > duration) {
+  coolTimeTick = realCoolTimeTick;
 		End();
 		return;
 	}
@@ -72,13 +74,12 @@ void Skill_Garen_E::Active()
 	host->moveState = State::E;
 
 	//사용효과
-	tick -= Time::DeltaTime();
+	tick += Time::DeltaTime();
 }
 
 
 void Skill_Garen_E::End()
 {
 	Skill::End();
-
 	host->moveState = State::RUN;
 }
