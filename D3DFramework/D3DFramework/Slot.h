@@ -1,32 +1,14 @@
-#pragma once
-#include "UI.h"
-
+﻿#pragma once
 class Item;
 
-class Slot : public UI
+class Slot
 {
 public:
 	Slot();
 	~Slot();
 
-	virtual void Initialize() override;
-	virtual void Release() override;
-	virtual void Update() override;
-
-	virtual void OnHover();
-	virtual void OnLeave();
-	virtual void OnClick();
-	virtual void OnRButtonDown();
-
-	void Use();
-
-	Item* GetItem();
-	Item* SetItem(Item* inItem);
-	
-private:
-	Item* item = nullptr;
 public:
-	Vector3 position;
+	Item* item = nullptr;
+	int num = 0;
 
 };
-

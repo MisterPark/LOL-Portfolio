@@ -7,6 +7,7 @@
 #include "Monster.h"
 #include "Garen.h"
 #include "TargetingSkill.h"
+#include "Skill_Attack.h"
 
 list<Unit*> Unit::unitList;
 
@@ -139,7 +140,15 @@ void Unit::UpdateSpawn()
 		{
 			spawnFlag = false;
 			spawnTick = 0.f;
-			Respawn();
+			float maxHP = stat->GetValue(StatType::MaxHealth);
+			float maxMP = stat->GetValue(StatType::MaxMana);
+			stat->SetBaseValue(StatType::Health,maxHP);
+			stat->SetBaseValue(StatType::Mana, maxMP);
+			transform->position = spawnPosition;
+			isDead = false;
+			anim->Resume();
+			Show();
+
 		}
 	}
 }
@@ -308,6 +317,10 @@ void Unit::DeadAction()
 		Hide();
 	}
 	agent->Stop();
+	if (spawnFlag == false)
+	{
+		Respawn();
+	}
 }
 
 void Unit::AttackAction()
@@ -439,6 +452,8 @@ void Unit::PushedOut(Unit* other)
 
 void Unit::Respawn()
 {
+	spawnFlag = true;
+	spawnTick = 0.f;
 }
 
 void Unit::SetState(State _state)
@@ -529,6 +544,21 @@ float Unit::DecreaseShieldBuff(float _damage)
 void Unit::SetID(INT _id)
 {
 	unitID = _id;
+}
+
+Vector3 Unit::GetSpawnPosition()
+{
+	return spawnPosition;
+}
+
+void Unit::SetSpawnPosition(Vector3 _spawnPos)
+{
+	this->spawnPosition = _spawnPos;
+}
+
+float Unit::GetRemainingRespawnTime()
+{
+	return (spawnDelay - spawnTick);
 }
 
 bool Unit::IsDead()
@@ -673,5 +703,10 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 	Network::SendPacket(pack);
 	delete pack;
 	Debug::PrintLine("[Debug] ReqDamage 요청 / 공격자ID : %d / 타겟ID : %d", _attackerID, _targetID);
+}
+
+bool Unit::AddItem(Item* _item)
+{
+	return inventory.Push(_item);
 }
 

@@ -168,12 +168,16 @@ void TestScene::OnLoaded()
 	// 플레이어
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
 	unit->transform->position = { 41.f, 68.f, 46.f };
+	unit->SetSpawnPosition(Vector3(41.f, 68.f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
+	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+
+	//champ->inventory.AddItem();
 	
 
 	//obj = PlayerInfoPanel::GetInstance();

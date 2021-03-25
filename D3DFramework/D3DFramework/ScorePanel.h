@@ -60,7 +60,8 @@ protected:
 	
 	vector<Champion*> championInfo[(UINT)Team::END];
 	vector<UI*> championScoreUI[(UINT)Team::END];
-	
+	UI* championItemUI[(UINT)Team::END][5][7];
+
 	Label* turretCountLabel[(UINT)Team::END] = { nullptr, };
 	Label* killCountLabel[(UINT)Team::END] = { nullptr, };
 

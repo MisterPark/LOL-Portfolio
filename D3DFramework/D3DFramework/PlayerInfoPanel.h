@@ -97,6 +97,8 @@ private:
 	OutlinedSlot* slotSummoner2 = nullptr;
 
 	// Item
+	OutlinedSlot* slotItem[7];
+	OutlinedSlot* slotRecall = nullptr;
 	Button* itemshopBtn = nullptr;
 
 	// Event

@@ -22,14 +22,7 @@ PlayerInfoPanel::PlayerInfoPanel()
 
 // StatPanel
     statPanel = AddChild<UI>(L"statPanel", new UI(L"stat_panel (5)_icon", Vector2(-293, 21)));
-    statLabel[0] = statPanel->AddChild<Label>(L"stat1", new Label(18));
-    statLabel[1] = statPanel->AddChild<Label>(L"stat2", new Label(18));
-    statLabel[2] = statPanel->AddChild<Label>(L"stat3", new Label(18));
-    statLabel[3] = statPanel->AddChild<Label>(L"stat4", new Label(18));
-    statLabel[4] = statPanel->AddChild<Label>(L"stat5", new Label(18));
-    statLabel[5] = statPanel->AddChild<Label>(L"stat6", new Label(18));
-    statLabel[6] = statPanel->AddChild<Label>(L"stat7", new Label(18));
-    statLabel[7] = statPanel->AddChild<Label>(L"stat8", new Label(18));
+    
     int statstartx = 45;
     int statstarty = 31;
     int statinvx = 105;
@@ -37,6 +30,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     for (int y = 0; y < 4; ++y) {
         for (int x = 0; x < 2; ++x) {
             int index = x + y * 2;
+			statLabel[index] = statPanel->AddChild<Label>(L"stat", new Label(18));
 
             statLabel[index]->SetText(0);
             statLabel[index]->SetLocation(Vector2(statstartx + statinvx * x, statstarty + statinvy * y));
@@ -48,9 +42,11 @@ PlayerInfoPanel::PlayerInfoPanel()
     }
 
 // InvenPanel
+	auto recallIcon = AddChild<UI>(L"recallIcon", new UI(L"icon_spell_summonerspell_recall_01", Vector2(734, 88)));
+	recallIcon->transform->scale = { 0.6f, 0.6f, 1.f };
+
     invenPanel = AddChild<UI>(L"invenPanel", new UI(L"panel (2)", Vector2(558, 6)));
-    invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30)));
-    invenPanel->AddChild<OutlinedSlot>(L"recallSlot", new OutlinedSlot(L"border_skill (6)", Vector2(176, 82)));
+	slotRecall = invenPanel->AddChild<OutlinedSlot>(L"recallSlot", new OutlinedSlot(L"border_skill (6)", Vector2(176, 82)));
 	
 	itemshopBtn = invenPanel->AddChild<Button>(L"itemsshopBtn", new Button(L"button_gold (2)", Vector2(16, 130)));
     itemshopBtn->SetTextureDisable(L"button_gold (1)");
@@ -64,62 +60,62 @@ PlayerInfoPanel::PlayerInfoPanel()
 	itemshopBtn->SetLabelVAlign(Label::VAlign::Middle);
 	itemshopBtn->SetLabelColor(D3DCOLOR_ARGB(255, 236, 229, 142));
 
-	Label* Item1Label = invenPanel->AddChild<Label>(L"Item1Label", new Label(15));
-    Item1Label->SetText(1);
-    Item1Label->SetLocation(Vector2(16, 68));
-    Item1Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-    Item1Label->align = Label::Align::Center;
-    Item1Label->valign = Label::VAlign::Middle;
+	// 인벤토리
+	for (int i = 0; i < 6; i++)
+	{
+		slotItem[i] = invenPanel->AddChild<OutlinedSlot>(L"slotItem", new OutlinedSlot(L"item_outline", Vector2(0, 0)));
+		slotItem[i]->outline->transform->scale = { 0.67f, 0.67f, 1.f };
+		slotItem[i]->icon->transform->scale = { 0.72f, 0.72f, 1.f};
+	}
+	slotItem[0]->SetLocation(16, 27);
+	slotItem[1]->SetLocation(68, 27);
+	slotItem[2]->SetLocation(120, 27);
+	slotItem[3]->SetLocation(16, 80);
+	slotItem[4]->SetLocation(68, 80);
+	slotItem[5]->SetLocation(120, 80);
 
-	Label* Item2Label = invenPanel->AddChild<Label>(L"Item2Label", new Label(15));
-	Item2Label->SetText(2);
-	Item2Label->SetLocation(Vector2(68, 68));
-	Item2Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	Item2Label->align = Label::Align::Center;
-	Item2Label->valign = Label::VAlign::Middle;
+	// 장신구
+	slotItem[6] = invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30))); // 장신구
+	slotItem[6]->icon->transform->scale = { 0.6f, 0.6f, 1.f };
 
-	Label* Item3Label = invenPanel->AddChild<Label>(L"Item3Label", new Label(15));
-	Item3Label->SetText(3);
-	Item3Label->SetLocation(Vector2(120, 68));
-	Item3Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	Item3Label->align = Label::Align::Center;
-	Item3Label->valign = Label::VAlign::Middle;
+	// test
+	//slotItem[0]->icon->SetTexture(L"1001_class_t1_bootsofspeed");
+	//slotItem[6]->icon->SetTexture(L"3340_class_t1_wardingtotem");
 
-	Label* Item5Label = invenPanel->AddChild<Label>(L"Item5Label", new Label(15));
-	Item5Label->SetText(5);
-	Item5Label->SetLocation(Vector2(16, 120));
-	Item5Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	Item5Label->align = Label::Align::Center;
-	Item5Label->valign = Label::VAlign::Middle;
+	Label* itemLabel[7] = { nullptr, };
+	for (int i = 0; i < 7; ++i)
+	{
+		itemLabel[i] = invenPanel->AddChild<Label>(L"ItemLabel", new Label(15));
+		itemLabel[i]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+		itemLabel[i]->align = Label::Align::Center;
+		itemLabel[i]->valign = Label::VAlign::Middle;
+		itemLabel[i]->outline = true;
+	}
+	itemLabel[6]->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
 
-	Label* Item6Label = invenPanel->AddChild<Label>(L"Item6Label", new Label(15));
-	Item6Label->SetText(6);
-	Item6Label->SetLocation(Vector2(68, 120));
-	Item6Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	Item6Label->align = Label::Align::Center;
-	Item6Label->valign = Label::VAlign::Middle;
+	itemLabel[0]->SetText(1);
+	itemLabel[1]->SetText(2);
+	itemLabel[2]->SetText(3);
+	itemLabel[3]->SetText(5);
+	itemLabel[4]->SetText(6);
+	itemLabel[5]->SetText(7);
+	itemLabel[6]->SetText(4);
 
-	Label* Item7Label = invenPanel->AddChild<Label>(L"Item7Label", new Label(15));
-	Item7Label->SetText(7);
-	Item7Label->SetLocation(Vector2(120, 120));
-	Item7Label->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	Item7Label->align = Label::Align::Center;
-	Item7Label->valign = Label::VAlign::Middle;
+	itemLabel[0]->SetLocation(Vector2(16, 68));
+	itemLabel[1]->SetLocation(Vector2(68, 68));
+	itemLabel[2]->SetLocation(Vector2(120, 68));
+	itemLabel[3]->SetLocation(Vector2(16, 120));
+	itemLabel[4]->SetLocation(Vector2(68, 120));
+	itemLabel[5]->SetLocation(Vector2(120, 120));
+	itemLabel[6]->SetLocation(Vector2(180, 60));
 
-
-	Label* Item4Label = invenPanel->AddChild<Label>(L"Item4Label", new Label(15));
-	Item4Label->SetText(4);
-	Item4Label->SetLocation(Vector2(180, 60));
-	Item4Label->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
-	Item4Label->align = Label::Align::Center;
-	Item4Label->valign = Label::VAlign::Middle;
-
-	Label* RecallLabel = invenPanel->AddChild<Label>(L"RecallLabel", new Label(15));
-	RecallLabel->SetText(L"B");
-	RecallLabel->SetLocation(Vector2(180, 111));
-	RecallLabel->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
-	RecallLabel->align = Label::Align::Center;
-	RecallLabel->valign = Label::VAlign::Middle;
+	Label* recallLabel = invenPanel->AddChild<Label>(L"RecallLabel", new Label(15));
+	recallLabel->SetText(L"B");
+	recallLabel->SetLocation(Vector2(180, 111));
+	recallLabel->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
+	recallLabel->align = Label::Align::Center;
+	recallLabel->valign = Label::VAlign::Middle;
+	recallLabel->outline = true;
 
 // mainPanel
     mainPanel = AddChild<UI>(L"mainPanel", new UI(L"panel (5)", Vector2(0, 0)));
@@ -176,8 +172,9 @@ PlayerInfoPanel::PlayerInfoPanel()
 		SpellTimeLabel[i]->valign = Label::VAlign::Middle;
 
 		spellLevelUI[i].resize(spellLevelMax[i]);
+		int startX = 160 + (74 * i) - ((float)spellLevelMax[i] / 2 * 10);
 		for (int j = 0; j < spellLevelMax[i]; ++j)
-			spellLevelUI[i][j] = mainPanel->AddChild<UI>(L"spelllevel", new UI(L"skilllevel_off", Vector2(133 + (11 * j), 104)));
+			spellLevelUI[i][j] = mainPanel->AddChild<UI>(L"spelllevel", new UI(L"skilllevel_off", Vector2(startX + (11 * j), 104)));
 
 		spellLevelUpButton[i] = mainPanel->AddChild<Button>(L"spellLevelUpButton", new Button(L"button_skillup (1)", Vector2(131 + (74 * i), -25)));
 		spellLevelUpButton[i]->SetTextureHover(L"button_skillup (2)");
@@ -297,11 +294,11 @@ void PlayerInfoPanel::Update()
 {
     GameObject::Update();
 
-    if (champion != nullptr) {
+	if (champion != nullptr) {
 		if (champion->IsDead()) facePanel->grayscale = true;
 		else					facePanel->grayscale = false;
 
-	// HP Bar
+		// HP Bar
 		{
 			float hp = champion->stat->GetValue(StatType::Health);
 			if (hp < 0) hp = 0;
@@ -320,7 +317,7 @@ void PlayerInfoPanel::Update()
 			hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
 			hpBarBack->uvRatioEnd.x = hpBarBackRatio;
 		}
-	// MP Bar
+		// MP Bar
 		{
 			float mp = champion->stat->GetValue(StatType::Mana);
 			if (mp < 0) mp = 0;
@@ -334,36 +331,36 @@ void PlayerInfoPanel::Update()
 			mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
 		}
 
-    // Stat
-		// HP Regen
-        hpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::HealthRegen));
-        if (champion->stat->GetValue(StatType::Health) < champion->stat->GetValue(StatType::MaxHealth)) hpRegenLabel->Show();
-        else                                                                                            hpRegenLabel->Hide();
+		// Stat
+			// HP Regen
+		hpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::HealthRegen));
+		if (champion->stat->GetValue(StatType::Health) < champion->stat->GetValue(StatType::MaxHealth)) hpRegenLabel->Show();
+		else                                                                                            hpRegenLabel->Hide();
 
 		// MP Regen
-        mpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::ManaRegen));
-        if (champion->stat->GetValue(StatType::Mana) < champion->stat->GetValue(StatType::MaxMana)) mpRegenLabel->Show();
-        else                                                                                        mpRegenLabel->Hide();
+		mpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::ManaRegen));
+		if (champion->stat->GetValue(StatType::Mana) < champion->stat->GetValue(StatType::MaxMana)) mpRegenLabel->Show();
+		else                                                                                        mpRegenLabel->Hide();
 
-        statLabel[0]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[0]));
-        statLabel[1]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[1]));
-        statLabel[2]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[2]));
-        statLabel[3]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[3]));
-        statLabel[4]->SetText(L"%.2f",      champion->stat->GetValue(statNum[4]));
-        statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
-		statLabel[6]->SetText(L"%d",   (int)champion->stat->GetValue(statNum[6]));
-		statLabel[7]->SetText(L"%d",   (int)(champion->stat->GetValue(statNum[7]) * 100));
+		statLabel[0]->SetText(L"%d", (int)champion->stat->GetValue(statNum[0]));
+		statLabel[1]->SetText(L"%d", (int)champion->stat->GetValue(statNum[1]));
+		statLabel[2]->SetText(L"%d", (int)champion->stat->GetValue(statNum[2]));
+		statLabel[3]->SetText(L"%d", (int)champion->stat->GetValue(statNum[3]));
+		statLabel[4]->SetText(L"%.2f", champion->stat->GetValue(statNum[4]));
+		statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
+		statLabel[6]->SetText(L"%d", (int)champion->stat->GetValue(statNum[6]));
+		statLabel[7]->SetText(L"%d", (int)(champion->stat->GetValue(statNum[7]) * 100));
 
 		itemshopBtn->SetText((int)champion->stat->GetValue(StatType::Gold));
 
-	// Level
+		// Level
 		levelLabel->SetText(L"%d", champion->stat->GetValue(StatType::Level));
-		
-	// exp
-		expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) / 
-			                            champion->stat->GetValue(StatType::MaxExperience));
 
-	// Spell
+		// exp
+		expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /
+			champion->stat->GetValue(StatType::MaxExperience));
+
+		// Spell
 		float cooltime;
 		float cooltimeinit;
 
@@ -384,6 +381,16 @@ void PlayerInfoPanel::Update()
 				else				SpellTimeLabel[i]->SetText(L"%.1f", cooltime);
 			}
 
+		}
+
+		// Item
+		for (int i = 0; i < 6; ++i) {
+			Item* item = champion->inventory.slots[i].item;
+			if (item == nullptr)
+				slotItem[i]->SetIcon(L"");
+			else
+				slotItem[i]->SetIcon(item->icon);
+			
 		}
 
     }
