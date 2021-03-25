@@ -47,16 +47,7 @@ void Skill_Garen_Q::Passive()
 
 void Skill_Garen_Q::Active()
 {
-	//if (!active)
-		//return;
-
-	if (tick > duration) {
-		End();
-		return;
-	}
-
-	//사용효과
-	duration += Time::DeltaTime();
+	End();
 }
 
 

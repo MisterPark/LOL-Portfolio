@@ -10,11 +10,14 @@
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
+	groundClick = false;
+
 	maxLevel = 3;
 	coolTime = 2.f;
 	coolTimeTick = coolTime;
 	duration = 1.f;
 	host = _hostUnit;
+	range = 4.f;
 
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::TrueDamage));
 	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, DamageKind::TrueDamage));
@@ -34,19 +37,12 @@ void Skill_Garen_R::Start()
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
-	RaycastHit info;
-	int unitMask = LayerMask::GetMask(Layer::Unit);
-	if (Physics::Raycast(ray, &info, INFINITY, unitMask))
-	{
-		Unit* target = (Unit*)info.collider->gameObject;
-		if (target->team != host->team && !target->IsDead())
-		{
-			target->SetLastAttacker(host);
-			float finalDamage = baseDamage;
-			Calc_FinalDamage(&finalDamage, host->stat, target->stat);
-			target->TakeDamage(finalDamage);
-		}
-	}
+	Unit* target = host->attackTarget;
+	target->SetLastAttacker(host);
+	float finalDamage = baseDamage;
+	Calc_FinalDamage(&finalDamage, host->stat, target->stat);
+	target->TakeDamage(finalDamage);
+
 
 
 }

@@ -16,6 +16,7 @@ public:
     virtual void End();
 
 private:
+    float realCoolTimeTick = 0.f;
     float damageTime = 1.f;
 
     float baseDamage = 4.f;

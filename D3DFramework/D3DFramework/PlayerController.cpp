@@ -126,6 +126,10 @@ void PlayerController::Update()
                    
             }
         }
+        else if (unit->nextSkill != nullptr && !((TargetingSkill*)unit->nextSkill)->GetGroundClick()) {
+            // 스킬쓰고 타겟팅했을때 어택땅이되서 방지
+            return;
+        }
         else if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
         {
             printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
