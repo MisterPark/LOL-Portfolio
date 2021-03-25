@@ -121,6 +121,8 @@ using namespace std;
 #include "Camera.h"
 #include "Texture.h"
 #include "Animation2D.h"
+// 데이터
+#include "ItemManager.h"
 
 // 
 #include "HierarchyLoader.h"

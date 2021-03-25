@@ -261,20 +261,10 @@ HRESULT Engine::RenderManager::LoadSprite(const wstring& filePath, const wstring
 	lstrcat(fullName, fileName.c_str());
 
 	// 키생성
-	wstring id = L"";
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	auto find = pRenderManager->textureMap.find(id);
-
-	if (find != pRenderManager->textureMap.end())
-	{
-		
-		return S_OK;
-	}
+	if (find != pRenderManager->textureMap.end()) return S_OK;
 
 	Texture* tex = new Texture;
 
@@ -907,15 +897,9 @@ HRESULT Engine::RenderManager::LoadTexture(const wstring& filePath, const wstrin
 	lstrcat(fullName, fileName.c_str());
 
 	// 키생성
-	wstring id = L"";
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	auto find = pRenderManager->textureMap.find(id);
-
 	if (find != pRenderManager->textureMap.end()) return S_OK;
 
 	Texture* tex = new Texture;
@@ -948,15 +932,9 @@ HRESULT Engine::RenderManager::LoadCubeTexture(const wstring& filePath, const ws
 	lstrcat(fullName, fileName.c_str());
 
 	// 키생성
-	wstring id = L"";
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	auto find = pRenderManager->textureMap.find(id);
-
 	if (find != pRenderManager->textureMap.end()) return S_OK;
 
 	Texture* tex = new Texture;
@@ -1116,14 +1094,8 @@ HRESULT Engine::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHA
 	}
 	
 	// 키생성
-	wstring id = L"";
 	wstring fileName = pFileName;
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
-
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	pRenderManager->staticMeshMap[id] = smesh;
 
@@ -1153,14 +1125,8 @@ HRESULT Engine::RenderManager::LoadDynamicMesh(const WCHAR* pFilePath, const WCH
 	}
 
 	// 키생성
-	wstring id = L"";
 	wstring fileName = pFileName;
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
-
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	pRenderManager->dynamicMeshMap[id] = mesh;
 
@@ -1190,14 +1156,8 @@ HRESULT Engine::RenderManager::LoadTerrainMesh(const WCHAR* pFilePath, const WCH
 	}
 
 	// 키생성
-	wstring id = L"";
 	wstring fileName = pFileName;
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
-
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	pRenderManager->terrainMeshMap[id] = mesh;
 
@@ -1227,14 +1187,8 @@ HRESULT Engine::RenderManager::LoadNavMesh(const WCHAR* pFilePath, const WCHAR* 
 	}
 
 	// 키생성
-	wstring id = L"";
 	wstring fileName = pFileName;
-	for (size_t i = 0; i < fileName.length(); i++)
-	{
-		if (fileName[i] == '.') break;
-		id += fileName[i];
-	}
-
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
 
 	pRenderManager->navMeshMap[id] = mesh;
 

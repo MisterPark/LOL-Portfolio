@@ -5,8 +5,9 @@
 #include "TitleScene.h"
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
-
 #include "RenderSystem.h"
+#include <io.h>
+
 using namespace Engine;
 
 Engine::MainGame* pMainGame = nullptr;
@@ -81,6 +82,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 	UIManager::GetInstance();
 
 	//SkillManager::GetInstance();
+	ItemManager::GetInstance()->Initialize();
 
 	// 씬로드
 	SceneManager::LoadScene<TestLoadingScene>();
@@ -149,6 +151,7 @@ void Engine::MainGame::Release()
 	Network::Destroy();
 	Frustum::Destroy();
 	NavNodeManager::Destroy();
+	ItemManager::Destroy();
 }
 
 void Engine::MainGame::Pause()
@@ -312,6 +315,11 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5)_icon.png");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"item_outline.png");
+
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"icon_spell_summonerspell_recall_01.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"baron_recall.dds");
+
 	// Itemshop
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_default.png");
@@ -330,8 +338,20 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
 
 	// item
-	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1001_class_t1_bootsofspeed.dds");
-	RenderManager::LoadSprite(L"Resource\\UI\\item\\", L"1004_class_t1_faeriecharm.dds");
+	_finddata_t fd;
+	char path[1024];
+	char filter[MAX_PATH] = "*.dds";
+	_fullpath(path, "Resource\\UI\\item\\", 1024);
+	strcat_s(path, filter);
+	long handle = _findfirst(path, &fd);
+	if (handle != -1)
+	{
+		do {
+			std::wstring file(fd.name, &fd.name[260]);
+			RenderManager::LoadSprite(L"Resource\\UI\\item\\", file);
+		} while (_findnext(handle, &fd) != -1);
+		_findclose(handle);
+	}
 
 	// scoreboard
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");

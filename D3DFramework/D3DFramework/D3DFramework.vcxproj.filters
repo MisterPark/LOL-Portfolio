@@ -969,6 +969,9 @@
     <ClInclude Include="Skill_Attack.h">
       <Filter>Skill\Common</Filter>
     </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>GameObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1660,6 +1663,9 @@
     <ClCompile Include="TargetingSkill.cpp" />
     <ClCompile Include="Skill_Attack.cpp">
       <Filter>Skill\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>GameObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
