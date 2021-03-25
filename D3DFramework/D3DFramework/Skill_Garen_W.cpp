@@ -57,16 +57,7 @@ void Skill_Garen_W::Passive()
 
 void Skill_Garen_W::Active()
 {
-	//if (!active)
-		//return;
-
-	if (duration <= 0.f) {
-		End();
-		return;
-	}
-
-	//사용효과
-	duration -= Time::DeltaTime();
+	End();
 }
 
 

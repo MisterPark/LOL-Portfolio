@@ -52,21 +52,12 @@ void Skill_Garen_P::Passive()
 		else
 			coolTimeTick = coolTime - lastHitInfo.tick;
 	}
-	//TODO: 스위치이용해서 맞으면 쿨타임 늘리기
+
 }
 
 void Skill_Garen_P::Active()
 {
-	//if (!active)
-		//return;
-
-	//if (duration <= 0.f) {
-	//	End();
-	//	return;
-	//}
-
-	////사용효과
-	//duration -= Time::DeltaTime();
+	End();
 }
 
 
