@@ -82,3 +82,10 @@ float Skill::GetCooltime_Init()
 	return coolTime;
 }
 
+bool Skill::TargetingSuccess(Unit* target)
+{
+	if (target->team != host->team)
+		return true;
+	return false;
+}
+

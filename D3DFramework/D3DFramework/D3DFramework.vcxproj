@@ -180,6 +180,7 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
@@ -343,6 +344,7 @@
     <ClInclude Include="Skill_Garen_R.h" />
     <ClInclude Include="Skill_Garen_W.h" />
     <ClInclude Include="Skill_Ghost.h" />
+    <ClInclude Include="Skill_Heal.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
@@ -390,6 +392,7 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
@@ -544,6 +547,7 @@
     <ClCompile Include="Skill_Garen_R.cpp" />
     <ClCompile Include="Skill_Garen_W.cpp" />
     <ClCompile Include="Skill_Ghost.cpp" />
+    <ClCompile Include="Skill_Heal.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />

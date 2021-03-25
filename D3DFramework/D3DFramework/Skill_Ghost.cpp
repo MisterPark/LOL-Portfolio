@@ -41,16 +41,8 @@ void Skill_Ghost::Passive()
 
 void Skill_Ghost::Active()
 {
-	//if (!active)
-		//return;
+	End();
 
-	if (duration <= 0.f) {
-		End();
-		return;
-	}
-
-	//사용효과
-	duration -= Time::DeltaTime();
 }
 
 

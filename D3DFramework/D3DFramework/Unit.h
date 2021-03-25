@@ -178,7 +178,7 @@ private:
 	float spawnTick = 0.f;
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;
-
+	
 	// 인벤토리
 	Inventory inventory;
 
