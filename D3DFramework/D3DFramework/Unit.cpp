@@ -212,7 +212,7 @@ void Unit::ChaseTarget()
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
-		agent->SetStoppingDistance(nextSkill->GetRange());
+		agent->SetStoppingDistance(nextSkill->GetRange()-0.1f);
 		SetDestination(attackTarget->transform->position);
 	}
 }
@@ -404,6 +404,7 @@ void Unit::AttackAction()
 void Unit::CounterAttack()
 {
 	attackTarget = lastAttacker;
+	nextSkill = skillList[(int)SkillIndex::Attack];
 }
 
 void Unit::IdleAction()

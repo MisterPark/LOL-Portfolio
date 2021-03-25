@@ -10,6 +10,7 @@ Skill_Garen_W::Skill_Garen_W(Unit* _hostUnit)
 {
 	maxLevel = 5;
 	coolTime = 2.f;
+	coolTimeTick = coolTime;
 	duration = 0.f;
 	host = _hostUnit;
 }
@@ -20,7 +21,7 @@ Skill_Garen_W::~Skill_Garen_W()
 
 void Skill_Garen_W::Start()
 {
-	if (level == 0 || coolTimeTick > 0.f)
+	if (level == 0 || GetCooltime() > 0.f)
 		return;
 
 	Skill::Start();
@@ -34,17 +35,20 @@ void Skill_Garen_W::Start()
 	Buff_GarenWShield* attackBuff = new Buff_GarenWShield(host, 0.75f, shield);
 	host->stat->AddBuff(attackBuff);
 
-	coolTimeTick = coolTime;
 
 }
 
 void Skill_Garen_W::Passive()
 {
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
+	}
+
 	if (level == 0)
 		return;
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
-	}
+	
+	
 
 	if (passiveBuff == nullptr) {
 		passiveBuff = new Buff_GarenWPassive(host);
@@ -60,13 +64,13 @@ void Skill_Garen_W::Active()
 	//if (!active)
 		//return;
 
-	if (duration <= 0.f) {
+	if (tick > duration) {
 		End();
 		return;
 	}
 
 	//사용효과
-	duration -= Time::DeltaTime();
+	duration += Time::DeltaTime();
 }
 
 

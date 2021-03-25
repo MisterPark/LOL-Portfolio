@@ -22,16 +22,24 @@ MonsterSubTree::MonsterSubTree(Monster* owner)
 	moveAction->SetAction((Unit**)&monster, &Unit::MoveAction);
 	moveCondition->SetChild(moveAction);
 
-	SelectorNode* attackSelector = new SelectorNode();
-	this->AddChild(attackSelector);
-
 	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
 	attackCondition->SetCondition((Unit**)&monster, &Unit::HasAttackTarget);
-	attackSelector->AddChild(attackCondition);
+	this->AddChild(attackCondition);
 
-	ActionNode<Unit>* attackAction = new ActionNode<Unit>();
-	attackAction->SetAction((Unit**)&monster, &Unit::AttackAction);
-	attackCondition->SetChild(attackAction);
+	SelectorNode* attackSelector = new SelectorNode();
+	attackCondition->SetChild(attackSelector);
+
+	ConditionNode<Skill>* rangeCondition = new ConditionNode<Skill>();
+	rangeCondition->SetCondition((Skill**)&monster->skillList[(int)SkillIndex::Attack], &Skill::InRange);
+	attackSelector->AddChild(rangeCondition);
+
+	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
+	attackAction->SetAction((Skill**)&monster->skillList[(int)SkillIndex::Attack], &Skill::Active);
+	rangeCondition->SetChild(attackAction);
+
+	ActionNode<Unit>* chaseAction = new ActionNode<Unit>();
+	chaseAction->SetAction((Unit**)&monster, &Unit::ChaseTarget);
+	attackSelector->AddChild(chaseAction);
 
 	ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
 	countAttackCondition->SetCondition((Unit**)&monster, &Unit::HasLastAttacker);

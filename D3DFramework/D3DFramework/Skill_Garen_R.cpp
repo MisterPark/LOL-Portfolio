@@ -12,6 +12,7 @@ Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
 	maxLevel = 3;
 	coolTime = 2.f;
+	coolTimeTick = coolTime;
 	duration = 1.f;
 	host = _hostUnit;
 
@@ -25,7 +26,7 @@ Skill_Garen_R::~Skill_Garen_R()
 
 void Skill_Garen_R::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
 
 
@@ -48,14 +49,13 @@ void Skill_Garen_R::Start()
 	}
 
 
-	coolTimeTick = coolTime;
-
 }
 
 void Skill_Garen_R::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 
 }
@@ -65,7 +65,7 @@ void Skill_Garen_R::Active()
 	//if (!active)
 		//return;
 
-	if (tick <= 0.f) {
+	if (tick > duration) {
 		End();
 		return;
 	}
@@ -73,7 +73,7 @@ void Skill_Garen_R::Active()
 	host->agent->Stop();
 	host->SetState(State::R);
 	//사용효과
-	tick -= Time::DeltaTime();
+	tick += Time::DeltaTime();
 }
 
 

@@ -17,7 +17,7 @@ Skill_Garen_P::~Skill_Garen_P()
 
 void Skill_Garen_P::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
 
 	Skill::Start();
