@@ -5,6 +5,7 @@
 #include "Stat.h"
 #include "DamageCalc.h"
 #include "Skill.h"
+#include "Inventory.h"
 
 class Indicator;
 class TargetingSkill;
@@ -137,6 +138,8 @@ public:
 	void ReqAttack(Unit* _target);
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
 	
+	// 인벤토리
+	bool AddItem(Item* _item);
 	
 public:
 	static list<Unit*> unitList;
@@ -161,6 +164,7 @@ public:
 	float attackTick = 0.f;
 	bool attackFlag = false; // 공격(데미지 입히기) 가능 여부
 	bool hitFlag = false; // 피격당할때(트리거)
+
 private:
 	bool oldHitFlag = false;
 public:
@@ -174,8 +178,11 @@ private:
 	float spawnTick = 0.f;
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;
+
+	// 인벤토리
+	Inventory inventory;
+
 protected:
-	
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;
 

@@ -229,15 +229,11 @@ ScorePanel::ScorePanel()
 			nameLabel->valign = Label::VAlign::Middle;
 
 			// 아이템
-			vector<UI*> itemslot;
 			for (int k = 0; k < 7; ++k)
 			{
-				//auto slot = champPanel->CreateChild(L"scoreboard_itemempty", Vector2(260 + (29 * k), 29));
-				auto slot = champPanel->AddChild<UI>(L"item", new UI(L"scoreboard_itemempty", Vector2(260 + (29 * k), 29)));
-				itemslot.push_back(slot);
-				slot->transform->scale = { 0.4218f, 0.4218f, 1.f };
+				championItemUI[i][j][k] = champPanel->AddChild<UI>(L"item", new UI(L"scoreboard_itemempty", Vector2(260 + (29 * k), 29)));
+				championItemUI[i][j][k]->transform->scale = { 0.4218f, 0.4218f, 1.f };
 			}
-			itemslot[0]->SetTexture(L"1004_class_t1_faeriecharm");
 
 			championScoreUI[i][j]->Hide();
 		}
@@ -325,7 +321,12 @@ void ScorePanel::Update()
 				dynamic_cast<Label*>(ui->children[L"KDALabel"])->SetText(L"%d/%d/%d", 0, 0, 0);
 
 				// 아이템
-
+				for (int k = 0; k < 7; k++)
+				{
+					auto item = champ->inventory.slots[k].item;
+					if (item == nullptr) championItemUI[i][j][k]->SetTexture(L"scoreboard_itemempty");
+					else                 championItemUI[i][j][k]->SetTexture(item->icon);
+				}
 
 			}
 			for (; j < 5; j++)

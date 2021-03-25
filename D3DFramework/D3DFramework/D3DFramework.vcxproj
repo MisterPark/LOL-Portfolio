@@ -240,6 +240,7 @@
     <ClInclude Include="HierarchyLoader.h" />
     <ClInclude Include="Indicator.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Jax.h" />
     <ClInclude Include="Jinx.h" />
     <ClInclude Include="Krug.h" />
@@ -447,6 +448,7 @@
     <ClCompile Include="HierarchyLoader.cpp" />
     <ClCompile Include="Indicator.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Jax.cpp" />
     <ClCompile Include="Jinx.cpp" />
     <ClCompile Include="Krug.cpp" />

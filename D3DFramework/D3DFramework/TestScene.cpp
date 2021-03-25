@@ -175,6 +175,9 @@ void TestScene::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
+	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+
+	//champ->inventory.AddItem();
 	
 
 	//obj = PlayerInfoPanel::GetInstance();
