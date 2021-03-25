@@ -168,6 +168,7 @@ void TestScene::OnLoaded()
 	// 플레이어
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
 	unit->transform->position = { 41.f, 68.f, 46.f };
+	unit->SetSpawnPosition(Vector3(41.f, 68.f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);

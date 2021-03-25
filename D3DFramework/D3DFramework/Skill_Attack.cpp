@@ -42,6 +42,15 @@ void Skill_Attack::Active()
 		End();
 		return;
 	}
+	else
+	{
+		if (host->attackTarget->IsDead())
+		{
+			host->attackTarget = nullptr;
+			End();
+			return;
+		}
+	}
 	float dt = Time::DeltaTime();
 	
 
@@ -60,9 +69,9 @@ void Skill_Attack::Active()
 	float damageDelay = duration * 0.15f;
 	if (duration - tick > damageDelay)
 	{
-		if (attackFlag == false)
+		if (host->attackFlag == false)
 		{
-			attackFlag = true;
+			host->attackFlag = true;
 
 			host->attackTarget->SetLastAttacker(host);
 			float finalDamage = host->stat->GetValue(StatType::AttackDamage);
@@ -102,5 +111,5 @@ void Skill_Attack::End()
 	active = true;
 	tick = duration;
 	host->OnAttackEnd();
-	attackFlag = false;
+	host->attackFlag = false;
 }

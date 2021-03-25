@@ -112,6 +112,11 @@ public:
 	float DecreaseShieldBuff(float _damage);
 	void SetID(INT _id);
 
+	Vector3 GetSpawnPosition();
+	void SetSpawnPosition(Vector3 _spawnPos);
+	float GetRemainingRespawnTime();
+
+
 	bool IsDead();
 	bool HasAttackTarget();
 	bool HasLastAttacker();
@@ -163,9 +168,9 @@ public:
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
 	Skill* nextSkill = nullptr;
+private:
 	// 스폰
 	Vector3 spawnPosition;
-private:
 	float spawnTick = 0.f;
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;

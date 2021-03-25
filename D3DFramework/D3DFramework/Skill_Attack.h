@@ -12,6 +12,6 @@ public:
     virtual void End() override;
 
 protected:
-    bool attackFlag = false;
+    //bool attackFlag = false;
 };
 
