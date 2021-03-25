@@ -972,6 +972,12 @@
     <ClInclude Include="ItemManager.h">
       <Filter>GameObject\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Heal.h">
+      <Filter>Skill\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_HealMoveSpeed.h">
+      <Filter>Buff\Spell</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1666,6 +1672,12 @@
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>GameObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Heal.cpp">
+      <Filter>Skill\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_HealMoveSpeed.cpp">
+      <Filter>Buff\Spell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

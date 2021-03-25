@@ -77,3 +77,12 @@ void Skill_Garen_R::End()
 {
 	Skill::End();
 }
+
+bool Skill_Garen_R::TargetingSuccess(Unit* target)
+{
+	//TODO::나중에 챔피언만으로 바꿀예정
+	if (target->team == host->team)
+		return true;
+	return false;
+}
+
