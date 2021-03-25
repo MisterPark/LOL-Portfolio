@@ -24,7 +24,7 @@ void Skill_Garen_E::Start()
 {
 	if (GetCooltime() > 0.f)
 		return;
-	if (tick < duration) {
+	if (tick > 0.f) {
 		realCoolTimeTick -= tick;
 		tick = duration;
 		damageBuff->tick = damageBuff->duration;
