@@ -127,7 +127,7 @@ void PlayerController::Update()
                 }*/
                 if (!target->IsDead())
                 {
-                    if (unit->nextSkill != nullptr && unit->nextSkill->TargetingSuccess(target)) {
+                    if (unit->nextSkillReady != nullptr && unit->nextSkillReady->TargetingSuccess(target)) {
                         targetCheck = true;
                         unit->SetAttackTarget(target);
                         unit->SetAttackPoint(target->transform->position);
@@ -136,7 +136,7 @@ void PlayerController::Update()
                    
             }
         }
-        if (!targetCheck && unit->nextSkill != nullptr && !((TargetingSkill*)unit->nextSkill)->GetGroundClick()) {
+        if (!targetCheck && unit->nextSkillReady != nullptr && !((TargetingSkill*)unit->nextSkillReady)->GetGroundClick()) {
             // 스킬쓰고 타겟팅했을때 어택땅이되서 방지
         }
         else if (!targetCheck && Physics::Raycast(ray, &hit, INFINITY, groundMask))
@@ -159,8 +159,10 @@ void PlayerController::Update()
             }
         }
 
-        if(targetCheck)
+        if (targetCheck) {
             SetTargetMode(false);
+            unit->TakeNextSkill();
+        }
         
     }
     else if (Input::GetMouseRButtonDown())

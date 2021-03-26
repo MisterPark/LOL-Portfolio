@@ -115,3 +115,9 @@ void Skill_Attack::End()
 	host->OnAttackEnd();
 	host->attackFlag = false;
 }
+
+void Skill_Attack::AttackCancleToAttack()
+{
+	Start();
+	tick = 0.f;
+}

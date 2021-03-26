@@ -11,6 +11,7 @@ public:
     virtual void Active() override;
     virtual void End() override;
 
+    void AttackCancleToAttack();
 protected:
     //bool attackFlag = false;
 };

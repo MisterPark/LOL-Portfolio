@@ -18,7 +18,7 @@ Skill_Heal::~Skill_Heal()
 
 void Skill_Heal::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
 
 	Skill::Start();
@@ -26,15 +26,15 @@ void Skill_Heal::Start()
 	Buff_HealMoveSpeed* movementSpeedBuff = new Buff_HealMoveSpeed(host);
 	host->stat->AddBuff(movementSpeedBuff);
 
-	coolTimeTick = coolTime;
 
 	Heal();
 }
 
 void Skill_Heal::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 
 }
@@ -70,7 +70,9 @@ void Skill_Heal::Heal()
 	if (Physics::Raycast(ray, &info, INFINITY, unitMask))
 	{	
 		targetUnit = (Unit*)info.collider->gameObject;
-		if (targetUnit->team == host->team && !targetUnit->IsDead())
+		if (targetUnit == host) {
+		}
+		else if (targetUnit->team == host->team && !targetUnit->IsDead())
 		{
 			targetUnit->stat->IncreaseBaseValue(StatType::Health, healAmount);
 			return;
