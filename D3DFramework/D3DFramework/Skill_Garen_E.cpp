@@ -25,7 +25,7 @@ void Skill_Garen_E::Start()
 	if (GetCooltime() > 0.f)
 		return;
 	if (tick > 0.f) {
-		realCoolTimeTick -= tick;
+		realCoolTimeTick += duration - tick;
 		tick = duration;
 		damageBuff->tick = damageBuff->duration;
 		host->SetState(State::IDLE1);
@@ -45,8 +45,8 @@ void Skill_Garen_E::Start()
 
 	damageBuff = new Buff_GarenEDamage(host, 3.f, damageObj);//reductionValue);
 	host->stat->AddBuff(damageBuff);
-	realCoolTimeTick = coolTime;
-	coolTimeTick = 1.f;
+	realCoolTimeTick = 0.f;
+	coolTimeTick = coolTime - 1.f;
 }
 
 void Skill_Garen_E::Passive()
@@ -55,8 +55,8 @@ void Skill_Garen_E::Passive()
 	{
 		coolTimeTick += Time::DeltaTime();
 	}
-	if (realCoolTimeTick > 0.f) {
-		realCoolTimeTick -= Time::DeltaTime();
+	if (realCoolTimeTick < coolTime) {
+		realCoolTimeTick += Time::DeltaTime();
 	}
 
 }
@@ -64,8 +64,8 @@ void Skill_Garen_E::Passive()
 void Skill_Garen_E::Active()
 {
 
-	if (tick > duration) {
-  coolTimeTick = realCoolTimeTick;
+	if (tick >= duration) {
+		coolTimeTick = realCoolTimeTick;
 		End();
 		return;
 	}
