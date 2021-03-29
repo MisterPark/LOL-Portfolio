@@ -515,6 +515,16 @@ void Unit::SetNextSkill(Skill* _skill)
 	this->nextSkill = _skill;
 }
 
+void Unit::SetNextSkillReady(Skill* _skill)
+{
+	this->nextSkillReady = _skill;
+}
+
+void Unit::TakeNextSkill()
+{
+	nextSkill = nextSkillReady;
+}
+
 void Unit::TakeDamage(float _damage)
 {
 	_damage = DecreaseShieldBuff(_damage);
@@ -644,6 +654,11 @@ void Unit::SkillLevelUp(SkillIndex skillIndex)
 	//	return;
 	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
 	skill->AddLevel();
+}
+
+Skill_Attack* Unit::GetSkillAttack()
+{
+	return dynamic_cast<Skill_Attack*>(skillList[(int)SkillIndex::Attack]);
 }
 
 void Unit::ReqMove(Vector3 _dest, bool _noSearch)

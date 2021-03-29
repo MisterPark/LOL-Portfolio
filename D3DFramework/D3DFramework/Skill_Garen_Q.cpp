@@ -4,6 +4,7 @@
 #include "Buff.h"
 #include "Buff_GarenQHaste.h"
 #include "Buff_GarenQAttack.h"
+#include "Skill_Attack.h"
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
@@ -34,6 +35,7 @@ void Skill_Garen_Q::Start()
 	host->attackTick = 0.f;
 	host->attackFlag = false;
 	
+	host->GetSkillAttack()->AttackCancleToAttack();
 }
 
 void Skill_Garen_Q::Passive()

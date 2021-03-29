@@ -76,4 +76,17 @@ void Skill_Garen_R::Active()
 void Skill_Garen_R::End()
 {
 	Skill::End();
+	host->SetAttackTarget(nullptr);
 }
+
+bool Skill_Garen_R::TargetingSuccess(Unit* target)
+{
+	//
+	if (target == host)
+		return false;
+	//TODO::나중에 챔피언만으로 바꿀예정
+	if (target->team == host->team)
+		return true;
+	return false;
+}
+

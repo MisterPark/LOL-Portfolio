@@ -9,6 +9,7 @@
 
 class Indicator;
 class TargetingSkill;
+class Skill_Attack;
 
 enum class UnitID
 {
@@ -166,6 +167,8 @@ public:
 	void SetLastAttacker(Unit* _attacker);
 	void SetAttackPoint(Vector3 _pos);
 	void SetNextSkill(Skill* _skill);
+	void SetNextSkillReady(Skill* _skill);
+	void TakeNextSkill();
 
 	void TakeDamage(float _damage);
 	float DecreaseShieldBuff(float _damage);
@@ -191,6 +194,7 @@ public:
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
+	Skill_Attack* GetSkillAttack();
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
@@ -230,6 +234,7 @@ public:
 	// 스킬 관련
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
 	Skill* nextSkill = nullptr;
+	Skill* nextSkillReady = nullptr;
 private:
 	// 스폰
 	Vector3 spawnPosition;

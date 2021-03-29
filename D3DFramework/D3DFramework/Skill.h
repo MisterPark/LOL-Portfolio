@@ -29,6 +29,7 @@ public:
 	void AddLevel() { level++; }
 	float GetRange() { return range; }
 	
+	virtual bool TargetingSuccess(Unit* target);
 
 protected:
 	Unit* host = nullptr;

@@ -17,7 +17,7 @@ Skill_Ghost::~Skill_Ghost()
 
 void Skill_Ghost::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
 
 	Skill::Start();
@@ -26,31 +26,22 @@ void Skill_Ghost::Start()
 	Buff_Ghost* movementSpeedBuff = new Buff_Ghost(host, 10.f, buffTime);
 	host->stat->AddBuff(movementSpeedBuff);
 
-	coolTimeTick = coolTime;
-
 
 }
 
 void Skill_Ghost::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 
 }
 
 void Skill_Ghost::Active()
 {
-	//if (!active)
-		//return;
+	End();
 
-	if (duration <= 0.f) {
-		End();
-		return;
-	}
-
-	//사용효과
-	duration -= Time::DeltaTime();
 }
 
 
