@@ -26,6 +26,12 @@ MonsterAI::~MonsterAI()
 
 void MonsterAI::Update()
 {
+    if (unit->IsDead())
+    {
+        target = nullptr;
+        return;
+    }
+
     if (target == nullptr)
     {
         target = unit->GetLastAttacker();
