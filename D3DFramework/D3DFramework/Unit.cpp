@@ -140,6 +140,9 @@ void Unit::UpdateSpawn()
 		{
 			spawnFlag = false;
 			spawnTick = 0.f;
+			attackTarget = nullptr;
+			lastAttacker = nullptr;
+			collider->enable = true;
 			float maxHP = stat->GetValue(StatType::MaxHealth);
 			float maxMP = stat->GetValue(StatType::MaxMana);
 			stat->SetBaseValue(StatType::Health,maxHP);
@@ -287,7 +290,6 @@ void Unit::Spell6()
 void Unit::Die()
 {
 	isDead = true;
-	collider->enable = false;
 	for (auto& hitInfo : hitList)
 	{
 		hitInfo.unit->OnKilled(this);
@@ -309,6 +311,7 @@ void Unit::DeadAction()
 {
 	SetState(State::DEATH);
 	attackTarget = nullptr;
+	collider->enable = false;
 	UINT curAnim = anim->GetCurrentAnimation();
 	UINT deathAnim = anim->GetIndexByState((int)State::DEATH);
 	if (curAnim == deathAnim && anim->IsFrameEnd())

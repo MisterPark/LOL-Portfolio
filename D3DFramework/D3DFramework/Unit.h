@@ -10,6 +10,64 @@
 class Indicator;
 class TargetingSkill;
 
+enum class UnitID
+{
+	Champ0, Champ1, Champ2, Champ3, Champ4, Champ5, Champ6, Champ7, Champ8, Champ9,
+	TurretBlueBot1,
+	TurretBlueBot2,
+	TurretBlueBot3,
+	TurretBlueMid1,
+	TurretBlueMid2,
+	TurretBlueMid3,
+	TurretBlueTop1,
+	TurretBlueTop2,
+	TurretBlueTop3,
+	TurretBlueTwin1,
+	TurretBlueTwin2,
+
+	TurretRedBot1,
+	TurretRedBot2,
+	TurretRedBot3,
+	TurretRedMid1,
+	TurretRedMid2,
+	TurretRedMid3,
+	TurretRedTop1,
+	TurretRedTop2,
+	TurretRedTop3,
+	TurretRedTwin1,
+	TurretRedTwin2,
+
+	Red1,
+	Red2,
+	Blue1,
+	Blue2,
+	Murkwolf1,
+	Murkwolf_Mini1,
+	Murkwolf_Mini2,
+	Murkwolf2,
+	Murkwolf_Mini3,
+	Murkwolf_Mini4,
+	Gromp1,
+	Gromp2,
+	Razorbeak1,
+	Razorbeak_Mini1,
+	Razorbeak_Mini2,
+	Razorbeak_Mini3,
+	Razorbeak_Mini4,
+	Razorbeak_Mini5,
+	Razorbeak2,
+	Razorbeak_Mini6,
+	Razorbeak_Mini7,
+	Razorbeak_Mini8,
+	Razorbeak_Mini9,
+	Razorbeak_Mini10,
+	Krug1,
+	Krug2,
+	Scuttleracer1,
+	Scuttleracer2,
+	END
+};
+
 enum class State
 {
 	IDLE1,
