@@ -16,7 +16,7 @@ public:
 
 	virtual void Update();
 
-	//virtual void Show();
+	virtual void Show();
 	virtual void Hide();
 
 	static void ToggleVisible(GameObject* sender, MouseEventArg* arg);
@@ -25,20 +25,24 @@ public:
 	void SetTarget(Champion* _target);
 
 	void HideItemShopPanel(GameObject* sender, MouseEventArg* args);
+	void BuyItem(Item* item);
 	
 private:
 	Champion* champion = nullptr;
 
-	// Buy
-	void BuyItem(GameObject* sender, MouseEventArg* args);
-
 	// leftslot
 	vector<ItemshopSlot*> slots;
-	ItemshopSlot* selectedSlot = nullptr;
+	ItemshopSlot* selectedSlot = nullptr; // 참조용
 	
 	// rightslot
 	ItemshopTreePanel* treePanel = nullptr;
 
+	// etc
+	Label* currentGoldLabel = nullptr;
+
 	void SetSelectItem(ItemshopSlot* _slot);
 	void SelectItemList(GameObject* sender, MouseEventArg* args);
+	void BuyItem(GameObject* sender, MouseEventArg* args);
+	void SellItem(GameObject* sender, MouseEventArg* args);
+
 };

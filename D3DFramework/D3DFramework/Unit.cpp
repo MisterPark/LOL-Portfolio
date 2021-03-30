@@ -748,3 +748,17 @@ bool Unit::BuyItem(Item* _item)
 	return true;
 }
 
+void Unit::SellItem(int _idx)
+{
+	Item* item = inventory.GetItem(_idx);
+	if (item == nullptr) return;
+	float price = item->price * 0.7f;
+
+	bool success = inventory.Pop(_idx);
+	if (!success) return;
+
+	if (price < 0.f) return;
+	
+	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
+}
+

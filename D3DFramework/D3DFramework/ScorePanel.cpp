@@ -323,7 +323,7 @@ void ScorePanel::Update()
 				// 아이템
 				for (int k = 0; k < 7; k++)
 				{
-					auto item = champ->inventory.slots[k].item;
+					auto item = champ->inventory.GetItem(k);
 					if (item == nullptr) championItemUI[i][j][k]->SetTexture(L"scoreboard_itemempty");
 					else                 championItemUI[i][j][k]->SetTexture(item->icon);
 				}

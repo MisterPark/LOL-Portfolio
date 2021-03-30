@@ -15,6 +15,7 @@ public:
 public:
 	virtual void Update();
 	virtual void OnClick();
+	virtual void OnRClick();
 	virtual void Show();
 	virtual void Hide();
 	virtual void Show(bool _visible);

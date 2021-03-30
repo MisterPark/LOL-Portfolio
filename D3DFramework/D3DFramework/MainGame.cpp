@@ -316,6 +316,7 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"stat_panel (5)_icon.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"item_outline.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"item_outline_selected.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"icon_spell_summonerspell_recall_01.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"baron_recall.dds");

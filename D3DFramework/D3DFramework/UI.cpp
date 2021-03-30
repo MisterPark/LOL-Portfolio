@@ -48,8 +48,8 @@ void Engine::UI::Release()
 
 void Engine::UI::PreUpdate()
 {
-	UpdateEvent();
 	GameObject::PreUpdate();
+	UpdateEvent();
 }
 
 void Engine::UI::Update()

@@ -85,6 +85,7 @@ void TestScene::OnLoaded()
 	ScorePanel::GetInstance()->Hide();
 
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
+	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 }
 
@@ -572,9 +573,6 @@ void TestScene::CreateMonster()
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
-	PlayerInfoPanel::GetInstance()->SetTarget(champ);
-	ItemshopPanel::GetInstance()->SetTarget(champ);
-	ScorePanel::GetInstance()->AddChampion(champ, true);
 }
 
 void TestScene::CreateMinionCaster()

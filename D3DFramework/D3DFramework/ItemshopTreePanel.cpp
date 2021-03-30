@@ -35,6 +35,7 @@ void ItemshopTreePanel::Update()
 void ItemshopTreePanel::Show()
 {
     GameObject::Show();
+
     rootSlot->selected = true;
 
     if (Rootitem == nullptr) rootSlot->Hide();
@@ -43,7 +44,6 @@ void ItemshopTreePanel::Show()
 void ItemshopTreePanel::Hide()
 {
     GameObject::Hide();
-    Rootitem = nullptr;
 }
 
 void ItemshopTreePanel::Show(bool _visible)
@@ -56,4 +56,5 @@ void ItemshopTreePanel::SetRootItem(Item* _item)
     Rootitem = _item;
     rootSlot->SetItem(_item);
     rootSlot->Show();
+    rootSlot->selected = true;
 }

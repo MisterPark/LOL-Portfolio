@@ -203,6 +203,7 @@ public:
 	// 인벤토리
 	bool AddItem(Item* _item); // 인벤토리에 그냥 아이템을 집어넣음
 	bool BuyItem(Item* _item); // 골드를 깎으면서 아이템을 집어넣음
+	void SellItem(int _idx);
 	
 public:
 	static list<Unit*> unitList;

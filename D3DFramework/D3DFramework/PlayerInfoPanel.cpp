@@ -63,27 +63,37 @@ PlayerInfoPanel::PlayerInfoPanel()
 	// 인벤토리
 	for (int i = 0; i < 6; i++)
 	{
-		slotItem[i] = invenPanel->AddChild<OutlinedSlot>(L"slotItem", new OutlinedSlot(L"item_outline", Vector2(0, 0)));
+		slotItem[i] = invenPanel->AddChild<OutlinedSlot>(L"slotItem", new OutlinedSlot(L"item_outline", Vector2(16 + (52 * (i % 3)), 27 + (53 * (i / 3 )))));
 		slotItem[i]->outline->transform->scale = { 0.67f, 0.67f, 1.f };
 		slotItem[i]->icon->transform->scale = { 0.72f, 0.72f, 1.f};
+		slotItem[i]->Click += Engine::Handler(this, &PlayerInfoPanel::ClickInventorySlot);
 	}
-	slotItem[0]->SetLocation(16, 27);
-	slotItem[1]->SetLocation(68, 27);
-	slotItem[2]->SetLocation(120, 27);
-	slotItem[3]->SetLocation(16, 80);
-	slotItem[4]->SetLocation(68, 80);
-	slotItem[5]->SetLocation(120, 80);
 
 	// 장신구
 	slotItem[6] = invenPanel->AddChild<OutlinedSlot>(L"wardSlot", new OutlinedSlot(L"border_skill (5)", Vector2(176, 30))); // 장신구
 	slotItem[6]->icon->transform->scale = { 0.6f, 0.6f, 1.f };
 
-	// test
-	//slotItem[0]->icon->SetTexture(L"1001_class_t1_bootsofspeed");
-	//slotItem[6]->icon->SetTexture(L"3340_class_t1_wardingtotem");
+	// 인벤토리 선택
+	for (int i = 0; i < INVENTORY_MAX; ++i)
+	{
+		slotItemSelected[i] = invenPanel->AddChild<UI>(L"slotItemSelected", new UI(L"item_outline_selected", Vector2(0, 0)));
+	}
+	slotItemSelected[0]->SetLocation(16, 27);
+	slotItemSelected[1]->SetLocation(68, 27);
+	slotItemSelected[2]->SetLocation(120, 27);
+	slotItemSelected[3]->SetLocation(16, 80);
+	slotItemSelected[4]->SetLocation(68, 80);
+	slotItemSelected[5]->SetLocation(120, 80);
+	slotItemSelected[6]->SetLocation(176, 30);
 
-	Label* itemLabel[7] = { nullptr, };
-	for (int i = 0; i < 7; ++i)
+	for (int i = 0; i < INVENTORY_MAX - 1; ++i) {
+		slotItemSelected[i]->transform->scale = { 0.59f, 0.59f, 1.f };
+	}
+	slotItemSelected[6]->transform->scale = { 0.49f, 0.49f, 1.f };
+
+	// 인벤토리 단축키 라벨
+	Label* itemLabel[INVENTORY_MAX] = { nullptr, };
+	for (int i = 0; i < INVENTORY_MAX; ++i)
 	{
 		itemLabel[i] = invenPanel->AddChild<Label>(L"ItemLabel", new Label(15));
 		itemLabel[i]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
@@ -384,152 +394,21 @@ void PlayerInfoPanel::Update()
 		}
 
 		// Item
-		for (int i = 0; i < 6; ++i) {
-			Item* item = champion->inventory.slots[i].item;
-			if (item == nullptr)
-				slotItem[i]->SetIcon(L"");
-			else
+		for (int i = 0; i < INVENTORY_MAX; ++i) {
+			Item* item = champion->inventory.GetItem(i);
+			if (item == nullptr) {
+				slotItem[i]->Hide();
+			}
+			else {
 				slotItem[i]->SetIcon(item->icon);
-			
-		}
+				slotItem[i]->Show();
+			}
 
+			if (selectedItemIdx == i) slotItemSelected[i]->Show();
+			else					  slotItemSelected[i]->Hide();
+		}
     }
 }
-//
-//void PlayerInfoPanel::Render()
-//{
-//    
-//
-//    GameObject::Render();
-//    RenderStat();
-//    miniPanel->Render();
-//    
-//    mainPanel->Render();
-//    invenPanel->Render();
-//    
-//
-//    if (champion != nullptr)
-//    {
-//        facePanel->Render();
-//        RenderBar();
-//        slotSpell1->Render();
-//        slotSpell2->Render();
-//        slotSpell3->Render();
-//        slotSpell4->Render();
-//        slotPassive->Render();
-//        slotSummoner1->Render();
-//        slotSummoner2->Render();
-//    }
-//    RenderManager::DrawUI(tipTextureKey, mainPanelPos + barTipOffset1, 0);
-//    RenderManager::DrawUI(tipTextureKey, mainPanelPos + barTipOffset2, 0);
-//    RenderManager::DrawUI(tipTextureKey, mainPanelPos + barTipOffset3, 0);
-//    RenderManager::DrawUI(tipTextureKey, mainPanelPos + barTipOffset4, 0);
-//
-//    RenderManager::DrawUI(tipTextureKey, mainPanelPos + barTipOffset4, 0);
-//
-//    faceBorder->Render();
-//}
-//
-//void PlayerInfoPanel::RenderStat()
-//{
-//    statPanel->Render();
-//
-//    Vector3 offset = { 15,15,0 };
-//    int iconSize = 20;
-//    int padding = 15;
-//    Vector3 labelPos[8];
-//
-//    RenderManager::DrawUI(L"stat_icon (7)", statPanelPos +offset, 0);
-//    labelPos[0] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (11)", statPanelPos + offset, 0);
-//    labelPos[1] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (13)", statPanelPos + offset, 0);
-//    labelPos[2] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (1)", statPanelPos + offset, 0);
-//    labelPos[3] = statPanelPos + offset;
-//    offset.x = 110;
-//    offset.y = 15;
-//    RenderManager::DrawUI(L"stat_icon (8)", statPanelPos + offset, 0);
-//    labelPos[4] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (12)", statPanelPos + offset, 0);
-//    labelPos[5] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (16)", statPanelPos + offset, 0);
-//    labelPos[6] = statPanelPos + offset;
-//    offset.y = offset.y + iconSize + padding;
-//    RenderManager::DrawUI(L"stat_icon (3)", statPanelPos + offset, 0);
-//    labelPos[7] = statPanelPos + offset;
-//
-//    WCHAR wstr[32] = {};
-//    if (champion != nullptr)
-//    {
-//        
-//        _itow_s((int)champion->GetAttackDamage(), wstr, 10);
-//        statLabel[0]->text = wstr;
-//        _itow_s((int)champion->GetArmor(), wstr, 10);
-//        statLabel[1]->text = wstr;
-//        swprintf_s(wstr, L"%.02f", champion->GetAttackPerSec());
-//        statLabel[2]->text = wstr;
-//        _itow_s((int)champion->GetCriticalPer(), wstr, 10);
-//        statLabel[3]->text = wstr;
-//        _itow_s((int)champion->GetAbilityPower(), wstr, 10);
-//        statLabel[4]->text = wstr;
-//        _itow_s((int)champion->GetMagicResistance(), wstr, 10);
-//        statLabel[5]->text = wstr;
-//        _itow_s((int)champion->GetCooldownReduction(), wstr, 10);
-//        statLabel[6]->text = wstr;
-//        _itow_s((int)(champion->GetMovementSpeed() * 100), wstr, 10);
-//        statLabel[7]->text = wstr;
-//    }
-//    for (int i = 0; i < 8; i++)
-//    {
-//        labelPos[i].x += 25;
-//        statLabel[i]->transform->position = labelPos[i];
-//        statLabel[i]->Render();
-//    }
-//}
-//
-//void PlayerInfoPanel::RenderMini()
-//{
-//}
-//
-//void PlayerInfoPanel::RenderBar()
-//{
-//    float ratioHP = 0.f;
-//    float ratioMP = 0.f;
-//    float maxHp = champion->GetMaxHP();
-//    float maxMp = champion->GetMaxMP();
-//    float hpBar = champion->GetHP();
-//    float mpBar = champion->GetMP();
-//    WCHAR hpText[32] = {};
-//    WCHAR mpText[32] = {};
-//
-//    if (maxHp != 0.f)
-//    {
-//        ratioHP = hpBar / maxHp;
-//        swprintf_s(hpText, L"%d / %d", (int)hpBar, (int)maxHp);
-//        hpLabel->text = hpText;
-//    }
-//    if (maxMp != 0.f)
-//    {
-//        ratioMP = mpBar / maxMp;
-//        swprintf_s(mpText, L"%d / %d", (int)mpBar, (int)maxMp);
-//        mpLabel->text = mpText;
-//    }
-//
-//    if (ratioHP < 0.f) ratioHP = 0.f;
-//    if (ratioMP < 0.f) ratioMP = 0.f;
-//
-//    RenderManager::DrawUIHorizontal(textureKeyHP, mainPanelPos + hpOffsetPos, scaleHP, 0, ratioHP);
-//    hpLabel->Render();
-//    RenderManager::DrawUIHorizontal(textureKeyMP, mainPanelPos + mpOffsetPos, scaleMP, 0, ratioMP);
-//    mpLabel->Render();
-//}
-
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {
     champion = _target;
@@ -546,6 +425,39 @@ void PlayerInfoPanel::SetTarget(Champion* _target)
 void PlayerInfoPanel::PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg)
 {
     ClickStatButton();
+}
+
+void PlayerInfoPanel::SellSelectedItem()
+{
+	if (selectedItemIdx == -1) return;
+
+	champion->SellItem(selectedItemIdx);
+	
+	Item* item = champion->inventory.GetItem(selectedItemIdx);
+	if (item == nullptr) {
+		selectedItemIdx = -1;
+	}
+}
+
+void PlayerInfoPanel::UnselectInventorySlot()
+{
+	selectedItemIdx = -1;
+}
+
+void PlayerInfoPanel::ClickInventorySlot(GameObject* sender, MouseEventArg* args)
+{
+	auto slot = dynamic_cast<OutlinedSlot*>(sender);
+	if (slot == nullptr) return;
+	if (!ItemshopPanel::GetInstance()->visible) return;
+
+	for (int i = 0; i < INVENTORY_MAX; ++i)
+	{
+		if (slotItem[i] == slot) {
+			selectedItemIdx = i;
+			return;
+		}
+	}
+	selectedItemIdx = -1;
 }
 
 void PlayerInfoPanel::ClickStatButton()

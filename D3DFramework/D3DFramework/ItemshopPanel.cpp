@@ -3,6 +3,7 @@
 #include "ItemManager.h"
 #include "PlayerController.h"
 #include "Champion.h"
+#include "PlayerInfoPanel.h"
 // Control
 #include "Button.h"
 #include "Label.h"
@@ -36,12 +37,12 @@ ItemshopPanel::ItemshopPanel()
     topitemtitle_label->foreColor = D3DCOLOR_ARGB(255, 177, 174, 160);
     topitemtitle_label->text = L"상위 아이템";
 
-    auto currentgold_label = AddChild<Label>(L"currentgoldLabel", new Label(15));
-    currentgold_label->transform->position = { 283.f, 677.f, 0 };
-    currentgold_label->align = Label::Align::Left;
-    currentgold_label->valign = Label::VAlign::Middle;
-    currentgold_label->foreColor = D3DCOLOR_ARGB(255, 191, 179, 138);
-    currentgold_label->text = L"0";
+    currentGoldLabel = AddChild<Label>(L"currentgoldLabel", new Label(15));
+    currentGoldLabel->transform->position = { 283.f, 677.f, 0 };
+    currentGoldLabel->align = Label::Align::Left;
+    currentGoldLabel->valign = Label::VAlign::Middle;
+    currentGoldLabel->foreColor = D3DCOLOR_ARGB(255, 191, 179, 138);
+    currentGoldLabel->text = L"0";
 
     auto btn_sel = AddChild<Button>(L"selectbtn", new Button(L"itemshop_button_sel_default", Vector2(22,  662)));
     auto btnSelTex = RenderManager::GetTexture(L"itemshop_button_sel_default");
@@ -54,6 +55,7 @@ ItemshopPanel::ItemshopPanel()
     btn_sel->SetTextureHover(L"itemshop_button_sel_hover");
     btn_sel->SetTexturePressed(L"itemshop_button_pressed");
     btn_sel->SetTextureDisable(L"itemshop_button_disabled");
+    btn_sel->Click += Engine::Handler(this, &ItemshopPanel::SellItem);
     
     auto btn_res = AddChild<Button>(L"restorebtn", new Button(L"itemshop_button_restore_default", Vector2(134, 662)));
     auto btnResTex = RenderManager::GetTexture(L"itemshop_button_restore_default");
@@ -79,6 +81,7 @@ ItemshopPanel::ItemshopPanel()
     btn_buy->SetTextureHover(L"itemshop_button_buy_hover");
     btn_buy->SetTexturePressed(L"itemshop_button_buy_pressed");
     btn_buy->SetTextureDisable(L"itemshop_button_buy_disabled");
+    btn_buy->Click += Engine::Handler(this, &ItemshopPanel::BuyItem);
 
     auto btn_close = AddChild<Button>(L"close", new Button(L"itemshop_button_close_default", Vector2(958, 23)));
     btn_close->transform->scale = { 0.625f, 0.625f, 0.f };
@@ -146,11 +149,25 @@ void ItemshopPanel::Update()
         if (!visible)    Show();
         else            Hide();
     }
+
+    if (champion != nullptr) {
+        currentGoldLabel->SetText(champion->stat->GetBaseValue(StatType::Gold));
+    }
+}
+
+void ItemshopPanel::Show()
+{
+    GameObject::Show();
+
+    if (selectedSlot != nullptr)
+        selectedSlot->selected = true;
 }
 
 void ItemshopPanel::Hide()
 {
     GameObject::Hide();
+
+    PlayerInfoPanel::GetInstance()->UnselectInventorySlot();
 }
 
 void ItemshopPanel::ToggleVisible(GameObject* sender, MouseEventArg* arg)
@@ -175,12 +192,25 @@ void ItemshopPanel::HideItemShopPanel(GameObject* sender, MouseEventArg* args)
     this->Hide();
 }
 
+void ItemshopPanel::BuyItem(Item* item)
+{
+    if (item == nullptr) return;
+    if (champion == nullptr) return;
+
+    champion->BuyItem(item);
+}
+
 void ItemshopPanel::BuyItem(GameObject* sender, MouseEventArg* args)
 {
-    auto slot = dynamic_cast<ItemshopSlot*>(sender);
-    if (slot == nullptr) return;
- 
-    champion->BuyItem(slot->GetItem());
+    if (selectedSlot == nullptr) return;
+    if (champion == nullptr) return;
+
+    champion->BuyItem(selectedSlot->GetItem());
+}
+
+void ItemshopPanel::SellItem(GameObject* sender, MouseEventArg* args)
+{
+    PlayerInfoPanel::GetInstance()->SellSelectedItem();
 }
 
 void ItemshopPanel::SetSelectItem(ItemshopSlot* _slot)

@@ -60,6 +60,11 @@ void ItemshopSlot::OnClick()
     //ItemshopPanel::GetInstance()->SetSelectItem(item->id);
 }
 
+void ItemshopSlot::OnRClick()
+{
+    ItemshopPanel::GetInstance()->BuyItem(item);
+}
+
 void ItemshopSlot::Show()
 {
     GameObject::Show();
