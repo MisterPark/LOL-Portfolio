@@ -15,6 +15,8 @@ OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos, 
 	}
 	renderer = icon->GetComponent<UIRenderer>();
 	
+	outline->Click += Engine::Handler(this, &OutlinedSlot::ClickOutline);
+
 	Initialize();
 }
 
@@ -41,6 +43,11 @@ void OutlinedSlot::Update()
 	else {
 		renderer->SetTimerRatio(1.f - cooltime / cooltimeMax);
 	}
+}
+
+void OutlinedSlot::ClickOutline(GameObject* sender, MouseEventArg* args)
+{
+	UI::OnClick();
 }
 
 void OutlinedSlot::SetIcon(const std::wstring& _tag)

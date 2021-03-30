@@ -88,6 +88,7 @@ void TestScene::OnLoaded()
 	ScorePanel::GetInstance()->Hide();
 
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
+	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 }
 

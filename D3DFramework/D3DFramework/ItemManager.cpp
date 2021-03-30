@@ -42,6 +42,11 @@ Item* ItemManager::GetItem(UINT itemID)
 	return items.find(itemID)->second;
 }
 
+map<UINT, Item*> ItemManager::GetItemList()
+{
+	return items;
+}
+
 HRESULT ItemManager::LoadItemInfo()
 {
 	std::wstring jsonFilePath{ L"./Data/Item/iteminfo.json" };

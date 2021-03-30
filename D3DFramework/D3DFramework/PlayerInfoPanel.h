@@ -2,6 +2,7 @@
 #include "Panel.h"
 #include "Stat.h"
 #include "Unit.h"
+#include "Inventory.h"
 
 class Champion;
 class Engine::UI;
@@ -27,10 +28,13 @@ public:
 
 	void SetTarget(Champion* _target);
 	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
-public:
+	void SellSelectedItem();
+	void UnselectInventorySlot();
 
+public:
 	int screenW = 1280;
 	int screenH = 720;
+
 private:
 	Champion* champion = nullptr;
 
@@ -97,9 +101,12 @@ private:
 	OutlinedSlot* slotSummoner2 = nullptr;
 
 	// Item
-	OutlinedSlot* slotItem[7];
+	OutlinedSlot* slotItem[INVENTORY_MAX] = { nullptr, };
+	UI*           slotItemSelected[INVENTORY_MAX] = { nullptr, };
 	OutlinedSlot* slotRecall = nullptr;
 	Button* itemshopBtn = nullptr;
+	int selectedItemIdx = -1;
+	void ClickInventorySlot(GameObject* sender, MouseEventArg* args);
 
 	// Event
 	static void ClickStatButton();

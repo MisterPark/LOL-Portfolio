@@ -19,7 +19,7 @@ public:
 
 private:
     float reductionTime = 0.35f;
-    int passiveStack = 0.f;
+    int passiveStack = 0;
     Buff_GarenWPassive* passiveBuff = nullptr;
     //float reductionValue = 0.65f;
 

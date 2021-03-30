@@ -183,6 +183,8 @@
     <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="ItemshopTreePanel.h" />
+    <ClInclude Include="ItemshopSlot.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
@@ -398,6 +400,8 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="ItemshopTreePanel.cpp" />
+    <ClCompile Include="ItemshopSlot.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />

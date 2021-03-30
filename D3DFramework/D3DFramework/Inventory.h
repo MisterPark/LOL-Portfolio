@@ -13,8 +13,11 @@ public:
 
 public:
 	bool Push(Item* item);
+	bool Pop(int _idx);
+	
+	Item* GetItem(int _idx);
 
-public:
+private:
 	Slot slots[INVENTORY_MAX];
 	
 };

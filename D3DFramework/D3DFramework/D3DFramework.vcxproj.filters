@@ -996,6 +996,12 @@
     <ClInclude Include="Buff_ItemDreadnought.h">
       <Filter>Buff\Item</Filter>
     </ClInclude>
+    <ClInclude Include="ItemshopSlot.h">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemshopTreePanel.h">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1705,6 +1711,12 @@
     </ClCompile>
     <ClCompile Include="Buff_ItemDreadnought.cpp">
       <Filter>Buff\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemshopSlot.cpp">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemshopTreePanel.cpp">
+      <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
