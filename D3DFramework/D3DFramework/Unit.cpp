@@ -7,6 +7,7 @@
 #include "Monster.h"
 #include "Garen.h"
 #include "TargetingSkill.h"
+#include "Skill_Attack.h"
 
 list<Unit*> Unit::unitList;
 
@@ -139,7 +140,18 @@ void Unit::UpdateSpawn()
 		{
 			spawnFlag = false;
 			spawnTick = 0.f;
-			Respawn();
+			attackTarget = nullptr;
+			lastAttacker = nullptr;
+			collider->enable = true;
+			float maxHP = stat->GetValue(StatType::MaxHealth);
+			float maxMP = stat->GetValue(StatType::MaxMana);
+			stat->SetBaseValue(StatType::Health,maxHP);
+			stat->SetBaseValue(StatType::Mana, maxMP);
+			transform->position = spawnPosition;
+			isDead = false;
+			anim->Resume();
+			Show();
+
 		}
 	}
 }
@@ -203,7 +215,7 @@ void Unit::ChaseTarget()
 	if (chaseTick > chaseDelay)
 	{
 		chaseTick = 0.f;
-		agent->SetStoppingDistance(nextSkill->GetRange());
+		agent->SetStoppingDistance(nextSkill->GetRange()-0.1f);
 		SetDestination(attackTarget->transform->position);
 	}
 }
@@ -278,7 +290,6 @@ void Unit::Spell6()
 void Unit::Die()
 {
 	isDead = true;
-	collider->enable = false;
 	for (auto& hitInfo : hitList)
 	{
 		hitInfo.unit->OnKilled(this);
@@ -300,6 +311,7 @@ void Unit::DeadAction()
 {
 	SetState(State::DEATH);
 	attackTarget = nullptr;
+	collider->enable = false;
 	UINT curAnim = anim->GetCurrentAnimation();
 	UINT deathAnim = anim->GetIndexByState((int)State::DEATH);
 	if (curAnim == deathAnim && anim->IsFrameEnd())
@@ -308,6 +320,10 @@ void Unit::DeadAction()
 		Hide();
 	}
 	agent->Stop();
+	if (spawnFlag == false)
+	{
+		Respawn();
+	}
 }
 
 void Unit::AttackAction()
@@ -391,6 +407,7 @@ void Unit::AttackAction()
 void Unit::CounterAttack()
 {
 	attackTarget = lastAttacker;
+	nextSkill = skillList[(int)SkillIndex::Attack];
 }
 
 void Unit::IdleAction()
@@ -439,6 +456,8 @@ void Unit::PushedOut(Unit* other)
 
 void Unit::Respawn()
 {
+	spawnFlag = true;
+	spawnTick = 0.f;
 }
 
 void Unit::SetState(State _state)
@@ -496,6 +515,16 @@ void Unit::SetNextSkill(Skill* _skill)
 	this->nextSkill = _skill;
 }
 
+void Unit::SetNextSkillReady(Skill* _skill)
+{
+	this->nextSkillReady = _skill;
+}
+
+void Unit::TakeNextSkill()
+{
+	nextSkill = nextSkillReady;
+}
+
 void Unit::TakeDamage(float _damage)
 {
 	_damage = DecreaseShieldBuff(_damage);
@@ -529,6 +558,21 @@ float Unit::DecreaseShieldBuff(float _damage)
 void Unit::SetID(INT _id)
 {
 	unitID = _id;
+}
+
+Vector3 Unit::GetSpawnPosition()
+{
+	return spawnPosition;
+}
+
+void Unit::SetSpawnPosition(Vector3 _spawnPos)
+{
+	this->spawnPosition = _spawnPos;
+}
+
+float Unit::GetRemainingRespawnTime()
+{
+	return (spawnDelay - spawnTick);
 }
 
 bool Unit::IsDead()
@@ -610,6 +654,11 @@ void Unit::SkillLevelUp(SkillIndex skillIndex)
 	//	return;
 	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
 	skill->AddLevel();
+}
+
+Skill_Attack* Unit::GetSkillAttack()
+{
+	return dynamic_cast<Skill_Attack*>(skillList[(int)SkillIndex::Attack]);
 }
 
 void Unit::ReqMove(Vector3 _dest, bool _noSearch)

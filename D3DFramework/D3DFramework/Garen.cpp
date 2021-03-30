@@ -17,6 +17,7 @@
 #include "Skill_Garen_E.h"
 #include "Skill_Garen_R.h"
 #include "Skill_Ghost.h"
+#include "Skill_Heal.h"
 #include "Buff_GarenQAttack.h"
 #include "ChampionSubTree.h"
 #include "Skill_Attack.h"
@@ -78,6 +79,7 @@ Garen::Garen()
 	skillList[(int)SkillIndex::E] = new Skill_Garen_E(this);
 	skillList[(int)SkillIndex::R] = new Skill_Garen_R(this);
 	skillList[(int)SkillIndex::D] = new Skill_Ghost(this);
+	skillList[(int)SkillIndex::F] = new Skill_Heal(this);
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);

@@ -239,24 +239,13 @@ public:
 private:
 	// 스폰
 	Vector3 spawnPosition;
-<<<<<<< HEAD
-	
-	// 인벤토리
-	Inventory inventory;
-
-private:
-=======
->>>>>>> upstream/master
 	float spawnTick = 0.f;
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;
 
-<<<<<<< HEAD
-=======
 public:
 	// 인벤토리
 	Inventory inventory;
->>>>>>> upstream/master
 
 protected:
 	// 데미지계산관련

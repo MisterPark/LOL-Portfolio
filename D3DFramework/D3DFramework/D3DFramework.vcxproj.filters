@@ -328,6 +328,9 @@
     <Filter Include="Skill\Common">
       <UniqueIdentifier>{bfc448cb-8900-42d7-a92e-062bfefe7da9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject">
+      <UniqueIdentifier>{c9fc05b9-82f9-4a51-be27-9b02c7724a21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -972,6 +975,13 @@
     <ClInclude Include="ItemManager.h">
       <Filter>GameObject\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Heal.h">
+      <Filter>Skill\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_HealMoveSpeed.h">
+      <Filter>Buff\Spell</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h" />
     <ClInclude Include="ItemshopSlot.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClInclude>
@@ -1673,6 +1683,13 @@
     <ClCompile Include="ItemManager.cpp">
       <Filter>GameObject\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Skill_Heal.cpp">
+      <Filter>Skill\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_HealMoveSpeed.cpp">
+      <Filter>Buff\Spell</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="ItemshopSlot.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClCompile>
