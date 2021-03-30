@@ -16,7 +16,7 @@ void TargetingSkill::Use()
 {
 	PlayerController* controller = host->GetComponent<PlayerController>();
 	controller->SetTargetMode(true);
-	host->SetNextSkill(this);
+	host->SetNextSkillReady(this);
 }
 
 bool TargetingSkill::InRange()

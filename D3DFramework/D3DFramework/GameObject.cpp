@@ -165,11 +165,10 @@ void Engine::GameObject::Billboard()
 	//transform->localMatrix = matScale*matView;
 
 	//=====================================
-	Vector3 camDir = Camera::main->transform->look - Camera::main->transform->position;
+	Vector3 camDir = Camera::main->GetOffset();
 	Vector3::Normalize(&camDir);
 	camDir = -camDir;
-	//transform->Rotate(camDir);
-	transform->LookAt(Camera::main->transform->position);
+	transform->Rotate(camDir);
 }
 
 void Engine::GameObject::BillboardYaw()

@@ -10,10 +10,14 @@
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
+	groundClick = false;
+
 	maxLevel = 3;
 	coolTime = 2.f;
+	coolTimeTick = coolTime;
 	duration = 1.f;
 	host = _hostUnit;
+	range = 4.f;
 
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::TrueDamage));
 	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, DamageKind::TrueDamage));
@@ -25,7 +29,7 @@ Skill_Garen_R::~Skill_Garen_R()
 
 void Skill_Garen_R::Start()
 {
-	if (coolTimeTick > 0.f)
+	if (GetCooltime() > 0.f)
 		return;
 
 
@@ -33,29 +37,21 @@ void Skill_Garen_R::Start()
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
-	RaycastHit info;
-	int unitMask = LayerMask::GetMask(Layer::Unit);
-	if (Physics::Raycast(ray, &info, INFINITY, unitMask))
-	{
-		Unit* target = (Unit*)info.collider->gameObject;
-		if (target->team != host->team && !target->IsDead())
-		{
-			target->SetLastAttacker(host);
-			float finalDamage = baseDamage;
-			Calc_FinalDamage(&finalDamage, host->stat, target->stat);
-			target->TakeDamage(finalDamage);
-		}
-	}
+	Unit* target = host->attackTarget;
+	target->SetLastAttacker(host);
+	float finalDamage = baseDamage;
+	Calc_FinalDamage(&finalDamage, host->stat, target->stat);
+	target->TakeDamage(finalDamage);
 
 
-	coolTimeTick = coolTime;
 
 }
 
 void Skill_Garen_R::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 
 }
@@ -65,7 +61,7 @@ void Skill_Garen_R::Active()
 	//if (!active)
 		//return;
 
-	if (tick <= 0.f) {
+	if (tick > duration) {
 		End();
 		return;
 	}
@@ -73,11 +69,24 @@ void Skill_Garen_R::Active()
 	host->agent->Stop();
 	host->SetState(State::R);
 	//사용효과
-	tick -= Time::DeltaTime();
+	tick += Time::DeltaTime();
 }
 
 
 void Skill_Garen_R::End()
 {
 	Skill::End();
+	host->SetAttackTarget(nullptr);
 }
+
+bool Skill_Garen_R::TargetingSuccess(Unit* target)
+{
+	//
+	if (target == host)
+		return false;
+	//TODO::나중에 챔피언만으로 바꿀예정
+	if (target->team == host->team)
+		return true;
+	return false;
+}
+

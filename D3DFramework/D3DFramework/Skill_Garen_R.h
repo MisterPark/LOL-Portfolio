@@ -12,6 +12,8 @@ public:
     virtual void Active();
     virtual void End();
 
+    virtual bool TargetingSuccess(Unit* target) override;
+
 private:
     float baseDamage = 150.f;
     float growthDamage = 50.f;

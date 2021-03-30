@@ -171,6 +171,11 @@ Vector3 Engine::Camera::GetPosition()
 	return transform->position;
 }
 
+Vector3 Engine::Camera::GetOffset()
+{
+	return offset;
+}
+
 float Engine::Camera::GetX()
 {
 	return transform->position.x;

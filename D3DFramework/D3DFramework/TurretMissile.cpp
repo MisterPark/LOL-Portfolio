@@ -49,12 +49,14 @@ void TurretMissile::Update()
 		//Billboard();
 		
 		float angle = Vector3::AngleY(transform->position, attackTarget->transform->position);
-		Vector3 axis = Camera::main->transform->position - Camera::main->transform->look;
-		axis.x = -axis.x;
-		axis.z = -axis.z;
+		Vector3 axis = -Camera::main->GetOffset();
+		//Vector3 axis = Camera::main->transform->position - Camera::main->transform->look;
+		//axis.x = -axis.x;
+		//axis.z = -axis.z;
 
 		Vector3::Normalize(&axis);
 		transform->Rotate(axis, angle);
+
 
 	}
 

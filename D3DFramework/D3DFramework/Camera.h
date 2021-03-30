@@ -17,6 +17,7 @@ namespace Engine
 		virtual void Release() override;
 
 		Vector3 GetPosition();
+		Vector3 GetOffset();
 		float GetX();
 		float GetY();
 		Matrix GetViewMatrix();

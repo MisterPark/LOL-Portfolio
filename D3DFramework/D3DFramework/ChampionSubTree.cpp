@@ -83,21 +83,13 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	SelectorNode* attackSelector = new SelectorNode();
 	this->AddChild(attackSelector);
 
-	ConditionNode<Skill>* attackCondition = new ConditionNode<Skill>();
-	attackCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::IsActive);
+	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
+	attackCondition->SetCondition((Unit**)&champ, &Unit::HasAttackTarget);
 	attackSelector->AddChild(attackCondition);
 
 	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
 	attackAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::Active);
 	attackCondition->SetChild(attackAction);
-
-	//ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
-	//countAttackCondition->SetCondition((Unit**)&champ, &Unit::HasLastAttacker);
-	//attackSelector->AddChild(countAttackCondition);
-
-	//ActionNode<Unit>* countAttackAction = new ActionNode<Unit>();
-	//countAttackAction->SetAction((Unit**)&champ, &Unit::CounterAttack);
-	//countAttackCondition->SetChild(countAttackAction);
 
 	ActionNode<Unit>* idleAction = new ActionNode<Unit>();
 	idleAction->SetAction((Unit**)&champ, &Unit::IdleAction);

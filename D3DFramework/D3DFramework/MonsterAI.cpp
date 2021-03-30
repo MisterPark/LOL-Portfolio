@@ -1,8 +1,8 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MonsterAI.h"
 #include "Unit.h"
 
-// ¸ó½ºÅÍAI¸¦ °¡Áö°í ÀÖ´Â À¯´Ö ¸®½ºÆ®
+// ëª¬ìŠ¤í„°AIë¥¼ ê°€ì§€ê³  ìˆëŠ” ìœ ë‹› ë¦¬ìŠ¤íŠ¸
 list<Unit*> monsterList;
 
 MonsterAI::MonsterAI(GameObject* owner)
@@ -26,13 +26,19 @@ MonsterAI::~MonsterAI()
 
 void MonsterAI::Update()
 {
+    if (unit->IsDead())
+    {
+        target = nullptr;
+        return;
+    }
+
     if (target == nullptr)
     {
         target = unit->GetLastAttacker();
 
         if (target != nullptr)
         {
-            // ¸ÂÀº ¸ó½ºÅÍ·Î ºÎÅÍ ¹İ°æ 2 ¾È¿¡ ÀÖ´Â ¸ğµç ¸ó½ºÅÍ°¡ °ø°İÀÚ¸¦ Å¸°ÙÀ¸·Î ÁöÁ¤
+            // ë§ì€ ëª¬ìŠ¤í„°ë¡œ ë¶€í„° ë°˜ê²½ 2 ì•ˆì— ìˆëŠ” ëª¨ë“  ëª¬ìŠ¤í„°ê°€ ê³µê²©ìë¥¼ íƒ€ê²Ÿìœ¼ë¡œ ì§€ì •
             for (auto iter : monsterList)
             {
                 Vector3 to = iter->transform->position - unit->transform->position;
@@ -49,7 +55,12 @@ void MonsterAI::Update()
     
     if (target != nullptr)
     {
+        if (target->IsDead())
+        {
+            target = nullptr;
+        }
         unit->SetAttackTarget(target);
+        unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
     }
 }
 

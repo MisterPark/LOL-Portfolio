@@ -113,20 +113,33 @@ void PlayerController::Update()
         
         RaycastHit info;
         int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
+
+        bool targetCheck = false;
         if (Physics::Raycast(ray, &info, INFINITY, unitMask))
         {
             if (targetMode)
             {
                 Unit* target = (Unit*)info.collider->gameObject;
-                if (target->team != unit->team && !target->IsDead())
+                /*if (target->team != unit->team && !target->IsDead())
                 {
                     unit->SetAttackTarget(target);
                     unit->SetAttackPoint(target->transform->position);
+                }*/
+                if (!target->IsDead())
+                {
+                    if (unit->nextSkillReady != nullptr && unit->nextSkillReady->TargetingSuccess(target)) {
+                        targetCheck = true;
+                        unit->SetAttackTarget(target);
+                        unit->SetAttackPoint(target->transform->position);
+                    }
                 }
                    
             }
         }
-        else if (Physics::Raycast(ray, &hit, INFINITY, groundMask))
+        if (!targetCheck && unit->nextSkillReady != nullptr && !((TargetingSkill*)unit->nextSkillReady)->GetGroundClick()) {
+            // 스킬쓰고 타겟팅했을때 어택땅이되서 방지
+        }
+        else if (!targetCheck && Physics::Raycast(ray, &hit, INFINITY, groundMask))
         {
             printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
             if (targetMode)
@@ -135,6 +148,7 @@ void PlayerController::Update()
                 if (target != nullptr)
                 {
                     unit->SetAttackTarget(target);
+                    targetCheck = true;
                 }
                 else
                 {
@@ -145,7 +159,10 @@ void PlayerController::Update()
             }
         }
 
-        SetTargetMode(false);
+        if (targetCheck) {
+            SetTargetMode(false);
+            unit->TakeNextSkill();
+        }
         
     }
     else if (Input::GetMouseRButtonDown())

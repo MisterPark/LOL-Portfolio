@@ -126,6 +126,10 @@ void UI::UpdateEvent()
 		if (isHover)
 		{
 			OnRButtonUp();
+			if (isRButtonDown)
+			{
+				OnRClick();
+			}
 		}
 		isRButtonDown = false;
 	}
@@ -207,6 +211,10 @@ void UI::OnClick()
 {
 	MouseEventArg args{};
 	Click.Invoke(this, args);
+}
+
+void Engine::UI::OnRClick()
+{
 }
 
 void Engine::UI::OnDoubleClick()

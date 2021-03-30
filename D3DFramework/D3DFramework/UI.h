@@ -36,6 +36,7 @@ namespace Engine
         virtual void OnRButtonDown();
         virtual void OnRButtonUp();
         virtual void OnClick();
+        virtual void OnRClick();
         virtual void OnDoubleClick();
         virtual void OnEnabledChanged();
         virtual void OnTextChanged();
@@ -93,6 +94,7 @@ namespace Engine
         Event<MouseEventArg> TextChanged;
         Event<MouseEventArg> EnabledChanged;
         Event<MouseEventArg> Click;
+        Event<MouseEventArg> RClick;
     protected:
         // 이벤트 관련 
         bool isHover = false;

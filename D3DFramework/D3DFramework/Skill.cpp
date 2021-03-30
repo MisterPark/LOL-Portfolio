@@ -24,8 +24,7 @@ void Skill::Use()
 void Skill::Start()
 {
 	active = true;
-	tick = duration;
-	coolTimeTick = coolTime;
+	coolTimeTick = 0.f;
 }
 
 void Skill::Passive()
@@ -74,11 +73,18 @@ void Skill::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 
 float Skill::GetCooltime()
 {
-	return coolTimeTick;
+	return (coolTime - coolTimeTick);
 }
 
 float Skill::GetCooltime_Init()
 {
 	return coolTime;
+}
+
+bool Skill::TargetingSuccess(Unit* target)
+{
+	if (target->team != host->team)
+		return true;
+	return false;
 }
 

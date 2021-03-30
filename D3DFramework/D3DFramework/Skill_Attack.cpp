@@ -9,6 +9,7 @@ Skill_Attack::Skill_Attack(Unit* _hostUnit)
 	level = 1;
 	host = _hostUnit;
 	coolTime = 1.f / host->stat->GetValue(StatType::AttackSpeed);
+	coolTimeTick = coolTime;
 	range = host->stat->GetValue(StatType::Range);
 }
 
@@ -22,7 +23,7 @@ void Skill_Attack::Start()
 	duration = 1.f / host->stat->GetValue(StatType::AttackSpeed);
 	range = host->stat->GetValue(StatType::Range);
 	
-	if (coolTimeTick > 0.f) return;
+	if (GetCooltime() > 0.f) return;
 	Skill::Start();
 
 	host->OnAttackBegin();
@@ -30,8 +31,9 @@ void Skill_Attack::Start()
 
 void Skill_Attack::Passive()
 {
-	if (coolTimeTick > 0.f) {
-		coolTimeTick -= Time::DeltaTime();
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
 	}
 }
 
@@ -42,6 +44,15 @@ void Skill_Attack::Active()
 		End();
 		return;
 	}
+	else
+	{
+		if (host->attackTarget->IsDead())
+		{
+			host->attackTarget = nullptr;
+			End();
+			return;
+		}
+	}
 	float dt = Time::DeltaTime();
 	
 
@@ -50,23 +61,23 @@ void Skill_Attack::Active()
 	host->LookRotation(direction.Normalized());
 	host->SetState(host->attackState);
 
-	tick -= dt;
-	float attackDelay = 1.f / host->stat->GetValue(StatType::AttackSpeed);
-	if (tick <= 0.f)
+	tick += dt;
+	duration = 1.f / host->stat->GetValue(StatType::AttackSpeed);
+	if (tick > duration)
 	{
 		End();
 		return;
 	}
 	float damageDelay = duration * 0.15f;
-	if (duration - tick > damageDelay)
+	if (tick > damageDelay)
 	{
-		if (attackFlag == false)
+		if (host->attackFlag == false)
 		{
-			attackFlag = true;
+			host->attackFlag = true;
 
 			host->attackTarget->SetLastAttacker(host);
 			float finalDamage = host->stat->GetValue(StatType::AttackDamage);
-			Calc_FinalDamage(&finalDamage, host->stat, host->attackTarget->stat);
+			host->Calc_FinalDamage(&finalDamage, host->stat, host->attackTarget->stat);
 			host->attackTarget->TakeDamage(finalDamage);
 			// 피격정보 저장
 			Unit::HitInfo info;
@@ -100,7 +111,13 @@ void Skill_Attack::Active()
 void Skill_Attack::End()
 {
 	active = true;
-	tick = duration;
+	tick = 0.f;
 	host->OnAttackEnd();
-	attackFlag = false;
+	host->attackFlag = false;
+}
+
+void Skill_Attack::AttackCancleToAttack()
+{
+	Start();
+	tick = 0.f;
 }

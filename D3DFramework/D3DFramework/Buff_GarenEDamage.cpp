@@ -10,6 +10,8 @@ Buff_GarenEDamage::Buff_GarenEDamage(Unit* _host, float _duration, DamageObject_
 
 Buff_GarenEDamage::~Buff_GarenEDamage()
 {
+	duration;
+	tick;
 	if (damageObject != nullptr)
 		damageObject->Set_Dead();
 	
