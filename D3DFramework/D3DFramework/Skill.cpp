@@ -46,6 +46,10 @@ bool Skill::InRange()
 	return true;
 }
 
+void Skill::OnAttackEnd()
+{
+}
+
 bool Skill::IsActive()
 {
 	return active;

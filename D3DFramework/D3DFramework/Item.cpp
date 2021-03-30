@@ -20,6 +20,8 @@ Item::Item(const UINT& _id, const std::wstring& _tag, const std::wstring& _name,
 
 Item::~Item()
 {
+	for (auto& skill : skillList)
+		delete skill;
 }
 
 Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const map<StatType, int>& _stats, const map<std::wstring, void*>& _effects, const list<std::wstring>& _recipes)
@@ -27,6 +29,17 @@ Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring
 	return new Item(_id, _tag, _name, _itemType, _price, _desc, _stats, _effects, _recipes);
 }
 
-void Item::Update()
+void Item::Passive()
 {
+	for (auto skill : skillList) {
+		skill->Passive();
+	}
 }
+
+void Item::Active()
+{
+	for (auto skill : skillList) {
+		skill->Active();
+	}
+}
+

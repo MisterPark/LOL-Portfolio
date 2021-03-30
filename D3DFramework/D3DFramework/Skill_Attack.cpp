@@ -79,6 +79,7 @@ void Skill_Attack::Active()
 			float finalDamage = host->stat->GetValue(StatType::AttackDamage);
 			host->Calc_FinalDamage(&finalDamage, host->stat, host->attackTarget->stat);
 			host->attackTarget->TakeDamage(finalDamage);
+			host->OnAttackEnd();
 			// 피격정보 저장
 			Unit::HitInfo info;
 			info.damageSum += finalDamage;

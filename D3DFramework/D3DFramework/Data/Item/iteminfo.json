@@ -1,4 +1,4 @@
-{
+﻿{
 	"1028": {
 		"id": 1028,
 		"tag": "1028_base_t1_rubycrystal",
@@ -7,7 +7,7 @@
 		"price": 400,
 		"desc": "체력 +150",
 		"stat": [
-			{"type": "Health", "value": 150}
+			{"type": "MaxHealth", "value": 150}
 		],
 		"effect": [],
 		"recipe": []
@@ -46,7 +46,7 @@
 		"price": 450,
 		"desc": "체력 +80\n집중: 미니언에게 기본 공격 시 5의 물리 피해를 추가로 입힙니다.\n회복: 5초마다 체력을 6 회복합니다.\n견디기: 챔피언, 대형 정글 몬스터, 에픽 정글 몬스터에게 피해를 입으면 8초 동안 최대 40의 체력을 회복합니다. 회복량은 체력이 낮을수록 증가합니다. (원거리 챔피언이나 광역 혹은 지속 피해를 입었을 때 기본 회복량의 66%만큼 회복합니다.)",
 		"stat": [
-			{"type": "Health", "value": 450}
+			{"type": "MaxHealth", "value": 450}
 		],
 		"effect": ["집중", "회복", "견디기"],
 		"recipe": []
@@ -59,7 +59,7 @@
 		"price": 800,
 		"desc": "체력 +150\n활공: 이동 속도가 5% 상승합니다.",
 		"stat": [
-			{"type": "Health", "value": 150},
+			{"type": "MaxHealth", "value": 150},
 			{"type": "MovementSpeed", "value": 5}
 		],
 		"effect": ["활공"],
@@ -73,9 +73,9 @@
 		"price": 2900,
 		"desc": "체력 +400, 방어력 +40, 이동 속도 +5%\n침몰시키는 자: 이동 시 최대 60의 추가 이동 속도를 얻습니다. 다음 기본 공격 시 최대 100의 마법 피해를 입히고 추가 이동 속도를 잃습니다. 최고 속도에서 근접 챔피언이 기본 공격시 1초 동안 대상을 50% 둔화시킵니다.\n\"내 갑옷을 뺏을 방도는 하나뿐이다...\" - 무명씨",
 		"stat": [
-			{"type": "Health", "value": 400},
+			{"type": "MaxHealth", "value": 400},
 			{"type": "Armor", "value": 40},
-			{"type": "MovementSpeed", "value": 5}
+			{"type": "MovementSpeed", "value": 0}
 		],
 		"effect": ["침몰시키는 자"],
 		"recipe": ["비상의 월갑", "루비 수정", "쇠사슬 조끼"]

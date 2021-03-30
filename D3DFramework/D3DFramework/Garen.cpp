@@ -110,7 +110,18 @@ void Garen::OnAttackBegin()
 void Garen::OnAttackEnd()
 {
 	Unit::OnAttackEnd();
-	stat->RemoveBuff<Buff_GarenQAttack>();
+	//stat->RemoveBuff<Buff_GarenQAttack>();
+	for (int i = 0; i < (int)SkillIndex::END; i++)	{
+		if(skillList[i] != nullptr)
+			skillList[i]->OnAttackEnd();
+	}
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.slots[i].item != nullptr) {
+			for (auto& itemSkill : inventory.slots[i].item->skillList)
+				itemSkill->OnAttackEnd();
+		}
+	}
 }
 
 void Garen::SkillQAction()
