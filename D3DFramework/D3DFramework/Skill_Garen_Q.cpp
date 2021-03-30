@@ -57,3 +57,8 @@ void Skill_Garen_Q::End()
 {
 	Skill::End();
 }
+
+void Skill_Garen_Q::OnAttackEnd()
+{
+	host->stat->RemoveBuff<Buff_GarenQAttack>();
+}

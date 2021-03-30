@@ -8,6 +8,7 @@ public:
 	enum class BuffName{
 		Ghost, HealMoveSpeed,
 		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,
+		Dreadnought,
 		END
 	};
 	struct Node

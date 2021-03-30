@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Unit.h"
 #include "Rectangle.h"
-#include "TurretMissileBase.h"
 
 using namespace Engine;
 
@@ -19,7 +18,6 @@ public:
     void SetAttackTarget(Unit* _target);
 
 private:
-    TurretMissileBase* base = nullptr;
     Engine::Plane* mesh = nullptr;
 
     Team team = Team::NEUTRAL;
@@ -27,7 +25,7 @@ private:
     float movementSpeed = 5.f;
     float attackDamage = 1.f;
    
-
+    float angle = 0.f;
     
 };
 

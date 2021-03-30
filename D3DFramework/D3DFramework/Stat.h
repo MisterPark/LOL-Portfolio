@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "IComponent.h"
 
-class Unit;
 class Buff;
+class Unit;
 
 enum class StatType {
 	AttackDamage, AbilityPower, // 공격력, 주문력
@@ -47,6 +47,7 @@ public:
 
 	float GetValue(StatType _type);
 	list<Buff*>* GetBuffList() { return &buffList; }
+	//Buff* GetBuff(Buff::BuffName _name);
 	void AddBuff(Buff* buff);
 	void RemoveBuff(Buff* buff);
 

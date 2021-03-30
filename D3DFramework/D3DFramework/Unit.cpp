@@ -80,6 +80,14 @@ void Unit::Update()
 		skillList[i]->Passive();
 	}
 
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		Item* item = inventory.slots[i].item;
+		if (item == nullptr)
+			continue;
+		item->Passive();
+	}
+
 	if (dynamic_cast<Garen*>(this))
 	{
 		if (skillList[(int)SkillIndex::Attack]->IsActive())

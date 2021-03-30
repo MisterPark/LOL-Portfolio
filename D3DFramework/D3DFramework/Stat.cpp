@@ -3,6 +3,7 @@
 #include "Unit.h"
 #include "Buff.h"
 #include "Garen.h"
+#include "Slot.h"
 
 Stat::Stat(GameObject* owner) :IComponent(owner)
 {
@@ -34,10 +35,10 @@ void Stat::PreUpdate()
 {
     float dt = Time::DeltaTime();
 
-    if (dynamic_cast<Garen*>(unit))
-    {
-        int a = 10;
-    }
+    //if (dynamic_cast<Garen*>(unit))
+    //{
+    //    int a = 10;
+    //}
 
     constexpr int count = MaxOfEnum<StatType>();
     memset(additional, 0, sizeof(float) * count);
@@ -46,6 +47,7 @@ void Stat::PreUpdate()
         percent[i] = 1.f;
     }
 
+    // Buff
     auto buff = buffList.begin();
     auto end = buffList.end();
     for (; buff != end;)
@@ -75,7 +77,25 @@ void Stat::PreUpdate()
 
         ++buff;
     }
+    
+    // Item
+    
+    for (int i = 0; i < INVENTORY_MAX; i++)
+    {
+        Item* item = unit->inventory.slots[i].item;
+        if (item == nullptr)
+            continue;
 
+        for (auto itemStat : item->stats)
+        {
+            StatType statType = itemStat.first;
+            float statValue = (float)itemStat.second;
+
+            additional[(int)statType] += statValue;
+        }
+    }
+    
+    // Final
     for (int i = 0; i < count; i++)
     {
         percent[i] = 1.f - percent[i];
