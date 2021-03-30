@@ -118,8 +118,8 @@ void Garen::OnAttackEnd()
 	}
 	for (int i = 0; i < INVENTORY_MAX; i++)
 	{
-		if (inventory.slots[i].item != nullptr) {
-			for (auto& itemSkill : inventory.slots[i].item->skillList)
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
 				itemSkill->OnAttackEnd();
 		}
 	}

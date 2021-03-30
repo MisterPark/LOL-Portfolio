@@ -82,7 +82,7 @@ void Stat::PreUpdate()
     
     for (int i = 0; i < INVENTORY_MAX; i++)
     {
-        Item* item = unit->inventory.slots[i].item;
+        Item* item = unit->inventory.GetItem(i);
         if (item == nullptr)
             continue;
 

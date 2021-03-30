@@ -251,8 +251,8 @@ namespace Engine
 		vPosition.x *= 256.f;
 		vPosition.y *= 256.f;
 
-		if (!(((int)(vPosition.x) >= 0) && ((int)(vPosition.x) < 256))) false;
-		if (!(((int)(vPosition.y) >= 0) && ((int)(vPosition.y) < 256))) false;
+		if (!(((int)(vPosition.x) >= 0) && ((int)(vPosition.x) < 256))) return false;
+		if (!(((int)(vPosition.y) >= 0) && ((int)(vPosition.y) < 256))) return false;
 
 		return sightMap[(int)vPosition.y][(int)vPosition.x];
 	}

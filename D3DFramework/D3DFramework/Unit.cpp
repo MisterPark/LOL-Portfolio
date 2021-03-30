@@ -82,7 +82,7 @@ void Unit::Update()
 
 	for (int i = 0; i < INVENTORY_MAX; i++)
 	{
-		Item* item = inventory.slots[i].item;
+		Item* item = inventory.GetItem(i);
 		if (item == nullptr)
 			continue;
 		item->Passive();
