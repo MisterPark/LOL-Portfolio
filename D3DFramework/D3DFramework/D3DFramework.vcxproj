@@ -180,6 +180,8 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="ItemshopTreePanel.h" />
+    <ClInclude Include="ItemshopSlot.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
@@ -390,6 +392,8 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="ItemshopTreePanel.cpp" />
+    <ClCompile Include="ItemshopSlot.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />

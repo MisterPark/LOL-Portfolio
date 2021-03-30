@@ -336,6 +336,9 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_default.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_hover.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_selecteditem.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_hoveritem.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_blankslot.png");
 
 	// item
 	_finddata_t fd;

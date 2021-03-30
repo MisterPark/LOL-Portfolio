@@ -1,9 +1,14 @@
 ﻿#include "stdafx.h"
 #include "ItemshopPanel.h"
+#include "ItemManager.h"
+#include "PlayerController.h"
+#include "Champion.h"
 // Control
 #include "Button.h"
 #include "Label.h"
 #include "OutlinedSlot.h"
+#include "ItemshopSlot.h"
+#include "ItemshopTreePanel.h"
 
 ItemshopPanel* pItemshopPanel = nullptr;
 
@@ -79,33 +84,35 @@ ItemshopPanel::ItemshopPanel()
     btn_close->transform->scale = { 0.625f, 0.625f, 0.f };
     btn_close->SetTextureHover(L"itemshop_button_close_hover");
     btn_close->SetTexturePressed(L"itemshop_button_close_pressed");
-    btn_close->Click += Engine::Handler(this, &ItemshopPanel::ItemShop_Panel);
+    btn_close->Click += Engine::Handler(this, &ItemshopPanel::HideItemShopPanel);
 
-    int startX = 57;
-    int startY = 106;
-    int intervalX = 51;
-    int intervalY = 75;
+    // item list
+    auto itemlist = ItemManager::GetInstance()->GetItemList();
+    slots.reserve(itemlist.size());
+
+    const int startX = 41;
+    const int startY = 100;
+    const int intervalX = 54;
+    const int intervalY = 75;
     const int itemslotX = 10;
-    const int itemslotY = 6;
-    vector<OutlinedSlot*> slot;
-    slot.resize(itemslotX * itemslotY);
-    vector<Button*> slotbutton;
-    slot.resize(itemslotX * itemslotY);
+    int idx = 0;
+    int idxX = 0;
+    int idxY = 0;
+    for (auto item : itemlist)
+    {
+        idxX = idx % itemslotX;
+        idxY = idx / itemslotX;
 
-    for (int y = 0; y < itemslotY; ++y) {
-        for (int x = 0; x < itemslotX; ++x) {
-            int index = x + (y * itemslotX);
-
-            AddChild<Button>(L"leftslotbutton", new Button(L"", Vector2(startX + (x * intervalX), startY + (y * intervalY))));
-
-            slot[index] = (OutlinedSlot*)AddChild<OutlinedSlot>(L"leftslot", new OutlinedSlot(L"itemshop_item_outline", Vector2(startX + (x * intervalX), startY + (y * intervalY)), false));
-            slot[index]->icon->transform->scale = { 0.56f, 0.56f, 0.f };
-        }
+        auto slot = AddChild<ItemshopSlot>(L"leftslot", new ItemshopSlot(Vector2(startX + (idxX * intervalX), startY + (idxY * intervalY)), item.second));
+        slots.push_back(slot);
+        slot->Click += Engine::Handler(this, &ItemshopPanel::SelectItemList);
+        idx++;
     }
-    // 임시
-    slot[0]->SetIcon(L"1001_class_t1_bootsofspeed");
 
-    Hide();
+    // ItemshopTree
+    treePanel = AddChild<ItemshopTreePanel>(L"rightslot", new ItemshopTreePanel(Vector2(605, 106)));
+
+    //Hide();
 }
 
 ItemshopPanel::~ItemshopPanel()
@@ -141,6 +148,11 @@ void ItemshopPanel::Update()
     }
 }
 
+void ItemshopPanel::Hide()
+{
+    GameObject::Hide();
+}
+
 void ItemshopPanel::ToggleVisible(GameObject* sender, MouseEventArg* arg)
 {
     pItemshopPanel->visible ?
@@ -152,7 +164,41 @@ void ItemshopPanel::Close()
 {
 }
 
-void ItemshopPanel::ItemShop_Panel(GameObject* sender, MouseEventArg* args)
+void ItemshopPanel::SetTarget(Champion* _target)
+{
+    champion = _target;
+    if (_target == nullptr) return;
+}
+
+void ItemshopPanel::HideItemShopPanel(GameObject* sender, MouseEventArg* args)
 {
     this->Hide();
+}
+
+void ItemshopPanel::BuyItem(GameObject* sender, MouseEventArg* args)
+{
+    auto slot = dynamic_cast<ItemshopSlot*>(sender);
+    if (slot == nullptr) return;
+ 
+    champion->BuyItem(slot->GetItem());
+}
+
+void ItemshopPanel::SetSelectItem(ItemshopSlot* _slot)
+{
+    // 현재 선택중으로 되어있는 아이템이 있으면 selected 취소
+    if (selectedSlot != nullptr) {
+        selectedSlot->selected = false;
+    }
+    
+    selectedSlot = _slot;
+
+    treePanel->SetRootItem(selectedSlot->GetItem());
+}
+
+void ItemshopPanel::SelectItemList(GameObject* sender, MouseEventArg* args)
+{
+    auto slot = dynamic_cast<ItemshopSlot*>(sender);
+    if (slot == nullptr) return;
+
+    SetSelectItem(slot);
 }

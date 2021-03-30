@@ -134,7 +134,8 @@ public:
 	void ReqDamage(INT _attackerID, INT _targetID, float _damage);
 	
 	// 인벤토리
-	bool AddItem(Item* _item);
+	bool AddItem(Item* _item); // 인벤토리에 그냥 아이템을 집어넣음
+	bool BuyItem(Item* _item); // 골드를 깎으면서 아이템을 집어넣음
 	
 public:
 	static list<Unit*> unitList;
@@ -169,13 +170,15 @@ public:
 	Skill* nextSkill = nullptr;
 	// 스폰
 	Vector3 spawnPosition;
+	
+	// 인벤토리
+	Inventory inventory;
+
 private:
 	float spawnTick = 0.f;
 	float spawnDelay = 10.f;
 	bool spawnFlag = false;
 
-	// 인벤토리
-	Inventory inventory;
 
 protected:
 	// 데미지계산관련

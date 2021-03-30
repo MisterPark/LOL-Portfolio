@@ -60,6 +60,7 @@ public:
 	void Initialize();
 
 	Item* GetItem(UINT itemID);
+	map<UINT, Item*> GetItemList();
 
 private:
 	HRESULT LoadItemInfo();

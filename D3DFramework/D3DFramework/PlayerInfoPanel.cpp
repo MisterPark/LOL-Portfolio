@@ -172,7 +172,7 @@ PlayerInfoPanel::PlayerInfoPanel()
 		SpellTimeLabel[i]->valign = Label::VAlign::Middle;
 
 		spellLevelUI[i].resize(spellLevelMax[i]);
-		int startX = 160 + (74 * i) - ((float)spellLevelMax[i] / 2 * 10);
+		int startX = (int)(160 + (74 * i) - ((float)spellLevelMax[i] / 2 * 10));
 		for (int j = 0; j < spellLevelMax[i]; ++j)
 			spellLevelUI[i][j] = mainPanel->AddChild<UI>(L"spelllevel", new UI(L"skilllevel_off", Vector2(startX + (11 * j), 104)));
 

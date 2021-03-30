@@ -677,6 +677,25 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 
 bool Unit::AddItem(Item* _item)
 {
+	if (_item == nullptr) return false;
+
 	return inventory.Push(_item);
+}
+
+bool Unit::BuyItem(Item* _item)
+{
+	if (_item == nullptr) return false;
+
+	// 금액 부족
+	int gold = (int)stat->GetBaseValue(StatType::Gold) - _item->price;
+	if (gold < 0) return false;
+	
+	// 인벤토리 푸쉬
+	if (!inventory.Push(_item)) return false;
+
+	// 골드 소모
+	stat->SetBaseValue(StatType::Gold, (float)gold);
+
+	return true;
 }
 
