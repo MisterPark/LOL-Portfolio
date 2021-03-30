@@ -374,7 +374,6 @@
     <ClInclude Include="TurretBreak.h" />
     <ClInclude Include="TurretFloatingBar.h" />
     <ClInclude Include="TurretMissile.h" />
-    <ClInclude Include="TurretMissileBase.h" />
     <ClInclude Include="TurretSubTree.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIManager.h" />
@@ -580,7 +579,6 @@
     <ClCompile Include="TurretBreak.cpp" />
     <ClCompile Include="TurretFloatingBar.cpp" />
     <ClCompile Include="TurretMissile.cpp" />
-    <ClCompile Include="TurretMissileBase.cpp" />
     <ClCompile Include="TurretSubTree.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIManager.cpp" />

@@ -25,18 +25,19 @@ void EffectObject::Release()
 
 void EffectObject::Update()
 {
-	//Billboard();
-	Vector3 camDir = { 0,2,-1 };
-	Vector3::Normalize(&camDir);
-	camDir = -camDir;
-	//transform->Rotate(camDir);
+	Billboard();
+	transform->Update();
+	
+	Vector3 axis = transform->up;
 
 	static float angle = 0.f;
+
 	if (Input::GetKeyDown('N'))
 	{
-		angle = angle + D3DXToRadian(1.f);
+		angle += D3DXToRadian(1.f);
 	}
-	transform->Rotate(camDir, angle);
-	//transform->LookAt(Camera::main->transform->position);
+
+	transform->RotateYaw(angle);
+
 	GameObject::Update();
 }

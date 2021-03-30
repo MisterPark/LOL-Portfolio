@@ -8,13 +8,22 @@
 
 TurretMissile::TurretMissile()
 {
-	base = CreateChild<TurretMissileBase>(L"base");
+	//base = CreateChild<TurretMissileBase>(L"base");
+
+	mesh = (Engine::Plane*)AddComponent<Engine::Plane>(L"Mesh");
+	mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
+	mesh->SetBlendMode(BlendMode::ALPHA_BLEND);
+	mesh->SetCullMode(CullMode::NONE);
+	transform->scale = { 0.75f,0.75f, 0.75f };
+	ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
+	renderer->SetMesh(mesh);
+	renderer->SetDiffuseTextureParam("g_diffuseTexture");
+	AddComponent(L"renderer", renderer);
 }
 
 TurretMissile::~TurretMissile()
 {
 	mesh = nullptr;
-	base = nullptr;
 }
 
 void TurretMissile::Initialize()
@@ -28,6 +37,9 @@ void TurretMissile::Release()
 
 void TurretMissile::Update()
 {
+	Billboard();
+	transform->Update();
+
 	if (attackTarget != nullptr)
 	{
 		Vector3 targetPos = attackTarget->transform->position;
@@ -45,19 +57,9 @@ void TurretMissile::Update()
 
 	if (attackTarget != nullptr)
 	{
-		//FaceTarget(attackTarget->transform->position);
-		//Billboard();
-		
-		float angle = Vector3::AngleY(transform->position, attackTarget->transform->position);
-		Vector3 axis = -Camera::main->GetOffset();
-		//Vector3 axis = Camera::main->transform->position - Camera::main->transform->look;
-		//axis.x = -axis.x;
-		//axis.z = -axis.z;
-
-		Vector3::Normalize(&axis);
-		transform->Rotate(axis, angle);
-
-
+		float angleY = Vector3::AngleY(transform->position, attackTarget->transform->position);
+		angle = -angleY + D3DXToRadian(180.f);
+		transform->RotateYaw(angle);
 	}
 
 	GameObject::Update();
@@ -71,11 +73,11 @@ void TurretMissile::SetTeam(Team _team)
 
 	if (_team == Team::BLUE)
 	{
-		base->mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex_blue");
+		mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex_blue");
 	}
 	else
 	{
-		base->mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
+		mesh->SetTexture(L"sru_chaos_cm_ba_mis_tex");
 	}
 }
 

@@ -102,7 +102,7 @@ void Engine::Transform::Rotate(Vector3 _axis, float _angle)
 	Quaternion qRot;
 	D3DXQuaternionRotationAxis(&qRot, &_axis, _angle);
 	Vector3 euler = Quaternion::ToEulerAngles(qRot);
-	eulerAngles = euler;
+	eulerAngles += euler;
 }
 
 void Engine::Transform::LookAt(Transform _target, Vector3 _worldUp)

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Vector3.h"
 
 using namespace Engine;
@@ -88,7 +88,7 @@ Vector3 Engine::Vector3::Normalized() const
 float Engine::Vector3::AngleX(const Vector3 & from, const Vector3 & to)
 {
 	Vector3 v = to - from;
-	return D3DXToDegree(atan2f(v.z, v.y));
+	return atan2f(v.z, v.y);
 }
 
 float Engine::Vector3::AngleY(const Vector3 & from, const Vector3 & to)
@@ -108,7 +108,7 @@ float Engine::Vector3::AngleY(const Vector3 & from, const Vector3 & to)
 float Engine::Vector3::AngleZ(const Vector3& from, const Vector3& to)
 {
 	Vector3 v = to - from;
-	return D3DXToDegree(atan2f(v.y, v.x));
+	return atan2f(v.y, v.x);
 }
 
 Vector3 Engine::Vector3::Cross(const Vector3& lhs, const Vector3& rhs)
