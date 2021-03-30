@@ -328,6 +328,9 @@
     <Filter Include="Skill\Common">
       <UniqueIdentifier>{bfc448cb-8900-42d7-a92e-062bfefe7da9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject">
+      <UniqueIdentifier>{c9fc05b9-82f9-4a51-be27-9b02c7724a21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -978,6 +981,7 @@
     <ClInclude Include="Buff_HealMoveSpeed.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
+    <ClInclude Include="EffectObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1679,6 +1683,7 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
+    <ClCompile Include="EffectObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

@@ -33,6 +33,9 @@
 #include "MinionAI.h"
 
 #include "RenderSystem.h"
+
+#include "EffectObject.h"
+
 void TestScene::OnLoaded()
 {
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
@@ -57,6 +60,9 @@ void TestScene::OnLoaded()
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
 	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+
+	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
+	obj->transform->position = { 36.f,69.f,46.f };
 
 
 	D3DLIGHT9 dirLight{};

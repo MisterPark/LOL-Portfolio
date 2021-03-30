@@ -138,6 +138,7 @@ using namespace std;
 #include "SkinnedMeshRenderer.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "UIRenderer.h"
+#include "ForwardRenderer.h"
 
 // 행동트리
 #include "BehaviorTree.h"
