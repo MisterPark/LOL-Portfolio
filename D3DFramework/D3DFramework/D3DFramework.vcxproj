@@ -181,6 +181,7 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
+    <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
@@ -346,6 +347,8 @@
     <ClInclude Include="Skill_Garen_W.h" />
     <ClInclude Include="Skill_Ghost.h" />
     <ClInclude Include="Skill_Heal.h" />
+    <ClInclude Include="Skill_Item.h" />
+    <ClInclude Include="Skill_Item_Dreadnought.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
@@ -393,6 +396,7 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
+    <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
@@ -549,6 +553,8 @@
     <ClCompile Include="Skill_Garen_W.cpp" />
     <ClCompile Include="Skill_Ghost.cpp" />
     <ClCompile Include="Skill_Heal.cpp" />
+    <ClCompile Include="Skill_Item.cpp" />
+    <ClCompile Include="Skill_Item_Dreadnought.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />

@@ -14,6 +14,7 @@ public:
 	virtual void Active() = 0;
 	virtual void End() = 0;
 	virtual bool InRange();
+	virtual void OnAttackEnd();
 
 	void SetActive(bool _active) { active = _active; }
 	bool IsActive();

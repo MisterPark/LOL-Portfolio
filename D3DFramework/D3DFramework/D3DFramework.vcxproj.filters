@@ -331,6 +331,12 @@
     <Filter Include="GameObject\EffectObject">
       <UniqueIdentifier>{c9fc05b9-82f9-4a51-be27-9b02c7724a21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill\Item">
+      <UniqueIdentifier>{eb364c3a-cb45-490e-81ad-385107705089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Item">
+      <UniqueIdentifier>{88fb441d-3219-48f2-b122-de5da7820285}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -981,6 +987,15 @@
       <Filter>Buff\Spell</Filter>
     </ClInclude>
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="Skill_Item.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Dreadnought.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemDreadnought.h">
+      <Filter>Buff\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1682,6 +1697,15 @@
       <Filter>Buff\Spell</Filter>
     </ClCompile>
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="Skill_Item.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Dreadnought.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemDreadnought.cpp">
+      <Filter>Buff\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
