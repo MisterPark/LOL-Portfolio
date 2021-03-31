@@ -988,7 +988,6 @@
     <ClInclude Include="Buff_HealMoveSpeed.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
-    <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Skill_Item.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
@@ -1018,6 +1017,9 @@
     </ClInclude>
     <ClInclude Include="Missile.h">
       <Filter>GameObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h">
+      <Filter>GameObject\EffectObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1718,7 +1720,6 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
-    <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Skill_Item.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
@@ -1748,6 +1749,9 @@
     </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>GameObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp">
+      <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
