@@ -151,7 +151,7 @@ void ItemshopPanel::Update()
     }
 
     if (champion != nullptr) {
-        currentGoldLabel->SetText(champion->stat->GetBaseValue(StatType::Gold));
+        currentGoldLabel->SetText((int)champion->stat->GetBaseValue(StatType::Gold));
     }
 }
 
