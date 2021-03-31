@@ -1,6 +1,7 @@
 ﻿#pragma once
 using namespace Engine;
 #include "Stat.h"
+#include "Skill_Item.h"
 
 enum class ItemType
 {
@@ -45,7 +46,8 @@ public:
 		const list<std::wstring>& _recipes
 		);
 
-	void Update();
+	void Passive();
+	void Active();
 	//void Use();
 
 	UINT id;
@@ -59,5 +61,6 @@ public:
 	list<std::wstring> recipes; // id로 변경하기
 	//list<UINT> itemParentId;
 	//list<UINT> itemChildId;
+	list<Skill_Item*> skillList;
 };
 

@@ -80,6 +80,14 @@ void Unit::Update()
 		skillList[i]->Passive();
 	}
 
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		Item* item = inventory.slots[i].item;
+		if (item == nullptr)
+			continue;
+		item->Passive();
+	}
+
 	if (dynamic_cast<Garen*>(this))
 	{
 		if (skillList[(int)SkillIndex::Attack]->IsActive())
@@ -726,6 +734,39 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 
 bool Unit::AddItem(Item* _item)
 {
+	if (_item == nullptr) return false;
+
 	return inventory.Push(_item);
+}
+
+bool Unit::BuyItem(Item* _item)
+{
+	if (_item == nullptr) return false;
+
+	// 금액 부족
+	int gold = (int)stat->GetBaseValue(StatType::Gold) - _item->price;
+	if (gold < 0) return false;
+	
+	// 인벤토리 푸쉬
+	if (!inventory.Push(_item)) return false;
+
+	// 골드 소모
+	stat->SetBaseValue(StatType::Gold, (float)gold);
+
+	return true;
+}
+
+void Unit::SellItem(int _idx)
+{
+	Item* item = inventory.GetItem(_idx);
+	if (item == nullptr) return;
+	float price = item->price * 0.7f;
+
+	bool success = inventory.Pop(_idx);
+	if (!success) return;
+
+	if (price < 0.f) return;
+	
+	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
 }
 

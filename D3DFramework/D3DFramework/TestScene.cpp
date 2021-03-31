@@ -35,6 +35,7 @@
 #include "RenderSystem.h"
 
 #include "EffectObject.h"
+#include "Skill_Item_Dreadnought.h"
 
 void TestScene::OnLoaded()
 {
@@ -59,7 +60,9 @@ void TestScene::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+	Item* item = ItemManager::GetInstance()->GetItem(3742);
+	champ->AddItem(item);
+	item->skillList.push_back(new Skill_Item_Dreadnought(unit));
 
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };
@@ -85,6 +88,7 @@ void TestScene::OnLoaded()
 	ScorePanel::GetInstance()->Hide();
 
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
+	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 }
 

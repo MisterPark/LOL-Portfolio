@@ -14,6 +14,8 @@ public:
     virtual void Active();
     virtual void End();
 
+    virtual void OnAttackEnd() override;
+
 private:
     float baseSpeedTime = 1.f;
     float growthSpeedTime = 0.65f;

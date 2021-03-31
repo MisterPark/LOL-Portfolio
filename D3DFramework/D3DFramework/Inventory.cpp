@@ -29,3 +29,17 @@ bool Inventory::Push(Item* item)
 
     return false;
 }
+
+bool Inventory::Pop(int _idx)
+{
+    if ((_idx < 0) || (_idx >= INVENTORY_MAX)) return false;
+
+    if (slots[_idx].item == nullptr) return false;
+
+    return slots[_idx].Pop();
+}
+
+Item* Inventory::GetItem(int _idx)
+{
+    return slots[_idx].item;
+}
