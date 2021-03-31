@@ -5,8 +5,6 @@ Engine::FogOfWarRenderer::FogOfWarRenderer(GameObject* owner, float radius):
 	Renderer{owner, RendererType::EarlyForward},
 	radius{radius}
 {
-
-
 	D3DXMatrixIdentity(&mapSpace);
 }
 

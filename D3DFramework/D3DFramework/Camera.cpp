@@ -117,6 +117,7 @@ void Engine::Camera::Update()
 	{
 		ZoomOut();
 	}
+
 	
 	// 포즈, 룩 세팅
 	if (topViewFlag)
@@ -126,14 +127,18 @@ void Engine::Camera::Update()
 	}
 	else
 	{
-		if (nullptr != target)
+		if (target != nullptr)
 		{
 			transform->position = target->transform->position;
 			transform->position += offset;
 
 			transform->look = target->GetTransform()->position;
+
 		}
+
 	}
+
+	
 
 	// 뷰
 	viewMatrix = Matrix::LookAtLH(transform->position, transform->look, transform->up);

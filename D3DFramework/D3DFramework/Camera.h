@@ -93,5 +93,6 @@ namespace Engine
 		bool topViewFlag = false;
 		Vector3 topViewPos = { 0,100,0 };
 		Vector3 topViewLook = { 0,0,1 };
+
 	};
 }

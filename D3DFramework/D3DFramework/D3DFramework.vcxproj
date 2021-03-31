@@ -182,6 +182,7 @@
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="Missile.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
@@ -346,6 +347,7 @@
     <ClInclude Include="Skill_Garen_W.h" />
     <ClInclude Include="Skill_Ghost.h" />
     <ClInclude Include="Skill_Heal.h" />
+    <ClInclude Include="Skill_RangeAttack.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slot.h" />
@@ -364,6 +366,7 @@
     <ClInclude Include="TestLoadingScene.h" />
     <ClInclude Include="TestMan.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestScene2.h" />
     <ClInclude Include="TextParser.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
@@ -394,6 +397,7 @@
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />
@@ -549,6 +553,7 @@
     <ClCompile Include="Skill_Garen_W.cpp" />
     <ClCompile Include="Skill_Ghost.cpp" />
     <ClCompile Include="Skill_Heal.cpp" />
+    <ClCompile Include="Skill_RangeAttack.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slot.cpp" />
@@ -569,6 +574,7 @@
     <ClCompile Include="TestLoadingScene.cpp" />
     <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestScene2.cpp" />
     <ClCompile Include="TextParser.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />

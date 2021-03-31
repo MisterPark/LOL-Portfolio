@@ -71,7 +71,7 @@ void Unit::Update()
 
 	GameObject::Update();
 
-	attackIndicator->Update();
+	//attackIndicator->Update();
 
 	for (int i = 0; i < (int)SkillIndex::END; i++)
 	{

@@ -352,6 +352,21 @@ void Engine::MainGame::LoadUISprite()
 		} while (_findnext(handle, &fd) != -1);
 		_findclose(handle);
 	}
+	// missfortune
+	_finddata_t fd2;
+	char path2[1024];
+	char filter2[MAX_PATH] = "*.dds";
+	_fullpath(path2, "Resource\\Mesh\\character\\missfortune\\particles\\", 1024);
+	strcat_s(path2, filter2);
+	long handle2 = _findfirst(path2, &fd2);
+	if (handle2 != -1)
+	{
+		do {
+			std::wstring file2(fd2.name, &fd2.name[260]);
+			RenderManager::LoadSprite(L"Resource\\Mesh\\character\\missfortune\\particles\\", file2);
+		} while (_findnext(handle2, &fd2) != -1);
+		_findclose(handle2);
+	}
 
 	// scoreboard
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");

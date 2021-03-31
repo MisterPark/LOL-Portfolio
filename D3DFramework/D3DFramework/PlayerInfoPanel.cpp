@@ -365,6 +365,9 @@ void PlayerInfoPanel::Update()
 		float cooltimeinit;
 
 		for (int i = 0; i < 4; i++) {
+
+			if (champion->skillList[(int)spellNum[i]] == nullptr) continue;
+
 			cooltime = champion->skillList[(int)spellNum[i]]->GetCooltime();
 			cooltimeinit = champion->skillList[(int)spellNum[i]]->GetCooltime_Init();
 			slotSpell[i]->SetCooltime(cooltime, cooltimeinit);
