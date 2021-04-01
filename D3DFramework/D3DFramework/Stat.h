@@ -22,6 +22,7 @@ enum class StatType {
 	DamageReduction,
 	Level, // 레벨
 	SkillPoint,
+	MinionKilled,
 	Gold,
 	END   
 };

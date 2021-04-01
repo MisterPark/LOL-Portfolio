@@ -22,6 +22,8 @@ Razorbeak::Razorbeak()
 	//Buff_GarenWReduction* testBuff = new Buff_GarenWReduction(this, 999.f, 0.5f);
 	//stat->AddBuff(testBuff);
 	//
+
+	stat->SetBaseValue(StatType::MinionKilled, 2.f);
 }
 
 Razorbeak::~Razorbeak()

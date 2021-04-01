@@ -25,6 +25,7 @@ void Button::Release()
 
 void Button::Update()
 {
+	if (enable == false) return;
 	UI::Update();
 }
 
