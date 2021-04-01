@@ -60,7 +60,22 @@ void Engine::UI::Update()
 
 void UI::UpdateEvent()
 {
+	// EnabledChanged
+	if (enable != oldEnable)
+	{
+		oldEnable = enable;
+		OnEnabledChanged();
+	}
+
+	// TextChanged
+	if (text != oldText)
+	{
+		oldText = text;
+		OnTextChanged();
+	}
+
 	if (visible == false) return;
+	if (enable == false) return;
 
 	float dt = Time::DeltaTime();
 	Vector3 cursorPos = Cursor::GetMousePos();
@@ -148,19 +163,6 @@ void UI::UpdateEvent()
 		doubleClickTick = 0.f;
 	}
 	
-	// EnabledChanged
-	if (enable != oldEnable)
-	{
-		oldEnable = enable;
-		OnEnabledChanged();
-	}
-
-	// TextChanged
-	if (text != oldText)
-	{
-		oldText = text;
-		OnTextChanged();
-	}
 }
 
 void UI::ClearEvent()

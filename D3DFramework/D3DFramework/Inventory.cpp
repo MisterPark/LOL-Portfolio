@@ -15,7 +15,7 @@ bool Inventory::Push(Item* item)
 {
     if (item == nullptr) return false;
 
-    if (item->type == ItemType::Trinkets) {
+    if (item->GetType() == ItemType::Trinkets) {
 
     }
     else {

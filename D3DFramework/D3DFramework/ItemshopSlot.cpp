@@ -25,12 +25,12 @@ ItemshopSlot::ItemshopSlot(Vector2 _pos, Item* _item)
     price->SetLocation(Vector2(27, 55));
     price->align = Label::Align::Center;
     price->valign = Label::VAlign::Middle;
-    price->foreColor = D3DCOLOR_ARGB(255, 196, 182, 139);
+    price->SetColor(255, 196, 182, 139);
 
 
     if (item != nullptr) {
-        slot->SetIcon(item->icon);
-        price->SetText(L"%d", item->price);
+        slot->SetIcon(item->GetIcon());
+        price->SetText(L"%d", item->GetPrice());
     }
 }
 
@@ -89,14 +89,14 @@ Item* ItemshopSlot::GetItem()
 
 UINT ItemshopSlot::GetItemId()
 {
-    return item->id;
+    return item->GetId();
 }
 
 void ItemshopSlot::SetItem(Item* _item)
 {
     item = _item;
     if (item != nullptr) {
-        slot->SetIcon(item->icon);
-        price->SetText(L"%d", item->price);
+        slot->SetIcon(item->GetIcon());
+        price->SetText(L"%d", item->GetPrice());
     }
 }

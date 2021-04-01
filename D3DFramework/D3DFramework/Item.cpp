@@ -43,3 +43,10 @@ void Item::Active()
 	}
 }
 
+UINT Item::GetId() { return id; }
+std::wstring Item::GetIcon() { return icon; }
+std::wstring Item::GetName() { return name; }
+ItemType Item::GetType() { return type; }
+UINT Item::GetPrice() { return price; }
+std::wstring Item::GetDesc() { return desc; }
+

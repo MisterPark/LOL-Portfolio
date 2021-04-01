@@ -3,6 +3,7 @@
 class ItemshopSlot;
 class ItemshopTreePanel;
 class Champion;
+class Button;
 
 class ItemshopPanel : public Panel
 {
@@ -30,12 +31,18 @@ public:
 private:
 	Champion* champion = nullptr;
 
+	Button* sellButton = nullptr;
+
 	// leftslot
 	vector<ItemshopSlot*> slots;
 	ItemshopSlot* selectedSlot = nullptr; // 참조용
 	
 	// rightslot
 	ItemshopTreePanel* treePanel = nullptr;
+	UI* selectItemIcon = nullptr;
+	Label* selectItemNameLabel = nullptr;
+	Label* selectItemPriceLabel = nullptr;
+	Label* selectItemDescLabel = nullptr;
 
 	// etc
 	Label* currentGoldLabel = nullptr;

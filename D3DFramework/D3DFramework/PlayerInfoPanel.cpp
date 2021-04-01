@@ -36,7 +36,7 @@ PlayerInfoPanel::PlayerInfoPanel()
             statLabel[index]->SetLocation(Vector2(statstartx + statinvx * x, statstarty + statinvy * y));
             statLabel[index]->align = Label::Align::Left;
             statLabel[index]->valign = Label::VAlign::Middle;
-            statLabel[index]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+            statLabel[index]->SetColor(255, 255, 255, 255);
             
         }
     }
@@ -96,12 +96,12 @@ PlayerInfoPanel::PlayerInfoPanel()
 	for (int i = 0; i < INVENTORY_MAX; ++i)
 	{
 		itemLabel[i] = invenPanel->AddChild<Label>(L"ItemLabel", new Label(15));
-		itemLabel[i]->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+		itemLabel[i]->SetColor(255, 255, 255, 255);
 		itemLabel[i]->align = Label::Align::Center;
 		itemLabel[i]->valign = Label::VAlign::Middle;
 		itemLabel[i]->outline = true;
 	}
-	itemLabel[6]->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
+	itemLabel[6]->SetColor(255, 244, 214, 108);
 
 	itemLabel[0]->SetText(1);
 	itemLabel[1]->SetText(2);
@@ -122,7 +122,7 @@ PlayerInfoPanel::PlayerInfoPanel()
 	Label* recallLabel = invenPanel->AddChild<Label>(L"RecallLabel", new Label(15));
 	recallLabel->SetText(L"B");
 	recallLabel->SetLocation(Vector2(180, 111));
-	recallLabel->foreColor = D3DCOLOR_ARGB(255, 244, 214, 108);
+	recallLabel->SetColor(255, 244, 214, 108);
 	recallLabel->align = Label::Align::Center;
 	recallLabel->valign = Label::VAlign::Middle;
 	recallLabel->outline = true;
@@ -149,28 +149,28 @@ PlayerInfoPanel::PlayerInfoPanel()
 	hpLabel->SetText(L"%d/%d", 100, 100);
     hpLabel->align = Label::Align::Center;
     hpLabel->valign = Label::VAlign::Middle;
-    hpLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+    hpLabel->SetColor(255, 255, 255, 255);
 
 	mpLabel = mpBar->AddChild<Label>(L"MPLabel", new Label(18));
 	mpLabel->SetLocation(mpBar->GetSize().x * 0.5f, mpBar->GetSize().y * 0.5f);
 	mpLabel->SetText(L"%d/%d", 100, 100);
 	mpLabel->align = Label::Align::Center;
 	mpLabel->valign = Label::VAlign::Middle;
-	mpLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	mpLabel->SetColor(255, 255, 255, 255);
 
 	hpRegenLabel = hpBar->AddChild<Label>(L"HPLabel", new Label(18));
 	hpRegenLabel->SetLocation(hpBar->GetSize().x - 10, hpBar->GetSize().y * 0.5f);
 	hpRegenLabel->SetText(L"+%.1f", 1.0f);
 	hpRegenLabel->align = Label::Align::Right;
 	hpRegenLabel->valign = Label::VAlign::Middle;
-	hpRegenLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	hpRegenLabel->SetColor(255, 255, 255, 255);
 
 	mpRegenLabel = mpBar->AddChild<Label>(L"MPLabel", new Label(18));
 	mpRegenLabel->SetLocation(mpBar->GetSize().x - 10, mpBar->GetSize().y * 0.5f);
 	mpRegenLabel->SetText(L"+%.1f", 1.0f);
 	mpRegenLabel->align = Label::Align::Right;
 	mpRegenLabel->valign = Label::VAlign::Middle;
-	mpRegenLabel->foreColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	mpRegenLabel->SetColor(255, 255, 255, 255);
 
     // Spell
 	spellLevelUI.resize(4);
@@ -229,12 +229,12 @@ PlayerInfoPanel::PlayerInfoPanel()
 	RLabel->valign = Label::VAlign::Middle;
 	DLabel->valign = Label::VAlign::Middle;
 	FLabel->valign = Label::VAlign::Middle;
-    QLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
-	WLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
-	ELabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
-	RLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
-	DLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
-	FLabel->foreColor = D3DCOLOR_ARGB(255, 231, 203, 102);
+    QLabel->SetColor(255, 231, 203, 102);
+	WLabel->SetColor(255, 231, 203, 102);
+	ELabel->SetColor(255, 231, 203, 102);
+	RLabel->SetColor(255, 231, 203, 102);
+	DLabel->SetColor(255, 231, 203, 102);
+	FLabel->SetColor(255, 231, 203, 102);
 	QLabel->outline = true;
 	WLabel->outline = true;
 	ELabel->outline = true;
@@ -247,7 +247,7 @@ PlayerInfoPanel::PlayerInfoPanel()
     spellPointLabel->SetText(L"레벨 업! +%d", 1);
     spellPointLabel->align = Label::Align::Center;
     spellPointLabel->valign = Label::VAlign::Middle;
-    spellPointLabel->foreColor = D3DCOLOR_ARGB(255, 255, 247, 153);
+    spellPointLabel->SetColor(255, 255, 247, 153);
     
 
     facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
@@ -403,7 +403,7 @@ void PlayerInfoPanel::Update()
 				slotItem[i]->Hide();
 			}
 			else {
-				slotItem[i]->SetIcon(item->icon);
+				slotItem[i]->SetIcon(item->GetIcon());
 				slotItem[i]->Show();
 			}
 
@@ -445,6 +445,11 @@ void PlayerInfoPanel::SellSelectedItem()
 void PlayerInfoPanel::UnselectInventorySlot()
 {
 	selectedItemIdx = -1;
+}
+
+int PlayerInfoPanel::GetSelectedItemIdx()
+{
+	return selectedItemIdx;
 }
 
 void PlayerInfoPanel::ClickInventorySlot(GameObject* sender, MouseEventArg* args)
