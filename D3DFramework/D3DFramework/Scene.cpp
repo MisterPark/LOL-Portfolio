@@ -15,7 +15,7 @@ void Engine::Scene::PreUpdate()
 		auto& objList = objTable[i];
 		for (auto& iter : objList)
 		{
-			if (!iter->enable) continue;
+			//if (!iter->enable) continue;
 			iter->PreUpdate();
 		}
 	}
@@ -30,7 +30,7 @@ void Engine::Scene::Update()
 		auto& objList = objTable[i];
 		for (auto& iter : objList)
 		{
-			if (!iter->enable) continue;
+			//if (!iter->enable) continue;
 			iter->Update();
 		}
 	}
@@ -65,10 +65,10 @@ void Engine::Scene::PostUpdate()
 			}
 			else
 			{
-				if (target->enable)
-				{
+				//if (target->enable)
+				//{
 					target->PostUpdate();
-				}
+				//}
 				++iter;
 			}
 		}

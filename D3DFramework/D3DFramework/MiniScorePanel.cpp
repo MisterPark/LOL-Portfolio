@@ -47,9 +47,8 @@ MiniScorePanel::MiniScorePanel()
 
 	blueKillLabel->align = Label::Align::Right;
 	
-
-	blueKillLabel->foreColor = D3DCOLOR_ARGB(255, 81, 162, 230);
-	redKillLabel->foreColor = D3DCOLOR_ARGB(255, 232, 61, 50);
+	blueKillLabel->SetColor(255, 81, 162, 230);
+	redKillLabel->SetColor(255, 232, 61, 50);
 
 	blueKillLabel->SetLocation(85.f, 5.f);
 	redKillLabel->SetLocation(110.f, 5.f);

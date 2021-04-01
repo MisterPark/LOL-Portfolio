@@ -85,7 +85,7 @@ void GameScene::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	latencyLabel = (Label*)SceneManager::GetCurrentScene()->CreateObject<Label>(Layer::UI);
-	latencyLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+	latencyLabel->SetColor(255, 0, 255, 0);
 
 	CreateEnvironment();
 	CreateChampion();
@@ -184,7 +184,7 @@ void GameScene::ResTime(CPacket* pack)
 	DWORD elapsed = curTime - time;
 	WCHAR wstr[16] = {};
 	swprintf_s(wstr, L"%dms", elapsed);
-	latencyLabel->text = wstr;
+	latencyLabel->SetText(wstr);
 }
 
 void GameScene::ResMove(CPacket* pack)

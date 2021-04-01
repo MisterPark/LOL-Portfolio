@@ -140,5 +140,5 @@ void FloatingBar::SetTextureMP(const wstring& _key)
 
 void FloatingBar::SetNickname(const wstring& _nick)
 {
-	nickLabel->text = _nick;
+	nickLabel->SetText(_nick);
 }

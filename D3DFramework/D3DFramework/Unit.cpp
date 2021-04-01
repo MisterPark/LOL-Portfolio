@@ -744,7 +744,7 @@ bool Unit::BuyItem(Item* _item)
 	if (_item == nullptr) return false;
 
 	// 금액 부족
-	int gold = (int)stat->GetBaseValue(StatType::Gold) - _item->price;
+	int gold = (int)stat->GetBaseValue(StatType::Gold) - _item->GetPrice();
 	if (gold < 0) return false;
 	
 	// 인벤토리 푸쉬
@@ -760,7 +760,7 @@ void Unit::SellItem(int _idx)
 {
 	Item* item = inventory.GetItem(_idx);
 	if (item == nullptr) return;
-	float price = item->price * 0.7f;
+	float price = item->GetPrice() * 0.7f;
 
 	bool success = inventory.Pop(_idx);
 	if (!success) return;
