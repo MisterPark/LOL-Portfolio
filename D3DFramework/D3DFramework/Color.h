@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <d3dx9math.h>
 
 namespace Engine
@@ -17,12 +17,12 @@ namespace Engine
 		D3DCOLOR value = 0;
 
 
-		static const Color RedMonster;
+		static const Color Red;
 		static const Color Green;
 		static const Color White;
 		static const Color Black;
 		static const Color Gray;
-		static const Color BlueMonster;
+		static const Color Blue;
 	};
 	
 }

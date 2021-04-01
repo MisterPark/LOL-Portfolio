@@ -8,6 +8,7 @@
 #include "LoadingChampPanel.h"
 #include "LoadingChampScreen.h"
 #include "Label.h"
+#include "TestScene2.h"
 
 // TODO : 테스트 끝나면 빼기
 #include "PlayerInfoPanel.h"
@@ -88,7 +89,7 @@ void TestLoadingScene::Update()
 
 	if (resourceLoadCnt == resourceMax)
 	{
-		SceneManager::LoadScene<TestScene>();
+		SceneManager::LoadScene<TestScene2>();
 	}
 }
 

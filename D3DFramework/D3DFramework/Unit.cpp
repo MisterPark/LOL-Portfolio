@@ -71,7 +71,7 @@ void Unit::Update()
 
 	GameObject::Update();
 
-	attackIndicator->Update();
+	//attackIndicator->Update();
 
 	for (int i = 0; i < (int)SkillIndex::END; i++)
 	{
@@ -309,9 +309,11 @@ void Unit::OnKilled(Unit* target)
 	if (dynamic_cast<Monster*>(target) != nullptr)
 	{
 		float exp = target->stat->GetBaseValue(StatType::Experience);
+		float cs = target->stat->GetBaseValue(StatType::MinionKilled);
 		stat->IncreaseBaseValue(StatType::Experience, exp);
-		
+		stat->IncreaseBaseValue(StatType::MinionKilled, cs);
 	}
+
 
 }
 

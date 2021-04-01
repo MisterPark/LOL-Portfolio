@@ -337,6 +337,9 @@
     <Filter Include="Buff\Item">
       <UniqueIdentifier>{88fb441d-3219-48f2-b122-de5da7820285}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Missile">
+      <UniqueIdentifier>{0262d8c7-05da-4e70-8a1e-40a9d961435a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -973,7 +976,6 @@
     <ClInclude Include="Buff_Ghost.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
-    <ClInclude Include="TargetingSkill.h" />
     <ClInclude Include="Skill_Attack.h">
       <Filter>Skill\Common</Filter>
     </ClInclude>
@@ -986,7 +988,6 @@
     <ClInclude Include="Buff_HealMoveSpeed.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
-    <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Skill_Item.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
@@ -1001,6 +1002,24 @@
     </ClInclude>
     <ClInclude Include="ItemshopTreePanel.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetingSkill.h">
+      <Filter>Skill\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h">
+      <Filter>GameObject\EffectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_RangeAttack.h">
+      <Filter>Skill\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>GameObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h">
+      <Filter>GameObject\EffectObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1689,7 +1708,6 @@
     <ClCompile Include="Buff_Ghost.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
-    <ClCompile Include="TargetingSkill.cpp" />
     <ClCompile Include="Skill_Attack.cpp">
       <Filter>Skill\Common</Filter>
     </ClCompile>
@@ -1702,7 +1720,6 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
-    <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Skill_Item.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
@@ -1717,6 +1734,24 @@
     </ClCompile>
     <ClCompile Include="ItemshopTreePanel.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetingSkill.cpp">
+      <Filter>Skill\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp">
+      <Filter>GameObject\EffectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene2.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_RangeAttack.cpp">
+      <Filter>Skill\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>GameObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp">
+      <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1749,7 +1784,9 @@
     <CopyFileToFolders Include="HPBarEffect.fx">
       <Filter>Lib\Graphics\shader</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="shadow_map_shader.fx" />
+    <CopyFileToFolders Include="shadow_map_shader.fx">
+      <Filter>Lib\Graphics\shader</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="fogOfWar_render.fx">

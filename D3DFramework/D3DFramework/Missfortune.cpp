@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Missfortune.h"
+#include "Skill_RangeAttack.h"
+#include "ChampionSubTree.h"
+
 Missfortune::Missfortune()
 {
 	transform->scale = { 0.015f, 0.015f, 0.015f, };
@@ -33,6 +36,18 @@ Missfortune::Missfortune()
 	stat->SetBaseValue(StatType::MagicResistance, 30.f);
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::Passive] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::Q] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::W] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::E] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::R] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::D] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::F] = new Skill_RangeAttack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Missfortune::~Missfortune()
