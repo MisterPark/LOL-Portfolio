@@ -340,6 +340,9 @@
     <Filter Include="GameObject\Missile">
       <UniqueIdentifier>{0262d8c7-05da-4e70-8a1e-40a9d961435a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buff\Item\Skill">
+      <UniqueIdentifier>{60cc7105-d652-4883-9016-305b58fca999}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -994,9 +997,6 @@
     <ClInclude Include="Skill_Item_Dreadnought.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_ItemDreadnought.h">
-      <Filter>Buff\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ItemshopSlot.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClInclude>
@@ -1020,6 +1020,12 @@
     </ClInclude>
     <ClInclude Include="EffectObject.h">
       <Filter>GameObject\EffectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item.h">
+      <Filter>Buff\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemDreadnought.h">
+      <Filter>Buff\Item\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1726,9 +1732,6 @@
     <ClCompile Include="Skill_Item_Dreadnought.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_ItemDreadnought.cpp">
-      <Filter>Buff\Item</Filter>
-    </ClCompile>
     <ClCompile Include="ItemshopSlot.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClCompile>
@@ -1752,6 +1755,12 @@
     </ClCompile>
     <ClCompile Include="EffectObject.cpp">
       <Filter>GameObject\EffectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item.cpp">
+      <Filter>Buff\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemDreadnought.cpp">
+      <Filter>Buff\Item\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

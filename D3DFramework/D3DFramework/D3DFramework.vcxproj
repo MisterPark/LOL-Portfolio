@@ -181,6 +181,7 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
+    <ClInclude Include="Buff_Item.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="ItemshopTreePanel.h" />
@@ -401,6 +402,7 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
+    <ClCompile Include="Buff_Item.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="ItemshopTreePanel.cpp" />
