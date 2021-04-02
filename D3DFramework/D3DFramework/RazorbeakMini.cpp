@@ -14,6 +14,8 @@ RazorbeakMini::RazorbeakMini()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
+
+	stat->SetBaseValue(StatType::MinionKilled, 0.4f);
 }
 
 RazorbeakMini::~RazorbeakMini()

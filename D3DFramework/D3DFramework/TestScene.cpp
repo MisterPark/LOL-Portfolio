@@ -43,8 +43,8 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	testLabel = (Label*)SceneManager::GetCurrentScene()->CreateObject<Label>(Layer::UI);
-	testLabel->text = L"123123\n123123";
-	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+	testLabel->SetText(L"123123\n123123");
+	testLabel->SetColor(255, 0, 255, 0);
 
 	CreateEnvironment();
 	CreateBuilding();

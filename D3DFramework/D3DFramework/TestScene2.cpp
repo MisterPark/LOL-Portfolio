@@ -36,8 +36,8 @@ void TestScene2::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	testLabel = (Label*)SceneManager::GetCurrentScene()->CreateObject<Label>(Layer::UI);
-	testLabel->text = L"TestScene2";
-	testLabel->foreColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+	testLabel->SetText(L"TestScene2");
+	testLabel->SetColor(255, 0, 255, 0);
 
 	CreateEnvironment();
 	CreateBuilding();
@@ -48,6 +48,8 @@ void TestScene2::OnLoaded()
 	unit->transform->position = { 41.f, 68.f, 46.f };
 	unit->SetSpawnPosition(Vector3(41.f, 68.f, 46.f));
 	unit->SetTeam(Team::BLUE);
+	unit->SetID(0);
+	unitMap[0] = unit;
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
@@ -82,6 +84,7 @@ void TestScene2::OnLoaded()
 
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
+
 }
 
 void TestScene2::OnUnloaded()
@@ -91,6 +94,24 @@ void TestScene2::OnUnloaded()
 void TestScene2::Update()
 {
 	Scene::Update();
+
+	MiniScorePanel::GetInstance()->SetMinionScore((int)unitMap[0]->stat->GetBaseValue(StatType::MinionKilled));
+
+	int minute = 0;
+	int second = 0;
+	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
+	if (minute == 0 && second == 25)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 0 && second == 35)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 1 && second == 5)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
+	}
 
 	if (Input::GetKeyDown('M'))
 	{

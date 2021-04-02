@@ -27,22 +27,22 @@ ItemshopPanel::ItemshopPanel()
     title_label->transform->position = { 40.f, 40.f, 0 };
     title_label->align = Label::Align::Left;
     title_label->valign = Label::VAlign::Middle;
-    title_label->foreColor = D3DCOLOR_ARGB(255, 177, 174, 160);
-    title_label->text = L"상점";
+    title_label->SetColor(255, 177, 174, 160);
+    title_label->SetText(L"상점");
 
     auto topitemtitle_label = AddChild<Label>(L"topitemtitleLabel", new Label());
     topitemtitle_label->transform->position = { 622.f, 40.f, 0 };
     topitemtitle_label->align = Label::Align::Left;
     topitemtitle_label->valign = Label::VAlign::Middle;
-    topitemtitle_label->foreColor = D3DCOLOR_ARGB(255, 177, 174, 160);
-    topitemtitle_label->text = L"상위 아이템";
+    topitemtitle_label->SetColor(255, 177, 174, 160);
+    topitemtitle_label->SetText(L"상위 아이템");
 
     currentGoldLabel = AddChild<Label>(L"currentgoldLabel", new Label(15));
     currentGoldLabel->transform->position = { 283.f, 677.f, 0 };
     currentGoldLabel->align = Label::Align::Left;
     currentGoldLabel->valign = Label::VAlign::Middle;
-    currentGoldLabel->foreColor = D3DCOLOR_ARGB(255, 191, 179, 138);
-    currentGoldLabel->text = L"0";
+    currentGoldLabel->SetColor(255, 191, 179, 138);
+    currentGoldLabel->SetText(L"0");
 
     auto btn_sel = AddChild<Button>(L"selectbtn", new Button(L"itemshop_button_sel_default", Vector2(22,  662)));
     auto btnSelTex = RenderManager::GetTexture(L"itemshop_button_sel_default");
@@ -56,6 +56,7 @@ ItemshopPanel::ItemshopPanel()
     btn_sel->SetTexturePressed(L"itemshop_button_pressed");
     btn_sel->SetTextureDisable(L"itemshop_button_disabled");
     btn_sel->Click += Engine::Handler(this, &ItemshopPanel::SellItem);
+    sellButton = btn_sel;
     
     auto btn_res = AddChild<Button>(L"restorebtn", new Button(L"itemshop_button_restore_default", Vector2(134, 662)));
     auto btnResTex = RenderManager::GetTexture(L"itemshop_button_restore_default");
@@ -115,6 +116,28 @@ ItemshopPanel::ItemshopPanel()
     // ItemshopTree
     treePanel = AddChild<ItemshopTreePanel>(L"rightslot", new ItemshopTreePanel(Vector2(605, 106)));
 
+    selectItemIcon = AddChild<UI>(L"selectItemIcon", new UI(L"", Vector2(619, 434)));
+    selectItemIcon->transform->scale = { 0.56f, 0.56f, 0.f };
+
+    selectItemNameLabel = AddChild<Label>(L"selectItemNameLabel", new Label(15));
+    selectItemNameLabel->SetLocation(Vector2(666, 442));
+    selectItemNameLabel->SetColor(255, 255, 255, 255);
+    selectItemNameLabel->align = Label::Align::Left;
+    selectItemNameLabel->valign = Label::VAlign::Middle;
+
+    selectItemPriceLabel = AddChild<Label>(L"selectItemPriceLabel", new Label(15));
+    selectItemPriceLabel->SetLocation(Vector2(695, 463));
+    selectItemPriceLabel->SetColor(255, 191, 179, 138);
+    selectItemPriceLabel->align = Label::Align::Left;
+    selectItemPriceLabel->valign = Label::VAlign::Middle;
+
+    selectItemDescLabel = AddChild<Label>(L"selectItemDescLabel", new Label(15));
+    selectItemDescLabel->SetLocation(Vector2(620, 498));
+    selectItemDescLabel->SetColor(255, 191, 179, 138);
+    selectItemDescLabel->align = Label::Align::Left;
+    selectItemDescLabel->valign = Label::VAlign::Top;
+    selectItemDescLabel->SetWidthLimit(378 - (12 * 2));
+
     //Hide();
 }
 
@@ -146,12 +169,29 @@ void ItemshopPanel::Update()
 
     if (Input::GetKeyDown('P'))
     {
-        if (!visible)    Show();
-        else            Hide();
+        if (!visible) Show();
+        else          Hide();
     }
 
     if (champion != nullptr) {
         currentGoldLabel->SetText((int)champion->stat->GetBaseValue(StatType::Gold));
+        if (selectedSlot == nullptr) {
+
+        }
+        else {
+            Item* item = selectedSlot->GetItem();
+            selectItemIcon->SetTexture(item->GetIcon());
+            selectItemNameLabel->SetText(item->GetName());
+            selectItemPriceLabel->SetText(item->GetPrice());
+            selectItemDescLabel->SetText(item->GetDesc());
+        }
+    }
+
+    if (PlayerInfoPanel::GetInstance()->GetSelectedItemIdx() == -1) {
+        sellButton->enable = false;
+    }
+    else {
+        sellButton->enable = true;
     }
 }
 

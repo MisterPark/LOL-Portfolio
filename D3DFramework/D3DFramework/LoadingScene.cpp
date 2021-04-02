@@ -259,8 +259,8 @@ void LoadingScene::ResEnterGame(CPacket* pack)
 		pack->Dequeue((char*)nick, 40);
 		*pack >> number >> champ >> spell1 >> spell2;
 
-		screens[number]->nickName->text = nick;
-		if (screens[number]->nickName->text == net->nick)
+		screens[number]->nickName->SetText(nick);
+		if (screens[number]->nickName->GetText() == net->nick)
 		{
 			net->users[number].isMine = true;
 			net->number = number;
@@ -304,7 +304,7 @@ void LoadingScene::ResLoading(CPacket* pack)
 
 	WCHAR wstr[16] = {};
 	swprintf_s(wstr, L"%d%%", percent);
-	screens[userNumber]->progressLabel->text = wstr;
+	screens[userNumber]->progressLabel->SetText(wstr);
 }
 
 void LoadingScene::ReqCompleteLoading()
@@ -368,13 +368,13 @@ void LoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->spell2->SetSize(spellW, spellH);
 		screens[i]->spell2->SetLocation(borderX + spell2offsetX, borderY + spelloffsetY);
 		screens[i]->spell2->SetTexture(L"Empty");
-		screens[i]->champName->text = L"";
+		screens[i]->champName->SetText(L"");
 		screens[i]->champName->transform->position = { float(borderX + nameOffsetX), float(borderY + champNameOffsetY),0.f };
 		screens[i]->champName->align = Label::Align::Center;
-		screens[i]->nickName->text = L"";
+		screens[i]->nickName->SetText(L"");
 		screens[i]->nickName->transform->position = { float(borderX + nameOffsetX), float(borderY + nickNameOffsetY),0.f };
 		screens[i]->nickName->align = Label::Align::Center;
-		screens[i]->progressLabel->text = L"0%";
+		screens[i]->progressLabel->SetText(L"0%%");
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;

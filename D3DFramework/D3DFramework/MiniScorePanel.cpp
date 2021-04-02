@@ -47,9 +47,8 @@ MiniScorePanel::MiniScorePanel()
 
 	blueKillLabel->align = Label::Align::Right;
 	
-
-	blueKillLabel->foreColor = D3DCOLOR_ARGB(255, 81, 162, 230);
-	redKillLabel->foreColor = D3DCOLOR_ARGB(255, 232, 61, 50);
+	blueKillLabel->SetColor(255, 81, 162, 230);
+	redKillLabel->SetColor(255, 232, 61, 50);
 
 	blueKillLabel->SetLocation(85.f, 5.f);
 	redKillLabel->SetLocation(110.f, 5.f);
@@ -87,6 +86,25 @@ MiniScorePanel* MiniScorePanel::GetInstance()
 void MiniScorePanel::DestroyInstance()
 {
 	Safe_Delete(&self);
+}
+
+void MiniScorePanel::Update()
+{
+	float dt = Time::DeltaTime();
+
+	time += dt;
+
+	int second = (int)time;
+	int minute = 0;
+	if (second != 0)
+	{
+		minute = second / 60;
+	}
+	second = (int)fmodf(time, 60.f);
+
+	timeLabel->SetText(L"%02d:%02d", minute, second);
+
+	Panel::Update();
 }
 
 void MiniScorePanel::SetBlueTeamKillScore(int _value)
@@ -127,5 +145,34 @@ void MiniScorePanel::SetMinionScore(int _value)
 
 void MiniScorePanel::SetTime(int _minute, int _second)
 {
-	timeLabel->SetText(L"%02d:%02d", _minute, _second);
+	time = (float)(_minute * 60 + _second);
+}
+
+bool MiniScorePanel::GetSecond(float* _outSec)
+{
+	if (_outSec == nullptr) return false;
+
+	*_outSec = time;
+
+	return true;
+}
+
+bool MiniScorePanel::GetMinute(int* _outMin)
+{
+	if (_outMin == nullptr) return false;
+
+	*_outMin = (((int)time) / 60);
+
+	return true;
+}
+
+bool MiniScorePanel::GetTime(int* _outMin, int* _outSec)
+{
+	if (_outMin == nullptr) return false;
+	if (_outSec == nullptr) return false;
+
+	*_outSec = (int)fmodf(time, 60.f);
+	*_outMin = (((int)time) / 60);
+
+	return true;
 }

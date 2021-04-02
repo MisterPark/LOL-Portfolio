@@ -185,7 +185,7 @@ void Engine::SoundManager::LoadSoundFile()
 {
 	_finddata_t fd; 
 
-	long handle = _findfirst("Sound/*.*", &fd);
+	long handle = _findfirst("Resource/Sound/*.*", &fd);
 
 	if (handle == 0)
 		return; 
@@ -194,7 +194,7 @@ void Engine::SoundManager::LoadSoundFile()
 
 	int iResult = 0; 
 
-	char szCurPath[128] = "Sound/";
+	char szCurPath[128] = "Resource/Sound/";
 	char szFullPath[128] = ""; 
 
 	while (iResult != -1)
@@ -202,9 +202,9 @@ void Engine::SoundManager::LoadSoundFile()
 		strcpy_s(szFullPath, szCurPath); 
 		strcat_s(szFullPath, fd.name);
 		FMOD_SOUND* pSound = nullptr; 
-
+		
 		FMOD_RESULT eRes = FMOD_System_CreateSound(pSoundManager->pSystem, szFullPath, FMOD_HARDWARE, 0, &pSound);
-
+		
 		if (eRes == FMOD_OK)
 		{
 			int iLength = strlen(fd.name) + 1; 

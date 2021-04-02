@@ -30,6 +30,7 @@ public:
 	void PlayerPanel_OnClick(GameObject* sender, MouseEventArg* arg);
 	void SellSelectedItem();
 	void UnselectInventorySlot();
+	int GetSelectedItemIdx();
 
 public:
 	int screenW = 1280;
