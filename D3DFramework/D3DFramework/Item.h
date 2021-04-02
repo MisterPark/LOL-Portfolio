@@ -2,6 +2,7 @@
 using namespace Engine;
 #include "Stat.h"
 #include "Skill_Item.h"
+#include "Buff_Item.h"
 
 enum class ItemType
 {
@@ -48,6 +49,10 @@ public:
 
 	void Passive();
 	void Active();
+
+	int Sell();
+	void Destroy();
+	Buff_Item* StatBuffSetting(Unit* _host);
 	//void Use();
 
 	UINT id;
@@ -62,5 +67,6 @@ public:
 	//list<UINT> itemParentId;
 	//list<UINT> itemChildId;
 	list<Skill_Item*> skillList;
+	Buff_Item* buffItemStat = nullptr; // 팔때 제거해줘야함
 };
 
