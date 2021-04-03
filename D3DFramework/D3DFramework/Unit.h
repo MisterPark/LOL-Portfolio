@@ -6,6 +6,7 @@
 #include "DamageCalc.h"
 #include "Skill.h"
 #include "Inventory.h"
+#include "Aura.h"
 
 class Indicator;
 class TargetingSkill;
@@ -215,6 +216,7 @@ public:
 	Indicator* attackIndicator = nullptr;
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
+	Aura* aura = nullptr;
 
 public:
 	// 이동모션 관련

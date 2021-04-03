@@ -8,6 +8,10 @@
 #include "Garen.h"
 #include "TargetingSkill.h"
 #include "Skill_Attack.h"
+#include "RedMonster.h"
+#include "BlueMonster.h"
+#include "Effect_Red_Buff.h"
+
 
 list<Unit*> Unit::unitList;
 
@@ -31,7 +35,8 @@ Unit::Unit()
 
 	//행동트리
 	bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
-	
+	// 오오라
+	aura = (Aura*)AddComponent<Aura>(L"Aura");
 }
 
 Unit::~Unit()
@@ -42,6 +47,7 @@ Unit::~Unit()
 	agent = nullptr;
 	stat = nullptr;
 	bt = nullptr;
+	aura = nullptr;
 	attackIndicator = nullptr;
 
 	for (auto calc : damageCalcList)
@@ -312,6 +318,17 @@ void Unit::OnKilled(Unit* target)
 		float cs = target->stat->GetBaseValue(StatType::MinionKilled);
 		stat->IncreaseBaseValue(StatType::Experience, exp);
 		stat->IncreaseBaseValue(StatType::MinionKilled, cs);
+
+		if (dynamic_cast<RedMonster*>(target) != nullptr)
+		{
+			// TODO : 이펙트 말고 실제 버프도 추가해야함
+			aura->ShowRedBuff(true);
+		}
+		if (dynamic_cast<BlueMonster*>(target) != nullptr)
+		{
+			aura->ShowBlueBuff(true);
+			//aura->ShowBaronBuff(true);
+		}
 	}
 
 

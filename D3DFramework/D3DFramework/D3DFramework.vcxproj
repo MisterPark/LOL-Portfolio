@@ -180,9 +180,13 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="Aura.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="Effect_Baron_Buff.h" />
+    <ClInclude Include="Effect_Blue_Buff.h" />
+    <ClInclude Include="Effect_Red_Buff.h" />
     <ClInclude Include="ItemshopTreePanel.h" />
     <ClInclude Include="ItemshopSlot.h" />
     <ClInclude Include="Missile.h" />
@@ -372,6 +376,7 @@
     <ClInclude Include="TestMan.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestScene2.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="TextParser.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
@@ -400,9 +405,13 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="Aura.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="Effect_Baron_Buff.cpp" />
+    <ClCompile Include="Effect_Blue_Buff.cpp" />
+    <ClCompile Include="Effect_Red_Buff.cpp" />
     <ClCompile Include="ItemshopTreePanel.cpp" />
     <ClCompile Include="ItemshopSlot.cpp" />
     <ClCompile Include="Missile.cpp" />
@@ -585,6 +594,7 @@
     <ClCompile Include="TestMan.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestScene2.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextParser.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />

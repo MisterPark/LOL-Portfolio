@@ -79,7 +79,7 @@ void LabelRenderer::Render()
 	// Normal
 	label->pSprite->SetTransform(&matWorld);
 	label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->foreColor);
-
+	
 	label->pSprite->End();
 }
 

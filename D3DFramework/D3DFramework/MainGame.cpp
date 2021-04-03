@@ -320,6 +320,7 @@ void Engine::MainGame::LoadUISprite()
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"icon_spell_summonerspell_recall_01.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"baron_recall.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"textbox.png");
 
 	// Itemshop
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
@@ -341,36 +342,11 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_hoveritem.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_blankslot.png");
 
-	// item
-	_finddata_t fd;
-	char path[1024];
-	char filter[MAX_PATH] = "*.dds";
-	_fullpath(path, "Resource\\UI\\item\\", 1024);
-	strcat_s(path, filter);
-	long handle = _findfirst(path, &fd);
-	if (handle != -1)
-	{
-		do {
-			std::wstring file(fd.name, &fd.name[260]);
-			RenderManager::LoadSprite(L"Resource\\UI\\item\\", file);
-		} while (_findnext(handle, &fd) != -1);
-		_findclose(handle);
-	}
-	// missfortune
-	_finddata_t fd2;
-	char path2[1024];
-	char filter2[MAX_PATH] = "*.dds";
-	_fullpath(path2, "Resource\\Mesh\\character\\missfortune\\particles\\", 1024);
-	strcat_s(path2, filter2);
-	long handle2 = _findfirst(path2, &fd2);
-	if (handle2 != -1)
-	{
-		do {
-			std::wstring file2(fd2.name, &fd2.name[260]);
-			RenderManager::LoadSprite(L"Resource\\Mesh\\character\\missfortune\\particles\\", file2);
-		} while (_findnext(handle2, &fd2) != -1);
-		_findclose(handle2);
-	}
+
+	LoadAllTextureInFolder(L"Resource\\UI\\item\\");
+	LoadAllTextureInFolder(L"Resource\\UI\\buff\\");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\missfortune\\particles\\");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\garen\\particles\\");
 
 	// scoreboard
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");
@@ -515,4 +491,25 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 
-}										
+}
+
+void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path)
+{
+	char _cPath[260] = {};
+	WideCharToMultiByte(CP_ACP, 0, _path.c_str(), _path.length(), _cPath, _path.length(), NULL, NULL);
+
+	_finddata_t fd;
+	char path[1024];
+	char filter[MAX_PATH] = "*.dds";
+	_fullpath(path, _cPath, 1024);
+	strcat_s(path, filter);
+	long handle = _findfirst(path, &fd);
+	if (handle != -1)
+	{
+		do {
+			std::wstring file(fd.name, &fd.name[260]);
+			RenderManager::LoadSprite(_path.c_str(), file);
+		} while (_findnext(handle, &fd) != -1);
+		_findclose(handle);
+	}
+}

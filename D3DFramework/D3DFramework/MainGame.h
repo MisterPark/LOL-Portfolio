@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 namespace Engine
@@ -27,6 +27,7 @@ namespace Engine
 
 		
 		static void LoadUISprite();
+		static void LoadAllTextureInFolder(const wstring& _path);
 
 		Triangle* tri = nullptr;
 	public:

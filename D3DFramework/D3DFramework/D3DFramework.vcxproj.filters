@@ -340,6 +340,12 @@
     <Filter Include="GameObject\Missile">
       <UniqueIdentifier>{0262d8c7-05da-4e70-8a1e-40a9d961435a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject\BuffEffect">
+      <UniqueIdentifier>{fb2ffef4-2bca-47ee-ab18-99e63fd77359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Aura">
+      <UniqueIdentifier>{2d2fbd3d-6c94-4dd3-b740-d419fb86a19f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1021,6 +1027,15 @@
     <ClInclude Include="EffectObject.h">
       <Filter>GameObject\EffectObject</Filter>
     </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Red_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Aura.h" />
+    <ClInclude Include="Effect_Blue_Buff.h" />
+    <ClInclude Include="Effect_Baron_Buff.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1753,6 +1768,15 @@
     <ClCompile Include="EffectObject.cpp">
       <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Red_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Aura.cpp" />
+    <ClCompile Include="Effect_Blue_Buff.cpp" />
+    <ClCompile Include="Effect_Baron_Buff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

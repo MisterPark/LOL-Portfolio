@@ -59,6 +59,8 @@ void Engine::ForwardRenderer::SetMesh(Mesh* mesh)
 
 void Engine::ForwardRenderer::Render()
 {
+	if (gameObject->visible == false) return;
+
 	UINT passCount{};
 	int const subsetCount = this->mesh->GetSubsetCount();
 	Matrix mViewSpace = Camera::main->GetViewMatrix();
