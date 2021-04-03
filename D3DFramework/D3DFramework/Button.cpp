@@ -36,7 +36,6 @@ void Button::OnHover()
 	mesh->SetTexture(hoverTexture);
 	SetSizeByTexture();
 	//SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
-	
 }
 
 void Button::OnLeave()
@@ -135,5 +134,5 @@ void Button::SetLabelVAlign(Label::VAlign _valign)
 void Button::SetLabelColor(D3DCOLOR _color)
 {
 	if (label == nullptr) return;
-	label->foreColor = _color;
+	label->SetColor(_color);
 }

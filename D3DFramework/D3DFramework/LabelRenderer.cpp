@@ -13,12 +13,15 @@ void LabelRenderer::Render()
 	if (gameObject->visible == false) return;
 	if (visible == false) return;
 	if (label == nullptr) return;
-	
+
 	int screenW = MainGame::GetWidth();
 	int screenH = MainGame::GetHeight();
 
 	Matrix matWorld = transform->GetWorldMatrix();
-	label->pFont->DrawTextW(nullptr, label->text.c_str(), lstrlen(label->text.c_str()), &label->rcDraw, DT_CALCRECT, label->foreColor);
+
+	std::wstring text = label->GetDrawText();
+
+	label->pFont->DrawTextW(nullptr, text.c_str(), lstrlen(text.c_str()), &label->rcDraw, DT_CALCRECT, label->GetColor());
 	switch (label->align)
 	{
 	case Label::Align::Left:
@@ -57,9 +60,10 @@ void LabelRenderer::Render()
 		matWorldShadow._42 += 2;
 
 		label->pSprite->SetTransform(&matWorldShadow);
-		label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->shadowColor);
+		label->pFont->DrawTextW(label->pSprite, text.c_str(), lstrlen(text.c_str()), nullptr, 0, label->GetShadowColor());
 	}
 
+	// Outline
 	if (label->outline)
 	{
 		Matrix matWorldOutline[4] = { matWorld, matWorld, matWorld, matWorld };
@@ -72,14 +76,14 @@ void LabelRenderer::Render()
 		for (int i = 0; i < 4; ++i)
 		{
 			label->pSprite->SetTransform(&matWorldOutline[i]);
-			label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->outlineColor);
+			label->pFont->DrawTextW(label->pSprite, text.c_str(), lstrlen(text.c_str()), nullptr, 0, label->GetOutlineColor());
 		}
 	}
 
 	// Normal
 	label->pSprite->SetTransform(&matWorld);
-	label->pFont->DrawTextW(label->pSprite, label->text.c_str(), lstrlen(label->text.c_str()), nullptr, 0, label->foreColor);
-	
+	label->pFont->DrawTextW(label->pSprite, text.c_str(), lstrlen(text.c_str()), nullptr, 0, label->GetColor());
+
 	label->pSprite->End();
 }
 

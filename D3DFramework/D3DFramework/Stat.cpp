@@ -80,7 +80,7 @@ void Stat::PreUpdate()
     
     // Item
     
-    for (int i = 0; i < INVENTORY_MAX; i++)
+   /* for (int i = 0; i < INVENTORY_MAX; i++)
     {
         Item* item = unit->inventory.GetItem(i);
         if (item == nullptr)
@@ -93,7 +93,7 @@ void Stat::PreUpdate()
 
             additional[(int)statType] += statValue;
         }
-    }
+    }*/
     
     // Final
     for (int i = 0; i < count; i++)
@@ -189,6 +189,11 @@ float Stat::GetValue(StatType _type)
 
 void Stat::AddBuff(Buff* buff)
 {
+    if (buff->buffName == Buff::BuffName::Item) {
+        buffList.push_back(buff);
+        return;
+    }
+
     for (auto iter = buffList.begin(); iter != buffList.end(); iter++)
     {
         if (buff->buffName == (*iter)->buffName) {

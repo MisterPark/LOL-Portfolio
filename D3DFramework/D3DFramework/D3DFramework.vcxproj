@@ -182,6 +182,7 @@
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Aura.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
+    <ClInclude Include="Buff_Item.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Effect_Baron_Buff.h" />
@@ -407,6 +408,7 @@
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Aura.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
+    <ClCompile Include="Buff_Item.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Effect_Baron_Buff.cpp" />

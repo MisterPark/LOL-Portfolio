@@ -52,37 +52,37 @@ ScorePanel::ScorePanel()
 	timeLabel[(UINT)MobTimeID::WestBlue] = mobTimePanel->AddChild<Label>(L"timeWestBlueLabel", new Label());
 	timeLabel[(UINT)MobTimeID::WestBlue]->SetLocation(53, 23);
 	timeLabel[(UINT)MobTimeID::WestBlue]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::WestBlue]->foreColor = D3DCOLOR_ARGB(255, 148, 181, 194);
+	timeLabel[(UINT)MobTimeID::WestBlue]->SetColor(255, 148, 181, 194);
 
 	timeLabel[(UINT)MobTimeID::SouthRed] = mobTimePanel->AddChild<Label>(L"timeSouthRedLabel", new Label());
 	timeLabel[(UINT)MobTimeID::SouthRed]->SetLocation(132, 23);
 	timeLabel[(UINT)MobTimeID::SouthRed]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::SouthRed]->foreColor = D3DCOLOR_ARGB(255, 194, 147, 148);
+	timeLabel[(UINT)MobTimeID::SouthRed]->SetColor(255, 194, 147, 148);
 
 	timeLabel[(UINT)MobTimeID::NorthRed] = mobTimePanel->AddChild<Label>(L"timeNorthRedLabel", new Label());
 	timeLabel[(UINT)MobTimeID::NorthRed]->SetLocation(411, 23);
 	timeLabel[(UINT)MobTimeID::NorthRed]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::NorthRed]->foreColor = D3DCOLOR_ARGB(255, 194, 147, 148);
+	timeLabel[(UINT)MobTimeID::NorthRed]->SetColor(255, 194, 147, 148);
 
 	timeLabel[(UINT)MobTimeID::EastBlue] = mobTimePanel->AddChild<Label>(L"timeEastBlueLabel", new Label());
 	timeLabel[(UINT)MobTimeID::EastBlue]->SetLocation(489, 23);
 	timeLabel[(UINT)MobTimeID::EastBlue]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::EastBlue]->foreColor = D3DCOLOR_ARGB(255, 148, 181, 194);
+	timeLabel[(UINT)MobTimeID::EastBlue]->SetColor(255, 148, 181, 194);
 
 	timeLabel[(UINT)MobTimeID::Dragon] = mobTimePanel->AddChild<Label>(L"timeDragonLabel", new Label());
 	timeLabel[(UINT)MobTimeID::Dragon]->SetLocation(319, 23);
 	timeLabel[(UINT)MobTimeID::Dragon]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::Dragon]->foreColor = D3DCOLOR_ARGB(255, 199, 173, 150);
+	timeLabel[(UINT)MobTimeID::Dragon]->SetColor(255, 199, 173, 150);
 
 	timeLabel[(UINT)MobTimeID::Baron] = mobTimePanel->AddChild<Label>(L"timeBaronLabel", new Label());
 	timeLabel[(UINT)MobTimeID::Baron]->SetLocation(224, 23);
 	timeLabel[(UINT)MobTimeID::Baron]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::Baron]->foreColor = D3DCOLOR_ARGB(255, 188, 152, 195);
+	timeLabel[(UINT)MobTimeID::Baron]->SetColor(255, 188, 152, 195);
 
 	timeLabel[(UINT)MobTimeID::Herald] = heraldTimePanel->AddChild<Label>(L"timeHeraldLabel", new Label());
 	timeLabel[(UINT)MobTimeID::Herald]->SetLocation(93, 17);
 	timeLabel[(UINT)MobTimeID::Herald]->SetText(L"%d:%d", 1, 30);
-	timeLabel[(UINT)MobTimeID::Herald]->foreColor = D3DCOLOR_ARGB(255, 188, 152, 195);
+	timeLabel[(UINT)MobTimeID::Herald]->SetColor(255, 188, 152, 195);
 
 	for (int i = 0; i < (UINT)MobTimeID::End; ++i) {
 		timeLabel[i]->align = Label::Align::Center;
@@ -142,7 +142,7 @@ ScorePanel::ScorePanel()
 	turretCountLabel[(UINT)Team::BLUE]->SetText(0);
 	turretCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
 	turretCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
-	turretCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
+	turretCountLabel[(UINT)Team::BLUE]->SetColor(255, 78, 157, 222);
 
 	turretCountLabel[(UINT)Team::RED] = new Label(15);
 	mainPanel->AddChild<Label>(L"RedTurretCount", turretCountLabel[(UINT)Team::RED]);
@@ -150,7 +150,7 @@ ScorePanel::ScorePanel()
 	turretCountLabel[(UINT)Team::RED]->SetText(0);
 	turretCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
 	turretCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
-	turretCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
+	turretCountLabel[(UINT)Team::RED]->SetColor(255, 223, 60, 50);
 
 	killCountLabel[(UINT)Team::BLUE] = new Label(20);
 	mainPanel->AddChild<Label>(L"BlueKillCount", killCountLabel[(UINT)Team::BLUE]);
@@ -158,7 +158,7 @@ ScorePanel::ScorePanel()
 	killCountLabel[(UINT)Team::BLUE]->SetText(0);
 	killCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
 	killCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
-	killCountLabel[(UINT)Team::BLUE]->foreColor = D3DCOLOR_ARGB(255, 78, 157, 222);
+	killCountLabel[(UINT)Team::BLUE]->SetColor(255, 78, 157, 222);
 
 	killCountLabel[(UINT)Team::RED] = new Label(20);
 	mainPanel->AddChild<Label>(L"RedKillCount", killCountLabel[(UINT)Team::RED]);
@@ -166,7 +166,7 @@ ScorePanel::ScorePanel()
 	killCountLabel[(UINT)Team::RED]->SetText(0);
 	killCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
 	killCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
-	killCountLabel[(UINT)Team::RED]->foreColor = D3DCOLOR_ARGB(255, 223, 60, 50);
+	killCountLabel[(UINT)Team::RED]->SetColor(255, 223, 60, 50);
 
 // 챔피언 정보
 	for (int i = (UINT)Team::BLUE; i <= (UINT)Team::RED; ++i) {
@@ -185,7 +185,7 @@ ScorePanel::ScorePanel()
 			DeadCount->SetText(40);
 			DeadCount->align = Label::Align::Center;
 			DeadCount->valign = Label::VAlign::Middle;
-			DeadCount->foreColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+			DeadCount->SetColor(255, 255, 0, 0);
 
 			// 챔피언 초상화
 			UI* portrait = champPanel->CreateChild(L"Portrait", Vector2(80, 10));
@@ -325,7 +325,7 @@ void ScorePanel::Update()
 				{
 					auto item = champ->inventory.GetItem(k);
 					if (item == nullptr) championItemUI[i][j][k]->SetTexture(L"scoreboard_itemempty");
-					else                 championItemUI[i][j][k]->SetTexture(item->icon);
+					else                 championItemUI[i][j][k]->SetTexture(item->GetIcon());
 				}
 
 			}

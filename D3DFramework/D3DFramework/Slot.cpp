@@ -14,7 +14,7 @@ bool Slot::Pop()
 {
     if (item == nullptr) return false;
 
-    switch (item->type)
+    switch (item->GetType())
     {
     case ItemType::Consume:
         if ((--num) <= 0) {

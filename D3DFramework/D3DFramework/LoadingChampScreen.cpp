@@ -16,9 +16,9 @@ LoadingChampScreen::LoadingChampScreen()
 	champName = new Label(20);
 	nickName = new Label(20);
 	progressLabel = new Label(20);
-	champName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
-	nickName->foreColor = D3DCOLOR_ARGB(255, 250, 250, 250);
-	progressLabel->foreColor = D3DCOLOR_ARGB(255, 0, 250, 0);
+	champName->SetColor(255, 250, 250, 250);
+	nickName->SetColor(255, 250, 250, 250);
+	progressLabel->SetColor(255, 0, 250, 0);
 
 }
 
@@ -73,43 +73,43 @@ void LoadingChampScreen::SetChampion(ChampionType type)
 	switch (type)
 	{
 	case ChampionType::Garen:
-		champName->text = L"가렌";
+		champName->SetText(L"가렌");
 		champ->SetTexture(L"garenloadscreen");
 		break;
 	case ChampionType::Darius:
-		champName->text = L"다리우스";
+		champName->SetText(L"다리우스");
 		champ->SetTexture(L"dariusloadscreen");
 		break;
 	case ChampionType::Diana:
-		champName->text = L"다이애나";
+		champName->SetText(L"다이애나");
 		champ->SetTexture(L"dianaloadscreen");
 		break;
 	case ChampionType::Leona:
-		champName->text = L"레오나";
+		champName->SetText(L"레오나");
 		champ->SetTexture(L"leonaloadscreen");
 		break;
 	case ChampionType::Leesin:
-		champName->text = L"리 신";
+		champName->SetText(L"리 신");
 		champ->SetTexture(L"leesinloadscreen");
 		break;
 	case ChampionType::Missfortune:
-		champName->text = L"미스포츈";
+		champName->SetText(L"미스포츈");
 		champ->SetTexture(L"missfortuneloadscreen");
 		break;
 	case ChampionType::Blitzcrank:
-		champName->text = L"블리츠크랭크";
+		champName->SetText(L"블리츠크랭크");
 		champ->SetTexture(L"blitzcrankloadscreen");
 		break;
 	case ChampionType::Ahri:
-		champName->text = L"아리";
+		champName->SetText(L"아리");
 		champ->SetTexture(L"ahriloadscreen");
 		break;
 	case ChampionType::Jax:
-		champName->text = L"잭스";
+		champName->SetText(L"잭스");
 		champ->SetTexture(L"jaxloadscreen");
 		break;
 	case ChampionType::Jinx:
-		champName->text = L"징크스";
+		champName->SetText(L"징크스");
 		champ->SetTexture(L"jinxloadscreen");
 		break;
 	default:

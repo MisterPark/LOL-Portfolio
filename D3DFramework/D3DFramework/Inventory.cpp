@@ -15,7 +15,7 @@ bool Inventory::Push(Item* item)
 {
     if (item == nullptr) return false;
 
-    if (item->type == ItemType::Trinkets) {
+    if (item->GetType() == ItemType::Trinkets) {
 
     }
     else {
@@ -42,4 +42,16 @@ bool Inventory::Pop(int _idx)
 Item* Inventory::GetItem(int _idx)
 {
     return slots[_idx].item;
+}
+
+void Inventory::ItemSell(int _idx)
+{
+    if ((_idx < 0) || (_idx >= INVENTORY_MAX)) return;
+
+    if (slots[_idx].item == nullptr) return;
+
+    /*host->stat->IncreaseBaseValue(StatType::Gold, */slots[_idx].item->Sell()/*)*/;
+    slots[_idx].Pop();
+
+    return;
 }

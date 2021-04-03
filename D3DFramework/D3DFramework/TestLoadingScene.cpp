@@ -85,9 +85,7 @@ void TestLoadingScene::Update()
 {
 	Scene::Update();
 	int loadPercent =  (int)(((float)resourceLoadCnt / resourceMax) * 100);
-	WCHAR buf[16] = {};
-	swprintf_s(buf, L"%d%%", loadPercent);
-	screens[0]->progressLabel->text = buf;
+	screens[0]->progressLabel->SetText(L"%d%%", loadPercent);
 
 	if (resourceLoadCnt == resourceMax)
 	{
@@ -212,13 +210,13 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->spell2->SetTexture(L"Empty");
 		screens[i]->spell2->SetSize(spellW, spellH);
 		screens[i]->spell2->SetLocation(borderX + spell2offsetX, borderY + spelloffsetY);
-		screens[i]->champName->text = L"";
+		screens[i]->champName->SetText(L"");
 		screens[i]->champName->transform->position = { float(borderX + nameOffsetX), float(borderY + champNameOffsetY),0.f };
 		screens[i]->champName->align = Label::Align::Center;
-		screens[i]->nickName->text = L"";
+		screens[i]->nickName->SetText(L"");
 		screens[i]->nickName->transform->position = { float(borderX + nameOffsetX), float(borderY + nickNameOffsetY),0.f };
 		screens[i]->nickName->align = Label::Align::Center;
-		screens[i]->progressLabel->text = L"0%";
+		screens[i]->progressLabel->SetText(L"0%%");
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
 		borderX = borderX + borderW + padding;

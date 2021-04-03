@@ -7,6 +7,7 @@
 #include "Indicator.h"
 #include "PlayerInfoPanel.h"
 #include "TargetingSkill.h"
+#include "Inventory.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -30,7 +31,11 @@ void PlayerController::Update()
 {
     if (gameObject == nullptr)return;
 
-    
+    if (Input::GetKeyDown('T'))
+    {
+        unit->inventory.ItemSell(0);
+    }
+
     if (Input::GetKeyDown('A'))
     {
         unit->Attack();

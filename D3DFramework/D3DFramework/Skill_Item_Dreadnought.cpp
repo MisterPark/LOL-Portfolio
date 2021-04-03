@@ -12,7 +12,7 @@ Skill_Item_Dreadnought::Skill_Item_Dreadnought(Unit* _hostUnit)
 
 Skill_Item_Dreadnought::~Skill_Item_Dreadnought()
 {
-	//buffDreadnought->tick = INFINITY;
+	buffDreadnought->duration = 0.f;
 
 	//for (auto& buff : *host->stat->GetBuffList()) {
 	//	if (buff->buffName == Buff::BuffName::Dreadnought) {
