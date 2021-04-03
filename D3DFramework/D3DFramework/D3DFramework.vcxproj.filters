@@ -349,6 +349,12 @@
     <Filter Include="Component\Aura">
       <UniqueIdentifier>{2d2fbd3d-6c94-4dd3-b740-d419fb86a19f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Base">
+      <UniqueIdentifier>{4ee3d303-aaab-47bb-b031-d1e09e2ca397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Minion\Spawner">
+      <UniqueIdentifier>{c00324c5-e545-4cdb-ad99-aea8d75c409d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -359,15 +365,6 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryPool.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>Lib\MainGame</Filter>
@@ -384,26 +381,8 @@
     <ClInclude Include="Camera.h">
       <Filter>GameObject\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>GameObject\Cursor</Filter>
-    </ClInclude>
-    <ClInclude Include="Random.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="Animation2D.h">
       <Filter>Component\Animation</Filter>
@@ -431,9 +410,6 @@
     </ClInclude>
     <ClInclude Include="Protocol.h">
       <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="LobbyWindow.h">
       <Filter>Lib\MainGame</Filter>
@@ -744,9 +720,6 @@
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="RenderTarget.h">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClInclude>
@@ -764,9 +737,6 @@
     </ClInclude>
     <ClInclude Include="TurretFloatingBar.h">
       <Filter>GameObject\Unit\Building\Turret</Filter>
-    </ClInclude>
-    <ClInclude Include="TextParser.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="MinionAI.h">
       <Filter>Component\AI</Filter>
@@ -1039,9 +1009,51 @@
     <ClInclude Include="Effect_Red_Buff.h">
       <Filter>GameObject\EffectObject\BuffEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Aura.h" />
-    <ClInclude Include="Effect_Blue_Buff.h" />
-    <ClInclude Include="Effect_Baron_Buff.h" />
+    <ClInclude Include="Effect_Blue_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Baron_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Aura.h">
+      <Filter>Component\Aura</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParser.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1052,9 +1064,6 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Texture</Filter>
@@ -1073,21 +1082,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GameObject\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Random.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>GameObject\Cursor</Filter>
@@ -1178,9 +1172,6 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>Lib\MainGame</Filter>
@@ -1496,9 +1487,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClCompile>
@@ -1516,9 +1504,6 @@
     </ClCompile>
     <ClCompile Include="TurretMissile.cpp">
       <Filter>GameObject\Unit\Building\Turret</Filter>
-    </ClCompile>
-    <ClCompile Include="TextParser.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="MinionAI.cpp">
       <Filter>Component\AI</Filter>
@@ -1783,9 +1768,42 @@
     <ClCompile Include="Effect_Red_Buff.cpp">
       <Filter>GameObject\EffectObject\BuffEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Aura.cpp" />
-    <ClCompile Include="Effect_Blue_Buff.cpp" />
-    <ClCompile Include="Effect_Baron_Buff.cpp" />
+    <ClCompile Include="Effect_Baron_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Blue_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Aura.cpp">
+      <Filter>Component\Aura</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TextParser.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

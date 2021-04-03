@@ -193,6 +193,8 @@ public:
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
+	bool IsEnemyInAttackRange();
+	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
 	Skill_Attack* GetSkillAttack();

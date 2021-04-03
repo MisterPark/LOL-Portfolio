@@ -654,6 +654,7 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	for (Unit* iter : unitList)
 	{
 		if (iter->IsDead()) continue;
+		if (team == Team::NEUTRAL) continue;
 		if (team != iter->team)
 		{
 			Vector3 to = iter->transform->position - point;
@@ -667,6 +668,47 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	}
 
 	return target;
+}
+
+bool Unit::IsEnemyInAttackRange()
+{
+	float attackRange = stat->GetValue(StatType::Range);
+
+	for (Unit* iter : unitList)
+	{
+		if (iter->IsDead()) continue;
+		if (team == Team::NEUTRAL) continue;
+		if (team != iter->team)
+		{
+			Vector3 to = iter->transform->position - transform->position;
+			float dist = to.Length();
+			if (dist < attackRange)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool Unit::IsTargetInAttackRange()
+{
+	float attackRange = stat->GetValue(StatType::Range);
+
+	if(attackTarget != nullptr)
+	{
+		if (attackTarget->IsDead()) return false;
+
+		Vector3 to = attackTarget->transform->position - transform->position;
+		float dist = to.Length();
+		if (dist < attackRange)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Unit::SkillLevelUp(SkillIndex skillIndex)
