@@ -61,7 +61,6 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
 	stat->SetBaseValue(StatType::CriticlaDamage, 1.f);
-	stat->SetBaseValue(StatType::MaxExperience, 90.f);
 	// Test
 	stat->SetBaseValue(StatType::SkillPoint, 18.f);
 	stat->SetBaseValue(StatType::CriticlaChance, 0.5f);
@@ -111,18 +110,6 @@ void Garen::OnAttackBegin()
 void Garen::OnAttackEnd()
 {
 	Unit::OnAttackEnd();
-	//stat->RemoveBuff<Buff_GarenQAttack>();
-	for (int i = 0; i < (int)SkillIndex::END; i++)	{
-		if(skillList[i] != nullptr)
-			skillList[i]->OnAttackEnd();
-	}
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnAttackEnd();
-		}
-	}
 }
 
 void Garen::SkillQAction()

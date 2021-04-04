@@ -14,6 +14,7 @@ Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 	coolTimeTick = coolTime;
 	duration = 3.f;
 	host = _hostUnit;
+	level = 3;
 }
 
 Skill_Garen_E::~Skill_Garen_E()
@@ -22,7 +23,7 @@ Skill_Garen_E::~Skill_Garen_E()
 
 void Skill_Garen_E::Start()
 {
-	if (GetCooltime() > 0.f)
+	if (level == 0 || GetCooltime() > 0.f)
 		return;
 	if (tick > 0.f) {
 		realCoolTimeTick += duration - tick;
