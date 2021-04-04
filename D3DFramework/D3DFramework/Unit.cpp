@@ -317,6 +317,14 @@ void Unit::OnKilled(Unit* target)
 
 }
 
+void Unit::OnHit(Unit* target)
+{
+}
+
+void Unit::OnDamaged(Unit* target, float damage)
+{
+}
+
 void Unit::DeadAction()
 {
 	SetState(State::DEATH);
@@ -541,6 +549,7 @@ void Unit::TakeDamage(float _damage)
 
 	stat->DecreaseBaseValue(StatType::Health, _damage);
 	hitFlag = true;
+
 }
 
 float Unit::DecreaseShieldBuff(float _damage)
@@ -772,3 +781,15 @@ void Unit::SellItem(int _idx)
 	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
 }
 
+template<class T>
+inline Unit::HitInfo Unit::GetLastHitInfo()
+{
+	Unit::HitInfo lastHitInfo;
+	lastHitInfo.unit = nullptr;
+	for (auto& hitInfo : hitList)
+	{
+		if (dynamic_cast<T*>(hitInfo.unit) == nullptr) continue;
+		lastHitInfo = hitInfo;
+	}
+	return lastHitInfo;
+}

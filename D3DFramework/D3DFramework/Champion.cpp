@@ -10,6 +10,7 @@ Champion::Champion()
 	bar->SetTarget(this);
 	hpBar = (FloatingHPBar*)SceneManager::GetCurrentScene()->CreateObject<FloatingHPBar>(Layer::UI);
 	hpBar->SetTarget(this);
+	stat->SetBaseValue(StatType::MaxExperience, 90.f);
 }
 
 Champion::~Champion()
@@ -64,4 +65,34 @@ void Champion::SetNickname(const std::wstring& _nickname)
 {
 	nickname = _nickname;
 	bar->SetNickname(_nickname);
+}
+
+void Champion::OnHit(Unit* target)
+{
+	for (int i = 0; i < (int)SkillIndex::END; i++) {
+		if (skillList[i] != nullptr)
+			skillList[i]->OnHit(target);
+	}
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
+				itemSkill->OnHit(target);
+		}
+	}
+}
+
+void Champion::OnDamaged(Unit* target, float damage)
+{
+	for (int i = 0; i < (int)SkillIndex::END; i++) {
+		if (skillList[i] != nullptr)
+			skillList[i]->OnDamaged(damage);
+	}
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
+				itemSkill->OnDamaged(damage);
+		}
+	}
 }

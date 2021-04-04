@@ -1,4 +1,4 @@
-﻿	#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "DamageObject_Garen_E.h"
 #include "Unit.h"
 #include "Collider.h"
@@ -72,15 +72,15 @@ void DamageObject_Garen_E::TakeDamage()
 	for (auto& unit : damageExpected)
 	{
 		float damage = baseDamage;
-		Calc_FinalDamage(&damage, hostObject->stat, unit->stat);
-		unit->SetLastAttacker(hostObject);
+		Calc_FinalDamage(&damage, host->stat, unit->stat);
+		unit->SetLastAttacker(host);
 		unit->TakeDamage(damage);
-		Buff_GarenEArmorDec* attackBuff = new Buff_GarenEArmorDec(hostObject, 6.f);
+		Buff_GarenEArmorDec* attackBuff = new Buff_GarenEArmorDec(host, 6.f);
 		unit->stat->AddBuff(attackBuff);
 	}
 	//front 가장가까운적 추가피해
 	float damage = baseDamage * 1.f;//0.25f;
-	Calc_FinalDamage(&damage, hostObject->stat, proximateUnit->stat);
+	Calc_FinalDamage(&damage, host->stat, proximateUnit->stat);
 	proximateUnit->TakeDamage(damage);
 
 	damageExpected.clear();
