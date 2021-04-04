@@ -39,6 +39,8 @@ void Skill_Attack::Passive()
 
 void Skill_Attack::Active()
 {
+	range = host->stat->GetValue(StatType::Range);
+
 	if (host->attackTarget == nullptr)
 	{
 		End();

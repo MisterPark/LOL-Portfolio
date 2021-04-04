@@ -21,6 +21,8 @@ OrderMinionMelee::OrderMinionMelee()
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 	stat->SetBaseValue(StatType::Range, 1.1f);
 	stat->SetBaseValue(StatType::Gold, 21.f);
+
+
 }
 
 OrderMinionMelee::~OrderMinionMelee()

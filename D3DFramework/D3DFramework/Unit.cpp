@@ -8,6 +8,10 @@
 #include "Garen.h"
 #include "TargetingSkill.h"
 #include "Skill_Attack.h"
+#include "RedMonster.h"
+#include "BlueMonster.h"
+#include "Effect_Red_Buff.h"
+
 
 list<Unit*> Unit::unitList;
 
@@ -31,7 +35,8 @@ Unit::Unit()
 
 	//행동트리
 	bt = (BehaviorTree*)AddComponent<BehaviorTree>(L"BehaviorTree");
-	
+	// 오오라
+	aura = (Aura*)AddComponent<Aura>(L"Aura");
 }
 
 Unit::~Unit()
@@ -42,6 +47,7 @@ Unit::~Unit()
 	agent = nullptr;
 	stat = nullptr;
 	bt = nullptr;
+	aura = nullptr;
 	attackIndicator = nullptr;
 
 	for (auto calc : damageCalcList)
@@ -312,6 +318,17 @@ void Unit::OnKilled(Unit* target)
 		float cs = target->stat->GetBaseValue(StatType::MinionKilled);
 		stat->IncreaseBaseValue(StatType::Experience, exp);
 		stat->IncreaseBaseValue(StatType::MinionKilled, cs);
+
+		if (dynamic_cast<RedMonster*>(target) != nullptr)
+		{
+			// TODO : 이펙트 말고 실제 버프도 추가해야함
+			aura->ShowRedBuff(true);
+		}
+		if (dynamic_cast<BlueMonster*>(target) != nullptr)
+		{
+			aura->ShowBlueBuff(true);
+			//aura->ShowBaronBuff(true);
+		}
 	}
 
 
@@ -646,6 +663,7 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	for (Unit* iter : unitList)
 	{
 		if (iter->IsDead()) continue;
+		if (team == Team::NEUTRAL) continue;
 		if (team != iter->team)
 		{
 			Vector3 to = iter->transform->position - point;
@@ -659,6 +677,47 @@ Unit* Unit::GetNearestEnemy(Vector3 point, float radius)
 	}
 
 	return target;
+}
+
+bool Unit::IsEnemyInAttackRange()
+{
+	float attackRange = stat->GetValue(StatType::Range);
+
+	for (Unit* iter : unitList)
+	{
+		if (iter->IsDead()) continue;
+		if (team == Team::NEUTRAL) continue;
+		if (team != iter->team)
+		{
+			Vector3 to = iter->transform->position - transform->position;
+			float dist = to.Length();
+			if (dist < attackRange)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool Unit::IsTargetInAttackRange()
+{
+	float attackRange = stat->GetValue(StatType::Range);
+
+	if(attackTarget != nullptr)
+	{
+		if (attackTarget->IsDead()) return false;
+
+		Vector3 to = attackTarget->transform->position - transform->position;
+		float dist = to.Length();
+		if (dist < attackRange)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Unit::SkillLevelUp(SkillIndex skillIndex)

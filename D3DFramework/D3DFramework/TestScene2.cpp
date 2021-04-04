@@ -29,6 +29,7 @@
 #include "RenderSystem.h"
 #include "EffectObject.h"
 #include "FogOfWarRenderer.h"
+#include "TextBox.h"
 
 void TestScene2::OnLoaded()
 {
@@ -78,6 +79,10 @@ void TestScene2::OnLoaded()
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
+
+	TextBox* textbox = new TextBox();
+	textbox->SetLocation(50, MainGame::GetHeight() - 200);
+	UIManager::GetInstance()->AddUI(textbox);
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();

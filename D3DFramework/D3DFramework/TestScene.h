@@ -24,10 +24,12 @@ class TestScene :
     void CreateMinionSiege();
     void CreateMinionSuper();
 
+
 public:
     Label* testLabel = nullptr;
     Unit* testUnit = nullptr;
 
     map<INT, Unit*> unitMap;
     int unitID = (int)UnitID::END;
+
 };

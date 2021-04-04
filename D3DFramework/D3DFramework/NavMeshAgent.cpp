@@ -21,6 +21,8 @@ Engine::NavMeshAgent::~NavMeshAgent()
 
 void Engine::NavMeshAgent::Update()
 {
+    float dt = Time::DeltaTime();
+
     if (isMoving)
     {
         if (isDestination) return;
@@ -51,7 +53,15 @@ void Engine::NavMeshAgent::Update()
             // 회전
             unit->LookRotation(direction);
             // 이동
-            transform->position += direction * speed * Time::DeltaTime();
+            if (remainDist < speed * dt)
+            {
+                transform->position = nextPosition;
+            }
+            else
+            {
+                transform->position += direction * speed * dt;
+            }
+            
         }
     }
 }

@@ -6,6 +6,7 @@
 #include "DamageCalc.h"
 #include "Skill.h"
 #include "Inventory.h"
+#include "Aura.h"
 
 class Indicator;
 class TargetingSkill;
@@ -194,6 +195,8 @@ public:
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
+	bool IsEnemyInAttackRange();
+	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
 	Skill_Attack* GetSkillAttack();
@@ -219,6 +222,7 @@ public:
 	Indicator* attackIndicator = nullptr;
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
+	Aura* aura = nullptr;
 
 public:
 	// 이동모션 관련

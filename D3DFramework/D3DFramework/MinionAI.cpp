@@ -34,15 +34,24 @@ void MinionAI::Update()
 
         if (unit->GetAttackTarget() == nullptr)
         {
-            unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 3.f));
+            unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 3.5f));
+            unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
         }
     }
 
-    if (unit->GetAttackTarget() == nullptr)
+    if (unit->GetAttackTarget() != nullptr) // 타겟이 있을 때
+    {
+        if (unit->GetAttackTarget()->IsDead())
+        {
+            unit->SetAttackTarget(nullptr);
+            return;
+        }
+    }
+    else //  타겟이 없을 때
     {
         Vector3 to = nextPoint - unit->transform->position;
         float dist = to.Length();
-        if (dist < 0.1f)
+        if (dist < 3.0f)
         {
             if (wayPoint.empty() == false)
             {
@@ -60,11 +69,6 @@ void MinionAI::Update()
             //unit->SetDestination(nextPoint);
             unit->agent->SetDestination(nextPoint, true);
         }
-    }
-    else
-    {
-        unit->SetAttackTarget(target);
-        
     }
 }
 
