@@ -141,10 +141,32 @@ void TestScene::Update()
 
 		}
 	}
+
+	SpawnMinion();
 	
 	if (Input::GetKeyDown('M'))
 	{
 		CreateMinionCaster();
+	}
+}
+
+void TestScene::SpawnMinion()
+{
+	int minute = 0;
+	int second = 0;
+	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
+
+	if (minute == 0 && second == 25)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 0 && second == 35)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 1 && second == 5)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
 	}
 }
 
