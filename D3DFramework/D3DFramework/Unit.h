@@ -179,6 +179,7 @@ public:
 
 	Vector3 GetSpawnPosition();
 	void SetSpawnPosition(Vector3 _spawnPos);
+	void SetSpawnTime(float _delay);
 	float GetRemainingRespawnTime();
 
 

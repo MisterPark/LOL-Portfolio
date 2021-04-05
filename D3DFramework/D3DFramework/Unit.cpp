@@ -606,6 +606,11 @@ void Unit::SetSpawnPosition(Vector3 _spawnPos)
 	this->spawnPosition = _spawnPos;
 }
 
+void Unit::SetSpawnTime(float _delay)
+{
+	this->spawnDelay = _delay;
+}
+
 float Unit::GetRemainingRespawnTime()
 {
 	return (spawnDelay - spawnTick);

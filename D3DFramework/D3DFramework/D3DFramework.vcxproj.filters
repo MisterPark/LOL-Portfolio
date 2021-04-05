@@ -1084,6 +1084,7 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib\Base</Filter>
     </ClInclude>
+    <ClInclude Include="MinionSpawner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1855,6 +1856,7 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib\Base</Filter>
     </ClCompile>
+    <ClCompile Include="MinionSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
