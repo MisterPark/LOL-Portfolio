@@ -140,6 +140,8 @@ public:
 
 	virtual void Die();
 	virtual void OnKilled(Unit* target);
+	virtual void OnHit(Unit* target);
+	virtual void OnDamaged(Unit* target, float damage);
 	// 행동
 	virtual void DeadAction();
 	virtual void AttackAction();
@@ -198,6 +200,8 @@ public:
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
 	Skill_Attack* GetSkillAttack();
+	template<class T>
+	Unit::HitInfo GetLastHitInfo();
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
@@ -274,5 +278,6 @@ protected:
 private:
 	State oldAttackState = State::IDLE1;
 	bool beginAttackFlag = false;
+
 };
 

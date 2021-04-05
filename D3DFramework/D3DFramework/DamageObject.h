@@ -15,6 +15,8 @@ public:
 
     virtual void OnCollisionEnter(Collider* target);
 
+    virtual void OnCollisionAddAttack(float damage, Collider* target);
+
     //_pos : 위치
     //_scale : 크기(float)
     //_team : 팀
@@ -25,7 +27,7 @@ public:
     // _startTime = 생성하고 언제부터 때릴건지. // Default = 0.f 바로
     void Set_DamageObject(Unit* _hostObject, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval = 0.f, float _interval_AttackTime = -1.f, float _startTime = 0.f);
     void Set_ObjectFollow(Unit* _object);
-    Unit* Get_pHostObject() { return hostObject; }
+    Unit* Get_pHostObject() { return host; }
     bool Check_DamagedOverlap(GameObject* damagedObject);
     void Add_DamageCalc(DamageCalc* _damageCalc);
 
@@ -46,7 +48,7 @@ protected:
     bool attackCheck = false;
 
     SphereCollider* collider = nullptr;
-    Unit* hostObject = nullptr;
+    Unit* host = nullptr;
     Unit* followObject = nullptr;
     list<DamageCalc*> damageCalcList;   //데미지계산관련
 public:

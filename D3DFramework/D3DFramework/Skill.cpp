@@ -46,7 +46,11 @@ bool Skill::InRange()
 	return true;
 }
 
-void Skill::OnAttackEnd()
+void Skill::OnHit(Unit* target)
+{
+}
+
+void Skill::OnDamaged(float damage)
 {
 }
 

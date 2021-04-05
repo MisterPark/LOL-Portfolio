@@ -343,6 +343,15 @@
     <Filter Include="Buff\Item\Skill">
       <UniqueIdentifier>{60cc7105-d652-4883-9016-305b58fca999}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill\MissFortune">
+      <UniqueIdentifier>{860a9aa0-eb0a-489f-91a1-aa26e690d35f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\MissFortune">
+      <UniqueIdentifier>{f5c461e5-1e42-4ae8-8c9a-2d9d8f0ecbc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\DamageObject\MissFortune">
+      <UniqueIdentifier>{7ab773c9-f544-47b5-b49e-808ed0dfc12a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\EffectObject\BuffEffect">
       <UniqueIdentifier>{fb2ffef4-2bca-47ee-ab18-99e63fd77359}</UniqueIdentifier>
     </Filter>
@@ -1002,6 +1011,27 @@
     </ClInclude>
     <ClInclude Include="Buff_ItemDreadnought.h">
       <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_W.h">
+      <Filter>Skill\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneWAttackSpeed.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneWMoveSpeed.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_E.h">
+      <Filter>Skill\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject_MissFortune_E.h">
+      <Filter>GameObject\DamageObject\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneESlow.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_P.h">
+      <Filter>Skill\MissFortune</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
       <Filter>GameObject\UI\Control</Filter>
@@ -1761,6 +1791,27 @@
     </ClCompile>
     <ClCompile Include="Buff_ItemDreadnought.cpp">
       <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_W.cpp">
+      <Filter>Skill\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_E.cpp">
+      <Filter>Skill\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject_MissFortune_E.cpp">
+      <Filter>GameObject\DamageObject\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneESlow.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_P.cpp">
+      <Filter>Skill\MissFortune</Filter>
     </ClCompile>
     <ClCompile Include="TextBox.cpp">
       <Filter>GameObject\UI\Control</Filter>

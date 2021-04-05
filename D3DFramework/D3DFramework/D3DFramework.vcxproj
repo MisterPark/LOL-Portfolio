@@ -184,6 +184,10 @@
     <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="Buff_Item.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
+    <ClInclude Include="Buff_MissFortuneESlow.h" />
+    <ClInclude Include="Buff_MissFortuneWAttackSpeed.h" />
+    <ClInclude Include="Buff_MissFortuneWMoveSpeed.h" />
+    <ClInclude Include="DamageObject_MissFortune_E.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Effect_Baron_Buff.h" />
     <ClInclude Include="Effect_Blue_Buff.h" />
@@ -357,6 +361,9 @@
     <ClInclude Include="Skill_Heal.h" />
     <ClInclude Include="Skill_Item.h" />
     <ClInclude Include="Skill_Item_Dreadnought.h" />
+    <ClInclude Include="Skill_MissFortune_E.h" />
+    <ClInclude Include="Skill_MissFortune_P.h" />
+    <ClInclude Include="Skill_MissFortune_W.h" />
     <ClInclude Include="Skill_RangeAttack.h" />
     <ClInclude Include="SkinnedMeshRenderer.h" />
     <ClInclude Include="SkyBox.h" />
@@ -410,6 +417,10 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="Buff_Item.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
+    <ClCompile Include="Buff_MissFortuneESlow.cpp" />
+    <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp" />
+    <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp" />
+    <ClCompile Include="DamageObject_MissFortune_E.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Effect_Baron_Buff.cpp" />
     <ClCompile Include="Effect_Blue_Buff.cpp" />
@@ -574,6 +585,9 @@
     <ClCompile Include="Skill_Heal.cpp" />
     <ClCompile Include="Skill_Item.cpp" />
     <ClCompile Include="Skill_Item_Dreadnought.cpp" />
+    <ClCompile Include="Skill_MissFortune_E.cpp" />
+    <ClCompile Include="Skill_MissFortune_P.cpp" />
+    <ClCompile Include="Skill_MissFortune_W.cpp" />
     <ClCompile Include="Skill_RangeAttack.cpp" />
     <ClCompile Include="SkinnedMeshRenderer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
