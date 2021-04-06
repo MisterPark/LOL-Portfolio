@@ -22,7 +22,7 @@
 #include "Turret.h"
 #include "Bush.h"
 
-
+#include "Inhibitor.h"
 #include "AllChampion.h"
 #include "AllMinion.h"
 #include "AllMonster.h"
@@ -329,6 +329,41 @@ void TestScene::CreateBuilding()
 	unit->SetID(unitID);
 	unitID++;
 
+	// inhibitor bot
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 21.52f,68.04f,42.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(180.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor mid
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 23.26f,68.04f,29.98f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor top
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 36.23f,68.04f,27.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// nexus
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Nexus>(Layer::Building);
+	unit->transform->position = { 33.83f,68.04f,40.00f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
 
 	// 퍼플팀
 

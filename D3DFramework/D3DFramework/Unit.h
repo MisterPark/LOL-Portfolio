@@ -26,6 +26,10 @@ enum class UnitID
 	TurretBlueTop3,
 	TurretBlueTwin1,
 	TurretBlueTwin2,
+	InhibitorBlueBot,
+	InhibitorBlueMid,
+	InhibitorBlueTop,
+	NexusBlue,
 
 	TurretRedBot1,
 	TurretRedBot2,

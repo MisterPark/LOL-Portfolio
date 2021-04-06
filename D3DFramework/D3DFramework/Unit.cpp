@@ -98,11 +98,11 @@ void Unit::Update()
 	{
 		if (skillList[(int)SkillIndex::Attack]->IsActive())
 		{
-			Debug::PrintLine("Active");
+			//Debug::PrintLine("Active");
 		}
 		else
 		{
-			Debug::PrintLine("None");
+			//Debug::PrintLine("None");
 		}
 	}
 	
