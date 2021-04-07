@@ -98,11 +98,11 @@ void Unit::Update()
 	{
 		if (skillList[(int)SkillIndex::Attack]->IsActive())
 		{
-			Debug::PrintLine("Active");
+			//Debug::PrintLine("Active");
 		}
 		else
 		{
-			Debug::PrintLine("None");
+			//Debug::PrintLine("None");
 		}
 	}
 	
@@ -612,6 +612,11 @@ Vector3 Unit::GetSpawnPosition()
 void Unit::SetSpawnPosition(Vector3 _spawnPos)
 {
 	this->spawnPosition = _spawnPos;
+}
+
+void Unit::SetSpawnTime(float _delay)
+{
+	this->spawnDelay = _delay;
 }
 
 float Unit::GetRemainingRespawnTime()

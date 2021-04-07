@@ -8,6 +8,8 @@
 
 Minion::Minion()
 {
+	SetSpawnTime(INFINITY);
+
 	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 

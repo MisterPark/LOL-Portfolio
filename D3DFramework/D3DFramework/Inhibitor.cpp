@@ -1,26 +1,22 @@
 ﻿#include "stdafx.h"
-#include "Nexus.h"
+#include "Inhibitor.h"
 #include "SphereCollider.h"
 #include "DeferredStaticMeshRenderer.h"
 
-Nexus::Nexus()
+Inhibitor::Inhibitor()
 {
 	transform->position = { 0,0,0 };
-	transform->scale = { 0.00015f, 0.00015f, 0.00015f, };
+	transform->scale = { 0.00018f, 0.00018f, 0.00018f, };
 
-	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"sruap_ordernexus");
-
-	
-	
+	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"sruap_orderinhibitor");
 	AddComponent(L"StaticMesh", mesh);
 
-	collider->SetRadius(2.6f);
+	collider->SetRadius(1.5f);
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
 	renderer->SetMesh(mesh);
 }
 
-Nexus::~Nexus()
+Inhibitor::~Inhibitor()
 {
-
 }

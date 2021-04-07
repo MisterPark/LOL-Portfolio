@@ -195,8 +195,10 @@
     <ClInclude Include="Effect_Baron_Buff.h" />
     <ClInclude Include="Effect_Blue_Buff.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
+    <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="ItemshopTreePanel.h" />
     <ClInclude Include="ItemshopSlot.h" />
+    <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
@@ -436,8 +438,10 @@
     <ClCompile Include="Effect_Baron_Buff.cpp" />
     <ClCompile Include="Effect_Blue_Buff.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
+    <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="ItemshopTreePanel.cpp" />
     <ClCompile Include="ItemshopSlot.cpp" />
+    <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />

@@ -26,6 +26,10 @@ enum class UnitID
 	TurretBlueTop3,
 	TurretBlueTwin1,
 	TurretBlueTwin2,
+	InhibitorBlueBot,
+	InhibitorBlueMid,
+	InhibitorBlueTop,
+	NexusBlue,
 
 	TurretRedBot1,
 	TurretRedBot2,
@@ -184,6 +188,7 @@ public:
 
 	Vector3 GetSpawnPosition();
 	void SetSpawnPosition(Vector3 _spawnPos);
+	void SetSpawnTime(float _delay);
 	float GetRemainingRespawnTime();
 
 

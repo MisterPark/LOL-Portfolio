@@ -13,6 +13,7 @@ public:
     virtual void OnUnloaded() override;
     virtual void Update() override;
 
+    void SpawnMinion();
 
     void CreateEnvironment();
     void CreateBuilding();
