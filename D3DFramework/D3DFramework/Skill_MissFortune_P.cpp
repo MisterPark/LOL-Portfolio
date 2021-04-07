@@ -3,6 +3,7 @@
 #include "Unit.h"
 #include "Buff.h"
 #include "DamageCalc_Basic.h"
+#include "Skill_MissFortune_W.h"
 
 Skill_MissFortune_P::Skill_MissFortune_P(Unit* _hostUnit)
 {
@@ -41,7 +42,7 @@ void Skill_MissFortune_P::End()
 	Skill::End();
 }
 
-void Skill_MissFortune_P::OnHit(Unit* target)
+void Skill_MissFortune_P::OnHit(Unit* target, Skill* mySkill)
 {
 	if (lastAttack != target) {
 		lastAttack = target;
@@ -49,5 +50,10 @@ void Skill_MissFortune_P::OnHit(Unit* target)
 		float finalDamage = host->stat->GetValue(StatType::AttackDamage) * 0.5f;
 		Calc_FinalDamage(&finalDamage, host->stat, lastAttack->stat);
 		target->TakeDamage(finalDamage);
+
+		Skill_MissFortune_W* skillW = dynamic_cast<Skill_MissFortune_W*>(host->skillList[(int)SkillIndex::W]);
+		if (skillW != nullptr) {
+			skillW->AddPassiveTick(2.f);
+		}
 	}
 }

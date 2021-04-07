@@ -35,7 +35,6 @@
 #include "RenderSystem.h"
 
 #include "EffectObject.h"
-#include "Skill_Item_Dreadnought.h"
 
 void TestScene::OnLoaded()
 {
@@ -76,7 +75,7 @@ void TestScene::OnLoaded()
 
 	//
 	
-	//item->skillList.push_back(new Skill_Item_Dreadnought(unit));
+	//item->skillList.push_back(new Skill_Item_ManaCharge(unit));
 
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };

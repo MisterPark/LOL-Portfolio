@@ -25,6 +25,8 @@ void Skill::Start()
 {
 	active = true;
 	coolTimeTick = 0.f;
+	firstHit = false;
+	hitList.clear();
 }
 
 void Skill::Passive()
@@ -46,11 +48,31 @@ bool Skill::InRange()
 	return true;
 }
 
-void Skill::OnHit(Unit* target)
+void Skill::OnHit(Unit* target, Skill* mySkill)
 {
 }
 
-void Skill::OnDamaged(float damage)
+void Skill::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+{
+}
+
+void Skill::OnKilled(Unit* target)
+{
+}
+
+void Skill::OnThisSkillHit(Unit* target)
+{
+	if (!firstHit) {
+		OnOtherSkillStart(this);
+		firstHit = true;
+	}
+}
+
+void Skill::OnOtherSkillStart(Skill* otherSkill)
+{
+}
+
+void Skill::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
 }
 
@@ -77,6 +99,23 @@ void Skill::Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat)
 	{
 		calc->Calc(_damage, _myStat, _targetStat);
 	}
+}
+
+void Skill::Calc_TakeDamege(float _baseDamage)
+{
+	Unit* target = host->attackTarget;
+	target->SetLastAttacker(host);
+	float finalDamage = _baseDamage;
+	Calc_FinalDamage(&finalDamage, host->stat, target->stat);
+	target->TakeDamage(finalDamage);
+	
+	for (auto& unit : hitList)
+	{
+		if (unit == target)
+			return;
+	}
+	hitList.push_back(target);
+	host->OnTargetFirstHit(target, this);
 }
 
 float Skill::GetCooltime()

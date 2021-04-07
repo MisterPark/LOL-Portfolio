@@ -152,8 +152,7 @@ void PlayerController::Update()
             if (targetMode)
             {
                 Unit* target = nullptr;
-                if(dynamic_cast<Skill_Attack*>(unit->nextSkillReady) != nullptr
-                    || dynamic_cast<Skill_RangeAttack*>(unit->nextSkillReady) != nullptr)
+                if(((Unit*)gameObject)->skillList[(int)SkillIndex::Attack] == unit->nextSkillReady)
                     target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {

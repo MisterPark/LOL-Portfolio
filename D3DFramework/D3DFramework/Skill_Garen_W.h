@@ -14,6 +14,7 @@ public:
     virtual void Passive();
     virtual void Active();
     virtual void End();
+    virtual void OnKilled(Unit* target) override;
     void AddPassiveStack() { if(passiveStack < 30)passiveStack++; }
     int GetPassiveStack() { return passiveStack; }
 

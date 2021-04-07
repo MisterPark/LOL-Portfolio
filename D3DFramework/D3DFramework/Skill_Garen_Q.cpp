@@ -26,6 +26,7 @@ void Skill_Garen_Q::Start()
 		return;
 
 	Skill::Start();
+	host->OnOtherSkillStart(this);
 
 	durationSpeedTime = 0.35f + level * 0.65f;
 	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(host, durationSpeedTime);
@@ -59,7 +60,7 @@ void Skill_Garen_Q::End()
 	Skill::End();
 }
 
-void Skill_Garen_Q::OnHit(Unit* target)
+void Skill_Garen_Q::OnHit(Unit* target, Skill* mySkill)
 {
 	host->stat->RemoveBuff<Buff_GarenQAttack>();
 }

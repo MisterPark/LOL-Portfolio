@@ -30,6 +30,11 @@
 #include "EffectObject.h"
 #include "FogOfWarRenderer.h"
 #include "TextBox.h"
+#include "Skill_Item_WitchsFocus.h"
+#include "Skill_Item_Thorns.h"
+#include "Skill_Item_Cleave.h"
+#include "Skill_Item_SpellBlade.h"
+#include "Skill_Item_ManaCharge.h"
 
 void TestScene2::OnLoaded()
 {
@@ -56,7 +61,13 @@ void TestScene2::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+	Item* item = ItemManager::GetInstance()->GetItem(1028);
+	champ->AddItem(item);
+	//item->skillList.push_back(new Skill_Item_WitchsFocus(unit));
+	//item->skillList.push_back(new Skill_Item_Thorns(unit));
+	//item->skillList.push_back(new Skill_Item_Cleave(unit));
+	//item->skillList.push_back(new Skill_Item_SpellBlade(unit));
+	item->skillList.push_back(new Skill_Item_ManaCharge(unit));
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(unit, 12.f);
 	unit->AddComponent(L"fogRenderer",fogOfWarRenderer);
 

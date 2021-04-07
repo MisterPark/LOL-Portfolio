@@ -26,6 +26,7 @@ void Skill_Garen_W::Start()
 		return;
 
 	Skill::Start();
+	host->OnOtherSkillStart(this);
 
 	reductionTime = 1.25f + level * 0.75f;
 	Buff_GarenWReduction* reductionBuff = new Buff_GarenWReduction(host, reductionTime, 0.5f);//reductionValue);
@@ -69,4 +70,9 @@ void Skill_Garen_W::Active()
 void Skill_Garen_W::End()
 {
 	Skill::End();
+}
+
+void Skill_Garen_W::OnKilled(Unit* target)
+{
+	passiveStack++;
 }

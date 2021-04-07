@@ -14,8 +14,18 @@ public:
 	virtual void Active() = 0;
 	virtual void End() = 0;
 	virtual bool InRange();
-	virtual void OnHit(Unit* target);
-	virtual void OnDamaged(float damage);
+	//플레이어가 피해를 주었을때 호출
+	virtual void OnHit(Unit* target, Skill* mySkill);
+	//플레이어가 피해를 입었을때 호출
+	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage);
+	//플레이어가 적을 죽였을때 호출
+	virtual void OnKilled(Unit* target);
+	//이 스킬로 피해를 줬을때만 호출
+	virtual void OnThisSkillHit(Unit* target);
+	//챔피언이 스킬을 사용할떄마다, [장비아이템 스킬]에서 호출 // Ex)광휘의검
+	virtual void OnOtherSkillStart(Skill* otherSkill);
+	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
+	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
 
 	void SetActive(bool _active) { active = _active; }
 	bool IsActive();
@@ -23,13 +33,14 @@ public:
 
 	void Add_DamageCalc(DamageCalc* _damageCalc);
 	void Calc_FinalDamage(float* _damage, Stat* _myStat, Stat* _targetStat);
-
+	void Calc_TakeDamege(float _baseDamage);
 	float GetCooltime();
 	float GetCooltime_Init();
 	int GetLevel() { return level; }
 	int GetMaxLevel() { return maxLevel; }
 	void AddLevel() { level++; }
 	float GetRange() { return range; }
+	list<Unit*>* GetHitList() { return &hitList; }
 	
 	virtual bool TargetingSuccess(Unit* target);
 
@@ -43,9 +54,11 @@ protected:
 	int maxLevel = 1;
 	bool active = false;
 	float range = 0.f;
-
-	
+	//OnThisSkillHit 에서 쓸용도 (스킬 한번당 한번의 공격 체크용) Ex)여눈, 감전등
+	bool firstHit = false;
 	// 데미지계산관련
 	list<DamageCalc*> damageCalcList;
+	// 공격한리스트
+	list<Unit*> hitList;
 };
 

@@ -57,11 +57,14 @@ void DamageObject_Garen_E::OnCollisionEnter(Collider* target)
 			if (targetDistance < proximateDistance)
 				proximateUnit = (Unit*)target->gameObject;
 		}
-		damagedObject.emplace_back(target->gameObject);
+		tempHitList.emplace_back(target->gameObject);
+
 		Unit* targetUnit = dynamic_cast<Unit*>(target->gameObject);
 		if(targetUnit != nullptr)
 			damageExpected.emplace_back(targetUnit);
 	}
+
+	Check_TotalHitList((Unit*)target->gameObject);
 }
 
 void DamageObject_Garen_E::TakeDamage()
@@ -75,6 +78,7 @@ void DamageObject_Garen_E::TakeDamage()
 		Calc_FinalDamage(&damage, host->stat, unit->stat);
 		unit->SetLastAttacker(host);
 		unit->TakeDamage(damage);
+		host->OnHit(host, hostSkill);
 		Buff_GarenEArmorDec* attackBuff = new Buff_GarenEArmorDec(host, 6.f);
 		unit->stat->AddBuff(attackBuff);
 	}

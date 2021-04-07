@@ -1084,6 +1084,14 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Item_WitchsFocus.h" />
+    <ClInclude Include="Buff_ItemWitchsFocus.h" />
+    <ClInclude Include="Skill_Item_Thorns.h" />
+    <ClInclude Include="Skill_Item_Cleave.h" />
+    <ClInclude Include="Buff_ItemSpellBlade.h" />
+    <ClInclude Include="Skill_Item_SpellBlade.h" />
+    <ClInclude Include="Skill_Item_ManaCharge.h" />
+    <ClInclude Include="Buff_ItemManaCharge.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1855,6 +1863,14 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Skill_Item_WitchsFocus.cpp" />
+    <ClCompile Include="Buff_ItemWitchsFocus.cpp" />
+    <ClCompile Include="Skill_Item_Thorns.cpp" />
+    <ClCompile Include="Skill_Item_Cleave.cpp" />
+    <ClCompile Include="Buff_ItemSpellBlade.cpp" />
+    <ClCompile Include="Skill_Item_SpellBlade.cpp" />
+    <ClCompile Include="Skill_Item_ManaCharge.cpp" />
+    <ClCompile Include="Buff_ItemManaCharge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

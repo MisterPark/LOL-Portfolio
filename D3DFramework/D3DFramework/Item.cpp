@@ -21,7 +21,9 @@ Item::Item(const UINT& _id, const std::wstring& _tag, const std::wstring& _name,
 
 Item::~Item()
 {
-
+	for (auto& skill : skillList) {
+		delete skill;
+	}
 }
 
 Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const map<StatType, int>& _stats, const map<std::wstring, void*>& _effects, const list<std::wstring>& _recipes)

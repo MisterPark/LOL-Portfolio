@@ -48,7 +48,7 @@ void Missile::Update()
 			attackTarget->SetLastAttacker(owner);
 			float finalDamage = owner->stat->GetValue(StatType::AttackDamage);
 			owner->Calc_FinalDamage(&finalDamage, owner->stat, attackTarget->stat);
-			owner->OnHit(attackTarget);
+			owner->OnHit(attackTarget, ownerSkill);
 			attackTarget->TakeDamage(finalDamage);
 			// 피격정보 저장
 			Unit::HitInfo info;
@@ -83,9 +83,10 @@ void Missile::Update()
 	GameObject::Update();
 }
 
-void Missile::SetOwner(Unit* _owner)
+void Missile::SetOwner(Unit* _owner, Skill* _ownerSkill)
 {
 	this->owner = _owner;
+	this->ownerSkill = _ownerSkill;
 }
 
 void Missile::SetTexture(const wstring& _key)
