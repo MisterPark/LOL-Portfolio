@@ -340,6 +340,9 @@
     <Filter Include="GameObject\Missile">
       <UniqueIdentifier>{0262d8c7-05da-4e70-8a1e-40a9d961435a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Control\Tooltip">
+      <UniqueIdentifier>{90bffe70-4553-4590-8914-06bda78e42cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1020,6 +1023,12 @@
     </ClInclude>
     <ClInclude Include="EffectObject.h">
       <Filter>GameObject\EffectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Form.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tooltip.h">
+      <Filter>GameObject\UI\Control\Tooltip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1752,6 +1761,12 @@
     </ClCompile>
     <ClCompile Include="EffectObject.cpp">
       <Filter>GameObject\EffectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Form.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Tooltip.cpp">
+      <Filter>GameObject\UI\Control\Tooltip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

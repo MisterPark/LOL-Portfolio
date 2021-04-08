@@ -12,7 +12,8 @@ public:
 	~Inventory();
 
 public:
-	bool Push(Item* item);
+	void DeleteAll();
+	bool Push(int _id);
 	bool Pop(int _idx);
 	
 	Item* GetItem(int _idx);

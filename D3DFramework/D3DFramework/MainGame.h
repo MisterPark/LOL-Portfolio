@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 namespace Engine
@@ -32,6 +32,9 @@ namespace Engine
 	public:
 		int width = dfCLIENT_WIDTH;
 		int height = dfCLIENT_HEIGHT;
+
+	private:
+		static void LoadUISpriteFromFolder(const char _path[1024], const char _filter[1024]);
 	};
 }
 

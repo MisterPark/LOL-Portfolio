@@ -183,6 +183,7 @@
     <ClInclude Include="Buff_HealMoveSpeed.h" />
     <ClInclude Include="Buff_ItemDreadnought.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="Form.h" />
     <ClInclude Include="ItemshopTreePanel.h" />
     <ClInclude Include="ItemshopSlot.h" />
     <ClInclude Include="Missile.h" />
@@ -376,6 +377,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Turret.h" />
@@ -403,6 +405,7 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
     <ClCompile Include="Buff_ItemDreadnought.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="Form.cpp" />
     <ClCompile Include="ItemshopTreePanel.cpp" />
     <ClCompile Include="ItemshopSlot.cpp" />
     <ClCompile Include="Missile.cpp" />
@@ -589,6 +592,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Turret.cpp" />

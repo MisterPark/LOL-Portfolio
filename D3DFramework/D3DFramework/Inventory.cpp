@@ -11,8 +11,17 @@ Inventory::~Inventory()
 {
 }
 
-bool Inventory::Push(Item* item)
+void Inventory::DeleteAll()
 {
+    for (int i = 0; i < INVENTORY_MAX; ++i)
+    {
+        slots[i].Delete();
+    }
+}
+
+bool Inventory::Push(int _id)
+{
+    Item* item = ItemManager::GetInstance()->GetItem(_id);
     if (item == nullptr) return false;
 
     if (item->GetType() == ItemType::Trinkets) {
@@ -22,8 +31,7 @@ bool Inventory::Push(Item* item)
         for (int i = 0; i < INVENTORY_MAX - 1; ++i)
         {
             if (slots[i].item != nullptr) continue;
-            slots[i].item = item;
-            return true;
+            return slots[i].Push(_id);
         }
     }
 

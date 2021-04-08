@@ -7,7 +7,9 @@ public:
 	Slot();
 	~Slot();
 
+	bool Push(UINT _id);
 	bool Pop();
+	void Delete();
 
 public:
 	Item* item = nullptr;

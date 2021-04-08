@@ -16,6 +16,8 @@ public:
     virtual void Update() override;
 
     void ClickOutline(GameObject* sender, MouseEventArg* args);
+    void HoverOutline(GameObject* sender, MouseEventArg* args);
+    void LeaveOutline(GameObject* sender, MouseEventArg* args);
 
     void SetIcon(const std::wstring& _tag);
     void SetCooltime(float _cooltime, float _cooltimeMax);

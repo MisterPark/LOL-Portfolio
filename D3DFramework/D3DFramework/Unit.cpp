@@ -54,6 +54,8 @@ Unit::~Unit()
 			continue;
 		delete skillList[i];
 	}
+
+	inventory.DeleteAll();
 }
 
 void Unit::Initialize()
@@ -734,23 +736,22 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 	Debug::PrintLine("[Debug] ReqDamage 요청 / 공격자ID : %d / 타겟ID : %d", _attackerID, _targetID);
 }
 
-bool Unit::AddItem(Item* _item)
+bool Unit::AddItem(UINT _id)
 {
-	if (_item == nullptr) return false;
-
-	return inventory.Push(_item);
+	return inventory.Push(_id);
 }
 
-bool Unit::BuyItem(Item* _item)
+bool Unit::BuyItem(UINT _id)
 {
-	if (_item == nullptr) return false;
+	Item* item = ItemManager::GetInstance()->GetItem(_id);
+	if (item == nullptr) return false;
 
 	// 금액 부족
-	int gold = (int)stat->GetBaseValue(StatType::Gold) - _item->GetPrice();
+	int gold = (int)stat->GetBaseValue(StatType::Gold) - item->GetPrice();
 	if (gold < 0) return false;
 	
 	// 인벤토리 푸쉬
-	if (!inventory.Push(_item)) return false;
+	if (!inventory.Push(item->GetId())) return false;
 
 	// 골드 소모
 	stat->SetBaseValue(StatType::Gold, (float)gold);

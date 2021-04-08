@@ -29,6 +29,23 @@ Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring
 	return new Item(_id, _tag, _name, _itemType, _price, _desc, _stats, _effects, _recipes);
 }
 
+Item* Item::Clone()
+{
+	Item* item = new Item(
+		this->id,
+		this->icon,
+		this->name,
+		this->type,
+		this->price,
+		this->desc,
+		this->stats,
+		this->effects,
+		this->recipes
+	);
+
+	return item;
+}
+
 void Item::Passive()
 {
 	for (auto skill : skillList) {

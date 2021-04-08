@@ -16,6 +16,8 @@ OutlinedSlot::OutlinedSlot(const std::wstring& _tagOutline, const Vector2& pos, 
 	renderer = icon->GetComponent<UIRenderer>();
 	
 	outline->Click += Engine::Handler(this, &OutlinedSlot::ClickOutline);
+	outline->Hover += Engine::Handler(this, &OutlinedSlot::HoverOutline);
+	outline->Leave += Engine::Handler(this, &OutlinedSlot::LeaveOutline);
 
 	Initialize();
 }
@@ -48,6 +50,16 @@ void OutlinedSlot::Update()
 void OutlinedSlot::ClickOutline(GameObject* sender, MouseEventArg* args)
 {
 	UI::OnClick();
+}
+
+void OutlinedSlot::HoverOutline(GameObject* sender, MouseEventArg* args)
+{
+	UI::OnHover();
+}
+
+void OutlinedSlot::LeaveOutline(GameObject* sender, MouseEventArg* args)
+{
+	UI::OnLeave();
 }
 
 void OutlinedSlot::SetIcon(const std::wstring& _tag)

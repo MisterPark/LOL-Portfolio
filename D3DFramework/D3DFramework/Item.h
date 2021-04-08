@@ -47,6 +47,10 @@ public:
 		const list<std::wstring>& _recipes
 		);
 
+public:
+	Item* Clone();
+
+public:
 	void Passive();
 	void Active();
 	//void Use();

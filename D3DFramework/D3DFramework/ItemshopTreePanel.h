@@ -26,4 +26,6 @@ private:
 
 	ItemshopSlot* rootSlot = nullptr;
 
+	void ShowTooltipItem(GameObject* sender, MouseEventArg* args);
+	void HideTooltipItem(GameObject* sender, MouseEventArg* args);
 };
