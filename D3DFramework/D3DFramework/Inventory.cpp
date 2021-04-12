@@ -19,13 +19,13 @@ void Inventory::DeleteAll()
     }
 }
 
-bool Inventory::Push(int _id)
+Item* Inventory::Push(int _id)
 {
     Item* item = ItemManager::GetInstance()->GetItem(_id);
-    if (item == nullptr) return false;
+    if (item == nullptr) return nullptr;
 
     if (item->GetType() == ItemType::Trinkets) {
-
+        return slots[6].Push(_id);
     }
     else {
         for (int i = 0; i < INVENTORY_MAX - 1; ++i)
@@ -35,7 +35,7 @@ bool Inventory::Push(int _id)
         }
     }
 
-    return false;
+    return nullptr;
 }
 
 bool Inventory::Pop(int _idx)
@@ -52,14 +52,14 @@ Item* Inventory::GetItem(int _idx)
     return slots[_idx].item;
 }
 
-void Inventory::ItemSell(int _idx)
+int Inventory::SellItem(int _idx)
 {
-    if ((_idx < 0) || (_idx >= INVENTORY_MAX)) return;
+    if ((_idx < 0) || (_idx >= INVENTORY_MAX)) return -1;
 
-    if (slots[_idx].item == nullptr) return;
+    if (slots[_idx].item == nullptr) return -1;
 
-    /*host->stat->IncreaseBaseValue(StatType::Gold, */slots[_idx].item->Sell()/*)*/;
+    int price = slots[_idx].item->GetPrice();
     slots[_idx].Pop();
 
-    return;
+    return price;
 }

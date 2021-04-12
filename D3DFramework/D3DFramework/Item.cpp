@@ -6,7 +6,7 @@ Item::Item()
 {
 }
 
-Item::Item(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const map<StatType, int>& _stats, const map<std::wstring, void*>& _effects, const list<std::wstring>& _recipes)
+Item::Item(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const list<Buff::Node>& _stats, const list<std::wstring>& _effects, const list<std::wstring>& _recipes)
 {
 	id = _id;
 	icon = _tag;
@@ -17,14 +17,15 @@ Item::Item(const UINT& _id, const std::wstring& _tag, const std::wstring& _name,
 	stats = _stats;
 	effects = _effects;
 	recipes = _recipes;
+
 }
 
 Item::~Item()
 {
-
+	Destroy();
 }
 
-Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const map<StatType, int>& _stats, const map<std::wstring, void*>& _effects, const list<std::wstring>& _recipes)
+Item* Item::Create(const UINT& _id, const std::wstring& _tag, const std::wstring& _name, const ItemType& _itemType, const UINT& _price, const std::wstring& _desc, const list<Buff::Node>& _stats, const list<std::wstring>& _effects, const list<std::wstring>& _recipes)
 {
 	return new Item(_id, _tag, _name, _itemType, _price, _desc, _stats, _effects, _recipes);
 }
@@ -60,22 +61,53 @@ void Item::Active()
 	}
 }
 
-int Item::Sell() {
-	Destroy();
-	return price * 0.6f;
-}
-
 void Item::Destroy()
 {
-	buffItemStat->duration = 0.f;
+	stats.clear();
+	effects.clear();
+	recipes.clear();
+
+	if (buffItemStat) {
+		buffItemStat->duration = 0.f;
+	}
 	for (auto& skill : skillList) {
 		delete skill;
+	}
+	skillList.clear();
+}
+
+bool Item::SetTarget(Unit* _host)
+{
+	SetSkillList(_host);
+	StatBuffSetting(_host);
+
+	return true;
+}
+
+void Item::SetSkillList(Unit* _host)
+{
+	for (auto effect : effects)
+	{
+		Skill_Item* skill = ItemManager::GetInstance()->GetItemSkill(effect);
+		if (skill == nullptr) continue;
+
+		Skill_Item* newSkill = skill->Clone();
+		newSkill->SetTarget(_host);
+		skillList.push_back(newSkill);
 	}
 }
 
 Buff_Item* Item::StatBuffSetting(Unit* _host)
 {
 	Buff_Item* buffItem = new Buff_Item(_host);//reductionValue);
+
+	if (stats.size() <= 0) return nullptr;
+
+	for (const auto& stat : stats)
+	{
+		buffItem->AddModifier(stat.type, stat.value, stat.isPercent);
+	}
+	
 	_host->stat->AddBuff(buffItem);
 	buffItemStat = buffItem;
 	return buffItem;

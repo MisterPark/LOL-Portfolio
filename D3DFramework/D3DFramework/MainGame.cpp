@@ -499,14 +499,16 @@ void Engine::MainGame::LoadUISprite()
 
 void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstring& _filter)
 {
-	char _cPath[260] = {};
+	char _cPath[MAX_PATH] = {};
 	WideCharToMultiByte(CP_ACP, 0, _path.c_str(), _path.length(), _cPath, _path.length(), NULL, NULL);
+
+	char _cFilter[MAX_PATH] = {};
+	WideCharToMultiByte(CP_ACP, 0, _filter.c_str(), _filter.length(), _cFilter, _filter.length(), NULL, NULL);
 
 	_finddata_t fd;
 	char path[1024];
-	char filter[MAX_PATH] = _filter.c_str();
 	_fullpath(path, _cPath, 1024);
-	strcat_s(path, filter);
+	strcat_s(path, _cFilter);
 	long handle = _findfirst(path, &fd);
 	if (handle != -1)
 	{

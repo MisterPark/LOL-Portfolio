@@ -7,7 +7,7 @@ public:
 	Slot();
 	~Slot();
 
-	bool Push(UINT _id);
+	Item* Push(UINT _id);
 	bool Pop();
 	void Delete();
 

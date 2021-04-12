@@ -811,38 +811,49 @@ void Unit::ReqDamage(INT _attackerID, INT _targetID, float _damage)
 
 bool Unit::AddItem(UINT _id)
 {
-	return inventory.Push(_id);
+	Item* newItem = inventory.Push(_id);
+	if (newItem == nullptr) return false;
+
+	newItem->SetTarget(this);
+
+	return true;
 }
 
 bool Unit::BuyItem(UINT _id)
 {
 	Item* item = ItemManager::GetInstance()->GetItem(_id);
 	if (item == nullptr) return false;
-
+	
 	// 금액 부족
 	int gold = (int)stat->GetBaseValue(StatType::Gold) - item->GetPrice();
 	if (gold < 0) return false;
 	
 	// 인벤토리 푸쉬
-	if (!inventory.Push(item->GetId())) return false;
+	Item* newItem = inventory.Push(item->GetId());
+	if (newItem == nullptr) return false;
 
 	// 골드 소모
 	stat->SetBaseValue(StatType::Gold, (float)gold);
+
+	newItem->SetTarget(this);
 
 	return true;
 }
 
 void Unit::SellItem(int _idx)
 {
-	Item* item = inventory.GetItem(_idx);
-	if (item == nullptr) return;
-	float price = item->GetPrice() * 0.7f;
+	//Item* item = inventory.GetItem(_idx);
+	//if (item == nullptr) return;
+	//float price = item->GetPrice() * 0.7f;
+	//
+	//bool success = inventory.Pop(_idx);
+	//if (!success) return;
+	//
+	//if (price < 0.f) return;
+	//
+	int price = inventory.SellItem(_idx);
+	if (price < 0) return;
 
-	bool success = inventory.Pop(_idx);
-	if (!success) return;
-
-	if (price < 0.f) return;
-	
 	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
 }
 

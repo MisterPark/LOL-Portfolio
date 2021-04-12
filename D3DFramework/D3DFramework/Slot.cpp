@@ -10,30 +10,36 @@ Slot::~Slot()
 {
 }
 
-bool Slot::Push(UINT _id)
+Item* Slot::Push(UINT _id)
 {
     Item* _item = ItemManager::GetInstance()->GetItem(_id);
-    if (_item == nullptr) return false;
+    if (_item == nullptr) return nullptr;
 
     switch (_item->GetType())
     {
     case ItemType::Consume:
-        if (item->GetId() != _id) return false;
-        if (num >= 5) return false;
+        if (item->GetId() != _id) return nullptr;
+        if (num >= 5) return nullptr;
         
         num++;
+        return item;
+
+        break;
+
+    case ItemType::Trinkets:
 
         break;
 
     default:
-        if (item != nullptr) return false;
+        if (item != nullptr) return nullptr;
 
         item = _item->Clone();
 
+        return item;
         break;
     }
     
-    return true;
+    return nullptr;
 }
 
 bool Slot::Pop()
@@ -60,7 +66,9 @@ bool Slot::Pop()
 
 void Slot::Delete()
 {
-    delete item;
-    item = nullptr;
+    if (item != nullptr) {
+        delete item;
+        item = nullptr;
+    }
     num = 0;
 }

@@ -65,21 +65,6 @@ void TestScene::OnLoaded()
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
 	champ->AddItem(3742);
-	//item->skillList.push_back(new Skill_Item_Dreadnought(unit));
-
-	//buffItem->AddModifier(StatType::MaxHealth, 400.f);
-	//buffItem->AddModifier(StatType::Armor, 100.f);
-	//buffItem->AddModifier(StatType::MovementSpeed, 0.05f, true);
-	//
-	//item = ItemManager::GetInstance()->GetItem(3742);
-	champ->AddItem(3742);
-	//buffItem = item->StatBuffSetting(unit);
-
-	//buffItem->AddModifier(StatType::MaxHealth, 400.f);
-
-	//
-	
-	//item->skillList.push_back(new Skill_Item_Dreadnought(unit));
 
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };

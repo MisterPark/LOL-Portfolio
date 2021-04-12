@@ -11,5 +11,7 @@ public:
 	virtual void Passive() = 0;
 	virtual void Active() = 0;
 	virtual void End() = 0;
+
+	virtual Skill_Item* Clone() = 0;
 };
 
