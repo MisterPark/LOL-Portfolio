@@ -18,6 +18,7 @@ Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 	duration = 1.f;
 	host = _hostUnit;
 	range = 4.f;
+	level = 3;
 
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::TrueDamage));
 	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, DamageKind::TrueDamage));
@@ -29,7 +30,7 @@ Skill_Garen_R::~Skill_Garen_R()
 
 void Skill_Garen_R::Start()
 {
-	if (GetCooltime() > 0.f)
+	if (level == 0 || GetCooltime() > 0.f)
 		return;
 
 
@@ -82,10 +83,10 @@ void Skill_Garen_R::End()
 bool Skill_Garen_R::TargetingSuccess(Unit* target)
 {
 	//
-	if (target == host)
-		return false;
+	//if (target == host)
+		//return false;
 	//TODO::나중에 챔피언만으로 바꿀예정
-	if (target->team == host->team)
+	if (target->team != host->team)
 		return true;
 	return false;
 }

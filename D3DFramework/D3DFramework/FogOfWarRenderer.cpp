@@ -10,6 +10,7 @@ Engine::FogOfWarRenderer::FogOfWarRenderer(GameObject* owner, float radius):
 
 void Engine::FogOfWarRenderer::Render()
 {
+	if (visible == false) return;
 	//내 오브젝트의 월드 트렌스폼을 구한다.
 	Matrix mTransform{ this->transform->GetWorldMatrix() };
 	Vector3 vPosition{ reinterpret_cast<Vector3 const&>(mTransform.m[3]) };

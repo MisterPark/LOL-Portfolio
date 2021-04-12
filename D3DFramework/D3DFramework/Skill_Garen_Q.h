@@ -14,7 +14,7 @@ public:
     virtual void Active();
     virtual void End();
 
-    virtual void OnAttackEnd() override;
+    virtual void OnHit(Unit* target) override;
 
 private:
     float baseSpeedTime = 1.f;

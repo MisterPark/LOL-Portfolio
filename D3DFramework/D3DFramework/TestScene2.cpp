@@ -29,6 +29,7 @@
 #include "RenderSystem.h"
 #include "EffectObject.h"
 #include "FogOfWarRenderer.h"
+#include "TextBox.h"
 
 void TestScene2::OnLoaded()
 {
@@ -79,6 +80,10 @@ void TestScene2::OnLoaded()
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
 
+	TextBox* textbox = new TextBox();
+	textbox->SetLocation(50, MainGame::GetHeight() - 200);
+	UIManager::GetInstance()->AddUI(textbox);
+
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();
 
@@ -97,9 +102,20 @@ void TestScene2::Update()
 
 	MiniScorePanel::GetInstance()->SetMinionScore((int)unitMap[0]->stat->GetBaseValue(StatType::MinionKilled));
 
+	SpawnMinion();
+
+	if (Input::GetKeyDown('M'))
+	{
+		CreateMinionCaster();
+	}
+}
+
+void TestScene2::SpawnMinion()
+{
 	int minute = 0;
 	int second = 0;
 	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
+
 	if (minute == 0 && second == 25)
 	{
 		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
@@ -111,11 +127,6 @@ void TestScene2::Update()
 	else if (minute == 1 && second == 5)
 	{
 		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
-	}
-
-	if (Input::GetKeyDown('M'))
-	{
-		CreateMinionCaster();
 	}
 }
 

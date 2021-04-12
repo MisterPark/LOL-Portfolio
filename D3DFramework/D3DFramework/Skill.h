@@ -14,7 +14,8 @@ public:
 	virtual void Active() = 0;
 	virtual void End() = 0;
 	virtual bool InRange();
-	virtual void OnAttackEnd();
+	virtual void OnHit(Unit* target);
+	virtual void OnDamaged(float damage);
 
 	void SetActive(bool _active) { active = _active; }
 	bool IsActive();

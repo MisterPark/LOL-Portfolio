@@ -48,6 +48,7 @@ void Missile::Update()
 			attackTarget->SetLastAttacker(owner);
 			float finalDamage = owner->stat->GetValue(StatType::AttackDamage);
 			owner->Calc_FinalDamage(&finalDamage, owner->stat, attackTarget->stat);
+			owner->OnHit(attackTarget);
 			attackTarget->TakeDamage(finalDamage);
 			// 피격정보 저장
 			Unit::HitInfo info;

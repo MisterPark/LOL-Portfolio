@@ -17,7 +17,6 @@ Turret::Turret()
 	
 	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"turret_order");
 	AddComponent(L"StaticMesh", mesh);
-
 	collider->SetRadius(0.6f);
 
 	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
@@ -27,14 +26,15 @@ Turret::Turret()
 
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
-	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 4.f);
+	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 12.f);
 	AddComponent(L"fogRenderer", fogOfWarRenderer);
 	renderer->SetMesh(mesh);
 	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
-	Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
-	AddComponent(L"distortionRenderer", distortionRenderer);
-	distortionRenderer->SetMesh(mesh);
-	distortionRenderer->SetOpacity(1.0f);
+
+	//Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
+	//AddComponent(L"distortionRenderer", distortionRenderer);
+	//distortionRenderer->SetMesh(mesh);
+	//distortionRenderer->SetOpacity(1.0f);
 
 	// 스탯
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);

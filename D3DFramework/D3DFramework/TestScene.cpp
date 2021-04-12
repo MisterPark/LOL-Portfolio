@@ -22,7 +22,7 @@
 #include "Turret.h"
 #include "Bush.h"
 
-
+#include "Inhibitor.h"
 #include "AllChampion.h"
 #include "AllMinion.h"
 #include "AllMonster.h"
@@ -36,9 +36,13 @@
 
 #include "EffectObject.h"
 #include "Skill_Item_Dreadnought.h"
+#include "MinionSpawner.h"
+
 
 void TestScene::OnLoaded()
 {
+	MinionSpawner::GetInstance();
+
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
@@ -61,6 +65,20 @@ void TestScene::OnLoaded()
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
 	champ->AddItem(3742);
+	//item->skillList.push_back(new Skill_Item_Dreadnought(unit));
+
+	//buffItem->AddModifier(StatType::MaxHealth, 400.f);
+	//buffItem->AddModifier(StatType::Armor, 100.f);
+	//buffItem->AddModifier(StatType::MovementSpeed, 0.05f, true);
+	//
+	//item = ItemManager::GetInstance()->GetItem(3742);
+	champ->AddItem(3742);
+	//buffItem = item->StatBuffSetting(unit);
+
+	//buffItem->AddModifier(StatType::MaxHealth, 400.f);
+
+	//
+	
 	//item->skillList.push_back(new Skill_Item_Dreadnought(unit));
 
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
@@ -89,10 +107,13 @@ void TestScene::OnLoaded()
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
+
+	
 }
 
 void TestScene::OnUnloaded()
 {
+	MinionSpawner::Destroy();
 }
 
 void TestScene::Update()
@@ -126,11 +147,32 @@ void TestScene::Update()
 
 		}
 	}
+
+	Progress();
 	
-	if (Input::GetKeyDown('M'))
+}
+
+void TestScene::Progress()
+{
+	int minute = 0;
+	int second = 0;
+	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
+
+	if (minute == 0 && second == 25)
 	{
-		CreateMinionCaster();
+		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
 	}
+	else if (minute == 0 && second == 35)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 1 && second == 5)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
+		MinionSpawner::Spawn();
+	}
+
+	MinionSpawner::Update();
 }
 
 //============================================================================================
@@ -286,6 +328,41 @@ void TestScene::CreateBuilding()
 	unit->SetID(unitID);
 	unitID++;
 
+	// inhibitor bot
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 21.52f,68.04f,42.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(180.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor mid
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 23.26f,68.04f,29.98f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor top
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 36.23f,68.04f,27.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// nexus
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Nexus>(Layer::Building);
+	unit->transform->position = { 33.83f,68.04f,40.00f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	unit->SetID(unitID);
+	unitID++;
 
 	// 퍼플팀
 
@@ -574,268 +651,5 @@ void TestScene::CreateMonster()
 	unit->SetSpawnPosition(unit->transform->position);
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
-	unitID++;
-}
-
-void TestScene::CreateMinionCaster()
-{
-	Minion* minion = nullptr;
-
-	// 블루
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionCaster>(Layer::Unit);
-	minion->transform->position = { 29.47f,68.04f,41.74f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
-	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionCaster>(Layer::Unit);
-	minion->transform->position = { 30.64f,68.04f,37.51f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionCaster>(Layer::Unit);
-	minion->transform->position = { 35.00f,68.04f,35.55f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
-	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	// 레드
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionCaster>(Layer::Unit);
-	minion->transform->position = { -43.05f,68.01f,-29.62f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
-	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionCaster>(Layer::Unit);
-	minion->transform->position = { -36.94f,68.01f,-30.35f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionCaster>(Layer::Unit);
-	minion->transform->position = { -36.68f,68.01f,-36.45f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
-	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-
-
-
-
-
-}
-
-void TestScene::CreateMinionMelee()
-{
-	Minion* minion = nullptr;
-	// 블루========================================================
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionMelee>(Layer::Unit);
-	minion->transform->position = { 29.47f,68.04f,41.74f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
-	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionMelee>(Layer::Unit);
-	minion->transform->position = { 30.64f,68.04f,37.51f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionMelee>(Layer::Unit);
-	minion->transform->position = { 35.00f,68.04f,35.55f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
-	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	// 레드
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionMelee>(Layer::Unit);
-	minion->transform->position = { -43.05f,68.01f,-29.62f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
-	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionMelee>(Layer::Unit);
-	minion->transform->position = { -36.94f,68.01f,-30.35f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionMelee>(Layer::Unit);
-	minion->transform->position = { -36.68f,68.01f,-36.45f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
-	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-}
-
-void TestScene::CreateMinionSiege()
-{
-	Minion* minion = nullptr;
-	// 블루
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSiege>(Layer::Unit);
-	minion->transform->position = { 29.47f,68.04f,41.74f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
-	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSiege>(Layer::Unit);
-	minion->transform->position = { 30.64f,68.04f,37.51f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSiege>(Layer::Unit);
-	minion->transform->position = { 35.00f,68.04f,35.55f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
-	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	// 레드
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSiege>(Layer::Unit);
-	minion->transform->position = { -43.05f,68.01f,-29.62f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
-	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSiege>(Layer::Unit);
-	minion->transform->position = { -36.94f,68.01f,-30.35f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSiege>(Layer::Unit);
-	minion->transform->position = { -36.68f,68.01f,-36.45f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
-	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-}
-
-void TestScene::CreateMinionSuper()
-{
-	Minion* minion = nullptr;
-	// 블루
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSuper>(Layer::Unit);
-	minion->transform->position = { 29.47f,68.04f,41.74f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -30.88f,67.71f,40.80f };
-	minion->ai->wayPoint.push_back(Vector3(-42.32f, 67.71f, 28.58f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSuper>(Layer::Unit);
-	minion->transform->position = { 30.64f,68.04f,37.51f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<OrderMinionSuper>(Layer::Unit);
-	minion->transform->position = { 35.00f,68.04f,35.55f };
-	minion->SetTeam(Team::BLUE);
-	minion->ai->nextPoint = { 34.58f,67.71f,-23.79f };
-	minion->ai->wayPoint.push_back(Vector3(23.98f, 67.71f, -34.88f));
-	minion->ai->wayPoint.push_back(Vector3(-42.87f, 68.01f, -36.16f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	// 레드
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSuper>(Layer::Unit);
-	minion->transform->position = { -43.05f,68.01f,-29.62f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -42.32f,67.71f,28.58f };
-	minion->ai->wayPoint.push_back(Vector3(-30.88f, 67.71f, 40.80f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSuper>(Layer::Unit);
-	minion->transform->position = { -36.94f,68.01f,-30.35f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { -3.49f,67.72f,3.92f };
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
-	unitID++;
-
-	minion = (Minion*)SceneManager::GetCurrentScene()->CreateObject<ChaosMinionSuper>(Layer::Unit);
-	minion->transform->position = { -36.68f,68.01f,-36.45f };
-	minion->SetTeam(Team::RED);
-	minion->ai->nextPoint = { 23.98f,67.71f,-34.88f };
-	minion->ai->wayPoint.push_back(Vector3(34.58f, 67.71f, -23.79f));
-	minion->ai->wayPoint.push_back(Vector3(36.59f, 68.05f, 42.96f));
-	unitMap[unitID] = minion;
-	minion->SetID(unitID);
 	unitID++;
 }

@@ -1,8 +1,8 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Nexus.h"
 #include "SphereCollider.h"
-
 #include "DeferredStaticMeshRenderer.h"
+
 Nexus::Nexus()
 {
 	transform->position = { 0,0,0 };

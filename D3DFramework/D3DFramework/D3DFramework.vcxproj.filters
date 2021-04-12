@@ -340,6 +340,30 @@
     <Filter Include="GameObject\Missile">
       <UniqueIdentifier>{0262d8c7-05da-4e70-8a1e-40a9d961435a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buff\Item\Skill">
+      <UniqueIdentifier>{60cc7105-d652-4883-9016-305b58fca999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\MissFortune">
+      <UniqueIdentifier>{860a9aa0-eb0a-489f-91a1-aa26e690d35f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\MissFortune">
+      <UniqueIdentifier>{f5c461e5-1e42-4ae8-8c9a-2d9d8f0ecbc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\DamageObject\MissFortune">
+      <UniqueIdentifier>{7ab773c9-f544-47b5-b49e-808ed0dfc12a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\EffectObject\BuffEffect">
+      <UniqueIdentifier>{fb2ffef4-2bca-47ee-ab18-99e63fd77359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Aura">
+      <UniqueIdentifier>{2d2fbd3d-6c94-4dd3-b740-d419fb86a19f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Base">
+      <UniqueIdentifier>{4ee3d303-aaab-47bb-b031-d1e09e2ca397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit\Minion\Spawner">
+      <UniqueIdentifier>{c00324c5-e545-4cdb-ad99-aea8d75c409d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\UI\Control\Tooltip">
       <UniqueIdentifier>{90bffe70-4553-4590-8914-06bda78e42cd}</UniqueIdentifier>
     </Filter>
@@ -353,15 +377,6 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Lib\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryPool.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>Lib\MainGame</Filter>
@@ -378,26 +393,8 @@
     <ClInclude Include="Camera.h">
       <Filter>GameObject\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>GameObject\Cursor</Filter>
-    </ClInclude>
-    <ClInclude Include="Random.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="Animation2D.h">
       <Filter>Component\Animation</Filter>
@@ -425,9 +422,6 @@
     </ClInclude>
     <ClInclude Include="Protocol.h">
       <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="LobbyWindow.h">
       <Filter>Lib\MainGame</Filter>
@@ -738,9 +732,6 @@
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
     <ClInclude Include="RenderTarget.h">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClInclude>
@@ -758,9 +749,6 @@
     </ClInclude>
     <ClInclude Include="TurretFloatingBar.h">
       <Filter>GameObject\Unit\Building\Turret</Filter>
-    </ClInclude>
-    <ClInclude Include="TextParser.h">
-      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="MinionAI.h">
       <Filter>Component\AI</Filter>
@@ -997,9 +985,6 @@
     <ClInclude Include="Skill_Item_Dreadnought.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_ItemDreadnought.h">
-      <Filter>Buff\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ItemshopSlot.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClInclude>
@@ -1024,6 +1009,86 @@
     <ClInclude Include="EffectObject.h">
       <Filter>GameObject\EffectObject</Filter>
     </ClInclude>
+    <ClInclude Include="Buff_Item.h">
+      <Filter>Buff\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemDreadnought.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_W.h">
+      <Filter>Skill\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneWAttackSpeed.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneWMoveSpeed.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_E.h">
+      <Filter>Skill\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageObject_MissFortune_E.h">
+      <Filter>GameObject\DamageObject\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_MissFortuneESlow.h">
+      <Filter>Buff\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_MissFortune_P.h">
+      <Filter>Skill\MissFortune</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Red_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Blue_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Baron_Buff.h">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Aura.h">
+      <Filter>Component\Aura</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParser.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Lib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionSpawner.h" />
+    <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
@@ -1040,9 +1105,6 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Lib\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Texture</Filter>
@@ -1061,21 +1123,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GameObject\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Random.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>GameObject\Cursor</Filter>
@@ -1166,9 +1213,6 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>Lib\MainGame</Filter>
@@ -1484,9 +1528,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Lib</Filter>
-    </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Lib\Graphics\RenderTarget</Filter>
     </ClCompile>
@@ -1504,9 +1545,6 @@
     </ClCompile>
     <ClCompile Include="TurretMissile.cpp">
       <Filter>GameObject\Unit\Building\Turret</Filter>
-    </ClCompile>
-    <ClCompile Include="TextParser.cpp">
-      <Filter>Lib</Filter>
     </ClCompile>
     <ClCompile Include="MinionAI.cpp">
       <Filter>Component\AI</Filter>
@@ -1735,9 +1773,6 @@
     <ClCompile Include="Skill_Item_Dreadnought.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_ItemDreadnought.cpp">
-      <Filter>Buff\Item</Filter>
-    </ClCompile>
     <ClCompile Include="ItemshopSlot.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClCompile>
@@ -1762,6 +1797,77 @@
     <ClCompile Include="EffectObject.cpp">
       <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
+    <ClCompile Include="Buff_Item.cpp">
+      <Filter>Buff\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemDreadnought.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_W.cpp">
+      <Filter>Skill\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_E.cpp">
+      <Filter>Skill\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageObject_MissFortune_E.cpp">
+      <Filter>GameObject\DamageObject\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_MissFortuneESlow.cpp">
+      <Filter>Buff\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_MissFortune_P.cpp">
+      <Filter>Skill\MissFortune</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Red_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Baron_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Blue_Buff.cpp">
+      <Filter>GameObject\EffectObject\BuffEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Aura.cpp">
+      <Filter>Component\Aura</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TextParser.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionSpawner.cpp" />
+    <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp">
       <Filter>GameObject\UI\Control</Filter>
     </ClCompile>

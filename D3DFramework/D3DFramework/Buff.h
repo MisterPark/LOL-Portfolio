@@ -6,8 +6,10 @@ class Buff
 {
 public:
 	enum class BuffName{
+		Item, 
 		Ghost, HealMoveSpeed,
 		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,
+		MissFortuneWAttackSpeed, MissFortuneWMoveSpeed, MissFortuneESlow,
 		Dreadnought,
 		END
 	};

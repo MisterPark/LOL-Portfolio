@@ -320,6 +320,7 @@ void Engine::MainGame::LoadUISprite()
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"icon_spell_summonerspell_recall_01.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"baron_recall.dds");
+	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"textbox.png");
 
 	// Itemshop
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
@@ -342,11 +343,11 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_blankslot.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"icon_gold.png");
 
-	// item
-	LoadUISpriteFromFolder("Resource\\UI\\item\\", "*.dds");
 
-	// missfortune
-	LoadUISpriteFromFolder("Resource\\Mesh\\character\\missfortune\\particles\\", "*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\item\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\buff\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\missfortune\\particles\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\garen\\particles\\", L"*.dds");
 
 	// scoreboard
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");
@@ -399,7 +400,7 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonermana.png");
 
 	// tooltip
-	LoadUISpriteFromFolder("Resource\\UI\\tooltip\\", "*.png");
+	LoadAllTextureInFolder(L"Resource\\UI\\tooltip\\", L"*.png");
 
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
@@ -496,20 +497,22 @@ void Engine::MainGame::LoadUISprite()
 
 }
 
-void Engine::MainGame::LoadUISpriteFromFolder(const char _path[1024], const char _filter[1024])
+void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstring& _filter)
 {
+	char _cPath[260] = {};
+	WideCharToMultiByte(CP_ACP, 0, _path.c_str(), _path.length(), _cPath, _path.length(), NULL, NULL);
+
 	_finddata_t fd;
 	char path[1024];
-	//char filter[MAX_PATH] = "*.dds";
-	_fullpath(path, _path, 1024);
-	strcat_s(path, _filter);
-	std::wstring wpath(_path, &_path[1024]);
+	char filter[MAX_PATH] = _filter.c_str();
+	_fullpath(path, _cPath, 1024);
+	strcat_s(path, filter);
 	long handle = _findfirst(path, &fd);
 	if (handle != -1)
 	{
 		do {
 			std::wstring file(fd.name, &fd.name[260]);
-			RenderManager::LoadSprite(wpath, file);
+			RenderManager::LoadSprite(_path.c_str(), file);
 		} while (_findnext(handle, &fd) != -1);
 		_findclose(handle);
 	}

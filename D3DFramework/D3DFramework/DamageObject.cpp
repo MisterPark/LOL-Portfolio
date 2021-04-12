@@ -52,17 +52,22 @@ void DamageObject::OnCollisionEnter(Collider* target)
 		return;
 
 	if (attackCheck && !Check_DamagedOverlap(target->gameObject)) {
-		//float damage = pUnit->stat->GetValue(StatType::AttackDamage);
-		float damage = attackDamage;// hostObject->stat->GetValue(StatType::AttackDamage);
-		Calc_FinalDamage(&damage, hostObject->stat, pUnit->stat);
-		pUnit->SetLastAttacker(hostObject);
+		float damage = attackDamage;
+		OnCollisionAddAttack(damage, target);
+		Calc_FinalDamage(&damage, host->stat, pUnit->stat);
+		pUnit->SetLastAttacker(host);
 		pUnit->TakeDamage(damage);
 		damagedObject.emplace_back(target->gameObject);
 	}
 }
 
+void DamageObject::OnCollisionAddAttack(float damage, Collider* target)
+{
+	
+}
+
 void DamageObject::Set_DamageObject(Unit* _hostObject, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval, float _interval_AttackTime, float _startTime) {
-	hostObject = _hostObject;
+	host = _hostObject;
 	*transform->Get_Pos() = _pos;
 	collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
 	collider->SetRadius(_scale);

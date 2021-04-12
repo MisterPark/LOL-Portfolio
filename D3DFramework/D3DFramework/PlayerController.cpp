@@ -7,6 +7,9 @@
 #include "Indicator.h"
 #include "PlayerInfoPanel.h"
 #include "TargetingSkill.h"
+#include "Inventory.h"
+#include "Skill_Attack.h"
+#include "Skill_RangeAttack.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -30,7 +33,11 @@ void PlayerController::Update()
 {
     if (gameObject == nullptr)return;
 
-    
+    if (Input::GetKeyDown('T'))
+    {
+        unit->inventory.ItemSell(0);
+    }
+
     if (Input::GetKeyDown('A'))
     {
         unit->Attack();
@@ -144,7 +151,10 @@ void PlayerController::Update()
             printf("%.2f,%.2f,%.2f\n", hit.point.x, hit.point.y, hit.point.z);
             if (targetMode)
             {
-                Unit* target = unit->GetNearestEnemy(hit.point, 5.f);
+                Unit* target = nullptr;
+                if(dynamic_cast<Skill_Attack*>(unit->nextSkillReady) != nullptr
+                    || dynamic_cast<Skill_RangeAttack*>(unit->nextSkillReady) != nullptr)
+                    target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {
                     unit->SetAttackTarget(target);
@@ -155,6 +165,9 @@ void PlayerController::Update()
                     unit->SetAttackTarget(nullptr);
                     agent->SetStoppingDistance(0.1f);
                     unit->SetDestination(hit.point);
+                    unit->SetAttackPoint(Vector3{ hit.point.x, hit.point.y, hit.point.z });
+                    if(((TargetingSkill*)unit->nextSkillReady)->GetGroundClick())
+                        targetCheck = true;
                 }
             }
         }

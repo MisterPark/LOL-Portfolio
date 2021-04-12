@@ -13,6 +13,37 @@ MinionSubTree::MinionSubTree(Minion* owner)
 	deathAction->SetAction((Unit**)&minion, &Unit::DeadAction);
 	deathCondition->SetChild(deathAction);
 
+	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
+	attackCondition->SetCondition((Unit**)&minion, &Unit::HasAttackTarget);
+	this->AddChild(attackCondition);
+
+	SelectorNode* attackSelector = new SelectorNode();
+	attackCondition->SetChild(attackSelector);
+
+	ConditionNode<Unit>* rangeCondition = new ConditionNode<Unit>();
+	rangeCondition->SetCondition((Unit**)&minion, &Unit::IsTargetInAttackRange);
+	attackSelector->AddChild(rangeCondition);
+
+	//ConditionNode<Skill>* rangeCondition = new ConditionNode<Skill>();
+	//rangeCondition->SetCondition((Skill**)&minion->skillList[(int)SkillIndex::Attack], &Skill::InRange);
+	//attackSelector->AddChild(rangeCondition);
+
+	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
+	attackAction->SetAction((Skill**)&minion->skillList[(int)SkillIndex::Attack], &Skill::Active);
+	rangeCondition->SetChild(attackAction);
+
+	ActionNode<Unit>* chaseAction = new ActionNode<Unit>();
+	chaseAction->SetAction((Unit**)&minion, &Unit::ChaseTarget);
+	attackSelector->AddChild(chaseAction);
+
+	//ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
+	//countAttackCondition->SetCondition((Unit**)&minion, &Unit::HasLastAttacker);
+	//attackSelector->AddChild(countAttackCondition);
+
+	//ActionNode<Unit>* countAttackAction = new ActionNode<Unit>();
+	//countAttackAction->SetAction((Unit**)&minion, &Unit::CounterAttack);
+	//countAttackCondition->SetChild(countAttackAction);
+
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
 	moveCondition->SetCondition((NavMeshAgent**)&minion->agent, &NavMeshAgent::IsPathRemain);
 	this->AddChild(moveCondition);
@@ -20,25 +51,6 @@ MinionSubTree::MinionSubTree(Minion* owner)
 	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
 	moveAction->SetAction((Unit**)&minion, &Unit::MoveAction);
 	moveCondition->SetChild(moveAction);
-
-	SelectorNode* attackSelector = new SelectorNode();
-	this->AddChild(attackSelector);
-
-	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
-	attackCondition->SetCondition((Unit**)&minion, &Unit::HasAttackTarget);
-	attackSelector->AddChild(attackCondition);
-
-	ActionNode<Unit>* attackAction = new ActionNode<Unit>();
-	attackAction->SetAction((Unit**)&minion, &Unit::AttackAction);
-	attackCondition->SetChild(attackAction);
-
-	ConditionNode<Unit>* countAttackCondition = new ConditionNode<Unit>();
-	countAttackCondition->SetCondition((Unit**)&minion, &Unit::HasLastAttacker);
-	attackSelector->AddChild(countAttackCondition);
-
-	ActionNode<Unit>* countAttackAction = new ActionNode<Unit>();
-	countAttackAction->SetAction((Unit**)&minion, &Unit::CounterAttack);
-	countAttackCondition->SetChild(countAttackAction);
 
 	ActionNode<Unit>* idleAction = new ActionNode<Unit>();
 	idleAction->SetAction((Unit**)&minion, &Unit::IdleAction);

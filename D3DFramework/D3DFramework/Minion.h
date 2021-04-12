@@ -1,8 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "Unit.h"
 
 class MinionFloatingBar;
 class MinionAI;
+
+enum class MinionType { Caster, Melee, Siege, Super, End };
 
 class Minion :
     public Unit

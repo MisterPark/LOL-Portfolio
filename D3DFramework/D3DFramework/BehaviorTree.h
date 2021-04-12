@@ -108,6 +108,7 @@ namespace Engine
 	{
 		if(pInstance == nullptr) return BehaviorTree::Status::Failure;
 		if (Func == nullptr) return BehaviorTree::Status::Failure;
+		if ((*pInstance) == nullptr) return BehaviorTree::Status::Failure;
 		if (((*pInstance)->*Func)() == false) return BehaviorTree::Status::Failure;
 
 		return child->Update();

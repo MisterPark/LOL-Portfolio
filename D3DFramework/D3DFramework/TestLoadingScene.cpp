@@ -30,7 +30,7 @@ namespace std
 #include <filesystem>
 #endif
 
-long resourceMax = 39;
+long resourceMax = 40;
 long resourceLoadCnt = 0;
 
 void TestLoadingScene::OnLoaded()
@@ -90,6 +90,7 @@ void TestLoadingScene::Update()
 	if (resourceLoadCnt == resourceMax)
 	{
 		SceneManager::LoadScene<TestScene>();
+		//SceneManager::LoadScene<TestScene2>();
 	}
 }
 
@@ -142,6 +143,8 @@ void TestLoadingScene::LoadResources()
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break2.x", Count);
 	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break3.x", Count);
 
+	// 넥서스
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/order_inhibitor/sruap_orderinhibitor.x", Count);
 	// 넥서스
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x", Count);
 

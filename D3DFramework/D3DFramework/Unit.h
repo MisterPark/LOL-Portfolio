@@ -6,6 +6,7 @@
 #include "DamageCalc.h"
 #include "Skill.h"
 #include "Inventory.h"
+#include "Aura.h"
 
 class Indicator;
 class TargetingSkill;
@@ -25,6 +26,10 @@ enum class UnitID
 	TurretBlueTop3,
 	TurretBlueTwin1,
 	TurretBlueTwin2,
+	InhibitorBlueBot,
+	InhibitorBlueMid,
+	InhibitorBlueTop,
+	NexusBlue,
 
 	TurretRedBot1,
 	TurretRedBot2,
@@ -139,6 +144,8 @@ public:
 
 	virtual void Die();
 	virtual void OnKilled(Unit* target);
+	virtual void OnHit(Unit* target);
+	virtual void OnDamaged(Unit* target, float damage);
 	// 행동
 	virtual void DeadAction();
 	virtual void AttackAction();
@@ -176,6 +183,7 @@ public:
 
 	Vector3 GetSpawnPosition();
 	void SetSpawnPosition(Vector3 _spawnPos);
+	void SetSpawnTime(float _delay);
 	float GetRemainingRespawnTime();
 
 
@@ -192,9 +200,13 @@ public:
 
 	Unit* GetLastAttacker();
 	Unit* GetNearestEnemy(Vector3 point, float radius = INFINITY);
+	bool IsEnemyInAttackRange();
+	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
 	Skill_Attack* GetSkillAttack();
+	template<class T>
+	Unit::HitInfo GetLastHitInfo();
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
@@ -215,6 +227,7 @@ public:
 	Indicator* attackIndicator = nullptr;
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
+	Aura* aura = nullptr;
 
 public:
 	// 이동모션 관련
@@ -270,5 +283,6 @@ protected:
 private:
 	State oldAttackState = State::IDLE1;
 	bool beginAttackFlag = false;
+
 };
 

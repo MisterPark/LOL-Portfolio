@@ -21,6 +21,8 @@ public:
     virtual void SetTeam(Team _team);
     void SetNickname(const std::wstring& _nickname);
 
+    virtual void OnHit(Unit* target) override;
+    virtual void OnDamaged(Unit* target, float damage) override;
 public:
     FloatingBar* bar = nullptr;
 	FloatingHPBar* hpBar = nullptr;

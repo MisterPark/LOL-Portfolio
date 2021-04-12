@@ -2,6 +2,13 @@
 #include "Missfortune.h"
 #include "Skill_RangeAttack.h"
 #include "ChampionSubTree.h"
+#include "Skill_MissFortune_P.h"
+#include "Skill_MissFortune_W.h"
+#include "Skill_MissFortune_E.h"
+#include "DamageCalc_Basic.h"
+#include "DamageCalc_OnHit.h"
+#include "DamageCalc_Critical.h"
+#include "Skill_Ghost.h"
 
 Missfortune::Missfortune()
 {
@@ -37,13 +44,17 @@ Missfortune::Missfortune()
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
+	damageCalcList.emplace_back(DamageCalc_Critical::CreateCalc());
+	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc(DamageKind::AD));
+
 	skillList[(int)SkillIndex::Attack] = new Skill_RangeAttack(this);
-	skillList[(int)SkillIndex::Passive] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::Passive] = new Skill_MissFortune_P(this);
 	skillList[(int)SkillIndex::Q] = new Skill_RangeAttack(this);
-	skillList[(int)SkillIndex::W] = new Skill_RangeAttack(this);
-	skillList[(int)SkillIndex::E] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::W] = new Skill_MissFortune_W(this);
+	skillList[(int)SkillIndex::E] = new Skill_MissFortune_E(this);
 	skillList[(int)SkillIndex::R] = new Skill_RangeAttack(this);
-	skillList[(int)SkillIndex::D] = new Skill_RangeAttack(this);
+	skillList[(int)SkillIndex::D] = new Skill_Ghost(this);
 	skillList[(int)SkillIndex::F] = new Skill_RangeAttack(this);
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
