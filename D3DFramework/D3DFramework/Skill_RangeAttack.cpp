@@ -76,7 +76,7 @@ void Skill_RangeAttack::Active()
 			host->attackFlag = true;
 
 			Missile* missile = (Missile*)SceneManager::GetCurrentScene()->CreateObject<Missile>(Layer::Effect);
-			missile->SetOwner(host);
+			missile->SetOwner(host, this);
 			missile->SetTexture(this->textureKey);
 			missile->SetTarget(host->attackTarget);
 			missile->transform->position = host->transform->position;

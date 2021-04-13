@@ -1087,6 +1087,30 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Item_WitchsFocus.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Cleave.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_ManaCharge.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_SpellBlade.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Thorns.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemWitchsFocus.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemManaCharge.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemSpellBlade.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h">
@@ -1865,6 +1889,30 @@
     </ClCompile>
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Cleave.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_ManaCharge.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_SpellBlade.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Thorns.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_WitchsFocus.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemManaCharge.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemSpellBlade.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemWitchsFocus.cpp">
+      <Filter>Buff\Item\Skill</Filter>
     </ClCompile>
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Inhibitor.cpp" />

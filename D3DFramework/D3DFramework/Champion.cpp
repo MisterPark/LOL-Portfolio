@@ -67,32 +67,72 @@ void Champion::SetNickname(const std::wstring& _nickname)
 	bar->SetNickname(_nickname);
 }
 
-void Champion::OnHit(Unit* target)
+void Champion::OnHit(Unit* target, Skill* mySkill)
 {
 	for (int i = 0; i < (int)SkillIndex::END; i++) {
 		if (skillList[i] != nullptr)
-			skillList[i]->OnHit(target);
+			skillList[i]->OnHit(target, mySkill);
 	}
 	for (int i = 0; i < INVENTORY_MAX; i++)
 	{
 		if (inventory.GetItem(i) != nullptr) {
 			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnHit(target);
+				itemSkill->OnHit(target, mySkill);
+		}
+	}
+	mySkill->OnThisSkillHit(target);
+}
+
+void Champion::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+{
+	for (int i = 0; i < (int)SkillIndex::END; i++) {
+		if (skillList[i] != nullptr)
+			skillList[i]->OnDamaged(target, targetSkill, damage);
+	}
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
+				itemSkill->OnDamaged(target, targetSkill, damage);
 		}
 	}
 }
 
-void Champion::OnDamaged(Unit* target, float damage)
+void Champion::OnKilled(Unit* target)
 {
+	Unit::OnKilled(target);
 	for (int i = 0; i < (int)SkillIndex::END; i++) {
 		if (skillList[i] != nullptr)
-			skillList[i]->OnDamaged(damage);
+			skillList[i]->OnKilled(target);
 	}
 	for (int i = 0; i < INVENTORY_MAX; i++)
 	{
 		if (inventory.GetItem(i) != nullptr) {
 			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnDamaged(damage);
+				itemSkill->OnKilled(target);
+		}
+	}
+
+}
+
+void Champion::OnOtherSkillStart(Skill* otherSkill)
+{
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
+				itemSkill->OnOtherSkillStart(otherSkill);
+		}
+	}
+}
+
+void Champion::OnTargetFirstHit(Unit* target, Skill* mySkill)
+{
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (inventory.GetItem(i) != nullptr) {
+			for (auto& itemSkill : inventory.GetItem(i)->skillList)
+				itemSkill->OnTargetFirstHit(target, mySkill);
 		}
 	}
 }

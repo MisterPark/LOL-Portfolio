@@ -336,11 +336,19 @@ void Unit::OnKilled(Unit* target)
 
 }
 
-void Unit::OnHit(Unit* target)
+void Unit::OnHit(Unit* target, Skill* mySkill)
 {
 }
 
-void Unit::OnDamaged(Unit* target, float damage)
+void Unit::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+{
+}
+
+void Unit::OnOtherSkillStart(Skill* otherSkill)
+{
+}
+
+void Unit::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
 }
 

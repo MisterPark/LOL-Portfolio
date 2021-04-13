@@ -35,8 +35,6 @@
 #include "RenderSystem.h"
 
 #include "EffectObject.h"
-#include "Skill_Item_Dreadnought.h"
-#include "MinionSpawner.h"
 
 
 void TestScene::OnLoaded()

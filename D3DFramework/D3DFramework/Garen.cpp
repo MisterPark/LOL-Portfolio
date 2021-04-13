@@ -128,10 +128,3 @@ void Garen::SkillRAction()
 {
 }
 
-void Garen::OnKilled(Unit* target)
-{
-	Unit::OnKilled(target);
-	if (skillList[(int)SkillIndex::W] != nullptr)
-		((Skill_Garen_W*)skillList[(int)SkillIndex::W])->AddPassiveStack();
-}
-

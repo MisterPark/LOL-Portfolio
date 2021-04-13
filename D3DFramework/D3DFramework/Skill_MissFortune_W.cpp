@@ -24,6 +24,7 @@ void Skill_MissFortune_W::Start()
 		return;
 
 	Skill::Start();
+	host->OnOtherSkillStart(this);
 
 	float attackSpeedValue = activeAttackSpeed + activeAttackSpeedGrowth * host->stat->GetBaseValue(StatType::Level);
 	Buff_MissFortuneWAttackSpeed* attackSpeedBuff = new Buff_MissFortuneWAttackSpeed(host, activeAttackSpeedTime, attackSpeedValue);//reductionValue);
@@ -67,7 +68,7 @@ void Skill_MissFortune_W::End()
 	Skill::End();
 }
 
-void Skill_MissFortune_W::OnDamaged(float damage)
+void Skill_MissFortune_W::OnDamaged(Unit* target, Skill* targetSkill, float damage)
 {
 	passiveTick = 0.f;
 }

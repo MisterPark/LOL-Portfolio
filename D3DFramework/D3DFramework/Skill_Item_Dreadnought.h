@@ -3,7 +3,7 @@
 
 class Buff_ItemDreadnought;
 
-class Skill_Item_Dreadnought :
+class Skill_Item_Dreadnought : // 망자의 갑옷
     public Skill_Item
 {
 public:

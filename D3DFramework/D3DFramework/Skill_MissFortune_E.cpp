@@ -40,11 +40,12 @@ void Skill_MissFortune_E::Start()
 		return;
 
 	Skill::Start();
+	host->OnOtherSkillStart(this);
 
 	DamageObject_MissFortune_E* damageObj = (DamageObject_MissFortune_E*)SceneManager::GetCurrentScene()->CreateObject<DamageObject_MissFortune_E>(Layer::Unit);
 	float attackDamage = baseDamage + (level * growthDamage) + (host->stat->GetBaseValue(StatType::AbilityPower) * 0.8f);
 	float attackInterval = 0.2f;
-	damageObj->Set_DamageObject(host, host->attackPoint, 3.f , host->team, attackDamage * 0.1f, damageTime, attackInterval, -1.f, startTime);
+	damageObj->Set_DamageObject(host, this, host->attackPoint, 3.f , host->team, attackDamage * 0.1f, damageTime, attackInterval, -1.f, startTime);
 	damageObj->SetSlowValue(baseSlow + level * growthSlow);
 	//제일처음에 Basic만 잘 입혀줄것
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AP));

@@ -19,6 +19,5 @@ public:
     virtual void SkillEAction();
     virtual void SkillRAction();
 
-    virtual void OnKilled(Unit* target);
 };
 

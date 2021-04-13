@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "GameObject.h"
+#include "Unit.h"
 #include "Stat.h"
 #include "DamageCalc.h"
 
+class Skill;
 class DamageObject : public GameObject
 {
 public:
@@ -15,6 +17,8 @@ public:
 
     virtual void OnCollisionEnter(Collider* target);
 
+    void Check_TotalHitList(Unit* target);
+
     virtual void OnCollisionAddAttack(float damage, Collider* target);
 
     //_pos : 위치
@@ -25,7 +29,7 @@ public:
     // _interval = 새롭게 때리는 주기/시간  // Default = 한번만 때림
     // _interval_Attack = 새롭게 때리고 데미지판정 시간 // Default = 새롭게 때릴때까지 쭉 판정
     // _startTime = 생성하고 언제부터 때릴건지. // Default = 0.f 바로
-    void Set_DamageObject(Unit* _hostObject, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval = 0.f, float _interval_AttackTime = -1.f, float _startTime = 0.f);
+    void Set_DamageObject(Unit* _hostObject, Skill* _hostSkill, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval = 0.f, float _interval_AttackTime = -1.f, float _startTime = 0.f);
     void Set_ObjectFollow(Unit* _object);
     Unit* Get_pHostObject() { return host; }
     bool Check_DamagedOverlap(GameObject* damagedObject);
@@ -49,9 +53,10 @@ protected:
 
     SphereCollider* collider = nullptr;
     Unit* host = nullptr;
+    Skill* hostSkill = nullptr;
     Unit* followObject = nullptr;
     list<DamageCalc*> damageCalcList;   //데미지계산관련
 public:
-    list<GameObject*> damagedObject;
+    list<GameObject*> tempHitList;
     //list<CC기*> 이 데미지 오브젝트 가질 CC기들
 };

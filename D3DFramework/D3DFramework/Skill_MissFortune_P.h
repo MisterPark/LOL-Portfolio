@@ -14,7 +14,7 @@ public:
     virtual void Active();
     virtual void End();
 
-    virtual void OnHit(Unit* target) override;
+    virtual void OnHit(Unit* target, Skill* mySkill) override;
 
 private:
     Unit* lastAttack = nullptr;

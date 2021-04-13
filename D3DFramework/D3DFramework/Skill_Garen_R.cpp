@@ -35,14 +35,11 @@ void Skill_Garen_R::Start()
 
 
 	Skill::Start();
+	host->OnOtherSkillStart(this);
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
-	Unit* target = host->attackTarget;
-	target->SetLastAttacker(host);
-	float finalDamage = baseDamage;
-	Calc_FinalDamage(&finalDamage, host->stat, target->stat);
-	target->TakeDamage(finalDamage);
+	Calc_TakeDamege(baseDamage);
 
 
 

@@ -57,8 +57,23 @@ void DamageObject::OnCollisionEnter(Collider* target)
 		Calc_FinalDamage(&damage, host->stat, pUnit->stat);
 		pUnit->SetLastAttacker(host);
 		pUnit->TakeDamage(damage);
-		damagedObject.emplace_back(target->gameObject);
+		host->OnHit(host, hostSkill);
+		tempHitList.emplace_back(target->gameObject);
 	}
+
+	Check_TotalHitList((Unit*)target->gameObject);
+}
+
+void DamageObject::Check_TotalHitList(Unit* target)
+{
+	list<Unit*>* hitList = hostSkill->GetHitList();
+	for (auto& unit : *hitList)
+	{
+		if (unit == target)
+			return;
+	}
+	hitList->push_back(target);
+	host->OnTargetFirstHit((Unit*)target, hostSkill);
 }
 
 void DamageObject::OnCollisionAddAttack(float damage, Collider* target)
@@ -66,8 +81,9 @@ void DamageObject::OnCollisionAddAttack(float damage, Collider* target)
 	
 }
 
-void DamageObject::Set_DamageObject(Unit* _hostObject, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval, float _interval_AttackTime, float _startTime) {
+void DamageObject::Set_DamageObject(Unit* _hostObject, Skill* _hostSkill, Vector3 _pos, float _scale, Team _team, float _attack, float _lifeTime, float _interval, float _interval_AttackTime, float _startTime) {
 	host = _hostObject;
+	hostSkill = _hostSkill;
 	*transform->Get_Pos() = _pos;
 	collider = (SphereCollider*)AddComponent<SphereCollider>(L"SphereCollider");
 	collider->SetRadius(_scale);
@@ -89,7 +105,7 @@ void DamageObject::Set_ObjectFollow(Unit* _object)
 
 bool DamageObject::Check_DamagedOverlap(GameObject* pDamagedObject)
 {
-	for (auto& obj : damagedObject)
+	for (auto& obj : tempHitList)
 	{
 		if (obj == pDamagedObject)
 			return true;
@@ -122,7 +138,7 @@ void DamageObject::Calc_StartOfInterval()
 				interval_Time = interval_Init;
 				interval_Attack_Time = interval_Attack_Init;
 				attackCheck = true;
-				damagedObject.clear();
+				tempHitList.clear();
 			}
 		}
 

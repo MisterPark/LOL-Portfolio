@@ -7,10 +7,10 @@ class Buff
 public:
 	enum class BuffName{
 		Item, 
+		Dreadnought, WitchsFocus, ManaCharge,
 		Ghost, HealMoveSpeed,
 		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,
 		MissFortuneWAttackSpeed, MissFortuneWMoveSpeed, MissFortuneESlow,
-		Dreadnought,
 		END
 	};
 	struct Node

@@ -144,8 +144,13 @@ public:
 
 	virtual void Die();
 	virtual void OnKilled(Unit* target);
-	virtual void OnHit(Unit* target);
-	virtual void OnDamaged(Unit* target, float damage);
+	virtual void OnHit(Unit* target, Skill* mySkill);
+	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage);
+	//챔피언이 스킬을 사용할떄마다, [장비아이템 스킬]에서 호출 // Ex)광휘의검
+	virtual void OnOtherSkillStart(Skill* otherSkill);
+	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
+	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
+
 	// 행동
 	virtual void DeadAction();
 	virtual void AttackAction();

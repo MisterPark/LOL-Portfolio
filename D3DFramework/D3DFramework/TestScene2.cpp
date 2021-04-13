@@ -30,6 +30,11 @@
 #include "EffectObject.h"
 #include "FogOfWarRenderer.h"
 #include "TextBox.h"
+#include "Skill_Item_WitchsFocus.h"
+#include "Skill_Item_Thorns.h"
+#include "Skill_Item_Cleave.h"
+#include "Skill_Item_SpellBlade.h"
+#include "Skill_Item_ManaCharge.h"
 
 void TestScene2::OnLoaded()
 {

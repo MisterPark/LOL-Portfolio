@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Unit.h"
 
+class Skill;
 class Missile :
     public GameObject
 {
@@ -13,13 +14,14 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    void SetOwner(Unit* _owner);
+    void SetOwner(Unit* _owner, Skill* _ownerSkill);
     void SetTexture(const wstring& _key);
     void SetTarget(Unit* _target);
 
 
 private:
     Unit* owner = nullptr;
+    Skill* ownerSkill = nullptr;
     Engine::Plane* mesh = nullptr;
 
     Unit* attackTarget = nullptr;

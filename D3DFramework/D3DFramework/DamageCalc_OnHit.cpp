@@ -21,11 +21,11 @@ void DamageCalc_OnHit::Calc(float* _damage, Stat* _myStat, Stat* _targetStat)
 			continue;
 		if (onHit->damageKind == DamageKind::AD) {
 			increaseDamageAD += onHit->basicDamage;
-			increaseDamageAD += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
+			increaseDamageAD += _myStat->GetValue(StatType::AttackDamage)  * onHit->weightDamage;
 		}
 		else if (onHit->damageKind == DamageKind::AP) {
 			increaseDamageAP += onHit->basicDamage;
-			increaseDamageAP += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;
+			increaseDamageAP += _myStat->GetValue(StatType::AttackDamage) * onHit->weightDamage;	
 		}
 	}
 
