@@ -35,6 +35,8 @@
 #include "Skill_Item_Cleave.h"
 #include "Skill_Item_SpellBlade.h"
 #include "Skill_Item_ManaCharge.h"
+#include "Skill_Item_Nimble.h"
+#include "Skill_Item_WraithStep.h"
 
 void TestScene2::OnLoaded()
 {
@@ -67,7 +69,9 @@ void TestScene2::OnLoaded()
 	//item->skillList.push_back(new Skill_Item_Thorns(unit));
 	//item->skillList.push_back(new Skill_Item_Cleave(unit));
 	//item->skillList.push_back(new Skill_Item_SpellBlade(unit));
-	item->skillList.push_back(new Skill_Item_ManaCharge(unit));
+	//item->skillList.push_back(new Skill_Item_ManaCharge(unit));
+	//item->skillList.push_back(new Skill_Item_Nimble(unit));
+	item->skillList.push_back(new Skill_Item_WraithStep(unit));
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(unit, 12.f);
 	unit->AddComponent(L"fogRenderer",fogOfWarRenderer);
 

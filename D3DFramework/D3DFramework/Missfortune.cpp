@@ -43,8 +43,10 @@ Missfortune::Missfortune()
 	stat->SetBaseValue(StatType::MagicResistance, 30.f);
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+	//Test
+	stat->SetBaseValue(StatType::LifeSteal, 0.5f);
 
-	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD, true));
 	damageCalcList.emplace_back(DamageCalc_Critical::CreateCalc());
 	damageCalcList.emplace_back(DamageCalc_OnHit::CreateCalc(DamageKind::AD));
 

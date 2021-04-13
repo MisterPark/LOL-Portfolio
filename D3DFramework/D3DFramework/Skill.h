@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "DamageCalc.h"
-
+#define NON_COMBAT_TIME 5.f
 class Unit;
 class Skill abstract
 {

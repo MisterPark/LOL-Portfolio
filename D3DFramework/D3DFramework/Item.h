@@ -1,7 +1,7 @@
 ﻿#pragma once
 using namespace Engine;
 #include "Stat.h"
-#include "Skill_Item.h"
+#include "Skill.h"
 #include "Buff_Item.h"
 
 enum class ItemType
@@ -76,7 +76,7 @@ public:
 	list<std::wstring> recipes; // id로 변경하기
 	//list<UINT> itemParentId;
 	//list<UINT> itemChildId;
-	list<Skill_Item*> skillList;
+	list<Skill*> skillList;
 	Buff_Item* buffItemStat = nullptr; // 팔때 제거해줘야함
 };
 
