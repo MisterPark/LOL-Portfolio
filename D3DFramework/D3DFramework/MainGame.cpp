@@ -341,12 +341,13 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_selecteditem.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_hoveritem.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_blankslot.png");
+	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"icon_gold.png");
 
 
-	LoadAllTextureInFolder(L"Resource\\UI\\item\\");
-	LoadAllTextureInFolder(L"Resource\\UI\\buff\\");
-	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\missfortune\\particles\\");
-	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\garen\\particles\\");
+	LoadAllTextureInFolder(L"Resource\\UI\\item\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\buff\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\missfortune\\particles\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\garen\\particles\\", L"*.dds");
 
 	// scoreboard
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_mainpanel.png");
@@ -397,6 +398,9 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerbarrier.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerignite.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonermana.png");
+
+	// tooltip
+	LoadAllTextureInFolder(L"Resource\\UI\\tooltip\\", L"*.png");
 
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
@@ -493,16 +497,18 @@ void Engine::MainGame::LoadUISprite()
 
 }
 
-void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path)
+void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstring& _filter)
 {
-	char _cPath[260] = {};
+	char _cPath[MAX_PATH] = {};
 	WideCharToMultiByte(CP_ACP, 0, _path.c_str(), _path.length(), _cPath, _path.length(), NULL, NULL);
+
+	char _cFilter[MAX_PATH] = {};
+	WideCharToMultiByte(CP_ACP, 0, _filter.c_str(), _filter.length(), _cFilter, _filter.length(), NULL, NULL);
 
 	_finddata_t fd;
 	char path[1024];
-	char filter[MAX_PATH] = "*.dds";
 	_fullpath(path, _cPath, 1024);
-	strcat_s(path, filter);
+	strcat_s(path, _cFilter);
 	long handle = _findfirst(path, &fd);
 	if (handle != -1)
 	{

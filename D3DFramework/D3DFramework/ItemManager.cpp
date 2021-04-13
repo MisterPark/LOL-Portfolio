@@ -2,11 +2,13 @@
 #include "ItemManager.h"
 #include "json/UnicodeHelper.h"
 #include <fstream>
+#include "Skill_Item_Dreadnought.h"
 
 ItemManager* pItemManager = nullptr;
 
 ItemManager::ItemManager()
 {
+	skills.emplace(L"침몰시키는 자", new Skill_Item_Dreadnought(nullptr));
 }
 
 ItemManager::~ItemManager()
@@ -45,6 +47,14 @@ Item* ItemManager::GetItem(UINT itemID)
 map<UINT, Item*> ItemManager::GetItemList()
 {
 	return items;
+}
+
+Skill_Item* ItemManager::GetItemSkill(const std::wstring& _skillname)
+{
+	auto iter = skills.find(_skillname);
+	if (skills.end() == iter) return nullptr;
+
+	return iter->second;
 }
 
 HRESULT ItemManager::LoadItemInfo()
@@ -98,23 +108,26 @@ HRESULT ItemManager::AddItem(const nlohmann::json& jsonItemInfo)
 	std::wstring desc = ConvertUTF8ToWide(jsonItemInfo[u8"desc"]);
 	
 // stat
-	map<StatType, int> stats;
+	list<Buff::Node> stats;
 	for (auto statData : jsonItemInfo[u8"stat"])
 	{
 		StatType type = statData[u8"type"].get<StatType>();
 		if (type == StatType::END) return E_FAIL;
 
-		int value = statData[u8"value"];
+		float value = statData[u8"value"];
 
-		stats.emplace(type, value);
+		bool ispercent = statData[u8"ispercent"];
+
+		Buff::Node stat(type, value, ispercent);
+		stats.push_back(stat);
 	}
 
 // effect
-	map<std::wstring, void*> effects;
+	list<std::wstring> effects;
 	for (auto effectData : jsonItemInfo[u8"effect"])
 	{
 		std::wstring effectName = ConvertUTF8ToWide(effectData);
-		effects.emplace(effectName, nullptr);
+		effects.push_back(effectName);
 	}
 
 // recipe
@@ -141,4 +154,10 @@ void ItemManager::DeleteListAll()
 		delete item.second;
 	}
 	items.clear();
+
+	for (auto skill : skills)
+	{
+		delete skill.second;
+	}
+	skills.clear();
 }

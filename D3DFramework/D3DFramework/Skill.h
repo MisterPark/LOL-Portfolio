@@ -33,6 +33,8 @@ public:
 	
 	virtual bool TargetingSuccess(Unit* target);
 
+	void SetTarget(Unit* _target);
+
 protected:
 	Unit* host = nullptr;
 	float coolTime = 0.f;

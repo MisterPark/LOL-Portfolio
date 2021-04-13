@@ -109,7 +109,45 @@ private:
 	int selectedItemIdx = -1;
 	void ClickInventorySlot(GameObject* sender, MouseEventArg* args);
 
-	// Event
+// Event
 	static void ClickStatButton();
+
+	// skill level up
+	void SkillLevelupQ(GameObject* sender, MouseEventArg* args);
+	void SkillLevelupW(GameObject* sender, MouseEventArg* args);
+	void SkillLevelupE(GameObject* sender, MouseEventArg* args);
+	void SkillLevelupR(GameObject* sender, MouseEventArg* args);
+
+	// tooltip
+	void ShowTooltipFacepanel(GameObject* sender, MouseEventArg* args);
+	void HideTooltipFacepanel(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipChampioninfo(GameObject* sender, MouseEventArg* args);
+	void HideTooltipChampioninfo(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipExpbar(GameObject* sender, MouseEventArg* args);
+	void HideTooltipExpbar(GameObject* sender, MouseEventArg* args);
+
+	void ShowTooltipSkillQ(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillQ(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillW(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillW(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillE(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillE(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillR(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillR(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillLevelupQ(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillLevelupQ(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillLevelupW(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillLevelupW(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillLevelupE(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillLevelupE(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipSkillLevelupR(GameObject* sender, MouseEventArg* args);
+	void HideTooltipSkillLevelupR(GameObject* sender, MouseEventArg* args);
+
+	void ShowTooltipItem(GameObject* sender, MouseEventArg* args);
+	void HideTooltipItem(GameObject* sender, MouseEventArg* args);
+	void ShowTooltipItemshop(GameObject* sender, MouseEventArg* args);
+	void HideTooltipItemshop(GameObject* sender, MouseEventArg* args);
+
+
 };
 

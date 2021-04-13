@@ -41,16 +41,16 @@ namespace Engine
         virtual void OnEnabledChanged();
         virtual void OnTextChanged();
 
-        Vector2 GetSize();
+        virtual Vector2 GetSize();
         Vector2 GetLocation();
 
         void SetSize(int w, int h);
         void SetSizeByTexture();
         // 좌상단 기준
 
-        void SetLocation(int x, int y);
-        void SetLocation(float x, float y);
-        void SetLocation(Vector2 pos);
+        virtual void SetLocation(int x, int y);
+        virtual void SetLocation(float x, float y);
+        virtual void SetLocation(Vector2 pos);
         virtual void SetTexture(const wstring& _key);
 
 		virtual void SetText(const wstring& _text);

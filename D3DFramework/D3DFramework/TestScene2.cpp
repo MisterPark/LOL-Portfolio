@@ -56,7 +56,7 @@ void TestScene2::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	champ->AddItem(ItemManager::GetInstance()->GetItem(1028));
+	champ->AddItem(1028);
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(unit, 12.f);
 	unit->AddComponent(L"fogRenderer",fogOfWarRenderer);
 
