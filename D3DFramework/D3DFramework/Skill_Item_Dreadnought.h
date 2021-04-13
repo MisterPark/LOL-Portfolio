@@ -15,6 +15,8 @@ public:
 	virtual void Active();
 	virtual void End();
 
+	virtual Skill_Item* Clone();
+
 	virtual void OnAttackEnd();
 
 	Buff_ItemDreadnought* buffDreadnought = nullptr;

@@ -364,6 +364,9 @@
     <Filter Include="GameObject\Unit\Minion\Spawner">
       <UniqueIdentifier>{c00324c5-e545-4cdb-ad99-aea8d75c409d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Control\Tooltip">
+      <UniqueIdentifier>{90bffe70-4553-4590-8914-06bda78e42cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1110,6 +1113,12 @@
     </ClInclude>
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Inhibitor.h" />
+    <ClInclude Include="Form.h">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Tooltip.h">
+      <Filter>GameObject\UI\Control\Tooltip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1907,6 +1916,12 @@
     </ClCompile>
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
+    <ClCompile Include="Form.cpp">
+      <Filter>GameObject\UI\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Tooltip.cpp">
+      <Filter>GameObject\UI\Control\Tooltip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

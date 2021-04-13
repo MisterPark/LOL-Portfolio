@@ -14,6 +14,7 @@ TargetingSkill::~TargetingSkill()
 
 void TargetingSkill::Use()
 {
+	if (host == nullptr) return;
 	PlayerController* controller = host->GetComponent<PlayerController>();
 	controller->SetTargetMode(true);
 	host->SetNextSkillReady(this);
@@ -26,6 +27,7 @@ bool TargetingSkill::InRange()
 
 bool TargetingSkill::IsTargetInRange()
 {
+	if (host == nullptr) return false;
 	if (host->attackTarget == nullptr) return false;
 	Vector3 direction = host->attackTarget->transform->position - host->transform->position;
 	float dist = direction.Length();
@@ -39,6 +41,7 @@ bool TargetingSkill::IsTargetInRange()
 
 bool TargetingSkill::IsPositionInRange()
 {
+	if (host == nullptr) return false;
 	Vector3 direction = host->attackPoint - host->transform->position;
 	float dist = direction.Length();
 	if (dist <= range)

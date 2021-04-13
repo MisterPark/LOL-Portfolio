@@ -15,6 +15,8 @@ public:
 	};
 	struct Node
 	{
+		Node(StatType _type, float _value, bool _isPercent)
+			: type(_type), value(_value), isPercent(_isPercent) { }
 		StatType type;
 		float value;
 		bool isPercent;

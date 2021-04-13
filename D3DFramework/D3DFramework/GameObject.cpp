@@ -19,7 +19,7 @@ Engine::GameObject::~GameObject()
 	for (auto& iter : children)
 	{
 		//Safe_Delete(&iter.second);
-		delete iter.second;
+		if(iter.second) delete iter.second;
 	}
 	children.clear();
 
@@ -33,11 +33,11 @@ void Engine::GameObject::PreUpdate()
 {
 	for (auto& comp : components)
 	{
-		comp.second->PreUpdate();
+		if(comp.second) comp.second->PreUpdate();
 	}
 	for (auto iter : children)
 	{
-		iter.second->PreUpdate();
+		if(iter.second) iter.second->PreUpdate();
 	}
 }
 
@@ -45,12 +45,12 @@ void Engine::GameObject::Update()
 {
 	for (auto& comp : components)
 	{
-		comp.second->Update();
+		if(comp.second) comp.second->Update();
 	}
 
 	for (auto iter : children)
 	{
-		iter.second->Update();
+		if(iter.second) iter.second->Update();
 	}
 }
 
@@ -58,12 +58,12 @@ void Engine::GameObject::PostUpdate()
 {
 	for (auto& comp : components)
 	{
-		comp.second->PostUpdate();
+		if(comp.second) comp.second->PostUpdate();
 	}
 
 	for (auto iter : children)
 	{
-		iter.second->PostUpdate();
+		if(iter.second) iter.second->PostUpdate();
 	}
 }
 
@@ -220,7 +220,7 @@ void Engine::GameObject::Show()
 
 	for (auto child : children)
 	{
-		child.second->Show();
+		if(child.second) child.second->Show();
 	}
 	visible = true;
 }
@@ -238,7 +238,7 @@ void Engine::GameObject::Show(bool _visible)
 
 	for (auto child : children)
 	{
-		child.second->Show(_visible);
+		if(child.second) child.second->Show(_visible);
 	}
 	visible = _visible;
 }
@@ -256,7 +256,7 @@ void Engine::GameObject::Hide()
 
 	for (auto child : children)
 	{
-		child.second->Hide();
+		if(child.second) child.second->Hide();
 	}
 	visible = false;
 }

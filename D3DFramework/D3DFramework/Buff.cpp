@@ -19,9 +19,6 @@ void Buff::Update()
 
 void Buff::AddModifier(StatType _type, float _value, bool _isPercent)
 {
-	Buff::Node node;
-	node.type = _type;
-	node.value = _value;
-	node.isPercent = _isPercent;
+	Buff::Node node(_type, _value, _isPercent);
 	modifiers.push_back(node);
 }

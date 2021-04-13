@@ -10,6 +10,7 @@
 #include "OutlinedSlot.h"
 #include "ItemshopSlot.h"
 #include "ItemshopTreePanel.h"
+#include "Tooltip.h"
 
 ItemshopPanel* pItemshopPanel = nullptr;
 
@@ -110,6 +111,8 @@ ItemshopPanel::ItemshopPanel()
         auto slot = AddChild<ItemshopSlot>(L"leftslot", new ItemshopSlot(Vector2(startX + (idxX * intervalX), startY + (idxY * intervalY)), item.second));
         slots.push_back(slot);
         slot->Click += Engine::Handler(this, &ItemshopPanel::SelectItemList);
+        slot->Hover += Engine::Handler(this, &ItemshopPanel::ShowTooltipItem);
+        slot->Leave += Engine::Handler(this, &ItemshopPanel::HideTooltipItem);
         idx++;
     }
 
@@ -232,25 +235,58 @@ void ItemshopPanel::HideItemShopPanel(GameObject* sender, MouseEventArg* args)
     this->Hide();
 }
 
-void ItemshopPanel::BuyItem(Item* item)
+void ItemshopPanel::BuyItem(UINT _id)
 {
-    if (item == nullptr) return;
     if (champion == nullptr) return;
 
-    champion->BuyItem(item);
+    champion->BuyItem(_id);
 }
 
 void ItemshopPanel::BuyItem(GameObject* sender, MouseEventArg* args)
 {
     if (selectedSlot == nullptr) return;
     if (champion == nullptr) return;
+    
+    Item* item = selectedSlot->GetItem();
+    if (item == nullptr) return;
 
-    champion->BuyItem(selectedSlot->GetItem());
+    champion->BuyItem(item->GetId());
 }
 
 void ItemshopPanel::SellItem(GameObject* sender, MouseEventArg* args)
 {
     PlayerInfoPanel::GetInstance()->SellSelectedItem();
+}
+
+void ItemshopPanel::ShowTooltipItem(GameObject* sender, MouseEventArg* args)
+{
+    Tooltip* tooltip = nullptr;
+
+    auto iter = sender->children.find(L"tooltip");
+    if (sender->children.end() == iter) {
+        iter = sender->children.emplace(L"tooltip", nullptr).first;
+    }
+
+    ItemshopSlot* slot = dynamic_cast<ItemshopSlot*>(sender);
+    if (slot == nullptr) return;
+
+    Item* item = slot->GetItem();
+    if (item == nullptr) return;
+
+    iter->second = tooltip = new Tooltip(item);
+
+    Vector3 cursorPos = Cursor::GetMousePos();
+    tooltip->SetLocation(Vector2(cursorPos.x, cursorPos.y));
+    tooltip->Show();
+}
+
+void ItemshopPanel::HideTooltipItem(GameObject* sender, MouseEventArg* args)
+{
+    auto iter = sender->children.find(L"tooltip");
+    if (sender->children.end() == iter) return;
+
+    delete iter->second;
+    iter->second = nullptr;
 }
 
 void ItemshopPanel::SetSelectItem(ItemshopSlot* _slot)

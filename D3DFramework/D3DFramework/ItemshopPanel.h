@@ -26,7 +26,7 @@ public:
 	void SetTarget(Champion* _target);
 
 	void HideItemShopPanel(GameObject* sender, MouseEventArg* args);
-	void BuyItem(Item* item);
+	void BuyItem(UINT _id);
 	
 private:
 	Champion* champion = nullptr;
@@ -52,4 +52,6 @@ private:
 	void BuyItem(GameObject* sender, MouseEventArg* args);
 	void SellItem(GameObject* sender, MouseEventArg* args);
 
+	void ShowTooltipItem(GameObject* sender, MouseEventArg* args);
+	void HideTooltipItem(GameObject* sender, MouseEventArg* args);
 };

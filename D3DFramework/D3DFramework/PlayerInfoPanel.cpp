@@ -4,10 +4,13 @@
 #include "UI.h"
 #include "Champion.h"
 #include "ItemshopPanel.h"
+#include "Tooltip.h"
 // Control
 #include "Label.h"
 #include "OutlinedSlot.h"
 #include "Button.h"
+#include "Form.h"
+#include <sstream>
 
 PlayerInfoPanel* pPlayerInfoPanel = nullptr;
 
@@ -53,6 +56,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     itemshopBtn->SetTextureHover(L"button_gold (3)");
     itemshopBtn->SetTexturePressed(L"button_gold (4)");
     itemshopBtn->Click += Engine::Handler(&ItemshopPanel::ToggleVisible);
+	itemshopBtn->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipItemshop);
+	itemshopBtn->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipItemshop);
 	itemshopBtn->SetText(L"1000");
 	itemshopBtn->SetLabelSize(18);
 	itemshopBtn->SetLabelPosition(Vector2(127, 16));
@@ -67,6 +72,8 @@ PlayerInfoPanel::PlayerInfoPanel()
 		slotItem[i]->outline->transform->scale = { 0.67f, 0.67f, 1.f };
 		slotItem[i]->icon->transform->scale = { 0.72f, 0.72f, 1.f};
 		slotItem[i]->Click += Engine::Handler(this, &PlayerInfoPanel::ClickInventorySlot);
+		slotItem[i]->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipItem);
+		slotItem[i]->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipItem);
 	}
 
 	// 장신구
@@ -191,6 +198,10 @@ PlayerInfoPanel::PlayerInfoPanel()
 		spellLevelUpButton[i]->SetTexturePressed(L"button_skillup (3)");
 		spellLevelUpButton[i]->SetTextureDisable(L"button_skillup (4)");
 	}
+	spellLevelUpButton[0]->Click += Engine::Handler(this, &PlayerInfoPanel::SkillLevelupQ);
+	spellLevelUpButton[1]->Click += Engine::Handler(this, &PlayerInfoPanel::SkillLevelupW);
+	spellLevelUpButton[2]->Click += Engine::Handler(this, &PlayerInfoPanel::SkillLevelupE);
+	spellLevelUpButton[3]->Click += Engine::Handler(this, &PlayerInfoPanel::SkillLevelupR);
 
     slotPassive   = mainPanel->AddChild<OutlinedSlot>(L"SpellP",  new OutlinedSlot(L"border_skill (2)", Vector2(69,  30)));
     slotSummoner1 = mainPanel->AddChild<OutlinedSlot>(L"SpellS1", new OutlinedSlot(L"border_skill (2)", Vector2(432, 30)));
@@ -251,15 +262,20 @@ PlayerInfoPanel::PlayerInfoPanel()
     
 
     facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
+	facePanel->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipFacepanel);
+	facePanel->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipFacepanel);
+
     expBar = mainPanel->AddChild<UI>(L"expBar", new UI(L"bar_exp", Vector2(14, 21)));
+	expBar->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipExpbar);
+	expBar->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipExpbar);
+	expBar->uvRatioStart.y = 0.0f;
+
     auto champBorder = mainPanel->AddChild<UI>(L"champBorder", new UI(L"panel (1)", Vector2(-93, 11)));
     levelLabel = champBorder->AddChild<Label>(L"level", new Label(15));
     levelLabel->SetText(L"1");
     levelLabel->SetLocation(112, 137);
     levelLabel->align = Label::Align::Center;
     levelLabel->valign = Label::VAlign::Middle;
-
-	expBar->uvRatioStart.y = 0.0f;
 
     mainPanel->AddChild<UI>(L"statBtnBorder", new UI(L"stat_panel (4)", Vector2(-107, 86)));
     Button* statBtn1 = mainPanel->AddChild<Button>(L"statBtn1", new Button(L"stat_panel (1)", Vector2(-100, 92)));
@@ -268,6 +284,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     statBtn1->SetTextureHover(L"stat_panel (1)_hover");
     statBtn1->SetTexturePressed(L"stat_panel (1)_pressed");
     statBtn1->Click += Engine::Handler(this, &PlayerInfoPanel::PlayerPanel_OnClick);
+    statBtn1->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipChampioninfo);
+    statBtn1->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipChampioninfo);
 }
 
 PlayerInfoPanel::~PlayerInfoPanel()
@@ -370,12 +388,36 @@ void PlayerInfoPanel::Update()
 		expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /
 			champion->stat->GetValue(StatType::MaxExperience));
 
+		// Skill Level
+		int skillPoint = (int)champion->stat->GetBaseValue(StatType::SkillPoint);
+		if (skillPoint <= 0) {
+			for (int i = 0; i < 4; ++i) {
+				spellLevelUpButton[i]->Hide();
+			}
+			
+			spellPointLabel->Hide();
+		}
+		else {
+			for (int i = 0; i < 4; ++i) {
+				if (champion->skillList[(UINT)spellNum[i]]->GetLevel() >=
+					champion->skillList[(UINT)spellNum[i]]->GetMaxLevel()) {
+					spellLevelUpButton[i]->enable = false;
+				}
+				else {
+					spellLevelUpButton[i]->enable = true;
+				}
+				spellLevelUpButton[i]->Show();
+			}
+
+			spellPointLabel->Show();
+			spellPointLabel->SetText(L"레벨 업! +%d", skillPoint);
+		}
+
 		// Spell
 		float cooltime;
 		float cooltimeinit;
 
 		for (int i = 0; i < 4; i++) {
-
 			if (champion->skillList[(int)spellNum[i]] == nullptr) continue;
 
 			cooltime = champion->skillList[(int)spellNum[i]]->GetCooltime();
@@ -392,6 +434,13 @@ void PlayerInfoPanel::Update()
 				slotSpell[i]->outline->SetTexture(L"border_skill (3)");
 				if (cooltime >= 1)	SpellTimeLabel[i]->SetText(L"%d", (int)cooltime);
 				else				SpellTimeLabel[i]->SetText(L"%.1f", cooltime);
+			}
+
+			// Level
+			auto skilllevel = champion->skillList[(int)spellNum[i]]->GetLevel();
+			for (int j = 0; j < spellLevelMax[i]; j++) {
+				if ((j + 1) <= skilllevel) spellLevelUI[i][j]->SetTexture(L"skilllevel_on");
+				else                       spellLevelUI[i][j]->SetTexture(L"skilllevel_off");
 			}
 
 		}
@@ -470,7 +519,259 @@ void PlayerInfoPanel::ClickInventorySlot(GameObject* sender, MouseEventArg* args
 
 void PlayerInfoPanel::ClickStatButton()
 {
-    pPlayerInfoPanel->statPanel->visible ? 
-    pPlayerInfoPanel->statPanel->Hide() :
-    pPlayerInfoPanel->statPanel->Show();
+	pPlayerInfoPanel->statPanel->visible ?
+		pPlayerInfoPanel->statPanel->Hide() :
+		pPlayerInfoPanel->statPanel->Show();
+}
+
+void PlayerInfoPanel::SkillLevelupQ(GameObject* sender, MouseEventArg* args)
+{
+	if (!champion) return;
+	champion->SkillLevelUp(SkillIndex::Q);
+}
+
+void PlayerInfoPanel::SkillLevelupW(GameObject* sender, MouseEventArg* args)
+{
+	if (!champion) return;
+	champion->SkillLevelUp(SkillIndex::W);
+}
+
+void PlayerInfoPanel::SkillLevelupE(GameObject* sender, MouseEventArg* args)
+{
+	if (!champion) return;
+	champion->SkillLevelUp(SkillIndex::E);
+}
+
+void PlayerInfoPanel::SkillLevelupR(GameObject* sender, MouseEventArg* args)
+{
+	if (!champion) return;
+	champion->SkillLevelUp(SkillIndex::R);
+}
+
+void PlayerInfoPanel::ShowTooltipFacepanel(GameObject* sender, MouseEventArg* args)
+{
+	if (champion == nullptr) return;
+	if ((int)champion->stat->GetBaseValue(StatType::SkillPoint) <= 0) return;
+
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(
+		L"레벨 업",
+		L"사용하지 않은 스킬 포인트가 있습니다.",
+		L"상단의 레벨 업 탭 하나를 클릭하여 스킬 레벨을 높이십시오."
+	);
+
+	tooltip->SetLocation(956, 790);
+	tooltip->SetAlign(Tooltip::Align::Center, Tooltip::VAlign::Bottom);
+	tooltip->Show();
+}
+
+void PlayerInfoPanel::HideTooltipFacepanel(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void PlayerInfoPanel::ShowTooltipChampioninfo(GameObject* sender, MouseEventArg* args)
+{
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(
+		L"챔피언 정보",
+		L"클릭하여 메뉴 열기",
+		L"챔피언의 능력치와 정보를 확인합니다."
+	);
+
+	tooltip->SetLocation(956, 790);
+	tooltip->SetAlign(Tooltip::Align::Center, Tooltip::VAlign::Bottom);
+	tooltip->Show();
+}
+
+void PlayerInfoPanel::HideTooltipChampioninfo(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void PlayerInfoPanel::ShowTooltipExpbar(GameObject* sender, MouseEventArg* args)
+{
+	if (champion == nullptr) return;
+
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	wstringstream ss;
+	ss << champion->stat->GetBaseValue(StatType::Experience) << L"/" << champion->stat->GetBaseValue(StatType::MaxExperience);
+	std::wstring desc = ss.str();
+	iter->second = tooltip = new Tooltip(desc);
+
+	Vector3 cursorPos = Cursor::GetMousePos();
+	tooltip->SetLocation(cursorPos.x, cursorPos.y);
+	tooltip->Show();
+}
+
+void PlayerInfoPanel::HideTooltipExpbar(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void PlayerInfoPanel::ShowTooltipSkillQ(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillQ(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillW(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillW(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillE(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillE(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillR(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillR(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillLevelupQ(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillLevelupQ(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillLevelupW(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillLevelupW(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillLevelupE(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillLevelupE(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::ShowTooltipSkillLevelupR(GameObject* sender, MouseEventArg* args)
+{
+}
+
+void PlayerInfoPanel::HideTooltipSkillLevelupR(GameObject* sender, MouseEventArg* args)
+{
+}
+
+
+void PlayerInfoPanel::ShowTooltipItem(GameObject* sender, MouseEventArg* args)
+{
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	int itemIndex = -1;
+	OutlinedSlot* slot = dynamic_cast<OutlinedSlot*>(sender);
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		if (slotItem[i] == slot) {
+			itemIndex = i;
+			break;
+		}
+	}
+	if (itemIndex == -1) return;
+
+	Item* item = champion->inventory.GetItem(itemIndex);
+	if (item == nullptr) return;
+
+	iter->second = tooltip = new Tooltip(item);
+
+	tooltip->SetLocation(Vector2(1290, 790));
+	tooltip->SetAlign(Tooltip::Align::Center, Tooltip::VAlign::Bottom);
+	tooltip->Show();
+}
+
+void PlayerInfoPanel::HideTooltipItem(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void PlayerInfoPanel::ShowTooltipItemshop(GameObject* sender, MouseEventArg* args)
+{
+	if (champion == nullptr) return;
+	if ((int)champion->stat->GetBaseValue(StatType::SkillPoint) <= 0) return;
+
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(
+		L"챔피언 아이템 상점",
+		L"클릭하여 메뉴 열기",
+		L"아이템 상점에 가까이 있을 때만 물건을 살 수 있습니다. 상점은 소환사의 제단 근처에 있습니다."
+	);
+
+	tooltip->SetLocation(956, 790);
+	tooltip->SetAlign(Tooltip::Align::Center, Tooltip::VAlign::Bottom);
+	tooltip->Show();
+
+}
+
+void PlayerInfoPanel::HideTooltipItemshop(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
 }
