@@ -2,6 +2,18 @@
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
 //=======================================
 //  STANDARD
 //=======================================
@@ -12,6 +24,7 @@
 #pragma comment(lib,"ws2_32.lib")
 #pragma comment(lib, "winmm.lib")
 #include <Windows.h>
+
 #include <map>
 #include <vector>
 #include <set>
@@ -21,6 +34,7 @@
 #include <queue>
 #include <tchar.h>
 #include <stack>
+
 
 //=======================================
 //  FMOD

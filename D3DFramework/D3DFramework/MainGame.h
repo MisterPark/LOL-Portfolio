@@ -27,12 +27,13 @@ namespace Engine
 
 		
 		static void LoadUISprite();
-		static void LoadAllTextureInFolder(const wstring& _path);
+		static void LoadAllTextureInFolder(const wstring& _path, const wstring& _filter);
 
 		Triangle* tri = nullptr;
 	public:
 		int width = dfCLIENT_WIDTH;
 		int height = dfCLIENT_HEIGHT;
+
 	};
 }
 

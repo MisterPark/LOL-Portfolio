@@ -136,6 +136,7 @@ void Label::SetOutlineColor(unsigned char _a, unsigned char _r, unsigned char _g
 void Label::SetWidthLimit(int _limit)
 {
 	widthLimit = _limit;
+	AdjustTextByWidthLimit();
 }
 
 void Label::MakeFont(int fontSize)
@@ -158,6 +159,8 @@ void Label::MakeFont(int fontSize)
 
 void Label::AdjustTextByWidthLimit()
 {
+	lineAlignment = false;
+
 	auto renderer = GetComponent<LabelRenderer>();
 	if (renderer == nullptr) return;
 	if (widthLimit <= 0) {
@@ -178,6 +181,8 @@ void Label::AdjustTextByWidthLimit()
 			textFinal += textRest;
 			break;
 		}
+
+		lineAlignment = true;
 
 		// 안되면 한 글자 한 글자 계산
 		int count = 0;
@@ -208,4 +213,41 @@ void Label::AdjustTextByWidthLimit()
 	}
 
 	drawText = textFinal;
+}
+
+int Label::GetTextWidth()
+{
+	RECT rc;
+	pFont->DrawTextW(nullptr, text.c_str(), lstrlen(text.c_str()), &rc, DT_CALCRECT, GetColor());
+
+	return (rc.right - rc.left);
+}
+
+int Label::GetTextHeight()
+{
+	RECT rc;
+	pFont->DrawTextW(nullptr, text.c_str(), lstrlen(text.c_str()), &rc, DT_CALCRECT, GetColor());
+
+	return (rc.bottom - rc.top);
+}
+
+int Label::GetDrawTextWidth()
+{
+	RECT rc;
+	pFont->DrawTextW(nullptr, drawText.c_str(), lstrlen(drawText.c_str()), &rc, DT_CALCRECT, GetColor());
+
+	return (rc.right - rc.left);
+}
+
+int Label::GetDrawTextHeight()
+{
+	RECT rc;
+	pFont->DrawTextW(nullptr, drawText.c_str(), lstrlen(drawText.c_str()), &rc, DT_CALCRECT, GetColor());
+
+	return (rc.bottom - rc.top);
+}
+
+bool Label::IsLineAlignment()
+{
+	return lineAlignment;
 }

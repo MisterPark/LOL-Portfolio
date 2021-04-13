@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
 #include "MiniScorePanel.h"
 #include "Label.h"
+#include "Tooltip.h"
+#include <sstream>
 
 MiniScorePanel* self = nullptr;
 
@@ -23,6 +25,8 @@ MiniScorePanel::MiniScorePanel()
 	vs->SetTexture(L"hud_icon (1)");
 	vs->SetLocation(85.f, 5.f);
 	AddChild(L"vs", vs);
+	vs->Hover += Engine::Handler(this, &MiniScorePanel::ShowTooltipKill);
+	vs->Leave += Engine::Handler(this, &MiniScorePanel::HideTooltipKill);
 
 	Panel* sword = new Panel();
 	sword->SetTexture(L"hud_icon (2)");
@@ -67,6 +71,12 @@ MiniScorePanel::MiniScorePanel()
 	AddChild(L"kdaLabel", kdaLabel);
 	AddChild(L"minionLabel", minionLabel);
 	AddChild(L"timeLabel", timeLabel);
+
+	kdaLabel->Hover += Engine::Handler(this, &MiniScorePanel::ShowTooltipKda);
+	kdaLabel->Leave += Engine::Handler(this, &MiniScorePanel::HideTooltipKda);
+
+	minionLabel->Hover += Engine::Handler(this, &MiniScorePanel::ShowTooltipMinion);
+	minionLabel->Leave += Engine::Handler(this, &MiniScorePanel::HideTooltipMinion);
 
 }
 
@@ -175,4 +185,79 @@ bool MiniScorePanel::GetTime(int* _outMin, int* _outSec)
 	*_outMin = (((int)time) / 60);
 
 	return true;
+}
+
+void MiniScorePanel::ShowTooltipKill(GameObject* sender, MouseEventArg* args)
+{
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(L"팀 전체 킬 수");
+
+	Vector3 cursorPos = Cursor::GetMousePos();
+	tooltip->SetLocation(cursorPos.x, cursorPos.y + 50);
+	tooltip->Show();
+}
+
+void MiniScorePanel::HideTooltipKill(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void MiniScorePanel::ShowTooltipKda(GameObject* sender, MouseEventArg* args)
+{
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(L"킬/데스/어시스트");
+
+	Vector3 cursorPos = Cursor::GetMousePos();
+	tooltip->SetLocation(cursorPos.x, cursorPos.y + 50);
+	tooltip->Show();
+}
+
+void MiniScorePanel::HideTooltipKda(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
+}
+
+void MiniScorePanel::ShowTooltipMinion(GameObject* sender, MouseEventArg* args)
+{
+	Tooltip* tooltip = nullptr;
+
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) {
+		iter = sender->children.emplace(L"tooltip", nullptr).first;
+	}
+
+	iter->second = tooltip = new Tooltip(L"미니언 처치");
+
+	Vector3 cursorPos = Cursor::GetMousePos();
+	tooltip->SetLocation(cursorPos.x, cursorPos.y + 50);
+	tooltip->Show();
+}
+
+void MiniScorePanel::HideTooltipMinion(GameObject* sender, MouseEventArg* args)
+{
+	auto iter = sender->children.find(L"tooltip");
+	if (sender->children.end() == iter) return;
+
+	delete iter->second;
+	iter->second = nullptr;
 }

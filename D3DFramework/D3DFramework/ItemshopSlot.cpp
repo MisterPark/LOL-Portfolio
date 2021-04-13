@@ -62,7 +62,8 @@ void ItemshopSlot::OnClick()
 
 void ItemshopSlot::OnRClick()
 {
-    ItemshopPanel::GetInstance()->BuyItem(item);
+    if (item == nullptr) return;
+    ItemshopPanel::GetInstance()->BuyItem(item->GetId());
 }
 
 void ItemshopSlot::Show()

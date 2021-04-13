@@ -28,8 +28,8 @@ public:
 		const ItemType& _itemType,
 		const UINT& _price,
 		const std::wstring& _desc,
-		const map<StatType, int>& _stats,
-		const map<std::wstring, void*>& _effects,
+		const list<Buff::Node>& _stats,
+		const list<std::wstring>& _effects,
 		const list<std::wstring>& _recipes
 	);
 	~Item();
@@ -42,18 +42,19 @@ public:
 		const ItemType& _itemType,
 		const UINT& _price,
 		const std::wstring& _desc,
-		const map<StatType, int>& _stats,
-		const map<std::wstring, void*>& _effects,
+		const list<Buff::Node>& _stats,
+		const list<std::wstring>& _effects,
 		const list<std::wstring>& _recipes
 		);
 
+public:
+	Item* Clone();
+
+public:
 	void Passive();
 	void Active();
 
-	int Sell();
 	void Destroy();
-	Buff_Item* StatBuffSetting(Unit* _host);
-	//void Use();
 
 	UINT GetId();
 	std::wstring GetIcon();
@@ -61,6 +62,12 @@ public:
 	ItemType GetType();
 	UINT GetPrice();
 	std::wstring GetDesc();
+
+public:
+	bool SetTarget(Unit* _host);
+private:
+	void SetSkillList(Unit* _host);
+	Buff_Item* StatBuffSetting(Unit* _host);
 
 private:
 	UINT id;
@@ -71,8 +78,8 @@ private:
 	std::wstring desc;
 
 public: 
-	map<StatType, int> stats;
-	map<std::wstring, void*> effects; // 어떻게 할지 생각해봐야함
+	list<Buff::Node> stats; // 스텟 버프 데이터
+	list<std::wstring> effects; // 스킬 데이터
 	list<std::wstring> recipes; // id로 변경하기
 	//list<UINT> itemParentId;
 	//list<UINT> itemChildId;

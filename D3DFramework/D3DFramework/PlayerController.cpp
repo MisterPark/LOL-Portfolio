@@ -33,11 +33,6 @@ void PlayerController::Update()
 {
     if (gameObject == nullptr)return;
 
-    if (Input::GetKeyDown('T'))
-    {
-        unit->inventory.ItemSell(0);
-    }
-
     if (Input::GetKeyDown('A'))
     {
         unit->Attack();

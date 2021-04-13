@@ -39,5 +39,12 @@ private:
     int assist = 0;
 
     float time = 0.f;
+
+    void ShowTooltipKill(GameObject* sender, MouseEventArg* args);
+    void HideTooltipKill(GameObject* sender, MouseEventArg* args);
+    void ShowTooltipKda(GameObject* sender, MouseEventArg* args);
+    void HideTooltipKda(GameObject* sender, MouseEventArg* args);
+    void ShowTooltipMinion(GameObject* sender, MouseEventArg* args);
+    void HideTooltipMinion(GameObject* sender, MouseEventArg* args);
 };
 

@@ -39,13 +39,18 @@ public:
     D3DCOLOR GetColor();
     D3DCOLOR GetShadowColor();
     D3DCOLOR GetOutlineColor();
-    void SetColor(D3DCOLOR _color);
     void SetColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b);
+    void SetColor(D3DCOLOR _color);
     void SetShadowColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b);
     void SetOutlineColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b);
 
     void SetWidthLimit(int _limit);
     void AdjustTextByWidthLimit();
+    int GetTextWidth();
+    int GetTextHeight();
+    int GetDrawTextWidth();
+    int GetDrawTextHeight();
+    bool IsLineAlignment();
 
 private:
     void MakeFont(int fontSize = 20);
@@ -69,6 +74,7 @@ private:
     D3DCOLOR outlineColor = D3DCOLOR_ARGB(255, 0, 0, 0);
 
     int widthLimit = 0;
+    bool lineAlignment = false; // AdjustTextByWidthLimit 함수로 인한 drawText 강제 개행 여부
     
 };
 

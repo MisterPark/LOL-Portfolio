@@ -130,8 +130,15 @@ float Skill::GetCooltime_Init()
 
 bool Skill::TargetingSuccess(Unit* target)
 {
+	if (host == nullptr) return false;
+
 	if (target->team != host->team)
 		return true;
 	return false;
+}
+
+void Skill::SetTarget(Unit* _target)
+{
+	host = _target;
 }
 

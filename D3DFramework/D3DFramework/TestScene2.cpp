@@ -63,15 +63,7 @@ void TestScene2::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	Item* item = ItemManager::GetInstance()->GetItem(1028);
-	champ->AddItem(item);
-	//item->skillList.push_back(new Skill_Item_WitchsFocus(unit));
-	//item->skillList.push_back(new Skill_Item_Thorns(unit));
-	//item->skillList.push_back(new Skill_Item_Cleave(unit));
-	//item->skillList.push_back(new Skill_Item_SpellBlade(unit));
-	//item->skillList.push_back(new Skill_Item_ManaCharge(unit));
-	//item->skillList.push_back(new Skill_Item_Nimble(unit));
-	item->skillList.push_back(new Skill_Item_WraithStep(unit));
+	champ->AddItem(1028);
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(unit, 12.f);
 	unit->AddComponent(L"fogRenderer",fogOfWarRenderer);
 
