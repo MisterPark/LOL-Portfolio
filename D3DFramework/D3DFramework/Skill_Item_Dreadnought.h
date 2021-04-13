@@ -15,10 +15,14 @@ public:
 	virtual void Active();
 	virtual void End();
 
-	virtual Skill_Item* Clone();
+	virtual Skill* Clone();
 
 	virtual void OnAttackEnd();
 
 	Buff_ItemDreadnought* buffDreadnought = nullptr;
+
+//private:
+	//float passiveTick = 0.f;
+	//float passiveStack = 0.f;
 };
 

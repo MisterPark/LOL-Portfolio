@@ -65,7 +65,7 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::SkillPoint, 18.f);
 	//stat->SetBaseValue(StatType::CriticlaChance, 0.5f);
 
-	stat->SetBaseValue(StatType::Gold, 3000.f);
+	stat->SetBaseValue(StatType::Gold, 6000.f);
 	
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD, true));
 	damageCalcList.emplace_back(DamageCalc_Critical::CreateCalc());

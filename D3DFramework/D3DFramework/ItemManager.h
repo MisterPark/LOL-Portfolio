@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Item.h"
 #include "Stat.h"
-#include "Skill_Item.h"
+#include "Skill.h"
 #include "json/json.hpp"
 
 NLOHMANN_JSON_SERIALIZE_ENUM(StatType, {
@@ -62,7 +62,7 @@ public:
 
 	Item* GetItem(UINT itemID);
 	map<UINT, Item*> GetItemList();
-	Skill_Item* GetItemSkill(const std::wstring& _skillname);
+	Skill* GetItemSkill(const std::wstring& _skillname);
 
 private:
 	HRESULT LoadItemInfo();
@@ -70,5 +70,5 @@ private:
 	void DeleteListAll();
 
 	map<UINT, Item*> items; // Item ID, Item
-	map<std::wstring, Skill_Item*> skills;
+	map<std::wstring, Skill*> skills;
 };

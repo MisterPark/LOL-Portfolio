@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_Nimble.h"
 #include "Unit.h"
-#include "Buff_ItemNimble.h"
+#include "Buff_Item_Nimble.h"
 
 Skill_Item_Nimble::Skill_Item_Nimble(Unit* _hostUnit)
 {

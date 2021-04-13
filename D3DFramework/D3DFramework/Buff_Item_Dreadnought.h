@@ -11,9 +11,9 @@ public:
 
     virtual void Update() override;
 
-private:
-    float overlapCountStack = 0.f;
-    Skill_Item_Dreadnought* hostSkill = nullptr;
+public:
+    float skillStack = 0.f;
+    float skillTick = 0.f;
 
 };
 

@@ -6,7 +6,7 @@ class Buff
 {
 public:
 	enum class BuffName{
-		Item, 
+		ItemStat, 
 		Dreadnought, WitchsFocus, ManaCharge, Nimble, WraithStep, WraithStep_P,
 		Ghost, HealMoveSpeed,
 		GarenPHealthRegen, GarenQAttack, GarenQHaste, GarenWReduction, Buff_GarenWPassive, GarenWShield, GarenEDamage, GarenEArmorDec,

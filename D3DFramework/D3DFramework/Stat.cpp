@@ -189,7 +189,7 @@ float Stat::GetValue(StatType _type)
 
 void Stat::AddBuff(Buff* buff)
 {
-    if (buff->buffName == Buff::BuffName::Item) {
+    if (buff->buffName == Buff::BuffName::ItemStat) {
         buffList.push_back(buff);
         return;
     }

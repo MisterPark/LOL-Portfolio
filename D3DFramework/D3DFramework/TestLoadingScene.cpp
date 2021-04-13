@@ -89,7 +89,7 @@ void TestLoadingScene::Update()
 
 	if (resourceLoadCnt == resourceMax)
 	{
-		SceneManager::LoadScene<TestScene2>();
+		SceneManager::LoadScene<TestScene>();
 		//SceneManager::LoadScene<TestScene2>();
 	}
 }

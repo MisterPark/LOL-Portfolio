@@ -14,6 +14,9 @@ public:
 	virtual void Active() = 0;
 	virtual void End() = 0;
 	virtual bool InRange();
+
+	virtual Skill* Clone();
+
 	//플레이어가 피해를 주었을때 호출
 	virtual void OnHit(Unit* target, Skill* mySkill);
 	//플레이어가 피해를 입었을때 호출

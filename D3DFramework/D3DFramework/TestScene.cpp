@@ -62,7 +62,7 @@ void TestScene::OnLoaded()
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	champ->AddItem(3742);
+	//champ->AddItem(3742);
 
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };
