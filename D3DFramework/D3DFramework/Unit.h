@@ -212,6 +212,8 @@ public:
 	Skill_Attack* GetSkillAttack();
 	template<class T>
 	Unit::HitInfo GetLastHitInfo();
+	
+	Skill* AddItemSkill(Skill* _skill);
 	// 멀티
 	void ReqMove(Vector3 _dest, bool _noSearch = false);
 	void ReqAttack(Unit* _target);
@@ -265,6 +267,7 @@ private:
 public:
 	// 인벤토리
 	Inventory inventory;
+	list<Skill*> itemSkillList;
 
 protected:
 	// 데미지계산관련

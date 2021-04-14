@@ -5,6 +5,7 @@
 
 Skill_Item_SpellBlade::Skill_Item_SpellBlade(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::SpellBlade;
 	host = _hostUnit;
 	coolTimeTick = coolTime = 1.5f;
 

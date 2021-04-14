@@ -49,16 +49,16 @@ Item* Item::Clone()
 
 void Item::Passive()
 {
-	for (auto skill : skillList) {
-		skill->Passive();
-	}
+	//for (auto skill : skillList) {
+	//	skill->Passive();
+	//}
 }
 
 void Item::Active()
 {
-	for (auto skill : skillList) {
-		skill->Active();
-	}
+	//for (auto skill : skillList) {
+	//	skill->Active();
+	//}
 }
 
 void Item::Destroy()
@@ -70,10 +70,27 @@ void Item::Destroy()
 	if (buffItemStat) {
 		buffItemStat->duration = 0.f;
 	}
+	//
+	if (skillList.size() == 0) return;
+	Unit* host = skillList.front()->GetHost();
+
 	for (auto& skill : skillList) {
-		delete skill;
+		for (auto iter = host->itemSkillList.begin(); iter != host->itemSkillList.end(); iter++)
+		{
+			if ((*iter)->GetSkillName() == skill->GetSkillName()) {
+				if ((*iter)->overlapCount == 1) {
+					delete (*iter);
+					iter = host->itemSkillList.erase(iter);
+				}
+				else
+					(*iter)->overlapCount--;
+				break;
+			}
+		}
 	}
+
 	skillList.clear();
+	//
 }
 
 bool Item::SetTarget(Unit* _host)
@@ -93,7 +110,7 @@ void Item::SetSkillList(Unit* _host)
 
 		Skill* newSkill = skill->Clone();
 		newSkill->SetTarget(_host);
-		skillList.push_back(newSkill);
+		skillList.push_back(_host->AddItemSkill(newSkill));
 	}
 }
 

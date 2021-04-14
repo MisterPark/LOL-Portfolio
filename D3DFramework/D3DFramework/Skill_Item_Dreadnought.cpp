@@ -6,29 +6,30 @@
 
 Skill_Item_Dreadnought::Skill_Item_Dreadnought(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::Dreadnought;
 	duration = 0.f;
 	host = _hostUnit;
 }
 
 Skill_Item_Dreadnought::~Skill_Item_Dreadnought()
 {
-	//if (buffDreadnought != nullptr) {
-	//	if (buffDreadnought->overlapCount == 1)
-	//		buffDreadnought->duration = 0.f;
-	//	else
-	//		buffDreadnought->overlapCount--;
-	//}
-	if (host == nullptr)
-		return;
-	for (auto& buff : *host->stat->GetBuffList()) {
-		if (buff->buffName == Buff::BuffName::Dreadnought) {
-			if (buff->overlapCount == 1)
-				buff->duration = 0.f;
-			else
-				buff->overlapCount--;
-			break;
-		}
+	if (buffDreadnought != nullptr) {
+		//if (buffDreadnought->overlapCount == 1)
+			buffDreadnought->duration = 0.f;
+		//else
+//			buffDreadnought->overlapCount--;
 	}
+	//if (host == nullptr)
+	//	return;
+	//for (auto& buff : *host->stat->GetBuffList()) {
+	//	if (buff->buffName == Buff::BuffName::Dreadnought) {
+	//		if (buff->overlapCount == 1)
+	//			buff->duration = 0.f;
+	//		else
+	//			buff->overlapCount--;
+	//		break;
+	//	}
+	//}
 }
 
 void Skill_Item_Dreadnought::Start()

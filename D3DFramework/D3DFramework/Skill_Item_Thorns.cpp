@@ -5,6 +5,7 @@
 
 Skill_Item_Thorns::Skill_Item_Thorns(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::Thorns;
 	host = _hostUnit;
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AP));
 }
