@@ -9,10 +9,12 @@ public:
 	Skill_Item_SpellBlade(Unit* _hostUnit);
 	virtual ~Skill_Item_SpellBlade();
 
-	virtual void Start();
-	virtual void Passive();
-	virtual void Active();
-	virtual void End();
+	virtual void Start() override;
+	virtual void Passive() override;
+	virtual void Active() override;
+	virtual void End() override;
+	virtual Skill_Item* Clone() override;
+
 	virtual void OnHit(Unit* target, Skill* mySkill) override;
     virtual void OnOtherSkillStart(Skill* otherSkill) override;
 

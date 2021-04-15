@@ -74,5 +74,7 @@ Skill* Skill_Item_Dreadnought::Clone()
 
 void Skill_Item_Dreadnought::OnAttackEnd()
 {
-	buffDreadnought->overlapCount = 0;
+	if (buffDreadnought != nullptr) {
+		buffDreadnought->overlapCount = 0;
+	}
 }

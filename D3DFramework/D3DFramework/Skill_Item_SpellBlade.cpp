@@ -39,6 +39,11 @@ void Skill_Item_SpellBlade::End()
 	Skill::End();
 }
 
+Skill_Item* Skill_Item_SpellBlade::Clone()
+{
+	return new Skill_Item_SpellBlade(nullptr);
+}
+
 void Skill_Item_SpellBlade::OnHit(Unit* target, Skill* mySkill)
 {
 	if (buffSkill != nullptr) {
