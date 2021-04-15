@@ -48,6 +48,11 @@ bool Skill::InRange()
 	return true;
 }
 
+Skill* Skill::Clone()
+{
+	return nullptr;
+}
+
 void Skill::OnHit(Unit* target, Skill* mySkill)
 {
 }

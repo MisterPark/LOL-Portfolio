@@ -35,6 +35,8 @@
 #include "Skill_Item_Cleave.h"
 #include "Skill_Item_SpellBlade.h"
 #include "Skill_Item_ManaCharge.h"
+#include "Skill_Item_Nimble.h"
+#include "Skill_Item_WraithStep.h"
 
 void TestScene2::OnLoaded()
 {

@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_SpellBlade.h"
 #include "Unit.h"
-#include "Buff_ItemSpellBlade.h"
+#include "Buff_Item_SpellBlade.h"
 
 Skill_Item_SpellBlade::Skill_Item_SpellBlade(Unit* _hostUnit)
 {
@@ -37,6 +37,11 @@ void Skill_Item_SpellBlade::Active()
 void Skill_Item_SpellBlade::End()
 {
 	Skill::End();
+}
+
+Skill_Item* Skill_Item_SpellBlade::Clone()
+{
+	return new Skill_Item_SpellBlade(nullptr);
 }
 
 void Skill_Item_SpellBlade::OnHit(Unit* target, Skill* mySkill)

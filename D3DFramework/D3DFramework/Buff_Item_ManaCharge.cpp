@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "Buff_ItemManaCharge.h"
+#include "Buff_Item_ManaCharge.h"
 
 Buff_ItemManaCharge::Buff_ItemManaCharge(Unit* _host) : Buff(_host, INFINITY)
 {

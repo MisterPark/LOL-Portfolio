@@ -93,7 +93,42 @@ void PlayerController::Update()
             unit->Spell6();
         }
     }
-    
+
+    if (Input::GetKeyDown('1'))
+    {
+        if (unit->inventory.GetItem(0) == nullptr) return;
+        unit->inventory.GetItem(0)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('2'))
+    {
+        if (unit->inventory.GetItem(1) == nullptr) return;
+        unit->inventory.GetItem(1)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('3'))
+    {
+        if (unit->inventory.GetItem(2) == nullptr) return;
+        unit->inventory.GetItem(2)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('4'))
+    {
+        if (unit->inventory.GetItem(3) == nullptr) return;
+        unit->inventory.GetItem(3)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('5'))
+    {
+        if (unit->inventory.GetItem(4) == nullptr) return;
+        unit->inventory.GetItem(4)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('6'))
+    {
+        if (unit->inventory.GetItem(5) == nullptr) return;
+        unit->inventory.GetItem(5)->skillList.front()->Use();
+    }
+    if (Input::GetKeyDown('7'))
+    {
+        if (unit->inventory.GetItem(6) == nullptr) return;
+        unit->inventory.GetItem(6)->skillList.front()->Use();
+    }
     
 
     if (Input::GetMouseWheelUp())

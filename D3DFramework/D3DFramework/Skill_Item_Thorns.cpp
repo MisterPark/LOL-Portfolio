@@ -34,6 +34,11 @@ void Skill_Item_Thorns::End()
 	Skill::End();
 }
 
+Skill_Item* Skill_Item_Thorns::Clone()
+{
+	return new Skill_Item_Thorns(nullptr);
+}
+
 void Skill_Item_Thorns::OnDamaged(Unit* target, Skill* targetSkill, float damage)
 {
 	if (targetSkill == target->skillList[(int)SkillIndex::Attack]) {

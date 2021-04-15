@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_ManaCharge.h"
 #include "Unit.h"
-#include "Buff_ItemManaCharge.h"
+#include "Buff_Item_ManaCharge.h"
 #define MaxChargeCount 3
 
 Skill_Item_ManaCharge::Skill_Item_ManaCharge(Unit* _hostUnit)
@@ -46,10 +46,19 @@ void Skill_Item_ManaCharge::End()
 	Skill::End();
 }
 
+Skill_Item* Skill_Item_ManaCharge::Clone()
+{
+	return new Skill_Item_ManaCharge(nullptr);
+}
+
 void Skill_Item_ManaCharge::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
+	if (buffSkill == nullptr)
+		return;
+
 	if (mySkill == host->skillList[(int)SkillIndex::Attack])
 		return;
+
 	int a = mySkill->GetHitList()->size();
 	if (mySkill->GetHitList()->size() != 1)
 		return;

@@ -34,6 +34,11 @@ void Skill_Item_Cleave::End()
 	Skill::End();
 }
 
+Skill_Item* Skill_Item_Cleave::Clone()
+{
+	return new Skill_Item_Cleave(nullptr);
+}
+
 void Skill_Item_Cleave::OnHit(Unit* target, Skill* mySkill)
 {
 	if (mySkill != host->skillList[(int)SkillIndex::Attack])

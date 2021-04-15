@@ -38,6 +38,32 @@
 		"effect": [],
 		"recipe": ["천 갑옷"]
 	},
+	"1037": {
+		"id": 1037,
+		"tag": "1037_class_t1_pickaxe",
+		"name": "곡괭이", 
+		"type": "Basic",
+		"price": 875,
+		"desc": "공격력 +25",
+		"stat": [
+			{"type": "AttackDamage", "value": 25, "ispercent": false}
+		],
+		"effect": [],
+		"recipe": []
+	},
+	"1052": {
+		"id": 1052,
+		"tag": "1052_mage_t2_amptome",
+		"name": "증폭의 고서", 
+		"type": "Basic",
+		"price": 435,
+		"desc": "주문력 +20",
+		"stat": [
+			{"type": "AbilityPower", "value": 20, "ispercent": false}
+		],
+		"effect": [],
+		"recipe": []
+	},
 	"1054": {
 		"id": 1054,
 		"tag": "1054_tank_t1_doransshield",
@@ -49,6 +75,17 @@
 			{"type": "MaxHealth", "value": 80, "ispercent": false}
 		],
 		"effect": ["집중", "회복", "견디기"],
+		"recipe": []
+	},
+	"3057": {
+		"id": 3057,
+		"tag": "3057_fighter_t2_sheen",
+		"name": "광휘의 검", 
+		"type": "Epic",
+		"price": 700,
+		"desc": " - 주문 검: 스킬을 사용하고 나면 다음 기본 공격 시 기본 공격력의 100%에 해당하는 물리 피해를 추가로 입힙니다. (재사용 대기시간 1.5초)",
+		"stat": [],
+		"effect": ["주문 검"],
 		"recipe": []
 	},
 	"3066": {
@@ -63,6 +100,59 @@
 		],
 		"effect": ["활공"],
 		"recipe": ["루비 수정"]
+	},
+	"3070": {
+		"id": 3070,
+		"tag": "3070_all_t1_tearofthegoddess",
+		"name": "여신의 눈물", 
+		"type": "Starter",
+		"price": 400,
+		"desc": "마나 +240\n\n - 집중: 미니언에게 기본 공격 시 5의 물리 피해를 추가로 입힙니다.\n - 마나 충전: 대상에게 스킬을 적중시키면 중첩을 하나 소모해 3의 추가 마나를 얻습니다. 챔피언 상대로는 두 배로 적용됩니다. 최대 360까지 얻을 수 있습니다.\n마나 충전 중첩은 8초마다 1회씩 최대 4회까지 쌓입니다",
+		"stat": [
+			{"type": "MaxMana", "value": 240, "ispercent": false}
+		],
+		"effect": ["집중", "마나 충전"],
+		"recipe": []
+	},
+	"3076": {
+		"id": 3076,
+		"tag": "3076_tank_t2_bramblevest",
+		"name": "덤불 조끼", 
+		"type": "Epic",
+		"price": 800,
+		"desc": "방어력 +35\n\n - 가시: 기본 공격에 맞으면 공격한 적에게 3 + 추가 방어력의 10%에 해당하는 마법 피해를 입히고, 대상이 챔피언일 경우 3초 동안 40%의 고통스러운 상처를 남깁니다.\n고통스러운 상처는 치유 및 회복 효과를 감소시킵니다.",
+		"stat": [
+			{"type": "Armor", "value": 35, "ispercent": false}
+		],
+		"effect": ["가시"],
+		"recipe": ["천 갑옷", "천 갑옷"]
+	},
+	"3077": {
+		"id": 3077,
+		"tag": "3077_fighter_t2_tiamat",
+		"name": "티아맷", 
+		"type": "Epic",
+		"price": 1200,
+		"desc": "공격력 +25\n\n - 쪼개기: 기본 공격 시 주변 적들에게 최대 공격력의 60%에 해당하는 물리 피해를 입힙니다. 최대 거리에 있는 적에게는 공격력의 12%에 해당하는 피해만 입힙니다.",
+		"stat": [
+			{"type": "AttackDamage", "value": 25, "ispercent": false}
+		],
+		"effect": ["쪼개기"],
+		"recipe": ["곡괭이"]
+	},
+	"3191": {
+		"id": 3191,
+		"tag": "3191_battlemage_t2_seekersarmguard",
+		"name": "추적자의 팔목 보호대", 
+		"type": "Epic",
+		"price": 1000,
+		"desc": "주문력 +20, 방어력 +15\n\n - 마법사의 길: 유닛을 처치하면 방어력이 0.5(최대 15) 증가합니다.",
+		"stat": [
+			{"type": "AbilityPower", "value": 20, "ispercent": false},
+			{"type": "Armor", "value": 15, "ispercent": false}
+		],
+		"effect": ["마법사의 길"],
+		"recipe": ["증폭의 고서", "천 갑옷"]
 	},
 	"3742": {
 		"id": 3742,
