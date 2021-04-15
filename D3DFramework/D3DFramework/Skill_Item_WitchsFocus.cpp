@@ -10,7 +10,9 @@ Skill_Item_WitchsFocus::Skill_Item_WitchsFocus(Unit* _hostUnit)
 
 Skill_Item_WitchsFocus::~Skill_Item_WitchsFocus()
 {
-	buffWitchsFocus->duration = 0.f;
+	if (buffWitchsFocus != nullptr) {
+		buffWitchsFocus->duration = 0.f;
+	}
 }
 
 void Skill_Item_WitchsFocus::Start()
@@ -39,8 +41,12 @@ void Skill_Item_WitchsFocus::End()
 	Skill::End();
 }
 
+Skill_Item* Skill_Item_WitchsFocus::Clone()
+{
+	return new Skill_Item_WitchsFocus(nullptr);
+}
+
 void Skill_Item_WitchsFocus::OnKilled(Unit* target)
 {
 	passiveStack++;
 }
-

@@ -99,9 +99,9 @@ void Item::SetSkillList(Unit* _host)
 
 Buff_Item* Item::StatBuffSetting(Unit* _host)
 {
-	Buff_Item* buffItem = new Buff_Item(_host);//reductionValue);
-
 	if (stats.size() <= 0) return nullptr;
+
+	Buff_Item* buffItem = new Buff_Item(_host);//reductionValue);
 
 	for (const auto& stat : stats)
 	{

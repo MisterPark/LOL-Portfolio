@@ -35,6 +35,7 @@
 #include "RenderSystem.h"
 
 #include "EffectObject.h"
+#include "MinionSpawner.h"
 
 
 void TestScene::OnLoaded()

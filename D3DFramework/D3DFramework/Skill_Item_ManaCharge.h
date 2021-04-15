@@ -8,11 +8,13 @@ public:
 	Skill_Item_ManaCharge(Unit* _hostUnit);
 	virtual ~Skill_Item_ManaCharge();
 
-	virtual void Start();
-	virtual void Passive();
-	virtual void Active();
-	virtual void End();
-	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
+	virtual void Start() override;
+	virtual void Passive() override;
+	virtual void Active() override;
+	virtual void End() override;
+	virtual Skill_Item* Clone() override;
+
+	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill) override;
 
 private:
 	Buff_ItemManaCharge* buffSkill = nullptr;

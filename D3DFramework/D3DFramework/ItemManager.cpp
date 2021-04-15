@@ -2,13 +2,23 @@
 #include "ItemManager.h"
 #include "json/UnicodeHelper.h"
 #include <fstream>
+#include "Skill_Item_Cleave.h"
 #include "Skill_Item_Dreadnought.h"
+#include "Skill_Item_ManaCharge.h"
+#include "Skill_Item_SpellBlade.h"
+#include "Skill_Item_Thorns.h"
+#include "Skill_Item_WitchsFocus.h"
 
 ItemManager* pItemManager = nullptr;
 
 ItemManager::ItemManager()
 {
+	skills.emplace(L"쪼개기", new Skill_Item_Cleave(nullptr));
 	skills.emplace(L"침몰시키는 자", new Skill_Item_Dreadnought(nullptr));
+	skills.emplace(L"마나 충전", new Skill_Item_ManaCharge(nullptr));
+	skills.emplace(L"주문 검", new Skill_Item_SpellBlade(nullptr));
+	skills.emplace(L"가시", new Skill_Item_Thorns(nullptr));
+	skills.emplace(L"마법사의 길", new Skill_Item_WitchsFocus(nullptr));
 }
 
 ItemManager::~ItemManager()
@@ -99,7 +109,8 @@ HRESULT ItemManager::AddItem(const nlohmann::json& jsonItemInfo)
 
 // type
 	ItemType itemType = jsonItemInfo[u8"type"].get<ItemType>();
-	if (itemType == ItemType::End) return E_FAIL;
+	if (itemType == ItemType::End)
+		return E_FAIL;
 
 // price
 	UINT price = jsonItemInfo[u8"price"];
@@ -112,7 +123,8 @@ HRESULT ItemManager::AddItem(const nlohmann::json& jsonItemInfo)
 	for (auto statData : jsonItemInfo[u8"stat"])
 	{
 		StatType type = statData[u8"type"].get<StatType>();
-		if (type == StatType::END) return E_FAIL;
+		if (type == StatType::END)
+			return E_FAIL;
 
 		float value = statData[u8"value"];
 
@@ -140,7 +152,8 @@ HRESULT ItemManager::AddItem(const nlohmann::json& jsonItemInfo)
 
 // Add
 	Item* item = Item::Create(id, tag, name, itemType, price, desc, stats, effects, recipes);
-	if (item == nullptr) return E_FAIL;
+	if (item == nullptr)
+		return E_FAIL;
 
 	items.emplace(id, item);
 
