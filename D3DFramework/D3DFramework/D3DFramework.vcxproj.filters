@@ -979,9 +979,6 @@
     <ClInclude Include="Buff_HealMoveSpeed.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Item.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Skill_Item_Dreadnought.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
@@ -1008,12 +1005,6 @@
     </ClInclude>
     <ClInclude Include="EffectObject.h">
       <Filter>GameObject\EffectObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Buff_Item.h">
-      <Filter>Buff\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Buff_ItemDreadnought.h">
-      <Filter>Buff\Item\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill_MissFortune_W.h">
       <Filter>Skill\MissFortune</Filter>
@@ -1102,22 +1093,37 @@
     <ClInclude Include="Skill_Item_Thorns.h">
       <Filter>Skill\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_ItemWitchsFocus.h">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Buff_ItemManaCharge.h">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Buff_ItemSpellBlade.h">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Inhibitor.h" />
+    <ClInclude Include="Skill_Item_Nimble.h">
+      <Filter>Skill\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_WraithStep.h" />
+    <ClInclude Include="Buff_ItemWraithStep.h" />
+    <ClInclude Include="Buff_ItemWraithStep_P.h" />
     <ClInclude Include="Form.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
     <ClInclude Include="Tooltip.h">
       <Filter>GameObject\UI\Control\Tooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_ItemStat.h">
+      <Filter>Buff\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_Dreadnought.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_ManaCharge.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_Nimble.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_SpellBlade.h">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_WitchsFocus.h">
+      <Filter>Buff\Item\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1791,9 +1797,6 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Item.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Skill_Item_Dreadnought.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
@@ -1820,12 +1823,6 @@
     </ClCompile>
     <ClCompile Include="EffectObject.cpp">
       <Filter>GameObject\EffectObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Buff_Item.cpp">
-      <Filter>Buff\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Buff_ItemDreadnought.cpp">
-      <Filter>Buff\Item\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Skill_MissFortune_W.cpp">
       <Filter>Skill\MissFortune</Filter>
@@ -1905,22 +1902,37 @@
     <ClCompile Include="Skill_Item_WitchsFocus.cpp">
       <Filter>Skill\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_ItemManaCharge.cpp">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Buff_ItemSpellBlade.cpp">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Buff_ItemWitchsFocus.cpp">
-      <Filter>Buff\Item\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
+    <ClCompile Include="Skill_Item_Nimble.cpp">
+      <Filter>Skill\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_WraithStep.cpp" />
+    <ClCompile Include="Buff_ItemWraithStep.cpp" />
+    <ClCompile Include="Buff_ItemWraithStep_P.cpp" />
     <ClCompile Include="Form.cpp">
       <Filter>GameObject\UI\Control</Filter>
     </ClCompile>
     <ClCompile Include="Tooltip.cpp">
       <Filter>GameObject\UI\Control\Tooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_ItemStat.cpp">
+      <Filter>Buff\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_Dreadnought.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_ManaCharge.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_Nimble.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_SpellBlade.cpp">
+      <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_WitchsFocus.cpp">
+      <Filter>Buff\Item\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

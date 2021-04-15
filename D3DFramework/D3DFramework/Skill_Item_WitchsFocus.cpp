@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_WitchsFocus.h"
-#include "Buff_ItemWitchsFocus.h"
+#include "Buff_Item_WitchsFocus.h"
 #include "Unit.h"
 
 Skill_Item_WitchsFocus::Skill_Item_WitchsFocus(Unit* _hostUnit)

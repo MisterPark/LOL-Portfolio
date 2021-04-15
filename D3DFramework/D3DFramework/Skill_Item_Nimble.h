@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include "Skill.h"
-class Skill_Item_Cleave : //티아멧
+class Skill_Item_Nimble :  // 온기가 필요한 자의 도끼
     public Skill
 {
 public:
-	Skill_Item_Cleave(Unit* _hostUnit);
-	virtual ~Skill_Item_Cleave();
+	Skill_Item_Nimble(Unit* _hostUnit);
+	virtual ~Skill_Item_Nimble();
 
 	virtual void Start();
 	virtual void Passive();

@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Skill_Item.h"
+#include "Skill.h"
 class Skill_Item_Thorns : //덤불조끼 반사딜
-    public Skill_Item
+    public Skill
 {
 public:
 	Skill_Item_Thorns(Unit* _hostUnit);

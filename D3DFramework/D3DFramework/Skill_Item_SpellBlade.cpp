@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_SpellBlade.h"
 #include "Unit.h"
-#include "Buff_ItemSpellBlade.h"
+#include "Buff_Item_SpellBlade.h"
 
 Skill_Item_SpellBlade::Skill_Item_SpellBlade(Unit* _hostUnit)
 {

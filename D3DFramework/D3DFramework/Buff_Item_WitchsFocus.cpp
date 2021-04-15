@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "Buff_ItemWitchsFocus.h"
+#include "Buff_Item_WitchsFocus.h"
 
 Buff_ItemWitchsFocus::Buff_ItemWitchsFocus(Unit* _host) : Buff(_host, INFINITY)
 {
