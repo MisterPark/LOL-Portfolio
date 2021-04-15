@@ -41,7 +41,7 @@ void Skill_Item_WitchsFocus::End()
 	Skill::End();
 }
 
-Skill_Item* Skill_Item_WitchsFocus::Clone()
+Skill* Skill_Item_WitchsFocus::Clone()
 {
 	return new Skill_Item_WitchsFocus(nullptr);
 }

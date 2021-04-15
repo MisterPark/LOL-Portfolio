@@ -46,7 +46,7 @@ void Skill_Item_ManaCharge::End()
 	Skill::End();
 }
 
-Skill_Item* Skill_Item_ManaCharge::Clone()
+Skill* Skill_Item_ManaCharge::Clone()
 {
 	return new Skill_Item_ManaCharge(nullptr);
 }

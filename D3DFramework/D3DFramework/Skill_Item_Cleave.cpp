@@ -34,7 +34,7 @@ void Skill_Item_Cleave::End()
 	Skill::End();
 }
 
-Skill_Item* Skill_Item_Cleave::Clone()
+Skill* Skill_Item_Cleave::Clone()
 {
 	return new Skill_Item_Cleave(nullptr);
 }

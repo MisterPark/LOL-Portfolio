@@ -34,7 +34,7 @@ void Skill_Item_Thorns::End()
 	Skill::End();
 }
 
-Skill_Item* Skill_Item_Thorns::Clone()
+Skill* Skill_Item_Thorns::Clone()
 {
 	return new Skill_Item_Thorns(nullptr);
 }

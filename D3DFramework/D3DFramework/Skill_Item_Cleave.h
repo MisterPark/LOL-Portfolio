@@ -11,7 +11,7 @@ public:
 	virtual void Passive() override;
 	virtual void Active() override;
 	virtual void End() override;
-	virtual Skill_Item* Clone() override;
+	virtual Skill* Clone() override;
 	virtual void OnHit(Unit* target, Skill* mySkill) override;
 };
 
