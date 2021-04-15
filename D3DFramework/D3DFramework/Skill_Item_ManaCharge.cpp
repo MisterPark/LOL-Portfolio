@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Skill_Item_ManaCharge.h"
 #include "Unit.h"
-#include "Buff_ItemManaCharge.h"
+#include "Buff_Item_ManaCharge.h"
 #define MaxChargeCount 3
 
 Skill_Item_ManaCharge::Skill_Item_ManaCharge(Unit* _hostUnit)

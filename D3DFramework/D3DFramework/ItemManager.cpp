@@ -59,7 +59,7 @@ map<UINT, Item*> ItemManager::GetItemList()
 	return items;
 }
 
-Skill_Item* ItemManager::GetItemSkill(const std::wstring& _skillname)
+Skill* ItemManager::GetItemSkill(const std::wstring& _skillname)
 {
 	auto iter = skills.find(_skillname);
 	if (skills.end() == iter) return nullptr;

@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "Skill_Item.h"
+#include "Skill.h"
 
 class Buff_ItemWitchsFocus;
 class Skill_Item_WitchsFocus :  //추적자의 팔목보호대
-    public Skill_Item
+    public Skill
 {
 public:
 	Skill_Item_WitchsFocus(Unit* _hostUnit);

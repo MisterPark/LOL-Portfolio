@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Skill_Item.h"
+#include "Skill.h"
 class Skill_Item_Cleave : //티아멧
-    public Skill_Item
+    public Skill
 {
 public:
 	Skill_Item_Cleave(Unit* _hostUnit);

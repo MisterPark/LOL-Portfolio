@@ -1,8 +1,8 @@
 ﻿#pragma once
 using namespace Engine;
 #include "Stat.h"
-#include "Skill_Item.h"
-#include "Buff_Item.h"
+#include "Skill.h"
+#include "Buff_ItemStat.h"
 
 enum class ItemType
 {
@@ -67,7 +67,7 @@ public:
 	bool SetTarget(Unit* _host);
 private:
 	void SetSkillList(Unit* _host);
-	Buff_Item* StatBuffSetting(Unit* _host);
+	Buff_ItemStat* StatBuffSetting(Unit* _host);
 
 private:
 	UINT id;
@@ -83,7 +83,7 @@ public:
 	list<std::wstring> recipes; // id로 변경하기
 	//list<UINT> itemParentId;
 	//list<UINT> itemChildId;
-	list<Skill_Item*> skillList;
-	Buff_Item* buffItemStat = nullptr; // Stat에서 제거해줌
+	list<Skill*> skillList;
+	Buff_ItemStat* buffItemStat = nullptr; // 팔때 제거해줘야함
 };
 

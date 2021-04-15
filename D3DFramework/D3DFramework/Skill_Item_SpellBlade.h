@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "Skill_Item.h"
+#include "Skill.h"
 
 class Buff_ItemSpellBlade;
 class Skill_Item_SpellBlade : // 광휘의검
-    public Skill_Item
+    public Skill
 {
 public:
 	Skill_Item_SpellBlade(Unit* _hostUnit);

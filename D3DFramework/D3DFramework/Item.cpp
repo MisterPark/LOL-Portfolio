@@ -88,20 +88,20 @@ void Item::SetSkillList(Unit* _host)
 {
 	for (auto effect : effects)
 	{
-		Skill_Item* skill = ItemManager::GetInstance()->GetItemSkill(effect);
+		Skill* skill = ItemManager::GetInstance()->GetItemSkill(effect);
 		if (skill == nullptr) continue;
 
-		Skill_Item* newSkill = skill->Clone();
+		Skill* newSkill = skill->Clone();
 		newSkill->SetTarget(_host);
 		skillList.push_back(newSkill);
 	}
 }
 
-Buff_Item* Item::StatBuffSetting(Unit* _host)
+Buff_ItemStat* Item::StatBuffSetting(Unit* _host)
 {
 	if (stats.size() <= 0) return nullptr;
 
-	Buff_Item* buffItem = new Buff_Item(_host);//reductionValue);
+	Buff_ItemStat* buffItem = new Buff_ItemStat(_host);//reductionValue);
 
 	for (const auto& stat : stats)
 	{

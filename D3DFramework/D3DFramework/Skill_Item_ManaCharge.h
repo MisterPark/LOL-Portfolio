@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "Skill_Item.h"
-#include "Buff_ItemManaCharge.h"
+#include "Skill.h"
+#include "Buff_Item_ManaCharge.h"
 class Skill_Item_ManaCharge :  // 여신의 눈물
-    public Skill_Item
+    public Skill
 {
 public:
 	Skill_Item_ManaCharge(Unit* _hostUnit);
