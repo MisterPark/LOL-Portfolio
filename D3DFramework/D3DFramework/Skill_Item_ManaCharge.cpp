@@ -47,10 +47,19 @@ void Skill_Item_ManaCharge::End()
 	Skill::End();
 }
 
+Skill* Skill_Item_ManaCharge::Clone()
+{
+	return new Skill_Item_ManaCharge(nullptr);
+}
+
 void Skill_Item_ManaCharge::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
+	if (buffSkill == nullptr)
+		return;
+
 	if (mySkill == host->skillList[(int)SkillIndex::Attack])
 		return;
+
 	int a = mySkill->GetHitList()->size();
 	if (mySkill->GetHitList()->size() != 1)
 		return;

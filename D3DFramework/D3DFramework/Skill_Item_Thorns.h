@@ -7,10 +7,12 @@ public:
 	Skill_Item_Thorns(Unit* _hostUnit);
 	virtual ~Skill_Item_Thorns();
 
-	virtual void Start();
-	virtual void Passive();
-	virtual void Active();
-	virtual void End();
+	virtual void Start() override;
+	virtual void Passive() override;
+	virtual void Active() override;
+	virtual void End() override;
+	virtual Skill* Clone() override;
+
 	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage) override;
 };
 

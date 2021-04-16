@@ -9,12 +9,13 @@ public:
 	Skill_Item_WitchsFocus(Unit* _hostUnit);
 	virtual ~Skill_Item_WitchsFocus();
 
-	virtual void Start();
-	virtual void Passive();
-	virtual void Active();
-	virtual void End();
-	virtual void OnKilled(Unit* target) override;
+	virtual void Start() override;
+	virtual void Passive() override;
+	virtual void Active() override;
+	virtual void End() override;
+	virtual Skill* Clone() override;
 
+	virtual void OnKilled(Unit* target) override;
 
 	Buff_ItemWitchsFocus* buffWitchsFocus = nullptr;
 	int passiveStack = 0;
