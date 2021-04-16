@@ -6,5 +6,7 @@ class Effect_Garen_E :
 public:
     Effect_Garen_E();
     virtual ~Effect_Garen_E();
+
+    virtual void Update() override;
 };
 

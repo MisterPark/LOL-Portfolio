@@ -59,6 +59,7 @@ void Engine::ForwardRenderer::SetMesh(Mesh* mesh)
 
 void Engine::ForwardRenderer::Render()
 {
+	if (visible == false) return;
 	if (gameObject->visible == false) return;
 
 	UINT passCount{};
