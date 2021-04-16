@@ -73,7 +73,9 @@ Skill* Skill_Item_Dreadnought::Clone()
 	return new Skill_Item_Dreadnought(nullptr);
 }
 
-void Skill_Item_Dreadnought::OnAttackEnd()
+void Skill_Item_Dreadnought::OnHit(Unit* target, Skill* mySkill)
 {
-	buffDreadnought->overlapCount = 0;
+	if (buffDreadnought != nullptr) {
+		buffDreadnought->skillStack = 0.f;
+	}
 }
