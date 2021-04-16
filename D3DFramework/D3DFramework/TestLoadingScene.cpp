@@ -30,7 +30,7 @@ namespace std
 #include <filesystem>
 #endif
 
-long resourceMax = 41;
+long resourceMax = 42;
 long resourceLoadCnt = 0;
 
 void TestLoadingScene::OnLoaded()
@@ -150,6 +150,7 @@ void TestLoadingScene::LoadResources()
 
 	// 이펙트
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj", Count);
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj", Count);
 
 
 	// 지형

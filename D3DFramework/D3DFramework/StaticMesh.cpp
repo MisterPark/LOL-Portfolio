@@ -456,6 +456,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 	}
 
+	delete[] buffer;
 
 	fvf = Vertex::FVF;
 	
@@ -495,7 +496,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	D3DXComputeNormals(pMesh, adj);
 
-
+	delete[] adj;
 
 	//==============================
 	// 버텍스들의 포지션 정보 저장
