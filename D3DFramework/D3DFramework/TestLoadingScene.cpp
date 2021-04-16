@@ -30,7 +30,7 @@ namespace std
 #include <filesystem>
 #endif
 
-long resourceMax = 40;
+long resourceMax = 41;
 long resourceLoadCnt = 0;
 
 void TestLoadingScene::OnLoaded()
@@ -148,6 +148,11 @@ void TestLoadingScene::LoadResources()
 	// 넥서스
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x", Count);
 
+	// 이펙트
+	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj", Count);
+
+
+	// 지형
 	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/summoner_rift_nav.x", Count);
 	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/nav_wall.x", Count);
 	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/summoner_rift.x", Count);

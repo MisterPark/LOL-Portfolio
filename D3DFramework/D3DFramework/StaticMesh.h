@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Mesh.h"
 
 namespace Engine
@@ -22,23 +22,26 @@ namespace Engine
 
         int GetSubsetCount();
         IDirect3DTexture9* GetSubsetTexture(int index);
+        void SetSubsetTexture(int index, const wstring& textureKey);
 
     public:
         HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+        HRESULT LoadMeshX(const WCHAR* pFilePath, const WCHAR* pFileName);
+        HRESULT LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFileName);
         virtual void RenderSubset(int index) override;
 
     private:
-        LPD3DXMESH			pOriginMesh;	// ÃÖÃÊ ·Îµå ½ÃÁ¡¿¡ »ı¼ºÇÏ´Â ¸Ş½¬ ÄÄ°´Ã¼
-        LPD3DXMESH			pMesh; // ³ë¸» Á¤º¸¸¦ »ğÀÔÇÏ¿© º¯È¯½ÃÅ² ¸Ş½¬ ÄÄ°´Ã¼
+        LPD3DXMESH			pOriginMesh;	// ìµœì´ˆ ë¡œë“œ ì‹œì ì— ìƒì„±í•˜ëŠ” ë©”ì‰¬ ì»´ê°ì²´
+        LPD3DXMESH			pMesh; // ë…¸ë§ ì •ë³´ë¥¼ ì‚½ì…í•˜ì—¬ ë³€í™˜ì‹œí‚¨ ë©”ì‰¬ ì»´ê°ì²´
 
-        LPD3DXBUFFER		pAdjacency; // ÀÎÁ¢ÇÑ ÀÌ¿ôÀÇ Á¤º¸¸¦ Á¢±ÙÇÏ±â À§ÇØ Ã¹¹øÂ° ÁÖ¼Ò¸¦ º¸°üÇÏ·Á´Â ¸â¹ö º¯¼ö
-        LPD3DXBUFFER		pSubset; // ¼­ºê¼Â °³¼ö == ÅØ½ºÃÄÀÇ °³¼ö == ÀçÁúÀÇ °³¼ö
+        LPD3DXBUFFER		pAdjacency; // ì¸ì ‘í•œ ì´ì›ƒì˜ ì •ë³´ë¥¼ ì ‘ê·¼í•˜ê¸° ìœ„í•´ ì²«ë²ˆì§¸ ì£¼ì†Œë¥¼ ë³´ê´€í•˜ë ¤ëŠ” ë©¤ë²„ ë³€ìˆ˜
+        LPD3DXBUFFER		pSubset; // ì„œë¸Œì…‹ ê°œìˆ˜ == í…ìŠ¤ì³ì˜ ê°œìˆ˜ == ì¬ì§ˆì˜ ê°œìˆ˜
         D3DXMATERIAL*       pMaterial;
         ULONG				subsetCount;
 
         LPDIRECT3DTEXTURE9* ppTextures;
 
-        // VertexSize (Á¤Á¡ ¸Ş¸ğ¸® Å©±â)
+        // VertexSize (ì •ì  ë©”ëª¨ë¦¬ í¬ê¸°)
         ULONG				vertexSize = 0;
         ULONG				vertexCount = 0;
         Vector3* pVertices;// = nullptr;

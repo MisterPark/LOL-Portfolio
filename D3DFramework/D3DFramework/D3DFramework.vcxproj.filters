@@ -1125,6 +1125,9 @@
     <ClInclude Include="Buff_Item_WitchsFocus.h">
       <Filter>Buff\Item\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="Effect_Garen_E.h">
+      <Filter>GameObject\EffectObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1933,6 +1936,9 @@
     </ClCompile>
     <ClCompile Include="Buff_Item_WitchsFocus.cpp">
       <Filter>Buff\Item\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_E.cpp">
+      <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
