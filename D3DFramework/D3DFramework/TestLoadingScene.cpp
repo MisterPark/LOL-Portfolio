@@ -30,7 +30,7 @@ namespace std
 #include <filesystem>
 #endif
 
-long resourceMax = 42;
+long resourceMax = 0;
 long resourceLoadCnt = 0;
 
 void TestLoadingScene::OnLoaded()
@@ -96,67 +96,67 @@ void TestLoadingScene::Update()
 
 void TestLoadingScene::LoadResources()
 {
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/malp.X", Count);
+	LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/malp.X");
 	
 	// 오브젝트
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/bush.x", Count);
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/bush.x");
 
 	// 몬스터
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/scuttleracer/scuttleracer.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_blue/sru_blue.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_gromp/sru_gromp.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krug/sru_krug.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krugmini/sru_krugmini.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolf/sru_murkwolf.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/sru_murkwolfmini_left.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/sru_murkwolfmini_right.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeak/sru_razorbeak.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeakmini/sru_razorbeakmini.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_red/sru_red.x", Count);
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/scuttleracer/scuttleracer.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_blue/sru_blue.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_gromp/sru_gromp.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krug/sru_krug.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_krugmini/sru_krugmini.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolf/sru_murkwolf.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/sru_murkwolfmini_left.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_murkwolfmini/sru_murkwolfmini_right.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeak/sru_razorbeak.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_razorbeakmini/sru_razorbeakmini.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/sru_red/sru_red.x");
 
 	// 챔피언
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/blitzcrank/blitzcrank.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/darius/darius.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/diana/diana.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/garen/garen.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leesin/leesin.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/missfortune/missfortune.X", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/leona/leona.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/ahri/ahri.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/jax.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/jinx.x", Count);
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/blitzcrank/blitzcrank.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/darius/darius.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/diana/diana.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/garen/garen.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/leesin/leesin.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/missfortune/missfortune.X");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/leona/leona.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/ahri/ahri.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/jax/jax.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/jinx/jinx.x");
 
 	// 미니언
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/order_minion_caster.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_melee/order_minion_melee.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_siege/order_minion_siege.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_super/order_minion_super.x", Count);
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_caster/order_minion_caster.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_melee/order_minion_melee.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_siege/order_minion_siege.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/order_minion_super/order_minion_super.x");
 
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_caster/chaos_minion_caster.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_melee/chaos_minion_melee.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_siege/chaos_minion_siege.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/chaos_minion_super.x", Count);
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_caster/chaos_minion_caster.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_melee/chaos_minion_melee.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_siege/chaos_minion_siege.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/character/chaos_minion_super/chaos_minion_super.x");
 
 	// 터렛
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/turret_order/turret_order.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break1.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break2.x", Count);
-	LoadManager::LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break3.x", Count);
+	LoadStaticMeshAsync(L"Resource/Mesh/turret_order/turret_order.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break1.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break2.x");
+	LoadDynamicMeshAsync(L"Resource/Mesh/turret_order/sruap_orderturret1_break3.x");
 
+	// 억제기
+	LoadStaticMeshAsync(L"Resource/Mesh/character/order_inhibitor/sruap_orderinhibitor.x");
 	// 넥서스
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/order_inhibitor/sruap_orderinhibitor.x", Count);
-	// 넥서스
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x", Count);
+	LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x");
 
 	// 이펙트
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj", Count);
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj", Count);
+	LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj");
+	LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj");
 
 
 	// 지형
-	LoadManager::LoadNavMeshAsync(L"Resource/Mesh/nav/summoner_rift_nav.x", Count);
-	LoadManager::LoadStaticMeshAsync(L"Resource/Mesh/nav/nav_wall.x", Count);
-	LoadManager::LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/summoner_rift.x", Count);
+	LoadNavMeshAsync(L"Resource/Mesh/nav/summoner_rift_nav.x");
+	LoadStaticMeshAsync(L"Resource/Mesh/nav/nav_wall.x");
+	LoadTerrainMeshAsync(L"Resource/Mesh/summoner_rift/summoner_rift.x");
 
 	//지향씨를 위한 디렉토리 순회 예제
 	std::filesystem::recursive_directory_iterator dit{ "Resource/UI/"};
@@ -168,6 +168,31 @@ void TestLoadingScene::LoadResources()
 		}
 	}
 	
+}
+
+void TestLoadingScene::LoadStaticMeshAsync(const wstring& filePath)
+{
+	resourceMax++;
+	LoadManager::LoadStaticMeshAsync(filePath, Count);
+	
+}
+
+void TestLoadingScene::LoadDynamicMeshAsync(const wstring& filePath)
+{
+	resourceMax++;
+	LoadManager::LoadDynamicMeshAsync(filePath, Count);
+}
+
+void TestLoadingScene::LoadNavMeshAsync(const wstring& filePath)
+{
+	resourceMax++;
+	LoadManager::LoadNavMeshAsync(filePath, Count);
+}
+
+void TestLoadingScene::LoadTerrainMeshAsync(const wstring& filePath)
+{
+	resourceMax++;
+	LoadManager::LoadTerrainMeshAsync(filePath, Count);
 }
 
 void TestLoadingScene::Count()
