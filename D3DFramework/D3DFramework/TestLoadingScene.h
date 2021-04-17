@@ -13,6 +13,11 @@ class TestLoadingScene :
 
     void LoadResources();
 
+    void LoadStaticMeshAsync(const wstring& filePath);
+    void LoadDynamicMeshAsync(const wstring& filePath);
+    void LoadNavMeshAsync(const wstring& filePath);
+    void LoadTerrainMeshAsync(const wstring& filePath);
+
     static void Count();
 
     void CreateChampPanel(int borderW, int borderH, int padding);

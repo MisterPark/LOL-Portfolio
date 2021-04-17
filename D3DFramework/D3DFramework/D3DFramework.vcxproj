@@ -198,6 +198,8 @@
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Effect_Baron_Buff.h" />
     <ClInclude Include="Effect_Blue_Buff.h" />
+    <ClInclude Include="Effect_Garen_E.h" />
+    <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
     <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h" />
@@ -451,6 +453,8 @@
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Effect_Baron_Buff.cpp" />
     <ClCompile Include="Effect_Blue_Buff.cpp" />
+    <ClCompile Include="Effect_Garen_E.cpp" />
+    <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp" />

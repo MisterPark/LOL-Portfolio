@@ -35,6 +35,8 @@
 #include "RenderSystem.h"
 
 #include "EffectObject.h"
+#include "Effect_Garen_E.h"
+#include "Effect_Garen_R.h"
 #include "MinionSpawner.h"
 
 
@@ -46,7 +48,7 @@ void TestScene::OnLoaded()
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
 
 	testLabel = (Label*)SceneManager::GetCurrentScene()->CreateObject<Label>(Layer::UI);
-	testLabel->SetText(L"123123\n123123");
+	testLabel->SetText(L"TestScene");
 	testLabel->SetColor(255, 0, 255, 0);
 
 	CreateEnvironment();
@@ -65,7 +67,7 @@ void TestScene::OnLoaded()
 	champ->SetID((UINT)0);
 	//champ->AddItem(3742);
 
-	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<EffectObject>(Layer::Default);
+	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };
 
 

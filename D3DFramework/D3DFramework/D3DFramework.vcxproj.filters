@@ -1161,6 +1161,10 @@
     <ClInclude Include="Buff_Item_ManaCharge.h">
       <Filter>Buff\Item\Skill\Start</Filter>
     </ClInclude>
+    <ClInclude Include="Effect_Garen_E.h">
+      <Filter>GameObject\EffectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1988,6 +1992,10 @@
     <ClCompile Include="Buff_Item_ManaCharge.cpp">
       <Filter>Buff\Item\Skill\Start</Filter>
     </ClCompile>
+    <ClCompile Include="Effect_Garen_E.cpp">
+      <Filter>GameObject\EffectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
