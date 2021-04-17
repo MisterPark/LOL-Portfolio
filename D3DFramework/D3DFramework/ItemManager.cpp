@@ -5,9 +5,13 @@
 #include "Skill_Item_Cleave.h"
 #include "Skill_Item_Dreadnought.h"
 #include "Skill_Item_ManaCharge.h"
+#include "Skill_Item_Nimble.h"
 #include "Skill_Item_SpellBlade.h"
 #include "Skill_Item_Thorns.h"
 #include "Skill_Item_WitchsFocus.h"
+#include "Skill_Item_Precision.h"  // 절정의 화살
+#include "Skill_Item_WraithStep.h" // 요우무의 유령검
+#include "Skill_Item_SteelTipped.h" // 곡궁
 
 ItemManager* pItemManager = nullptr;
 
@@ -17,8 +21,12 @@ ItemManager::ItemManager()
 	skills.emplace(L"침몰시키는 자", new Skill_Item_Dreadnought(nullptr));
 	skills.emplace(L"마나 충전", new Skill_Item_ManaCharge(nullptr));
 	skills.emplace(L"주문 검", new Skill_Item_SpellBlade(nullptr));
+	skills.emplace(L"민첩", new Skill_Item_Nimble(nullptr));
 	skills.emplace(L"가시", new Skill_Item_Thorns(nullptr));
 	skills.emplace(L"마법사의 길", new Skill_Item_WitchsFocus(nullptr));
+	skills.emplace(L"정밀", new Skill_Item_Precision(nullptr));
+	skills.emplace(L"강철 촉", new Skill_Item_SteelTipped(nullptr));
+	skills.emplace(L"망령의 발걸음", new Skill_Item_WraithStep(nullptr));
 }
 
 ItemManager::~ItemManager()
