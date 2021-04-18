@@ -5,6 +5,7 @@
 
 Skill_Item_Cleave::Skill_Item_Cleave(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::Cleave;
 	host = _hostUnit;
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AD));
 }

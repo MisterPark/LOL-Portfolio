@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Skill.h"
 
-class Buff_ItemWraithStep_P;
-class Skill_Item_WraithStep :
+class Buff_Item_WraithStep_P;
+class Skill_Item_WraithStep : // 요우무의 유령검
     public Skill
 {
 public:
@@ -18,6 +18,6 @@ public:
 
 private:
 	float passiveTick = 0.f;
-	Buff_ItemWraithStep_P* passiveBuff = nullptr;
+	Buff_Item_WraithStep_P* passiveBuff = nullptr;
 };
 

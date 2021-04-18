@@ -17,7 +17,7 @@ public:
 	virtual Skill* Clone() override;
 
 
-	virtual void OnAttackEnd();
+	virtual void OnHit(Unit* target, Skill* mySkill);
 
 	Buff_ItemDreadnought* buffDreadnought = nullptr;
 
