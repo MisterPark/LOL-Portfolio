@@ -42,7 +42,7 @@
 
 void TestScene::OnLoaded()
 {
-	//MinionSpawner::GetInstance();
+	MinionSpawner::GetInstance();
 
 	Camera::GetInstance()->SetPosition(Vector3(0.f, 1.f ,-1.f));
 	Camera::GetInstance()->transform->look = Vector3(0, 0, 1);
@@ -99,7 +99,7 @@ void TestScene::OnLoaded()
 
 void TestScene::OnUnloaded()
 {
-	//MinionSpawner::Destroy();
+	MinionSpawner::Destroy();
 }
 
 void TestScene::Update()
@@ -155,10 +155,10 @@ void TestScene::Progress()
 	else if (minute == 1 && second == 5)
 	{
 		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
-		//MinionSpawner::Spawn();
+		MinionSpawner::Spawn();
 	}
 
-	//MinionSpawner::Update();
+	MinionSpawner::Update();
 }
 
 //============================================================================================
