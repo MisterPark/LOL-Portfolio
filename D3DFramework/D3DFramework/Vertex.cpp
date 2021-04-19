@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Vertex.h"
 
 const DWORD Vertex::FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1;
@@ -31,5 +31,14 @@ Engine::VertexUV::VertexUV(float _x, float _y, float _z, float _u, float _v)
 	this->z = _z;
 	this->u = _u;
 	this->v = _v;
+}
+
+Engine::VertexUV::VertexUV(Vector3 _v, Vector2 _uv)
+{
+	this->x = _v.x;
+	this->y = _v.y;
+	this->z = _v.z;
+	this->u = _uv.x;
+	this->v = _uv.y;
 }
 
