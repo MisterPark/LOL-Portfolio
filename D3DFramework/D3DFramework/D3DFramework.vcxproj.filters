@@ -367,6 +367,24 @@
     <Filter Include="GameObject\UI\Control\Tooltip">
       <UniqueIdentifier>{90bffe70-4553-4590-8914-06bda78e42cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill\Item\Epic">
+      <UniqueIdentifier>{6df81f26-a111-4c51-82a7-f75e3320f29b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Item\Start">
+      <UniqueIdentifier>{fa9b1ab5-f1e3-4b42-8e63-31026c0a27b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill\Item\Legendary">
+      <UniqueIdentifier>{5ebdc1b0-74bd-4282-bac4-f74814f2ff83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Item\Skill\Epic">
+      <UniqueIdentifier>{88abd1e6-0430-400f-a30e-024637e9ac50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Item\Skill\Legendary">
+      <UniqueIdentifier>{7c5c2a38-27fc-4d19-82a0-471f9acb57dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buff\Item\Skill\Start">
+      <UniqueIdentifier>{068ee508-2035-4d95-a997-a7e077c561c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -979,9 +997,6 @@
     <ClInclude Include="Buff_HealMoveSpeed.h">
       <Filter>Buff\Spell</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Item_Dreadnought.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ItemshopSlot.h">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClInclude>
@@ -1078,29 +1093,8 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Item_WitchsFocus.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_Item_Cleave.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_Item_ManaCharge.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_Item_SpellBlade.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_Item_Thorns.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Inhibitor.h" />
-    <ClInclude Include="Skill_Item_Nimble.h">
-      <Filter>Skill\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill_Item_WraithStep.h" />
-    <ClInclude Include="Buff_ItemWraithStep.h" />
-    <ClInclude Include="Buff_ItemWraithStep_P.h" />
     <ClInclude Include="Form.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
@@ -1110,20 +1104,62 @@
     <ClInclude Include="Buff_ItemStat.h">
       <Filter>Buff\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_Item_Dreadnought.h">
-      <Filter>Buff\Item\Skill</Filter>
+    <ClInclude Include="Skill_Item_Cleave.h">
+      <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
-    <ClInclude Include="Buff_Item_ManaCharge.h">
-      <Filter>Buff\Item\Skill</Filter>
+    <ClInclude Include="Skill_Item_Crescent.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Nimble.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_SpellBlade.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Thorns.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_WitchsFocus.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_SteelTipped.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Precision.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_ManaCharge.h">
+      <Filter>Skill\Item\Start</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_WraithStep.h">
+      <Filter>Skill\Item\Legendary</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill_Item_Dreadnought.h">
+      <Filter>Skill\Item\Legendary</Filter>
     </ClInclude>
     <ClInclude Include="Buff_Item_Nimble.h">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
     </ClInclude>
     <ClInclude Include="Buff_Item_SpellBlade.h">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_SteelTipped.h">
+      <Filter>Buff\Item\Skill\Epic</Filter>
     </ClInclude>
     <ClInclude Include="Buff_Item_WitchsFocus.h">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_WraithStep_P.h">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_WraithStep.h">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_Dreadnought.h">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_ManaCharge.h">
+      <Filter>Buff\Item\Skill\Start</Filter>
     </ClInclude>
     <ClInclude Include="Effect_Garen_E.h">
       <Filter>GameObject\EffectObject</Filter>
@@ -1801,9 +1837,6 @@
     <ClCompile Include="Buff_HealMoveSpeed.cpp">
       <Filter>Buff\Spell</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Item_Dreadnought.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
     <ClCompile Include="ItemshopSlot.cpp">
       <Filter>GameObject\UI\ItemshopPanel</Filter>
     </ClCompile>
@@ -1891,29 +1924,8 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Item_Cleave.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_Item_ManaCharge.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_Item_SpellBlade.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_Item_Thorns.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_Item_WitchsFocus.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
-    <ClCompile Include="Skill_Item_Nimble.cpp">
-      <Filter>Skill\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill_Item_WraithStep.cpp" />
-    <ClCompile Include="Buff_ItemWraithStep.cpp" />
-    <ClCompile Include="Buff_ItemWraithStep_P.cpp" />
     <ClCompile Include="Form.cpp">
       <Filter>GameObject\UI\Control</Filter>
     </ClCompile>
@@ -1923,20 +1935,62 @@
     <ClCompile Include="Buff_ItemStat.cpp">
       <Filter>Buff\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_Item_Dreadnought.cpp">
-      <Filter>Buff\Item\Skill</Filter>
+    <ClCompile Include="Skill_Item_Cleave.cpp">
+      <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
-    <ClCompile Include="Buff_Item_ManaCharge.cpp">
-      <Filter>Buff\Item\Skill</Filter>
+    <ClCompile Include="Skill_Item_Crescent.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Nimble.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_SpellBlade.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Thorns.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_WitchsFocus.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_SteelTipped.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Precision.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_ManaCharge.cpp">
+      <Filter>Skill\Item\Start</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_WraithStep.cpp">
+      <Filter>Skill\Item\Legendary</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill_Item_Dreadnought.cpp">
+      <Filter>Skill\Item\Legendary</Filter>
     </ClCompile>
     <ClCompile Include="Buff_Item_Nimble.cpp">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
     </ClCompile>
     <ClCompile Include="Buff_Item_SpellBlade.cpp">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_SteelTipped.cpp">
+      <Filter>Buff\Item\Skill\Epic</Filter>
     </ClCompile>
     <ClCompile Include="Buff_Item_WitchsFocus.cpp">
-      <Filter>Buff\Item\Skill</Filter>
+      <Filter>Buff\Item\Skill\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_WraithStep_P.cpp">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_WraithStep.cpp">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_Dreadnought.cpp">
+      <Filter>Buff\Item\Skill\Legendary</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_ManaCharge.cpp">
+      <Filter>Buff\Item\Skill\Start</Filter>
     </ClCompile>
     <ClCompile Include="Effect_Garen_E.cpp">
       <Filter>GameObject\EffectObject</Filter>

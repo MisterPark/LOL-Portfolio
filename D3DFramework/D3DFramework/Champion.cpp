@@ -73,13 +73,8 @@ void Champion::OnHit(Unit* target, Skill* mySkill)
 		if (skillList[i] != nullptr)
 			skillList[i]->OnHit(target, mySkill);
 	}
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnHit(target, mySkill);
-		}
-	}
+	for (auto& itemSkill : itemSkillList)
+		itemSkill->OnHit(target, mySkill);
 	mySkill->OnThisSkillHit(target);
 }
 
@@ -89,13 +84,9 @@ void Champion::OnDamaged(Unit* target, Skill* targetSkill, float damage)
 		if (skillList[i] != nullptr)
 			skillList[i]->OnDamaged(target, targetSkill, damage);
 	}
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnDamaged(target, targetSkill, damage);
-		}
-	}
+
+	for (auto& itemSkill : itemSkillList)
+		itemSkill->OnDamaged(target, targetSkill, damage);
 }
 
 void Champion::OnKilled(Unit* target)
@@ -105,34 +96,20 @@ void Champion::OnKilled(Unit* target)
 		if (skillList[i] != nullptr)
 			skillList[i]->OnKilled(target);
 	}
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnKilled(target);
-		}
-	}
+
+	for (auto& itemSkill : itemSkillList)
+		itemSkill->OnKilled(target);
 
 }
 
 void Champion::OnOtherSkillStart(Skill* otherSkill)
 {
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnOtherSkillStart(otherSkill);
-		}
-	}
+	for (auto& itemSkill : itemSkillList)
+		itemSkill->OnOtherSkillStart(otherSkill);
 }
 
 void Champion::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		if (inventory.GetItem(i) != nullptr) {
-			for (auto& itemSkill : inventory.GetItem(i)->skillList)
-				itemSkill->OnTargetFirstHit(target, mySkill);
-		}
-	}
+	for (auto& itemSkill : itemSkillList)
+		itemSkill->OnTargetFirstHit(target, mySkill);
 }

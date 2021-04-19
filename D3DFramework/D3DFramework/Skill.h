@@ -5,6 +5,12 @@ class Unit;
 class Skill abstract
 {
 public:
+	enum class ItemSkillName {
+		None, Cleave, Dreadnought, ManaCharge, Nimble, SpellBlade, Thorns, WitchFocus,
+		Precision,
+		END
+	};
+public:
 	Skill();
 	virtual ~Skill();
 
@@ -41,9 +47,11 @@ public:
 	float GetCooltime_Init();
 	int GetLevel() { return level; }
 	int GetMaxLevel() { return maxLevel; }
+	Unit* GetHost() { return host; }
 	void AddLevel() { level++; }
 	float GetRange() { return range; }
 	list<Unit*>* GetHitList() { return &hitList; }
+	ItemSkillName GetSkillName() { return skillName; }
 	
 	virtual bool TargetingSuccess(Unit* target);
 
@@ -65,5 +73,9 @@ protected:
 	list<DamageCalc*> damageCalcList;
 	// 공격한리스트
 	list<Unit*> hitList;
+	ItemSkillName skillName = ItemSkillName::None;
+
+public:
+	int overlapCount = 1;
 };
 

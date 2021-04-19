@@ -5,6 +5,7 @@
 
 Skill_Item_Nimble::Skill_Item_Nimble(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::Nimble;
 	host = _hostUnit;
 }
 

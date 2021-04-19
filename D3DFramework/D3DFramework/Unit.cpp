@@ -95,6 +95,10 @@ void Unit::Update()
 			continue;
 		item->Passive();
 	}
+	for (auto& itemSkill : itemSkillList)
+	{
+		itemSkill->Passive();
+	}
 
 	if (dynamic_cast<Garen*>(this))
 	{
@@ -876,4 +880,20 @@ inline Unit::HitInfo Unit::GetLastHitInfo()
 		lastHitInfo = hitInfo;
 	}
 	return lastHitInfo;
+}
+
+Skill* Unit::AddItemSkill(Skill* _skill)
+{
+	Skill::ItemSkillName name = _skill->GetSkillName();
+
+	for (auto& skill : itemSkillList) {
+		if (skill->GetSkillName() == name) {
+			delete _skill;
+			skill->overlapCount++;
+			return skill;
+		}
+	}
+
+	itemSkillList.emplace_back(_skill);
+	return _skill;
 }
