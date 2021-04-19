@@ -7,6 +7,7 @@ Skill_Item_Nimble::Skill_Item_Nimble(Unit* _hostUnit)
 {
 	skillName = ItemSkillName::Nimble;
 	host = _hostUnit;
+	level = 1;
 }
 
 Skill_Item_Nimble::~Skill_Item_Nimble()
@@ -32,6 +33,11 @@ void Skill_Item_Nimble::Active()
 void Skill_Item_Nimble::End()
 {
 	Skill::End();
+}
+
+Skill* Skill_Item_Nimble::Clone()
+{
+	return new Skill_Item_Nimble(nullptr);
 }
 
 void Skill_Item_Nimble::OnHit(Unit* target, Skill* mySkill)

@@ -1165,6 +1165,9 @@
       <Filter>GameObject\EffectObject</Filter>
     </ClInclude>
     <ClInclude Include="Effect_Garen_R.h" />
+    <ClInclude Include="Skill_Item_Immolate.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -1996,6 +1999,9 @@
       <Filter>GameObject\EffectObject</Filter>
     </ClCompile>
     <ClCompile Include="Effect_Garen_R.cpp" />
+    <ClCompile Include="Skill_Item_Immolate.cpp">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

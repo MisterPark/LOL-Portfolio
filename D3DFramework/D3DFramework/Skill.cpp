@@ -18,6 +18,8 @@ Skill::~Skill()
 
 void Skill::Use()
 {
+	if (level == 0)
+		return;
 	Start();
 }
 

@@ -10,6 +10,7 @@ Skill_Item_ManaCharge::Skill_Item_ManaCharge(Unit* _hostUnit)
 	skillName = ItemSkillName::ManaCharge;
 	host = _hostUnit;
 	coolTimeTick = coolTime = 4.f;
+	level = 1;
 }
 
 Skill_Item_ManaCharge::~Skill_Item_ManaCharge()
