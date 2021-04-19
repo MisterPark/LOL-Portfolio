@@ -54,6 +54,8 @@ Engine::StaticMesh::~StaticMesh()
 	Safe_Release(&pOriginMesh);
 	Safe_Release(&pMesh);
 
+	pOriginMesh = nullptr;
+	pMesh = nullptr;
 }
 
 IComponent* Engine::StaticMesh::Clone()
@@ -493,8 +495,28 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	DWORD* adj = new DWORD[numFaces * 3];
 	pOriginMesh->GenerateAdjacency(FLT_EPSILON, adj);
 
+	// Attribute
+	D3DXATTRIBUTERANGE* pAttributeTable = new D3DXATTRIBUTERANGE;
+	memset(pAttributeTable, 0, sizeof(D3DXATTRIBUTERANGE));
+
+	pAttributeTable[0].AttribId = 0;
+	pAttributeTable[0].FaceCount = numFaces;
+	pAttributeTable[0].FaceStart = 0;
+	pAttributeTable[0].VertexCount = numVertices;
+	pAttributeTable[0].VertexStart = 0;
+
+	pOriginMesh->SetAttributeTable(pAttributeTable, 1);
+
+	delete pAttributeTable;
+
+	DWORD c;
+	pOriginMesh->GetAttributeTable(0, &c);
+
 	pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	D3DXComputeNormals(pMesh, adj);
+
+	DWORD d;
+	pMesh->GetAttributeTable(0, &d);
 
 	delete[] adj;
 
@@ -576,6 +598,8 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	subsetCount = 1;
 	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
 	ppTextures[0] = nullptr;
+
+	
 
 	return S_OK;
 }

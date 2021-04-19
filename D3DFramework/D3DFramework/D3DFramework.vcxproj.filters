@@ -385,6 +385,9 @@
     <Filter Include="Buff\Item\Skill\Start">
       <UniqueIdentifier>{068ee508-2035-4d95-a997-a7e077c561c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject\GarenEffect">
+      <UniqueIdentifier>{96c9d575-26b2-410f-89ad-23696f3df228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1161,8 +1164,11 @@
     <ClInclude Include="Buff_Item_ManaCharge.h">
       <Filter>Buff\Item\Skill\Start</Filter>
     </ClInclude>
+    <ClInclude Include="Effect_Garen_R.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
     <ClInclude Include="Effect_Garen_E.h">
-      <Filter>GameObject\EffectObject</Filter>
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
     <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Skill_Item_Immolate.h">
@@ -1996,7 +2002,10 @@
       <Filter>Buff\Item\Skill\Start</Filter>
     </ClCompile>
     <ClCompile Include="Effect_Garen_E.cpp">
-      <Filter>GameObject\EffectObject</Filter>
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
     <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Skill_Item_Immolate.cpp">

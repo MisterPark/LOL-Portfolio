@@ -17,6 +17,7 @@ class TestLoadingScene :
     void LoadDynamicMeshAsync(const wstring& filePath);
     void LoadNavMeshAsync(const wstring& filePath);
     void LoadTerrainMeshAsync(const wstring& filePath);
+    void LoadCustomMeshAsync(const wstring& filePath);
 
     static void Count();
 

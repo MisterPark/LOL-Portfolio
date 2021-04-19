@@ -149,8 +149,8 @@ void TestLoadingScene::LoadResources()
 	LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x");
 
 	// 이펙트
-	LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj");
-	LoadStaticMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj");
 
 
 	// 지형
@@ -193,6 +193,12 @@ void TestLoadingScene::LoadTerrainMeshAsync(const wstring& filePath)
 {
 	resourceMax++;
 	LoadManager::LoadTerrainMeshAsync(filePath, Count);
+}
+
+void TestLoadingScene::LoadCustomMeshAsync(const wstring& filePath)
+{
+	resourceMax++;
+	LoadManager::LoadCustomMeshAsync(filePath, Count);
 }
 
 void TestLoadingScene::Count()

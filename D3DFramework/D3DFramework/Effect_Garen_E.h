@@ -7,6 +7,6 @@ public:
     Effect_Garen_E();
     virtual ~Effect_Garen_E();
 
-    virtual void Update() override;
+    virtual void PostUpdate() override;
 };
 
