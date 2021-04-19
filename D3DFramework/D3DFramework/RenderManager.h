@@ -82,6 +82,7 @@ namespace Engine
 		static HRESULT LoadDynamicMesh(const WCHAR* lpszFilePath);
 		static HRESULT LoadTerrainMesh(const WCHAR* lpszFilePath);
 		static HRESULT LoadNavMesh(const WCHAR* lpszFilePath);
+		static HRESULT LoadCustomMesh(const WCHAR* lpszFilePath);
 
 		static HRESULT LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static StaticMesh* CloneStaticMesh(const wstring& id);
@@ -92,6 +93,10 @@ namespace Engine
 		static TerrainMesh* CloneTerrainMesh(const wstring& id);
 		static HRESULT LoadNavMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
 		static NavMesh* CloneNavMesh(const wstring& id);
+		
+		static HRESULT LoadCustomMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+		static CustomMesh* CloneCustomMesh(const wstring& id);
+		
 		static HRESULT CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt);
 		static RenderTarget* GetRenderTarget(const WCHAR* renderTargetID);
 		static ID3DXEffect* LoadEffect(const WCHAR* path);
@@ -113,6 +118,7 @@ namespace Engine
 		map<wstring, DynamicMesh*> dynamicMeshMap;
 		map<wstring, TerrainMesh*> terrainMeshMap;
 		map<wstring, NavMesh*> navMeshMap;
+		map<wstring, CustomMesh*> customMeshMap;
 		map<wstring, RenderTarget*> renderTargetMap;
 		map<wstring, ID3DXEffect*> effects;
 		CRITICAL_SECTION csDevice;

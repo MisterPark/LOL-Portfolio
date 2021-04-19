@@ -12,8 +12,8 @@ Effect_Garen_E::Effect_Garen_E()
 	transform->scale = { 0.02f,0.02f, 0.02f };
 	//transform->eulerAngles.x = D3DXToRadian(180.f);
 
-	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"garen_base_e_spin");
-	AddComponent(L"StaticMesh", mesh);
+	CustomMesh* mesh = RenderManager::CloneCustomMesh(L"garen_base_e_spin");
+	AddComponent(L"CustomMesh", mesh);
 
 	ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
 	renderer->SetMesh(mesh);
@@ -21,7 +21,7 @@ Effect_Garen_E::Effect_Garen_E()
 	renderer->SetPass(1);
 	AddComponent(L"renderer2", renderer);
 
-	mesh->SetSubsetTexture(0, L"garen_base_e_spin_edge");
+	mesh->SetSubsetTexture(L"garen_base_e_spin_edge");
 }
 
 Effect_Garen_E::~Effect_Garen_E()

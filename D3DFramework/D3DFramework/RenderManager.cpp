@@ -1082,6 +1082,31 @@ HRESULT Engine::RenderManager::LoadNavMesh(const WCHAR* lpszFilePath)
 	return S_OK;
 }
 
+HRESULT Engine::RenderManager::LoadCustomMesh(const WCHAR* lpszFilePath)
+{
+	CustomMesh* mesh = new CustomMesh(nullptr);
+	std::filesystem::path path{ lpszFilePath };
+	auto dir{ path.parent_path() };
+	auto filename{ path.filename() };
+	auto dirPathStr{ dir.generic_wstring() };
+	dirPathStr += L"/";
+	HRESULT result = mesh->LoadMesh(
+		dirPathStr.c_str(),
+		filename.generic_wstring().c_str());
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring id{ filename.replace_extension("").generic_wstring() };
+
+	pRenderManager->customMeshMap[id] = mesh;
+
+	return S_OK;
+}
+
 HRESULT Engine::RenderManager::LoadStaticMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
 {
 
@@ -1205,6 +1230,37 @@ NavMesh* Engine::RenderManager::CloneNavMesh(const wstring& id)
 	}
 
 	return (NavMesh*)mesh->second->Clone();
+}
+
+HRESULT Engine::RenderManager::LoadCustomMesh(const WCHAR* pFilePath, const WCHAR* pFileName)
+{
+	CustomMesh* mesh = new CustomMesh(nullptr);
+	HRESULT result = mesh->LoadMesh(pFilePath, pFileName);
+	if (result != S_OK)
+	{
+		delete mesh;
+		return result;
+	}
+
+	// 키생성
+	wstring fileName = pFileName;
+	wstring id = fileName.substr(0, fileName.find_last_of('.'));
+
+	pRenderManager->customMeshMap[id] = mesh;
+
+	return S_OK;
+}
+
+CustomMesh* Engine::RenderManager::CloneCustomMesh(const wstring& id)
+{
+	auto mesh = pRenderManager->customMeshMap.find(id);
+	if (mesh == pRenderManager->customMeshMap.end())
+	{
+		MessageBoxW(g_hwnd, L"로드되지 않은 커스텀 메쉬를 참조하거나 키값이 잘못됨.", L"Error", MB_OK);
+		return nullptr;
+	}
+
+	return (CustomMesh*)mesh->second->Clone();
 }
 
 HRESULT Engine::RenderManager::CreateRenderTarget(const WCHAR* renderTargetID, int const width, int const height, D3DFORMAT fmt)
