@@ -639,11 +639,13 @@ namespace Engine
 	void Engine::RenderSystem::Remove(Renderer* renderer)
 	{
 		auto& renderers = rendererTable[(unsigned)renderer->rendererType];
-		auto findIt = std::find(renderers.begin(), renderers.end(), renderer);
-		if (findIt == renderers.end())
-		{
-			return;
-		}
-		renderers.erase(findIt);
+		renderers.remove(renderer);
+		//auto findIt = std::find(renderers.begin(), renderers.end(), renderer);
+		//if (findIt == renderers.end())
+		//{
+		//	return;
+		//}
+		//
+		//renderers.erase(findIt);
 	}
 }

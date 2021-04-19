@@ -70,6 +70,8 @@ void TestScene::OnLoaded()
 	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };
 
+	
+
 
 	D3DLIGHT9 dirLight{};
 	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();

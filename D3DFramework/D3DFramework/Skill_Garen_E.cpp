@@ -6,6 +6,7 @@
 #include "DamageCalc_Basic.h"
 #include "Buff_GarenEDamage.h"
 #include "Buff.h"
+#include "Effect_Garen_E.h"
 
 Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 {
@@ -35,6 +36,11 @@ void Skill_Garen_E::Start()
 	
 	Skill::Start();
 	host->OnOtherSkillStart(this);
+
+	Effect_Garen_E* eff = (Effect_Garen_E*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_E>(Layer::Effect);
+	eff->SetTarget(host);
+	eff->SetOffset(Vector3(0.f, 1.f, 0.f));
+	eff->SetDuration(duration);
 
 	DamageObject_Garen_E* damageObj = (DamageObject_Garen_E*)SceneManager::GetCurrentScene()->CreateObject<DamageObject_Garen_E>(Layer::Unit);
 	float attackDamage = (4.f * level) + host->stat->GetValue(StatType::AttackDamage) * (0.3f + level * 0.02f);
