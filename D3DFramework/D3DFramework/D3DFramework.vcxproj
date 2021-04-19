@@ -187,9 +187,10 @@
     <ClInclude Include="Buff_Item_ManaCharge.h" />
     <ClInclude Include="Buff_Item_Nimble.h" />
     <ClInclude Include="Buff_Item_SpellBlade.h" />
+    <ClInclude Include="Buff_Item_SteelTipped.h" />
     <ClInclude Include="Buff_Item_WitchsFocus.h" />
-    <ClInclude Include="Buff_ItemWraithStep.h" />
-    <ClInclude Include="Buff_ItemWraithStep_P.h" />
+    <ClInclude Include="Buff_Item_WraithStep.h" />
+    <ClInclude Include="Buff_Item_WraithStep_P.h" />
     <ClInclude Include="Buff_MissFortuneESlow.h" />
     <ClInclude Include="Buff_MissFortuneWAttackSpeed.h" />
     <ClInclude Include="Buff_MissFortuneWMoveSpeed.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Effect_Baron_Buff.h" />
     <ClInclude Include="Effect_Blue_Buff.h" />
     <ClInclude Include="Effect_Garen_E.h" />
+    <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
     <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h" />
@@ -370,9 +372,12 @@
     <ClInclude Include="Skill_Ghost.h" />
     <ClInclude Include="Skill_Heal.h" />
     <ClInclude Include="Skill_Item_Cleave.h" />
+    <ClInclude Include="Skill_Item_Crescent.h" />
     <ClInclude Include="Skill_Item_ManaCharge.h" />
     <ClInclude Include="Skill_Item_Nimble.h" />
+    <ClInclude Include="Skill_Item_Precision.h" />
     <ClInclude Include="Skill_Item_SpellBlade.h" />
+    <ClInclude Include="Skill_Item_SteelTipped.h" />
     <ClInclude Include="Skill_Item_Thorns.h" />
     <ClInclude Include="Skill_Item_Dreadnought.h" />
     <ClInclude Include="Skill_Item_WitchsFocus.h" />
@@ -437,9 +442,10 @@
     <ClCompile Include="Buff_Item_ManaCharge.cpp" />
     <ClCompile Include="Buff_Item_Nimble.cpp" />
     <ClCompile Include="Buff_Item_SpellBlade.cpp" />
+    <ClCompile Include="Buff_Item_SteelTipped.cpp" />
     <ClCompile Include="Buff_Item_WitchsFocus.cpp" />
-    <ClCompile Include="Buff_ItemWraithStep.cpp" />
-    <ClCompile Include="Buff_ItemWraithStep_P.cpp" />
+    <ClCompile Include="Buff_Item_WraithStep.cpp" />
+    <ClCompile Include="Buff_Item_WraithStep_P.cpp" />
     <ClCompile Include="Buff_MissFortuneESlow.cpp" />
     <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp" />
     <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp" />
@@ -448,6 +454,7 @@
     <ClCompile Include="Effect_Baron_Buff.cpp" />
     <ClCompile Include="Effect_Blue_Buff.cpp" />
     <ClCompile Include="Effect_Garen_E.cpp" />
+    <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp" />
@@ -611,9 +618,12 @@
     <ClCompile Include="Skill_Ghost.cpp" />
     <ClCompile Include="Skill_Heal.cpp" />
     <ClCompile Include="Skill_Item_Cleave.cpp" />
+    <ClCompile Include="Skill_Item_Crescent.cpp" />
     <ClCompile Include="Skill_Item_ManaCharge.cpp" />
     <ClCompile Include="Skill_Item_Nimble.cpp" />
+    <ClCompile Include="Skill_Item_Precision.cpp" />
     <ClCompile Include="Skill_Item_SpellBlade.cpp" />
+    <ClCompile Include="Skill_Item_SteelTipped.cpp" />
     <ClCompile Include="Skill_Item_Thorns.cpp" />
     <ClCompile Include="Skill_Item_Dreadnought.cpp" />
     <ClCompile Include="Skill_Item_WitchsFocus.cpp" />

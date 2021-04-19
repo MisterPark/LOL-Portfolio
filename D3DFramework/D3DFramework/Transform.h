@@ -44,6 +44,7 @@ namespace Engine
 
 	public:
 		Vector3 position{ 0.f,0.f,0.f };
+		// 라디안
 		Vector3 eulerAngles{ 0.f,0.f,0.f };
 		Vector3 scale{ 1.f,1.f,1.f };
 		Quaternion rotation;

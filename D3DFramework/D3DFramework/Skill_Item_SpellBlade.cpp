@@ -5,6 +5,7 @@
 
 Skill_Item_SpellBlade::Skill_Item_SpellBlade(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::SpellBlade;
 	host = _hostUnit;
 	coolTimeTick = coolTime = 1.5f;
 
@@ -12,6 +13,8 @@ Skill_Item_SpellBlade::Skill_Item_SpellBlade(Unit* _hostUnit)
 
 Skill_Item_SpellBlade::~Skill_Item_SpellBlade()
 {
+	if (buffSkill != nullptr)
+		buffSkill->duration = 0.f;
 }
 
 void Skill_Item_SpellBlade::Start()

@@ -33,9 +33,14 @@ namespace Fantome.Libraries.League.IO.SCO
             for (int i = 0; i < 3; i++)
             {
                 this.UV[i] = new Vector2(0,0);
-                this.UV[i].X = float.Parse(input[i + 5], CultureInfo.InvariantCulture);
-                this.UV[i].Y = float.Parse(input[i + 8], CultureInfo.InvariantCulture);
+                
             }
+            this.UV[0].X = float.Parse(input[5], CultureInfo.InvariantCulture);
+            this.UV[0].Y = float.Parse(input[6], CultureInfo.InvariantCulture);
+            this.UV[1].X = float.Parse(input[7], CultureInfo.InvariantCulture);
+            this.UV[1].Y = float.Parse(input[8], CultureInfo.InvariantCulture);
+            this.UV[2].X = float.Parse(input[9], CultureInfo.InvariantCulture);
+            this.UV[2].Y = float.Parse(input[10], CultureInfo.InvariantCulture);
         }
     }
 }

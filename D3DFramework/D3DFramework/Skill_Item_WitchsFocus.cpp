@@ -5,6 +5,7 @@
 
 Skill_Item_WitchsFocus::Skill_Item_WitchsFocus(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::WitchFocus;
 	host = _hostUnit;
 }
 

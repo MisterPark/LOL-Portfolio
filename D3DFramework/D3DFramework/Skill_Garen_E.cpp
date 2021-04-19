@@ -14,7 +14,6 @@ Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 	coolTimeTick = coolTime;
 	duration = 3.f;
 	host = _hostUnit;
-	level = 3;
 }
 
 Skill_Garen_E::~Skill_Garen_E()

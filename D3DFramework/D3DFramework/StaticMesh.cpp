@@ -281,21 +281,22 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	int fileLen = ftell(pFile);
 	fseek(pFile, 0, SEEK_SET);
 
-	char* buffer = new char[fileLen];
+	char* buffer = new char[fileLen+1];
+	memset(buffer, 0, fileLen+1);
 	fread_s(buffer, fileLen, fileLen, 1, pFile);
 	fclose(pFile);
-
 
 	int index = 0;
 	string token;
 
-	
 	vector<Vector3> pos;
 	vector<Vector2> texCoords;
 	vector<Vertex> vtxs;
 	vector<DWORD> indices;
 
 	string line;
+	string oldLine;
+	int lineCount = 0;
 	int lineLen = 0;
 	int lineIndex = 0;
 	int vertexIndex = 0;
@@ -305,17 +306,24 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	while (true)
 	{
 		if (index >= fileLen) break;
+		if (buffer[index] == '\0') break;
 
 		// 라인 읽기
+		oldLine = line;
 		line.clear();
 		while (true)
 		{
 			if (index >= fileLen) break;
 			if (buffer[index] == '\n') break;
+			if (buffer[index] == '\0') break;
+			if (buffer[index] == '\r') break;
+
 			line += buffer[index];
 			index++;
 		}
 		index++;
+
+		if (line.size() == 0) break;
 
 		lineIndex = 0;
 		lineLen = line.length();
@@ -327,6 +335,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 			token += line[lineIndex];
 		}
 		lineIndex++;
+		lineCount++;
 
 		if (token == "v")
 		{
@@ -447,6 +456,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 	}
 
+	delete[] buffer;
 
 	fvf = Vertex::FVF;
 	
@@ -486,7 +496,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 	pOriginMesh->CloneMeshFVF(pOriginMesh->GetOptions(), fvf, device, &pMesh);
 	D3DXComputeNormals(pMesh, adj);
 
-
+	delete[] adj;
 
 	//==============================
 	// 버텍스들의 포지션 정보 저장
@@ -562,6 +572,10 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 		}
 		pMesh->UnlockIndexBuffer();
 	}
+
+	subsetCount = 1;
+	ppTextures = new LPDIRECT3DTEXTURE9[subsetCount];
+	ppTextures[0] = nullptr;
 
 	return S_OK;
 }

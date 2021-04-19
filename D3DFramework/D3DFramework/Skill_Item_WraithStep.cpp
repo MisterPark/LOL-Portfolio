@@ -2,8 +2,8 @@
 #include "Skill_Item_WraithStep.h"
 #include "Unit.h"
 #include "DamageCalc_Basic.h"
-#include "Buff_ItemWraithStep.h"
-#include "Buff_ItemWraithStep_P.h"
+#include "Buff_Item_WraithStep.h"
+#include "Buff_Item_WraithStep_P.h"
 
 Skill_Item_WraithStep::Skill_Item_WraithStep(Unit* _hostUnit)
 {
@@ -25,7 +25,7 @@ void Skill_Item_WraithStep::Start()
 	Skill::Start();
 
 	float speedValue = 0.2f;
-	Buff_ItemWraithStep* speedBuff = new Buff_ItemWraithStep(host, 6.f, speedValue);
+	Buff_Item_WraithStep* speedBuff = new Buff_Item_WraithStep(host, 6.f, speedValue);
 	host->stat->AddBuff(speedBuff);
 }
 
@@ -38,7 +38,7 @@ void Skill_Item_WraithStep::Passive()
 	passiveTick += Time::DeltaTime();
 
 	if (passiveBuff == nullptr) {
-		passiveBuff = new Buff_ItemWraithStep_P(host);
+		passiveBuff = new Buff_Item_WraithStep_P(host);
 		host->stat->AddBuff(passiveBuff);
 	}
 

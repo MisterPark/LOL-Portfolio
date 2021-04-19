@@ -18,7 +18,6 @@ Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 	duration = 1.f;
 	host = _hostUnit;
 	range = 4.f;
-	level = 3;
 
 	Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::TrueDamage));
 	Add_DamageCalc(DamageCalc_LostHpPercent::CreateCalc(0.1f, DamageKind::TrueDamage));

@@ -13,7 +13,6 @@ Skill_Garen_W::Skill_Garen_W(Unit* _hostUnit)
 	coolTimeTick = coolTime;
 	duration = 0.f;
 	host = _hostUnit;
-	level = 3;
 }
 
 Skill_Garen_W::~Skill_Garen_W()

@@ -36,6 +36,7 @@
 
 #include "EffectObject.h"
 #include "Effect_Garen_E.h"
+#include "Effect_Garen_R.h"
 #include "MinionSpawner.h"
 
 
@@ -66,7 +67,7 @@ void TestScene::OnLoaded()
 	champ->SetID((UINT)0);
 	//champ->AddItem(3742);
 
-	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_E>(Layer::Default);
+	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Default);
 	obj->transform->position = { 36.f,69.f,46.f };
 
 
