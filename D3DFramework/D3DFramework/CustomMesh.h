@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "Mesh.h"
 
 namespace Engine
@@ -16,19 +16,25 @@ namespace Engine
 		explicit CustomMesh(const CustomMesh& rhs);
 		virtual ~CustomMesh();
 	protected:
-		virtual void CreateCustomMesh() = 0;
+		virtual void CreateCustomMesh() {};
 	public:
 
 		virtual void Update() {};
 		virtual void RenderSubset(int index) override;
 		virtual IDirect3DTexture9* GetSubsetTexture(int index);
+		void SetSubsetTexture(const wstring& _textureKey);
 
-		virtual Engine::IComponent* Clone() = 0;
+		virtual Engine::IComponent* Clone();
+
+	public:
+		HRESULT LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
+		HRESULT LoadMeshX(const WCHAR* pFilePath, const WCHAR* pFileName);
+		HRESULT LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFileName);
 
 		// getter
 		
 		IDirect3DVertexBuffer9* GetVertexBuffer();
-		// Mesh¿ª(∏¶) ≈Î«ÿ ªÛº”µ 
+		// MeshÏùÑ(Î•º) ÌÜµÌï¥ ÏÉÅÏÜçÎê®
 		virtual Vector3* GetVertices() override;
 		virtual DWORD* GetIndices() override;
 		virtual ULONG GetVertexCount() override;

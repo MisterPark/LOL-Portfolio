@@ -8,6 +8,7 @@ enum class LoadType
 	DYNAMIC_MESH,
 	TERRAIN_MESH,
 	NAV_MESH,
+	CUSTOM_MESH,
 };
 
 class LoadManager
@@ -52,6 +53,7 @@ public:
 	static void LoadDynamicMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
 	static void LoadTerrainMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
 	static void LoadNavMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
+	static void LoadCustomMeshAsync(const wstring& filePath, void(*Callback)() = nullptr);
 private:
 	ThreadInfo threadInfo[dfMaxThreadCount] = {};
 	HANDLE hThread[dfMaxThreadCount] = {};

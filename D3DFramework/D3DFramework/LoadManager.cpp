@@ -119,6 +119,11 @@ unsigned int __stdcall LoadManager::LodingThread(void* arg)
             RenderManager::LoadNavMesh(elem.filePath.c_str());
             break;
         }
+        case LoadType::CUSTOM_MESH:
+        {
+            RenderManager::LoadCustomMesh(elem.filePath.c_str());
+            break;
+        }
             
         default:
             break;
@@ -225,6 +230,22 @@ void LoadManager::LoadNavMeshAsync(const wstring& filePath, void(*Callback)())
     LoadingElement elem;
     elem.filePath = filePath;
     elem.type = LoadType::NAV_MESH;
+    elem.Callback = Callback;
+
+    EnterCriticalSection(&pLoadManager->csQ[index]);
+
+    pLoadManager->jobQ[index].push(elem);
+
+    LeaveCriticalSection(&pLoadManager->csQ[index]);
+}
+
+void LoadManager::LoadCustomMeshAsync(const wstring& filePath, void(*Callback)())
+{
+    UINT index = FindUnemployedThread();
+
+    LoadingElement elem;
+    elem.filePath = filePath;
+    elem.type = LoadType::CUSTOM_MESH;
     elem.Callback = Callback;
 
     EnterCriticalSection(&pLoadManager->csQ[index]);

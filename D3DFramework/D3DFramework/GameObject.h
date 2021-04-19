@@ -54,8 +54,11 @@ namespace Engine
 		IComponent* AddComponent(const wstring& _key);
 		IComponent* AddComponent(const wstring& _key, IComponent* _component);
 		void ReleaseComponents();
-		void RemoveComponent(IComponent* _target);
-		void RemoveComponent(const wstring& _key);
+		IComponent* RemoveComponent(IComponent* _target);
+		IComponent* RemoveComponent(const wstring& _key);
+
+		void DeleteComponent(IComponent* _target);
+		void DeleteComponent(const wstring& _key);
 
 		bool IsDestroy();
 
