@@ -152,6 +152,12 @@ void Engine::RenderManager::Release()
 	{
 		delete pair.second;
 	}
+
+	for (auto pair : pRenderManager->customMeshMap)
+	{
+		delete pair.second;
+	}
+
 	for (auto const& pair : pRenderManager->renderTargetMap)
 	{
 		delete pair.second;
@@ -165,6 +171,7 @@ void Engine::RenderManager::Release()
 	pRenderManager->dynamicMeshMap.clear();
 	pRenderManager->terrainMeshMap.clear();
 	pRenderManager->navMeshMap.clear();
+	pRenderManager->customMeshMap.clear();
 	pRenderManager->renderTargetMap.clear();
 	if (pRenderManager->pLine)
 	{

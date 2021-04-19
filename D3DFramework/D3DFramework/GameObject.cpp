@@ -313,7 +313,7 @@ void Engine::GameObject::ReleaseComponents()
 	components.clear();
 }
 
-void Engine::GameObject::RemoveComponent(IComponent* _target)
+IComponent* Engine::GameObject::RemoveComponent(IComponent* _target)
 {
 	auto iter = components.begin();
 	auto end = components.end();
@@ -324,12 +324,46 @@ void Engine::GameObject::RemoveComponent(IComponent* _target)
 			components.erase(iter);
 			break;
 		}
-
 	}
+
+	return _target;
 }
 
-void Engine::GameObject::RemoveComponent(const wstring& _key)
+IComponent* Engine::GameObject::RemoveComponent(const wstring& _key)
 {
+	IComponent* target = nullptr;
+	auto end = components.end();
+	auto find = components.find(_key);
+	if (find == end) return target;
+	
+	target = find->second;
+	components.erase(_key);
+	return target;
+}
+
+void Engine::GameObject::DeleteComponent(IComponent* _target)
+{
+	auto iter = components.begin();
+	auto end = components.end();
+	for (; iter != end; ++iter)
+	{
+		if (iter->second == _target)
+		{
+			components.erase(iter);
+			break;
+		}
+	}
+
+	delete _target;
+}
+
+void Engine::GameObject::DeleteComponent(const wstring& _key)
+{
+	auto end = components.end();
+	auto find = components.find(_key);
+	if (find == end) return;
+
+	delete find->second;
 	components.erase(_key);
 }
 

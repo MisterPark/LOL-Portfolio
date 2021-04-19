@@ -4,10 +4,9 @@
 
 Effect_Garen_E::Effect_Garen_E()
 {
-	GetComponent(L"Mesh")->visible =false;
-	GetComponent(L"renderer")->visible=false;
-	RemoveComponent(L"Mesh");
-	RemoveComponent(L"renderer");
+	
+	DeleteComponent(L"Mesh");
+	DeleteComponent(L"renderer");
 
 	transform->scale = { 0.02f,0.02f, 0.02f };
 	//transform->eulerAngles.x = D3DXToRadian(180.f);
