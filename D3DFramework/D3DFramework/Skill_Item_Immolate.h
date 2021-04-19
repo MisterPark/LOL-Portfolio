@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include "Skill.h"
-class Skill_Item_Nimble :  // 온기가 필요한 자의 도끼
+class Skill_Item_Immolate :  // 바미의 불씨
     public Skill
 {
 public:
-	Skill_Item_Nimble(Unit* _hostUnit);
-	virtual ~Skill_Item_Nimble();
+	Skill_Item_Immolate(Unit* _hostUnit);
+	virtual ~Skill_Item_Immolate();
 
 	virtual void Start();
 	virtual void Passive();
@@ -13,6 +13,7 @@ public:
 	virtual void End();
 	virtual Skill* Clone() override;
 
-	virtual void OnHit(Unit* target, Skill* mySkill) override;
+private:
+	void SkillAttack();
 };
 

@@ -161,6 +161,7 @@ public:
 	virtual void SkillWAction();
 	virtual void SkillEAction();
 	virtual void SkillRAction();
+	bool BehaviorTreeSkillSet();
 
 	void PushedOut(Unit* other);
 	void Respawn();
@@ -257,6 +258,7 @@ public:
 	Skill* skillList[MaxOfEnum<SkillIndex>()];
 	Skill* nextSkill = nullptr;
 	Skill* nextSkillReady = nullptr;
+	Skill* behaviorTreeSkill = nullptr;
 private:
 	// 스폰
 	Vector3 spawnPosition;

@@ -6,8 +6,10 @@ class Skill abstract
 {
 public:
 	enum class ItemSkillName {
-		None, Cleave, Dreadnought, ManaCharge, Nimble, SpellBlade, Thorns, WitchFocus,
-		Precision,
+		None,
+		ManaCharge, 
+		Cleave, Crescent, Immolate, Nimble, Precision, SpellBlade, SteelTipped, Thorns, WitchFocus,
+		WraithStep, Dreadnought,
 		END
 	};
 public:

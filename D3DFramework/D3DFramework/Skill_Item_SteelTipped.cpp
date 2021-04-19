@@ -4,9 +4,10 @@
 
 Skill_Item_SteelTipped::Skill_Item_SteelTipped(Unit* _hostUnit)
 {
-	skillName = ItemSkillName::ManaCharge;
+	skillName = ItemSkillName::SteelTipped;
 	host = _hostUnit;
 	coolTimeTick = coolTime = 4.f;
+	level = 1;
 }
 
 Skill_Item_SteelTipped::~Skill_Item_SteelTipped()

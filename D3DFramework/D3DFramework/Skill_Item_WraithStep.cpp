@@ -7,10 +7,12 @@
 
 Skill_Item_WraithStep::Skill_Item_WraithStep(Unit* _hostUnit)
 {
+	skillName = ItemSkillName::WraithStep;
 	host = _hostUnit;
 	coolTime = 45.f;
 	coolTimeTick = coolTime;
 	duration = 0.f;
+	level = 1;
 }
 
 Skill_Item_WraithStep::~Skill_Item_WraithStep()
@@ -58,6 +60,11 @@ void Skill_Item_WraithStep::Active()
 void Skill_Item_WraithStep::End()
 {
 	Skill::End();
+}
+
+Skill* Skill_Item_WraithStep::Clone()
+{
+	return new Skill_Item_WraithStep(nullptr);
 }
 
 void Skill_Item_WraithStep::OnHit(Unit* target, Skill* mySkill)
