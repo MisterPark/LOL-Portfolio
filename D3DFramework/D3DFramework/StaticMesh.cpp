@@ -54,6 +54,8 @@ Engine::StaticMesh::~StaticMesh()
 	Safe_Release(&pOriginMesh);
 	Safe_Release(&pMesh);
 
+	pOriginMesh = nullptr;
+	pMesh = nullptr;
 }
 
 IComponent* Engine::StaticMesh::Clone()

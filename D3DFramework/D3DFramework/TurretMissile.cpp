@@ -5,6 +5,8 @@
 #include "SphereCollider.h"
 #include "ForwardRenderer.h"
 #include "Camera.h"
+#include "Minion.h"
+#include "AllMinion.h"
 
 TurretMissile::TurretMissile()
 {
@@ -50,7 +52,30 @@ void TurretMissile::Update()
 		float dist = to.Length();
 		if (dist < 0.5f)
 		{
-			attackTarget->TakeDamage(attackDamage);
+			float damage = attackDamage;
+
+			if (dynamic_cast<Minion*>(attackTarget))
+			{
+				float maxHP = attackTarget->stat->GetValue(StatType::MaxHealth);
+				if (dynamic_cast<OrderMinionCaster*>(attackTarget) || dynamic_cast<ChaosMinionCaster*>(attackTarget))
+				{
+					damage = maxHP * 0.7f;
+				}
+				else if (dynamic_cast<OrderMinionMelee*>(attackTarget) || dynamic_cast<ChaosMinionMelee*>(attackTarget))
+				{
+					damage = maxHP * 0.45f;
+				}
+				else if (dynamic_cast<OrderMinionSiege*>(attackTarget) || dynamic_cast<ChaosMinionSiege*>(attackTarget))
+				{
+					damage = maxHP * 0.14f;
+				}
+				else
+				{
+					damage = maxHP * 0.05f;
+				}
+			}
+
+			attackTarget->TakeDamage(damage);
 			Destroy();
 		}
 	}

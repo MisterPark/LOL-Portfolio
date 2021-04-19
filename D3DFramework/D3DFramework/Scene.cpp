@@ -52,23 +52,14 @@ void Engine::Scene::PostUpdate()
 			target = *iter;
 
 
-			if (target->IsDestroy())
+			if (target->IsDestroy() && target->dontDestroy == false)
 			{
-				if (target->dontDestroy)
-				{
-
-					++iter;
-					continue;
-				}
 				iter = objList.erase(iter);
 				delete target;
 			}
 			else
 			{
-				//if (target->enable)
-				//{
-					target->PostUpdate();
-				//}
+				target->PostUpdate();
 				++iter;
 			}
 		}

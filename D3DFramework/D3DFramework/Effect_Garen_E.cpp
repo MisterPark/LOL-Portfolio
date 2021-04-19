@@ -6,8 +6,10 @@ Effect_Garen_E::Effect_Garen_E()
 {
 	GetComponent(L"Mesh")->visible =false;
 	GetComponent(L"renderer")->visible=false;
+	RemoveComponent(L"Mesh");
+	RemoveComponent(L"renderer");
 
-	transform->scale = { 0.01f,0.01f, 0.01f };
+	transform->scale = { 0.02f,0.02f, 0.02f };
 	//transform->eulerAngles.x = D3DXToRadian(180.f);
 
 	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"garen_base_e_spin");
@@ -16,14 +18,19 @@ Effect_Garen_E::Effect_Garen_E()
 	ForwardRenderer* renderer = new ForwardRenderer{ this, L"./forward.fx" };
 	renderer->SetMesh(mesh);
 	renderer->SetDiffuseTextureParam("g_diffuseTexture");
+	renderer->SetPass(1);
 	AddComponent(L"renderer2", renderer);
+
+	mesh->SetSubsetTexture(0, L"garen_base_e_spin_edge");
 }
 
 Effect_Garen_E::~Effect_Garen_E()
 {
 }
 
-void Effect_Garen_E::Update()
+void Effect_Garen_E::PostUpdate()
 {
-	GameObject::Update();
+	StickToTarget();
+	transform->eulerAngles.y += D3DXToRadian(30.f);
+	GameObject::PostUpdate();
 }
