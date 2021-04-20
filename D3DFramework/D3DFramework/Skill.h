@@ -6,7 +6,7 @@ class Skill abstract
 {
 public:
 	enum class ItemSkillName {
-		None,
+		None, HealthPotion,
 		ManaCharge, 
 		Cleave, Crescent, Immolate, Nimble, Precision, SpellBlade, SteelTipped, Thorns, WitchFocus,
 		WraithStep, Dreadnought,
@@ -28,7 +28,7 @@ public:
 	//플레이어가 피해를 주었을때 호출
 	virtual void OnHit(Unit* target, Skill* mySkill);
 	//플레이어가 피해를 입었을때 호출
-	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage);
+	virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage);
 	//플레이어가 적을 죽였을때 호출
 	virtual void OnKilled(Unit* target);
 	//이 스킬로 피해를 줬을때만 호출

@@ -4,6 +4,8 @@
 #include "Buff.h"
 #include "Buff_HealMoveSpeed.h"
 #include "SphereCollider.h"
+#include "DamageObject.h"
+#include "EffectObject.h"
 
 Skill_Heal::Skill_Heal(Unit* _hostUnit)
 {
@@ -59,26 +61,32 @@ void Skill_Heal::Heal()
 
 	// 아군유닛 힐
 	Unit* targetUnit = nullptr;
-	bool targetingHeal = false;
+	//bool targetingHeal = false;
 
-	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
-	RaycastHit hit;
-	int groundMask = LayerMask::GetMask(Layer::Ground);
+	//Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
+	//RaycastHit hit;
+	//int groundMask = LayerMask::GetMask(Layer::Ground);
 
-	RaycastHit info;
-	int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
+	//RaycastHit info;
+	//int unitMask = LayerMask::GetMask(Layer::Unit, Layer::Building);
 
-	if (Physics::Raycast(ray, &info, INFINITY, unitMask))
-	{	
-		targetUnit = (Unit*)info.collider->gameObject;
-		if (targetUnit == host) {
-		}
-		else if (targetUnit->team == host->team && !targetUnit->IsDead())
-		{
-			targetUnit->stat->IncreaseBaseValue(StatType::Health, healAmount);
-			return;
-		}
-	}
+	//if (Physics::Raycast(ray, &info, INFINITY, unitMask))
+	//{	
+	//	targetUnit = (Unit*)info.collider->gameObject;
+	//	if (targetUnit == host) {
+	//	}
+	//	else if (dynamic_cast<DamageObject*>(targetUnit) != nullptr) {
+
+	//	}
+	//	else if (dynamic_cast<EffectObject*>(targetUnit) != nullptr) {
+
+	//	}
+	//	else if (targetUnit->team == host->team && !targetUnit->IsDead())
+	//	{
+	//		targetUnit->stat->IncreaseBaseValue(StatType::Health, healAmount);
+	//		return;
+	//	}
+	//}
 
 	//
 	targetUnit = GetLostHpTeam(host->GetTransform()->GetPos(), 5.f);

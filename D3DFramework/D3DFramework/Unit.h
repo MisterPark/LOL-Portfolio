@@ -15,33 +15,38 @@ class Skill_Attack;
 enum class UnitID
 {
 	Champ0, Champ1, Champ2, Champ3, Champ4, Champ5, Champ6, Champ7, Champ8, Champ9,
+
 	TurretBlueBot1,
 	TurretBlueBot2,
 	TurretBlueBot3,
+	InhibitorBlueBot,
 	TurretBlueMid1,
 	TurretBlueMid2,
 	TurretBlueMid3,
+	InhibitorBlueMid,
 	TurretBlueTop1,
 	TurretBlueTop2,
 	TurretBlueTop3,
+	InhibitorBlueTop,
 	TurretBlueTwin1,
 	TurretBlueTwin2,
-	InhibitorBlueBot,
-	InhibitorBlueMid,
-	InhibitorBlueTop,
 	NexusBlue,
 
 	TurretRedBot1,
 	TurretRedBot2,
 	TurretRedBot3,
+	InhibitorRedBot,
 	TurretRedMid1,
 	TurretRedMid2,
 	TurretRedMid3,
+	InhibitorRedMid,
 	TurretRedTop1,
 	TurretRedTop2,
 	TurretRedTop3,
+	InhibitorRedTop,
 	TurretRedTwin1,
 	TurretRedTwin2,
+	NexusRed,
 
 	Red1,
 	Red2,
@@ -146,7 +151,7 @@ public:
 	virtual void Die();
 	virtual void OnKilled(Unit* target);
 	virtual void OnHit(Unit* target, Skill* mySkill);
-	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage);
+	virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage);
 	//챔피언이 스킬을 사용할떄마다, [장비아이템 스킬]에서 호출 // Ex)광휘의검
 	virtual void OnOtherSkillStart(Skill* otherSkill);
 	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라

@@ -72,7 +72,7 @@ void Skill_Item_WraithStep::OnHit(Unit* target, Skill* mySkill)
 	passiveTick = 0.f;
 }
 
-void Skill_Item_WraithStep::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Skill_Item_WraithStep::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 	passiveTick = 0.f;
 }

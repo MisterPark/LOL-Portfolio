@@ -77,14 +77,16 @@ void DamageObject_Garen_E::TakeDamage()
 		float damage = baseDamage;
 		Calc_FinalDamage(&damage, host->stat, unit->stat);
 		unit->SetLastAttacker(host);
-		unit->TakeDamage(damage);
+		unit->OnDamaged(host, hostSkill, &damage);
 		host->OnHit(host, hostSkill);
+		unit->TakeDamage(damage);
 		Buff_GarenEArmorDec* attackBuff = new Buff_GarenEArmorDec(host, 6.f);
 		unit->stat->AddBuff(attackBuff);
 	}
 	//front 가장가까운적 추가피해
 	float damage = baseDamage * 1.f;//0.25f;
 	Calc_FinalDamage(&damage, host->stat, proximateUnit->stat);
+	proximateUnit->OnDamaged(host, hostSkill, &damage);
 	proximateUnit->TakeDamage(damage);
 
 	damageExpected.clear();

@@ -78,7 +78,7 @@ void Champion::OnHit(Unit* target, Skill* mySkill)
 	mySkill->OnThisSkillHit(target);
 }
 
-void Champion::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Champion::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 	for (int i = 0; i < (int)SkillIndex::END; i++) {
 		if (skillList[i] != nullptr)

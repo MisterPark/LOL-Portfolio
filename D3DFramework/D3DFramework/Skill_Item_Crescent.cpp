@@ -80,6 +80,7 @@ void Skill_Item_Crescent::SkillAttack()
 			{
 				float finalDamage = hostDamage * 0.75f;
 				Calc_FinalDamage(&finalDamage, host->stat, iter->stat);
+				iter->OnDamaged(host, this, &finalDamage);
 				iter->TakeDamage(finalDamage);
 				iter->SetLastAttacker(host);
 			}

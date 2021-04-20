@@ -68,7 +68,7 @@ void Skill_MissFortune_W::End()
 	Skill::End();
 }
 
-void Skill_MissFortune_W::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Skill_MissFortune_W::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 	passiveTick = 0.f;
 }

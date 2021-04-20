@@ -345,7 +345,7 @@ void Unit::OnHit(Unit* target, Skill* mySkill)
 {
 }
 
-void Unit::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Unit::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 }
 

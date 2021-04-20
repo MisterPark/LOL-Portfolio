@@ -22,7 +22,7 @@ public:
     void SetNickname(const std::wstring& _nickname);
 
     virtual void OnHit(Unit* target, Skill* mySkill) override;
-    virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage) override;
+    virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage) override;
     virtual void OnKilled(Unit* target) override;
     //챔피언이 스킬을 사용할떄마다, [장비아이템 스킬]에서 호출 // Ex)광휘의검
     virtual void OnOtherSkillStart(Skill* otherSkill);

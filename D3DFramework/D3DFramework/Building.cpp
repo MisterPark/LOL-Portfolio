@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Building.h"
 #include "SphereCollider.h"
 Building::Building()
@@ -17,5 +17,24 @@ void Building::OnCollisionEnter(Collider* target)
 		Unit* unit = (Unit*)target->gameObject;
 		unit->PushedOut(this);
 	}
+}
+
+void Building::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
+{
+	bool invinCheck = false;
+
+	for (auto& building : frontBuildingList)
+	{
+		if (building->IsDead()) {
+			invinCheck = false;
+			break;
+		}
+		else
+			invinCheck = true;
+	}
+	
+
+	if (invinCheck)
+		*damage = 0.f;
 }
 

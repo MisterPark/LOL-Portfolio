@@ -62,6 +62,7 @@ void Skill_Item_Cleave::OnHit(Unit* target, Skill* mySkill)
 			{
 				float finalDamage = (hostDamage * 0.6f) - ((dist / 3.f) * hostDamage * 0.48f);
 				Calc_FinalDamage(&finalDamage, host->stat, iter->stat);
+				iter->OnDamaged(host, this, &finalDamage);
 				iter->TakeDamage(finalDamage);
 				iter->SetLastAttacker(host);
 			}
