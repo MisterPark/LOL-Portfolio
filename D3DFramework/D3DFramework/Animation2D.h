@@ -17,6 +17,7 @@ public:
 	void SetLoop(bool _isLoop);
     void SetDelay(float _delay);
 	void SetTick(float _tick);
+    void Initialize();
     TextureID GetCurrentSprite();
     TextureID GetStartSprite();
     TextureID GetEndSprite();

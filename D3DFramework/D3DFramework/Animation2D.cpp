@@ -95,6 +95,13 @@ void Engine::Animation2D::SetTick(float _tick)
 	tick = _tick;
 }
 
+void Engine::Animation2D::Initialize()
+{
+	currentTexture = startTexture;
+	tick = 0;
+	isEndFrame = false;
+}
+
 TextureID Engine::Animation2D::GetCurrentSprite()
 {
 	return currentTexture;

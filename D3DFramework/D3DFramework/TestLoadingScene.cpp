@@ -14,6 +14,7 @@
 #include "PlayerInfoPanel.h"
 #include "ScorePanel.h"
 #include "ItemshopPanel.h"
+#include "EndofgamePanel.h"
 
 //C++17이전에서는 filesystem은 experimental이다. 일단 호환성을 위해 이렇게 해둠.
 #if __cplusplus < 20200000L
@@ -69,6 +70,7 @@ void TestLoadingScene::OnLoaded()
 	//UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
 	//UIManager::GetInstance()->AddUI(PlayerInfoPanel::GetInstance());
 	//UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
+	//UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
 #endif
 
 	CreateChampPanel(borderW, borderH, padding);

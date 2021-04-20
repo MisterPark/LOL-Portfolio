@@ -17,6 +17,7 @@ struct PS_IN
 texture g_texture;
 texture g_sightMap;
 texture g_timerMap;
+texture g_gradientMap;
 float4 g_uvRatioStart;
 float4 g_uvRatioEnd;
 float g_timerThresHold;
@@ -25,6 +26,8 @@ matrix g_mWorld;
 matrix g_mViewProj;
 matrix g_mSightSpace;
 bool g_grayscale;
+float g_gradientmapMaxCnt;
+float g_gradientmapIndex;
 sampler TextureSampler = sampler_state
 {
 	texture = g_texture;
@@ -52,6 +55,15 @@ sampler TimerMapTextureSampler = sampler_state
 	addressU = clamp;
 	addressV = clamp;
 };
+sampler GradientMapSampler = sampler_state
+{
+	texture = g_gradientMap;
+	minfilter = point;
+	magfilter = point;
+
+	addressU = clamp;
+	addressV = clamp;
+};
 VS_OUT vs_main(VS_IN input)
 {
 	VS_OUT output;
@@ -72,6 +84,18 @@ float4 ps_main(PS_IN input) :COLOR0
 	float2 timerTex = vTex / g_uvRatioEnd.xy;
 	float timer = step(1.f - g_timerThresHold, tex2D(TimerMapTextureSampler, timerTex).r);
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+
+	if(g_gradientmapMaxCnt > 0) {
+		float a = vAlbedo.r;
+		vAlbedo.rgb = tex2D(GradientMapSampler, float2(vAlbedo.r, g_gradientmapIndex / g_gradientmapMaxCnt));
+		if(a > 0.5f) {
+			vAlbedo.a *= 5;
+			//vAlbedo.a = a;
+		} else {
+			vAlbedo.a = a;
+		}
+	}
+
 	if(g_grayscale) {
 		vAlbedo.rgb = (vAlbedo.r + vAlbedo.g + vAlbedo.b) / 3;
 	}
