@@ -50,10 +50,17 @@ void Engine::Animation2D::Update()
 		currentTexture = (TextureID)i;
 		
 	}
-	CustomMesh* mesh = (CustomMesh*)gameObject->GetComponent(L"CustomMesh");
-	wstring key = RenderManager::GetTextureKey(currentTexture);
-	mesh->SetTexture(key.c_str());
 
+	wstring key = RenderManager::GetTextureKey(currentTexture);
+	if (mesh != nullptr) {
+		//mesh->SetTexture(key.c_str());
+	}
+
+}
+
+void Engine::Animation2D::SetMesh(Mesh* _mesh)
+{
+	mesh = _mesh;
 }
 
 void Engine::Animation2D::SetSprite(TextureID _startTexture, TextureID _endTexture)
