@@ -50,10 +50,7 @@ Vector3 Engine::Cursor::GetMousePos()
 
 void Engine::Cursor::Show()
 {
-    if (pCursor->visible) return;
-
     pCursor->visible = true;
-    
 }
 
 void Engine::Cursor::Show(bool on)
@@ -63,8 +60,6 @@ void Engine::Cursor::Show(bool on)
 
 void Engine::Cursor::Hide()
 {
-    if (pCursor->visible == false) return;
-
     pCursor->visible = false;
     
 }

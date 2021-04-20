@@ -1177,6 +1177,8 @@
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Item_HealthPotion.h" />
+    <ClInclude Include="Buff_Item_HealthPotion.h" />
     <ClInclude Include="EndofgamePanel.h">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
@@ -2018,6 +2020,8 @@
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
+    <ClCompile Include="Skill_Item_HealthPotion.cpp" />
+    <ClCompile Include="Buff_Item_HealthPotion.cpp" />
     <ClCompile Include="EndofgamePanel.cpp">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>

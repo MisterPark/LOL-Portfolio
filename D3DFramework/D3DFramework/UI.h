@@ -68,6 +68,7 @@ namespace Engine
 
         static void SetPointerOverUI(bool _isOver);
         static bool IsPointerOverUI();
+        static void HideAllUI();
 
     public:
 

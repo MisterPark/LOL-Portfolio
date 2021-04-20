@@ -38,6 +38,7 @@ void Skill_Garen_R::Start()
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
+
 	Calc_TakeDamege(baseDamage);
 
 

@@ -271,6 +271,7 @@ namespace Engine
 		RenderPostProcessing();
 
 		RenderUI();
+		/*
 #pragma region DEBUG_SHOW_RENDERTARGET
 
 		const int width = MainGame::GetInstance()->width;
@@ -297,7 +298,7 @@ namespace Engine
 		sprite_->End();
 		
 #pragma endregion
-
+		*/
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
 	}

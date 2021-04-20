@@ -41,7 +41,7 @@ Skill* Skill_Item_Thorns::Clone()
 	return new Skill_Item_Thorns(nullptr);
 }
 
-void Skill_Item_Thorns::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Skill_Item_Thorns::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 	if (targetSkill == target->skillList[(int)SkillIndex::Attack]) {
 		float finalDamage = host->stat->GetValue(StatType::Armor) * 0.1f + 3.f;

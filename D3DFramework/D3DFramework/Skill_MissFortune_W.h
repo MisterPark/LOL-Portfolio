@@ -13,7 +13,7 @@ public:
     virtual void Passive();
     virtual void Active();
     virtual void End();
-    virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage) override;
+    virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage) override;
 
     void AddPassiveTick(float _tick) { passiveTick += _tick; }
 
