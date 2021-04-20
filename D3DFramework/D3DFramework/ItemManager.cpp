@@ -25,7 +25,7 @@ ItemManager::ItemManager()
 	skills.emplace(L"마나 충전", new Skill_Item_ManaCharge(nullptr));
 	skills.emplace(L"주문 검", new Skill_Item_SpellBlade(nullptr));
 	skills.emplace(L"민첩", new Skill_Item_Nimble(nullptr));
-	skills.emplace(L"가시", new Skill_Item_HealthPotion(nullptr));
+	skills.emplace(L"가시", new Skill_Item_Thorns(nullptr));
 	skills.emplace(L"마법사의 길", new Skill_Item_WitchsFocus(nullptr));
 	skills.emplace(L"정밀", new Skill_Item_Precision(nullptr));
 	skills.emplace(L"강철 촉", new Skill_Item_SteelTipped(nullptr));
