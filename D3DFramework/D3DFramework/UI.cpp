@@ -288,6 +288,7 @@ void Engine::UI::SetLocation(Vector2 pos)
 
 void UI::SetTexture(const wstring& _key)
 {
+	
 	texture = RenderManager::GetTexture(_key);
 	mesh->SetTexture(_key);
 	SetSizeByTexture();

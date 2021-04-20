@@ -9,6 +9,7 @@
 #include "MiniScorePanel.h"
 #include "ItemshopPanel.h"
 #include "ScorePanel.h"
+#include "EndofgamePanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -88,6 +89,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
+	UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();
@@ -96,7 +98,9 @@ void TestScene::OnLoaded()
 	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 
-	
+	EndofgamePanel::GetInstance()->Hide();
+	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
+	//EndofgamePanel::GetInstance()->ShowDefeat(); // 패배시
 }
 
 void TestScene::OnUnloaded()

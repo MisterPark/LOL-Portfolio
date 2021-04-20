@@ -53,12 +53,12 @@ void Engine::Animation2D::Update()
 
 	wstring key = RenderManager::GetTextureKey(currentTexture);
 	if (mesh != nullptr) {
-		//mesh->SetTexture(key.c_str());
+		mesh->SetTexture(key.c_str());
 	}
 
 }
 
-void Engine::Animation2D::SetMesh(Mesh* _mesh)
+void Engine::Animation2D::SetMesh(CustomMesh* _mesh)
 {
 	mesh = _mesh;
 }

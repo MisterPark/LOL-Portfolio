@@ -11,7 +11,7 @@ public:
     virtual ~Animation2D();
     virtual void Update();
 
-    void SetMesh(Mesh* _mesh);
+    void SetMesh(CustomMesh* _mesh);
     void SetSprite(TextureID _startTexture, TextureID _endTexture);
 	void SetCurrentSprite(TextureID _currentTexture);
 	void SetLoop(bool _isLoop);
@@ -25,7 +25,7 @@ public:
     virtual IComponent* Clone() override;
     
 private:
-    Mesh* mesh = nullptr;
+    CustomMesh* mesh = nullptr;
     TextureID startTexture;
     TextureID currentTexture;
     TextureID endTexture;
