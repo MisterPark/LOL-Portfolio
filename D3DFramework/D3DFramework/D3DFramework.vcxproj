@@ -194,6 +194,7 @@
     <ClInclude Include="Buff_MissFortuneESlow.h" />
     <ClInclude Include="Buff_MissFortuneWAttackSpeed.h" />
     <ClInclude Include="Buff_MissFortuneWMoveSpeed.h" />
+    <ClInclude Include="ChampionAI.h" />
     <ClInclude Include="DamageObject_MissFortune_E.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Effect_Baron_Buff.h" />
@@ -450,6 +451,7 @@
     <ClCompile Include="Buff_MissFortuneESlow.cpp" />
     <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp" />
     <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp" />
+    <ClCompile Include="ChampionAI.cpp" />
     <ClCompile Include="DamageObject_MissFortune_E.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Effect_Baron_Buff.cpp" />
