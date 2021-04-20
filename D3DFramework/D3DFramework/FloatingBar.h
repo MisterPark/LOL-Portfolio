@@ -19,6 +19,7 @@ public:
     void SetTextureHP(const wstring& _key);
     void SetTextureMP(const wstring& _key);
     void SetNickname(const wstring& _nick);
+    void SetOffset(Vector3 _offset);
 
 protected:
     Unit* target = nullptr;

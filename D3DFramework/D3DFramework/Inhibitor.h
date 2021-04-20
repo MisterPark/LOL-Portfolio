@@ -12,7 +12,5 @@ public:
 
     virtual void SetTeam(Team _team);
 
-public:
-    TurretFloatingBar* bar = nullptr;
 };
 
