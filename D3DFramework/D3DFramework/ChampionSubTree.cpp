@@ -27,49 +27,57 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	rangeCondition->SetCondition((Skill**)&champ->nextSkill, &Skill::InRange);
 	targetSelector->AddChild(rangeCondition);
 
-	ActionNode<Unit>* skillAction = new ActionNode<Unit>();
-	skillAction->SetAction((Unit**)&champ, &Unit::StartNextSkill);
-	rangeCondition->SetChild(skillAction);
+	ActionNode<Unit>* nextSkillAction = new ActionNode<Unit>();
+	nextSkillAction->SetAction((Unit**)&champ, &Unit::StartNextSkill);
+	rangeCondition->SetChild(nextSkillAction);
 
 	ActionNode<Unit>* chaseAction = new ActionNode<Unit>();
 	chaseAction->SetAction((Unit**)&champ, &Unit::ChaseTarget);
 	targetSelector->AddChild(chaseAction);
 
+	//
 	//R
-	ConditionNode<Skill>* skillRCondition = new ConditionNode<Skill>();
-	skillRCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::IsActive);
-	this->AddChild(skillRCondition);
+	//ConditionNode<Skill>* skillRCondition = new ConditionNode<Skill>();
+	//skillRCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::IsActive);
+	//this->AddChild(skillRCondition);
 
-	ActionNode<Skill>* skillRAction = new ActionNode<Skill>();
-	skillRAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::Active);
-	skillRCondition->SetChild(skillRAction);
+	//ActionNode<Skill>* skillRAction = new ActionNode<Skill>();
+	//skillRAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::Active);
+	//skillRCondition->SetChild(skillRAction);
 
-	// E
-	ConditionNode<Skill>* skillECondition = new ConditionNode<Skill>();
-	skillECondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::IsActive);
-	this->AddChild(skillECondition);
+	//// E
+	//ConditionNode<Skill>* skillECondition = new ConditionNode<Skill>();
+	//skillECondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::IsActive);
+	//this->AddChild(skillECondition);
 
-	ActionNode<Skill>* skillEAction = new ActionNode<Skill>();
-	skillEAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::Active);
-	skillECondition->SetChild(skillEAction);
+	//ActionNode<Skill>* skillEAction = new ActionNode<Skill>();
+	//skillEAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::Active);
+	//skillECondition->SetChild(skillEAction);
 
-	// W
-	ConditionNode<Skill>* skillWCondition = new ConditionNode<Skill>();
-	skillWCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::IsActive);
-	this->AddChild(skillWCondition);
+	//// W
+	//ConditionNode<Skill>* skillWCondition = new ConditionNode<Skill>();
+	//skillWCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::IsActive);
+	//this->AddChild(skillWCondition);
 
-	ActionNode<Skill>* skillWAction = new ActionNode<Skill>();
-	skillWAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::Active);
-	skillWCondition->SetChild(skillWAction);
+	//ActionNode<Skill>* skillWAction = new ActionNode<Skill>();
+	//skillWAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::Active);
+	//skillWCondition->SetChild(skillWAction);
 
-	// Q
-	ConditionNode<Skill>* skillQCondition = new ConditionNode<Skill>();
-	skillQCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::IsActive);
-	this->AddChild(skillQCondition);
+	//// Q
+	//ConditionNode<Skill>* skillQCondition = new ConditionNode<Skill>();
+	//skillQCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::IsActive);
+	//this->AddChild(skillQCondition);
 
-	ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
-	skillQAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::Active);
-	skillQCondition->SetChild(skillQAction);
+	//ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
+	//skillQAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::Active);
+	//skillQCondition->SetChild(skillQAction);
+	ConditionNode<Unit>* skillsCondition = new ConditionNode<Unit>();
+	skillsCondition->SetCondition((Unit**)&champ, &Unit::BehaviorTreeSkillSet);
+	this->AddChild(skillsCondition);
+
+	ActionNode<Skill>* skillAction = new ActionNode<Skill>();
+	skillAction->SetAction((Skill**)&champ->behaviorTreeSkill, &Skill::Active);
+	skillsCondition->SetChild(skillAction);
 	//
 
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();

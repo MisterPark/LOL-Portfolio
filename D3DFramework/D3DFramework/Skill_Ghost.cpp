@@ -9,6 +9,7 @@ Skill_Ghost::Skill_Ghost(Unit* _hostUnit)
 	coolTime = 0.1f;//8.f;
 	duration = 0.f;
 	host = _hostUnit;
+	level = 1;
 }
 
 Skill_Ghost::~Skill_Ghost()

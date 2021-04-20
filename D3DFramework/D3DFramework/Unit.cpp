@@ -489,6 +489,28 @@ void Unit::SkillRAction()
 {
 }
 
+bool Unit::BehaviorTreeSkillSet()
+{
+	bool isActive = false;
+	for (int i = 1; i < (int)SkillIndex::END; i++)
+	{
+		isActive = skillList[i]->IsActive();
+		if (isActive) {
+			behaviorTreeSkill = skillList[i];
+			return isActive;
+		}
+	}
+
+	for (auto& skill : itemSkillList)
+	{
+		isActive = skill->IsActive();
+		if (isActive) {
+			behaviorTreeSkill = skill;
+			return isActive;
+		}
+	}
+}
+
 void Unit::PushedOut(Unit* other)
 {
 	Vector3 direction = collider->GetWorldPosition() - other->collider->GetWorldPosition();
