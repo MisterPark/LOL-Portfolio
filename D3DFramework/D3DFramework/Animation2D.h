@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "IComponent.h"
 namespace Engine{
 
@@ -11,6 +11,7 @@ public:
     virtual ~Animation2D();
     virtual void Update();
 
+    void SetMesh(CustomMesh* _mesh);
     void SetSprite(TextureID _startTexture, TextureID _endTexture);
 	void SetCurrentSprite(TextureID _currentTexture);
 	void SetLoop(bool _isLoop);
@@ -20,11 +21,11 @@ public:
     TextureID GetStartSprite();
     TextureID GetEndSprite();
 	bool IsEndFrame();
-    // IComponentÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // IComponentì„(ë¥¼) í†µí•´ ìƒì†ë¨
     virtual IComponent* Clone() override;
     
 private:
-
+    CustomMesh* mesh = nullptr;
     TextureID startTexture;
     TextureID currentTexture;
     TextureID endTexture;

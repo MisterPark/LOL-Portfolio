@@ -388,6 +388,9 @@
     <Filter Include="GameObject\EffectObject\GarenEffect">
       <UniqueIdentifier>{96c9d575-26b2-410f-89ad-23696f3df228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\EndofgamePanel">
+      <UniqueIdentifier>{32e9725b-054b-4806-ada8-1fc820280096}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1173,6 +1176,9 @@
     <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
+    <ClInclude Include="EndofgamePanel.h">
+      <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
     <ClInclude Include="ChampionAI.h" />
   </ItemGroup>
@@ -2011,6 +2017,9 @@
     <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
+    </ClCompile>
+    <ClCompile Include="EndofgamePanel.cpp">
+      <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
     <ClCompile Include="ChampionAI.cpp" />
   </ItemGroup>
