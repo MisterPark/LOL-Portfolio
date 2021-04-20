@@ -379,6 +379,11 @@ bool Engine::GameObject::IsDestroy()
 	return destroyFlag;
 }
 
+bool Engine::GameObject::IsVisible()
+{
+	return visible;
+}
+
 bool Engine::GameObject::SetLayer(Layer _layer)
 {
 	if (this->layer == _layer) return false;
