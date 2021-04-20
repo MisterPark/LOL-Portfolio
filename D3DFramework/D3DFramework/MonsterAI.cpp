@@ -31,6 +31,21 @@ void MonsterAI::Update()
         target = nullptr;
         return;
     }
+    else
+    {
+        Vector3 spawnPos = unit->GetSpawnPosition();
+        Vector3 to = spawnPos - unit->transform->position;
+        float dist = to.Length();
+        if (dist >= 5.f)
+        {
+            target = nullptr;
+            unit->SetAttackTarget(nullptr);
+            unit->SetLastAttacker(nullptr);
+            unit->agent->SetStoppingDistance(0.1f);
+            unit->agent->SetDestination(spawnPos);
+            return;
+        }
+    }
 
     if (target == nullptr)
     {

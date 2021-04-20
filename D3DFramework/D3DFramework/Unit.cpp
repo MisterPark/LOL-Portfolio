@@ -171,6 +171,7 @@ void Unit::UpdateSpawn()
 			isDead = false;
 			anim->Resume();
 			Show();
+			OnRespawn();
 
 		}
 	}
@@ -354,6 +355,12 @@ void Unit::OnOtherSkillStart(Skill* otherSkill)
 
 void Unit::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
+}
+
+void Unit::OnRespawn()
+{
+	EventArgs args;
+	RespawnEvent.Invoke(this, args);
 }
 
 void Unit::DeadAction()

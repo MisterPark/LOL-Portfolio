@@ -9,6 +9,7 @@
 #include "MiniScorePanel.h"
 #include "ItemshopPanel.h"
 #include "ScorePanel.h"
+#include "EndofgamePanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -39,6 +40,8 @@
 #include "Effect_Garen_R.h"
 #include "MinionSpawner.h"
 
+#include "ChampionAI.h"
+
 
 void TestScene::OnLoaded()
 {
@@ -57,8 +60,8 @@ void TestScene::OnLoaded()
 
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
-	unit->transform->position = { 41.f, 68.f, 46.f };
-	unit->SetSpawnPosition(Vector3(41.f, 68.f, 46.f));
+	unit->transform->position = { 41.f, 68.48f, 46.f };
+	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
@@ -67,11 +70,13 @@ void TestScene::OnLoaded()
 	champ->SetID((UINT)0);
 	//champ->AddItem(3742);
 
-	GameObject* obj = SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Default);
-	obj->transform->position = { 36.f,69.f,46.f };
-
-	
-
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Missfortune>(Layer::Unit);
+	unit->transform->position = { -47.48f,68.48f,-41.34f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::RED);
+	unit->AddComponent<ChampionAI>(L"AI");
+	Champion* champ2 = (Champion*)unit;
+	champ2->SetNickname(L"미스포츈");
 
 	D3DLIGHT9 dirLight{};
 	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();
@@ -88,6 +93,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(MiniScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
+	UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();
@@ -96,7 +102,9 @@ void TestScene::OnLoaded()
 	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 
-	
+	EndofgamePanel::GetInstance()->Hide();
+	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
+	//EndofgamePanel::GetInstance()->ShowDefeat(); // 패배시
 }
 
 void TestScene::OnUnloaded()

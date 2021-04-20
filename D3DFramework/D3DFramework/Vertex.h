@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine
 {
@@ -25,7 +25,7 @@ namespace Engine
 		float z;
 		D3DCOLOR color;
 
-		static const DWORD FVF; //ÇÃ·º¼­ºí ¹öÅØ½º Æ÷¸ä = ÀÚÀ¯ÀÚÀç ¹öÅØ½º ÇüÅÂ = Ä¿½ºÅÒ ¹öÅØ½º
+		static const DWORD FVF; //í”Œë ‰ì„œë¸” ë²„í…ìŠ¤ í¬ë©§ = ììœ ìì¬ ë²„í…ìŠ¤ í˜•íƒœ = ì»¤ìŠ¤í…€ ë²„í…ìŠ¤
 	};
 	
 
@@ -33,6 +33,7 @@ namespace Engine
 	{
 	public:
 		VertexUV(float _x, float _y, float _z, float _u, float _v);
+		VertexUV(Vector3 _v, Vector2 _uv);
 
 		float x;
 		float y;

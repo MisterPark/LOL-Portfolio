@@ -388,6 +388,9 @@
     <Filter Include="GameObject\EffectObject\GarenEffect">
       <UniqueIdentifier>{96c9d575-26b2-410f-89ad-23696f3df228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\EndofgamePanel">
+      <UniqueIdentifier>{32e9725b-054b-4806-ada8-1fc820280096}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1176,6 +1179,10 @@
     </ClInclude>
     <ClInclude Include="Skill_Item_HealthPotion.h" />
     <ClInclude Include="Buff_Item_HealthPotion.h" />
+    <ClInclude Include="EndofgamePanel.h">
+      <Filter>GameObject\UI\EndofgamePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="ChampionAI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2015,6 +2022,10 @@
     </ClCompile>
     <ClCompile Include="Skill_Item_HealthPotion.cpp" />
     <ClCompile Include="Buff_Item_HealthPotion.cpp" />
+    <ClCompile Include="EndofgamePanel.cpp">
+      <Filter>GameObject\UI\EndofgamePanel</Filter>
+    </ClCompile>
+    <ClCompile Include="ChampionAI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

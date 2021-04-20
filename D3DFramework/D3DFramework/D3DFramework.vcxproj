@@ -195,6 +195,7 @@
     <ClInclude Include="Buff_MissFortuneESlow.h" />
     <ClInclude Include="Buff_MissFortuneWAttackSpeed.h" />
     <ClInclude Include="Buff_MissFortuneWMoveSpeed.h" />
+    <ClInclude Include="ChampionAI.h" />
     <ClInclude Include="DamageObject_MissFortune_E.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Effect_Baron_Buff.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Effect_Garen_E.h" />
     <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
+    <ClInclude Include="EndofgamePanel.h" />
     <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h" />
     <ClInclude Include="ItemshopTreePanel.h" />
@@ -453,6 +455,7 @@
     <ClCompile Include="Buff_MissFortuneESlow.cpp" />
     <ClCompile Include="Buff_MissFortuneWAttackSpeed.cpp" />
     <ClCompile Include="Buff_MissFortuneWMoveSpeed.cpp" />
+    <ClCompile Include="ChampionAI.cpp" />
     <ClCompile Include="DamageObject_MissFortune_E.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Effect_Baron_Buff.cpp" />
@@ -460,6 +463,7 @@
     <ClCompile Include="Effect_Garen_E.cpp" />
     <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
+    <ClCompile Include="EndofgamePanel.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp" />
     <ClCompile Include="ItemshopTreePanel.cpp" />
