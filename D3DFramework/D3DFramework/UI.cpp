@@ -391,6 +391,7 @@ void Engine::UI::HideAllUI()
 {
 	for (auto& ui : uiList)
 	{
+		if (dynamic_cast<Cursor*>(ui)) continue;
 		ui->Hide();
 	}
 }

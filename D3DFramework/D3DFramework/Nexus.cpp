@@ -3,6 +3,7 @@
 #include "SphereCollider.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "TurretFloatingBar.h"
+#include "EndofgamePanel.h"
 
 Nexus::Nexus()
 {
@@ -36,6 +37,17 @@ void Nexus::Die()
 	Building::Die();
 
 	UI::HideAllUI();
+
+	Cursor::Show();
+
+	if (team == Team::RED)
+	{
+		EndofgamePanel::GetInstance()->ShowVictory();
+	}
+	else
+	{
+		EndofgamePanel::GetInstance()->ShowDefeat();
+	}
 }
 
 void Nexus::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
