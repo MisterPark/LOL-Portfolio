@@ -106,6 +106,7 @@ enum class State
 
 enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F, END };
 
+
 class Unit : public GameObject
 {
 public:
@@ -150,6 +151,7 @@ public:
 	virtual void OnOtherSkillStart(Skill* otherSkill);
 	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
 	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
+	virtual void OnRespawn();
 
 	// 행동
 	virtual void DeadAction();
@@ -290,6 +292,9 @@ protected:
 	
 	// 네트워크 관련
 	INT unitID = -1;
+
+public:
+	Event<EventArgs> RespawnEvent;
 private:
 	State oldAttackState = State::IDLE1;
 	bool beginAttackFlag = false;

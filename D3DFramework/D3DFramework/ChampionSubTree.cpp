@@ -80,14 +80,6 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	skillsCondition->SetChild(skillAction);
 	//
 
-	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
-	moveCondition->SetCondition((NavMeshAgent**)&champ->agent, &NavMeshAgent::IsPathRemain);
-	this->AddChild(moveCondition);
-
-	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
-	moveAction->SetAction((Unit**)&champ, &Unit::MoveAction);
-	moveCondition->SetChild(moveAction);
-
 	SelectorNode* attackSelector = new SelectorNode();
 	this->AddChild(attackSelector);
 
@@ -98,6 +90,15 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
 	attackAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::Active);
 	attackCondition->SetChild(attackAction);
+
+	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
+	moveCondition->SetCondition((NavMeshAgent**)&champ->agent, &NavMeshAgent::IsPathRemain);
+	this->AddChild(moveCondition);
+
+	ActionNode<Unit>* moveAction = new ActionNode<Unit>();
+	moveAction->SetAction((Unit**)&champ, &Unit::MoveAction);
+	moveCondition->SetChild(moveAction);
+
 
 	ActionNode<Unit>* idleAction = new ActionNode<Unit>();
 	idleAction->SetAction((Unit**)&champ, &Unit::IdleAction);
