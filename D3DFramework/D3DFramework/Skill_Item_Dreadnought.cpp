@@ -9,6 +9,7 @@ Skill_Item_Dreadnought::Skill_Item_Dreadnought(Unit* _hostUnit)
 	skillName = ItemSkillName::Dreadnought;
 	duration = 0.f;
 	host = _hostUnit;
+	level = 1;
 }
 
 Skill_Item_Dreadnought::~Skill_Item_Dreadnought()

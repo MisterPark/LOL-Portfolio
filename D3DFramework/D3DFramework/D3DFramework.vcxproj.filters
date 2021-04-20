@@ -1170,6 +1170,10 @@
     <ClInclude Include="Effect_Garen_E.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Effect_Garen_R.h" />
+    <ClInclude Include="Skill_Item_Immolate.h">
+      <Filter>Skill\Item\Epic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2002,6 +2006,10 @@
     </ClCompile>
     <ClCompile Include="Effect_Garen_R.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R.cpp" />
+    <ClCompile Include="Skill_Item_Immolate.cpp">
+      <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

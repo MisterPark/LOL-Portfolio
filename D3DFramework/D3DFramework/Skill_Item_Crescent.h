@@ -11,6 +11,7 @@ public:
 	virtual void Passive();
 	virtual void Active();
 	virtual void End();
+	virtual Skill* Clone() override;
 
 private:
 	void SkillAttack();

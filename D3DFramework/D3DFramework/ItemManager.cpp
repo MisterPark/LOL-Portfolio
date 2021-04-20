@@ -12,6 +12,8 @@
 #include "Skill_Item_Precision.h"  // 절정의 화살
 #include "Skill_Item_WraithStep.h" // 요우무의 유령검
 #include "Skill_Item_SteelTipped.h" // 곡궁
+#include "Skill_Item_Crescent.h" // 강철가시 채찍
+#include "Skill_Item_Immolate.h" //바미의 불씨
 
 ItemManager* pItemManager = nullptr;
 
@@ -27,6 +29,8 @@ ItemManager::ItemManager()
 	skills.emplace(L"정밀", new Skill_Item_Precision(nullptr));
 	skills.emplace(L"강철 촉", new Skill_Item_SteelTipped(nullptr));
 	skills.emplace(L"망령의 발걸음", new Skill_Item_WraithStep(nullptr));
+	skills.emplace(L"초승달", new Skill_Item_Crescent(nullptr));
+	skills.emplace(L"불사르기", new Skill_Item_Immolate(nullptr));
 }
 
 ItemManager::~ItemManager()

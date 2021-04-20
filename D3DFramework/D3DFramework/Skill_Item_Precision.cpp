@@ -7,6 +7,7 @@ Skill_Item_Precision::Skill_Item_Precision(Unit* _hostUnit)
 {
 	skillName = ItemSkillName::Precision;
 	host = _hostUnit;
+	level = 1;
 }
 
 Skill_Item_Precision::~Skill_Item_Precision()

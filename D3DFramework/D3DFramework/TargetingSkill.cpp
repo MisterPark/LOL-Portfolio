@@ -14,7 +14,7 @@ TargetingSkill::~TargetingSkill()
 
 void TargetingSkill::Use()
 {
-	if (host == nullptr) return;
+	if (host == nullptr || level == 0) return;
 	PlayerController* controller = host->GetComponent<PlayerController>();
 	controller->SetTargetMode(true);
 	host->SetNextSkillReady(this);
