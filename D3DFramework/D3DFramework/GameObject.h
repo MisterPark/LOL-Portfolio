@@ -69,6 +69,7 @@ namespace Engine
 		T* GetComponent();
 		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
+		bool IsVisible();
 
 		// setter
 		bool SetLayer(Layer _layer);
