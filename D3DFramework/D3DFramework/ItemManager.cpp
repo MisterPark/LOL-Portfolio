@@ -14,6 +14,7 @@
 #include "Skill_Item_SteelTipped.h" // 곡궁
 #include "Skill_Item_Crescent.h" // 강철가시 채찍
 #include "Skill_Item_Immolate.h" //바미의 불씨
+#include "Skill_Item_HealthPotion.h" // 체력 포션
 
 ItemManager* pItemManager = nullptr;
 
@@ -24,13 +25,14 @@ ItemManager::ItemManager()
 	skills.emplace(L"마나 충전", new Skill_Item_ManaCharge(nullptr));
 	skills.emplace(L"주문 검", new Skill_Item_SpellBlade(nullptr));
 	skills.emplace(L"민첩", new Skill_Item_Nimble(nullptr));
-	skills.emplace(L"가시", new Skill_Item_Thorns(nullptr));
+	skills.emplace(L"가시", new Skill_Item_HealthPotion(nullptr));
 	skills.emplace(L"마법사의 길", new Skill_Item_WitchsFocus(nullptr));
 	skills.emplace(L"정밀", new Skill_Item_Precision(nullptr));
 	skills.emplace(L"강철 촉", new Skill_Item_SteelTipped(nullptr));
 	skills.emplace(L"망령의 발걸음", new Skill_Item_WraithStep(nullptr));
 	skills.emplace(L"초승달", new Skill_Item_Crescent(nullptr));
 	skills.emplace(L"불사르기", new Skill_Item_Immolate(nullptr));
+	skills.emplace(L"체력포션", new Skill_Item_HealthPotion(nullptr));
 }
 
 ItemManager::~ItemManager()
