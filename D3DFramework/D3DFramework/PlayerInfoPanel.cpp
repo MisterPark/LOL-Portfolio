@@ -322,144 +322,144 @@ void PlayerInfoPanel::Update()
 {
     GameObject::Update();
 
-	if (champion != nullptr) {
-		if (champion->IsDead()) facePanel->grayscale = true;
-		else					facePanel->grayscale = false;
+	if (!IsVisible()) return;
+	if (champion == nullptr) return;
+	if (champion->IsDead()) facePanel->grayscale = true;
+	else					facePanel->grayscale = false;
 
-		// HP Bar
-		{
-			float hp = champion->stat->GetValue(StatType::Health);
-			if (hp < 0) hp = 0;
-			float hpMax = champion->stat->GetValue(StatType::MaxHealth);
-			hpBar->uvRatioEnd.x = hp / hpMax;
-			hpLabel->SetText(L"%d/%d", (int)hp, (int)hpMax);
+	// HP Bar
+	{
+		float hp = champion->stat->GetValue(StatType::Health);
+		if (hp < 0) hp = 0;
+		float hpMax = champion->stat->GetValue(StatType::MaxHealth);
+		hpBar->uvRatioEnd.x = hp / hpMax;
+		hpLabel->SetText(L"%d/%d", (int)hp, (int)hpMax);
 
-			if (hpBarBackRatio < hpBar->uvRatioEnd.x) {
-				hpBarBackRatio = hpBar->uvRatioEnd.x;
-			}
-
-			Vector2 barSize = hpBar->GetSize();
-			Vector2 markerSize = hpBarMarker->GetSize();
-			hpBarMarker->SetLocation((barSize.x * (hp / hpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
-
-			hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
-			hpBarBack->uvRatioEnd.x = hpBarBackRatio;
-		}
-		// MP Bar
-		{
-			float mp = champion->stat->GetValue(StatType::Mana);
-			if (mp < 0) mp = 0;
-			float mpMax = champion->stat->GetValue(StatType::MaxMana);
-
-			mpBar->uvRatioEnd.x = 1.f;
-			mpLabel->SetText(L"%d/%d", (int)mp, (int)mpMax);
-
-			Vector2 barSize = mpBar->GetSize();
-			Vector2 markerSize = mpBarMarker->GetSize();
-			mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+		if (hpBarBackRatio < hpBar->uvRatioEnd.x) {
+			hpBarBackRatio = hpBar->uvRatioEnd.x;
 		}
 
-		// Stat
-			// HP Regen
-		hpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::HealthRegen));
-		if (champion->stat->GetValue(StatType::Health) < champion->stat->GetValue(StatType::MaxHealth)) hpRegenLabel->Show();
-		else                                                                                            hpRegenLabel->Hide();
+		Vector2 barSize = hpBar->GetSize();
+		Vector2 markerSize = hpBarMarker->GetSize();
+		hpBarMarker->SetLocation((barSize.x * (hp / hpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
 
-		// MP Regen
-		mpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::ManaRegen));
-		if (champion->stat->GetValue(StatType::Mana) < champion->stat->GetValue(StatType::MaxMana)) mpRegenLabel->Show();
-		else                                                                                        mpRegenLabel->Hide();
+		hpBarBackRatio = hpBarBackRatio + (0.1f * ((hp / hpMax) - hpBarBackRatio));
+		hpBarBack->uvRatioEnd.x = hpBarBackRatio;
+	}
+	// MP Bar
+	{
+		float mp = champion->stat->GetValue(StatType::Mana);
+		if (mp < 0) mp = 0;
+		float mpMax = champion->stat->GetValue(StatType::MaxMana);
 
-		statLabel[0]->SetText(L"%d", (int)champion->stat->GetValue(statNum[0]));
-		statLabel[1]->SetText(L"%d", (int)champion->stat->GetValue(statNum[1]));
-		statLabel[2]->SetText(L"%d", (int)champion->stat->GetValue(statNum[2]));
-		statLabel[3]->SetText(L"%d", (int)champion->stat->GetValue(statNum[3]));
-		statLabel[4]->SetText(L"%.2f", champion->stat->GetValue(statNum[4]));
-		statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
-		statLabel[6]->SetText(L"%d", (int)champion->stat->GetValue(statNum[6]));
-		statLabel[7]->SetText(L"%d", (int)(champion->stat->GetValue(statNum[7]) * 100));
+		mpBar->uvRatioEnd.x = 1.f;
+		mpLabel->SetText(L"%d/%d", (int)mp, (int)mpMax);
 
-		itemshopBtn->SetText((int)champion->stat->GetValue(StatType::Gold));
+		Vector2 barSize = mpBar->GetSize();
+		Vector2 markerSize = mpBarMarker->GetSize();
+		mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+	}
 
-		// Level
-		levelLabel->SetText(L"%d", champion->stat->GetValue(StatType::Level));
+	// Stat
+		// HP Regen
+	hpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::HealthRegen));
+	if (champion->stat->GetValue(StatType::Health) < champion->stat->GetValue(StatType::MaxHealth)) hpRegenLabel->Show();
+	else                                                                                            hpRegenLabel->Hide();
 
-		// exp
-		expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /
-			champion->stat->GetValue(StatType::MaxExperience));
+	// MP Regen
+	mpRegenLabel->SetText(L"+%0.1f", champion->stat->GetValue(StatType::ManaRegen));
+	if (champion->stat->GetValue(StatType::Mana) < champion->stat->GetValue(StatType::MaxMana)) mpRegenLabel->Show();
+	else                                                                                        mpRegenLabel->Hide();
 
-		// Skill Level
-		int skillPoint = (int)champion->stat->GetBaseValue(StatType::SkillPoint);
-		if (skillPoint <= 0) {
-			for (int i = 0; i < 4; ++i) {
-				spellLevelUpButton[i]->Hide();
-			}
+	statLabel[0]->SetText(L"%d", (int)champion->stat->GetValue(statNum[0]));
+	statLabel[1]->SetText(L"%d", (int)champion->stat->GetValue(statNum[1]));
+	statLabel[2]->SetText(L"%d", (int)champion->stat->GetValue(statNum[2]));
+	statLabel[3]->SetText(L"%d", (int)champion->stat->GetValue(statNum[3]));
+	statLabel[4]->SetText(L"%.2f", champion->stat->GetValue(statNum[4]));
+	statLabel[5]->SetText(L"%d%%", (int)champion->stat->GetValue(statNum[5]));
+	statLabel[6]->SetText(L"%d", (int)champion->stat->GetValue(statNum[6]));
+	statLabel[7]->SetText(L"%d", (int)(champion->stat->GetValue(statNum[7]) * 100));
+
+	itemshopBtn->SetText((int)champion->stat->GetValue(StatType::Gold));
+
+	// Level
+	levelLabel->SetText(L"%d", champion->stat->GetValue(StatType::Level));
+
+	// exp
+	expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /
+		champion->stat->GetValue(StatType::MaxExperience));
+
+	// Skill Level
+	int skillPoint = (int)champion->stat->GetBaseValue(StatType::SkillPoint);
+	if (skillPoint <= 0) {
+		for (int i = 0; i < 4; ++i) {
+			spellLevelUpButton[i]->Hide();
+		}
 			
-			spellPointLabel->Hide();
+		spellPointLabel->Hide();
+	}
+	else {
+		for (int i = 0; i < 4; ++i) {
+			if (champion->skillList[(UINT)spellNum[i]]->GetLevel() >=
+				champion->skillList[(UINT)spellNum[i]]->GetMaxLevel()) {
+				spellLevelUpButton[i]->enable = false;
+			}
+			else {
+				spellLevelUpButton[i]->enable = true;
+			}
+			spellLevelUpButton[i]->Show();
+		}
+
+		spellPointLabel->Show();
+		spellPointLabel->SetText(L"레벨 업! +%d", skillPoint);
+	}
+
+	// Spell
+	float cooltime;
+	float cooltimeinit;
+
+	for (int i = 0; i < 4; i++) {
+		if (champion->skillList[(int)spellNum[i]] == nullptr) continue;
+
+		cooltime = champion->skillList[(int)spellNum[i]]->GetCooltime();
+		cooltimeinit = champion->skillList[(int)spellNum[i]]->GetCooltime_Init();
+		slotSpell[i]->SetCooltime(cooltime, cooltimeinit);
+		if (cooltime <= 0) {
+			SpellTimeLabel[i]->Hide();
+			slotSpell[i]->icon->grayscale = false;
+			slotSpell[i]->outline->SetTexture(L"border_skill (1)");
 		}
 		else {
-			for (int i = 0; i < 4; ++i) {
-				if (champion->skillList[(UINT)spellNum[i]]->GetLevel() >=
-					champion->skillList[(UINT)spellNum[i]]->GetMaxLevel()) {
-					spellLevelUpButton[i]->enable = false;
-				}
-				else {
-					spellLevelUpButton[i]->enable = true;
-				}
-				spellLevelUpButton[i]->Show();
-			}
-
-			spellPointLabel->Show();
-			spellPointLabel->SetText(L"레벨 업! +%d", skillPoint);
+			SpellTimeLabel[i]->Show();
+			slotSpell[i]->icon->grayscale = true;
+			slotSpell[i]->outline->SetTexture(L"border_skill (3)");
+			if (cooltime >= 1)	SpellTimeLabel[i]->SetText(L"%d", (int)cooltime);
+			else				SpellTimeLabel[i]->SetText(L"%.1f", cooltime);
 		}
 
-		// Spell
-		float cooltime;
-		float cooltimeinit;
-
-		for (int i = 0; i < 4; i++) {
-			if (champion->skillList[(int)spellNum[i]] == nullptr) continue;
-
-			cooltime = champion->skillList[(int)spellNum[i]]->GetCooltime();
-			cooltimeinit = champion->skillList[(int)spellNum[i]]->GetCooltime_Init();
-			slotSpell[i]->SetCooltime(cooltime, cooltimeinit);
-			if (cooltime <= 0) {
-				SpellTimeLabel[i]->Hide();
-				slotSpell[i]->icon->grayscale = false;
-				slotSpell[i]->outline->SetTexture(L"border_skill (1)");
-			}
-			else {
-				SpellTimeLabel[i]->Show();
-				slotSpell[i]->icon->grayscale = true;
-				slotSpell[i]->outline->SetTexture(L"border_skill (3)");
-				if (cooltime >= 1)	SpellTimeLabel[i]->SetText(L"%d", (int)cooltime);
-				else				SpellTimeLabel[i]->SetText(L"%.1f", cooltime);
-			}
-
-			// Level
-			auto skilllevel = champion->skillList[(int)spellNum[i]]->GetLevel();
-			for (int j = 0; j < spellLevelMax[i]; j++) {
-				if ((j + 1) <= skilllevel) spellLevelUI[i][j]->SetTexture(L"skilllevel_on");
-				else                       spellLevelUI[i][j]->SetTexture(L"skilllevel_off");
-			}
-
+		// Level
+		auto skilllevel = champion->skillList[(int)spellNum[i]]->GetLevel();
+		for (int j = 0; j < spellLevelMax[i]; j++) {
+			if ((j + 1) <= skilllevel) spellLevelUI[i][j]->SetTexture(L"skilllevel_on");
+			else                       spellLevelUI[i][j]->SetTexture(L"skilllevel_off");
 		}
 
-		// Item
-		for (int i = 0; i < INVENTORY_MAX; ++i) {
-			Item* item = champion->inventory.GetItem(i);
-			if (item == nullptr) {
-				slotItem[i]->Hide();
-			}
-			else {
-				slotItem[i]->SetIcon(item->GetIcon());
-				slotItem[i]->Show();
-			}
+	}
 
-			if (selectedItemIdx == i) slotItemSelected[i]->Show();
-			else					  slotItemSelected[i]->Hide();
+	// Item
+	for (int i = 0; i < INVENTORY_MAX; ++i) {
+		Item* item = champion->inventory.GetItem(i);
+		if (item == nullptr) {
+			slotItem[i]->Hide();
 		}
-    }
+		else {
+			slotItem[i]->SetIcon(item->GetIcon());
+			slotItem[i]->Show();
+		}
+
+		if (selectedItemIdx == i) slotItemSelected[i]->Show();
+		else					  slotItemSelected[i]->Hide();
+	}
 }
 void PlayerInfoPanel::SetTarget(Champion* _target)
 {

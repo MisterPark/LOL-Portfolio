@@ -9,11 +9,10 @@ Inhibitor::Inhibitor()
 	transform->position = { 0,0,0 };
 	transform->scale = { 0.00018f, 0.00018f, 0.00018f, };
 
+	bar->SetOffset(Vector3(0, 2.5f, 0));
+
 	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"sruap_orderinhibitor");
 	AddComponent(L"StaticMesh", mesh);
-
-	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
-	bar->SetTarget(this);
 
 	collider->SetRadius(1.5f);
 	Engine::DeferredStaticMeshRenderer* renderer =

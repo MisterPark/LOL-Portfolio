@@ -19,9 +19,6 @@ Turret::Turret()
 	AddComponent(L"StaticMesh", mesh);
 	collider->SetRadius(0.6f);
 
-	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
-	bar->SetTarget(this);
-
 	stat->SetBaseValue(StatType::Range, 7.75f);
 
 	Engine::DeferredStaticMeshRenderer* renderer =

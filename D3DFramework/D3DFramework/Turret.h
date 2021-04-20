@@ -21,7 +21,6 @@ public:
     virtual void MoveAction()override;
 
 public:
-    TurretFloatingBar* bar = nullptr;
     Vector3 offsetPos;
     bool breakEffectFlag = false;
 

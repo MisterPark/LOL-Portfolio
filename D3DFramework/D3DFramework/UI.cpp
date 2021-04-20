@@ -4,9 +4,12 @@
 #include "Label.h"
 
 bool UI::isPointerOverUI = false;
+list<UI*> uiList;
 
 UI::UI()
 {
+	uiList.push_back(this);
+
 	oldEnable = enable;
 
 	mesh = (Rectangle*)AddComponent<Engine::Rectangle>(L"Mesh");
@@ -33,6 +36,7 @@ Engine::UI::UI(const std::wstring& _tag, const Vector2& pos)
 
 UI::~UI()
 {
+	uiList.remove(this);
 
 	mesh = nullptr;
 	texture = nullptr;
@@ -381,5 +385,13 @@ void Engine::UI::SetPointerOverUI(bool _isOver)
 bool Engine::UI::IsPointerOverUI()
 {
 	return isPointerOverUI;
+}
+
+void Engine::UI::HideAllUI()
+{
+	for (auto& ui : uiList)
+	{
+		ui->Hide();
+	}
 }
 

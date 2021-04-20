@@ -59,8 +59,8 @@ void FloatingBar::PostUpdate()
 
 	if (target != nullptr)
 	{
-		visible = target->visible;
-		Show(visible);
+		//visible = target->visible;
+		//Show(visible);
 
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);
@@ -141,4 +141,9 @@ void FloatingBar::SetTextureMP(const wstring& _key)
 void FloatingBar::SetNickname(const wstring& _nick)
 {
 	nickLabel->SetText(_nick);
+}
+
+void FloatingBar::SetOffset(Vector3 _offset)
+{
+	offset = _offset;
 }

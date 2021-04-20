@@ -1,9 +1,12 @@
 ﻿#include "stdafx.h"
 #include "Building.h"
 #include "SphereCollider.h"
+#include "TurretFloatingBar.h"
+
 Building::Building()
 {
-
+	bar = (TurretFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<TurretFloatingBar>(Layer::UI);
+	bar->SetTarget(this);
 }
 
 Building::~Building()
