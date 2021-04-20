@@ -14,7 +14,7 @@ public:
 	virtual void End() override;
 	virtual Skill* Clone() override;
 
-	virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage);
+	virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage);
 	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill) override;
 
 private:

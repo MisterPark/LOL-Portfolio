@@ -218,9 +218,11 @@ void TestScene::CreateBuilding()
 {
 	Unit* unit = nullptr;
 	int unitID = (int)UnitID::TurretBlueBot1;
-
-
+	Unit* beforeBuilding = nullptr;
+	list<Unit*> inhibitors;
+	list<Unit*> twinTurrets;
 	// 블루팀 타워
+
 
 	// bottom1
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Turret>(Layer::Building);
@@ -228,6 +230,7 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// bottom2
@@ -236,6 +239,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// bottom3
@@ -244,6 +249,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor bot
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 21.52f,68.04f,42.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(180.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -253,6 +271,7 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// mid2
@@ -261,6 +280,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// mid3
@@ -269,6 +290,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor mid
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 23.26f,68.04f,29.98f };
+	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -278,6 +312,7 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// top2
@@ -286,6 +321,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 
@@ -295,6 +332,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(45.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor top
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { 36.23f,68.04f,27.62f };
+	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
+	unit->SetTeam(Team::BLUE);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -305,6 +355,9 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	for(auto& _unit : inhibitors)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
+	twinTurrets.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 	// twin Right
@@ -313,33 +366,9 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
-	unit->SetID(unitID);
-	unitID++;
-
-	// inhibitor bot
-	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
-	unit->transform->position = { 21.52f,68.04f,42.62f };
-	unit->transform->eulerAngles.y = D3DXToRadian(180.f);
-	unit->SetTeam(Team::BLUE);
-	unitMap[unitID] = unit;
-	unit->SetID(unitID);
-	unitID++;
-
-	// inhibitor mid
-	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
-	unit->transform->position = { 23.26f,68.04f,29.98f };
-	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
-	unit->SetTeam(Team::BLUE);
-	unitMap[unitID] = unit;
-	unit->SetID(unitID);
-	unitID++;
-
-	// inhibitor top
-	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
-	unit->transform->position = { 36.23f,68.04f,27.62f };
-	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
-	unit->SetTeam(Team::BLUE);
-	unitMap[unitID] = unit;
+	for (auto& _unit : inhibitors)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
+	twinTurrets.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -349,17 +378,21 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
+	for (auto& _unit : twinTurrets)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
 	unit->SetID(unitID);
 	unitID++;
 
 	// 퍼플팀
-
+	inhibitors.clear();
+	twinTurrets.clear();
 	// bottom1
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Turret>(Layer::Building);
 	unit->transform->position = { -44.71f,67.71f,21.98f };
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// bottom2
@@ -368,6 +401,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// bottom3
@@ -376,6 +411,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(225.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor bot
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { -43.17f,68.04f,-21.56f };
+	unit->transform->eulerAngles.y = D3DXToRadian(0.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -385,6 +433,7 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 
@@ -394,6 +443,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 
@@ -403,6 +454,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor mid
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { -30.25f,68.04f,-23.81f };
+	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -413,6 +477,7 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// top2
@@ -421,6 +486,8 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
 	unit->SetID(unitID);
 	unitID++;
 	// top3
@@ -429,6 +496,19 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	beforeBuilding = unit;
+	unit->SetID(unitID);
+	unitID++;
+
+	// inhibitor top
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
+	unit->transform->position = { -28.04f,68.04f,-36.64f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)beforeBuilding);
+	inhibitors.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 
@@ -438,6 +518,9 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	for (auto& _unit : inhibitors)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
+	twinTurrets.emplace_back(unit);
 	unit->SetID(unitID);
 	unitID++;
 	// twin right
@@ -446,6 +529,21 @@ void TestScene::CreateBuilding()
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
+	for (auto& _unit : inhibitors)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
+	twinTurrets.emplace_back(unit);
+	unit->SetID(unitID);
+	unitID++;
+
+
+	// nexus
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Nexus>(Layer::Building);
+	unit->transform->position = { -40.75f,68.04f,-33.86f };
+	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
+	unit->SetTeam(Team::RED);
+	unitMap[unitID] = unit;
+	for (auto& _unit : twinTurrets)
+		dynamic_cast<Building*>(unit)->frontBuildingList.emplace_back((Building*)_unit);
 	unit->SetID(unitID);
 	unitID++;
 }

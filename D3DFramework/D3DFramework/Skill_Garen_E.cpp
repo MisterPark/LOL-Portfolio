@@ -54,6 +54,8 @@ void Skill_Garen_E::Start()
 	host->stat->AddBuff(damageBuff);
 	realCoolTimeTick = 0.f;
 	coolTimeTick = coolTime - 1.f;
+	host->attackTarget = nullptr;
+	host->nextSkill = nullptr;
 }
 
 void Skill_Garen_E::Passive()

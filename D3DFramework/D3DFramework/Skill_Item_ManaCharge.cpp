@@ -56,7 +56,7 @@ Skill* Skill_Item_ManaCharge::Clone()
 	return new Skill_Item_ManaCharge(nullptr);
 }
 
-void Skill_Item_ManaCharge::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Skill_Item_ManaCharge::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 	if (dynamic_cast<Minion*>(target) != nullptr)
 		target->TakeDamage(5.f);

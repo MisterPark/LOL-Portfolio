@@ -16,7 +16,7 @@ public:
 	virtual Skill* Clone() override;
 
 	virtual void OnHit(Unit* target, Skill* mySkill) override;
-    virtual void OnDamaged(Unit* target, Skill* targetSkill, float damage) override;
+    virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage) override;
 
 private:
 	float passiveTick = 0.f;

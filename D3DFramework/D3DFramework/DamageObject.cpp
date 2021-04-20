@@ -56,8 +56,9 @@ void DamageObject::OnCollisionEnter(Collider* target)
 		OnCollisionAddAttack(damage, target);
 		Calc_FinalDamage(&damage, host->stat, pUnit->stat);
 		pUnit->SetLastAttacker(host);
-		pUnit->TakeDamage(damage);
+		pUnit->OnDamaged(host, hostSkill, &damage);
 		host->OnHit(host, hostSkill);
+		pUnit->TakeDamage(damage);
 		tempHitList.emplace_back(target->gameObject);
 	}
 

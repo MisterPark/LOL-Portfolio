@@ -78,6 +78,7 @@ void Skill_Item_Immolate::SkillAttack()
 			{
 				float finalDamage = damage;
 				Calc_FinalDamage(&finalDamage, host->stat, iter->stat);
+				iter->OnDamaged(host, this, &finalDamage);
 				iter->TakeDamage(finalDamage);
 				iter->SetLastAttacker(host);
 			}

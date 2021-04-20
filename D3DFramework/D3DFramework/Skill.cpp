@@ -59,7 +59,7 @@ void Skill::OnHit(Unit* target, Skill* mySkill)
 {
 }
 
-void Skill::OnDamaged(Unit* target, Skill* targetSkill, float damage)
+void Skill::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
 }
 
@@ -114,6 +114,7 @@ void Skill::Calc_TakeDamege(float _baseDamage)
 	target->SetLastAttacker(host);
 	float finalDamage = _baseDamage;
 	Calc_FinalDamage(&finalDamage, host->stat, target->stat);
+	host->attackTarget->OnDamaged(host, this, &finalDamage);
 	target->TakeDamage(finalDamage);
 	
 	for (auto& unit : hitList)

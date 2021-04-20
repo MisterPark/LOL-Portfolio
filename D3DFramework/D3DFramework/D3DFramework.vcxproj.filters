@@ -1174,6 +1174,8 @@
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
+    <ClInclude Include="Skill_Item_HealthPotion.h" />
+    <ClInclude Include="Buff_Item_HealthPotion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2011,6 +2013,8 @@
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
+    <ClCompile Include="Skill_Item_HealthPotion.cpp" />
+    <ClCompile Include="Buff_Item_HealthPotion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

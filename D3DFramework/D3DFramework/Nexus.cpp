@@ -24,3 +24,19 @@ Nexus::~Nexus()
 {
 
 }
+
+void Nexus::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
+{
+	bool invinCheck = false;
+
+	for (auto& building : frontBuildingList)
+	{
+		if (!building->IsDead()) {
+			invinCheck = true;
+			break;
+		}
+	}
+	
+	if (invinCheck)
+		*damage = 0.f;
+}
