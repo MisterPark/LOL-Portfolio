@@ -202,6 +202,7 @@
     <ClInclude Include="Effect_Blue_Buff.h" />
     <ClInclude Include="Effect_Garen_E.h" />
     <ClInclude Include="Effect_Garen_R.h" />
+    <ClInclude Include="Effect_Garen_W.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
     <ClInclude Include="EndofgamePanel.h" />
     <ClInclude Include="Inhibitor.h" />
@@ -462,6 +463,7 @@
     <ClCompile Include="Effect_Blue_Buff.cpp" />
     <ClCompile Include="Effect_Garen_E.cpp" />
     <ClCompile Include="Effect_Garen_R.cpp" />
+    <ClCompile Include="Effect_Garen_W.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
     <ClCompile Include="EndofgamePanel.cpp" />
     <ClCompile Include="Inhibitor.cpp" />

@@ -9,6 +9,7 @@ Engine::ForwardRenderer::ForwardRenderer(GameObject* const owner, std::wstring c
 	effect->CloneEffect(device, &effect);
 	mesh = nullptr;
 	pass = 0;
+	colormapTex = RenderManager::GetTexture(L"garen_base_w_energywave_colormap");
 }
 
 Engine::ForwardRenderer::~ForwardRenderer()
@@ -57,6 +58,24 @@ void Engine::ForwardRenderer::SetMesh(Mesh* mesh)
 	this->mesh = mesh;
 }
 
+void Engine::ForwardRenderer::SetColormapTex(const std::wstring& _tag)
+{
+	Texture* tex = RenderManager::GetTexture(_tag);
+	if (tex == nullptr) return;
+
+	colormapTex = tex;
+}
+
+Vector2 Engine::ForwardRenderer::GetUVOffset()
+{
+	return uvOffset;
+}
+
+void Engine::ForwardRenderer::SetUVOffset(Vector2 _uvOffset)
+{
+	uvOffset = _uvOffset;
+}
+
 void Engine::ForwardRenderer::Render()
 {
 	if (visible == false) return;
@@ -71,6 +90,9 @@ void Engine::ForwardRenderer::Render()
 
 	effect->SetMatrix("g_mWorld", &mWorld);
 	effect->SetMatrix("g_mViewProj", &mViewProj);
+	effect->SetFloat("g_uOffset", uvOffset.x);
+	effect->SetFloat("g_vOffset", uvOffset.y);
+	effect->SetTexture("g_colormap", colormapTex->pTexture);
 	effect->Begin(&passCount, 0);
 	effect->BeginPass(pass);
 	for (int i = 0; i < subsetCount; ++i)

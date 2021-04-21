@@ -5,6 +5,7 @@
 #include "Buff_GarenWReduction.h"
 #include "Buff_GarenWShield.h"
 #include "Buff_GarenWPassive.h"
+#include "Effect_Garen_W.h"
 
 Skill_Garen_W::Skill_Garen_W(Unit* _hostUnit)
 {
@@ -26,6 +27,12 @@ void Skill_Garen_W::Start()
 
 	Skill::Start();
 	host->OnOtherSkillStart(this);
+
+
+	Effect_Garen_W* eff = (Effect_Garen_W*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_W>(Layer::Effect);
+	eff->SetTarget(host);
+	eff->SetOffset(Vector3(0.f, 0.1f, 0.f));
+	eff->SetDuration(0.75f);
 
 	reductionTime = 1.25f + level * 0.75f;
 	Buff_GarenWReduction* reductionBuff = new Buff_GarenWReduction(host, reductionTime, 0.5f);//reductionValue);

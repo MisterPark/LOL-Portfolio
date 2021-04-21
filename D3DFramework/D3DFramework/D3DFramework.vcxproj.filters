@@ -1183,6 +1183,9 @@
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
     <ClInclude Include="ChampionAI.h" />
+    <ClInclude Include="Effect_Garen_W.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2026,6 +2029,9 @@
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
     <ClCompile Include="ChampionAI.cpp" />
+    <ClCompile Include="Effect_Garen_W.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
