@@ -1183,6 +1183,9 @@
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
     <ClInclude Include="ChampionAI.h" />
+    <ClInclude Include="ScuttleracerAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2026,6 +2029,9 @@
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
     <ClCompile Include="ChampionAI.cpp" />
+    <ClCompile Include="ScuttleracerAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

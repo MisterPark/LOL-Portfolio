@@ -60,7 +60,8 @@ void TestScene::OnLoaded()
 
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
-	unit->transform->position = { 41.f, 68.48f, 46.f };
+	//unit->transform->position = { 41.f, 68.48f, 46.f };
+	unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
@@ -734,8 +735,9 @@ void TestScene::CreateMonster()
 
 	// 바위게
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Scuttleracer>(Layer::Unit);
-	unit->transform->position = { 15.68f, 66.91f, -11.16f };
+	unit->transform->position = { 15.06f, 66.91f, -9.49f };
 	unit->SetSpawnPosition(unit->transform->position);
+	((Scuttleracer*)unit)->SetAI(Scuttleracer::ScuttlePos::North);
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;
@@ -743,6 +745,7 @@ void TestScene::CreateMonster()
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Scuttleracer>(Layer::Unit);
 	unit->transform->position = { -24.36f, 66.91f, 17.82f };
 	unit->SetSpawnPosition(unit->transform->position);
+	((Scuttleracer*)unit)->SetAI(Scuttleracer::ScuttlePos::South);
 	unitMap[unitID] = unit;
 	unit->SetID(unitID);
 	unitID++;

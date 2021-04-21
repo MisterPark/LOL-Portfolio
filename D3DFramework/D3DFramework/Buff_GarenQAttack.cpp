@@ -9,7 +9,7 @@ Buff_GarenQAttack::Buff_GarenQAttack(Unit* _host, float _duration, float _basicD
 
 Buff_GarenQAttack::~Buff_GarenQAttack()
 {
-	host->attackState = State::ATTACK1;
+	//host->attackState = State::ATTACK1;
 }
 
 void Buff_GarenQAttack::Update()

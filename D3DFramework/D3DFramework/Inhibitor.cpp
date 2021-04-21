@@ -3,6 +3,7 @@
 #include "SphereCollider.h"
 #include "DeferredStaticMeshRenderer.h"
 #include "TurretFloatingBar.h"
+#include "MinionSpawner.h"
 
 Inhibitor::Inhibitor()
 {
@@ -42,4 +43,44 @@ void Inhibitor::SetTeam(Team _team)
 	{
 		bar->SetTextureHP(L"bar_float (2)");
 	}
+}
+
+void Inhibitor::Die()
+{
+	Unit::Die();
+
+	if(unitID == (int)UnitID::InhibitorBlueBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorBlueMid)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorBlueTop)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedMid)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
+
+	if (team == Team::BLUE) {
+		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueBot);
+		PhaseType midPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueMid);
+		PhaseType topPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueTop);
+		if (botPhase == PhaseType::SMMMCCC && midPhase == PhaseType::SMMMCCC && topPhase == PhaseType::SMMMCCC) {
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SSMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SSMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SSMMMCCC);
+		}
+	}
+	else if (team == Team::RED) {
+		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedBot);
+		PhaseType midPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedMid);
+		PhaseType topPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedTop);
+		if (botPhase == PhaseType::SMMMCCC && midPhase == PhaseType::SMMMCCC && topPhase == PhaseType::SMMMCCC) {
+			MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SSMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SSMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SSMMMCCC);
+		}
+	}
+	
 }

@@ -21,7 +21,7 @@ public:
     Minion* CreateMinion(MinionType _type, Team _team, SpawnLane _spawnLane);
 
     static void SetMinionPhase(SpawnLane _spawnLane, PhaseType _phaseType);
-
+    static PhaseType GetSpawnPhase(SpawnLane _spawnLane);
 private:
     // 해당 레인의 미니언 페이즈는 몇인지
     PhaseType spawnPhase[MaxOfEnum<SpawnLane>()] = {};
