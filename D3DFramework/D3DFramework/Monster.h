@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Unit.h"
 
 class MinionFloatingBar;
@@ -16,5 +16,4 @@ public:
     virtual void OnCollisionEnter(Collider* target);
 
 public:
-    MinionFloatingBar* bar = nullptr;
 };

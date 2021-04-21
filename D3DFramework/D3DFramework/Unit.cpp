@@ -11,7 +11,7 @@
 #include "RedMonster.h"
 #include "BlueMonster.h"
 #include "Effect_Red_Buff.h"
-
+#include "FloatingBar.h"
 
 list<Unit*> Unit::unitList;
 
@@ -315,6 +315,11 @@ void Unit::Die()
 	{
 		hitInfo.unit->OnKilled(this);
 	}
+	
+	if (bar != nullptr)
+	{
+		bar->Hide();
+	}
 }
 
 void Unit::OnKilled(Unit* target)
@@ -361,6 +366,12 @@ void Unit::OnRespawn()
 {
 	EventArgs args;
 	RespawnEvent.Invoke(this, args);
+
+	if (bar != nullptr)
+	{
+		bar->Show();
+	}
+	
 }
 
 void Unit::DeadAction()

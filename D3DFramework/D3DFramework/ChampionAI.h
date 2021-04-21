@@ -15,6 +15,7 @@ public:
 
 private:
     Unit* unit = nullptr;
+    Unit* target = nullptr;
 
     bool startFlag = false;
     bool deadFlag = false;

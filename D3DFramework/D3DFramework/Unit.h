@@ -11,6 +11,7 @@
 class Indicator;
 class TargetingSkill;
 class Skill_Attack;
+class FloatingBar;
 
 enum class UnitID
 {
@@ -246,6 +247,7 @@ public:
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 	Aura* aura = nullptr;
+	FloatingBar* bar = nullptr;
 
 public:
 	// 이동모션 관련
