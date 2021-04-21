@@ -31,6 +31,21 @@ void Indicator::Release()
 
 void Indicator::Update()
 {
+	if (target != nullptr)
+	{
+		if (target->IsDestroy())
+		{
+			target = nullptr;
+		}
+	}
+
+	if (target != nullptr)
+	{
+		if (target->stat == nullptr)
+		{
+			target = nullptr;
+		}
+	}
 
 	if (target != nullptr)
 	{

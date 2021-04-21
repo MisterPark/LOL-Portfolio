@@ -402,6 +402,16 @@ bool Engine::GameObject::IsDestroy()
 	return destroyFlag;
 }
 
+bool Engine::GameObject::IsRemove()
+{
+	return removeFlag;
+}
+
+void Engine::GameObject::SetRemove(bool _remove)
+{
+	removeFlag = _remove;
+}
+
 bool Engine::GameObject::IsVisible()
 {
 	return visible;
@@ -409,11 +419,8 @@ bool Engine::GameObject::IsVisible()
 
 bool Engine::GameObject::SetLayer(Layer _layer)
 {
-	if (this->layer == _layer) return false;
-
+	//SceneManager::GetCurrentScene()->ChangeLayer(this, layer, _layer);
 	this->layer = _layer;
-	SceneManager::GetCurrentScene()->RemoveObject(this);
-	SceneManager::GetCurrentScene()->AddObject(this, _layer);
 	for (auto iter : components)
 	{
 		IComponent* comp = iter.second;

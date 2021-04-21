@@ -212,6 +212,7 @@
     <ClInclude Include="ItemshopSlot.h" />
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="ScuttleracerAI.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
     <ClInclude Include="BaseObject.h" />
@@ -474,6 +475,7 @@
     <ClCompile Include="ItemshopSlot.cpp" />
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="ScuttleracerAI.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />
     <ClCompile Include="BehaviorTree.cpp" />

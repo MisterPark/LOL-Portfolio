@@ -9,13 +9,14 @@
 #include "DamageCalc_Basic.h"
 #include "MonsterSubTree.h"
 #include "Skill_Attack.h"
+#include "Scuttleracer.h"
 
 Monster::Monster()
 {
 	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
-	
-	AddComponent<MonsterAI>(L"MonsterAI");
+	if(dynamic_cast<Scuttleracer*>(this) == nullptr)
+		AddComponent<MonsterAI>(L"MonsterAI");
 	collider->SetRadius(0.2f);
 	collider->center = { 0.f,0.25f,0.f };
 

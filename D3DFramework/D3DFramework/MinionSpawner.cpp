@@ -108,6 +108,7 @@ void MinionSpawner::Update()
 			for (int i = 0; i < laneCount; i++)
 			{
 				Team team = (i < (int)SpawnLane::RedTop) ? Team::BLUE : Team::RED;
+			
 				PhaseType phaseType = self->spawnPhase[i];
 				int phaseSize = self->phase[(int)phaseType].size();
 				if (phaseSize <= self->spawnCount) continue;
@@ -123,11 +124,23 @@ void MinionSpawner::Update()
 			self->spawnCount = 0;
 		}
 	}
+
+	if (self->firstSpawn)
+	{
+		self->waveTick += Time::DeltaTime();
+
+		if (self->waveTick >= self->waveDelay)
+		{
+			self->waveTick = 0.f;
+			Spawn();
+		}
+	}
 }
 
 void MinionSpawner::Spawn()
 {
 	self->spawnFlag = true;
+	self->firstSpawn = true;
 }
 
 Minion* MinionSpawner::CreateMinion(MinionType _type, Team _team, SpawnLane _spawnLane)
@@ -194,6 +207,7 @@ Minion* MinionSpawner::CreateMinion(MinionType _type, Team _team, SpawnLane _spa
 	}
 
 	if (minion == nullptr) return minion;
+	self->minionAllocCount--;
 
 	// 스폰 위치
 	minion->transform->position = self->spawnPosition[(int)_spawnLane];
@@ -207,6 +221,7 @@ Minion* MinionSpawner::CreateMinion(MinionType _type, Team _team, SpawnLane _spa
 		minion->ai->wayPoint.push_back(self->wayPoints[(int)_spawnLane][i]);
 	}
 
+	minion->Show();
 	return minion;
 }
 
@@ -215,4 +230,14 @@ void MinionSpawner::SetMinionPhase(SpawnLane _spawnLane, PhaseType _phaseType)
 	GetInstance();
 
 	self->spawnPhase[(int)_spawnLane] = _phaseType;
+}
+
+PhaseType MinionSpawner::GetSpawnPhase(SpawnLane _spawnLane)
+{
+	return self->spawnPhase[(int)_spawnLane];
+}
+
+void MinionSpawner::IncreaseCount()
+{
+	self->minionAllocCount++;
 }

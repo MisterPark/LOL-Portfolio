@@ -49,7 +49,10 @@ void Skill_MissFortune_P::OnHit(Unit* target, Skill* mySkill)
 		if (lastAttack == nullptr) return;
 		float finalDamage = host->stat->GetValue(StatType::AttackDamage) * 0.5f;
 		Calc_FinalDamage(&finalDamage, host->stat, lastAttack->stat);
-		host->attackTarget->OnDamaged(host, this, &finalDamage);
+		if (host->attackTarget != nullptr)
+		{
+			host->attackTarget->OnDamaged(host, this, &finalDamage);
+		}
 		target->TakeDamage(finalDamage);
 
 		Skill_MissFortune_W* skillW = dynamic_cast<Skill_MissFortune_W*>(host->skillList[(int)SkillIndex::W]);
