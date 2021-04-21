@@ -9,7 +9,5 @@ public:
 
     virtual void Update() override;
 
-private:
-    float healValue = 0.f;
 };
 

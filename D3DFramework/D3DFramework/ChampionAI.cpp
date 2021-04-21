@@ -2,6 +2,9 @@
 #include "ChampionAI.h"
 #include "MiniScorePanel.h"
 #include "Champion.h"
+#include "Monster.h"
+#include "Minion.h"
+#include "Building.h"
 
 ChampionAI::ChampionAI(GameObject* owner)
     :IComponent(owner)
@@ -23,6 +26,7 @@ void ChampionAI::Update()
     if (unit->IsDead())
     {
         deadFlag = true;
+        target = nullptr;
         return;
     }
     if (deadFlag)
@@ -49,23 +53,51 @@ void ChampionAI::Update()
 
     float dt = Time::DeltaTime();
 
-    if (unit->GetAttackTarget() == nullptr)
+    // 타겟 검색
+    if (target == nullptr)
     {
-        unit->SetAttackTarget(unit->GetLastAttacker());
+        target = unit->GetLastAttacker();
 
-        if (unit->GetAttackTarget() == nullptr)
+        if (target == nullptr)
         {
-            unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 3.5f));
-            unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
+            Unit* enemy = unit->GetNearestEnemy(unit->transform->position, 5.f);
+            if (dynamic_cast<Champion*>(enemy) || dynamic_cast<Minion*>(enemy) || dynamic_cast<Building*>(enemy))
+            {
+                target = enemy;
+            }
+        }
+    }
+    else
+    {
+        if (target->IsDead())
+        {
+            target = nullptr;
         }
     }
 
-    if (unit->GetAttackTarget() != nullptr) // 타겟이 있을 때
+    if (target != nullptr)
     {
-        if (unit->GetAttackTarget()->IsDead())
+        unit->SetAttackTarget(target);
+        unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
+    }
+
+    if (target != nullptr) // 타겟이 있을 때
+    {
+        float attackRange = unit->stat->GetValue(StatType::Range);
+        Vector3 to = unit->GetAttackTarget()->transform->position - unit->transform->position;
+        float dist = to.Length();
+        if (dist > attackRange)
         {
-            unit->SetAttackTarget(nullptr);
-            return;
+            float remainDist = dist - attackRange + 0.5f;
+            Vector3 point = unit->transform->position + to.Normalized() * remainDist;
+            Ray ray;
+            ray.origin = unit->transform->position;
+            ray.direction = to.Normalized();
+            RaycastHit hit;
+            bool hitWall = Physics::Raycast(ray, &hit, INFINITY, LayerMask::GetMask(Layer::Wall));
+
+            unit->agent->SetDestination(point, !hitWall);
+            
         }
     }
     else //  타겟이 없을 때

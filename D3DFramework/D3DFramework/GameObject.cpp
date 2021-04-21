@@ -33,11 +33,14 @@ void Engine::GameObject::PreUpdate()
 {
 	for (auto& comp : components)
 	{
-		if(comp.second) comp.second->PreUpdate();
+		if (comp.second == nullptr) continue;
+		if (comp.second->enable == false) continue;
+		comp.second->PreUpdate();
 	}
 	for (auto iter : children)
 	{
-		if(iter.second) iter.second->PreUpdate();
+		if (iter.second == nullptr) continue;
+		iter.second->PreUpdate();
 	}
 }
 
@@ -45,12 +48,15 @@ void Engine::GameObject::Update()
 {
 	for (auto& comp : components)
 	{
-		if(comp.second) comp.second->Update();
+		if (comp.second == nullptr) continue;
+		if (comp.second->enable == false) continue;
+		comp.second->Update();
 	}
 
 	for (auto iter : children)
 	{
-		if(iter.second) iter.second->Update();
+		if (iter.second == nullptr) continue;
+		iter.second->Update();
 	}
 }
 
@@ -58,12 +64,15 @@ void Engine::GameObject::PostUpdate()
 {
 	for (auto& comp : components)
 	{
-		if(comp.second) comp.second->PostUpdate();
+		if (comp.second == nullptr) continue;
+		if (comp.second->enable == false) continue;
+		comp.second->PostUpdate();
 	}
 
 	for (auto iter : children)
 	{
-		if(iter.second) iter.second->PostUpdate();
+		if (iter.second == nullptr) continue;
+		iter.second->PostUpdate();
 	}
 }
 
@@ -291,6 +300,20 @@ void Engine::GameObject::AddWeak(Engine::EventBase* evt)
 void Engine::GameObject::OnEventDelete(Engine::EventBase* evt)
 {
 	events.erase(evt);
+}
+
+void Engine::GameObject::Freeze()
+{
+	for (auto& comp : components)
+	{
+		if (dynamic_cast<Transform*>(comp.second)) continue;
+		comp.second->enable = false;
+	}
+
+	for (auto& child : children)
+	{
+		child.second->Freeze();
+	}
 }
 
 IComponent* Engine::GameObject::AddComponent(const wstring& _key, IComponent* _component)

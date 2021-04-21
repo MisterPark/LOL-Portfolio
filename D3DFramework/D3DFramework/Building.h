@@ -17,6 +17,5 @@ public:
     
 public:
     list<Building*> frontBuildingList;
-    TurretFloatingBar* bar = nullptr;
 };
 

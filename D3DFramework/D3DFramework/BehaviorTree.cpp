@@ -31,6 +31,7 @@ Engine::BehaviorTree::~BehaviorTree()
 
 void Engine::BehaviorTree::Update()
 {
+    if (enable == false) return;
     if (root == nullptr) return;
     root->Update();
 }

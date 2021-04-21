@@ -11,6 +11,7 @@
 class Indicator;
 class TargetingSkill;
 class Skill_Attack;
+class FloatingBar;
 
 enum class UnitID
 {
@@ -231,6 +232,9 @@ public:
 	bool AddItem(UINT _id); // 인벤토리에 그냥 아이템을 집어넣음
 	bool BuyItem(UINT _id); // 골드를 깎으면서 아이템을 집어넣음
 	void SellItem(int _idx);
+
+public:
+	static void StopAll();
 	
 public:
 	static list<Unit*> unitList;
@@ -243,6 +247,7 @@ public:
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 	Aura* aura = nullptr;
+	FloatingBar* bar = nullptr;
 
 public:
 	// 이동모션 관련

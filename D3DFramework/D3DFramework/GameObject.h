@@ -90,6 +90,8 @@ namespace Engine
 		//event관련하여
 		void AddWeak(Engine::EventBase* evt);
 		void OnEventDelete(Engine::EventBase* evt);
+
+		void Freeze();
 	public:
 		wstring name;
 		wstring tag;

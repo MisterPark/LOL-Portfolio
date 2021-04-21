@@ -29,7 +29,7 @@ public:
     //스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
     virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
 public:
-    FloatingBar* bar = nullptr;
+    
 	FloatingHPBar* hpBar = nullptr;
     wstring faceCircleTexkey;
     wstring faceSquareTexkey;

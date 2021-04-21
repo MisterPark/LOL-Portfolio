@@ -31,6 +31,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::Update()
 {
+    if (enable == false) return;
     if (gameObject == nullptr)return;
 
     if (Input::GetKeyDown('A'))

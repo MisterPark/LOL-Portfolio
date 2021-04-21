@@ -21,6 +21,7 @@ Engine::NavMeshAgent::~NavMeshAgent()
 
 void Engine::NavMeshAgent::Update()
 {
+    if (enable == false) return;
     float dt = Time::DeltaTime();
 
     if (isMoving)
