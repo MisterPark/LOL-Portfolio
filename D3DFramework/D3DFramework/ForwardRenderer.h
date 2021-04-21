@@ -24,6 +24,7 @@ namespace Engine
 		void SetColormapTex(const std::wstring& _tag);
 		Vector2 GetUVOffset();
 		void SetUVOffset(Vector2 _uvOffset);
+		void SetAlpha(float _alpha);
 		virtual void Render() override;
 		virtual IComponent* Clone() override;
 	private:
@@ -33,5 +34,6 @@ namespace Engine
 		Mesh* mesh;
 		Texture* colormapTex = nullptr;
 		Vector2 uvOffset = { 0.f, 0.f };
+		float alpha = 1.f;
 	};
 }

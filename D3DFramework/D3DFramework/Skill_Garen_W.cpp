@@ -6,6 +6,7 @@
 #include "Buff_GarenWShield.h"
 #include "Buff_GarenWPassive.h"
 #include "Effect_Garen_W.h"
+#include "Effect_Garen_W_Shield.h"
 
 Skill_Garen_W::Skill_Garen_W(Unit* _hostUnit)
 {
@@ -33,6 +34,12 @@ void Skill_Garen_W::Start()
 	eff->SetTarget(host);
 	eff->SetOffset(Vector3(0.f, 0.1f, 0.f));
 	eff->SetDuration(0.75f);
+
+	Effect_Garen_W_Shield* effS = (Effect_Garen_W_Shield*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_W_Shield>(Layer::Effect);
+	effS->SetTarget(host);
+	effS->SetOffset(Vector3(0.f, 1.0f, 0.f));
+	effS->SetDuration(0.5f);
+	effS->transform->eulerAngles.y -= D3DXToRadian(20.f);
 
 	reductionTime = 1.25f + level * 0.75f;
 	Buff_GarenWReduction* reductionBuff = new Buff_GarenWReduction(host, reductionTime, 0.5f);//reductionValue);

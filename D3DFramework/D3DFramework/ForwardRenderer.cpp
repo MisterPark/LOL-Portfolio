@@ -76,6 +76,11 @@ void Engine::ForwardRenderer::SetUVOffset(Vector2 _uvOffset)
 	uvOffset = _uvOffset;
 }
 
+void Engine::ForwardRenderer::SetAlpha(float _alpha)
+{
+	alpha = _alpha;
+}
+
 void Engine::ForwardRenderer::Render()
 {
 	if (visible == false) return;
@@ -93,6 +98,7 @@ void Engine::ForwardRenderer::Render()
 	effect->SetFloat("g_uOffset", uvOffset.x);
 	effect->SetFloat("g_vOffset", uvOffset.y);
 	effect->SetTexture("g_colormap", colormapTex->pTexture);
+	effect->SetFloat("g_alpha", alpha);
 	effect->Begin(&passCount, 0);
 	effect->BeginPass(pass);
 	for (int i = 0; i < subsetCount; ++i)

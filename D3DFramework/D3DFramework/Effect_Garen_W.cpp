@@ -4,10 +4,12 @@
 
 Effect_Garen_W::Effect_Garen_W()
 {
+	// wing
 	CustomMesh* mesh = (CustomMesh*)GetComponent(L"Mesh");
 	mesh->SetTexture(L"garen_base_w_wings");
 	mesh->transform->position = { 0.f, 0.5f, 0.f };
 
+	// wave
 	Engine::Plane* meshWave = (Engine::Plane*)AddComponent<Engine::Plane>(L"MeshWave");
 	meshWave->SetTexture(L"garen_base_w_energy_wave");
 	ForwardRenderer* rendererWave = new ForwardRenderer{ this, L"./forward.fx" };

@@ -23,6 +23,7 @@ texture g_diffuseTexture;
 texture g_colormap;
 float g_uOffset;
 float g_vOffset;
+float g_alpha;
 sampler DiffuseTextureSampler = sampler_state
 {
 	texture = g_diffuseTexture;
@@ -54,7 +55,9 @@ VSOut vs_main(VSIn input)
 }
 float4 ps_missile(PSIn input) :COLOR0
 {
-	return tex2D(DiffuseTextureSampler, input.vUV);
+	float4 diff = tex2D(DiffuseTextureSampler, input.vUV);
+	diff.a *= g_alpha;
+	return diff;
 }
 float4 ps_colormap(PSIn input) :COLOR0
 {
