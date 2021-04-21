@@ -1185,6 +1185,10 @@
     <ClInclude Include="ChampionAI.h">
       <Filter>Component\AI</Filter>
     </ClInclude>
+    <ClInclude Include="ChampionAI.h" />
+    <ClInclude Include="ScuttleracerAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2028,6 +2032,10 @@
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
     <ClCompile Include="ChampionAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ChampionAI.cpp" />
+    <ClCompile Include="ScuttleracerAI.cpp">
       <Filter>Component\AI</Filter>
     </ClCompile>
   </ItemGroup>

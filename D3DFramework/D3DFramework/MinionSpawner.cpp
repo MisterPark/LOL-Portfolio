@@ -108,6 +108,7 @@ void MinionSpawner::Update()
 			for (int i = 0; i < laneCount; i++)
 			{
 				Team team = (i < (int)SpawnLane::RedTop) ? Team::BLUE : Team::RED;
+			
 				PhaseType phaseType = self->spawnPhase[i];
 				int phaseSize = self->phase[(int)phaseType].size();
 				if (phaseSize <= self->spawnCount) continue;
@@ -229,6 +230,11 @@ void MinionSpawner::SetMinionPhase(SpawnLane _spawnLane, PhaseType _phaseType)
 	GetInstance();
 
 	self->spawnPhase[(int)_spawnLane] = _phaseType;
+}
+
+PhaseType MinionSpawner::GetSpawnPhase(SpawnLane _spawnLane)
+{
+	return self->spawnPhase[(int)_spawnLane];
 }
 
 void MinionSpawner::IncreaseCount()

@@ -11,6 +11,6 @@ public:
     virtual ~Inhibitor();
 
     virtual void SetTeam(Team _team);
-
+    virtual void Die() override;
 };
 
