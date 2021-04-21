@@ -6,10 +6,13 @@
 #include "MinionSubTree.h"
 #include "Skill_Attack.h"
 
+#include "MinionSpawner.h"
+
 Minion::Minion()
 {
+	
 	SetSpawnTime(INFINITY);
-
+	
 	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 
@@ -20,12 +23,20 @@ Minion::Minion()
 
 	MinionSubTree* subTree = new MinionSubTree(this);
 	bt->SetRoot(subTree);
+
+	Hide();
 }
 
 Minion::~Minion()
 {
 	bar = nullptr;
 	ai = nullptr;
+}
+
+void Minion::OnDie()
+{
+	MinionSpawner::IncreaseCount();
+	Destroy();
 }
 
 void Minion::OnCollisionEnter(Collider* target)

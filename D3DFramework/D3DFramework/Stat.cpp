@@ -4,6 +4,7 @@
 #include "Buff.h"
 #include "Garen.h"
 #include "Slot.h"
+#include "AllMinion.h"
 
 Stat::Stat(GameObject* owner) :IComponent(owner)
 {

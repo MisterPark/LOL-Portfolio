@@ -148,6 +148,13 @@ void TestScene::Update()
 	
 }
 
+void TestScene::PostUpdate()
+{
+	Scene::PostUpdate();
+
+	MinionSpawner::Update();
+}
+
 void TestScene::Progress()
 {
 	int minute = 0;
@@ -156,19 +163,18 @@ void TestScene::Progress()
 
 	if (minute == 0 && second == 25)
 	{
-		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+		//SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
 	}
 	else if (minute == 0 && second == 35)
 	{
-		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+		//SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
 	}
 	else if (minute == 1 && second == 5)
 	{
-		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
+		//SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
 		MinionSpawner::Spawn();
 	}
 
-	MinionSpawner::Update();
 }
 
 //============================================================================================

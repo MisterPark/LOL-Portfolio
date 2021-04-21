@@ -26,13 +26,8 @@ void Engine::SkinnedMeshRenderer::Render()
 	mesh->UpdateFrame();
 	
 	Matrix matrix = transform->GetWorldMatrix();
-
-	//Vector3 worldPos = *((Vector3*)&transform->worldMatrix._41);
 	Vector3 worldPos = *((Vector3*)&matrix._41);
-	if (FogOfWarRenderSystem::IsInSight(worldPos) == false)
-	{
-		return;
-	}
+	
 
 	// TODO : Render 반경 계산 해야할듯?
 	if (Frustum::Intersect(&worldPos, 1.f) == false) return;

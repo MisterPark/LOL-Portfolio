@@ -61,7 +61,8 @@ namespace Engine
 		void DeleteComponent(const wstring& _key);
 
 		bool IsDestroy();
-
+		bool IsRemove();
+		void SetRemove(bool _remove);
 
 		// getter
 		IComponent* GetComponent(const wstring& _key);
@@ -108,6 +109,7 @@ namespace Engine
 		std::set<Engine::EventBase*> events;
 	protected:
 		bool destroyFlag = false;
+		bool removeFlag = false;
 	private:
 		Layer layer = Layer::Default;
 		map<wstring, int> childKeyCount;

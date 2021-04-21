@@ -55,6 +55,7 @@ Turret::~Turret()
 
 void Turret::Update()
 {
+	
 	// 타겟팅
 	if (attackTarget == nullptr)
 	{
@@ -62,6 +63,7 @@ void Turret::Update()
 	}
 	else
 	{
+
 		Vector3 to = attackTarget->transform->position - transform->position;
 		float dist = to.Length();
 		if (dist > (*stat)[StatType::Range])

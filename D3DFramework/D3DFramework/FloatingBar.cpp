@@ -59,6 +59,14 @@ void FloatingBar::PostUpdate()
 
 	if (target != nullptr)
 	{
+		if (target->stat == nullptr)
+		{
+			target = nullptr;
+		}
+	}
+
+	if (target != nullptr)
+	{
 		//visible = target->visible;
 		//Show(visible);
 

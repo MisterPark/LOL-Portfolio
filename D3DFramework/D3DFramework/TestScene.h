@@ -14,6 +14,7 @@ public:
     virtual void OnLoaded() override;
     virtual void OnUnloaded() override;
     virtual void Update() override;
+    virtual void PostUpdate() override;
 
     void Progress();
 
