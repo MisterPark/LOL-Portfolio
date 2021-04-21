@@ -17,6 +17,7 @@ public:
 	void SetLoop(bool _isLoop);
     void SetDelay(float _delay);
 	void SetTick(float _tick);
+    void SetPlay(bool _play);
     void Initialize();
     TextureID GetCurrentSprite();
     TextureID GetStartSprite();
@@ -33,6 +34,7 @@ private:
 
     float delay = 0.2f;
     float tick = 0.f;
+    bool isPlay = true;
     bool isLoop = false;
 	bool isEndFrame = false;
 };

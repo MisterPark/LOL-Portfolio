@@ -26,7 +26,7 @@ void Engine::Animation2D::Update()
 		
 
 	tick += Time::DeltaTime();
-	if (tick > delay)
+	if (isPlay && (tick > delay))
 	{
 		tick = 0;
 
@@ -93,6 +93,11 @@ void Engine::Animation2D::SetDelay(float _delay)
 void Engine::Animation2D::SetTick(float _tick)
 {
 	tick = _tick;
+}
+
+void Engine::Animation2D::SetPlay(bool _play)
+{
+	isPlay = _play;
 }
 
 void Engine::Animation2D::Initialize()

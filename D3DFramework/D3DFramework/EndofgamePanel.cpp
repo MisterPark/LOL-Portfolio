@@ -26,6 +26,7 @@ EndofgamePanel::EndofgamePanel()
     ani0->SetSprite(RenderManager::GetTextureID(L"eog_fb_color_01_01"), RenderManager::GetTextureID(L"eog_fb_color_01_17"));
     ani0->SetDelay(0.1f);
     ani0->SetLoop(false);
+    ani0->SetPlay(false);
 
     backeffect.push_back(AddChild<UI>(L"backeffect2", new UI(L"eog_fb_color_02_01", Vector2(507, 24))));
     backeffect[1]->transform->scale = { 1.32f, 1.32f, 1.f };
@@ -35,6 +36,7 @@ EndofgamePanel::EndofgamePanel()
     ani1->SetSprite(RenderManager::GetTextureID(L"eog_fb_color_02_01"), RenderManager::GetTextureID(L"eog_fb_color_02_17"));
     ani1->SetDelay(0.1f);
     ani1->SetLoop(false);
+    ani1->SetPlay(false);
 
     backeffect.push_back(AddChild<UI>(L"backeffect3", new UI(L"eog_fb_color_03_01", Vector2(507, 24))));
     backeffect[2]->transform->scale = { 1.32f, 1.32f, 1.f };
@@ -44,6 +46,7 @@ EndofgamePanel::EndofgamePanel()
     ani2->SetSprite(RenderManager::GetTextureID(L"eog_fb_color_03_01"), RenderManager::GetTextureID(L"eog_fb_color_03_12"));
     ani2->SetDelay(0.1f);
     ani2->SetLoop(true);
+    ani2->SetPlay(false);
 
     victoryFont = victoryBack->AddChild<UI>(L"victoryFont", new UI(L"eog_victory", Vector2(0, 0)));
     defeatFont = defeatBack->AddChild<UI>(L"defeatFont", new UI(L"eog_defeat", Vector2(0, 0)));
@@ -88,6 +91,8 @@ void EndofgamePanel::Update()
 {
     UI::Update();
 
+    if (!IsVisible()) return;
+
     switch (effectidx) {
     case 0:
         if (backeffect[effectidx]->GetComponent<Animation2D>()->IsEndFrame()) {
@@ -95,6 +100,7 @@ void EndofgamePanel::Update()
             effectidx++;
             backeffect[effectidx]->Show(true);
             backeffect[effectidx]->GetComponent<Animation2D>()->Initialize();
+            backeffect[effectidx]->GetComponent<Animation2D>()->SetPlay(true);
         }
         break;
 
@@ -104,6 +110,8 @@ void EndofgamePanel::Update()
             effectidx++;
             backeffect[effectidx]->Show(true);
             backeffect[effectidx]->GetComponent<Animation2D>()->Initialize();
+            backeffect[effectidx]->GetComponent<Animation2D>()->SetPlay(true);
+
             if(isVictory) victoryBack->Show(true);
             else          defeatBack->Show(true);
             btnContinue->Show(true);
@@ -121,18 +129,21 @@ void EndofgamePanel::ShowVictory()
 
     effectidx = 0;
 
+    Show(true);
+
     victoryBack->Show(false);
     defeatBack->Show(false);
     btnContinue->Show(false);
-    backeffect[0]->GetComponent<UIRenderer>()->SetGradientMapIndex(1);
-    backeffect[1]->GetComponent<UIRenderer>()->SetGradientMapIndex(1);
-    backeffect[2]->GetComponent<UIRenderer>()->SetGradientMapIndex(1);
+
+    for (int i = 0; i < backeffect.size(); ++i) {
+
+        backeffect[i]->GetComponent<UIRenderer>()->SetGradientMapIndex(1);
+        backeffect[i]->Show(false);
+        backeffect[i]->GetComponent<Animation2D>()->Initialize();
+    }
 
     backeffect[0]->Show(true);
-    backeffect[1]->Show(false);
-    backeffect[2]->Show(false);
-
-    backeffect[0]->Initialize();
+    backeffect[0]->GetComponent<Animation2D>()->SetPlay(true);
 }
 
 void EndofgamePanel::ShowDefeat()
@@ -140,17 +151,20 @@ void EndofgamePanel::ShowDefeat()
     isVictory = false;
 
     effectidx = 0;
+    
+    Show(true);
 
     victoryBack->Show(false);
     defeatBack->Show(false);
     btnContinue->Show(false);
-    backeffect[0]->GetComponent<UIRenderer>()->SetGradientMapIndex(2);
-    backeffect[1]->GetComponent<UIRenderer>()->SetGradientMapIndex(2);
-    backeffect[2]->GetComponent<UIRenderer>()->SetGradientMapIndex(2);
+
+    for (int i = 0; i < backeffect.size(); ++i) {
+
+        backeffect[i]->GetComponent<UIRenderer>()->SetGradientMapIndex(2);
+        backeffect[i]->Show(false);
+        backeffect[i]->GetComponent<Animation2D>()->Initialize();
+    }
 
     backeffect[0]->Show(true);
-    backeffect[1]->Show(false);
-    backeffect[2]->Show(false);
-
-    backeffect[0]->Initialize();
+    backeffect[0]->GetComponent<Animation2D>()->SetPlay(true);
 }
