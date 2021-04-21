@@ -12,6 +12,8 @@ public:
     static EndofgamePanel* GetInstance();
     static void DestroyInstance();
 
+    virtual void Update() override;
+
     void ShowVictory();
     void ShowDefeat();
 
@@ -21,5 +23,9 @@ private:
     UI* defeatBack = nullptr;
     UI* defeatFont = nullptr;
     Button* btnContinue = nullptr;
+
+    vector<UI*> backeffect;
+    int effectidx = 0;
+    bool isVictory = true;
 };
 

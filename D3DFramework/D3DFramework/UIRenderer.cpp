@@ -14,6 +14,8 @@ Engine::UIRenderer::UIRenderer(GameObject* owner)
 	RenderManager::LoadTexture(L"Resource/texture/", L"timer.png");
 	timerGradientTex = RenderManager::GetTexture(L"timer");
 	timerRatio = 1.f;
+
+	gradientmapTex = RenderManager::GetTexture(L"eog_gradientmap");
 }
 
 IComponent* Engine::UIRenderer::Clone()
@@ -59,6 +61,9 @@ void Engine::UIRenderer::Render()
 	effect->SetFloat("g_timerThresHold", timerRatio);
 	effect->SetVector("g_timerColor", &timerColor);
 	effect->SetBool("g_grayscale", ui->grayscale);
+	effect->SetTexture("g_gradientMap", gradientmapTex->pTexture);
+	effect->SetFloat("g_gradientmapMaxCnt", (FLOAT)gradientmapMaxCnt);
+	effect->SetFloat("g_gradientmapIndex", (FLOAT)gradientmapIndex);
 	effect->BeginPass(0);
 
 	mesh->RenderSubset(0);
@@ -75,6 +80,18 @@ void Engine::UIRenderer::SetMesh(Engine::Mesh* mesh)
 void Engine::UIRenderer::SetTimerRatio(float ratio)
 {
 	this->timerRatio = ratio;
+}
+
+void Engine::UIRenderer::SetGradientMap(const std::wstring& _maptag, int _max, int _idx)
+{
+	timerGradientTex = RenderManager::GetTexture(_maptag);
+	gradientmapMaxCnt = _max;
+	gradientmapIndex = _idx;
+}
+
+void Engine::UIRenderer::SetGradientMapIndex(int _idx)
+{
+	gradientmapIndex = _idx;
 }
 
 void Engine::UIRenderer::BringToTop()

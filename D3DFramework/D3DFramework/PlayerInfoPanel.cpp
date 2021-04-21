@@ -324,6 +324,7 @@ void PlayerInfoPanel::Update()
 
 	if (!IsVisible()) return;
 	if (champion == nullptr) return;
+
 	if (champion->IsDead()) facePanel->grayscale = true;
 	else					facePanel->grayscale = false;
 
