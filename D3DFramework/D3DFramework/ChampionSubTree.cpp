@@ -87,9 +87,13 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	attackCondition->SetCondition((Unit**)&champ, &Unit::HasAttackTarget);
 	attackSelector->AddChild(attackCondition);
 
+	ConditionNode<Skill>* attackRangeCondition = new ConditionNode<Skill>();
+	attackRangeCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::InRange);
+	attackCondition->SetChild(attackRangeCondition);
+
 	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
 	attackAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::Active);
-	attackCondition->SetChild(attackAction);
+	attackRangeCondition->SetChild(attackAction);
 
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
 	moveCondition->SetCondition((NavMeshAgent**)&champ->agent, &NavMeshAgent::IsPathRemain);

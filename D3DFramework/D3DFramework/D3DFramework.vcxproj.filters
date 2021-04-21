@@ -1182,7 +1182,9 @@
     <ClInclude Include="EndofgamePanel.h">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
-    <ClInclude Include="ChampionAI.h" />
+    <ClInclude Include="ChampionAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2025,7 +2027,9 @@
     <ClCompile Include="EndofgamePanel.cpp">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
-    <ClCompile Include="ChampionAI.cpp" />
+    <ClCompile Include="ChampionAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

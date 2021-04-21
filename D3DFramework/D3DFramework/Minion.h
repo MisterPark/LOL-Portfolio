@@ -17,7 +17,6 @@ public:
 
 
 public:
-    MinionFloatingBar* bar = nullptr;
     MinionAI* ai = nullptr;
     
 };
