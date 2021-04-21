@@ -37,10 +37,10 @@ void Skill_Garen_R::Start()
 	Skill::Start();
 	host->OnOtherSkillStart(this);
 
-	Effect_Garen_R* eff = (Effect_Garen_R*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Effect);
-	eff->SetTarget(host);
-	eff->SetOffset(Vector3(0.f, 0.f, 0.f));
-	eff->SetDuration(1);
+	//Effect_Garen_R* eff = (Effect_Garen_R*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Effect);
+	//eff->SetTarget(host);
+	//eff->SetOffset(Vector3(0.f, 0.f, 0.f));
+	//eff->SetDuration(1);
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
