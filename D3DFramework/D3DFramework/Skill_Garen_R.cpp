@@ -7,6 +7,7 @@
 #include "DamageCalc_Basic.h"
 #include "DamageCalc_LostHpPercent.h"
 #include "Champion.h"
+#include "Effect_Garen_R.h"
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
@@ -35,6 +36,11 @@ void Skill_Garen_R::Start()
 
 	Skill::Start();
 	host->OnOtherSkillStart(this);
+
+	//Effect_Garen_R* eff = (Effect_Garen_R*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R>(Layer::Effect);
+	//eff->SetTarget(host);
+	//eff->SetOffset(Vector3(0.f, 0.f, 0.f));
+	//eff->SetDuration(1);
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 

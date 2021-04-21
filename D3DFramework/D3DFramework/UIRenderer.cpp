@@ -84,7 +84,7 @@ void Engine::UIRenderer::SetTimerRatio(float ratio)
 
 void Engine::UIRenderer::SetGradientMap(const std::wstring& _maptag, int _max, int _idx)
 {
-	timerGradientTex = RenderManager::GetTexture(_maptag);
+	gradientmapTex = RenderManager::GetTexture(_maptag);
 	gradientmapMaxCnt = _max;
 	gradientmapIndex = _idx;
 }
