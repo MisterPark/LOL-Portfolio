@@ -36,6 +36,7 @@ void Nexus::Die()
 {
 	Building::Die();
 
+	Unit::StopAll();
 	UI::HideAllUI();
 
 	Cursor::Show();

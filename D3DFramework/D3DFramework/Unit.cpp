@@ -898,6 +898,15 @@ void Unit::SellItem(int _idx)
 	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
 }
 
+
+void Unit::StopAll()
+{
+	for (auto& unit : unitList)
+	{
+		unit->Freeze();
+	}
+}
+
 template<class T>
 inline Unit::HitInfo Unit::GetLastHitInfo()
 {
