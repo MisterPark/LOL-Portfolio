@@ -14,6 +14,7 @@
 #include "Skill_Item_SteelTipped.h" // 곡궁
 #include "Skill_Item_Crescent.h" // 강철가시 채찍
 #include "Skill_Item_Immolate.h" //바미의 불씨
+#include "Skill_Item_HealthPotion.h" // 체력 포션
 
 ItemManager* pItemManager = nullptr;
 
@@ -31,6 +32,7 @@ ItemManager::ItemManager()
 	skills.emplace(L"망령의 발걸음", new Skill_Item_WraithStep(nullptr));
 	skills.emplace(L"초승달", new Skill_Item_Crescent(nullptr));
 	skills.emplace(L"불사르기", new Skill_Item_Immolate(nullptr));
+	skills.emplace(L"체력포션", new Skill_Item_HealthPotion(nullptr));
 }
 
 ItemManager::~ItemManager()

@@ -25,13 +25,15 @@ void Skill_Item_HealthPotion::Start()
 	Skill::Start();
 
 	float healthValue = 150.f;
-	Buff_Item_HealthPotion* speedBuff = new Buff_Item_HealthPotion(host, 15.f, healthValue);
+	Buff_Item_HealthPotion* speedBuff = new Buff_Item_HealthPotion(host, 5.f, healthValue);
 	host->stat->AddBuff(speedBuff);
 
 	for (int i = 0; i < INVENTORY_MAX; i++) {
 		Item* item = host->inventory.GetItem(i);
+		if (item == nullptr) continue;
 		if (item->skillList.front()->GetSkillName() == skillName) {
-			//item->
+			host->inventory.Pop(i);
+			break;
 		}
 	}
 }
