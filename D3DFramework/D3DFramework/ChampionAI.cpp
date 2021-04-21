@@ -26,7 +26,6 @@ void ChampionAI::Update()
     if (unit->IsDead())
     {
         deadFlag = true;
-        target = nullptr;
         return;
     }
     if (deadFlag)
@@ -54,35 +53,27 @@ void ChampionAI::Update()
     float dt = Time::DeltaTime();
 
     // 타겟 검색
-    if (target == nullptr)
+    if (unit->GetAttackTarget() == nullptr)
     {
-        target = unit->GetLastAttacker();
+        unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 5.5f));
 
-        if (target == nullptr)
+        if (unit->GetAttackTarget() == nullptr)
         {
-            Unit* enemy = unit->GetNearestEnemy(unit->transform->position, 5.f);
-            if (dynamic_cast<Champion*>(enemy) || dynamic_cast<Minion*>(enemy) || dynamic_cast<Building*>(enemy))
-            {
-                target = enemy;
-            }
+            
+            unit->SetAttackTarget(unit->GetLastAttacker());
         }
     }
-    else
+    
+
+    if (unit->GetAttackTarget() != nullptr) // 타겟이 있을 때
     {
-        if (target->IsDead())
+        if (unit->GetAttackTarget()->IsDead())
         {
-            target = nullptr;
+            unit->SetAttackTarget(nullptr);
+            unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
+            return;
         }
-    }
 
-    if (target != nullptr)
-    {
-        unit->SetAttackTarget(target);
-        unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
-    }
-
-    if (target != nullptr) // 타겟이 있을 때
-    {
         float attackRange = unit->stat->GetValue(StatType::Range);
         Vector3 to = unit->GetAttackTarget()->transform->position - unit->transform->position;
         float dist = to.Length();
@@ -90,14 +81,7 @@ void ChampionAI::Update()
         {
             float remainDist = dist - attackRange + 0.5f;
             Vector3 point = unit->transform->position + to.Normalized() * remainDist;
-            Ray ray;
-            ray.origin = unit->transform->position;
-            ray.direction = to.Normalized();
-            RaycastHit hit;
-            bool hitWall = Physics::Raycast(ray, &hit, INFINITY, LayerMask::GetMask(Layer::Wall));
-
-            unit->agent->SetDestination(point, !hitWall);
-            
+            unit->SetDestination(point);
         }
     }
     else //  타겟이 없을 때
@@ -120,7 +104,7 @@ void ChampionAI::Update()
             unit->SetAttackTarget(nullptr);
             unit->agent->SetStoppingDistance(1.f);
             //unit->SetDestination(nextPoint);
-            unit->agent->SetDestination(nextPoint, true);
+            unit->SetDestination(nextPoint);
         }
     }
     

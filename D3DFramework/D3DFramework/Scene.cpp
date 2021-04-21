@@ -40,7 +40,7 @@ void Engine::Scene::PostUpdate()
 {
 	GameObject* target = nullptr;
 
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{
@@ -51,8 +51,13 @@ void Engine::Scene::PostUpdate()
 		{
 			target = *iter;
 
-
-			if (target->IsDestroy() && target->dontDestroy == false)
+			if (target->IsRemove())
+			{
+				target->SetRemove(false);
+				iter = objList.erase(iter);
+				continue;
+			}
+			else if (target->IsDestroy() && target->dontDestroy == false)
 			{
 				iter = objList.erase(iter);
 				delete target;
@@ -65,6 +70,13 @@ void Engine::Scene::PostUpdate()
 		}
 
 	}
+
+	for (auto& changeObj : changeList)
+	{
+		objectTable[(int)changeObj.origin].remove(changeObj.obj);
+		objectTable[(int)changeObj.change].push_back(changeObj.obj);
+	}
+	changeList.clear();
 }
 
 bool Engine::Scene::DeleteObject(GameObject* _target)
@@ -122,5 +134,15 @@ void Engine::Scene::AddObject(GameObject* _obj, Layer _layer)
 
 void Engine::Scene::RemoveObject(GameObject* _obj)
 {
-	objectTable[(int)_obj->GetLayer()].remove(_obj);
+	_obj->SetRemove(true);
+}
+
+void Engine::Scene::ChangeLayer(GameObject* _obj, Layer _origin, Layer _change)
+{
+	ChangeLayerNode node;
+	node.obj = _obj;
+	node.origin = _origin;
+	node.change = _change;
+
+	changeList.push_back(node);
 }
