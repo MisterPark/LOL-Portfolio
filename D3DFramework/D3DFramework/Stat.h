@@ -53,7 +53,7 @@ public:
 	void RemoveBuff(Buff* buff);
 
 	template<class T>
-	void RemoveBuff();
+	bool RemoveBuff();
 
 private:
 	Unit* unit = nullptr;
@@ -66,11 +66,14 @@ private:
 };
 
 template<class T>
-inline void Stat::RemoveBuff()
+inline bool Stat::RemoveBuff()
 {
+	bool success = false;
 	for (auto& buff : buffList)
 	{
 		if (dynamic_cast<T*>(buff) == nullptr) continue;
 		buff->tick = buff->duration;
+		success = true;
 	}
+	return success;
 }
