@@ -554,7 +554,8 @@ void Unit::SkillRAction()
 
 bool Unit::BehaviorTreeSkillSet()
 {
-	bool isActive = false;
+	bool isActive;
+	isActive = false;
 	for (int i = 1; i < (int)SkillIndex::END; i++)
 	{
 		isActive = skillList[i]->IsActive();
@@ -572,6 +573,7 @@ bool Unit::BehaviorTreeSkillSet()
 			return isActive;
 		}
 	}
+	return isActive;
 }
 
 void Unit::PushedOut(Unit* other)
