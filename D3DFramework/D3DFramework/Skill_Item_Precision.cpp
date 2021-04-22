@@ -39,7 +39,7 @@ Skill* Skill_Item_Precision::Clone()
 	return new Skill_Item_Precision(nullptr);
 }
 
-void Skill_Item_Precision::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
+void Skill_Item_Precision::OnHit(Unit* target, Skill* targetSkill, float* damage)
 {
 	if (dynamic_cast<Minion*>(target) != nullptr)
 		target->TakeDamage(20.f);

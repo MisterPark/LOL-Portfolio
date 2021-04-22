@@ -384,7 +384,7 @@ void PlayerInfoPanel::Update()
 	itemshopBtn->SetText((int)champion->stat->GetValue(StatType::Gold));
 
 	// Level
-	levelLabel->SetText(L"%d", champion->stat->GetValue(StatType::Level));
+	levelLabel->SetText(L"%d", (int)champion->stat->GetValue(StatType::Level));
 
 	// exp
 	expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /

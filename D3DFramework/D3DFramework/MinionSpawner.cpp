@@ -122,6 +122,13 @@ void MinionSpawner::Update()
 		{
 			self->spawnFlag = false;
 			self->spawnCount = 0;
+			for (int i = 0; i < MaxOfEnum<SpawnLane>(); i++)
+			{
+				if (self->spawnPhase[i] == PhaseType::MMMCCC)
+					self->spawnPhase[i] = PhaseType::MMMSCCC;
+				else if (self->spawnPhase[i] == PhaseType::MMMSCCC)
+					self->spawnPhase[i] = PhaseType::MMMCCC;
+			}
 		}
 	}
 

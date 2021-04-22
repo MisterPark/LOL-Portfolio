@@ -60,6 +60,26 @@ void DamageObject::OnCollisionEnter(Collider* target)
 		host->OnHit(host, hostSkill);
 		pUnit->TakeDamage(damage);
 		tempHitList.emplace_back(target->gameObject);
+
+		// 피격정보 저장
+		Unit::HitInfo info;
+		info.damageSum += damage;
+		info.unit = host;
+
+		auto iter = host->attackTarget->hitList.begin();
+		auto end = host->attackTarget->hitList.end();
+		for (; iter != end;)
+		{
+			if ((*iter).unit == host)
+			{
+				info.damageSum += (*iter).damageSum;
+				iter = host->attackTarget->hitList.erase(iter);
+				break;
+			}
+			++iter;
+		}
+
+		host->attackTarget->hitList.push_back(info);
 	}
 
 	Check_TotalHitList((Unit*)target->gameObject);
