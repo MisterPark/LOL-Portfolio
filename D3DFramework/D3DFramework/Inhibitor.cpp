@@ -19,6 +19,7 @@ Inhibitor::Inhibitor()
 	Engine::DeferredStaticMeshRenderer* renderer =
 		(Engine::DeferredStaticMeshRenderer*)AddComponent<Engine::DeferredStaticMeshRenderer>(L"renderer");
 	renderer->SetMesh(mesh);
+	SetSpawnFlag(true);
 
 	// 스탯
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);
@@ -48,7 +49,8 @@ void Inhibitor::SetTeam(Team _team)
 void Inhibitor::Die()
 {
 	Unit::Die();
-
+	SetSpawnFlag(true);
+	SetSpawnTime(5.f);
 	if(unitID == (int)UnitID::InhibitorBlueBot)
 		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
 	else if (unitID == (int)UnitID::InhibitorBlueMid)
@@ -83,4 +85,58 @@ void Inhibitor::Die()
 		}
 	}
 	
+}
+
+void Inhibitor::UpdateSpawn()
+{
+	float dt = Time::DeltaTime();
+	if (spawnFlag)
+	{
+		spawnTick += dt;
+		if (spawnTick > spawnDelay)
+		{
+			spawnFlag = false;
+			spawnTick = 0.f;
+			attackTarget = nullptr;
+			lastAttacker = nullptr;
+			collider->enable = true;
+			float maxHP = stat->GetValue(StatType::MaxHealth);
+			stat->SetBaseValue(StatType::Health, maxHP);
+			transform->position = spawnPosition;
+			isDead = false;
+			anim->Resume();
+			Show();
+			OnRespawn();
+
+			if (team == Team::BLUE) {
+				PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueBot);
+				if (botPhase == PhaseType::SSMMMCCC) {
+					MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
+					MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
+					MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SMMMCCC);
+				}
+			}
+			else if (team == Team::RED) {
+				PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedBot);
+				if (botPhase == PhaseType::SSMMMCCC) {
+					MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
+					MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SMMMCCC);
+					MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SMMMCCC);
+				}
+			}
+
+			if (unitID == (int)UnitID::InhibitorBlueBot)
+				MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::MMMCCC);
+			else if (unitID == (int)UnitID::InhibitorBlueMid)
+				MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::MMMCCC);
+			else if (unitID == (int)UnitID::InhibitorBlueTop)
+				MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::MMMCCC);
+			else if (unitID == (int)UnitID::InhibitorRedBot)
+				MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
+			else if (unitID == (int)UnitID::InhibitorRedMid)
+				MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::MMMCCC);
+			else if (unitID == (int)UnitID::InhibitorRedBot)
+				MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
+		}
+	}
 }
