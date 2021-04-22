@@ -82,6 +82,26 @@ void DamageObject_Garen_E::TakeDamage()
 		unit->TakeDamage(damage);
 		Buff_GarenEArmorDec* attackBuff = new Buff_GarenEArmorDec(host, 6.f);
 		unit->stat->AddBuff(attackBuff);
+
+		// 피격정보 저장
+		Unit::HitInfo info;
+		info.damageSum += damage;
+		info.unit = host;
+
+		auto iter = unit->hitList.begin();
+		auto end = unit->hitList.end();
+		for (; iter != end;)
+		{
+			if ((*iter).unit == host)
+			{
+				info.damageSum += (*iter).damageSum;
+				iter = unit->hitList.erase(iter);
+				break;
+			}
+			++iter;
+		}
+
+		unit->hitList.push_back(info);
 	}
 	//front 가장가까운적 추가피해
 	float damage = baseDamage * 1.f;//0.25f;

@@ -153,7 +153,8 @@ void Stat::PostUpdate()
     if (baseValues[(int)StatType::Experience] > baseValues[(int)StatType::MaxExperience])
     {
         baseValues[(int)StatType::Experience] -= baseValues[(int)StatType::MaxExperience];
-        baseValues[(int)StatType::Level] += 1;
+        baseValues[(int)StatType::Level] += 1.f;
+        baseValues[(int)StatType::SkillPoint] += 1.f;
     }
 }
 

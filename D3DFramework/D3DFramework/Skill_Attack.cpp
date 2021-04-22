@@ -16,7 +16,7 @@ Skill_Attack::Skill_Attack(Unit* _hostUnit)
 Skill_Attack::~Skill_Attack()
 {
 }
-
+ 
 void Skill_Attack::Start()
 {
 	coolTime = 1.f / host->stat->GetValue(StatType::AttackSpeed);

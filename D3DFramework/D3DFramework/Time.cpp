@@ -68,7 +68,15 @@ bool Engine::Time::SkipFrame()
     pTime->oldTime = curTime;
     // 델타타임 갱신 (초단위)
     pTime->deltaTime = float(elapsed) / 1000;
-
+    // 치트
+    if (Input::GetKeyDown(VK_F6))
+    {
+        pTime->deltaTime *= 2.f;
+    }
+    else if (Input::GetKeyDown(VK_F7))
+    {
+        pTime->deltaTime *= 3.f;
+    }
     //프레임 카운트
     pTime->frameCount++;
 

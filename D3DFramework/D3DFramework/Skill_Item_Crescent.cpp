@@ -7,7 +7,7 @@ Skill_Item_Crescent::Skill_Item_Crescent(Unit* _hostUnit)
 {
 	skillName = ItemSkillName::Crescent;
 	host = _hostUnit;
-	coolTime = 1.f;
+	coolTime = 6.f;
 	coolTimeTick = coolTime;
 	duration = 0.3f;
 	level = 1;

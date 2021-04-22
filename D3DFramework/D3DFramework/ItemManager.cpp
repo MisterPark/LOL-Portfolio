@@ -32,7 +32,7 @@ ItemManager::ItemManager()
 	skills.emplace(L"망령의 발걸음", new Skill_Item_WraithStep(nullptr));
 	skills.emplace(L"초승달", new Skill_Item_Crescent(nullptr));
 	skills.emplace(L"불사르기", new Skill_Item_Immolate(nullptr));
-	skills.emplace(L"체력포션", new Skill_Item_HealthPotion(nullptr));
+	skills.emplace(L"체력 물약", new Skill_Item_HealthPotion(nullptr));
 }
 
 ItemManager::~ItemManager()

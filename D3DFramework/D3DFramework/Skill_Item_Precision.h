@@ -13,7 +13,7 @@ public:
 	virtual void End() override;
 	virtual Skill* Clone() override;
 
-	virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage);
+	virtual void OnHit(Unit* target, Skill* targetSkill, float* damage);
 
 };
 
