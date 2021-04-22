@@ -132,7 +132,7 @@ public:
     virtual void Update() override;
 
 	void UpdateHit(); // 피격 업데이트
-	void UpdateSpawn(); // 스폰 업데이트
+	virtual void UpdateSpawn(); // 스폰 업데이트
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -198,6 +198,7 @@ public:
 	Vector3 GetSpawnPosition();
 	void SetSpawnPosition(Vector3 _spawnPos);
 	void SetSpawnTime(float _delay);
+	void SetSpawnFlag(bool _spawn) { spawnFlag = _spawn; }
 	float GetRemainingRespawnTime();
 
 
@@ -271,7 +272,7 @@ public:
 	Skill* nextSkill = nullptr;
 	Skill* nextSkillReady = nullptr;
 	Skill* behaviorTreeSkill = nullptr;
-private:
+protected:
 	// 스폰
 	Vector3 spawnPosition;
 	float spawnTick = 0.f;

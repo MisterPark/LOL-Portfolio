@@ -100,17 +100,17 @@ void Unit::Update()
 		itemSkill->Passive();
 	}
 
-	if (dynamic_cast<Garen*>(this))
-	{
-		if (skillList[(int)SkillIndex::Attack]->IsActive())
-		{
-			//Debug::PrintLine("Active");
-		}
-		else
-		{
-			//Debug::PrintLine("None");
-		}
-	}
+	//if (dynamic_cast<Garen*>(this))
+	//{
+	//	if (skillList[(int)SkillIndex::Attack]->IsActive())
+	//	{
+	//		//Debug::PrintLine("Active");
+	//	}
+	//	else
+	//	{
+	//		//Debug::PrintLine("None");
+	//	}
+	//}
 	
 }
 

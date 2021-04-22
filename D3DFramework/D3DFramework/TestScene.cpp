@@ -266,6 +266,7 @@ void TestScene::CreateBuilding()
 	// inhibitor bot
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { 21.52f,68.04f,42.62f };
+	unit->SetSpawnPosition(Vector3{ 21.52f,68.04f,42.62f });
 	unit->transform->eulerAngles.y = D3DXToRadian(180.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
@@ -307,6 +308,7 @@ void TestScene::CreateBuilding()
 	// inhibitor mid
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { 23.26f,68.04f,29.98f };
+	unit->SetSpawnPosition(Vector3{ 23.26f,68.04f,29.98f });
 	unit->transform->eulerAngles.y = D3DXToRadian(135.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
@@ -349,6 +351,7 @@ void TestScene::CreateBuilding()
 	// inhibitor top
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { 36.23f,68.04f,27.62f };
+	unit->SetSpawnPosition(Vector3{ 36.23f,68.04f,27.62f });
 	unit->transform->eulerAngles.y = D3DXToRadian(90.f);
 	unit->SetTeam(Team::BLUE);
 	unitMap[unitID] = unit;
@@ -428,6 +431,7 @@ void TestScene::CreateBuilding()
 	// inhibitor bot
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { -43.17f,68.04f,-21.56f };
+	unit->SetSpawnPosition(Vector3{ -43.17f,68.04f,-21.56f });
 	unit->transform->eulerAngles.y = D3DXToRadian(0.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -471,6 +475,7 @@ void TestScene::CreateBuilding()
 	// inhibitor mid
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { -30.25f,68.04f,-23.81f };
+	unit->SetSpawnPosition(Vector3{ -30.25f,68.04f,-23.81f });
 	unit->transform->eulerAngles.y = D3DXToRadian(315.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
@@ -513,6 +518,7 @@ void TestScene::CreateBuilding()
 	// inhibitor top
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Inhibitor>(Layer::Building);
 	unit->transform->position = { -28.04f,68.04f,-36.64f };
+	unit->SetSpawnPosition(Vector3{ -28.04f,68.04f,-36.64f });
 	unit->transform->eulerAngles.y = D3DXToRadian(270.f);
 	unit->SetTeam(Team::RED);
 	unitMap[unitID] = unit;
