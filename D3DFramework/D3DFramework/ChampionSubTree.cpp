@@ -35,42 +35,7 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	chaseAction->SetAction((Unit**)&champ, &Unit::ChaseTarget);
 	targetSelector->AddChild(chaseAction);
 
-	//
-	//R
-	//ConditionNode<Skill>* skillRCondition = new ConditionNode<Skill>();
-	//skillRCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::IsActive);
-	//this->AddChild(skillRCondition);
 
-	//ActionNode<Skill>* skillRAction = new ActionNode<Skill>();
-	//skillRAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::R], &Skill::Active);
-	//skillRCondition->SetChild(skillRAction);
-
-	//// E
-	//ConditionNode<Skill>* skillECondition = new ConditionNode<Skill>();
-	//skillECondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::IsActive);
-	//this->AddChild(skillECondition);
-
-	//ActionNode<Skill>* skillEAction = new ActionNode<Skill>();
-	//skillEAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::E], &Skill::Active);
-	//skillECondition->SetChild(skillEAction);
-
-	//// W
-	//ConditionNode<Skill>* skillWCondition = new ConditionNode<Skill>();
-	//skillWCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::IsActive);
-	//this->AddChild(skillWCondition);
-
-	//ActionNode<Skill>* skillWAction = new ActionNode<Skill>();
-	//skillWAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::W], &Skill::Active);
-	//skillWCondition->SetChild(skillWAction);
-
-	//// Q
-	//ConditionNode<Skill>* skillQCondition = new ConditionNode<Skill>();
-	//skillQCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::IsActive);
-	//this->AddChild(skillQCondition);
-
-	//ActionNode<Skill>* skillQAction = new ActionNode<Skill>();
-	//skillQAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Q], &Skill::Active);
-	//skillQCondition->SetChild(skillQAction);
 	ConditionNode<Unit>* skillsCondition = new ConditionNode<Unit>();
 	skillsCondition->SetCondition((Unit**)&champ, &Unit::BehaviorTreeSkillSet);
 	this->AddChild(skillsCondition);
