@@ -21,6 +21,10 @@ namespace Engine
 		void SetDiffuseTextureParam(const char* parameter);
 		void SetPass(int pass);
 		void SetMesh(Mesh* mesh);
+		void SetColormapTex(const std::wstring& _tag);
+		Vector2 GetUVOffset();
+		void SetUVOffset(Vector2 _uvOffset);
+		void SetAlpha(float _alpha);
 		virtual void Render() override;
 		virtual IComponent* Clone() override;
 	private:
@@ -28,5 +32,8 @@ namespace Engine
 		int pass;
 		std::string diffuseTextureHandle;
 		Mesh* mesh;
+		Texture* colormapTex = nullptr;
+		Vector2 uvOffset = { 0.f, 0.f };
+		float alpha = 1.f;
 	};
 }

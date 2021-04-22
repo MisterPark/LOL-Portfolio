@@ -17,7 +17,7 @@ public:
     virtual void OnKilled(Unit* target) override;
     void AddPassiveStack() { if(passiveStack < 30)passiveStack++; }
     int GetPassiveStack() { return passiveStack; }
-
+    
 private:
     float reductionTime = 0.35f;
     int passiveStack = 0;

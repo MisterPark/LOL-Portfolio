@@ -20,9 +20,21 @@ struct PSIn
 matrix g_mWorld;
 matrix g_mViewProj;
 texture g_diffuseTexture;
+texture g_colormap;
+float g_uOffset;
+float g_vOffset;
+float g_alpha;
 sampler DiffuseTextureSampler = sampler_state
 {
 	texture = g_diffuseTexture;
+	minfilter = linear;
+	magfilter = linear;
+	addressU = wrap;
+	addressV = wrap;
+};
+sampler ColormapSampler = sampler_state
+{
+	texture = g_colormap;
 	minfilter = linear;
 	magfilter = linear;
 	addressU = wrap;
@@ -43,7 +55,17 @@ VSOut vs_main(VSIn input)
 }
 float4 ps_missile(PSIn input) :COLOR0
 {
-	return tex2D(DiffuseTextureSampler, input.vUV);
+	float4 diff = tex2D(DiffuseTextureSampler, input.vUV);
+	diff.a *= g_alpha;
+	return diff;
+}
+float4 ps_colormap(PSIn input) :COLOR0
+{
+	float4 diff = tex2D(DiffuseTextureSampler, input.vUV + float2(g_uOffset, g_vOffset));
+	float4 final = tex2D(ColormapSampler, float2(0.5f, diff.r));
+	final.a = diff.a;
+
+	return final;
 }
 technique Default_Device
 {
@@ -65,6 +87,16 @@ technique Default_Device
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_missile();
+		cullmode = none;
+	}
+	
+	pass EffectObjectColormap
+	{
+		AlphaBlendEnable = true;
+		SrcBlend = srcalpha;
+		DestBlend = invsrcalpha;
+		VertexShader = compile vs_3_0 vs_main();
+		PixelShader = compile ps_3_0 ps_colormap();
 		cullmode = none;
 	}
 }

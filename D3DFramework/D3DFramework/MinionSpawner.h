@@ -22,6 +22,9 @@ public:
 
     static void SetMinionPhase(SpawnLane _spawnLane, PhaseType _phaseType);
     static PhaseType GetSpawnPhase(SpawnLane _spawnLane);
+
+    static void IncreaseCount();
+
 private:
     // 해당 레인의 미니언 페이즈는 몇인지
     PhaseType spawnPhase[MaxOfEnum<SpawnLane>()] = {};
@@ -37,6 +40,12 @@ private:
     bool spawnFlag = false;
     float spawnTick = 0.f;
     float spawnDelay = 0.5f;
+
+    bool firstSpawn = false;
+    float waveTick = 0.f;
+    float waveDelay = 30.f;
+
+    int minionAllocCount = 150;
 
 };
 

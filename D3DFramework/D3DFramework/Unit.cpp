@@ -12,6 +12,8 @@
 #include "BlueMonster.h"
 #include "Effect_Red_Buff.h"
 #include "FloatingBar.h"
+#include "Minion.h"
+#include "FogOfWarRenderSystem.h"
 
 list<Unit*> Unit::unitList;
 
@@ -42,6 +44,26 @@ Unit::Unit()
 Unit::~Unit()
 {
 	unitList.remove(this);
+	for (auto& unit : unitList)
+	{
+		auto iter = unit->hitList.begin();
+		auto end = unit->hitList.end();
+		for (;iter!=end;)
+		{
+			if ((*iter).unit == this)
+			{
+				iter = unit->hitList.erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
+		}
+		if (unit->attackTarget == this)
+		{
+			unit->attackTarget = nullptr;
+		}
+	}
 
 	anim = nullptr;
 	agent = nullptr;
@@ -70,6 +92,23 @@ void Unit::Initialize()
 
 void Unit::Release()
 {
+}
+
+void Unit::PreUpdate()
+{
+	GameObject::PreUpdate();
+	Matrix matrix = transform->GetWorldMatrix();
+	Vector3 worldPos = *((Vector3*)&matrix._41);
+	bool isInSight = FogOfWarRenderSystem::IsInSight(worldPos);
+	Show(isInSight);
+
+	if (IsDead())
+	{
+		if (bar != nullptr)
+		{
+			bar->Hide();
+		}
+	}
 }
 
 void Unit::Update()
@@ -374,23 +413,29 @@ void Unit::OnRespawn()
 	
 }
 
+void Unit::OnDie()
+{
+	if (spawnFlag == false)
+	{
+		Respawn();
+	}
+}
+
 void Unit::DeadAction()
 {
 	SetState(State::DEATH);
 	attackTarget = nullptr;
 	collider->enable = false;
+	agent->Stop();
 	UINT curAnim = anim->GetCurrentAnimation();
 	UINT deathAnim = anim->GetIndexByState((int)State::DEATH);
 	if (curAnim == deathAnim && anim->IsFrameEnd())
 	{
 		anim->Stop();
 		Hide();
+		OnDie();
 	}
-	agent->Stop();
-	if (spawnFlag == false)
-	{
-		Respawn();
-	}
+	
 }
 
 void Unit::AttackAction()
@@ -820,7 +865,7 @@ void Unit::ReqMove(Vector3 _dest, bool _noSearch)
 			pathCount = path.size();
 			*pack << pathCount;
 
-			for (auto iter : path)
+			for (auto& iter : path)
 			{
 				*pack << iter.x << iter.y << iter.z;
 			}
@@ -907,6 +952,33 @@ void Unit::SellItem(int _idx)
 	if (price < 0) return;
 
 	stat->SetBaseValue(StatType::Gold, stat->GetBaseValue(StatType::Gold) + price);
+}
+
+void Unit::Show()
+{
+	GameObject::Show();
+	if (bar)
+	{
+		bar->Show();
+	}
+}
+
+void Unit::Show(bool _visible)
+{
+	GameObject::Show(_visible);
+	if (bar)
+	{
+		bar->Show(_visible);
+	}
+}
+
+void Unit::Hide()
+{
+	GameObject::Hide();
+	if (bar)
+	{
+		bar->Hide();
+	}
 }
 
 

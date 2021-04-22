@@ -13,6 +13,7 @@ public:
     Minion();
     virtual ~Minion();
 
+    virtual void OnDie() override;
     void OnCollisionEnter(Collider* target);
 
 

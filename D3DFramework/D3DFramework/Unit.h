@@ -129,6 +129,7 @@ public:
 
     virtual void Initialize() override;
     virtual void Release() override;
+	virtual void PreUpdate() override;
     virtual void Update() override;
 
 	void UpdateHit(); // 피격 업데이트
@@ -158,6 +159,7 @@ public:
 	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
 	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
 	virtual void OnRespawn();
+	virtual void OnDie(); // 사망처리(애니메이션) 모두 끝나면 호출
 
 	// 행동
 	virtual void DeadAction();
@@ -234,6 +236,10 @@ public:
 	bool BuyItem(UINT _id); // 골드를 깎으면서 아이템을 집어넣음
 	void SellItem(int _idx);
 
+
+	virtual void Show();
+	virtual void Show(bool _visible);
+	virtual void Hide();
 public:
 	static void StopAll();
 	

@@ -54,7 +54,7 @@ void MonsterAI::Update()
         if (target != nullptr)
         {
             // 맞은 몬스터로 부터 반경 2 안에 있는 모든 몬스터가 공격자를 타겟으로 지정
-            for (auto iter : monsterList)
+            for (auto& iter : monsterList)
             {
                 Vector3 to = iter->transform->position - unit->transform->position;
                 float dist = to.Length();

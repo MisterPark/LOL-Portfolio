@@ -37,7 +37,7 @@ void Engine::GameObject::PreUpdate()
 		if (comp.second->enable == false) continue;
 		comp.second->PreUpdate();
 	}
-	for (auto iter : children)
+	for (auto& iter : children)
 	{
 		if (iter.second == nullptr) continue;
 		iter.second->PreUpdate();
@@ -53,7 +53,7 @@ void Engine::GameObject::Update()
 		comp.second->Update();
 	}
 
-	for (auto iter : children)
+	for (auto& iter : children)
 	{
 		if (iter.second == nullptr) continue;
 		iter.second->Update();
@@ -69,7 +69,7 @@ void Engine::GameObject::PostUpdate()
 		comp.second->PostUpdate();
 	}
 
-	for (auto iter : children)
+	for (auto& iter : children)
 	{
 		if (iter.second == nullptr) continue;
 		iter.second->PostUpdate();
@@ -227,7 +227,7 @@ void Engine::GameObject::Show()
 		comp->visible = true;
 	}
 
-	for (auto child : children)
+	for (auto& child : children)
 	{
 		if(child.second) child.second->Show();
 	}
@@ -245,7 +245,7 @@ void Engine::GameObject::Show(bool _visible)
 		comp->visible = _visible;
 	}
 
-	for (auto child : children)
+	for (auto& child : children)
 	{
 		if(child.second) child.second->Show(_visible);
 	}
@@ -263,7 +263,7 @@ void Engine::GameObject::Hide()
 		comp->visible = false;
 	}
 
-	for (auto child : children)
+	for (auto& child : children)
 	{
 		if(child.second) child.second->Hide();
 	}
@@ -402,6 +402,16 @@ bool Engine::GameObject::IsDestroy()
 	return destroyFlag;
 }
 
+bool Engine::GameObject::IsRemove()
+{
+	return removeFlag;
+}
+
+void Engine::GameObject::SetRemove(bool _remove)
+{
+	removeFlag = _remove;
+}
+
 bool Engine::GameObject::IsVisible()
 {
 	return visible;
@@ -409,12 +419,9 @@ bool Engine::GameObject::IsVisible()
 
 bool Engine::GameObject::SetLayer(Layer _layer)
 {
-	if (this->layer == _layer) return false;
-
+	//SceneManager::GetCurrentScene()->ChangeLayer(this, layer, _layer);
 	this->layer = _layer;
-	SceneManager::GetCurrentScene()->RemoveObject(this);
-	SceneManager::GetCurrentScene()->AddObject(this, _layer);
-	for (auto iter : components)
+	for (auto& iter : components)
 	{
 		IComponent* comp = iter.second;
 		Collider* collider = dynamic_cast<Collider*>(comp);

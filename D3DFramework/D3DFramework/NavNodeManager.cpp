@@ -201,7 +201,7 @@ void NavNodeManager::LinkNode()
             if (src == dest)continue;
 
             bool alreadyExist = false;
-            for (auto iter : src->adjacencyArr)
+            for (auto& iter : src->adjacencyArr)
             {
                 if (iter == dest->uniqueID)
                 {
@@ -256,7 +256,7 @@ void NavNodeManager::LinkAll()
             if (Physics::Raycast(ray, &hit, INFINITY, mask)) continue;
 
             bool alreadyExist = false;
-            for (auto iter : src.second->adjacencyArr)
+            for (auto& iter : src.second->adjacencyArr)
             {
                 if (iter == dest.second->uniqueID)
                 {

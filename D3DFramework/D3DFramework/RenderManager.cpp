@@ -87,13 +87,17 @@ HRESULT Engine::RenderManager::Initialize(int screenW, int screenH)
 
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = g_hwnd;
-	// 거짓이면 전체화면, 참이면  창모드을 사용하겠다. 
+	
+#ifdef _DEBUG
 	d3dpp.Windowed = TRUE;
+#else
+	d3dpp.Windowed = FALSE;
+#endif // 
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-
+	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 	//3. 조사하고 세팅한 데이터를 가지고 이제 장치를 제어할 컴객체를 생성하자!
 	if (FAILED(pRenderManager->pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hwnd, vp | D3DCREATE_MULTITHREADED, &d3dpp, &pRenderManager->pDevice)))
 	{
@@ -268,7 +272,9 @@ HRESULT Engine::RenderManager::LoadSprite(const wstring& filePath, const wstring
 	lstrcat(fullName, fileName.c_str());
 
 	// 키생성
-	wstring id = fileName.substr(0, fileName.find_last_of('.'));
+	
+	size_t dotIndex = fileName.find_last_of(L'.');
+	wstring id = fileName.substr(0, dotIndex);
 
 	auto find = pRenderManager->textureMap.find(id);
 	if (find != pRenderManager->textureMap.end()) return S_OK;

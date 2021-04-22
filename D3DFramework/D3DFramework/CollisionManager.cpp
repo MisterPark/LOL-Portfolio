@@ -123,7 +123,7 @@ void Engine::CollisionManager::DisregisterObject(Layer colType, Collider* _pObj)
 bool Engine::CollisionManager::FindObject(Layer colType, Collider* _pObj)
 {
 	if (_pObj == nullptr) return false;
-	for (auto iter : pCollisionManager->objectList[(int)colType])
+	for (auto& iter : pCollisionManager->objectList[(int)colType])
 	{
 		if (iter != _pObj) continue;
 

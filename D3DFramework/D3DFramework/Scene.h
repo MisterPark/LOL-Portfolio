@@ -5,6 +5,13 @@ namespace Engine
 	class Scene
 	{
 	public:
+		struct ChangeLayerNode
+		{
+			GameObject* obj = nullptr;
+			Layer origin;
+			Layer change;
+		};
+	public:
 		virtual ~Scene();
 		virtual void OnLoaded() = 0;
 		virtual void OnUnloaded() = 0;
@@ -24,6 +31,8 @@ namespace Engine
 		void		AddObject(GameObject* _obj, Layer _layer = Layer::Default);
 		void		RemoveObject(GameObject* _obj);
 
+		void		ChangeLayer(GameObject* _obj, Layer _origin, Layer _change);
+
 		template<typename _Layer>
 		GameObject* GetNearestObject(GameObject _self, _Layer _layer);
 		template<typename _Layer, typename... _Layers>
@@ -31,7 +40,8 @@ namespace Engine
 
 
 	protected:
-		list<GameObject*> objectTable[MaxOfEnum<Layer>()];
+		vector<GameObject*> objectTable[MaxOfEnum<Layer>()];
+		list<ChangeLayerNode> changeList;
 	};
 
 
@@ -46,10 +56,8 @@ namespace Engine
 			return nullptr;
 		}
 
-		if (obj->SetLayer(layer) == false)
-		{
-			objectTable[(int)layer].push_back(obj);
-		}
+		objectTable[(int)layer].push_back(obj);
+		obj->SetLayer(layer);
 
 		return obj;
 	}

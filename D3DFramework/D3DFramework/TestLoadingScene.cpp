@@ -153,6 +153,7 @@ void TestLoadingScene::LoadResources()
 	// 이펙트
 	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj");
 	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_w_shield.obj");
 
 
 	// 지형

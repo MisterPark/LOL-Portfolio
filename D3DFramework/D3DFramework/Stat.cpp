@@ -4,6 +4,7 @@
 #include "Buff.h"
 #include "Garen.h"
 #include "Slot.h"
+#include "AllMinion.h"
 
 Stat::Stat(GameObject* owner) :IComponent(owner)
 {
@@ -194,7 +195,7 @@ void Stat::AddBuff(Buff* buff)
         return;
     }
 
-    for (auto iter = buffList.begin(); iter != buffList.end(); iter++)
+    for (auto iter = buffList.begin(); iter != buffList.end(); ++iter)
     {
         if (buff->buffName == (*iter)->buffName) {
             buff->overlapCount = (*iter)->overlapCount;

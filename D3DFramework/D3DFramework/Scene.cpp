@@ -31,7 +31,9 @@ void Engine::Scene::Update()
 		for (auto& iter : objList)
 		{
 			//if (!iter->enable) continue;
+			
 			iter->Update();
+			//iter->PostUpdate();
 		}
 	}
 }
@@ -40,19 +42,23 @@ void Engine::Scene::PostUpdate()
 {
 	GameObject* target = nullptr;
 
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{
 		auto& objList = objTable[i];
 		auto iter = objList.begin();
 		auto end = objList.end();
-		for (; iter != end;)
+		for (; iter != objList.end();)
 		{
 			target = *iter;
 
-
-			if (target->IsDestroy() && target->dontDestroy == false)
+			if (target->IsRemove())
+			{
+				target->SetRemove(false);
+				iter = objList.erase(iter);
+			}
+			else if (target->IsDestroy() && target->dontDestroy == false)
 			{
 				iter = objList.erase(iter);
 				delete target;
@@ -65,6 +71,20 @@ void Engine::Scene::PostUpdate()
 		}
 
 	}
+
+	for (auto& changeObj : changeList)
+	{
+		auto& objList = objectTable[(int)changeObj.origin];
+		auto target = find(objList.begin(), objList.end(), changeObj.obj);
+		if (target != objList.end())
+		{
+			objectTable[(int)changeObj.origin].erase(target);
+		}
+
+		//objectTable[(int)changeObj.origin].remove(changeObj.obj);
+		objectTable[(int)changeObj.change].push_back(changeObj.obj);
+	}
+	changeList.clear();
 }
 
 bool Engine::Scene::DeleteObject(GameObject* _target)
@@ -122,5 +142,15 @@ void Engine::Scene::AddObject(GameObject* _obj, Layer _layer)
 
 void Engine::Scene::RemoveObject(GameObject* _obj)
 {
-	objectTable[(int)_obj->GetLayer()].remove(_obj);
+	_obj->SetRemove(true);
+}
+
+void Engine::Scene::ChangeLayer(GameObject* _obj, Layer _origin, Layer _change)
+{
+	ChangeLayerNode node;
+	node.obj = _obj;
+	node.origin = _origin;
+	node.change = _change;
+
+	changeList.push_back(node);
 }

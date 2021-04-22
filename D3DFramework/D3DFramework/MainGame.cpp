@@ -46,25 +46,21 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 	
 	Network::GetInstance();
 	Network::Initialize();
-	//LobbyWindow::GetInstance();
 	Random::InitState();
 
 	// 다른 모든 매니저 초기화
 	Time::GetInstance();
-	Time::SetFPS(100);
+	Time::SetFPS(60);
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);
 
 	LoadUISprite();
 
-	//ObjectManager::GetInstance();
 	CollisionManager::GetInstance();
 	LightManager::GetInstance();
 	Input::GetInstance();
 	SkyBox::GetInstance();
-
-	//RenderManager::GetInstance();
 
 	SceneManager::GetInstance();
 
@@ -81,7 +77,6 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 
 	UIManager::GetInstance();
 
-	//SkillManager::GetInstance();
 	ItemManager::GetInstance()->Initialize();
 
 	// 씬로드
@@ -95,16 +90,10 @@ void Engine::MainGame::Update()
 	// 1. 인풋 먼저
 	Input::Update();
 
-	// 2. 씬 매니저 업데이트
 	UI::SetPointerOverUI(false);
 	SceneManager::PreUpdate();
 	SceneManager::Update();
 
-
-	// 3. Player 업데이트
-
-	// 4. Obj 업데이트
-	//ObjectManager::Update();
 	Cursor::GetInstance()->Update();
 
 	Camera::GetInstance()->Update();
@@ -112,20 +101,12 @@ void Engine::MainGame::Update()
 	Frustum::Update();
 	
 	CollisionManager::GetInstance()->Update();
-	//ObjectManager::PostUpdate();
 	SceneManager::PostUpdate();
 	SoundManager::Update();
 
-#if 0
-	if (!Time::SkipFrame())
-	{
-		RenderSystem::Render();
-	}
-#else
 	Time::SkipFrame();
 
 	RenderSystem::Render();
-#endif
 }
 
 void Engine::MainGame::Release()
@@ -134,10 +115,8 @@ void Engine::MainGame::Release()
 	LoadManager::Destroy();
 	SceneManager::Destroy();
 	Time::Destroy();
-	//ObjectManager::Destroy();
 	CollisionManager::Destroy();
 	SkyBox::Destroy();
-	//RenderManager::Release();
 	UIManager::DestroyInstance();
 	RenderSystem::Destory();
 	RenderManager::Destroy();
@@ -510,14 +489,17 @@ void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstrin
 	WideCharToMultiByte(CP_ACP, 0, _filter.c_str(), _filter.length(), _cFilter, _filter.length(), NULL, NULL);
 
 	_finddata_t fd;
-	char path[1024];
+	char path[1024] = {};
 	_fullpath(path, _cPath, 1024);
 	strcat_s(path, _cFilter);
 	long handle = _findfirst(path, &fd);
 	if (handle != -1)
 	{
 		do {
-			std::wstring file(fd.name, &fd.name[260]);
+			string name = fd.name;
+			//std::wstring file(fd.name, &fd.name[260]);
+			wstring file;
+			file.assign(name.begin(), name.end());
 			RenderManager::LoadSprite(_path.c_str(), file);
 		} while (_findnext(handle, &fd) != -1);
 		_findclose(handle);

@@ -143,7 +143,9 @@ namespace Engine
 	template<class T>
 	inline BehaviorTree::Status ActionNode<T>::Update()
 	{
+		if (instance == nullptr) return BehaviorTree::Status::Failure;
 		if (Func == nullptr) return BehaviorTree::Status::Failure;
+		if ((*instance) == nullptr) return BehaviorTree::Status::Failure;
 		((*instance)->*Func)();
 		return BehaviorTree::Status::Success;
 	}

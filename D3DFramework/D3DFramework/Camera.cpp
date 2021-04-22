@@ -52,7 +52,7 @@ void Engine::Camera::Destroy()
 		main = nullptr;
 	}
 	
-	for (auto iter : cams)
+	for (auto& iter : cams)
 	{
 		delete iter.second;
 	}

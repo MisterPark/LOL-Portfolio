@@ -191,7 +191,7 @@ void NetPlayerController::ReqMove(Vector3 _dest, bool _noSearch)
             pathCount = path.size();
             *pack << pathCount;
             
-            for (auto iter : path)
+            for (auto& iter : path)
             {
                 *pack << iter.x << iter.y << iter.z;
             }
