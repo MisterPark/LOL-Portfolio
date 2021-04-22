@@ -31,8 +31,9 @@ void Engine::Scene::Update()
 		for (auto& iter : objList)
 		{
 			//if (!iter->enable) continue;
-			iter->Update();
 			
+			iter->Update();
+			//iter->PostUpdate();
 		}
 	}
 }

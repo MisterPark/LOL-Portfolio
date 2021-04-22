@@ -1,9 +1,9 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Random.h"
 
 void Engine::Random::InitState()
 {
-    srand(GetTickCount());
+    srand(0);
 }
 
 void Engine::Random::InitState(int seed)

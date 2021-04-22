@@ -489,14 +489,17 @@ void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstrin
 	WideCharToMultiByte(CP_ACP, 0, _filter.c_str(), _filter.length(), _cFilter, _filter.length(), NULL, NULL);
 
 	_finddata_t fd;
-	char path[1024];
+	char path[1024] = {};
 	_fullpath(path, _cPath, 1024);
 	strcat_s(path, _cFilter);
 	long handle = _findfirst(path, &fd);
 	if (handle != -1)
 	{
 		do {
-			std::wstring file(fd.name, &fd.name[260]);
+			string name = fd.name;
+			//std::wstring file(fd.name, &fd.name[260]);
+			wstring file;
+			file.assign(name.begin(), name.end());
 			RenderManager::LoadSprite(_path.c_str(), file);
 		} while (_findnext(handle, &fd) != -1);
 		_findclose(handle);
