@@ -75,7 +75,7 @@ void Item::Destroy()
 	Unit* host = skillList.front()->GetHost();
 
 	for (auto& skill : skillList) {
-		for (auto iter = host->itemSkillList.begin(); iter != host->itemSkillList.end(); iter++)
+		for (auto iter = host->itemSkillList.begin(); iter != host->itemSkillList.end(); ++iter)
 		{
 			if ((*iter)->GetSkillName() == skill->GetSkillName()) {
 				if ((*iter)->overlapCount == 1) {

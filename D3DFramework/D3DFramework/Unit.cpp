@@ -139,17 +139,17 @@ void Unit::Update()
 		itemSkill->Passive();
 	}
 
-	if (dynamic_cast<Garen*>(this))
-	{
-		if (skillList[(int)SkillIndex::Attack]->IsActive())
-		{
-			//Debug::PrintLine("Active");
-		}
-		else
-		{
-			//Debug::PrintLine("None");
-		}
-	}
+	//if (dynamic_cast<Garen*>(this))
+	//{
+	//	if (skillList[(int)SkillIndex::Attack]->IsActive())
+	//	{
+	//		//Debug::PrintLine("Active");
+	//	}
+	//	else
+	//	{
+	//		//Debug::PrintLine("None");
+	//	}
+	//}
 	
 }
 
@@ -554,7 +554,8 @@ void Unit::SkillRAction()
 
 bool Unit::BehaviorTreeSkillSet()
 {
-	bool isActive = false;
+	bool isActive;
+	isActive = false;
 	for (int i = 1; i < (int)SkillIndex::END; i++)
 	{
 		isActive = skillList[i]->IsActive();
@@ -572,6 +573,7 @@ bool Unit::BehaviorTreeSkillSet()
 			return isActive;
 		}
 	}
+	return isActive;
 }
 
 void Unit::PushedOut(Unit* other)
@@ -865,7 +867,7 @@ void Unit::ReqMove(Vector3 _dest, bool _noSearch)
 			pathCount = path.size();
 			*pack << pathCount;
 
-			for (auto iter : path)
+			for (auto& iter : path)
 			{
 				*pack << iter.x << iter.y << iter.z;
 			}
