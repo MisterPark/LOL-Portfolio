@@ -125,7 +125,7 @@ void Engine::NavMeshMap::LoadNavigationInfo()
 		pPathFinder->AddNode(id, node);
 	}
 
-	for (auto iter : adjacencyInfo)
+	for (auto& iter : adjacencyInfo)
 	{
 		int srcID = iter.first;
 		int adjCount = iter.second.size();

@@ -86,17 +86,17 @@ bool Engine::Time::SkipFrame()
     }
     
     // 프레임당 초과/미만 시간 누적
-    pTime->timeStack += (int)(elapsed - pTime->targetFrame);
+    //pTime->timeStack += (int)(elapsed - pTime->targetFrame);
 
-    if (pTime->timeStack >= pTime->targetFrame) // 느릴때
-    {
-        pTime->timeStack -= pTime->targetFrame;
-        return true;
-    }
-    else // 빠를때
-    {
-        //Sleep(abs(pTime->timeStack));
-    }
+    //if (pTime->timeStack >= pTime->targetFrame) // 느릴때
+    //{
+    //    pTime->timeStack -= pTime->targetFrame;
+    //    return true;
+    //}
+    //else // 빠를때
+    //{
+    //    //Sleep(abs(pTime->timeStack));
+    //}
 
     pTime->renderCount++;
     return false;

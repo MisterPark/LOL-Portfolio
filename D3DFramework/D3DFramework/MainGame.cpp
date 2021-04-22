@@ -50,7 +50,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 
 	// 다른 모든 매니저 초기화
 	Time::GetInstance();
-	Time::SetFPS(300);
+	Time::SetFPS(60);
 	
 	RenderManager::GetInstance();
 	RenderManager::Initialize(screenW, screenH);

@@ -32,6 +32,7 @@ void Engine::Scene::Update()
 		{
 			//if (!iter->enable) continue;
 			iter->Update();
+			
 		}
 	}
 }
@@ -47,7 +48,7 @@ void Engine::Scene::PostUpdate()
 		auto& objList = objTable[i];
 		auto iter = objList.begin();
 		auto end = objList.end();
-		for (; iter != end;)
+		for (; iter != objList.end();)
 		{
 			target = *iter;
 
@@ -55,7 +56,6 @@ void Engine::Scene::PostUpdate()
 			{
 				target->SetRemove(false);
 				iter = objList.erase(iter);
-				continue;
 			}
 			else if (target->IsDestroy() && target->dontDestroy == false)
 			{
@@ -73,7 +73,14 @@ void Engine::Scene::PostUpdate()
 
 	for (auto& changeObj : changeList)
 	{
-		objectTable[(int)changeObj.origin].remove(changeObj.obj);
+		auto& objList = objectTable[(int)changeObj.origin];
+		auto target = find(objList.begin(), objList.end(), changeObj.obj);
+		if (target != objList.end())
+		{
+			objectTable[(int)changeObj.origin].erase(target);
+		}
+
+		//objectTable[(int)changeObj.origin].remove(changeObj.obj);
 		objectTable[(int)changeObj.change].push_back(changeObj.obj);
 	}
 	changeList.clear();

@@ -40,7 +40,7 @@ namespace Engine
 
 
 	protected:
-		list<GameObject*> objectTable[MaxOfEnum<Layer>()];
+		vector<GameObject*> objectTable[MaxOfEnum<Layer>()];
 		list<ChangeLayerNode> changeList;
 	};
 

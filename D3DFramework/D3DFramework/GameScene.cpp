@@ -329,7 +329,7 @@ void GameScene::CreateEnvironment()
 
 void GameScene::CreateChampion()
 {
-	for (auto iter : net->users)
+	for (auto& iter : net->users)
 	{
 		Layer layer = Layer::Unit;
 		int userNum = iter.second.number;

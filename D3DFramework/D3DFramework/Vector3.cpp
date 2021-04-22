@@ -77,10 +77,8 @@ Vector3 Engine::Vector3::Normalized() const
 {
 	Vector3 norm = *this;
 
-	float len = norm.Length();
-	norm.x /= len;
-	norm.y /= len;
-	norm.z /= len;
+	float len = sqrtf(x * x + y * y + z * z);
+	norm /= len;
 
 	return norm;
 }
