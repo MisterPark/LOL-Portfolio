@@ -2,12 +2,16 @@
 	"1028": {
 		"id": 1028,
 		"tag": "1028_base_t1_rubycrystal",
-		"name": "루비 수정", 
+		"name": "루비 수정",
 		"type": "Basic",
 		"price": 400,
 		"desc": "체력 +150",
 		"stat": [
-			{"type": "MaxHealth", "value": 150, "ispercent": false}
+			{
+				"type": "MaxHealth",
+				"value": 150,
+				"ispercent": false
+			}
 		],
 		"effect": [],
 		"recipe": []
@@ -15,12 +19,16 @@
 	"1029": {
 		"id": 1029,
 		"tag": "1029_base_t1_clotharmor",
-		"name": "천 갑옷", 
+		"name": "천 갑옷",
 		"type": "Basic",
 		"price": 300,
 		"desc": "방어력 +15",
 		"stat": [
-			{"type": "Armor", "value": 15, "ispercent": false}
+			{
+				"type": "Armor",
+				"value": 15,
+				"ispercent": false
+			}
 		],
 		"effect": [],
 		"recipe": []
@@ -28,38 +36,67 @@
 	"1031": {
 		"id": 1031,
 		"tag": "1031_base_t2_chainvest",
-		"name": "쇠사슬 조끼", 
+		"name": "쇠사슬 조끼",
 		"type": "Epic",
 		"price": 800,
 		"desc": "방어력 +40",
 		"stat": [
-			{"type": "Armor", "value": 40, "ispercent": false}
+			{
+				"type": "Armor",
+				"value": 40,
+				"ispercent": false
+			}
 		],
 		"effect": [],
-		"recipe": ["천 갑옷"]
+		"recipe": [ "천 갑옷" ]
 	},
 	"1037": {
 		"id": 1037,
 		"tag": "1037_class_t1_pickaxe",
-		"name": "곡괭이", 
+		"name": "곡괭이",
 		"type": "Basic",
 		"price": 875,
 		"desc": "공격력 +25",
 		"stat": [
-			{"type": "AttackDamage", "value": 25, "ispercent": false}
+			{
+				"type": "AttackDamage",
+				"value": 25,
+				"ispercent": false
+			}
 		],
 		"effect": [],
 		"recipe": []
 	},
+	"1043": {
+		"id": 1043,
+		"tag": "1043_base_t2_recurvebow",
+		"name": "곡궁",
+		"type": "Basic",
+		"price": 1000,
+		"desc": "공격 속도 +25%\n\n- 강철 촉: 기본 공격 시 15의 물리 피해(적중 시)를 입힙니다.",
+		"stat": [
+			{
+				"type": "AttackSpeed",
+				"value": 0.25,
+				"ispercent": true
+			}
+		],
+		"effect": [ "강철 촉" ],
+		"recipe": [ "단검", "단검" ]
+	},
 	"1052": {
 		"id": 1052,
 		"tag": "1052_mage_t2_amptome",
-		"name": "증폭의 고서", 
+		"name": "증폭의 고서",
 		"type": "Basic",
 		"price": 435,
 		"desc": "주문력 +20",
 		"stat": [
-			{"type": "AbilityPower", "value": 20, "ispercent": false}
+			{
+				"type": "AbilityPower",
+				"value": 20,
+				"ispercent": false
+			}
 		],
 		"effect": [],
 		"recipe": []
@@ -67,106 +104,257 @@
 	"1054": {
 		"id": 1054,
 		"tag": "1054_tank_t1_doransshield",
-		"name": "도란의 방패", 
+		"name": "도란의 방패",
 		"type": "Starter",
 		"price": 450,
 		"desc": "체력 +80\n\n - 집중: 미니언에게 기본 공격 시 5의 물리 피해를 추가로 입힙니다.\n - 회복: 5초마다 체력을 6 회복합니다.\n - 견디기: 챔피언, 정글 몬스터에게 피해를 입으면 8초 동안 40의 체력을 회복합니다. (원거리 챔피언이나 광역 혹은 지속 피해를 입었을 때 기본 회복량의 66%만큼 회복합니다.)",
 		"stat": [
-			{"type": "MaxHealth", "value": 80, "ispercent": false}
+			{
+				"type": "MaxHealth",
+				"value": 80,
+				"ispercent": false
+			}
 		],
-		"effect": ["집중", "회복", "견디기"],
+		"effect": [ "집중", "회복", "견디기" ],
 		"recipe": []
+	},
+	"2003": {
+		"id": 2003,
+		"tag": "2003_class_t1_healthpotion",
+		"name": "체력 포션",
+		"type": "Starter",
+		"price": 50,
+		"desc": "사용 시 - 소모: 5초에 걸쳐 150의 체력을 회복합니다.",
+		"stat": [],
+		"effect": [ "체력 물약" ],
+		"recipe": []
+	},
+	"3051": {
+		"id": 3051,
+		"tag": "3051_fighter_t2_axeofavarosa",
+		"name": "온기가 필요한 자의 도끼",
+		"type": "Epic",
+		"price": 1100,
+		"desc": " 공격력 +15, 공격 속도 +15%\n\n- 민첩: 유닛을 공격하면 2초 동안 이동 속도가 (20 | 원거리 10) 상승합니다.",
+		"stat": [
+			{
+				"type": "AttackDamage",
+				"value": 15,
+				"ispercent": false
+			},
+			{
+				"type": "AttackSpeed",
+				"value": 0.15,
+				"ispercent": true
+			}
+		],
+		"effect": [ "민첩" ],
+		"recipe": [ "단검", "롱소드" ]
 	},
 	"3057": {
 		"id": 3057,
 		"tag": "3057_fighter_t2_sheen",
-		"name": "광휘의 검", 
+		"name": "광휘의 검",
 		"type": "Epic",
 		"price": 700,
 		"desc": " - 주문 검: 스킬을 사용하고 나면 다음 기본 공격 시 기본 공격력의 100%에 해당하는 물리 피해를 추가로 입힙니다. (재사용 대기시간 1.5초)",
 		"stat": [],
-		"effect": ["주문 검"],
+		"effect": [ "주문 검" ],
 		"recipe": []
 	},
 	"3066": {
 		"id": 3066,
 		"tag": "3066_tank_t3_wingedmoonplate",
-		"name": "비상의 월갑", 
+		"name": "비상의 월갑",
 		"type": "Epic",
 		"price": 800,
 		"desc": "체력 +150\n\n - 활공: 이동 속도가 5% 상승합니다.",
 		"stat": [
-			{"type": "MaxHealth", "value": 150, "ispercent": false}
+			{
+				"type": "MaxHealth",
+				"value": 150,
+				"ispercent": false
+			}
 		],
-		"effect": ["활공"],
-		"recipe": ["루비 수정"]
+		"effect": [ "활공" ],
+		"recipe": [ "루비 수정" ]
 	},
 	"3070": {
 		"id": 3070,
 		"tag": "3070_all_t1_tearofthegoddess",
-		"name": "여신의 눈물", 
+		"name": "여신의 눈물",
 		"type": "Starter",
 		"price": 400,
 		"desc": "마나 +240\n\n - 집중: 미니언에게 기본 공격 시 5의 물리 피해를 추가로 입힙니다.\n - 마나 충전: 대상에게 스킬을 적중시키면 중첩을 하나 소모해 3의 추가 마나를 얻습니다. 챔피언 상대로는 두 배로 적용됩니다. 최대 360까지 얻을 수 있습니다.\n마나 충전 중첩은 8초마다 1회씩 최대 4회까지 쌓입니다",
 		"stat": [
-			{"type": "MaxMana", "value": 240, "ispercent": false}
+			{
+				"type": "MaxMana",
+				"value": 240,
+				"ispercent": false
+			}
 		],
-		"effect": ["집중", "마나 충전"],
+		"effect": [ "집중", "마나 충전" ],
 		"recipe": []
 	},
 	"3076": {
 		"id": 3076,
 		"tag": "3076_tank_t2_bramblevest",
-		"name": "덤불 조끼", 
+		"name": "덤불 조끼",
 		"type": "Epic",
 		"price": 800,
 		"desc": "방어력 +35\n\n - 가시: 기본 공격에 맞으면 공격한 적에게 3 + 추가 방어력의 10%에 해당하는 마법 피해를 입히고, 대상이 챔피언일 경우 3초 동안 40%의 고통스러운 상처를 남깁니다.\n고통스러운 상처는 치유 및 회복 효과를 감소시킵니다.",
 		"stat": [
-			{"type": "Armor", "value": 35, "ispercent": false}
+			{
+				"type": "Armor",
+				"value": 35,
+				"ispercent": false
+			}
 		],
-		"effect": ["가시"],
-		"recipe": ["천 갑옷", "천 갑옷"]
+		"effect": [ "가시" ],
+		"recipe": [ "천 갑옷", "천 갑옷" ]
 	},
 	"3077": {
 		"id": 3077,
 		"tag": "3077_fighter_t2_tiamat",
-		"name": "티아맷", 
+		"name": "티아맷",
 		"type": "Epic",
 		"price": 1200,
 		"desc": "공격력 +25\n\n - 쪼개기: 기본 공격 시 주변 적들에게 최대 공격력의 60%에 해당하는 물리 피해를 입힙니다. 최대 거리에 있는 적에게는 공격력의 12%에 해당하는 피해만 입힙니다.",
 		"stat": [
-			{"type": "AttackDamage", "value": 25, "ispercent": false}
+			{
+				"type": "AttackDamage",
+				"value": 25,
+				"ispercent": false
+			}
 		],
-		"effect": ["쪼개기"],
-		"recipe": ["곡괭이"]
+		"effect": [ "쪼개기" ],
+		"recipe": [ "곡괭이" ]
+	},
+	"3142": {
+		"id": 3142,
+		"tag": "3142_assassin_t3_youmuusghostblade",
+		"name": "요우무의 유령검",
+		"type": "Legendary",
+		"price": 3200,
+		"desc": "공격력 +60, 물리 관통력 +18\n\n - 사용 시 - 망령의 발걸음: 6초 동안 이동 속도가 20% 상승하고 유체화 상태가 됩니다. (12초 - 재사용대기시간)\n\n출몰: 전투에서 벗어나 있을 때 이동 속도가 40 상승합니다.",
+		"stat": [
+			{
+				"type": "AttackDamage",
+				"value": 60,
+				"ispercent": false
+			},
+			{
+				"type": "ArmorPenetration",
+				"value": 18,
+				"ispercent": false
+			}
+		],
+		"effect": [ "망령의 발걸음" ],
+		"recipe": [ "곡괭이", "톱날 단검" ]
 	},
 	"3191": {
 		"id": 3191,
 		"tag": "3191_battlemage_t2_seekersarmguard",
-		"name": "추적자의 팔목 보호대", 
+		"name": "추적자의 팔목 보호대",
 		"type": "Epic",
 		"price": 1000,
 		"desc": "주문력 +20, 방어력 +15\n\n - 마법사의 길: 유닛을 처치하면 방어력이 0.5(최대 15) 증가합니다.",
 		"stat": [
-			{"type": "AbilityPower", "value": 20, "ispercent": false},
-			{"type": "Armor", "value": 15, "ispercent": false}
+			{
+				"type": "AbilityPower",
+				"value": 20,
+				"ispercent": false
+			},
+			{
+				"type": "Armor",
+				"value": 15,
+				"ispercent": false
+			}
 		],
-		"effect": ["마법사의 길"],
-		"recipe": ["증폭의 고서", "천 갑옷"]
+		"effect": [ "마법사의 길" ],
+		"recipe": [ "증폭의 고서", "천 갑옷" ]
 	},
 	"3742": {
 		"id": 3742,
 		"tag": "3742_tank_t3_deadmansplate",
-		"name": "망자의 갑옷", 
+		"name": "망자의 갑옷",
 		"type": "Legendary",
 		"price": 2900,
 		"desc": "체력 +400, 방어력 +40, 이동 속도 +5%\n\n - 침몰시키는 자: 이동 시 최대 60의 추가 이동 속도를 얻습니다. 다음 기본 공격 시 최대 100의 마법 피해를 입히고 추가 이동 속도를 잃습니다. 최고 속도에서 근접 챔피언이 기본 공격시 1초 동안 대상을 50% 둔화시킵니다.\n\"내 갑옷을 뺏을 방도는 하나뿐이다...\" - 무명씨",
 		"stat": [
-			{"type": "MaxHealth", "value": 400, "ispercent": false},
-			{"type": "Armor", "value": 40, "ispercent": false},
-			{"type": "MovementSpeed", "value": 0.05, "ispercent": true}
+			{
+				"type": "MaxHealth",
+				"value": 400,
+				"ispercent": false
+			},
+			{
+				"type": "Armor",
+				"value": 40,
+				"ispercent": false
+			},
+			{
+				"type": "MovementSpeed",
+				"value": 0.05,
+				"ispercent": true
+			}
 		],
-		"effect": ["침몰시키는 자"],
-		"recipe": ["비상의 월갑", "루비 수정", "쇠사슬 조끼"]
+		"effect": [ "침몰시키는 자" ],
+		"recipe": [ "비상의 월갑", "루비 수정", "쇠사슬 조끼" ]
+	},
+	"6029": {
+		"id": 6029,
+		"tag": "6029_fighter_t2_ironspikewhip",
+		"name": "강철가시 채찍",
+		"type": "Epic",
+		"price": 1100,
+		"desc": "공격력 +30\n\n - 사용 시 - 초승달: 주변 적들에게 공격력의 75%에 해당하는 물리 피해를 입힙니다. (재사용 대기시간 6초)",
+		"stat": [
+			{
+				"type": "AttackDamage",
+				"value": 30,
+				"ispercent": false
+			}
+		],
+		"effect": [ "초승달" ],
+		"recipe": [ "곡괭이" ]
+	},
+	"6660": {
+		"id": 6660,
+		"tag": "6660_tank_t2_bamiscinder",
+		"name": "바미의 불씨",
+		"type": "Epic",
+		"price": 1100,
+		"desc": "체력 +300\n\n - 불사르기: 주변 적들에게 초당 12 + 추가 체력의 1%에 해당하는 마법 피해를 입힙니다.",
+		"stat": [
+			{
+				"type": "MaxHealth",
+				"value": 300,
+				"ispercent": false
+			}
+		],
+		"effect": [ "불사르기" ],
+		"recipe": [ "루비 수정" ]
+	},
+	"6670": {
+		"id": 6670,
+		"tag": "6670_marksman_t2_noonquiver",
+		"name": "절정의 화살",
+		"type": "Epic",
+		"price": 1300,
+		"desc": "공격력 +30, 공격 속도 +15%\n\n - 정밀: 미니언과 몬스터에게 기본 공격 시 20의 물리 피해를 추가로 입힙니다.",
+		"stat": [
+			{
+				"type": "AttackDamage",
+				"value": 30,
+				"ispercent": false
+			},
+			{
+				"type": "AttackSpeed",
+				"value": 0.15,
+				"ispercent": true
+			}
+		],
+		"effect": [ "정밀" ],
+		"recipe": [ "롱소드", "단검", "롱소드" ]
 	}
 }

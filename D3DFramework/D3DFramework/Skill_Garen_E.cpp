@@ -11,7 +11,7 @@
 Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime = 9.f;
+	coolTime = 7.f;
 	coolTimeTick = coolTime;
 	duration = 3.f;
 	host = _hostUnit;
@@ -60,12 +60,13 @@ void Skill_Garen_E::Start()
 
 void Skill_Garen_E::Passive()
 {
+	float dt = Time::DeltaTime();
 	if (coolTimeTick < coolTime)
 	{
-		coolTimeTick += Time::DeltaTime();
+		coolTimeTick += dt;
 	}
 	if (realCoolTimeTick < coolTime) {
-		realCoolTimeTick += Time::DeltaTime();
+		realCoolTimeTick += dt;
 	}
 
 }

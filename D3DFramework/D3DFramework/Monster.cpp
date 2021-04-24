@@ -30,6 +30,7 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::Experience, 50.f);
 	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
 	stat->SetBaseValue(StatType::MinionKilled, 4.f);
+	stat->SetBaseValue(StatType::Bounty, 20.f);
 
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
 

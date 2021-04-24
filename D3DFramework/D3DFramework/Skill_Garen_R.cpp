@@ -18,7 +18,7 @@ Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 	groundClick = false;
 
 	maxLevel = 3;
-	coolTime = 2.f;
+	coolTime = 7.f;
 	coolTimeTick = coolTime;
 	duration = 1.f;
 	host = _hostUnit;

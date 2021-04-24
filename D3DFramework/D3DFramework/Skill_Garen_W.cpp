@@ -11,7 +11,7 @@
 Skill_Garen_W::Skill_Garen_W(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime = 2.f;
+	coolTime = 7.f;
 	coolTimeTick = coolTime;
 	duration = 0.f;
 	host = _hostUnit;
@@ -55,22 +55,20 @@ void Skill_Garen_W::Start()
 
 void Skill_Garen_W::Passive()
 {
-	if (coolTimeTick < coolTime)
-	{
-		coolTimeTick += Time::DeltaTime();
-	}
 
 	if (level == 0)
 		return;
 	
+	if (coolTimeTick < coolTime)
+	{
+		coolTimeTick += Time::DeltaTime();
+	}
 	
 
 	if (passiveBuff == nullptr) {
 		passiveBuff = new Buff_GarenWPassive(host);
 		host->stat->AddBuff(passiveBuff);
 	}
-	passiveBuff->modifiers.front().value = passiveStack * 0.25f;
-	passiveBuff->modifiers.back().value = passiveStack * 0.25f;
 
 }
 
@@ -88,4 +86,8 @@ void Skill_Garen_W::End()
 void Skill_Garen_W::OnKilled(Unit* target)
 {
 	passiveStack++;
+	if (passiveBuff != nullptr) {
+		passiveBuff->modifiers.front().value = passiveStack * 0.25f;
+		passiveBuff->modifiers.back().value = passiveStack * 0.25f;
+	}
 }

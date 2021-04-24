@@ -127,29 +127,6 @@ void Unit::Update()
 		skillList[i]->Passive();
 	}
 
-	for (int i = 0; i < INVENTORY_MAX; i++)
-	{
-		Item* item = inventory.GetItem(i);
-		if (item == nullptr)
-			continue;
-		item->Passive();
-	}
-	for (auto& itemSkill : itemSkillList)
-	{
-		itemSkill->Passive();
-	}
-
-	//if (dynamic_cast<Garen*>(this))
-	//{
-	//	if (skillList[(int)SkillIndex::Attack]->IsActive())
-	//	{
-	//		//Debug::PrintLine("Active");
-	//	}
-	//	else
-	//	{
-	//		//Debug::PrintLine("None");
-	//	}
-	//}
 	
 }
 
