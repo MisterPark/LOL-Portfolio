@@ -151,9 +151,14 @@ void TestLoadingScene::LoadResources()
 	LoadStaticMeshAsync(L"Resource/Mesh/character/ordernexus/sruap_ordernexus.x");
 
 	// 이펙트
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_q_impact.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_q_jump.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_q_sidewall.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_q_sword_scroll.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_w_shield.obj");
 	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_e_spin.obj");
 	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_sword_plane.obj");
-	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_w_shield.obj");
+	LoadCustomMeshAsync(L"Resource/Mesh/character/garen/garen_base_r_halfdome.obj");
 
 
 	// 지형

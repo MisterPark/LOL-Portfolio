@@ -5,6 +5,8 @@
 #include "Buff_GarenQHaste.h"
 #include "Buff_GarenQAttack.h"
 #include "Skill_Attack.h"
+#include "Effect_Garen_Q_Start.h"
+#include "Effect_Garen_Q_Impact.h"
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
@@ -26,6 +28,11 @@ void Skill_Garen_Q::Start()
 
 	Skill::Start();
 	host->OnOtherSkillStart(this);
+
+	Effect_Garen_Q_Start* eff = (Effect_Garen_Q_Start*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_Q_Start>(Layer::Effect);
+	eff->SetTarget(host);
+	eff->SetDuration(0.3f);
+
 
 	durationSpeedTime = 0.35f + level * 0.65f;
 	Buff_GarenQHaste* speedBuff = new Buff_GarenQHaste(host, durationSpeedTime);
@@ -61,5 +68,9 @@ void Skill_Garen_Q::End()
 
 void Skill_Garen_Q::OnHit(Unit* target, Skill* mySkill)
 {
-	host->stat->RemoveBuff<Buff_GarenQAttack>();
+	if(host->stat->RemoveBuff<Buff_GarenQAttack>()) {
+		Effect_Garen_Q_Impact* eff = (Effect_Garen_Q_Impact*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_Q_Impact>(Layer::Effect);
+		eff->SetTarget(host->attackTarget);
+		eff->SetDuration(1.0f);
+	}
 }
