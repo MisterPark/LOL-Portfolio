@@ -29,9 +29,11 @@ void Effect_Garen_R_Distortion::PostUpdate()
 
 void Effect_Garen_R_Distortion::Update()
 {
+	Vector3 before, after;
 	EffectObject::Update();
 
-	//Billboard();
+	Billboard();
+
 
 	//scale += 1 * Time::DeltaTime();
 	//transform->scale = { scale, scale, scale };
