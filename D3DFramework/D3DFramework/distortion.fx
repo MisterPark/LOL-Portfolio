@@ -80,8 +80,8 @@ float4 distortion(float2 tex)
 
     float u = noise.r;
     float v = noise.g;
-    //float a = noise.a;
-    return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * 0.05f);
+    float a = noise.a;
+    return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * a * 0.05f);
 }
 float4 ps_distortion(PS_IN input) :COLOR
 {
@@ -105,9 +105,10 @@ float4 ps_distortion_mesh(PS_IN input) :COLOR
     //1.0은 임의로 집어넣은 bias다. 필요에 따라 수정 가능 
     if (depth + 1.0f >= vPosition.w)
     {
-        Color = Color * (1.f - g_opacity) + distortion(Tex) * g_opacity;
+     Color = Color * (1.f - g_opacity) + distortion(input.vUV) * g_opacity;
     }
     return Color;
+    //return tex2D(NoiseSampler, input.vUV);
 }
 technique Default_Device
 {

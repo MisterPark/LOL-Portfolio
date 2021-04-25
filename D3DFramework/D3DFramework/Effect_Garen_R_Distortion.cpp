@@ -14,7 +14,8 @@ Effect_Garen_R_Distortion::Effect_Garen_R_Distortion()
 	Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
 	AddComponent(L"distortionRenderer", distortionRenderer);
 	distortionRenderer->SetMesh(mesh);
-	distortionRenderer->SetNoiseTexture(RenderManager::GetTexture(L"garen_distort-twirl"));
+	//distortionRenderer->SetNoiseTexture(RenderManager::GetTexture(L"garen_distort-twirl"));
+	distortionRenderer->SetNoiseTexture(RenderManager::GetTexture(L"garen_distort-wave"));
 }
 
 Effect_Garen_R_Distortion::~Effect_Garen_R_Distortion()
@@ -29,9 +30,10 @@ void Effect_Garen_R_Distortion::PostUpdate()
 
 void Effect_Garen_R_Distortion::Update()
 {
+	//Billboard();
+
 	EffectObject::Update();
 
-	//Billboard();
 
 	//scale += 1 * Time::DeltaTime();
 	//transform->scale = { scale, scale, scale };

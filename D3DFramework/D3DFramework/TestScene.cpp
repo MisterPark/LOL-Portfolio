@@ -105,6 +105,11 @@ void TestScene::OnLoaded()
 	EndofgamePanel::GetInstance()->Hide();
 	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
 	//EndofgamePanel::GetInstance()->ShowDefeat(); // 패배시
+
+	Effect_Garen_R_Distortion* eff = (Effect_Garen_R_Distortion*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Distortion>(Layer::Effect);
+	eff->SetTarget(champ);
+	eff->SetOffset(Vector3(0.f, 0.f, 0.f));
+	eff->SetDuration(1000);
 }
 
 void TestScene::OnUnloaded()

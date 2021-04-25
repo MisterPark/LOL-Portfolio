@@ -64,7 +64,7 @@ void Skill_Garen_R::Start()
 
 	Effect_Garen_R_Distortion* effDome = (Effect_Garen_R_Distortion*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Distortion>(Layer::Effect);
 	effDome->SetTarget(host->attackTarget);
-	effDome->SetDuration(2.f);
+	effDome->SetDuration(10.f);
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
