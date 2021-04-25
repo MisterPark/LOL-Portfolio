@@ -30,9 +30,9 @@ void Effect_Garen_R_Distortion::PostUpdate()
 
 void Effect_Garen_R_Distortion::Update()
 {
-	//Billboard();
-
 	EffectObject::Update();
+
+	Billboard();
 
 
 	//scale += 1 * Time::DeltaTime();

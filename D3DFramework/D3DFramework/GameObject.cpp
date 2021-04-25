@@ -176,7 +176,7 @@ void Engine::GameObject::Billboard()
 	//=====================================
 	Vector3 camDir = Camera::main->GetOffset();
 	Vector3::Normalize(&camDir);
-	camDir = -camDir;
+	//camDir = -camDir;
 	transform->Rotate(camDir);
 }
 
