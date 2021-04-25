@@ -70,25 +70,22 @@ VS_OUT vs_mesh_main(VS_IN input)
     output.vUV = input.vUV;
     return output;
 }
-float4 distortion(float2 tex)
+float4 distortion(float2 baseTex, float2 noiseTex)
 {
     //float u = tex2D(NoiseSampler, tex.xy).r;
     //float v = tex2D(NoiseSampler, tex.yx).r;
     //return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * 0.05f);
 
-    float4 noise = tex2D(NoiseSampler, tex.xy);
-
-    float u = noise.r;
-    float v = noise.g;
-    float a = noise.a;
-    return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * a * 0.05f);
+    float u = tex2D(NoiseSampler, noiseTex.xy).r;
+    float v = tex2D(NoiseSampler, noiseTex.xy).g;
+    return tex2D(Sampler, baseTex + (float2(u, v) * 2.f - 1.f) * 0.08f);
 }
 float4 ps_distortion(PS_IN input) :COLOR
 {
     float2 Tex = input.vUV;
     float4 Color = 0;
     Color = tex2D(Sampler, Tex) * (1.f- g_opacity);
-    Color += distortion(Tex) * g_opacity;
+    Color += distortion(Tex, Tex) * g_opacity;
     return Color;
 }
 float4 ps_distortion_mesh(PS_IN input) :COLOR
@@ -100,13 +97,14 @@ float4 ps_distortion_mesh(PS_IN input) :COLOR
     Tex.y *= -1.f;
     Tex = Tex * 0.5f + 0.5f;
     float4 Color = 0;
-    float depth = tex2D(NormalDepthSampler, Tex).a;
+    //float depth = tex2D(NormalDepthSampler, Tex).a;
     Color = tex2D(Sampler, Tex);
     //1.0은 임의로 집어넣은 bias다. 필요에 따라 수정 가능 
-    if (depth + 1.0f >= vPosition.w)
-    {
-     Color = Color * (1.f - g_opacity) + distortion(input.vUV) * g_opacity;
-    }
+    float opacity = tex2D(NoiseSampler, input.vUV).a * g_opacity;
+    //if (depth + 1.0f >= vPosition.w)
+    //{
+        Color = Color * (1.f - opacity) + distortion(Tex, input.vUV) * opacity;
+    //}
     return Color;
     //return tex2D(NoiseSampler, input.vUV);
 }

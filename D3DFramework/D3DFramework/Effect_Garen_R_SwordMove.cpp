@@ -6,7 +6,7 @@ Effect_Garen_R_SwordMove::Effect_Garen_R_SwordMove()
 	GetComponent(L"Mesh")->visible = false;
 	GetComponent(L"renderer")->visible = false;
 
-	transform->scale = { 0.02f, 0.02f, 0.02f };
+	transform->scale = { 0.04f, 0.04f, 0.04f };
 	offset = { 0.f,5.f,0.f };
 	//transform->eulerAngles.x = D3DXToRadian(180.f);
 

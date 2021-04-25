@@ -11,8 +11,8 @@ namespace Engine
 		RenderManager::LoadTexture(L"Resource/texture/", L"noise1.png");
 		noiseTexture = RenderManager::GetTexture(L"noise1");
 		normalRenderTarget = RenderManager::GetRenderTarget(RENDER_TARGET_NORMAL);
-		//opacity = 0.5f;
-		opacity = 1.0f;
+		opacity = 0.5f;
+		//opacity = 1.0f;
 		mesh = nullptr;
 	}
 

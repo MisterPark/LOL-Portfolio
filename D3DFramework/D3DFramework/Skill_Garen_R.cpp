@@ -42,29 +42,29 @@ void Skill_Garen_R::Start()
 	Skill::Start();
 	host->OnOtherSkillStart(this);
 
-	//Effect_Garen_R_SwordMove* effMove = (Effect_Garen_R_SwordMove*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_SwordMove>(Layer::Effect);
-	//effMove->SetTarget(host->attackTarget);
-	//effMove->SetDuration(2.f);
-	//
-	//Effect_Garen_R_SwordFixed* effFixed = (Effect_Garen_R_SwordFixed*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_SwordFixed>(Layer::Effect);
-	//effFixed->SetTarget(host->attackTarget);
-	//effFixed->SetDuration(1.5f);
-	//
+	Effect_Garen_R_SwordMove* effMove = (Effect_Garen_R_SwordMove*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_SwordMove>(Layer::Effect);
+	effMove->SetTarget(host->attackTarget);
+	effMove->SetDuration(2.f);
+	
+	Effect_Garen_R_SwordFixed* effFixed = (Effect_Garen_R_SwordFixed*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_SwordFixed>(Layer::Effect);
+	effFixed->SetTarget(host->attackTarget);
+	effFixed->SetDuration(1.5f);
+	
 	Effect_Garen_R_GroundDecal* effGround = (Effect_Garen_R_GroundDecal*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_GroundDecal>(Layer::Effect);
 	effGround->SetTarget(host->attackTarget);
 	effGround->SetDuration(2.5f);
-	//
-	//Effect_Garen_R_GroundImpact* effGroundImpact = (Effect_Garen_R_GroundImpact*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_GroundImpact>(Layer::Effect);
-	//effGroundImpact->SetTarget(host->attackTarget);
-	//effGroundImpact->SetDuration(1.1f);
-	//
-	//Effect_Garen_R_Dome* effDome = (Effect_Garen_R_Dome*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Dome>(Layer::Effect);
-	//effDome->SetTarget(host->attackTarget);
-	//effDome->SetDuration(1.1f);
-
-	Effect_Garen_R_Distortion* effDome = (Effect_Garen_R_Distortion*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Distortion>(Layer::Effect);
+	
+	Effect_Garen_R_GroundImpact* effGroundImpact = (Effect_Garen_R_GroundImpact*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_GroundImpact>(Layer::Effect);
+	effGroundImpact->SetTarget(host->attackTarget);
+	effGroundImpact->SetDuration(1.1f);
+	
+	Effect_Garen_R_Dome* effDome = (Effect_Garen_R_Dome*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Dome>(Layer::Effect);
 	effDome->SetTarget(host->attackTarget);
-	effDome->SetDuration(10.f);
+	effDome->SetDuration(1.1f);
+
+	Effect_Garen_R_Distortion* effDist = (Effect_Garen_R_Distortion*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_R_Distortion>(Layer::Effect);
+	effDist->SetTarget(host->attackTarget);
+	effDist->SetDuration(1.5f);
 
 	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
 
