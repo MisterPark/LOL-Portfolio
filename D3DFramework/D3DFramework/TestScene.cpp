@@ -39,6 +39,8 @@
 
 #include "ChampionAI.h"
 
+#include "DistortionRenderer.h"
+#include "Effect_Garen_R_Distortion.h"
 
 void TestScene::OnLoaded()
 {
