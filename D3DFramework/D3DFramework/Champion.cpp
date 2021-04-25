@@ -3,6 +3,7 @@
 #include "FloatingBar.h"
 #include "FloatingHPBar.h"
 #include "Collider.h"
+#include "Minion.h"
 
 Champion::Champion()
 {
@@ -13,6 +14,7 @@ Champion::Champion()
 	stat->SetBaseValue(StatType::MaxExperience, 90.f);
 	stat->SetBaseValue(StatType::Level, 1.f);
 	stat->SetBaseValue(StatType::SkillPoint, 1.f);
+	stat->SetBaseValue(StatType::Bounty, 300.f);
 }
 
 Champion::~Champion()
@@ -82,6 +84,12 @@ void Champion::SetNickname(const std::wstring& _nickname)
 	bar->SetNickname(_nickname);
 }
 
+void Champion::Die()
+{
+	Unit::Die();
+	stat->IncreaseBaseValue(StatType::DeathScore, 1.f);
+}
+
 void Champion::OnHit(Unit* target, Skill* mySkill)
 {
 	for (int i = 0; i < (int)SkillIndex::END; i++) {
@@ -116,6 +124,11 @@ void Champion::OnKilled(Unit* target)
 		itemSkill->OnKilled(target);
 
 	stat->IncreaseBaseValue(StatType::Gold, target->stat->GetBaseValue(StatType::Bounty));
+
+	if (dynamic_cast<Champion*>(target) != nullptr)
+		stat->IncreaseBaseValue(StatType::KillScore, 1.f);
+	else if(dynamic_cast<Minion*>(target) != nullptr)
+		stat->IncreaseBaseValue(StatType::MinionKilled, 1.f);
 }
 
 void Champion::OnOtherSkillStart(Skill* otherSkill)

@@ -25,6 +25,7 @@ enum class StatType {
 	MinionKilled,
 	Gold,
 	Bounty, // 현상금
+	KillScore, DeathScore,  AssistScore,
 	END   
 };
 

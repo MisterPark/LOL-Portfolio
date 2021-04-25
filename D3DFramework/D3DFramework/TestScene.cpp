@@ -60,6 +60,7 @@ void TestScene::OnLoaded()
 
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
+	unitMap[0] = unit;
 	//unit->transform->position = { 41.f, 68.48f, 46.f };
 	unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
@@ -72,12 +73,14 @@ void TestScene::OnLoaded()
 	//champ->AddItem(3742);
 
 	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Missfortune>(Layer::Unit);
+	unitMap[5] = unit;
 	unit->transform->position = { -47.48f,68.48f,-41.34f };
 	unit->SetSpawnPosition(unit->transform->position);
 	unit->SetTeam(Team::RED);
 	unit->AddComponent<ChampionAI>(L"AI");
 	Champion* champ2 = (Champion*)unit;
 	champ2->SetNickname(L"미스포츈");
+	champ2->SetID((UINT)5);
 
 	D3DLIGHT9 dirLight{};
 	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();
@@ -117,6 +120,13 @@ void TestScene::Update()
 {
 	Scene::Update();
 
+	Stat* playerStat = unitMap[0]->stat;
+	MiniScorePanel::GetInstance()->SetMinionScore((int)playerStat->GetBaseValue(StatType::MinionKilled));
+	MiniScorePanel::GetInstance()->SetKillScore((int)playerStat->GetBaseValue(StatType::KillScore));
+	MiniScorePanel::GetInstance()->SetDeathScore((int)playerStat->GetBaseValue(StatType::DeathScore));
+	MiniScorePanel::GetInstance()->SetAssistScore((int)playerStat->GetBaseValue(StatType::AssistScore));
+	MiniScorePanel::GetInstance()->SetBlueTeamKillScore((int)playerStat->GetBaseValue(StatType::KillScore));
+	MiniScorePanel::GetInstance()->SetRedTeamKillScore((int)unitMap[5]->stat->GetBaseValue(StatType::KillScore));
 	if (testUnit != nullptr)
 	{
 		if (Input::GetKey(VK_UP))

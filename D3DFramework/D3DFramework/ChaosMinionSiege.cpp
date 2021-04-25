@@ -20,7 +20,8 @@ ChaosMinionSiege::ChaosMinionSiege()
 	stat->SetBaseValue(StatType::AttackSpeed, 0.667f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 	stat->SetBaseValue(StatType::Range, 3.f);
-	stat->SetBaseValue(StatType::Gold, 60.f);
+	stat->SetBaseValue(StatType::Bounty, 60.f);
+	stat->SetBaseValue(StatType::MinionKilled, 1.f);
 }
 
 ChaosMinionSiege::~ChaosMinionSiege()

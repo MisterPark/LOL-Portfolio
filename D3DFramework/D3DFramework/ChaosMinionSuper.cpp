@@ -22,7 +22,8 @@ ChaosMinionSuper::ChaosMinionSuper()
 	stat->SetBaseValue(StatType::MagicResistance, -30.f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 	stat->SetBaseValue(StatType::Range, 1.7f);
-	stat->SetBaseValue(StatType::Gold, 60.f);
+	stat->SetBaseValue(StatType::Bounty, 60.f);
+	stat->SetBaseValue(StatType::MinionKilled, 1.f);
 }
 
 ChaosMinionSuper::~ChaosMinionSuper()
