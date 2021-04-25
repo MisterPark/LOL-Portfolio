@@ -14,7 +14,9 @@ Effect_Garen_R_Distortion::Effect_Garen_R_Distortion()
 	Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
 	AddComponent(L"distortionRenderer", distortionRenderer);
 	distortionRenderer->SetMesh(mesh);
-	distortionRenderer->SetNoiseTexture(RenderManager::GetTexture(L"garen_distort-twirl"));
+	distortionRenderer->SetNoiseTexture(RenderManager::GetTexture(L"garen_distort-wave"));
+
+	scale = 2.f;
 }
 
 Effect_Garen_R_Distortion::~Effect_Garen_R_Distortion()
@@ -29,12 +31,25 @@ void Effect_Garen_R_Distortion::PostUpdate()
 
 void Effect_Garen_R_Distortion::Update()
 {
-	Vector3 before, after;
 	EffectObject::Update();
 
 	Billboard();
 
+	auto renderer = dynamic_cast<DistortionRenderer*>(GetComponent(L"distortionRenderer"));
+	if (renderer == nullptr) return;
 
-	//scale += 1 * Time::DeltaTime();
-	//transform->scale = { scale, scale, scale };
+	renderer->SetOpacity(0);
+
+	if (tick < 0.5f) return;
+
+	scale += 6.f * Time::DeltaTime();
+	transform->scale = { scale, scale, scale };
+
+	renderer->SetOpacity(opacity);
+
+	if (tick < 0.6f) return;
+
+	opacity -= 0.8f * Time::DeltaTime();
+	if (opacity < 0) opacity = 0;
+	renderer->SetOpacity(opacity);
 }

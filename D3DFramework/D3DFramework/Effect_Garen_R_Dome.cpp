@@ -20,7 +20,7 @@ Effect_Garen_R_Dome::Effect_Garen_R_Dome()
 	renderer->SetDiffuseTextureParam("g_diffuseTexture");
 	AddComponent(L"CustomRenderer", renderer);
 	renderer->SetPass(1);
-	alpha = 0.3f;
+	alpha = 0.1f;
 	renderer->SetAlpha(alpha);
 
 	mesh->SetSubsetTexture(L"garen_base_r_dome_color");

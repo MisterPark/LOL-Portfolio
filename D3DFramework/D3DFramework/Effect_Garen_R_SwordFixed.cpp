@@ -6,7 +6,7 @@ Effect_Garen_R_SwordFixed::Effect_Garen_R_SwordFixed()
 	GetComponent(L"Mesh")->visible = false;
 	GetComponent(L"renderer")->visible = false;
 
-	transform->scale = { 0.02f, 0.02f, 0.02f };
+	transform->scale = { 0.04f, 0.04f, 0.04f };
 	//transform->eulerAngles.x = D3DXToRadian(180.f);
 
 	// meshSword

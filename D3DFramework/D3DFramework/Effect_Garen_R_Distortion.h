@@ -11,7 +11,7 @@ public:
     virtual void Update() override;
 
 private:
-    float opacity = 1.f;
+    float opacity = 0.5f;
     float scale = 1.f;
 };
 
