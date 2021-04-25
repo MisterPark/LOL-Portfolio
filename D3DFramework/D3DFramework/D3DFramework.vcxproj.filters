@@ -1177,8 +1177,6 @@
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
-    <ClInclude Include="Skill_Item_HealthPotion.h" />
-    <ClInclude Include="Buff_Item_HealthPotion.h" />
     <ClInclude Include="EndofgamePanel.h">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
@@ -1213,6 +1211,11 @@
     </ClInclude>
     <ClInclude Include="Effect_Garen_Q_Start.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    <ClInclude Include="Skill_Item_HealthPotion.h">
+      <Filter>Skill\Item\Start</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff_Item_HealthPotion.h">
+      <Filter>Buff\Item\Skill\Start</Filter>
     </ClInclude>
     <ClInclude Include="Effect_Garen_R_Distortion.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
@@ -2054,8 +2057,6 @@
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
-    <ClCompile Include="Skill_Item_HealthPotion.cpp" />
-    <ClCompile Include="Buff_Item_HealthPotion.cpp" />
     <ClCompile Include="EndofgamePanel.cpp">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
@@ -2090,6 +2091,11 @@
     </ClCompile>
     <ClCompile Include="Effect_Garen_Q_Start.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    <ClCompile Include="Skill_Item_HealthPotion.cpp">
+      <Filter>Skill\Item\Start</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff_Item_HealthPotion.cpp">
+      <Filter>Buff\Item\Skill\Start</Filter>
     </ClCompile>
     <ClCompile Include="Effect_Garen_R_Distortion.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>

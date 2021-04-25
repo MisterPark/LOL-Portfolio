@@ -91,7 +91,7 @@ HRESULT Engine::RenderManager::Initialize(int screenW, int screenH)
 #ifdef _DEBUG
 	d3dpp.Windowed = TRUE;
 #else
-	d3dpp.Windowed = FALSE;
+	d3dpp.Windowed = TRUE;
 #endif // 
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;

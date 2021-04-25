@@ -11,7 +11,7 @@
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime = 0.5f;//8.f;
+	coolTime = 7.f;//8.f;
 	coolTimeTick = coolTime;
 	duration = 0.f;
 	host = _hostUnit;

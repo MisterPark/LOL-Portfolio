@@ -117,13 +117,35 @@ void Skill::Calc_TakeDamege(float _baseDamage)
 	host->attackTarget->OnDamaged(host, this, &finalDamage);
 	target->TakeDamage(finalDamage);
 	
-	for (auto& unit : hitList)
+	// 피격정보 저장
+	Unit::HitInfo info;
+	info.damageSum += finalDamage;
+	info.unit = host;
+
+	auto iter = target->hitList.begin();
+	auto end = target->hitList.end();
+	for (; iter != end;)
 	{
-		if (unit == target)
-			return;
+		if ((*iter).unit == host)
+		{
+			info.damageSum += (*iter).damageSum;
+			iter = target->hitList.erase(iter);
+			break;
+		}
+		++iter;
 	}
-	hitList.push_back(target);
+
+	target->hitList.push_back(info);
+	//
+	//for (auto& unit : hitList)
+	//{
+	//	if (unit == target)
+	//		return;
+	//}
+	//hitList.push_back(target);
 	host->OnTargetFirstHit(target, this);
+
+
 }
 
 float Skill::GetCooltime()

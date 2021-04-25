@@ -11,6 +11,8 @@ Champion::Champion()
 	hpBar = (FloatingHPBar*)SceneManager::GetCurrentScene()->CreateObject<FloatingHPBar>(Layer::UI);
 	hpBar->SetTarget(this);
 	stat->SetBaseValue(StatType::MaxExperience, 90.f);
+	stat->SetBaseValue(StatType::Level, 1.f);
+	stat->SetBaseValue(StatType::SkillPoint, 1.f);
 }
 
 Champion::~Champion()
@@ -32,6 +34,19 @@ void Champion::Release()
 void Champion::Update()
 {
 	Unit::Update();
+
+	RealTimeGoldIncrease();
+	for (int i = 0; i < INVENTORY_MAX; i++)
+	{
+		Item* item = inventory.GetItem(i);
+		if (item == nullptr)
+			continue;
+		item->Passive();
+	}
+	for (auto& itemSkill : itemSkillList)
+	{
+		itemSkill->Passive();
+	}
 }
 
 void Champion::OnCollisionEnter(Collider* target)
@@ -100,6 +115,7 @@ void Champion::OnKilled(Unit* target)
 	for (auto& itemSkill : itemSkillList)
 		itemSkill->OnKilled(target);
 
+	stat->IncreaseBaseValue(StatType::Gold, target->stat->GetBaseValue(StatType::Bounty));
 }
 
 void Champion::OnOtherSkillStart(Skill* otherSkill)
@@ -112,4 +128,14 @@ void Champion::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
 	for (auto& itemSkill : itemSkillList)
 		itemSkill->OnTargetFirstHit(target, mySkill);
+}
+
+void Champion::RealTimeGoldIncrease()
+{
+	realTimeGoldTick += Time::DeltaTime();
+	if (realTimeGoldTick > 1.f)
+	{
+		realTimeGoldTick--;
+		stat->IncreaseBaseValue(StatType::Gold, 1.6f);
+	}
 }

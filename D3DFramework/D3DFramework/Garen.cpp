@@ -61,8 +61,6 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
 	stat->SetBaseValue(StatType::CriticlaDamage, 1.f);
-	// Test
-	stat->SetBaseValue(StatType::SkillPoint, 18.f);
 	//stat->SetBaseValue(StatType::CriticlaChance, 0.5f);
 
 	stat->SetBaseValue(StatType::Gold, 6000.f);
