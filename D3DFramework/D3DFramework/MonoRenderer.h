@@ -3,20 +3,17 @@
 #include<d3dx9.h>
 namespace Engine
 {
-	class DistortionRenderer : public Renderer
+	class MonoRenderer : public Renderer
 	{
 	public:
-		DistortionRenderer(GameObject* owner);
+		MonoRenderer(GameObject* owner);
 		void Render() override;
 		void SetMesh(Mesh* mesh);
-		void SetNoiseTexture(Texture* _tex);
-		void SetOpacity(float op);
 		IComponent* Clone() override;
+
 	public:
+		ID3DXEffect* monoShader;
 		RenderTarget* normalRenderTarget;
-		ID3DXEffect* distortionShader;
-		Texture* noiseTexture;
-		float opacity;
 		Mesh* mesh;
 	};
 }

@@ -72,8 +72,15 @@ VS_OUT vs_mesh_main(VS_IN input)
 }
 float4 distortion(float2 tex)
 {
-    float u = tex2D(NoiseSampler, tex.xy).r;
-    float v = tex2D(NoiseSampler, tex.yx).r;
+    //float u = tex2D(NoiseSampler, tex.xy).r;
+    //float v = tex2D(NoiseSampler, tex.yx).r;
+    //return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * 0.05f);
+
+    float4 noise = tex2D(NoiseSampler, tex.xy);
+
+    float u = noise.r;
+    float v = noise.g;
+    //float a = noise.a;
     return tex2D(Sampler, tex + (float2(u, v) * 2.f - 1.f) * 0.05f);
 }
 float4 ps_distortion(PS_IN input) :COLOR
@@ -113,6 +120,7 @@ technique Default_Device
     pass distortion_mesh
     {
         ZEnable = false;
+		AlphaBlendEnable = true;
         VertexShader = compile vs_3_0 vs_mesh_main();
         PixelShader = compile ps_3_0 ps_distortion_mesh();
     }

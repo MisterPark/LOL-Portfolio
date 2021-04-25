@@ -391,6 +391,9 @@
     <Filter Include="GameObject\UI\EndofgamePanel">
       <UniqueIdentifier>{32e9725b-054b-4806-ada8-1fc820280096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\MonoRenderer">
+      <UniqueIdentifier>{f0a0d93a-7b11-4f27-8a0b-a70a90a8748e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1214,6 +1217,12 @@
     </ClInclude>
     <ClInclude Include="Buff_Item_HealthPotion.h">
       <Filter>Buff\Item\Skill\Start</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_Distortion.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoRenderer.h">
+      <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2089,6 +2098,12 @@
     </ClCompile>
     <ClCompile Include="Buff_Item_HealthPotion.cpp">
       <Filter>Buff\Item\Skill\Start</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_Distortion.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoRenderer.cpp">
+      <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
