@@ -105,6 +105,7 @@ void TestScene::OnLoaded()
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
+	ScorePanel::GetInstance()->AddChampion(champ2);
 
 	EndofgamePanel::GetInstance()->Hide();
 	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
@@ -125,8 +126,7 @@ void TestScene::Update()
 	MiniScorePanel::GetInstance()->SetKillScore((int)playerStat->GetBaseValue(StatType::KillScore));
 	MiniScorePanel::GetInstance()->SetDeathScore((int)playerStat->GetBaseValue(StatType::DeathScore));
 	MiniScorePanel::GetInstance()->SetAssistScore((int)playerStat->GetBaseValue(StatType::AssistScore));
-	MiniScorePanel::GetInstance()->SetBlueTeamKillScore((int)playerStat->GetBaseValue(StatType::KillScore));
-	MiniScorePanel::GetInstance()->SetRedTeamKillScore((int)unitMap[5]->stat->GetBaseValue(StatType::KillScore));
+
 	if (testUnit != nullptr)
 	{
 		if (Input::GetKey(VK_UP))

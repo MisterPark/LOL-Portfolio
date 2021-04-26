@@ -2,7 +2,7 @@
 #include "ScorePanel.h"
 #include "Champion.h"
 #include "Label.h"
-
+#include "TestScene.h"
 ScorePanel* pScorePanel = nullptr;
 std::wstring dragonCountTex[(UINT)Dragon::End] = {
 	L"scoreboard_dragoncount_wind",
@@ -134,12 +134,12 @@ ScorePanel::ScorePanel()
 	//AddDragon(Dragon::OCEAN, Team::RED);
 	//AddDragon(Dragon::OCEAN, Team::RED);
 	//SetDragonSoulBuf(); // 4용 버프 적용될 때 호출
-
+	
 // 라벨
 	turretCountLabel[(UINT)Team::BLUE] = new Label(15);
 	mainPanel->AddChild<Label>(L"BlueTurretCount", turretCountLabel[(UINT)Team::BLUE]);
 	turretCountLabel[(UINT)Team::BLUE]->SetLocation(381, 91);
-	turretCountLabel[(UINT)Team::BLUE]->SetText(0);
+	turretCountLabel[(UINT)Team::BLUE]->SetText(publicScore[(int)PublicScoreID::BlueTeamTurretKillScore]);
 	turretCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
 	turretCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
 	turretCountLabel[(UINT)Team::BLUE]->SetColor(255, 78, 157, 222);
@@ -147,7 +147,7 @@ ScorePanel::ScorePanel()
 	turretCountLabel[(UINT)Team::RED] = new Label(15);
 	mainPanel->AddChild<Label>(L"RedTurretCount", turretCountLabel[(UINT)Team::RED]);
 	turretCountLabel[(UINT)Team::RED]->SetLocation(588, 91);
-	turretCountLabel[(UINT)Team::RED]->SetText(0);
+	turretCountLabel[(UINT)Team::RED]->SetText(publicScore[(int)PublicScoreID::RedTeamTurretKillScore]);
 	turretCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
 	turretCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
 	turretCountLabel[(UINT)Team::RED]->SetColor(255, 223, 60, 50);
@@ -155,7 +155,7 @@ ScorePanel::ScorePanel()
 	killCountLabel[(UINT)Team::BLUE] = new Label(20);
 	mainPanel->AddChild<Label>(L"BlueKillCount", killCountLabel[(UINT)Team::BLUE]);
 	killCountLabel[(UINT)Team::BLUE]->SetLocation(466, 91);
-	killCountLabel[(UINT)Team::BLUE]->SetText(0);
+	killCountLabel[(UINT)Team::BLUE]->SetText(publicScore[(int)PublicScoreID::BlueTeamKillScore]);
 	killCountLabel[(UINT)Team::BLUE]->align = Label::Align::Right;
 	killCountLabel[(UINT)Team::BLUE]->valign = Label::VAlign::Middle;
 	killCountLabel[(UINT)Team::BLUE]->SetColor(255, 78, 157, 222);
@@ -163,7 +163,7 @@ ScorePanel::ScorePanel()
 	killCountLabel[(UINT)Team::RED] = new Label(20);
 	mainPanel->AddChild<Label>(L"RedKillCount", killCountLabel[(UINT)Team::RED]);
 	killCountLabel[(UINT)Team::RED]->SetLocation(497, 91);
-	killCountLabel[(UINT)Team::RED]->SetText(0);
+	killCountLabel[(UINT)Team::RED]->SetText(publicScore[(int)PublicScoreID::RedTeamKillScore]);
 	killCountLabel[(UINT)Team::RED]->align = Label::Align::Left;
 	killCountLabel[(UINT)Team::RED]->valign = Label::VAlign::Middle;
 	killCountLabel[(UINT)Team::RED]->SetColor(255, 223, 60, 50);
@@ -240,10 +240,10 @@ ScorePanel::ScorePanel()
 	}
 
 	// 몹 시간 설정 샘플
-	SetMobTime(MobTimeID::WestBlue, 90.f);
-	SetMobTime(MobTimeID::SouthRed, 90.f);
-	SetMobTime(MobTimeID::NorthRed, 90.f);
-	SetMobTime(MobTimeID::EastBlue, 90.f);
+	//SetMobTime(MobTimeID::WestBlue, 90.f);
+	//SetMobTime(MobTimeID::SouthRed, 90.f);
+	//SetMobTime(MobTimeID::NorthRed, 90.f);
+	//SetMobTime(MobTimeID::EastBlue, 90.f);
 	SetDragonTime(300.f, Dragon::Fire);
 	SetMobTime(MobTimeID::Baron, 1200.f);
 	SetMobTime(MobTimeID::Herald, 480.f);
@@ -315,10 +315,13 @@ void ScorePanel::Update()
 				dynamic_cast<Label*>(ui->children[L"LevelLabel"])->SetText((int)champ->stat->GetValue(StatType::Level));
 
 				// CS
-				dynamic_cast<Label*>(ui->children[L"CSLabel"])->SetText(0);
+				dynamic_cast<Label*>(ui->children[L"CSLabel"])->SetText((int)champ->stat->GetValue(StatType::MinionKilled));
 
 				// KDA
-				dynamic_cast<Label*>(ui->children[L"KDALabel"])->SetText(L"%d/%d/%d", 0, 0, 0);
+				int killScore = (int)champ->stat->GetValue(StatType::KillScore);
+				int deathScore = (int)champ->stat->GetValue(StatType::DeathScore);
+				int assistScore = (int)champ->stat->GetValue(StatType::AssistScore);
+				dynamic_cast<Label*>(ui->children[L"KDALabel"])->SetText(L"%d/%d/%d", killScore, deathScore, assistScore);
 
 				// 아이템
 				for (int k = 0; k < 7; k++)
@@ -334,7 +337,19 @@ void ScorePanel::Update()
 				championScoreUI[i][j]->Hide();
 			}
 		}
-
+		// 정글몹 타이머
+		TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+		if (scene != nullptr)
+		{
+			int j = 0;
+			for (int i = (int)UnitID::Red1; i <= (int)UnitID::Blue2; i++)
+			{
+				Unit* mob = scene->unitMap.find(i)->second;
+				if (mob->IsDead())
+					mobTime[j] = mob->GetRemainingRespawnTime();
+				j++;
+			}
+		}
 		// 용시간
 		for (int i = 0; i < (UINT)MobTimeID::End; ++i)
 		{
@@ -353,6 +368,15 @@ void ScorePanel::Update()
 				simbolBig[i]->Hide();
 			}
 		}
+		// 팀의 타워 킬수
+		turretCountLabel[(UINT)Team::BLUE]->SetText(publicScore[(int)PublicScoreID::BlueTeamTurretKillScore]);
+		turretCountLabel[(UINT)Team::RED]->SetText(publicScore[(int)PublicScoreID::RedTeamTurretKillScore]);
+		// 팀의 킬수
+		int aa = publicScore[(int)PublicScoreID::BlueTeamKillScore];
+		int bb = publicScore[(int)PublicScoreID::RedTeamKillScore];
+		int cc = ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::BlueTeamKillScore);
+		killCountLabel[(UINT)Team::BLUE]->SetText(publicScore[(int)PublicScoreID::BlueTeamKillScore]);
+		killCountLabel[(UINT)Team::RED]->SetText(publicScore[(int)PublicScoreID::RedTeamKillScore]);
 	}
 }
 

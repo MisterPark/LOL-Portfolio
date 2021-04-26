@@ -4,6 +4,8 @@
 #include "FloatingHPBar.h"
 #include "Collider.h"
 #include "Minion.h"
+#include "ScorePanel.h"
+#include "MiniScorePanel.h"
 
 Champion::Champion()
 {
@@ -125,10 +127,18 @@ void Champion::OnKilled(Unit* target)
 
 	stat->IncreaseBaseValue(StatType::Gold, target->stat->GetBaseValue(StatType::Bounty));
 
-	if (dynamic_cast<Champion*>(target) != nullptr)
+	if (dynamic_cast<Champion*>(target) != nullptr) {
 		stat->IncreaseBaseValue(StatType::KillScore, 1.f);
+		if(team == Team::BLUE)
+			ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::BlueTeamKillScore);
+		else if (team == Team::RED)
+				ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamKillScore);
+		MiniScorePanel::GetInstance()->SetBlueTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::BlueTeamKillScore));
+		MiniScorePanel::GetInstance()->SetRedTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::RedTeamKillScore));
+	}
 	else if(dynamic_cast<Minion*>(target) != nullptr)
 		stat->IncreaseBaseValue(StatType::MinionKilled, 1.f);
+
 }
 
 void Champion::OnOtherSkillStart(Skill* otherSkill)

@@ -9,6 +9,7 @@
 #include "DistortionRenderer.h"
 #include "FogOfWarRenderer.h"
 #include "TurretSubTree.h"
+#include "ScorePanel.h"
 
 Turret::Turret()
 {
@@ -88,6 +89,16 @@ void Turret::SetTeam(Team _team)
 	{
 		bar->SetTextureHP(L"bar_float (2)");
 	}
+}
+
+void Turret::Die()
+{
+	Unit::Die();
+	if(team == Team::BLUE)
+		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamTurretKillScore);
+	else if (team == Team::RED)
+		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::BlueTeamTurretKillScore);
+
 }
 
 void Turret::DeadAction()
