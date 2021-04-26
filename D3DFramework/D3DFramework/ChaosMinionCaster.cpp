@@ -20,7 +20,8 @@ ChaosMinionCaster::ChaosMinionCaster()
 	stat->SetBaseValue(StatType::AttackSpeed, 0.667f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 	stat->SetBaseValue(StatType::Range, 5.5f);
-	stat->SetBaseValue(StatType::Gold, 14.f);
+	stat->SetBaseValue(StatType::Bounty, 14.f);
+	stat->SetBaseValue(StatType::MinionKilled, 1.f);
 }
 
 ChaosMinionCaster::~ChaosMinionCaster()

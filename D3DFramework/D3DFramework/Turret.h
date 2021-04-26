@@ -13,7 +13,7 @@ public:
 
 
     virtual void SetTeam(Team _team);
-    
+    virtual void Die() override;
     virtual void DeadAction()override;
     virtual void AttackAction() override;
     virtual void CounterAttack()override;

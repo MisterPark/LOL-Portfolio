@@ -20,7 +20,8 @@ ChaosMinionMelee::ChaosMinionMelee()
 	stat->SetBaseValue(StatType::AttackSpeed, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
 	stat->SetBaseValue(StatType::Range, 1.1f);
-	stat->SetBaseValue(StatType::Gold, 21.f);
+	stat->SetBaseValue(StatType::Bounty, 21.f);
+	stat->SetBaseValue(StatType::MinionKilled, 1.f);
 }
 
 ChaosMinionMelee::~ChaosMinionMelee()
