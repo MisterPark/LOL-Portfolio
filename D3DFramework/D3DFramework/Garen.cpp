@@ -22,6 +22,8 @@
 #include "ChampionSubTree.h"
 #include "Skill_Attack.h"
 
+#include "Effect_Trail.h"
+
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -81,10 +83,15 @@ Garen::Garen()
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);
+
+	trail = (Effect_Trail*)SceneManager::GetCurrentScene()->CreateObject<Effect_Trail>(Layer::Effect);
+	trail->SetDuration(INFINITY);
 }
 
 Garen::~Garen()
 {
+	trail->Destroy();
+	trail = nullptr;
 }
 
 void Garen::Initialize()
@@ -97,6 +104,22 @@ void Garen::Release()
 
 void Garen::Update()
 {
+	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
+	if (dmesh != nullptr)
+	{
+		auto worldMatrix = transform->GetWorldMatrix();
+		auto weaponFrame = dmesh->GetFrameByName("Weapon");
+		Matrix weaponMatrix = weaponFrame->CombinedTransformationMatrix * worldMatrix;
+		Vector3 weaponPos;
+		D3DXVec3TransformCoord(&weaponPos, &weaponPos, &weaponMatrix);
+		Vector3 weaponDirection = (Vector3)(*(Vector3*)&weaponMatrix._31);
+		Vector3 weaponTip = weaponPos + weaponDirection.Normalized();
+		if (trail != nullptr)
+		{
+			trail->SetTrailPos(weaponPos, weaponTip);
+		}
+	}
+	
 	Champion::Update();
 }
 

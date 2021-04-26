@@ -394,6 +394,9 @@
     <Filter Include="Component\Renderer\MonoRenderer">
       <UniqueIdentifier>{f0a0d93a-7b11-4f27-8a0b-a70a90a8748e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject\TrailEffect">
+      <UniqueIdentifier>{96e4c551-b9ce-4bbe-b668-05fda03e0bfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1173,7 +1176,6 @@
     <ClInclude Include="Effect_Garen_E.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
@@ -1224,6 +1226,8 @@
     <ClInclude Include="MonoRenderer.h">
       <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="TrailMesh.h" />
+    <ClInclude Include="Effect_Trail.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2054,7 +2058,6 @@
     <ClCompile Include="Effect_Garen_E.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
@@ -2105,6 +2108,8 @@
     <ClCompile Include="MonoRenderer.cpp">
       <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="TrailMesh.cpp" />
+    <ClCompile Include="Effect_Trail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

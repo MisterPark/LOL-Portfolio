@@ -163,6 +163,7 @@ void Engine::MainGame::LoadUISprite()
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
+	RenderManager::LoadSprite(L"Resource\\Texture\\", L"red.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
 	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
 	//로딩씬

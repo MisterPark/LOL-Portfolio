@@ -26,7 +26,7 @@ protected:
     GameObject* target = nullptr;
     Vector3 offset;
     float tick = 0.f;
-    float duration = 1.f;
+    float duration = INFINITY;
 public:
     float speed = 1.f;
 };

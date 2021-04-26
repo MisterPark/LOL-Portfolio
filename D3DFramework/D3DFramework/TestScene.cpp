@@ -40,6 +40,8 @@
 #include "ChampionAI.h"
 
 #include "DistortionRenderer.h"
+#include "EffectObject.h"
+#include "Effect_Trail.h"
 
 void TestScene::OnLoaded()
 {
@@ -59,8 +61,8 @@ void TestScene::OnLoaded()
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
 	unitMap[0] = unit;
-	//unit->transform->position = { 41.f, 68.48f, 46.f };
-	unit->transform->position = { 15.68f, 66.91f, -11.16f };
+	unit->transform->position = { 41.f, 68.48f, 46.f };
+	//unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
@@ -79,6 +81,10 @@ void TestScene::OnLoaded()
 	Champion* champ2 = (Champion*)unit;
 	champ2->SetNickname(L"미스포츈");
 	champ2->SetID((UINT)5);
+
+	//trail = (Effect_Trail*)SceneManager::GetCurrentScene()->CreateObject<Effect_Trail>(Layer::Effect);
+	//trail->transform->position = { 36.f,69.f,46.f };
+	//trailPos = trail->transform->position;
 
 	D3DLIGHT9 dirLight{};
 	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();
@@ -117,6 +123,7 @@ void TestScene::OnUnloaded()
 
 void TestScene::Update()
 {
+	float dt = Time::DeltaTime();
 	Scene::Update();
 
 	Stat* playerStat = unitMap[0]->stat;
@@ -125,36 +132,7 @@ void TestScene::Update()
 	MiniScorePanel::GetInstance()->SetDeathScore((int)playerStat->GetBaseValue(StatType::DeathScore));
 	MiniScorePanel::GetInstance()->SetAssistScore((int)playerStat->GetBaseValue(StatType::AssistScore));
 
-	if (testUnit != nullptr)
-	{
-		if (Input::GetKey(VK_UP))
-		{
-			testUnit->transform->position.z -= Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_DOWN))
-		{
-			testUnit->transform->position.z += Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_LEFT))
-		{
-			testUnit->transform->position.x += Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_RIGHT))
-		{
-			testUnit->transform->position.x -= Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-	}
-
 	Progress();
-	
 }
 
 void TestScene::PostUpdate()

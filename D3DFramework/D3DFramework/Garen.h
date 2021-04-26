@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "Champion.h"
+
+class Effect_Trail;
+
 class Garen :
     public Champion
 {
@@ -19,5 +22,8 @@ public:
     virtual void SkillEAction();
     virtual void SkillRAction();
 
+
+private:
+    Effect_Trail* trail = nullptr;
 };
 

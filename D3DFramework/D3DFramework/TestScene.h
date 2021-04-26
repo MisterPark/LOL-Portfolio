@@ -5,6 +5,7 @@
 using namespace Engine;
 
 class Label;
+class Effect_Trail;
 
 class TestScene :
     public Scene
