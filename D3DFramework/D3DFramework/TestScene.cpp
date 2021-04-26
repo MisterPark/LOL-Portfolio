@@ -35,13 +35,11 @@
 
 #include "RenderSystem.h"
 
-#include "EffectObject.h"
-#include "Effect_Garen_E.h"
-#include "Effect_Garen_R.h"
 #include "MinionSpawner.h"
 
 #include "ChampionAI.h"
 
+#include "DistortionRenderer.h"
 
 void TestScene::OnLoaded()
 {

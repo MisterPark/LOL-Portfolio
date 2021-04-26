@@ -391,6 +391,9 @@
     <Filter Include="GameObject\UI\EndofgamePanel">
       <UniqueIdentifier>{32e9725b-054b-4806-ada8-1fc820280096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\MonoRenderer">
+      <UniqueIdentifier>{f0a0d93a-7b11-4f27-8a0b-a70a90a8748e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1167,9 +1170,6 @@
     <ClInclude Include="Buff_Item_ManaCharge.h">
       <Filter>Buff\Item\Skill\Start</Filter>
     </ClInclude>
-    <ClInclude Include="Effect_Garen_R.h">
-      <Filter>GameObject\EffectObject\GarenEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Effect_Garen_E.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
@@ -1191,11 +1191,38 @@
     <ClInclude Include="ScuttleracerAI.h">
       <Filter>Component\AI</Filter>
     </ClInclude>
+    <ClInclude Include="Effect_Garen_R_SwordMove.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_SwordFixed.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_GroundDecal.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_GroundImpact.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_Dome.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_Q_Impact.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_Q_Start.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
     <ClInclude Include="Skill_Item_HealthPotion.h">
       <Filter>Skill\Item\Start</Filter>
     </ClInclude>
     <ClInclude Include="Buff_Item_HealthPotion.h">
       <Filter>Buff\Item\Skill\Start</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Garen_R_Distortion.h">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoRenderer.h">
+      <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2027,9 +2054,6 @@
     <ClCompile Include="Effect_Garen_E.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Effect_Garen_R.cpp">
-      <Filter>GameObject\EffectObject\GarenEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
@@ -2048,11 +2072,38 @@
     <ClCompile Include="ScuttleracerAI.cpp">
       <Filter>Component\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Effect_Garen_R_SwordMove.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_SwordFixed.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_GroundDecal.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_GroundImpact.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_Dome.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_Q_Impact.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_Q_Start.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
     <ClCompile Include="Skill_Item_HealthPotion.cpp">
       <Filter>Skill\Item\Start</Filter>
     </ClCompile>
     <ClCompile Include="Buff_Item_HealthPotion.cpp">
       <Filter>Buff\Item\Skill\Start</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Garen_R_Distortion.cpp">
+      <Filter>GameObject\EffectObject\GarenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoRenderer.cpp">
+      <Filter>Component\Renderer\MonoRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

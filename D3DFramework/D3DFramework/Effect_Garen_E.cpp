@@ -30,6 +30,6 @@ Effect_Garen_E::~Effect_Garen_E()
 void Effect_Garen_E::PostUpdate()
 {
 	StickToTarget();
-	transform->eulerAngles.y += D3DXToRadian(30.f);
-	GameObject::PostUpdate();
+	transform->eulerAngles.y += (D3DXToRadian(780.f) * Time::DeltaTime());
+	EffectObject::PostUpdate();
 }

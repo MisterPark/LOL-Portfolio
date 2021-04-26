@@ -33,7 +33,7 @@ void Skill_Garen_W::Start()
 	Effect_Garen_W* eff = (Effect_Garen_W*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_W>(Layer::Effect);
 	eff->SetTarget(host);
 	eff->SetOffset(Vector3(0.f, 0.1f, 0.f));
-	eff->SetDuration(0.75f);
+	eff->SetDuration(2);
 
 	Effect_Garen_W_Shield* effS = (Effect_Garen_W_Shield*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_W_Shield>(Layer::Effect);
 	effS->SetTarget(host);
