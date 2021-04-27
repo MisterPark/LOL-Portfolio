@@ -31,6 +31,7 @@ void Skill_Heal::Start()
 
 
 	Heal();
+	SoundManager::GetInstance()->PlayOverlapSound(L"SpellHeal1.ogg", SoundChannel::PLAYER_EFFECT, 0.8f);
 }
 
 void Skill_Heal::Passive()

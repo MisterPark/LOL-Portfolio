@@ -27,7 +27,7 @@ void Skill_Ghost::Start()
 	Buff_Ghost* movementSpeedBuff = new Buff_Ghost(host, 10.f, buffTime);
 	host->stat->AddBuff(movementSpeedBuff);
 
-
+	SoundManager::GetInstance()->PlayOverlapSound(L"SpellGhost1.ogg", SoundChannel::PLAYER_EFFECT, 0.7f);
 }
 
 void Skill_Ghost::Passive()

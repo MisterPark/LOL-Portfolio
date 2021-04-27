@@ -33,6 +33,7 @@ Unit::Unit()
 	attackIndicator->SetTarget(this);
 
 	stat = (Stat*)AddComponent<Stat>(L"Stat");
+	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
 	SetAttackPerSec(0.625f);
 
 	//행동트리
@@ -815,6 +816,7 @@ void Unit::SkillLevelUp(SkillIndex skillIndex)
 	//	return;
 	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
 	skill->AddLevel();
+	SoundManager::GetInstance()->PlayOverlapSound(L"ChampionSkillLevelUp1.ogg", SoundChannel::PLAYER);
 }
 
 Skill_Attack* Unit::GetSkillAttack()

@@ -71,8 +71,11 @@ void Skill_Garen_R::Start()
 
 	Calc_TakeDamege(baseDamage);
 
-
-
+	if (Random::Value(2) == 0)
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenR1.ogg", SoundChannel::PLAYER);
+	else
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenR2.ogg", SoundChannel::PLAYER);
+	SoundManager::GetInstance()->PlayOverlapSound(L"GarenR1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_R::Passive()

@@ -44,6 +44,9 @@ void Skill_Garen_Q::Start()
 	host->attackFlag = false;
 	
 	host->GetSkillAttack()->AttackCancleToAttack();
+
+	SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenQ1.ogg", SoundChannel::PLAYER);
+	SoundManager::GetInstance()->PlayOverlapSound(L"GarenQ1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_Q::Passive()

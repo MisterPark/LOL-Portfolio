@@ -21,7 +21,7 @@ public:
     virtual void SetTeam(Team _team);
     void SetNickname(const std::wstring& _nickname);
 
-    virtual void Die();
+    virtual void Die() override;
     virtual void OnHit(Unit* target, Skill* mySkill) override;
     virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage) override;
     virtual void OnKilled(Unit* target) override;

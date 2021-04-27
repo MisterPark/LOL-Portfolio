@@ -13,6 +13,8 @@ public:
 
     virtual void OnAttackBegin() override;
     virtual void OnAttackEnd() override;
+    virtual void OnHit(Unit* target, Skill* mySkill) override;
+    virtual void Die() override;
 
     virtual void SkillQAction();
     virtual void SkillWAction();

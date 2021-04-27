@@ -111,6 +111,19 @@ void Garen::OnAttackEnd()
 	Unit::OnAttackEnd();
 }
 
+void Garen::OnHit(Unit* target, Skill* mySkill)
+{
+	Unit::OnHit(target, mySkill);
+	
+	SoundManager::GetInstance()->PlayOverlapSound(L"GarenAttack1.ogg", SoundChannel::PLAYER);
+}
+
+void Garen::Die()
+{
+	Champion::Die();
+	//SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenDie1.ogg", SoundChannel::EFFECT);
+}
+
 void Garen::SkillQAction()
 {
 }
