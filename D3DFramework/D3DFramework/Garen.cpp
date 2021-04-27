@@ -23,6 +23,7 @@
 #include "Skill_Attack.h"
 
 #include "Effect_Trail.h"
+#include "Trail.h"
 
 Garen::Garen()
 {
@@ -53,8 +54,8 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);
 	stat->SetBaseValue(StatType::Health, 620.f);
 	stat->SetBaseValue(StatType::HealthRegen, 8.f);
-	stat->SetBaseValue(StatType::MaxMana, 100.f);
-	stat->SetBaseValue(StatType::Mana, 100.f);
+	stat->SetBaseValue(StatType::MaxMana, 0.f);
+	stat->SetBaseValue(StatType::Mana, 0.f);
 	stat->SetBaseValue(StatType::ManaRegen, 0.f);
 	stat->SetBaseValue(StatType::AttackDamage, 66.f);
 	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
@@ -84,14 +85,14 @@ Garen::Garen()
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);
 
-	trail = (Effect_Trail*)SceneManager::GetCurrentScene()->CreateObject<Effect_Trail>(Layer::Effect);
-	trail->SetDuration(INFINITY);
+	Trail* trail = (Trail*)AddComponent<Trail>(L"Trail");
+	trail->SetLength(1.f);
+	trail->SetOffset(0.5f);
+	trail->AttachToDynamicMesh(dmesh);
 }
 
 Garen::~Garen()
 {
-	trail->Destroy();
-	trail = nullptr;
 }
 
 void Garen::Initialize()
@@ -104,22 +105,12 @@ void Garen::Release()
 
 void Garen::Update()
 {
-	DynamicMesh* dmesh = (DynamicMesh*)GetComponent(L"DynamicMesh");
-	if (dmesh != nullptr)
+	bool trailVisible = (state == State::Q);
+	Trail* trail = GetComponent<Trail>();
+	if (trail)
 	{
-		auto worldMatrix = transform->GetWorldMatrix();
-		auto weaponFrame = dmesh->GetFrameByName("Weapon");
-		Matrix weaponMatrix = weaponFrame->CombinedTransformationMatrix * worldMatrix;
-		Vector3 weaponPos;
-		D3DXVec3TransformCoord(&weaponPos, &weaponPos, &weaponMatrix);
-		Vector3 weaponDirection = (Vector3)(*(Vector3*)&weaponMatrix._31);
-		Vector3 weaponTip = weaponPos + weaponDirection.Normalized();
-		if (trail != nullptr)
-		{
-			trail->SetTrailPos(weaponPos, weaponTip);
-		}
+		trail->SetVisible(trailVisible);
 	}
-	
 	Champion::Update();
 }
 

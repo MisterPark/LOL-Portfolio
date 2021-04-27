@@ -22,8 +22,5 @@ public:
     virtual void SkillEAction();
     virtual void SkillRAction();
 
-
-private:
-    Effect_Trail* trail = nullptr;
 };
 

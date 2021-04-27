@@ -15,8 +15,8 @@ Effect_Trail::Effect_Trail()
 	AddComponent(L"renderer2", renderer);
 	
 	name = L"Trail";
-	//mesh->SetSubsetTexture(L"garen_base_q_wpn_trail");
-	mesh->SetSubsetTexture(L"red");
+	mesh->SetSubsetTexture(L"garen_base_q_wpn_trail");
+	//mesh->SetSubsetTexture(L"red");
 }
 
 Effect_Trail::~Effect_Trail()
