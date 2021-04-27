@@ -9,7 +9,7 @@
 
 Skill_Heal::Skill_Heal(Unit* _hostUnit)
 {
-	coolTime = 0.1f;//8.f;
+	coolTime = 7.f;//8.f;
 	duration = 0.f;
 	host = _hostUnit;
 	level = 1;
