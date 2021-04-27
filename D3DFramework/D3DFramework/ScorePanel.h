@@ -17,14 +17,23 @@ enum class Dragon
 
 enum class MobTimeID
 {
-	WestBlue, // 블루팀 블루 (서)
 	SouthRed, // 블루팀 레드 (남)
 	NorthRed, // 레드팀 레드 (북)
-	EastBlue, // 레드팀 레드 (동)
+	WestBlue, // 블루팀 블루 (서)
+	EastBlue, // 레드팀 블루 (동)
 	Dragon,	  // 용
 	Baron,	  // 바론
 	Herald,	  // 협곡의 전령
 	End
+};
+
+enum class PublicScoreID
+{
+	RedTeamKillScore,
+	BlueTeamKillScore,
+	RedTeamTurretKillScore,
+	BlueTeamTurretKillScore,
+	END
 };
 
 class ScorePanel :
@@ -48,6 +57,8 @@ public:
 	
 	void SetMobTime(MobTimeID _mob, float _time);
 	void SetDragonTime(float _time, Dragon _dragon);
+	void AddPublicScore(PublicScoreID _id) { publicScore[(int)_id]++; }
+	int GetPublicScore(PublicScoreID _id) { return publicScore[(int)_id]; }
 
 	virtual void Show();
 	virtual void Hide();
@@ -73,5 +84,6 @@ protected:
 	UI* simbolSmall[(UINT)MobTimeID::End] = { nullptr, };
 	float mobTime[(UINT)MobTimeID::End] = { 0.f, };
 
+	int publicScore[(UINT)PublicScoreID::END] = { 0, };
 };
 

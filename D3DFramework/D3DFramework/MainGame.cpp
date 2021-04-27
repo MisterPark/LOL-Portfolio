@@ -163,7 +163,7 @@ void Engine::MainGame::LoadUISprite()
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
-
+	RenderManager::LoadSprite(L"Resource\\Texture\\", L"red.png");
 	// cursor
 	LoadAllTextureInFolder(L"Resource\\UI\\cursor\\", L"*.tga");
 
@@ -469,6 +469,10 @@ void Engine::MainGame::LoadUISprite()
 	// 터렛
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
+
+	// 미니맵
+	LoadAllTextureInFolder(L"Resource\\UI\\minimap\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\minimap\\", L"*.png");
 
 }
 

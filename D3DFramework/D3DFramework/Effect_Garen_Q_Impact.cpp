@@ -29,6 +29,7 @@ Effect_Garen_Q_Impact::~Effect_Garen_Q_Impact()
 
 void Effect_Garen_Q_Impact::PostUpdate()
 {
+	transform->scale = Vector3(1, 1, 1) * tick;
 	StickToTarget();
 	EffectObject::PostUpdate();
 }

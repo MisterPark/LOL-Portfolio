@@ -233,7 +233,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE)
 		{
-			MainGame::Shutdown();
+			//MainGame::Shutdown();
 			break;
 		}
         if (wParam < 0)break;

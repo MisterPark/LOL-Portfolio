@@ -9,7 +9,7 @@ Inhibitor::Inhibitor()
 {
 	transform->position = { 0,0,0 };
 	transform->scale = { 0.00018f, 0.00018f, 0.00018f, };
-
+	spawnDelay = 300.f;
 	bar->SetOffset(Vector3(0, 2.5f, 0));
 
 	StaticMesh* mesh = RenderManager::CloneStaticMesh(L"sruap_orderinhibitor");
@@ -50,7 +50,6 @@ void Inhibitor::Die()
 {
 	Unit::Die();
 	SetSpawnFlag(true);
-	SetSpawnTime(5.f);
 	if(unitID == (int)UnitID::InhibitorBlueBot)
 		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
 	else if (unitID == (int)UnitID::InhibitorBlueMid)
