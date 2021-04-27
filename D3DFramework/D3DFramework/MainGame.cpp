@@ -479,6 +479,10 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex.dds");
 	RenderManager::LoadSprite(L"Resource\\Mesh\\turret_order\\", L"sru_chaos_cm_ba_mis_tex_blue.dds");
 
+	// 미니맵
+	LoadAllTextureInFolder(L"Resource\\UI\\minimap\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\minimap\\", L"*.png");
+
 }
 
 void Engine::MainGame::LoadAllTextureInFolder(const wstring& _path, const wstring& _filter)
