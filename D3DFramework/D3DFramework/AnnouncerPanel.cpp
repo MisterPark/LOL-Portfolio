@@ -68,6 +68,7 @@ void AnnouncerPanel::Update()
 	if (num > 0)
 	{
 		AnnouncerData& currData = data.front();
+		//data.pop_front();
 
 		// 출력
 		// 텍스트
@@ -112,7 +113,7 @@ void AnnouncerPanel::Update()
 		// Sound
 		if (!currData.soundPlay) {
 			currData.soundPlay = true;
-			SoundManager::GetInstance()->PlaySoundW(currData.soundKey.c_str(), SoundChannel::ANNOUNCER);
+			SoundManager::GetInstance()->PlayOverlapSoundWithAmp(currData.soundKey.c_str(), SoundChannel::ANNOUNCER);
 		}
 
 		tick += Time::DeltaTime();

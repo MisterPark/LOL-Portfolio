@@ -79,17 +79,17 @@ void Engine::SoundManager::Release()
 
 
 
-void Engine::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
+bool Engine::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter; 
 
 	iter = find_if(pSoundManager->soundMap.begin(), pSoundManager->soundMap.end(), [&](auto& iter)
 	{
-		return !lstrcmp(pSoundKey, iter.first);
+		return !lstrcmpW(pSoundKey, iter.first);
 	});
 
 	if (iter == pSoundManager->soundMap.end())
-		return;
+		return false;
 
 	FMOD_BOOL bPlay = FALSE; 
 	if (FMOD_Channel_IsPlaying(pSoundManager->channels[eID], &bPlay))
@@ -98,6 +98,8 @@ void Engine::SoundManager::PlaySound(const TCHAR * pSoundKey, SoundChannel eID)
 		FMOD_Channel_SetVolume(pSoundManager->channels[eID], pSoundManager->volume);
 	}
 	FMOD_System_Update(pSoundManager->pSystem);
+
+	return bPlay;
 }
 
 void Engine::SoundManager::PlayOverlapSound(const TCHAR * pSoundKey, SoundChannel eID, float offsetVolume, float duration)
