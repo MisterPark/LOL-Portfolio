@@ -179,6 +179,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="AnnouncerPanel.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Aura.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Effect_Garen_R_SwordMove.h" />
     <ClInclude Include="Effect_Garen_W.h" />
     <ClInclude Include="Effect_Red_Buff.h" />
+    <ClInclude Include="Effect_Trail.h" />
     <ClInclude Include="EndofgamePanel.h" />
     <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h" />
@@ -427,6 +429,8 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Tooltip.h" />
+    <ClInclude Include="Trail.h" />
+    <ClInclude Include="TrailMesh.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Turret.h" />
@@ -450,6 +454,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="AnnouncerPanel.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Aura.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
@@ -483,6 +488,7 @@
     <ClCompile Include="Effect_Garen_R_SwordMove.cpp" />
     <ClCompile Include="Effect_Garen_W.cpp" />
     <ClCompile Include="Effect_Red_Buff.cpp" />
+    <ClCompile Include="Effect_Trail.cpp" />
     <ClCompile Include="EndofgamePanel.cpp" />
     <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp" />
@@ -691,6 +697,8 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Tooltip.cpp" />
+    <ClCompile Include="Trail.cpp" />
+    <ClCompile Include="TrailMesh.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Turret.cpp" />

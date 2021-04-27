@@ -394,6 +394,15 @@
     <Filter Include="Component\Renderer\MonoRenderer">
       <UniqueIdentifier>{f0a0d93a-7b11-4f27-8a0b-a70a90a8748e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\EffectObject\TrailEffect">
+      <UniqueIdentifier>{96e4c551-b9ce-4bbe-b668-05fda03e0bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Trail">
+      <UniqueIdentifier>{0f91c5ea-b16c-4b4f-8b40-99b4a41c17cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\AnnouncerPanel">
+      <UniqueIdentifier>{e9721161-4d84-4a9f-82ba-c7b23ef21a95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1102,8 +1111,6 @@
     <ClInclude Include="Vector3.h">
       <Filter>Lib\Base</Filter>
     </ClInclude>
-    <ClInclude Include="MinionSpawner.h" />
-    <ClInclude Include="Inhibitor.h" />
     <ClInclude Include="Form.h">
       <Filter>GameObject\UI\Control</Filter>
     </ClInclude>
@@ -1173,14 +1180,12 @@
     <ClInclude Include="Effect_Garen_E.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Effect_Garen_R.h" />
     <ClInclude Include="Skill_Item_Immolate.h">
       <Filter>Skill\Item\Epic</Filter>
     </ClInclude>
     <ClInclude Include="EndofgamePanel.h">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClInclude>
-    <ClInclude Include="ChampionAI.h" />
     <ClInclude Include="Effect_Garen_W.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
@@ -1223,6 +1228,27 @@
     </ClInclude>
     <ClInclude Include="MonoRenderer.h">
       <Filter>Component\Renderer\MonoRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ChampionAI.h">
+      <Filter>Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Trail.h">
+      <Filter>GameObject\EffectObject\TrailEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Inhibitor.h">
+      <Filter>GameObject\Unit\Building\Inhibitor</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionSpawner.h">
+      <Filter>GameObject\Unit\Minion\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="TrailMesh.h">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Trail.h">
+      <Filter>Component\Trail</Filter>
+    </ClInclude>
+    <ClInclude Include="AnnouncerPanel.h">
+      <Filter>GameObject\UI\AnnouncerPanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1983,8 +2009,6 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Lib\Base</Filter>
     </ClCompile>
-    <ClCompile Include="MinionSpawner.cpp" />
-    <ClCompile Include="Inhibitor.cpp" />
     <ClCompile Include="Form.cpp">
       <Filter>GameObject\UI\Control</Filter>
     </ClCompile>
@@ -2054,14 +2078,12 @@
     <ClCompile Include="Effect_Garen_E.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Effect_Garen_R.cpp" />
     <ClCompile Include="Skill_Item_Immolate.cpp">
       <Filter>Skill\Item\Epic</Filter>
     </ClCompile>
     <ClCompile Include="EndofgamePanel.cpp">
       <Filter>GameObject\UI\EndofgamePanel</Filter>
     </ClCompile>
-    <ClCompile Include="ChampionAI.cpp" />
     <ClCompile Include="Effect_Garen_W.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
@@ -2104,6 +2126,27 @@
     </ClCompile>
     <ClCompile Include="MonoRenderer.cpp">
       <Filter>Component\Renderer\MonoRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ChampionAI.cpp">
+      <Filter>Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect_Trail.cpp">
+      <Filter>GameObject\EffectObject\TrailEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Inhibitor.cpp">
+      <Filter>GameObject\Unit\Building\Inhibitor</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionSpawner.cpp">
+      <Filter>GameObject\Unit\Minion\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="TrailMesh.cpp">
+      <Filter>Component\Mesh\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Trail.cpp">
+      <Filter>Component\Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="AnnouncerPanel.cpp">
+      <Filter>GameObject\UI\AnnouncerPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

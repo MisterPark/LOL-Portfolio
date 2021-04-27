@@ -7,6 +7,7 @@
 #include "Skill_Attack.h"
 #include "Effect_Garen_Q_Start.h"
 #include "Effect_Garen_Q_Impact.h"
+#include "Trail.h"
 
 Skill_Garen_Q::Skill_Garen_Q(Unit* _hostUnit)
 {
@@ -75,5 +76,7 @@ void Skill_Garen_Q::OnHit(Unit* target, Skill* mySkill)
 		Effect_Garen_Q_Impact* eff = (Effect_Garen_Q_Impact*)SceneManager::GetCurrentScene()->CreateObject<Effect_Garen_Q_Impact>(Layer::Effect);
 		eff->SetTarget(host->attackTarget);
 		eff->SetDuration(1.0f);
+		eff->transform->eulerAngles = host->transform->eulerAngles;
+		eff->transform->eulerAngles.y += D3DXToRadian(90.f);
 	}
 }

@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Engine
 {
-	enum SoundChannel { BGM, PLAYER, PLAYER_EFFECT, MONSTER, EFFECT, MAXCHANNEL };
+	enum SoundChannel { BGM, PLAYER, PLAYER_EFFECT, MONSTER, EFFECT, ANNOUNCER, MAXCHANNEL };
 
 	class SoundManager
 	{
@@ -31,12 +31,12 @@ namespace Engine
 		static void LoadSoundFile();
 
 	private:
-		// »ç¿îµå ¸®¼Ò½º Á¤º¸¸¦ °®´Â °´Ã¼ 
+		// ì‚¬ìš´ë“œ ë¦¬ì†ŒìŠ¤ ì •ë³´ë¥¼ ê°–ëŠ” ê°ì²´ 
 		map<TCHAR*, FMOD_SOUND*> soundMap;
 		map<TCHAR*, pair<bool, float>> soundTimeMap;
-		// FMOD_CHANNEL : Àç»ıÇÏ°í ÀÖ´Â »ç¿îµå¸¦ °ü¸®ÇÒ °´Ã¼ 
+		// FMOD_CHANNEL : ì¬ìƒí•˜ê³  ìˆëŠ” ì‚¬ìš´ë“œë¥¼ ê´€ë¦¬í•  ê°ì²´ 
 		FMOD_CHANNEL* channels[MAXCHANNEL];
-		// »ç¿îµå ,Ã¤³Î °´Ã¼ ¹× ÀåÄ¡¸¦ °ü¸®ÇÏ´Â °´Ã¼ 
+		// ì‚¬ìš´ë“œ ,ì±„ë„ ê°ì²´ ë° ì¥ì¹˜ë¥¼ ê´€ë¦¬í•˜ëŠ” ê°ì²´ 
 		FMOD_SYSTEM* pSystem;
 		float volume;
 	};

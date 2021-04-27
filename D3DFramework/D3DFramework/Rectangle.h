@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "CustomMesh.h"
 
 namespace Engine
@@ -10,13 +10,8 @@ namespace Engine
         explicit Rectangle(const Rectangle& rhs);
         virtual ~Rectangle();
 
-        // CustomMesh¿ª(∏¶) ≈Î«ÿ ªÛº”µ 
-
         virtual void Update() override;
-
         virtual IComponent* Clone() override;
-
-        // CustomMesh¿ª(∏¶) ≈Î«ÿ ªÛº”µ 
         virtual void CreateCustomMesh() override;
     };
 }

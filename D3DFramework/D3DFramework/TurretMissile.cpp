@@ -39,7 +39,11 @@ void TurretMissile::Release()
 
 void TurretMissile::Update()
 {
-	Billboard();
+	Vector3 camDir = Camera::main->GetOffset();
+	Vector3::Normalize(&camDir);
+	camDir = -camDir;
+	transform->Rotate(camDir);
+
 	transform->Update();
 
 	if (attackTarget != nullptr)

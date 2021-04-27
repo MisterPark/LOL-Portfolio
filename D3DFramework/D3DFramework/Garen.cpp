@@ -22,6 +22,9 @@
 #include "ChampionSubTree.h"
 #include "Skill_Attack.h"
 
+#include "Effect_Trail.h"
+#include "Trail.h"
+
 Garen::Garen()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -51,8 +54,8 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::MaxHealth, 620.f);
 	stat->SetBaseValue(StatType::Health, 620.f);
 	stat->SetBaseValue(StatType::HealthRegen, 8.f);
-	stat->SetBaseValue(StatType::MaxMana, 100.f);
-	stat->SetBaseValue(StatType::Mana, 100.f);
+	stat->SetBaseValue(StatType::MaxMana, 0.f);
+	stat->SetBaseValue(StatType::Mana, 0.f);
 	stat->SetBaseValue(StatType::ManaRegen, 0.f);
 	stat->SetBaseValue(StatType::AttackDamage, 66.f);
 	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
@@ -81,6 +84,11 @@ Garen::Garen()
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);
+
+	Trail* trail = (Trail*)AddComponent<Trail>(L"Trail");
+	trail->SetLength(1.f);
+	trail->SetOffset(0.5f);
+	trail->AttachToDynamicMesh(dmesh);
 }
 
 Garen::~Garen()
@@ -97,6 +105,12 @@ void Garen::Release()
 
 void Garen::Update()
 {
+	bool trailVisible = (state == State::Q);
+	Trail* trail = GetComponent<Trail>();
+	if (trail)
+	{
+		trail->SetVisible(trailVisible);
+	}
 	Champion::Update();
 }
 

@@ -10,6 +10,7 @@
 #include "ItemshopPanel.h"
 #include "ScorePanel.h"
 #include "EndofgamePanel.h"
+#include "AnnouncerPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -40,6 +41,8 @@
 #include "ChampionAI.h"
 
 #include "DistortionRenderer.h"
+#include "EffectObject.h"
+#include "Effect_Trail.h"
 
 void TestScene::OnLoaded()
 {
@@ -59,8 +62,8 @@ void TestScene::OnLoaded()
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
 	unitMap[0] = unit;
-	//unit->transform->position = { 41.f, 68.48f, 46.f };
-	unit->transform->position = { 15.68f, 66.91f, -11.16f };
+	unit->transform->position = { 41.f, 68.48f, 46.f };
+	//unit->transform->position = { 15.68f, 66.91f, -11.16f };
 	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
@@ -80,6 +83,10 @@ void TestScene::OnLoaded()
 	champ2->SetNickname(L"미스포츈");
 	champ2->SetID((UINT)5);
 
+	//trail = (Effect_Trail*)SceneManager::GetCurrentScene()->CreateObject<Effect_Trail>(Layer::Effect);
+	//trail->transform->position = { 36.f,69.f,46.f };
+	//trailPos = trail->transform->position;
+
 	D3DLIGHT9 dirLight{};
 	Vector3 v = Vector3(-2, -4.f, 0.5f).Normalized();
 	dirLight.Type = D3DLIGHT_DIRECTIONAL;
@@ -96,6 +103,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
+	UIManager::GetInstance()->AddUI(AnnouncerPanel::GetInstance());
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();
@@ -117,6 +125,7 @@ void TestScene::OnUnloaded()
 
 void TestScene::Update()
 {
+	float dt = Time::DeltaTime();
 	Scene::Update();
 
 	Stat* playerStat = unitMap[0]->stat;
@@ -125,36 +134,7 @@ void TestScene::Update()
 	MiniScorePanel::GetInstance()->SetDeathScore((int)playerStat->GetBaseValue(StatType::DeathScore));
 	MiniScorePanel::GetInstance()->SetAssistScore((int)playerStat->GetBaseValue(StatType::AssistScore));
 
-	if (testUnit != nullptr)
-	{
-		if (Input::GetKey(VK_UP))
-		{
-			testUnit->transform->position.z -= Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_DOWN))
-		{
-			testUnit->transform->position.z += Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_LEFT))
-		{
-			testUnit->transform->position.x += Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-		if (Input::GetKey(VK_RIGHT))
-		{
-			testUnit->transform->position.x -= Time::DeltaTime();
-			printf("%.2ff,%.2ff,%.2ff\n", testUnit->transform->position.x, testUnit->transform->position.y, testUnit->transform->position.z);
-
-		}
-	}
-
 	Progress();
-	
 }
 
 void TestScene::PostUpdate()
@@ -170,20 +150,47 @@ void TestScene::Progress()
 	int second = 0;
 	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
 
+#if 1
 	if (minute == 0 && second == 25)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"소환사의 협곡에 오신 것을 환영합니다", Team::BLUE, L"소환사의협곡에오신것을환영합니다.wav");
+			play = true;
+		}
 	}
 	else if (minute == 0 && second == 35)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"미니언 생성까지 30초 남았습니다", Team::BLUE, L"미니언생성까지30초남았습니다.wav");
+			play = true;
+		}
 	}
 	else if (minute == 1 && second == 5)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"미니언이 생성되었습니다", Team::BLUE, L"미니언이생성되었습니다.wav");
+			MinionSpawner::Spawn();
+			play = true;
+		}
+	}
+#else
+	if (minute == 0 && second == 25)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 0 && second == 35)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 1 && second == 5)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
 		MinionSpawner::Spawn();
 	}
-
+#endif
 }
 
 //============================================================================================

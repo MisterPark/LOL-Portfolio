@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "Champion.h"
+
+class Effect_Trail;
+
 class Garen :
     public Champion
 {
