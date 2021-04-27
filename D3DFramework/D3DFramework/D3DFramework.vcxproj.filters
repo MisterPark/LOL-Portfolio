@@ -400,6 +400,9 @@
     <Filter Include="Component\Trail">
       <UniqueIdentifier>{0f91c5ea-b16c-4b4f-8b40-99b4a41c17cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\AnnouncerPanel">
+      <UniqueIdentifier>{e9721161-4d84-4a9f-82ba-c7b23ef21a95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1243,6 +1246,9 @@
     </ClInclude>
     <ClInclude Include="Trail.h">
       <Filter>Component\Trail</Filter>
+    </ClInclude>
+    <ClInclude Include="AnnouncerPanel.h">
+      <Filter>GameObject\UI\AnnouncerPanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2138,6 +2144,9 @@
     </ClCompile>
     <ClCompile Include="Trail.cpp">
       <Filter>Component\Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="AnnouncerPanel.cpp">
+      <Filter>GameObject\UI\AnnouncerPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

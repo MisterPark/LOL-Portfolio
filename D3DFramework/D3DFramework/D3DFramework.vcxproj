@@ -179,6 +179,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="AnnouncerPanel.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Aura.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
@@ -453,6 +454,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="AnnouncerPanel.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Aura.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
