@@ -353,12 +353,33 @@ void PlayerInfoPanel::Update()
 		if (mp < 0) mp = 0;
 		float mpMax = champion->stat->GetValue(StatType::MaxMana);
 
-		mpBar->uvRatioEnd.x = 1.f;
-		mpLabel->SetText(L"%d/%d", (int)mp, (int)mpMax);
+		if ((int)mpMax <= 0)
+		{
+			mpBar->visible = false;
+			mpLabel->visible = false;
+			mpBarMarker->visible = false;
+			auto MPBarTipL = mainPanel->children[L"MPBarTipL"];
+			auto MPBarTipR = mainPanel->children[L"MPBarTipR"];
+			if (MPBarTipL) MPBarTipL->visible = false;
+			if (MPBarTipR) MPBarTipR->visible = false;
+		}
+		else
+		{
+			mpBar->visible = true;
+			mpLabel->visible = true;
+			mpBarMarker->visible = true;
+			auto MPBarTipL = mainPanel->children[L"MPBarTipL"];
+			auto MPBarTipR = mainPanel->children[L"MPBarTipR"];
+			if (MPBarTipL) MPBarTipL->visible = true;
+			if (MPBarTipR) MPBarTipR->visible = true;
 
-		Vector2 barSize = mpBar->GetSize();
-		Vector2 markerSize = mpBarMarker->GetSize();
-		mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+			mpBar->uvRatioEnd.x = 1.f;
+			mpLabel->SetText(L"%d/%d", (int)mp, (int)mpMax);
+
+			Vector2 barSize = mpBar->GetSize();
+			Vector2 markerSize = mpBarMarker->GetSize();
+			mpBarMarker->SetLocation((barSize.x * (mp / mpMax)) - (markerSize.x * 0.5f), (barSize.y * 0.5f) - (markerSize.y * 0.5f));
+		}
 	}
 
 	// Stat

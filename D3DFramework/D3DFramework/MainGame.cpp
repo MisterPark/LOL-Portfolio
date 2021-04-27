@@ -163,8 +163,10 @@ void Engine::MainGame::LoadUISprite()
 	//RenderManager::LoadSprite(TextureKey::UI_CURSOR, L"Texture\\UI\\Cursor.png");
 	//RenderManager::LoadSprite(TextureKey::GRASS, L"Resource\\Texture\\grassTexture.png");
 	RenderManager::LoadSprite(L"Resource\\Texture\\", L"Empty.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"hover_precise.tga");
-	RenderManager::LoadSprite(L"Resource\\UI\\cursor\\", L"singletarget.tga");
+
+	// cursor
+	LoadAllTextureInFolder(L"Resource\\UI\\cursor\\", L"*.tga");
+
 	//로딩씬
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"srbackground.dds");
 
@@ -301,30 +303,20 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"baron_recall.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"textbox.png");
 
-	// Itemshop
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_background.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_disabled.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_hover.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_buy_pressed.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_hover.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_close_pressed.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_disabled.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_pressed.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_restore_hover.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_default.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_button_sel_hover.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_item_outline.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_selecteditem.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_hoveritem.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"itemshop_blankslot.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\itemshop\\", L"icon_gold.png");
+	// Announcer
+	LoadAllTextureInFolder(L"Resource\\UI\\Announcer\\", L"*.dds");
+	LoadAllTextureInFolder(L"Resource\\UI\\Announcer\\", L"*.png");
 
-
+	// item
 	LoadAllTextureInFolder(L"Resource\\UI\\item\\", L"*.dds");
+
+	// itemshop
+	LoadAllTextureInFolder(L"Resource\\UI\\itemshop\\", L"*.png");
+
+	// buff
 	LoadAllTextureInFolder(L"Resource\\UI\\buff\\", L"*.dds");
+
+	// paricles
 	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\missfortune\\particles\\", L"*.dds");
 	LoadAllTextureInFolder(L"Resource\\Mesh\\character\\garen\\particles\\", L"*.dds");
 

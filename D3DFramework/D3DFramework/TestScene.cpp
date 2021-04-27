@@ -10,6 +10,7 @@
 #include "ItemshopPanel.h"
 #include "ScorePanel.h"
 #include "EndofgamePanel.h"
+#include "AnnouncerPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -93,6 +94,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(ItemshopPanel::GetInstance());
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
+	UIManager::GetInstance()->AddUI(AnnouncerPanel::GetInstance());
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();
@@ -160,20 +162,47 @@ void TestScene::Progress()
 	int second = 0;
 	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
 
+#if 1
 	if (minute == 0 && second == 25)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"소환사의 협곡에 오신 것을 환영합니다", Team::BLUE, L"소환사의협곡에오신것을환영합니다.wav");
+			play = true;
+		}
 	}
 	else if (minute == 0 && second == 35)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"미니언 생성까지 30초 남았습니다", Team::BLUE, L"미니언생성까지30초남았습니다.wav");
+			play = true;
+		}
 	}
 	else if (minute == 1 && second == 5)
 	{
-		//SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
+		static bool play = false;
+		if (!play) {
+			AnnouncerPanel::GetInstance()->AddAnnouncer(L"미니언이 생성되었습니다", Team::BLUE, L"미니언이생성되었습니다.wav");
+			MinionSpawner::Spawn();
+			play = true;
+		}
+	}
+#else
+	if (minute == 0 && second == 25)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 0 && second == 35)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
+	}
+	else if (minute == 1 && second == 5)
+	{
+		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
 		MinionSpawner::Spawn();
 	}
-
+#endif
 }
 
 //============================================================================================
