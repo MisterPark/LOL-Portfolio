@@ -153,7 +153,7 @@ void Turret::AttackAction()
 		attackTarget = nullptr;
 		return;
 	}
-	attackIndicator->visible = true;
+	//attackIndicator->visible = true;
 
 	attackTick += Time::DeltaTime();
 	float delay = 1.f / (*stat)[StatType::AttackSpeed];
@@ -182,7 +182,7 @@ void Turret::CounterAttack()
 void Turret::IdleAction()
 {
 	Unit::IdleAction();
-	attackIndicator->visible = false;
+	//attackIndicator->visible = false;
 
 }
 

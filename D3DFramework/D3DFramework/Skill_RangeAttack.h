@@ -16,5 +16,6 @@ public:
 
 private:
     wstring textureKey = L"missfortune_base_e_musketball";
+    bool beginAttackFlag = false;
 };
 

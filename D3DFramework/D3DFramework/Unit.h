@@ -252,7 +252,7 @@ public:
 	Animation* anim = nullptr;
 	NavMeshAgent* agent = nullptr;
 	SphereCollider* collider = nullptr;
-	Indicator* attackIndicator = nullptr;
+	//Indicator* attackIndicator = nullptr;
 	Stat* stat = nullptr;
 	BehaviorTree* bt = nullptr;
 	Aura* aura = nullptr;

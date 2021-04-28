@@ -19,6 +19,6 @@ public:
 
 public:
     MinionAI* ai = nullptr;
-    
+    static list<Minion*> minionList;
 };
 

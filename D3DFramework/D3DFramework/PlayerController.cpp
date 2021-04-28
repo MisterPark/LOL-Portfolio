@@ -239,12 +239,12 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
-        unit->attackIndicator->visible = true;
+        //unit->attackIndicator->visible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
-        unit->attackIndicator->visible = false;
+        //unit->attackIndicator->visible = false;
     }
 }
 
