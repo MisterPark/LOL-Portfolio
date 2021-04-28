@@ -21,7 +21,10 @@ public:
     void AddChampion(Champion* _champ);
 
 private:
+    UI* border = nullptr;
+    UI* minimap = nullptr;
     vector<Champion*> champ[2];
     vector<UI*> champFace[2];
+    map<INT, UI*> mapicon;
 };
 

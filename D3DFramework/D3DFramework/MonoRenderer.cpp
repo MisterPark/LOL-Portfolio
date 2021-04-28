@@ -12,6 +12,8 @@ namespace Engine
 
 	void MonoRenderer::Render()
 	{
+		if (!enable) return;
+
 		UINT passCount{};
 		ComPtr<IDirect3DTexture9> screenTexture;
 		ComPtr<IDirect3DSurface9> backbuffer;

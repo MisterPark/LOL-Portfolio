@@ -116,8 +116,6 @@ void TestScene::OnLoaded()
 	MinimapPanel::GetInstance()->AddChampion(champ2);
 
 	EndofgamePanel::GetInstance()->Hide();
-	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
-	//EndofgamePanel::GetInstance()->ShowDefeat(); // 패배시
 }
 
 void TestScene::OnUnloaded()
@@ -152,7 +150,6 @@ void TestScene::Progress()
 	int second = 0;
 	MiniScorePanel::GetInstance()->GetTime(&minute, &second);
 
-#if 1
 	if (minute == 0 && second == 25)
 	{
 		static bool play = false;
@@ -178,21 +175,6 @@ void TestScene::Progress()
 			play = true;
 		}
 	}
-#else
-	if (minute == 0 && second == 25)
-	{
-		SoundManager::GetInstance()->PlaySoundW(L"소환사의협곡에오신것을환영합니다.wav", SoundChannel::PLAYER);
-	}
-	else if (minute == 0 && second == 35)
-	{
-		SoundManager::GetInstance()->PlaySoundW(L"미니언생성까지30초남았습니다.wav", SoundChannel::PLAYER);
-	}
-	else if (minute == 1 && second == 5)
-	{
-		SoundManager::GetInstance()->PlaySoundW(L"미니언이생성되었습니다.wav", SoundChannel::PLAYER);
-		MinionSpawner::Spawn();
-	}
-#endif
 }
 
 //============================================================================================
