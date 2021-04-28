@@ -108,6 +108,9 @@ void Champion::Die()
 {
 	Unit::Die();
 	stat->IncreaseBaseValue(StatType::DeathScore, 1.f);
+
+	if (unitID == (int)UnitID::Champ0)
+		SoundManager::GetInstance()->PlayOverlapSound(L"적에게당했습니다.wav", SoundChannel::EFFECT);
 }
 
 void Champion::OnHit(Unit* target, Skill* mySkill)
@@ -153,6 +156,8 @@ void Champion::OnKilled(Unit* target)
 				ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamKillScore);
 		MiniScorePanel::GetInstance()->SetBlueTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::BlueTeamKillScore));
 		MiniScorePanel::GetInstance()->SetRedTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::RedTeamKillScore));
+		if(unitID == (int)UnitID::Champ0)
+			SoundManager::GetInstance()->PlayOverlapSound(L"적을처치했습니다.wav", SoundChannel::EFFECT);
 	}
 	else if(dynamic_cast<Minion*>(target) != nullptr)
 		stat->IncreaseBaseValue(StatType::MinionKilled, 1.f);

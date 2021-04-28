@@ -101,6 +101,16 @@ void Inhibitor::Die()
 			MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SSMMMCCC);
 		}
 	}
+
+	TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+	if (scene != nullptr)
+	{
+		Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+		if (player->team == team)
+			SoundManager::GetInstance()->PlayOverlapSound(L"억제기가파괴되었습니다.wav", SoundChannel::PLAYER);
+		else
+			SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기를파괴했습니다.wav", SoundChannel::PLAYER);
+	}
 	
 }
 
@@ -112,6 +122,17 @@ void Inhibitor::UpdateSpawn()
 		spawnTick += dt;
 		if (spawnTick > spawnDelay)
 		{
+			if (isDead) {
+				TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+				if (scene != nullptr)
+				{
+					Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+					if (player->team == team)
+						SoundManager::GetInstance()->PlayOverlapSound(L"억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
+					else
+						SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
+				}
+			}
 			spawnFlag = false;
 			spawnTick = 0.f;
 			attackTarget = nullptr;
@@ -154,6 +175,7 @@ void Inhibitor::UpdateSpawn()
 				MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::MMMCCC);
 			else if (unitID == (int)UnitID::InhibitorRedBot)
 				MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
+
 		}
 	}
 }
