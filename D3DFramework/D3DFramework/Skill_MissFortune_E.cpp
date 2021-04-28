@@ -50,6 +50,10 @@ void Skill_MissFortune_E::Start()
 	//제일처음에 Basic만 잘 입혀줄것
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AP));
 
+	if (PlayerToDistanceCompare(host->GetTransform()->GetPos())) {
+		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneE1.ogg", SoundChannel::EFFECT);
+	}
+
 }
 
 void Skill_MissFortune_E::Passive()

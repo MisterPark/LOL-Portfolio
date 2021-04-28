@@ -55,6 +55,11 @@ void Skill_MissFortune_W::Passive()
 		moveSpeedBuff->modifiers.front().value = 0.25f;
 	else
 		moveSpeedBuff->modifiers.front().value = 0.f;
+
+	if (PlayerToDistanceCompare(host->GetTransform()->GetPos())) {
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneW1.ogg", SoundChannel::EFFECT);
+		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneW1.ogg", SoundChannel::EFFECT);
+	}
 }
 
 void Skill_MissFortune_W::Active()

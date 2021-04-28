@@ -79,3 +79,16 @@ void Missfortune::Update()
 {
 	Champion::Update();
 }
+
+void Missfortune::OnHit(Unit* target, Skill* mySkill)
+{
+	Champion::OnHit(target, mySkill);
+	if(skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos()))
+		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneAttack1.ogg", SoundChannel::EFFECT, 0.7f);
+}
+
+void Missfortune::Die()
+{
+	Champion::Die();
+	SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneDie1.ogg", SoundChannel::EFFECT);
+}

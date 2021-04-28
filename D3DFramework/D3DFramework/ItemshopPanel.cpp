@@ -240,6 +240,7 @@ void ItemshopPanel::BuyItem(UINT _id)
     if (champion == nullptr) return;
 
     champion->BuyItem(_id);
+    SoundManager::GetInstance()->PlayOverlapSound(L"ItemBuy1.ogg", SoundChannel::EFFECT);
 }
 
 void ItemshopPanel::BuyItem(GameObject* sender, MouseEventArg* args)
@@ -256,6 +257,7 @@ void ItemshopPanel::BuyItem(GameObject* sender, MouseEventArg* args)
 void ItemshopPanel::SellItem(GameObject* sender, MouseEventArg* args)
 {
     PlayerInfoPanel::GetInstance()->SellSelectedItem();
+    SoundManager::GetInstance()->PlayOverlapSound(L"ItemSell1.ogg", SoundChannel::EFFECT);
 }
 
 void ItemshopPanel::ShowTooltipItem(GameObject* sender, MouseEventArg* args)

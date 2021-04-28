@@ -116,13 +116,26 @@ void Garen::Update()
 
 void Garen::OnAttackBegin()
 {
-	Unit::OnAttackBegin();
+	Champion::OnAttackBegin();
 	anim->SetSpeed((int)State::Q, (*stat)[StatType::AttackSpeed]);
 }
 
 void Garen::OnAttackEnd()
 {
-	Unit::OnAttackEnd();
+	Champion::OnAttackEnd();
+}
+
+void Garen::OnHit(Unit* target, Skill* mySkill)
+{
+	Champion::OnHit(target, mySkill);
+	
+	SoundManager::GetInstance()->PlayOverlapSound(L"GarenAttack1.ogg", SoundChannel::PLAYER);
+}
+
+void Garen::Die()
+{
+	Champion::Die();
+	//SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenDie1.ogg", SoundChannel::EFFECT);
 }
 
 void Garen::SkillQAction()

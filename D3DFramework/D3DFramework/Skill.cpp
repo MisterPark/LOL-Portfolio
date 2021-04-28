@@ -2,7 +2,8 @@
 #include "Skill.h"
 #include "Unit.h"
 #include "DamageCalc.h"
-
+#include "TestScene.h"
+#include "SphereCollider.h"
 
 Skill::Skill()
 {
@@ -81,6 +82,23 @@ void Skill::OnOtherSkillStart(Skill* otherSkill)
 
 void Skill::OnTargetFirstHit(Unit* target, Skill* mySkill)
 {
+}
+
+bool Skill::PlayerToDistanceCompare(Vector3 _pos, float _distance)
+{
+	TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+	if (scene != nullptr)
+	{
+		Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+		Vector3 direction = _pos - player->transform->position;
+		float dist = direction.Length();
+		float targetRadius = player->collider->GetRadius();
+		if (dist <= range + targetRadius)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Skill::IsActive()
