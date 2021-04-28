@@ -377,6 +377,7 @@ void Engine::MainGame::LoadUISprite()
 	LoadAllTextureInFolder(L"Resource\\UI\\endofgame\\", L"*.png");
 	LoadAllTextureInFolder(L"Resource\\UI\\endofgame\\", L"*.dds");
 
+	LoadAllTextureInFolder(L"Resource\\UI\\HUD\\champ\\", L"*.dds");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_square.png");

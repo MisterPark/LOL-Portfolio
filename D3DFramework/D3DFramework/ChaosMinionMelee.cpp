@@ -22,6 +22,9 @@ ChaosMinionMelee::ChaosMinionMelee()
 	stat->SetBaseValue(StatType::Range, 1.1f);
 	stat->SetBaseValue(StatType::Bounty, 21.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"redmelee_circle";
+	faceSquareTexkey = L"redmelee_square";
 }
 
 ChaosMinionMelee::~ChaosMinionMelee()

@@ -24,6 +24,9 @@ OrderMinionSuper::OrderMinionSuper()
 	stat->SetBaseValue(StatType::Range, 1.7f);
 	stat->SetBaseValue(StatType::Bounty, 60.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"bluemechmelee_circle";
+	faceSquareTexkey = L"bluemechmelee_square";
 }
 
 OrderMinionSuper::~OrderMinionSuper()

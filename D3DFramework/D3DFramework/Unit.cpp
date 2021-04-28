@@ -14,6 +14,10 @@
 #include "FloatingBar.h"
 #include "Minion.h"
 #include "FogOfWarRenderSystem.h"
+#include "Turret.h"
+#include "Inhibitor.h"
+#include "AnnouncerPanel.h"
+#include "TestScene.h"
 
 list<Unit*> Unit::unitList;
 
@@ -136,10 +140,17 @@ void Unit::UpdateHit()
 	float dt = Time::DeltaTime();
 	// 마지막 피격자 업데이트
 	lastAttackTick += dt;
+	lastChampAttackTick += dt;
+
 	if (lastAttackTick > lastAttackDuration)
 	{
 		lastAttackTick = 0.f;
 		lastAttacker = nullptr;
+	}
+	if (lastChampAttackTick > lastChampAttackDuration)
+	{
+		lastChampAttackTick = 0.f;
+		lastChamionAttacker = nullptr;
 	}
 	// 피격 트리거 업데이트
 	if (oldHitFlag == true)
@@ -336,6 +347,8 @@ void Unit::Die()
 	{
 		bar->Hide();
 	}
+
+	OnDeathBegin(lastAttacker);
 }
 
 void Unit::OnKilled(Unit* target)
@@ -357,6 +370,15 @@ void Unit::OnKilled(Unit* target)
 			aura->ShowBlueBuff(true);
 			//aura->ShowBaronBuff(true);
 		}
+	}
+	else if (dynamic_cast<Turret*>(target) != nullptr)
+	{
+		
+		
+	}
+	else if (dynamic_cast<Inhibitor*>(target) != nullptr)
+	{
+
 	}
 
 
@@ -390,7 +412,11 @@ void Unit::OnRespawn()
 	
 }
 
-void Unit::OnDie()
+void Unit::OnDeathBegin(Unit* _lastAttacker)
+{
+}
+
+void Unit::OnDeathEnd()
 {
 	if (spawnFlag == false)
 	{
@@ -410,7 +436,7 @@ void Unit::DeadAction()
 	{
 		anim->Stop();
 		Hide();
-		OnDie();
+		OnDeathEnd();
 	}
 	
 }
@@ -614,6 +640,11 @@ void Unit::SetAttackPerSec(float _attackPerSec)
 
 void Unit::SetLastAttacker(Unit* _attacker)
 {
+	if (dynamic_cast<Champion*>(_attacker))
+	{
+		lastChamionAttacker = _attacker;
+		lastChampAttackTick = 0.f;
+	}
 	lastAttacker = _attacker;
 	lastAttackTick = 0.f;
 }
@@ -706,7 +737,7 @@ bool Unit::HasAttackTarget()
 
 bool Unit::HasLastAttacker()
 {
-	return (lastAttacker != nullptr);
+	return ((lastChamionAttacker != nullptr) || (lastAttacker != nullptr));
 }
 
 bool Unit::HasNextSkill()
@@ -735,6 +766,10 @@ INT Unit::GetID()
 
 Unit* Unit::GetLastAttacker()
 {
+	if (lastChamionAttacker != nullptr)
+	{
+		return lastChamionAttacker;
+	}
 	return lastAttacker;
 }
 

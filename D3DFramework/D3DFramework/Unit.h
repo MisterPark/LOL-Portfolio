@@ -159,7 +159,9 @@ public:
 	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
 	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
 	virtual void OnRespawn();
-	virtual void OnDie(); // 사망처리(애니메이션) 모두 끝나면 호출
+	virtual void OnDeathBegin(Unit* _lastAttacker); // 죽었을때 호출 lastAttacker는 null일 수 있음.
+	virtual void OnDeathEnd(); // 사망처리(애니메이션) 모두 끝나면 호출
+
 
 	// 행동
 	virtual void DeadAction();
@@ -298,7 +300,10 @@ protected:
 	Unit* lastAttacker = nullptr;
 	float lastAttackTick = 0.f;
 	float lastAttackDuration = 5.f;
-
+	// 마지막으로 나를 공격한 챔피언
+	Unit* lastChamionAttacker = nullptr;
+	float lastChampAttackTick = 0.f;
+	float lastChampAttackDuration = 5.f;
 
 	// 추격 관련
 	float chaseTick = 0.f;
@@ -312,6 +317,9 @@ protected:
 
 public:
 	Event<EventArgs> RespawnEvent;
+
+	wstring faceCircleTexkey;
+	wstring faceSquareTexkey;
 private:
 	State oldAttackState = State::IDLE1;
 	bool beginAttackFlag = false;
