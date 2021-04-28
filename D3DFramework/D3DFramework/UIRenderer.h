@@ -16,6 +16,8 @@ namespace Engine
 		void SetTimerRatio(float ratio);
 		void SetGradientMap(const std::wstring& _maptag, int _max, int _idx);
 		void SetGradientMapIndex(int _idx);
+		void SetPass(int _pass);
+		void SetMultipleColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b);
 
 		void BringToTop();
 	public:
@@ -29,6 +31,8 @@ namespace Engine
 		int gradientmapMaxCnt = 0;
 		int gradientmapIndex = 0;
 		float timerRatio;
+		D3DXVECTOR4 multipleColor;
+		int pass = 0;
 	private:
 		static int uniqueZIndex;
 	};

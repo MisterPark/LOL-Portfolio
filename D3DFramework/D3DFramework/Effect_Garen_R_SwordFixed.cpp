@@ -16,7 +16,7 @@ Effect_Garen_R_SwordFixed::Effect_Garen_R_SwordFixed()
 	ForwardRenderer* rendererSword = new ForwardRenderer{ this, L"./forward.fx" };
 	rendererSword->SetMesh(meshSword);
 	rendererSword->SetDiffuseTextureParam("g_diffuseTexture");
-	rendererSword->SetPass(1);
+	rendererSword->SetPass(0);
 	AddComponent(L"rendererSword", rendererSword);
 
 	meshSword->SetSubsetTexture(L"garen_base_r_sword_plane");
@@ -28,7 +28,7 @@ Effect_Garen_R_SwordFixed::Effect_Garen_R_SwordFixed()
 	ForwardRenderer* rendererSwordEffect = new ForwardRenderer{ this, L"./forward.fx" };
 	rendererSwordEffect->SetMesh(meshSwordEffect);
 	rendererSwordEffect->SetDiffuseTextureParam("g_diffuseTexture");
-	rendererSwordEffect->SetPass(1);
+	rendererSwordEffect->SetPass(0);
 	effectalpha = 0.5;
 	rendererSwordEffect->SetAlpha(effectalpha);
 	AddComponent(L"rendererSwordEffect", rendererSwordEffect);

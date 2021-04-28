@@ -28,6 +28,8 @@ matrix g_mSightSpace;
 bool g_grayscale;
 float g_gradientmapMaxCnt;
 float g_gradientmapIndex;
+float4 g_multipleColor;
+
 sampler TextureSampler = sampler_state
 {
 	texture = g_texture;
@@ -147,6 +149,14 @@ float4 ps_timer_main(PS_IN input) :COLOR0
 	return vAlbedo;
 }
 
+float4 ps_multiple_main(PS_IN input) :COLOR0
+{
+	float2 vTex = input.vTex;
+	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
+	vAlbedo.rgb = (g_multipleColor.rgb * vAlbedo.rgb) / 1;
+	return vAlbedo;
+}
+
 technique Default_Device
 {
 	pass HPBar
@@ -177,5 +187,15 @@ technique Default_Device
 		DestBlend = invsrcalpha;
 		VertexShader = compile vs_3_0 vs_main();
 		PixelShader = compile ps_3_0 ps_timer_main();
+	}
+
+	pass Multiple
+	{
+		ZEnable = false;
+		AlphaBlendEnable = true;
+		SrcBlend = srcalpha;
+		DestBlend = invsrcalpha;
+		VertexShader = compile vs_3_0 vs_main();
+		PixelShader = compile ps_3_0 ps_multiple_main();
 	}
 }

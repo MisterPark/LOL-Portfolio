@@ -260,10 +260,6 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (3).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"hud_icon (4).png");
 
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"map11.png");
-
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"minimapBorder.png");
-
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (1).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (2).png");
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"panel (3).png");
@@ -377,29 +373,8 @@ void Engine::MainGame::LoadUISprite()
 	LoadAllTextureInFolder(L"Resource\\UI\\endofgame\\", L"*.png");
 	LoadAllTextureInFolder(L"Resource\\UI\\endofgame\\", L"*.dds");
 
-
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"ahri_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"amumu_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"amumu_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"blitzcrank_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"blitzcrank_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"darius_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"darius_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"diana_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"diana_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"garen_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"garen_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jax_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jax_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jinx_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"jinx_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leesin_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leesin_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leona_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"leona_square.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"missfortune_circle.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\champ\\", L"missfortune_square.png");
+	// champion circle, square
+	LoadAllTextureInFolder(L"Resource\\UI\\HUD\\champ\\", L"*.png");
 
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_q.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\champ\\ahri\\", L"ahri_w.dds");
