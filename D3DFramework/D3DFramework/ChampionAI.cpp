@@ -75,13 +75,24 @@ void ChampionAI::Update()
         }
 
         float attackRange = unit->stat->GetValue(StatType::Range);
+        float detectRange = attackRange + 2.f;
         Vector3 to = unit->GetAttackTarget()->transform->position - unit->transform->position;
         float dist = to.Length();
-        if (dist > attackRange)
+        if (dist > detectRange)
         {
-            float remainDist = dist - attackRange + 0.5f;
-            Vector3 point = unit->transform->position + to.Normalized() * remainDist;
-            unit->SetDestination(point);
+            unit->SetAttackTarget(nullptr);
+            chaseTick = 0.f;
+        }
+        else
+        {
+            chaseTick += dt;
+            if (chaseTick > chaseDelay)
+            {
+                chaseTick = 0.f;
+                float remainDist = dist - attackRange + 1.f;
+                Vector3 point = unit->transform->position + to.Normalized() * remainDist;
+                unit->SetDestination(point);
+            }
         }
     }
     else //  타겟이 없을 때

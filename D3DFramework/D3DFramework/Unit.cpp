@@ -32,9 +32,9 @@ Unit::Unit()
 
 	agent = (NavMeshAgent*)AddComponent< NavMeshAgent>(L"NavMeshAgent");
 
-	attackIndicator = (Indicator*)SceneManager::GetCurrentScene()->CreateObject<Indicator>(Layer::Indicator);
+	//attackIndicator = (Indicator*)SceneManager::GetCurrentScene()->CreateObject<Indicator>(Layer::Indicator);
 	//attackIndicator = new Indicator;
-	attackIndicator->SetTarget(this);
+	//attackIndicator->SetTarget(this);
 
 	stat = (Stat*)AddComponent<Stat>(L"Stat");
 	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
@@ -75,9 +75,9 @@ Unit::~Unit()
 	stat = nullptr;
 	bt = nullptr;
 	aura = nullptr;
-	attackIndicator = nullptr;
+	//attackIndicator = nullptr;
 
-	for (auto calc : damageCalcList)
+	for (auto& calc : damageCalcList)
 	{
 		delete calc;
 	}
