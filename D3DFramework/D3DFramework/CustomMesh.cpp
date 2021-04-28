@@ -198,15 +198,15 @@ HRESULT Engine::CustomMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 				if (elemCount == 0)
 				{
-					pos[vertexIndex].x = atof(v.c_str());
+					pos[vertexIndex].x = (float)atof(v.c_str());
 				}
 				else if (elemCount == 1)
 				{
-					pos[vertexIndex].y = atof(v.c_str());
+					pos[vertexIndex].y = (float)atof(v.c_str());
 				}
 				else if (elemCount == 2)
 				{
-					pos[vertexIndex].z = atof(v.c_str());
+					pos[vertexIndex].z = (float)atof(v.c_str());
 				}
 			}
 
@@ -229,11 +229,11 @@ HRESULT Engine::CustomMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 				if (elemCount == 0)
 				{
-					texCoords[texIndex].x = atof(vt.c_str());
+					texCoords[texIndex].x = (FLOAT)atof(vt.c_str());
 				}
 				else if (elemCount == 1)
 				{
-					texCoords[texIndex].y = atof(vt.c_str());
+					texCoords[texIndex].y = (FLOAT)atof(vt.c_str());
 				}
 			}
 

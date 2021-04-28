@@ -112,6 +112,8 @@ void TestScene::OnLoaded()
 	ItemshopPanel::GetInstance()->SetTarget(champ);
 	ScorePanel::GetInstance()->AddChampion(champ, true);
 	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
 
 	EndofgamePanel::GetInstance()->Hide();
 	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
