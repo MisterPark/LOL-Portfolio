@@ -11,6 +11,7 @@ public:
     
     virtual void Update() override;
 
+    virtual void OnDeathBegin(Unit* _lastAttacker) override;
 
     virtual void SetTeam(Team _team);
     virtual void Die() override;
@@ -19,6 +20,7 @@ public:
     virtual void CounterAttack()override;
     virtual void IdleAction()override;
     virtual void MoveAction()override;
+
 
 public:
     Vector3 offsetPos;

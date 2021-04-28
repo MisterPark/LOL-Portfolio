@@ -9,7 +9,7 @@
 
 Skill_Heal::Skill_Heal(Unit* _hostUnit)
 {
-	coolTime = 0.1f;//8.f;
+	coolTime = 7.f;//8.f;
 	duration = 0.f;
 	host = _hostUnit;
 	level = 1;
@@ -31,6 +31,7 @@ void Skill_Heal::Start()
 
 
 	Heal();
+	SoundManager::GetInstance()->PlayOverlapSound(L"SpellHeal1.ogg", SoundChannel::PLAYER_EFFECT, 0.8f);
 }
 
 void Skill_Heal::Passive()

@@ -74,8 +74,9 @@ inline bool Stat::RemoveBuff()
 	for (auto& buff : buffList)
 	{
 		if (dynamic_cast<T*>(buff) == nullptr) continue;
-		buff->tick = buff->duration;
+		buff->duration = 0.f;
 		success = true;
+		return success;
 	}
 	return success;
 }

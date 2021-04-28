@@ -33,7 +33,7 @@ Minion::~Minion()
 	ai = nullptr;
 }
 
-void Minion::OnDie()
+void Minion::OnDeathEnd()
 {
 	MinionSpawner::IncreaseCount();
 	Destroy();

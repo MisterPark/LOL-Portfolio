@@ -16,12 +16,13 @@ public:
     virtual void Release() override;
     virtual void Update() override;
 
-    virtual void OnCollisionEnter(Collider* target);
+    virtual void OnCollisionEnter(Collider* target) override;
+    virtual void OnDeathBegin(Unit* _lastAttacker) override;
 
     virtual void SetTeam(Team _team);
     void SetNickname(const std::wstring& _nickname);
 
-    virtual void Die();
+    virtual void Die() override;
     virtual void OnHit(Unit* target, Skill* mySkill) override;
     virtual void OnDamaged(Unit* target, Skill* targetSkill, float* damage) override;
     virtual void OnKilled(Unit* target) override;
@@ -34,8 +35,7 @@ public:
 public:
     
 	FloatingHPBar* hpBar = nullptr;
-    wstring faceCircleTexkey;
-    wstring faceSquareTexkey;
+    
 
     wstring qTexKey;
     wstring wTexKey;

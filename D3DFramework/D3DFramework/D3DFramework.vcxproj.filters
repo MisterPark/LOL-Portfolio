@@ -1192,7 +1192,6 @@
     <ClInclude Include="Effect_Garen_W_Shield.h">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClInclude>
-    <ClInclude Include="ChampionAI.h" />
     <ClInclude Include="ScuttleracerAI.h">
       <Filter>Component\AI</Filter>
     </ClInclude>
@@ -1249,6 +1248,9 @@
     </ClInclude>
     <ClInclude Include="AnnouncerPanel.h">
       <Filter>GameObject\UI\AnnouncerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="ChampionAI.h">
+      <Filter>Component\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2090,7 +2092,6 @@
     <ClCompile Include="Effect_Garen_W_Shield.cpp">
       <Filter>GameObject\EffectObject\GarenEffect</Filter>
     </ClCompile>
-    <ClCompile Include="ChampionAI.cpp" />
     <ClCompile Include="ScuttleracerAI.cpp">
       <Filter>Component\AI</Filter>
     </ClCompile>
@@ -2147,6 +2148,9 @@
     </ClCompile>
     <ClCompile Include="AnnouncerPanel.cpp">
       <Filter>GameObject\UI\AnnouncerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="ChampionAI.cpp">
+      <Filter>Component\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

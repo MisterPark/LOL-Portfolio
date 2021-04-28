@@ -56,6 +56,12 @@ void Skill_Garen_E::Start()
 	coolTimeTick = coolTime - 1.f;
 	host->attackTarget = nullptr;
 	host->nextSkill = nullptr;
+
+	if (Random::Value(2) == 0)
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE1.ogg", SoundChannel::PLAYER);
+	else
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE2.ogg", SoundChannel::PLAYER);
+	SoundManager::GetInstance()->PlayOverlapSound(L"GarenE1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_E::Passive()
@@ -85,6 +91,7 @@ void Skill_Garen_E::Active()
 
 	//사용효과
 	tick += Time::DeltaTime();
+//	SoundManager::GetInstance()->PlayOverlapSound(L"GarenE1.ogg", SoundChannel::PLAYER);
 }
 
 

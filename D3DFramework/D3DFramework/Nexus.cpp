@@ -49,6 +49,7 @@ void Nexus::Die()
 	{
 		EndofgamePanel::GetInstance()->ShowDefeat();
 	}
+	SoundManager::GetInstance()->PlayOverlapSound(L"NexusDie0.ogg", SoundChannel::EFFECT);
 }
 
 void Nexus::OnDamaged(Unit* target, Skill* targetSkill, float* damage)

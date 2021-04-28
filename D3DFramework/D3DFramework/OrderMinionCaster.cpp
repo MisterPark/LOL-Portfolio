@@ -22,6 +22,9 @@ OrderMinionCaster::OrderMinionCaster()
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::Bounty, 14.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"bluerange_circle";
+	faceSquareTexkey = L"bluerange_square";
 }
 
 OrderMinionCaster::~OrderMinionCaster()

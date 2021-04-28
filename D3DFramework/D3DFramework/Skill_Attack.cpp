@@ -41,24 +41,16 @@ void Skill_Attack::Active()
 {
 	range = host->stat->GetValue(StatType::Range);
 
-	if (host->attackTarget == nullptr)
+	Unit* attackTarget = host->GetAttackTarget();
+	if (attackTarget == nullptr || attackTarget->IsDead())
 	{
 		End();
 		return;
 	}
-	else
-	{
-		if (host->attackTarget->IsDead())
-		{
-			host->attackTarget = nullptr;
-			End();
-			return;
-		}
-	}
 	float dt = Time::DeltaTime();
 	
 
-	Vector3 direction = host->attackTarget->transform->position - host->transform->position;
+	Vector3 direction = attackTarget->transform->position - host->transform->position;
 	host->agent->Stop();
 	host->LookRotation(direction.Normalized());
 	host->SetState(host->attackState);
@@ -67,41 +59,42 @@ void Skill_Attack::Active()
 	duration = 1.f / host->stat->GetValue(StatType::AttackSpeed);
 	if (tick > duration)
 	{
+		
 		End();
 		return;
 	}
-	float damageDelay = duration * 0.15f;
+	float damageDelay = duration * 0.3f;
 	if (tick > damageDelay)
 	{
 		if (host->attackFlag == false)
 		{
 			host->attackFlag = true;
 
-			host->attackTarget->SetLastAttacker(host);
+			attackTarget->SetLastAttacker(host);
 			float finalDamage = host->stat->GetValue(StatType::AttackDamage);
-			host->Calc_FinalDamage(&finalDamage, host->stat, host->attackTarget->stat);
-			host->attackTarget->OnDamaged(host, this, &finalDamage);
-			host->OnHit(host->attackTarget, this);
-			host->attackTarget->TakeDamage(finalDamage);
+			host->Calc_FinalDamage(&finalDamage, host->stat, attackTarget->stat);
+			attackTarget->OnDamaged(host, this, &finalDamage);
+			host->OnHit(attackTarget, this);
+			attackTarget->TakeDamage(finalDamage);
 			// 피격정보 저장
 			Unit::HitInfo info;
 			info.damageSum += finalDamage;
 			info.unit = host;
 
-			auto iter = host->attackTarget->hitList.begin();
-			auto end = host->attackTarget->hitList.end();
+			auto iter = attackTarget->hitList.begin();
+			auto end = attackTarget->hitList.end();
 			for (; iter != end;)
 			{
 				if ((*iter).unit == host)
 				{
 					info.damageSum += (*iter).damageSum;
-					iter = host->attackTarget->hitList.erase(iter);
+					iter = attackTarget->hitList.erase(iter);
 					break;
 				}
 				++iter;
 			}
 
-			host->attackTarget->hitList.push_back(info);
+			attackTarget->hitList.push_back(info);
 		}
 	}
 

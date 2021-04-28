@@ -6,6 +6,8 @@
 #include "Minion.h"
 #include "ScorePanel.h"
 #include "MiniScorePanel.h"
+#include "TestScene.h"
+#include "AnnouncerPanel.h"
 
 Champion::Champion()
 {
@@ -66,6 +68,22 @@ void Champion::OnCollisionEnter(Collider* target)
 	}
 }
 
+void Champion::OnDeathBegin(Unit* _lastAttacker)
+{
+	if (_lastAttacker == nullptr) return;
+
+	TestScene* scene = (TestScene*)SceneManager::GetCurrentScene();
+	Unit* unit = scene->unitMap[(int)UnitID::Champ0];
+	if (unit->team != this->team)
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"적을 처치했습니다!", Team::BLUE, L"적을처치했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
+	}
+	else
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"처치 당했습니다", Team::RED, L"적에게당했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
+	}
+}
+
 void Champion::SetTeam(Team _team)
 {
 	Unit::SetTeam(_team);
@@ -90,6 +108,9 @@ void Champion::Die()
 {
 	Unit::Die();
 	stat->IncreaseBaseValue(StatType::DeathScore, 1.f);
+
+	if (unitID == (int)UnitID::Champ0)
+		SoundManager::GetInstance()->PlayOverlapSound(L"적에게당했습니다.wav", SoundChannel::EFFECT);
 }
 
 void Champion::OnHit(Unit* target, Skill* mySkill)
@@ -135,6 +156,8 @@ void Champion::OnKilled(Unit* target)
 				ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamKillScore);
 		MiniScorePanel::GetInstance()->SetBlueTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::BlueTeamKillScore));
 		MiniScorePanel::GetInstance()->SetRedTeamKillScore(ScorePanel::GetInstance()->GetPublicScore(PublicScoreID::RedTeamKillScore));
+		if(unitID == (int)UnitID::Champ0)
+			SoundManager::GetInstance()->PlayOverlapSound(L"적을처치했습니다.wav", SoundChannel::EFFECT);
 	}
 	else if(dynamic_cast<Minion*>(target) != nullptr)
 		stat->IncreaseBaseValue(StatType::MinionKilled, 1.f);
