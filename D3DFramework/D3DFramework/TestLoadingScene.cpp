@@ -12,6 +12,7 @@
 
 // TODO : 테스트 끝나면 빼기
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 //C++17이전에서는 filesystem은 experimental이다. 일단 호환성을 위해 이렇게 해둠.
 #if __cplusplus < 20200000L
@@ -64,10 +65,7 @@ void TestLoadingScene::OnLoaded()
 	}
 
 #if 1 // TODO : 임시 코드니까 다되면 꼭 빼야됨
-	//UIManager::GetInstance()->AddUI(AnnouncerPanel::GetInstance());
-	//AnnouncerPanel::GetInstance()->AddAnnouncer(L"소환사의 협곡에 오신 것을 환영합니다", Team::BLUE);
-	//AnnouncerPanel::GetInstance()->AddAnnouncer(L"선취점!", Team::BLUE, L"garen_circle");
-	//AnnouncerPanel::GetInstance()->AddAnnouncer(L"적의 포탑이 파괴되었습니다!", Team::BLUE, L"garen_circle", L"turret_red_square");
+	//UIManager::GetInstance()->AddUI(KillCalloutPanel::GetInstance());
 #endif
 
 	CreateChampPanel(borderW, borderH, padding);

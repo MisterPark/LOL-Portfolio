@@ -14,6 +14,7 @@
 #include "FloatingBar.h"
 #include "Minion.h"
 #include "FogOfWarRenderSystem.h"
+#include "FogOfWarRenderer.h"
 #include "Turret.h"
 #include "Inhibitor.h"
 #include "AnnouncerPanel.h"
@@ -377,6 +378,16 @@ void Unit::Spell6()
 void Unit::Die()
 {
 	isDead = true;
+
+	for (auto& unit : unitList)
+	{
+		if (unit->attackTarget == this)
+			unit->attackTarget = nullptr;
+
+		if (unit->lastAttacker == this)
+			unit->lastAttacker = nullptr;
+	}
+
 	for (auto& hitInfo : hitList)
 	{
 		hitInfo.unit->OnKilled(this);
@@ -658,6 +669,22 @@ State Unit::GetState()
 void Unit::SetTeam(Team _team)
 {
 	team = _team;
+
+	Engine::FogOfWarRenderer* fogOfWarRenderer = GetComponent<FogOfWarRenderer>();
+
+	if (_team == Team::BLUE) {
+
+		if (fogOfWarRenderer == nullptr) {
+			fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 12.f);
+			AddComponent(L"fogRenderer", fogOfWarRenderer);
+		}
+	}
+	else {
+		if (fogOfWarRenderer != nullptr) {
+			DeleteComponent(fogOfWarRenderer);
+		}
+	}
+
 }
 Team Unit::GetTeam()
 {

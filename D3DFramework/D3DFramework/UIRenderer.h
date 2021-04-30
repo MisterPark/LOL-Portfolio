@@ -18,6 +18,7 @@ namespace Engine
 		void SetGradientMapIndex(int _idx);
 		void SetPass(int _pass);
 		void SetMultipleColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b);
+		void SetAlpha(float _alpha);
 
 		void BringToTop();
 	public:
@@ -33,6 +34,7 @@ namespace Engine
 		float timerRatio;
 		D3DXVECTOR4 multipleColor;
 		int pass = 0;
+		float alpha = 1.f;
 	private:
 		static int uniqueZIndex;
 	};

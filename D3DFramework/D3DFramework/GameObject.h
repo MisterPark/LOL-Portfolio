@@ -91,6 +91,8 @@ namespace Engine
 		T* AddChild(const wstring& _tag, T* _child);
 		GameObject* RemoveChild(const wstring& _tag);
 		template<class T>
+		T* RemoveChild(T* _child);
+		template<class T>
 		T* CreateChild(const wstring& _key);
 		void DeleteChild(const wstring& _tag);
 		
@@ -188,6 +190,19 @@ namespace Engine
 		children.emplace(_child->tag, _child);
 		_child->SetParent(this);
 		return _child;
+	}
+	template<class T>
+	inline T* GameObject::RemoveChild(T* _child)
+	{
+		for (auto child : children)
+		{
+			if (child.second == _child) {
+				children.erase(child.first);
+				return dynamic_cast<T*>(child.second);
+			}
+		}
+
+		return nullptr;
 	}
 	template<class T>
 	inline T* GameObject::CreateChild(const wstring& _tag)
