@@ -282,6 +282,7 @@ public:
 	Skill* behaviorTreeSkill = nullptr;
 
 	vector<wstring> hitSound;
+	wstring attackBeginSound = L"";
 protected:
 	// 스폰
 	Vector3 spawnPosition;

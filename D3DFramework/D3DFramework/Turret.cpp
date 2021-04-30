@@ -122,15 +122,15 @@ void Turret::Die()
 		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::BlueTeamTurretKillScore);
 	SoundManager::GetInstance()->PlayOverlapSound(L"TurretDie1.ogg", SoundChannel::PLAYER);
 
-	TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
-	if (scene != nullptr)
-	{
-		Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
-		if(player->team == team)
-			SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴되었습니다.wav", SoundChannel::PLAYER);
-		else
-			SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴했습니다.wav", SoundChannel::PLAYER);
-	}
+	//TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+	//if (scene != nullptr)
+	//{
+	//	Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+	//	if(player->team == team)
+	//		SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴되었습니다.wav", SoundChannel::PLAYER);
+	//	else
+	//		SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴했습니다.wav", SoundChannel::PLAYER);
+	//}
 }
 
 void Turret::DeadAction()
