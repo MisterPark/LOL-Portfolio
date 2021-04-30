@@ -403,6 +403,9 @@
     <Filter Include="GameObject\UI\AnnouncerPanel">
       <UniqueIdentifier>{e9721161-4d84-4a9f-82ba-c7b23ef21a95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Pointing">
+      <UniqueIdentifier>{78e35184-633f-42c1-89ee-f10f08e7d800}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1252,6 +1255,10 @@
     <ClInclude Include="ChampionAI.h">
       <Filter>Component\AI</Filter>
     </ClInclude>
+    <ClInclude Include="Pointing.h">
+      <Filter>GameObject\Pointing</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowPointer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2152,6 +2159,10 @@
     <ClCompile Include="ChampionAI.cpp">
       <Filter>Component\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Pointing.cpp">
+      <Filter>GameObject\Pointing</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowPointer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

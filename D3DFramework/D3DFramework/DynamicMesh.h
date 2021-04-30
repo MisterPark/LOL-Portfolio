@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Mesh.h"
 
 namespace Engine
@@ -12,11 +12,11 @@ namespace Engine
 		explicit DynamicMesh(GameObject* owner);
 		explicit DynamicMesh(const DynamicMesh& rhs);
 		virtual ~DynamicMesh();
-		// MeshÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+		// Meshì„(ë¥¼) í†µí•´ ìƒì†ë¨
 		virtual IComponent * Clone() override;
 	public:
 		HRESULT			LoadMesh(const WCHAR* pFilePath, const WCHAR* pFileName);
-		//·»´õ¸µÀ» ÁØºñÇÑ´Ù.
+		//ë Œë”ë§ì„ ì¤€ë¹„í•œë‹¤.
 		void UpdateFrame();
 		const list<D3DXMESHCONTAINER_DERIVED*>& GetMeshContainersRef();
 
@@ -26,21 +26,22 @@ namespace Engine
 		void			SetAnimationSet(const UINT& iIndex);
 		void			SetAnimationSet(const char* name);
 		void			PlayAnimation(const float& fTimeDelta);
+		void			ResetAnimation();
 
 		bool			GetAnimationIndex(UINT* outIndex, const char* name);
 		double			GetPeriod(const UINT& index);
 	private:
 
-		// ¸ğµç »ÀµéÀ» ¼øÈ¸ÇÏ¸é¼­ »ÀµéÀÌ °®°í ÀÖ´Â TransformationMatrix¿Í pParentMatrix¸¦ °áÇÕÇÏ¿© CombinedTransformationMatrix¸¦ ¸¸µé¾îÁÖ´Â ÇÔ¼ö
+		// ëª¨ë“  ë¼ˆë“¤ì„ ìˆœíšŒí•˜ë©´ì„œ ë¼ˆë“¤ì´ ê°–ê³  ìˆëŠ” TransformationMatrixì™€ pParentMatrixë¥¼ ê²°í•©í•˜ì—¬ CombinedTransformationMatrixë¥¼ ë§Œë“¤ì–´ì£¼ëŠ” í•¨ìˆ˜
 		void			UpdateFrameMatrices(D3DXFRAME_DERIVED* pFrame, const Matrix* pParentMatrix);
 
-		// CombinedTransformationMatrixÀÇ ÁÖ¼Ò°ªÀ» ¾ò¾î¿Í¼­ Ã¤¿öÁÖ´Â ÇÔ¼ö
+		// CombinedTransformationMatrixì˜ ì£¼ì†Œê°’ì„ ì–»ì–´ì™€ì„œ ì±„ì›Œì£¼ëŠ” í•¨ìˆ˜
 		void			SetUpFrameMatrixPointer(D3DXFRAME_DERIVED* pFrame);
 
 		void			CloneFrame(D3DXFRAME_DERIVED* pRoot, D3DXFRAME** ppOutCloneFrame);
 		void			DeleteFrame(D3DXFRAME* pRoot);
 	public:
-		// TODO : ÀÌ°Íµé ¼¼ÆÃÇØÁà¾ß ÇÒ °æ¿ì°¡ »ı±â·Á³ª?
+		// TODO : ì´ê²ƒë“¤ ì„¸íŒ…í•´ì¤˜ì•¼ í•  ê²½ìš°ê°€ ìƒê¸°ë ¤ë‚˜?
 		virtual ULONG GetVertexCount() override { return 0; }
 		virtual ULONG GetVertexSize() override { return 0; }
 		virtual Vector3* GetVertices() override { return nullptr; }

@@ -59,6 +59,7 @@ Garen::Garen()
 	stat->SetBaseValue(StatType::ManaRegen, 0.f);
 	stat->SetBaseValue(StatType::AttackDamage, 66.f);
 	stat->SetBaseValue(StatType::AttackSpeed, 0.625f);
+	//stat->SetBaseValue(StatType::AttackSpeed, 1.f);
 	stat->SetBaseValue(StatType::Armor, 36.f);
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.75f);

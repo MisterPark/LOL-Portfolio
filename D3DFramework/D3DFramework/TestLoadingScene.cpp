@@ -98,6 +98,7 @@ void TestLoadingScene::LoadResources()
 	LoadStaticMeshAsync(L"Resource/Mesh/character/malphite/malp.X");
 	
 	// 오브젝트
+	LoadDynamicMeshAsync(L"Resource/Mesh/pointing/pointing.x");
 	LoadDynamicMeshAsync(L"Resource/Mesh/character/bush/bush.x");
 
 	// 몬스터

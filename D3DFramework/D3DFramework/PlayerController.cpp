@@ -10,12 +10,15 @@
 #include "Inventory.h"
 #include "Skill_Attack.h"
 #include "Skill_RangeAttack.h"
+#include "ArrowPointer.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
 {
     unit = (Unit*)owner;
     agent = (NavMeshAgent*)owner->GetComponent<NavMeshAgent>();
+    ArrowPointer* arrow = ArrowPointer::GetInstance();
+    SceneManager::GetCurrentScene()->AddObject(arrow);
 }
 
 PlayerController::PlayerController(const PlayerController& rhs)
@@ -27,6 +30,8 @@ PlayerController::~PlayerController()
 {
     unit = nullptr;
     agent = nullptr;
+    ArrowPointer* arrow = ArrowPointer::GetInstance();
+    SceneManager::GetCurrentScene()->RemoveObject(arrow);
 }
 
 void PlayerController::Update()
@@ -198,6 +203,7 @@ void PlayerController::Update()
                     unit->SetAttackPoint(Vector3{ hit.point.x, hit.point.y, hit.point.z });
                     if(((TargetingSkill*)unit->nextSkillReady)->GetGroundClick())
                         targetCheck = true;
+                    
                 }
             }
         }
@@ -222,6 +228,9 @@ void PlayerController::Update()
             unit->SetAttackTarget(nullptr);
             agent->SetStoppingDistance(0.1f);
             unit->SetDestination(hit.point);
+            
+            ArrowPointer::GetInstance()->transform->position = hit.point;
+            ArrowPointer::GetInstance()->Show();
         }
         
         SetTargetMode(false);

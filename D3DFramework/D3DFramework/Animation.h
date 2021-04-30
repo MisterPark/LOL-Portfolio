@@ -39,6 +39,7 @@ namespace Engine
 
 		void Stop();
 		void Resume();
+		void Reset();
 
 	private:
 		int state = 0;
