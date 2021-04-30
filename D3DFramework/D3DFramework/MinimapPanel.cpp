@@ -150,6 +150,8 @@ void MinimapPanel::Update()
 {
     Panel::Update();
     
+    if (!IsVisible()) return;
+
     // 맵 크기
     //Vector2 lb{ 50, 47 };
     //Vector2 rt{ -42, -45 };
@@ -227,6 +229,8 @@ void MinimapPanel::Update()
     int i = 0;
     for (auto minion : Minion::minionList)
     {
+        if (minion->IsDead()) (*iter)->Hide();
+
         (*iter)->Show();
 
         Vector3 pos = minion->transform->position;
@@ -236,6 +240,8 @@ void MinimapPanel::Update()
         pos.x += (*iter)->GetSize().x * 0.5f;
         pos.z += (*iter)->GetSize().y * 0.5f;
         (*iter)->SetLocation(Vector2(pos.x, pos.z));
+
+        
 
         // Team Color
         auto renderer = dynamic_cast<UIRenderer*>((*iter)->GetComponent(L"renderer"));
