@@ -44,6 +44,7 @@ private:
 	Engine::UI* invenPanel = nullptr;
 	Engine::UI* faceBorder = nullptr;
 	Engine::UI* facePanel = nullptr;
+	Label* deadCountLabel = nullptr;
 
 	// hp bar
 	Engine::UI* hpBarBack = nullptr;
