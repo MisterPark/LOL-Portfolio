@@ -3,8 +3,7 @@
 #include "UIRenderer.h"
 #include "Label.h"
 
-bool UI::isPointerOverUI = false;
-list<UI*> uiList;
+list<UI*> UI::uiList;
 
 UI::UI()
 {
@@ -53,7 +52,7 @@ void Engine::UI::Release()
 void Engine::UI::PreUpdate()
 {
 	GameObject::PreUpdate();
-	UpdateEvent();
+	//UpdateEvent();
 }
 
 void Engine::UI::Update()
@@ -93,7 +92,6 @@ void UI::UpdateEvent()
 		}
 		isLeave = false;
 		isHover = true;
-		isPointerOverUI = true;
 	}
 	else
 	{
@@ -175,18 +173,6 @@ void UI::ClearEvent()
 	isLeave = false;
 	isLButtonDown = false;
 	isRButtonDown = false;
-}
-
-void UI::OnHover()
-{
-	MouseEventArg args{};
-	Hover.Invoke(this, args);
-}
-
-void UI::OnLeave()
-{
-	MouseEventArg args{};
-	Leave.Invoke(this, args);
 }
 
 void UI::OnLButtonDown()
@@ -375,16 +361,6 @@ void Engine::UI::BringToTop()
 {
 	UIRenderer* renderer = (UIRenderer*)GetComponent<UIRenderer>();
 	renderer->BringToTop();
-}
-
-void Engine::UI::SetPointerOverUI(bool _isOver)
-{
-	isPointerOverUI = _isOver;
-}
-
-bool Engine::UI::IsPointerOverUI()
-{
-	return isPointerOverUI;
 }
 
 void Engine::UI::HideAllUI()

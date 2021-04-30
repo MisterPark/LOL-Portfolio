@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Bush.h"
 Bush::Bush()
 {
@@ -7,6 +7,9 @@ Bush::Bush()
 	DynamicMesh* dmesh = RenderManager::CloneDynamicMesh(L"bush");
 	AddComponent(L"DynamicMesh", dmesh);
 	anim->AttachToDynamicMesh(dmesh);
+	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
+	renderer->SetMesh(dmesh);
+	AddComponent(L"renderer", renderer);
 }
 
 Bush::~Bush()

@@ -29,7 +29,6 @@ Turret::Turret()
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 12.f);
 	AddComponent(L"fogRenderer", fogOfWarRenderer);
 	renderer->SetMesh(mesh);
-	renderer->EnableRimLight({ 0.f, 0.f, 1.f });
 
 	//Engine::DistortionRenderer* distortionRenderer = new Engine::DistortionRenderer(this);
 	//AddComponent(L"distortionRenderer", distortionRenderer);

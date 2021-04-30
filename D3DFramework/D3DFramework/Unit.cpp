@@ -104,7 +104,7 @@ void Unit::PreUpdate()
 	GameObject::PreUpdate();
 	Matrix matrix = transform->GetWorldMatrix();
 	Vector3 worldPos = *((Vector3*)&matrix._41);
-	bool isInSight = FogOfWarRenderSystem::IsInSight(worldPos);
+	bool isInSight = FogOfWarRenderSystem::IsInSight(worldPos) || (unitID == 0);
 	Show(isInSight);
 
 	if (IsDead())
@@ -123,16 +123,12 @@ void Unit::Update()
 
 	GameObject::Update();
 
-	//attackIndicator->Update();
-
 	for (int i = 0; i < (int)SkillIndex::END; i++)
 	{
 		if (skillList[i] == NULL)
 			continue;
 		skillList[i]->Passive();
 	}
-
-	
 }
 
 
@@ -203,6 +199,11 @@ void Unit::UpdateSpawn()
 
 		}
 	}
+}
+
+void Unit::UpdateEvent()
+{
+
 }
 
 void Unit::LookRotation(Vector3 _direction)
@@ -291,6 +292,43 @@ void Unit::OnAttackEnd()
 	else if (attackState == State::ATTACK2)
 	{
 		attackState = State::ATTACK1;
+	}
+}
+
+void Unit::OnHover()
+{
+	GameObject::OnHover();
+
+	Vector3 color = { 0,1,1 };
+	if (team != Team::BLUE)
+	{
+		color = Vector3(1, 0, 0);
+	}
+	SkinnedMeshRenderer* renderer = GetComponent<SkinnedMeshRenderer>();
+	if (renderer != nullptr)
+	{
+		renderer->EnableRimLight(color);
+	}
+	DeferredStaticMeshRenderer* deferredRenderer = GetComponent<DeferredStaticMeshRenderer>();
+	if (deferredRenderer != nullptr)
+	{
+		deferredRenderer->EnableRimLight(color);
+	}
+}
+
+void Unit::OnLeave()
+{
+	GameObject::OnLeave();
+
+	SkinnedMeshRenderer* renderer = GetComponent<SkinnedMeshRenderer>();
+	if (renderer != nullptr)
+	{
+		renderer->DisableRimLight();
+	}
+	DeferredStaticMeshRenderer* deferredRenderer = GetComponent<DeferredStaticMeshRenderer>();
+	if (deferredRenderer != nullptr)
+	{
+		deferredRenderer->DisableRimLight();
 	}
 }
 

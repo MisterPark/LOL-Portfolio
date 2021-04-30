@@ -406,6 +406,9 @@
     <Filter Include="GameObject\Pointing">
       <UniqueIdentifier>{78e35184-633f-42c1-89ee-f10f08e7d800}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Event\EventSystem">
+      <UniqueIdentifier>{a2799336-3475-4522-8199-813f52cf9260}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1258,7 +1261,12 @@
     <ClInclude Include="Pointing.h">
       <Filter>GameObject\Pointing</Filter>
     </ClInclude>
-    <ClInclude Include="ArrowPointer.h" />
+    <ClInclude Include="EventSystem.h">
+      <Filter>Lib\Event\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowPointer.h">
+      <Filter>GameObject\Pointing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2162,7 +2170,12 @@
     <ClCompile Include="Pointing.cpp">
       <Filter>GameObject\Pointing</Filter>
     </ClCompile>
-    <ClCompile Include="ArrowPointer.cpp" />
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>Lib\Event\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowPointer.cpp">
+      <Filter>GameObject\Pointing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">
