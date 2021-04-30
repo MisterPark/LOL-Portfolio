@@ -6,7 +6,7 @@
 
 Skill_Ghost::Skill_Ghost(Unit* _hostUnit)
 {
-	coolTime = 7.f;//8.f;
+	coolTimeTick = coolTime = 5.f;//8.f;
 	duration = 0.f;
 	host = _hostUnit;
 	level = 1;

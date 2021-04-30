@@ -61,6 +61,8 @@ Missfortune::Missfortune()
 
 	ChampionSubTree* subTree = new ChampionSubTree(this);
 	bt->SetRoot(subTree);
+
+	attackBeginSound = L"MissfortuneAttack1.ogg";
 }
 
 Missfortune::~Missfortune()
@@ -83,8 +85,8 @@ void Missfortune::Update()
 void Missfortune::OnHit(Unit* target, Skill* mySkill)
 {
 	Champion::OnHit(target, mySkill);
-	if(skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos()))
-		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneAttack1.ogg", SoundChannel::EFFECT, 0.7f);
+	/*if(skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos()))
+		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneAttack1.ogg", SoundChannel::EFFECT, 0.7f);*/
 }
 
 void Missfortune::Die()

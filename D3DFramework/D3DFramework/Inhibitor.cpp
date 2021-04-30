@@ -102,15 +102,15 @@ void Inhibitor::Die()
 		}
 	}
 
-	TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
-	if (scene != nullptr)
-	{
-		Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
-		if (player->team == team)
-			SoundManager::GetInstance()->PlayOverlapSound(L"억제기가파괴되었습니다.wav", SoundChannel::PLAYER);
-		else
-			SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기를파괴했습니다.wav", SoundChannel::PLAYER);
-	}
+	//TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+	//if (scene != nullptr)
+	//{
+	//	Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+	//	if (player->team == team)
+	//		SoundManager::GetInstance()->PlayOverlapSound(L"억제기가파괴되었습니다.wav", SoundChannel::PLAYER);
+	//	else
+	//		SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기를파괴했습니다.wav", SoundChannel::PLAYER);
+	//}
 	
 }
 

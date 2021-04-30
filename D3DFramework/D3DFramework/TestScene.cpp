@@ -116,6 +116,7 @@ void TestScene::OnLoaded()
 	MinimapPanel::GetInstance()->AddChampion(champ2);
 
 	EndofgamePanel::GetInstance()->Hide();
+	SoundManager::PlayBGM(L"Background1.ogg");
 }
 
 void TestScene::OnUnloaded()

@@ -85,6 +85,9 @@ void Skill_RangeAttack::Active()
 			missile->SetTexture(this->textureKey);
 			missile->SetTarget(host->attackTarget);
 			missile->transform->position = host->transform->position;
+
+			if (host->attackBeginSound.compare(L""))
+				SoundManager::GetInstance()->PlayOverlapSound(host->attackBeginSound.c_str(), SoundChannel::EFFECT, 0.6f);
 		}
 	}
 }

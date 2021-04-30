@@ -90,6 +90,8 @@ Garen::Garen()
 	trail->SetLength(1.f);
 	trail->SetOffset(0.5f);
 	trail->AttachToDynamicMesh(dmesh);
+
+	hitSound.push_back(L"GarenAttack1.ogg");
 }
 
 Garen::~Garen()
@@ -130,7 +132,6 @@ void Garen::OnHit(Unit* target, Skill* mySkill)
 {
 	Champion::OnHit(target, mySkill);
 	
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenAttack1.ogg", SoundChannel::PLAYER);
 }
 
 void Garen::Die()
