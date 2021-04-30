@@ -6,11 +6,7 @@ class Label;
 
 namespace Engine
 {
-    class MouseEventArg : public EventArgs
-    {
-    public:
-
-    };
+    
     class UI : public GameObject
     {
     public:
@@ -25,13 +21,10 @@ namespace Engine
         virtual void PreUpdate() override;
         virtual void Update() override;
 
-
-        void UpdateEvent();
+        virtual void UpdateEvent() override;
         void ClearEvent();
 
         // 이벤트 리스너
-        virtual void OnHover();
-        virtual void OnLeave();
         virtual void OnLButtonDown();
         virtual void OnLButtonUp();
         virtual void OnRButtonDown();
@@ -67,8 +60,6 @@ namespace Engine
 
         void BringToTop();
 
-        static void SetPointerOverUI(bool _isOver);
-        static bool IsPointerOverUI();
         static void HideAllUI();
 
     public:
@@ -91,16 +82,13 @@ namespace Engine
         Event<MouseEventArg> LButtonUp;
         Event<MouseEventArg> RButtonDown;
         Event<MouseEventArg> RButtonUp;
-        Event<MouseEventArg> Hover;
-        Event<MouseEventArg> Leave;
+        
         Event<MouseEventArg> TextChanged;
         Event<MouseEventArg> EnabledChanged;
         Event<MouseEventArg> Click;
         Event<MouseEventArg> RClick;
     protected:
         // 이벤트 관련 
-        bool isHover = false;
-        bool isLeave = false;
         bool isLButtonDown = false;
         bool isRButtonDown = false;
 
@@ -111,8 +99,9 @@ namespace Engine
         bool oldEnable = false;
 
         wstring oldText;
-    private:
-        static bool isPointerOverUI;
+
+    public:
+        static list<UI*> uiList;
     };
 
 

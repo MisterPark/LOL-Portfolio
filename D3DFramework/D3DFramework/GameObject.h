@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Layer.h"
+#include "EventSystem.h"
 
 using namespace Engine;
 
@@ -25,10 +26,14 @@ namespace Engine
 		virtual void PreUpdate();
 		virtual void Update() = 0;
 		virtual void PostUpdate();
-
 		virtual void Destroy();
+		
+		virtual void UpdateEvent() {};
 
 		virtual void OnCollisionEnter(Collider* target);
+		// 이벤트 리스너
+		virtual void OnHover();
+		virtual void OnLeave();
 
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.
@@ -71,7 +76,8 @@ namespace Engine
 		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
 		bool IsVisible();
-
+		bool IsHover();
+		bool IsLeave();
 		// setter
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
@@ -109,12 +115,21 @@ namespace Engine
 
 		map<wstring, Engine::IComponent*> components;
 		std::set<Engine::EventBase*> events;
+
+		Event<MouseEventArg> Hover;
+		Event<MouseEventArg> Leave;
 	protected:
 		bool destroyFlag = false;
 		bool removeFlag = false;
+	protected:
+		// 이벤트 관련 
+		bool isHover = false;
+		bool isLeave = true;
 	private:
 		Layer layer = Layer::Default;
 		map<wstring, int> childKeyCount;
+	public:
+		static list<GameObject*> gameObjects;
 	};
 
 	template<class T>

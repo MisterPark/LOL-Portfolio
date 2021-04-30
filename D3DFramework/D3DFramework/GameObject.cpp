@@ -7,13 +7,17 @@
 
 using namespace Engine;
 
+list<GameObject*> GameObject::gameObjects;
+
 Engine::GameObject::GameObject()
 {
+	gameObjects.push_back(this);
 	transform = (Transform*)AddComponent<Transform>(L"Transform");
 }
 
 Engine::GameObject::~GameObject()
 {
+	gameObjects.remove(this);
 	ReleaseComponents();
 
 	for (auto& iter : children)
@@ -88,6 +92,22 @@ void Engine::GameObject::OnCollisionEnter(Collider* target)
 {
 
 
+}
+
+void Engine::GameObject::OnHover()
+{
+	isLeave = false;
+	isHover = true;
+	MouseEventArg args{};
+	Hover.Invoke(this, args);
+}
+
+void Engine::GameObject::OnLeave()
+{
+	isHover = false;
+	isLeave = true;
+	MouseEventArg args{};
+	Leave.Invoke(this, args);
 }
 
 void Engine::GameObject::Move(Vector3 _direction)
@@ -415,6 +435,16 @@ void Engine::GameObject::SetRemove(bool _remove)
 bool Engine::GameObject::IsVisible()
 {
 	return visible;
+}
+
+bool Engine::GameObject::IsHover()
+{
+	return isHover;
+}
+
+bool Engine::GameObject::IsLeave()
+{
+	return isLeave;
 }
 
 bool Engine::GameObject::SetLayer(Layer _layer)

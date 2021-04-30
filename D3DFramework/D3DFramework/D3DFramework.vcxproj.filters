@@ -406,6 +406,9 @@
     <Filter Include="GameObject\Pointing">
       <UniqueIdentifier>{78e35184-633f-42c1-89ee-f10f08e7d800}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib\Event\EventSystem">
+      <UniqueIdentifier>{a2799336-3475-4522-8199-813f52cf9260}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameObject\UI\KillCalloutPanel">
       <UniqueIdentifier>{a173fa87-e57e-43ed-832c-1fe362d958b4}</UniqueIdentifier>
     </Filter>
@@ -1259,6 +1262,12 @@
       <Filter>Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="Pointing.h">
+      <Filter>GameObject\Pointing</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>Lib\Event\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowPointer.h">
       <Filter>GameObject\Pointing</Filter>
     </ClInclude>
     <ClInclude Include="ArrowPointer.h" />
@@ -2169,6 +2178,12 @@
       <Filter>Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="Pointing.cpp">
+      <Filter>GameObject\Pointing</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>Lib\Event\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowPointer.cpp">
       <Filter>GameObject\Pointing</Filter>
     </ClCompile>
     <ClCompile Include="ArrowPointer.cpp" />

@@ -157,6 +157,9 @@ using namespace std;
 // 행동트리
 #include "BehaviorTree.h"
 
+// 이벤트 시스템
+#include "EventSystem.h"
+
 using namespace std;
 using namespace Engine;
 
