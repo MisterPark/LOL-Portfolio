@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "AnimationController.h"
 
 AnimationController::AnimationController(LPD3DXANIMATIONCONTROLLER pAniCtrl)
@@ -17,10 +17,10 @@ AnimationController::AnimationController(const AnimationController& rhs)
 	, m_fAccTime(rhs.m_fAccTime)
 	, m_iOldAniIdx(rhs.m_iOldAniIdx)
 {
-	rhs.m_pAniCtrl->CloneAnimationController(rhs.m_pAniCtrl->GetMaxNumAnimationOutputs(), // º¹Á¦ ½Ã ¿øº» °´Ã¼¿¡¼­ Á¦°øµÇ°í ÀÖ´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÇ °³¼ö
-		rhs.m_pAniCtrl->GetMaxNumAnimationSets(), // ±¸µ¿ °¡´ÉÇÑ ¾Ö´Ï¸ÞÀÌ¼ÇÀÇ ÃÖ´ë °³¼ö(´ë°Ô´Â 1°ú °°À½)
-		rhs.m_pAniCtrl->GetMaxNumTracks(),		  // ¾Ö´Ï¸ÞÀÌ¼ÇÀ» Àç»ýÇÏ±â À§ÇÑ ÃÖ´ë Æ®·¢ÀÇ °³¼ö(´ëºÎºÐ ÇÑ °³¸¦ »ç¿ë, Á¤¸» ¸¹ÀÌ »ç¿ëÇØ¾ß µÎ °³ »ç¿ë)
-		rhs.m_pAniCtrl->GetMaxNumEvents(),		  // ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý ½Ã Àû¿ëµÇ´Â µ¶Æ¯ÇÑ ÀÌº¥Æ®(¿ì¸®´Â »ç¿ë ¸øÇÔ)
+	rhs.m_pAniCtrl->CloneAnimationController(rhs.m_pAniCtrl->GetMaxNumAnimationOutputs(), // ë³µì œ ì‹œ ì›ë³¸ ê°ì²´ì—ì„œ ì œê³µë˜ê³  ìžˆëŠ” ì• ë‹ˆë©”ì´ì…˜ì˜ ê°œìˆ˜
+		rhs.m_pAniCtrl->GetMaxNumAnimationSets(), // êµ¬ë™ ê°€ëŠ¥í•œ ì• ë‹ˆë©”ì´ì…˜ì˜ ìµœëŒ€ ê°œìˆ˜(ëŒ€ê²ŒëŠ” 1ê³¼ ê°™ìŒ)
+		rhs.m_pAniCtrl->GetMaxNumTracks(),		  // ì• ë‹ˆë©”ì´ì…˜ì„ ìž¬ìƒí•˜ê¸° ìœ„í•œ ìµœëŒ€ íŠ¸ëž™ì˜ ê°œìˆ˜(ëŒ€ë¶€ë¶„ í•œ ê°œë¥¼ ì‚¬ìš©, ì •ë§ ë§Žì´ ì‚¬ìš©í•´ì•¼ ë‘ ê°œ ì‚¬ìš©)
+		rhs.m_pAniCtrl->GetMaxNumEvents(),		  // ì• ë‹ˆë©”ì´ì…˜ ìž¬ìƒ ì‹œ ì ìš©ë˜ëŠ” ë…íŠ¹í•œ ì´ë²¤íŠ¸(ìš°ë¦¬ëŠ” ì‚¬ìš© ëª»í•¨)
 		&m_pAniCtrl);
 }
 
@@ -91,41 +91,41 @@ void AnimationController::SetAnimationSet(const UINT& iIndex)
 
 	LPD3DXANIMATIONSET		pAS = NULL;
 
-	// ÀÎµ¦½º °ª¿¡ ÇØ´çÇÏ´Â ¾Ö´Ï¸ÞÀÌ¼Ç ¼ÂÀ» ¾ò¾î´Â ÇÔ¼ö
+	// ì¸ë±ìŠ¤ ê°’ì— í•´ë‹¹í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì…‹ì„ ì–»ì–´ëŠ” í•¨ìˆ˜
 	m_pAniCtrl->GetAnimationSet(iIndex, &pAS);
 	//m_pAniCtrl->GetAnimationSetByName()
 
-	m_dPeriod = pAS->GetPeriod(); // ¾Ö´Ï¸ÞÀÌ¼Ç ¼ÂÀÇ Àç»ý ½Ã°£À» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö
+	m_dPeriod = pAS->GetPeriod(); // ì• ë‹ˆë©”ì´ì…˜ ì…‹ì˜ ìž¬ìƒ ì‹œê°„ì„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 
 
-	// 0¹ø Æ®·¢¿¡ ¾Ö´Ï¸ÞÀÌ¼Ç ¼Â ¼¼ÆÃ
+	// 0ë²ˆ íŠ¸ëž™ì— ì• ë‹ˆë©”ì´ì…˜ ì…‹ ì„¸íŒ…
 	m_pAniCtrl->SetTrackAnimationSet(m_iNewTrack, pAS);
 
 
-	// ¾Ö´Ï¸ÞÀÌ¼Ç Á¤º¸ ¾È¿¡ »ðÀÔµÇ¾î ÀÖ´Â ÀÌº¥Æ® Á¤º¸¸¦ ÇØÁ¦ÇÏ´Â ÇÔ¼ö(ÀÌº¥Æ®°¡ ¾ø´Â °ÍÀ¸·Î Ã³¸®)
-	// : ¿ì¸®°¡ ÀÌº¥Æ®¸¦ »ç¿ëÇÒ ¼ö ¾ø´Â »óÈ²ÀÎµ¥, Á¤º¸°¡ »ðÀÔµÇ¾î ÀÖ´Â °æ¿ì °¡²û ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ º¸°£ µÇÁö ¾Ê´Â ¹®Á¦°¡ ¹ß»ý
+	// ì• ë‹ˆë©”ì´ì…˜ ì •ë³´ ì•ˆì— ì‚½ìž…ë˜ì–´ ìžˆëŠ” ì´ë²¤íŠ¸ ì •ë³´ë¥¼ í•´ì œí•˜ëŠ” í•¨ìˆ˜(ì´ë²¤íŠ¸ê°€ ì—†ëŠ” ê²ƒìœ¼ë¡œ ì²˜ë¦¬)
+	// : ìš°ë¦¬ê°€ ì´ë²¤íŠ¸ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ìƒí™©ì¸ë°, ì •ë³´ê°€ ì‚½ìž…ë˜ì–´ ìžˆëŠ” ê²½ìš° ê°€ë” ì• ë‹ˆë©”ì´ì…˜ì´ ë³´ê°„ ë˜ì§€ ì•ŠëŠ” ë¬¸ì œê°€ ë°œìƒ
 	m_pAniCtrl->UnkeyAllTrackEvents(m_iCurrentTrack);
 	m_pAniCtrl->UnkeyAllTrackEvents(m_iNewTrack);
 
-	// ÇöÀç ¼³Á¤µÈ Æ®·¢À» Àç»ý ¶Ç´Â Á¾·á ½ÃÅ°±â À§ÇÑ ÇÔ¼ö(3ÀÎÀÚ : ¾ðÁ¦ºÎÅÍ ÇöÀç Æ®·¢À» ÇØÁ¦ÇÒ °ÍÀÎ°¡)
+	// í˜„ìž¬ ì„¤ì •ëœ íŠ¸ëž™ì„ ìž¬ìƒ ë˜ëŠ” ì¢…ë£Œ ì‹œí‚¤ê¸° ìœ„í•œ í•¨ìˆ˜(3ì¸ìž : ì–¸ì œë¶€í„° í˜„ìž¬ íŠ¸ëž™ì„ í•´ì œí•  ê²ƒì¸ê°€)
 	m_pAniCtrl->KeyTrackEnable(m_iCurrentTrack, FALSE, m_fAccTime + 0.25);
 
-	// ÀÎÀÚ°ªÀ¸·Î µé¾î¿À´Â Æ®·¢¿¡ ¼¼ÆÃµÈ ¾Ö´Ï¸ÞÀÌ¼Ç ¼ÂÀ» ¾î¶² ¼Óµµ·Î ¿òÁ÷ÀÏ °ÍÀÎÁö ¼³Á¤ÇÏ´Â ÇÔ¼ö(¼ÓµµÀÇ »ó¼ö °ªÀº 1)
+	// ì¸ìžê°’ìœ¼ë¡œ ë“¤ì–´ì˜¤ëŠ” íŠ¸ëž™ì— ì„¸íŒ…ëœ ì• ë‹ˆë©”ì´ì…˜ ì…‹ì„ ì–´ë–¤ ì†ë„ë¡œ ì›€ì§ì¼ ê²ƒì¸ì§€ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜(ì†ë„ì˜ ìƒìˆ˜ ê°’ì€ 1)
 	m_pAniCtrl->KeyTrackSpeed(m_iCurrentTrack, 1.f, m_fAccTime, 0.25, D3DXTRANSITION_LINEAR);
 
-	// ÀÎÀÚ°ªÀ¸·Î µé¾î¿À´Â Æ®·¢ÀÇ °¡ÁßÄ¡¸¦ ¼³Á¤ÇÏ´Â ÇÔ¼ö
+	// ì¸ìžê°’ìœ¼ë¡œ ë“¤ì–´ì˜¤ëŠ” íŠ¸ëž™ì˜ ê°€ì¤‘ì¹˜ë¥¼ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜
 	m_pAniCtrl->KeyTrackWeight(m_iCurrentTrack, 0.1f, m_fAccTime, 0.25, D3DXTRANSITION_LINEAR);
 
 
-	// New Æ®·¢ÀÇ È°¼ºÈ­¸¦ Áö½ÃÇÏ´Â ÇÔ¼ö
+	// New íŠ¸ëž™ì˜ í™œì„±í™”ë¥¼ ì§€ì‹œí•˜ëŠ” í•¨ìˆ˜
 	m_pAniCtrl->SetTrackEnable(m_iNewTrack, TRUE);
 	m_pAniCtrl->KeyTrackSpeed(m_iNewTrack, 1.f, m_fAccTime, 0.25, D3DXTRANSITION_LINEAR);
 	m_pAniCtrl->KeyTrackWeight(m_iNewTrack, 0.9f, m_fAccTime, 0.25, D3DXTRANSITION_LINEAR);
 
-	m_pAniCtrl->ResetTime(); // AdvanceTime È£Ãâ ½Ã ³»ºÎÀûÀ¸·Î ´©ÀûµÇ´ø ½Ã°£À» ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+	m_pAniCtrl->ResetTime(); // AdvanceTime í˜¸ì¶œ ì‹œ ë‚´ë¶€ì ìœ¼ë¡œ ëˆ„ì ë˜ë˜ ì‹œê°„ì„ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 	m_fAccTime = 0.f;
 
-	// ±âÁ¸ÀÇ Àç»ý ÁßÀÌ´ø Æ®·¢¿¡¼­ »õ·Î¿î Æ®·¢À¸·Î º¯°æÀ» Çß±â ¶§¹®¿¡ Àç»ý ½ÃÁ¡À» 0ÃÊ(0ÀÇ À§Ä¡·Î ÃÊ±âÈ­)·Î ½ÃÀÛÇÏµµ·Ï Áö½ÃÇÏ´Â ÇÔ¼ö
+	// ê¸°ì¡´ì˜ ìž¬ìƒ ì¤‘ì´ë˜ íŠ¸ëž™ì—ì„œ ìƒˆë¡œìš´ íŠ¸ëž™ìœ¼ë¡œ ë³€ê²½ì„ í–ˆê¸° ë•Œë¬¸ì— ìž¬ìƒ ì‹œì ì„ 0ì´ˆ(0ì˜ ìœ„ì¹˜ë¡œ ì´ˆê¸°í™”)ë¡œ ì‹œìž‘í•˜ë„ë¡ ì§€ì‹œí•˜ëŠ” í•¨ìˆ˜
 	m_pAniCtrl->SetTrackPosition(m_iNewTrack, 0.0);
 
 	m_iOldAniIdx = iIndex;
@@ -134,10 +134,17 @@ void AnimationController::SetAnimationSet(const UINT& iIndex)
 
 void AnimationController::PlayAnimation(const float& fTimeDelta)
 {
-	m_pAniCtrl->AdvanceTime(fTimeDelta, NULL);	// 2ÀÎÀÚ : ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý¿¡ µû¶ó »ç¿îµå³ª, ÀÌÆåÆ®¸¦ ±¸µ¿ °¡´É, ÇÏÁö¸¸ ¾È¾¸.
-	// AdvanceTime È£Ãâ ½Ã ³»ºÎÀûÀ¸·Î ´©ÀûµÇ´Â ½Ã°£ °ªÀÌ ÀÖÀ½
+	m_pAniCtrl->AdvanceTime(fTimeDelta, NULL);	// 2ì¸ìž : ì• ë‹ˆë©”ì´ì…˜ ìž¬ìƒì— ë”°ë¼ ì‚¬ìš´ë“œë‚˜, ì´íŽ™íŠ¸ë¥¼ êµ¬ë™ ê°€ëŠ¥, í•˜ì§€ë§Œ ì•ˆì”€.
+	// AdvanceTime í˜¸ì¶œ ì‹œ ë‚´ë¶€ì ìœ¼ë¡œ ëˆ„ì ë˜ëŠ” ì‹œê°„ ê°’ì´ ìžˆìŒ
 
 	m_fAccTime += fTimeDelta;
+}
+
+void Engine::AnimationController::Reset()
+{
+	m_pAniCtrl->ResetTime();
+	m_fAccTime = 0.f;
+	m_pAniCtrl->SetTrackPosition(m_iCurrentTrack, 0.0);
 }
 
 AnimationController* AnimationController::Create(LPD3DXANIMATIONCONTROLLER pAniCtrl)

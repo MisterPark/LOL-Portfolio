@@ -6,6 +6,8 @@
 #include "Minion.h"
 #include "ScorePanel.h"
 #include "MiniScorePanel.h"
+#include "TestScene.h"
+#include "AnnouncerPanel.h"
 
 Champion::Champion()
 {
@@ -63,6 +65,22 @@ void Champion::OnCollisionEnter(Collider* target)
 			unit->PushedOut(this);
 		}
 		
+	}
+}
+
+void Champion::OnDeathBegin(Unit* _lastAttacker)
+{
+	if (_lastAttacker == nullptr) return;
+
+	TestScene* scene = (TestScene*)SceneManager::GetCurrentScene();
+	Unit* unit = scene->unitMap[(int)UnitID::Champ0];
+	if (unit->team != this->team)
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"적을 처치했습니다!", Team::BLUE, L"적을처치했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
+	}
+	else
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"처치 당했습니다", Team::RED, L"적에게당했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
 	}
 }
 

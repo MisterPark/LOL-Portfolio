@@ -22,6 +22,9 @@ ChaosMinionSiege::ChaosMinionSiege()
 	stat->SetBaseValue(StatType::Range, 3.f);
 	stat->SetBaseValue(StatType::Bounty, 60.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"redmechcannon_circle";
+	faceSquareTexkey = L"redmechcannon_square";
 }
 
 ChaosMinionSiege::~ChaosMinionSiege()

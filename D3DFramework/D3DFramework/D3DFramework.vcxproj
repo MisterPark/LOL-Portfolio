@@ -180,6 +180,7 @@
     <ClInclude Include="Animation2D.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="AnnouncerPanel.h" />
+    <ClInclude Include="ArrowPointer.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Aura.h" />
     <ClInclude Include="Buff_HealMoveSpeed.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="MinionSpawner.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MonoRenderer.h" />
+    <ClInclude Include="Pointing.h" />
     <ClInclude Include="ScuttleracerAI.h" />
     <ClInclude Include="Skill_Attack.h" />
     <ClInclude Include="Bar.h" />
@@ -455,6 +457,7 @@
     <ClCompile Include="Animation2D.cpp" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="AnnouncerPanel.cpp" />
+    <ClCompile Include="ArrowPointer.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Aura.cpp" />
     <ClCompile Include="Buff_HealMoveSpeed.cpp" />
@@ -497,6 +500,7 @@
     <ClCompile Include="MinionSpawner.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MonoRenderer.cpp" />
+    <ClCompile Include="Pointing.cpp" />
     <ClCompile Include="ScuttleracerAI.cpp" />
     <ClCompile Include="Skill_Attack.cpp" />
     <ClCompile Include="Bar.cpp" />

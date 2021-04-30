@@ -10,12 +10,19 @@
 #include "Inventory.h"
 #include "Skill_Attack.h"
 #include "Skill_RangeAttack.h"
+#include "MonoRenderer.h"
+#include "ArrowPointer.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
 {
     unit = (Unit*)owner;
     agent = (NavMeshAgent*)owner->GetComponent<NavMeshAgent>();
+
+    MonoRenderer* monoRenderer = new MonoRenderer(unit);
+    unit->AddComponent(L"monoRenderer", monoRenderer);
+    ArrowPointer* arrow = ArrowPointer::GetInstance();
+    SceneManager::GetCurrentScene()->AddObject(arrow);
 }
 
 PlayerController::PlayerController(const PlayerController& rhs)
@@ -27,6 +34,8 @@ PlayerController::~PlayerController()
 {
     unit = nullptr;
     agent = nullptr;
+    ArrowPointer* arrow = ArrowPointer::GetInstance();
+    SceneManager::GetCurrentScene()->RemoveObject(arrow);
 }
 
 void PlayerController::Update()
@@ -97,38 +106,38 @@ void PlayerController::Update()
 
     if (Input::GetKeyDown('1'))
     {
-        if (unit->inventory.GetItem(0) == nullptr) return;
-        unit->inventory.GetItem(0)->skillList.front()->Use();
+        if (unit->inventory.GetItem(0))
+            unit->inventory.GetItem(0)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('2'))
     {
-        if (unit->inventory.GetItem(1) == nullptr) return;
-        unit->inventory.GetItem(1)->skillList.front()->Use();
+        if (unit->inventory.GetItem(1))
+            unit->inventory.GetItem(1)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('3'))
     {
-        if (unit->inventory.GetItem(2) == nullptr) return;
-        unit->inventory.GetItem(2)->skillList.front()->Use();
+        if (unit->inventory.GetItem(2))
+            unit->inventory.GetItem(2)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('4'))
     {
-        if (unit->inventory.GetItem(3) == nullptr) return;
-        unit->inventory.GetItem(3)->skillList.front()->Use();
+        if (unit->inventory.GetItem(3))
+            unit->inventory.GetItem(3)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('5'))
     {
-        if (unit->inventory.GetItem(4) == nullptr) return;
-        unit->inventory.GetItem(4)->skillList.front()->Use();
+        if (unit->inventory.GetItem(4))
+            unit->inventory.GetItem(4)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('6'))
     {
-        if (unit->inventory.GetItem(5) == nullptr) return;
-        unit->inventory.GetItem(5)->skillList.front()->Use();
+        if (unit->inventory.GetItem(5))
+            unit->inventory.GetItem(5)->skillList.front()->Use();
     }
     if (Input::GetKeyDown('7'))
     {
-        if (unit->inventory.GetItem(6) == nullptr) return;
-        unit->inventory.GetItem(6)->skillList.front()->Use();
+        if (unit->inventory.GetItem(6))
+            unit->inventory.GetItem(6)->skillList.front()->Use();
     }
     
 
@@ -198,6 +207,7 @@ void PlayerController::Update()
                     unit->SetAttackPoint(Vector3{ hit.point.x, hit.point.y, hit.point.z });
                     if(((TargetingSkill*)unit->nextSkillReady)->GetGroundClick())
                         targetCheck = true;
+                    
                 }
             }
         }
@@ -210,22 +220,30 @@ void PlayerController::Update()
     }
     else if (Input::GetMouseRButtonDown())
     {
-        if (UI::IsPointerOverUI()) return;
+        if (!UI::IsPointerOverUI()) {
 
-        Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
-        RaycastHit hit;
+            Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
+            RaycastHit hit;
 
-        int mask = LayerMask::GetMask(Layer::Ground);
-        if (Physics::Raycast(ray, &hit, INFINITY, mask))
-        {
-            
-            unit->SetAttackTarget(nullptr);
-            agent->SetStoppingDistance(0.1f);
-            unit->SetDestination(hit.point);
+            int mask = LayerMask::GetMask(Layer::Ground);
+            if (Physics::Raycast(ray, &hit, INFINITY, mask))
+            {
+
+                unit->SetAttackTarget(nullptr);
+                agent->SetStoppingDistance(0.1f);
+                unit->SetDestination(hit.point);
+
+                ArrowPointer::GetInstance()->transform->position = hit.point;
+                ArrowPointer::GetInstance()->Show();
+            }
+
+            SetTargetMode(false);
         }
-        
-        SetTargetMode(false);
     }
+
+    auto monoRenderer = dynamic_cast<MonoRenderer*>(unit->GetComponent(L"monoRenderer"));
+    if (monoRenderer) monoRenderer->enable = unit->IsDead();
+    
 }
 
 IComponent* PlayerController::Clone()
@@ -239,12 +257,12 @@ void PlayerController::SetTargetMode(bool _mode)
     if (targetMode)
     {
         Cursor::SetMode(CursorMode::SingleTarget);
-        unit->attackIndicator->visible = true;
+        //unit->attackIndicator->visible = true;
     }
     else
     {
         Cursor::SetMode(CursorMode::Normal);
-        unit->attackIndicator->visible = false;
+        //unit->attackIndicator->visible = false;
     }
 }
 

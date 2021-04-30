@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "DynamicMesh.h"
 #include "HierarchyLoader.h"
 #include "AnimationController.h"
@@ -133,13 +133,13 @@ void Engine::DynamicMesh::UpdateFrame()
 {
 	if (gameObject == nullptr)return;
 
+	float dt = Time::DeltaTime();
 
 	if (stopFlag == true)
 	{
 		animSpeed = 0.f;
 	}
-	PlayAnimation(animSpeed);
-	animSpeed = 0.f;
+	PlayAnimation(animSpeed * dt);
 
 	//RenderManager::GetDevice()->SetTransform(D3DTS_WORLD, &gameObject->transform->world);
 
@@ -192,6 +192,11 @@ void DynamicMesh::PlayAnimation(const float& fTimeDelta)
 	m_pAniCtrl->PlayAnimation(fTimeDelta);
 
 	
+}
+
+void Engine::DynamicMesh::ResetAnimation()
+{
+	m_pAniCtrl->Reset();
 }
 
 bool Engine::DynamicMesh::GetAnimationIndex(UINT* outIndex, const char* name)

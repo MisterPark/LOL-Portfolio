@@ -23,6 +23,7 @@ namespace Engine
 		void			SetAnimationSet(const UINT& iIndex);
 
 		void			PlayAnimation(const float& fTimeDelta);
+		void			Reset();
 
 	private:
 		LPD3DXANIMATIONCONTROLLER			m_pAniCtrl;

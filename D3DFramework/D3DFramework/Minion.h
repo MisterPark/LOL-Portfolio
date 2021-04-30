@@ -13,12 +13,12 @@ public:
     Minion();
     virtual ~Minion();
 
-    virtual void OnDie() override;
+    virtual void OnDeathEnd() override;
     void OnCollisionEnter(Collider* target);
 
 
 public:
     MinionAI* ai = nullptr;
-    
+    static list<Minion*> minionList;
 };
 

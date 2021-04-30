@@ -8,9 +8,12 @@
 
 #include "MinionSpawner.h"
 
+list<Minion*> Minion::minionList;
+
 Minion::Minion()
 {
-	
+	minionList.push_back(this);
+
 	SetSpawnTime(INFINITY);
 	
 	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
@@ -29,11 +32,13 @@ Minion::Minion()
 
 Minion::~Minion()
 {
+	minionList.remove(this);
+
 	bar = nullptr;
 	ai = nullptr;
 }
 
-void Minion::OnDie()
+void Minion::OnDeathEnd()
 {
 	MinionSpawner::IncreaseCount();
 	Destroy();

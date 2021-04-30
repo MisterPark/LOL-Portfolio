@@ -26,7 +26,7 @@ void Skill_RangeAttack::Start()
 	if (GetCooltime() > 0.f) return;
 	Skill::Start();
 
-	host->OnAttackBegin();
+	
 }
 
 void Skill_RangeAttack::Passive()
@@ -55,6 +55,11 @@ void Skill_RangeAttack::Active()
 	}
 	float dt = Time::DeltaTime();
 
+	if (beginAttackFlag == false)
+	{
+		beginAttackFlag = true;
+		host->OnAttackBegin();
+	}
 
 	Vector3 direction = host->attackTarget->transform->position - host->transform->position;
 	host->agent->Stop();
@@ -90,6 +95,7 @@ void Skill_RangeAttack::End()
 	tick = 0.f;
 	host->OnAttackEnd();
 	host->attackFlag = false;
+	beginAttackFlag = false;
 }
 
 void Skill_RangeAttack::AttackCancleToAttack()

@@ -52,19 +52,27 @@ void Engine::UIRenderer::Render()
 	matWorld._43 = 1.f;
 	matViewProj = matView * matProj;
 	effect->Begin(&passCount, 0);
+
 	effect->SetMatrix("g_mViewProj", &matViewProj);
 	effect->SetMatrix("g_mWorld", &matWorld);
 	effect->SetTexture("g_texture", mesh->GetSubsetTexture(0));
-	effect->SetVector("g_uvRatioStart",&vecUVStart);
-	effect->SetVector("g_uvRatioEnd",&vecUVEnd);
-	effect->SetTexture("g_timerMap", timerGradientTex->pTexture);
-	effect->SetFloat("g_timerThresHold", timerRatio);
-	effect->SetVector("g_timerColor", &timerColor);
-	effect->SetBool("g_grayscale", ui->grayscale);
-	effect->SetTexture("g_gradientMap", gradientmapTex->pTexture);
-	effect->SetFloat("g_gradientmapMaxCnt", (FLOAT)gradientmapMaxCnt);
-	effect->SetFloat("g_gradientmapIndex", (FLOAT)gradientmapIndex);
-	effect->BeginPass(0);
+
+	if (pass == 0 || pass == 1 || pass == 2) {
+		effect->SetVector("g_uvRatioStart", &vecUVStart);
+		effect->SetVector("g_uvRatioEnd", &vecUVEnd);
+		effect->SetTexture("g_timerMap", timerGradientTex->pTexture);
+		effect->SetFloat("g_timerThresHold", timerRatio);
+		effect->SetVector("g_timerColor", &timerColor);
+		effect->SetBool("g_grayscale", ui->grayscale);
+		effect->SetTexture("g_gradientMap", gradientmapTex->pTexture);
+		effect->SetFloat("g_gradientmapMaxCnt", (FLOAT)gradientmapMaxCnt);
+		effect->SetFloat("g_gradientmapIndex", (FLOAT)gradientmapIndex);
+		effect->BeginPass(0);
+	}
+	else if (pass == 3) {
+		effect->SetVector("g_multipleColor", &multipleColor);
+		effect->BeginPass(3);
+	}
 
 	mesh->RenderSubset(0);
 
@@ -92,6 +100,16 @@ void Engine::UIRenderer::SetGradientMap(const std::wstring& _maptag, int _max, i
 void Engine::UIRenderer::SetGradientMapIndex(int _idx)
 {
 	gradientmapIndex = _idx;
+}
+
+void Engine::UIRenderer::SetPass(int _pass)
+{
+	pass = _pass;
+}
+
+void Engine::UIRenderer::SetMultipleColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b)
+{
+	multipleColor = { (FLOAT)_r / 256, (FLOAT)_g / 256, (FLOAT)_b / 256, (FLOAT)_a / 256 };
 }
 
 void Engine::UIRenderer::BringToTop()

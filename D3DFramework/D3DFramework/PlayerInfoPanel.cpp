@@ -261,9 +261,16 @@ PlayerInfoPanel::PlayerInfoPanel()
     spellPointLabel->SetColor(255, 255, 247, 153);
     
 
-    facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(Vector2(-80, 30)));
+    facePanel = mainPanel->AddChild<UI>(L"champFace", new UI(L"empty_circle", Vector2(-80, 30)));
 	facePanel->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipFacepanel);
 	facePanel->Leave += Engine::Handler(this, &PlayerInfoPanel::HideTooltipFacepanel);
+	
+	deadCountLabel = facePanel->AddChild<Label>(L"deadCountLabel", new Label(30));
+	deadCountLabel->SetColor(255, 255, 0, 0);
+	deadCountLabel->outline = true;
+	deadCountLabel->SetLocation(facePanel->GetSize().x * 0.5f, facePanel->GetSize().y * 0.5f);
+	deadCountLabel->align = Label::Align::Center;
+	deadCountLabel->valign = Label::VAlign::Middle;
 
     expBar = mainPanel->AddChild<UI>(L"expBar", new UI(L"bar_exp", Vector2(14, 21)));
 	expBar->Hover += Engine::Handler(this, &PlayerInfoPanel::ShowTooltipExpbar);
@@ -410,6 +417,15 @@ void PlayerInfoPanel::Update()
 	// exp
 	expBar->uvRatioStart.y = 1.f - (champion->stat->GetValue(StatType::Experience) /
 		champion->stat->GetValue(StatType::MaxExperience));
+
+	// dead count
+	if (!champion->IsDead()) {
+		deadCountLabel->Hide();
+	}
+	else {
+		deadCountLabel->Show();
+		deadCountLabel->SetText((int)champion->GetRemainingRespawnTime());
+	}
 
 	// Skill Level
 	int skillPoint = (int)champion->stat->GetBaseValue(StatType::SkillPoint);

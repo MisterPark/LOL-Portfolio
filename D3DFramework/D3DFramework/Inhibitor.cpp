@@ -5,6 +5,7 @@
 #include "TurretFloatingBar.h"
 #include "MinionSpawner.h"
 #include "TestScene.h"
+#include "AnnouncerPanel.h"
 
 Inhibitor::Inhibitor()
 {
@@ -31,6 +32,22 @@ Inhibitor::Inhibitor()
 Inhibitor::~Inhibitor()
 {
 	bar = nullptr;
+}
+
+void Inhibitor::OnDeathBegin(Unit* _lastAttacker)
+{
+	if (_lastAttacker == nullptr) return;
+
+	TestScene* scene = (TestScene*)SceneManager::GetCurrentScene();
+	Unit* unit = scene->unitMap[(int)UnitID::Champ0];
+	if (unit->team != this->team)
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"이제 적이 슈퍼미니언을 생성합니다", Team::BLUE, L"적의억제기를파괴했습니다.wav");
+	}
+	else
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"이제 슈퍼 미니언이 생성됩니다", Team::RED, L"억제기가파괴되었습니다.wav");
+	}
 }
 
 void Inhibitor::SetTeam(Team _team)

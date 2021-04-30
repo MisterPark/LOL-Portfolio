@@ -22,6 +22,9 @@ ChaosMinionCaster::ChaosMinionCaster()
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::Bounty, 14.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"redrange_circle";
+	faceSquareTexkey = L"redrange_square";
 }
 
 ChaosMinionCaster::~ChaosMinionCaster()

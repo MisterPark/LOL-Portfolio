@@ -38,12 +38,12 @@ void Engine::Animation::PostUpdate()
         }
     }
     
-    float animSpeed = animNode.period * animNode.speed * dt;
+    float animSpeed = animNode.speed;
     
     //if(stopFlag == false)
     //    dmesh->PlayAnimation(animSpeed);
     dmesh->stopFlag = stopFlag;
-    dmesh->animSpeed += animSpeed;
+    dmesh->animSpeed = animSpeed;
 }
 
 IComponent* Engine::Animation::Clone()
@@ -73,7 +73,7 @@ void Engine::Animation::AttachToDynamicMesh(DynamicMesh* _dmesh)
             animsets[i].index = idleIndex;
             animsets[i].period = (float)dmesh->GetPeriod(idleIndex);
         }
-        animsets[i].speed = 1.f / animsets[i].period;
+        animsets[i].speed = 1.f;
         animsets[i].name = name;
     }
 
@@ -212,4 +212,10 @@ void Engine::Animation::Stop()
 void Engine::Animation::Resume()
 {
     stopFlag = false;
+}
+
+void Engine::Animation::Reset()
+{
+    if (dmesh == nullptr) return;
+    dmesh->ResetAnimation();
 }

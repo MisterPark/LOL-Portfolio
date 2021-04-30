@@ -25,5 +25,8 @@ private:
     Vector3 nextPoint;
     float moveTick = 0.f;
     float moveDelay = 0.3f;
+
+    float chaseTick = 0.f;
+    float chaseDelay = 1.f;
 };
 

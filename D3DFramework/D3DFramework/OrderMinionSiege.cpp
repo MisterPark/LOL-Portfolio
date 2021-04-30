@@ -22,6 +22,9 @@ OrderMinionSiege::OrderMinionSiege()
 	stat->SetBaseValue(StatType::Range, 3.f);
 	stat->SetBaseValue(StatType::Bounty, 60.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
+
+	faceCircleTexkey = L"bluemechcannon_circle";
+	faceSquareTexkey = L"bluemechcannon_square";
 }
 
 OrderMinionSiege::~OrderMinionSiege()

@@ -19,7 +19,7 @@ namespace Engine
 		static void Update();
 		static void Release();
 	public:
-		static void PlaySound(const TCHAR* pSoundKey, SoundChannel eID);
+		static bool PlaySound(const TCHAR* pSoundKey, SoundChannel eID);
 		static void PlayOverlapSound(const TCHAR* pSoundKey, SoundChannel eID, float offsetVolume = 1.f, float duration = 0.2f);
 		static void PlayOverlapSoundWithAmp(const TCHAR* pSoundKey, SoundChannel eID);
 		static void PlayBGM(const TCHAR* pSoundKey);

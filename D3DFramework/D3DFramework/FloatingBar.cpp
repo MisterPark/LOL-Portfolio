@@ -2,6 +2,7 @@
 #include "FloatingBar.h"
 #include "Bar.h"
 #include "Label.h"
+#include "Champion.h"
 
 FloatingBar::FloatingBar()
 {
@@ -11,7 +12,12 @@ FloatingBar::FloatingBar()
 	SetTexture(L"border_float (1)");
 	SetSizeByTexture();
 	
-	
+	back = AddChild<UI>(L"back", new UI(L"border_float (8)", Vector2(3, 4)));
+	level = back->AddChild<Label>(L"level", new Label(15));
+	level->SetLocation(Vector2(back->GetSize().x * 0.5f, back->GetSize().y * 0.5f));
+	level->align  = Label::Align::Center;
+	level->valign = Label::VAlign::Middle;
+	level->SetColor(255, 255, 255, 255);
 
 	hpBar = (Bar*)CreateChild(L"bar_float (2)", Vector2(26, 6));
 	hpBar->transform->scale = { 0.97f,1.f,1.f };
@@ -69,6 +75,17 @@ void FloatingBar::PostUpdate()
 	{
 		//visible = target->visible;
 		//Show(visible);
+
+		if (dynamic_cast<Champion*>(target)) {
+			if (target->GetTeam() == Team::BLUE)		back->SetTexture(L"border_float (8)");
+			else if (target->GetTeam() == Team::RED)	back->SetTexture(L"border_float (7)");
+
+			level->SetText((UINT)target->stat->GetBaseValue(StatType::Level));
+		}
+		else {
+			back->Hide();
+			level->Hide();
+		}
 
 		Vector3 worldPos = target->transform->position + offset;
 		worldPos = Camera::main->WorldToScreenPoint(worldPos);

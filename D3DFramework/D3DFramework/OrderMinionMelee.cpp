@@ -23,7 +23,8 @@ OrderMinionMelee::OrderMinionMelee()
 	stat->SetBaseValue(StatType::Bounty, 21.f);
 	stat->SetBaseValue(StatType::MinionKilled, 1.f);
 
-
+	faceCircleTexkey = L"bluemelee_circle";
+	faceSquareTexkey = L"bluemelee_square";
 }
 
 OrderMinionMelee::~OrderMinionMelee()

@@ -11,6 +11,7 @@
 #include "TurretSubTree.h"
 #include "ScorePanel.h"
 #include "TestScene.h"
+#include "AnnouncerPanel.h"
 
 Turret::Turret()
 {
@@ -77,6 +78,22 @@ void Turret::Update()
 	GameObject::Update();
 }
 
+void Turret::OnDeathBegin(Unit* _lastAttacker)
+{
+	if (_lastAttacker == nullptr) return;
+
+	TestScene* scene = (TestScene*)SceneManager::GetCurrentScene();
+	Unit* unit = scene->unitMap[(int)UnitID::Champ0];
+	if (unit->team != this->team)
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"적의 포탑이 파괴되었습니다!", Team::BLUE, L"포탑을파괴했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
+	}
+	else
+	{
+		AnnouncerPanel::GetInstance()->AddAnnouncer(L"포탑이 파괴되었습니다.", Team::RED, L"포탑이파괴되었습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
+	}
+}
+
 
 void Turret::SetTeam(Team _team)
 {
@@ -85,10 +102,14 @@ void Turret::SetTeam(Team _team)
 	if (_team == Team::BLUE)
 	{
 		bar->SetTextureHP(L"bar_float (5)");
+		faceCircleTexkey = L"turret_blue_circle";
+		faceSquareTexkey = L"turret_blue_square";
 	}
 	else
 	{
 		bar->SetTextureHP(L"bar_float (2)");
+		faceCircleTexkey = L"turret_red_circle";
+		faceSquareTexkey = L"turret_red_square";
 	}
 }
 
@@ -132,7 +153,7 @@ void Turret::AttackAction()
 		attackTarget = nullptr;
 		return;
 	}
-	attackIndicator->visible = true;
+	//attackIndicator->visible = true;
 
 	attackTick += Time::DeltaTime();
 	float delay = 1.f / (*stat)[StatType::AttackSpeed];
@@ -163,7 +184,7 @@ void Turret::CounterAttack()
 void Turret::IdleAction()
 {
 	Unit::IdleAction();
-	attackIndicator->visible = false;
+	//attackIndicator->visible = false;
 
 }
 
