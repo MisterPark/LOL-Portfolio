@@ -104,7 +104,7 @@ void TrailMesh::CreateCustomMesh()
 	WORD* indices = nullptr;
 	triangles->Lock(0, 0, (void**)&indices, 0);
 
-	for (int i = 0; i < triangleCount; i++)
+	for (UINT i = 0; i < triangleCount; i++)
 	{
 		WORD index = ((i / 2) + 1) * 2;
 		WORD index2= (i % 2) ? index + 1 : index - 1;

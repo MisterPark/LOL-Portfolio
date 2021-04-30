@@ -211,7 +211,7 @@ void MinimapPanel::Update()
     size_t minionUINum = mapiconMinion.size();
     if (minionNum > minionUINum) // 생성
     {
-        for (int i = 0; i < minionNum - minionUINum; ++i)
+        for (size_t i = 0; i < minionNum - minionUINum; ++i)
         {
             auto minionUI = minimap->AddChild<UI>(L"minion", new UI(L"minionmapcircle", Vector2(0, 0)));
             minionUI->transform->scale = { 2.f, 2.f, 1.f };

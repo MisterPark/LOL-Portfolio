@@ -11,6 +11,7 @@
 #include "ScorePanel.h"
 #include "EndofgamePanel.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 #include "SkyBox.h"
 #include "Environment.h"
@@ -104,6 +105,7 @@ void TestScene::OnLoaded()
 	UIManager::GetInstance()->AddUI(ScorePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(EndofgamePanel::GetInstance());
 	UIManager::GetInstance()->AddUI(AnnouncerPanel::GetInstance());
+	UIManager::GetInstance()->AddUI(KillCalloutPanel::GetInstance());
 
 	ItemshopPanel::GetInstance()->Hide();
 	ScorePanel::GetInstance()->Hide();

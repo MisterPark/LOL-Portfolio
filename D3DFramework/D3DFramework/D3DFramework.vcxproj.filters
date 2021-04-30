@@ -406,6 +406,9 @@
     <Filter Include="GameObject\Pointing">
       <UniqueIdentifier>{78e35184-633f-42c1-89ee-f10f08e7d800}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\KillCalloutPanel">
+      <UniqueIdentifier>{a173fa87-e57e-43ed-832c-1fe362d958b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -1259,6 +1262,12 @@
       <Filter>GameObject\Pointing</Filter>
     </ClInclude>
     <ClInclude Include="ArrowPointer.h" />
+    <ClInclude Include="KillCalloutPanel.h">
+      <Filter>GameObject\UI\KillCalloutPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="KillCalloutUI.h">
+      <Filter>GameObject\UI\KillCalloutPanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2163,6 +2172,12 @@
       <Filter>GameObject\Pointing</Filter>
     </ClCompile>
     <ClCompile Include="ArrowPointer.cpp" />
+    <ClCompile Include="KillCalloutPanel.cpp">
+      <Filter>GameObject\UI\KillCalloutPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="KillCalloutUI.cpp">
+      <Filter>GameObject\UI\KillCalloutPanel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Icon\league_of_legends.live.ico">

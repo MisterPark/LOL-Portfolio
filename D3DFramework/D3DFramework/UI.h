@@ -16,6 +16,7 @@ namespace Engine
     public:
         UI();
         UI(const Vector2& pos);
+        UI(const std::wstring& _tag);
         UI(const std::wstring& _tag, const Vector2& pos);
         virtual ~UI();
 

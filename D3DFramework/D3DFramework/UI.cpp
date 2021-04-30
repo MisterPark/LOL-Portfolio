@@ -27,6 +27,12 @@ Engine::UI::UI(const Vector2& pos)
 	SetLocation(pos);
 }
 
+Engine::UI::UI(const std::wstring& _tag)
+	: UI()
+{
+	SetTexture(_tag);
+}
+
 Engine::UI::UI(const std::wstring& _tag, const Vector2& pos)
 	: UI()
 {
