@@ -97,6 +97,7 @@ void Champion::Die()
 
 void Champion::OnHit(Unit* target, Skill* mySkill)
 {
+	Unit::OnHit(target, mySkill);
 	for (int i = 0; i < (int)SkillIndex::END; i++) {
 		if (skillList[i] != nullptr)
 			skillList[i]->OnHit(target, mySkill);

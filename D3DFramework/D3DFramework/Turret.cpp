@@ -149,6 +149,8 @@ void Turret::AttackAction()
 		missile->SetTeam(team);
 		missile->SetAttackTarget(attackTarget);
 		//missile->BillboardYaw();
+
+		SoundManager::GetInstance()->PlayOverlapSound(L"TurretAttack1.ogg", SoundChannel::EFFECT);
 	}
 
 

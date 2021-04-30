@@ -116,6 +116,7 @@ void TestScene::OnLoaded()
 	EndofgamePanel::GetInstance()->Hide();
 	//EndofgamePanel::GetInstance()->ShowVictory(); // 승리시
 	//EndofgamePanel::GetInstance()->ShowDefeat(); // 패배시
+	SoundManager::PlayBGM(L"Background1.ogg");
 }
 
 void TestScene::OnUnloaded()

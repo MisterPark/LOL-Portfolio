@@ -14,6 +14,10 @@ Murkwolf::Murkwolf()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
+
+	hitSound.push_back(L"WolfAttack1.ogg");
+	hitSound.push_back(L"WolfAttack2.ogg");
+	hitSound.push_back(L"WolfAttack3.ogg");
 }
 
 Murkwolf::~Murkwolf()

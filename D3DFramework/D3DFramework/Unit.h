@@ -278,6 +278,8 @@ public:
 	Skill* nextSkill = nullptr;
 	Skill* nextSkillReady = nullptr;
 	Skill* behaviorTreeSkill = nullptr;
+
+	vector<wstring> hitSound;
 protected:
 	// 스폰
 	Vector3 spawnPosition;
