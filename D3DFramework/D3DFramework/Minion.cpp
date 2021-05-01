@@ -67,7 +67,7 @@ void Minion::Die()
 
 void Minion::TakeExp()
 {
-	float targetDist = 16.f;
+	float targetDist = 10.f;
 	Vector3 myPos = transform->GetPos();
 
 	list<Unit*> championList;

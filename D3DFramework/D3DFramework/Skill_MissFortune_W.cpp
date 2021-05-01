@@ -7,7 +7,7 @@
 Skill_MissFortune_W::Skill_MissFortune_W(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime = 2.f;
+	coolTime = 7.f;
 	coolTimeTick = coolTime;
 	duration = 0.f;
 	host = _hostUnit;
@@ -31,6 +31,11 @@ void Skill_MissFortune_W::Start()
 	host->stat->AddBuff(attackSpeedBuff);
 
 	passiveTick = 10.f;
+
+	if (PlayerToDistanceCompare(host->GetTransform()->GetPos())) {
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneW1.ogg", SoundChannel::EFFECT);
+		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneW1.ogg", SoundChannel::EFFECT);
+	}
 }
 
 void Skill_MissFortune_W::Passive()
@@ -56,10 +61,6 @@ void Skill_MissFortune_W::Passive()
 	else
 		moveSpeedBuff->modifiers.front().value = 0.f;
 
-	if (PlayerToDistanceCompare(host->GetTransform()->GetPos())) {
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneW1.ogg", SoundChannel::EFFECT);
-		SoundManager::GetInstance()->PlayOverlapSound(L"MissfortuneW1.ogg", SoundChannel::EFFECT);
-	}
 }
 
 void Skill_MissFortune_W::Active()

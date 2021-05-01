@@ -24,6 +24,7 @@
 #include "Wall.h"
 #include "Turret.h"
 #include "Bush.h"
+#include "BushGroup.h"
 
 #include "Inhibitor.h"
 #include "AllChampion.h"
@@ -124,6 +125,7 @@ void TestScene::OnLoaded()
 void TestScene::OnUnloaded()
 {
 	MinionSpawner::Destroy();
+	BushGroup::Destroy();
 }
 
 void TestScene::Update()
@@ -195,7 +197,642 @@ void TestScene::CreateEnvironment()
 	obj = SceneManager::GetCurrentScene()->CreateObject<Wall>(Layer::Wall);
 
 	// 부쉬
-	obj = SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	Bush* bush = nullptr;
+	BushGroup* bushGroup = nullptr;
+
+
+	////////////////////////// 1
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.9f,67.71f,29.69f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.87f,67.71f,28.96f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.67f,67.71f,28.5f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.02f,67.71f,28.51f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 6.85f,67.71f,28.28f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 7.52f,67.71f,28.27f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 7.4f,67.71f,27.78f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.19f,67.71f,27.94f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 2
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.71f,67.71f,30.55f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.11f,67.71f,30.80f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 0.46f,67.71f,30.96f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -0.11f,67.71f,31.f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -0.71f,67.71f,30.89f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -1.32f,67.71f,30.78f };
+	bushGroup->bushList.push_back(bush);
+	////////////////////////// 3 아랫작골부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -13.98f,67.71f,37.44f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -14.63f,67.71f,37.28f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -15.27f,67.71f,37.18f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -15.86f,67.71f,37.03f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.39f,67.71f,36.86f };
+	bushGroup->bushList.push_back(bush);
+	////////////////////////// 4 봇삼거리
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -21.66,67.71f,32.04f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -22.21f,67.71f,31.53f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -22.71f,67.68f,31.22f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -23.36f,67.65f,31.05f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -24.02f,67.62f,31.06f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -22.48f,67.69f,30.62f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -22.26f,67.7f,29.96f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -23.01f,67.67f,30.34f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -21.84f,67.72f,30.98f };
+	bushGroup->bushList.push_back(bush);
+	////////////////////////// 5 아랫레드부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -6.39f,67.71f,28.09f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -6.87f,67.71f,28.37f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -7.52f,67.71f,28.49f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.32f,67.71f,28.42f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.88f,67.71f,28.21f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.5f,67.71f,27.97f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 6 아랫레드 뒤쪽부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -11.52f,67.71f,21.84f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -11.35f,67.71f,21.4f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -11.08f,67.71f,20.81f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -10.88f,67.71f,20.29f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -10.57f,67.71f,19.99f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -10.15f,67.71f,20.13f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 7 아랫칼부 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.31f,67.71f,20.f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.42f,67.71f,20.7f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.5f,67.71f,21.43f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 2.19f,67.71f,21.52f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 2.06f,67.71f,20.84f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.99f,67.71f,19.99f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 8 왼쪽늑대 뒤쪽부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 12.51f,67.71f,6.16f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 12.57f,67.71f,5.55f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 12.8f,67.71f,4.9f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 13.13f,67.71f,4.29f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 13.86f,67.71f,4.47f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 13.43f,67.71f,5.08f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 13.01f,67.71f,5.7f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 9 왼쪽블루 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 21.33f,67.71f,1.26f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 21.96f,67.71f,1.31f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 22.68f,67.71f,1.42f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 22.75f,67.71f,0.89f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 22.11f,67.71f,0.75f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 21.51f,67.71f,0.67f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 10 왼쪽두꺼비 윗쪽부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 29.56f,67.71f,-10.14f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 29.45f,67.71f,-10.72f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 29.43f,67.71f,-11.25f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 29.4f,67.71f,-11.92f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 29.41f,67.71f,-12.66f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 28.68f,67.71f,-10.99f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 28.6f,67.71f,-11.74f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 27.87f,67.71f,-11.43f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 11 블루 뒷쪽강가부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 12.17f,67.53f,-2.89f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 11.63f,67.33f,-3.34f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 11.09f,67.14f,-3.67f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 10.63f,67.01f,-3.87f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 10.06f,67.f,-3.96f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 12 윗쪽 미드일자강가부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 4.04f,66.91f,-1.12f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 3.38f,66.91f,-1.45f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 2.75f,66.91f,-1.92f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 2.1f,66.91f,-2.51f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.45f,66.91f,-3.02f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 0.85f,66.91f,-3.41f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 0.24f,66.91f,-3.77f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 13 윗쪽 강가 한칸부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 9.64f,66.91f,-8.03f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 9.94f,66.95f,-7.35f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 10.82f,66.92f,-7.66f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 10.57f,66.91f,-8.4f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 14 윗쪽 탑 강가부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 25.63f,66.91f,-21.88f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 24.96f,66.95f,-20.81f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 24.47f,66.92f,-19.84f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 24.12f,66.91f,-18.95f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 23.66f,66.91f,-19.44f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 23.97f,66.91f,-20.23f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 24.37f,66.91f,-21.21f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 24.91f,66.91f,-22.28f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 15 윗쪽 탑 삼거리부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 16.39f,67.65f,-25.1f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 15.52f,67.67f,-25.35f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 14.83f,67.69f,-25.62f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 14.15f,67.61f,-25.96f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 15.8f,67.64f,-24.28f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 14.7f,67.68f,-24.43f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 15.07f,67.64f,-23.21f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 15.16f,67.64f,-24.22f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 16 윗작골 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.94f,67.71f,-30.1f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 8.17f,67.71f,-30.32f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 7.35f,67.71f,-30.55f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 6.56f,67.71f,-30.74f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 5.8f,67.71f,-30.83f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 17 위에 긴 일자부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -5.61f,67.71f,-24.53f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -6.32f,67.71f,-24.76f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -7.09f,67.71f,-24.85f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -7.68f,67.71f,-24.79f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.51f,67.71f,-24.53f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 18
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.12f,67.71f,-23.17f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.06f,67.71f,-22.35f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -15.36f,67.71f,-22.1f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -14.68f,67.71f,-22.02f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -14.01f,67.71f,-22.f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 19 윗레드 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -1.11f,67.71f,-21.53f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -0.76f,67.71f,-22.01f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -0.03f,67.71f,-22.26f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 0.65f,67.71f,-22.32f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.41f,67.71f,-22.05f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 1.99f,67.71f,-21.65f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 20 윗레드 뒤쪽부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 4.04f,67.71f,-15.99f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 4.02f,67.71f,-15.38f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 3.96f,67.71f,-14.83f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 3.81f,67.71f,-14.31f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 3.5f,67.71f,-13.97f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { 3.07f,67.71f,-13.85f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 21 윗칼부 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.96f,67.71f,-15.5f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.66f,67.71f,-15.46f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.91f,67.71f,-14.87f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.66f,67.71f,-14.75f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.77f,67.71f,-14.15f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.6f,67.71f,-14.05f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 22 윗늑대 뒷쪽부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -19.73f,67.71f,-0.55f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -19.95f,67.71f,-0.11f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.1f,67.71f,0.29f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.2f,67.71f,0.69f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.26f,67.71f,1.23f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.46f,67.71f,-0.18f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.56f,67.71f,0.32f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.65f,67.71f,0.74f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 23 윗블루 부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -28.8f,67.71f,5.05f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -29.56f,67.71f,5.06f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -30.34f,67.71f,4.97f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -29.14f,67.71f,5.42f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -29.8f,67.71f,5.47f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -30.5f,67.71f,5.47f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 24 윗두꺼비 아랫부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -37.02f,67.71f,16.39f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -36.88f,67.71f,17.02f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -36.76f,67.71f,17.64f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -36.73f,67.71f,18.61f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -35.86f,67.71f,16.84f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -35.76f,67.71f,17.6f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -35.68f,67.71f,18.28f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -35.19f,67.71f,17.78f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 25 윗블루뒷쪽 강가부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -20.07f,67.71f,8.49f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -19.69f,67.63f,8.98f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -19.27f,67.53f,9.33f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -18.77f,67.39f,9.66f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -18.46f,67.27f,10.09f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -18.08f,67.1f,10.34f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 26 미드아래 강가일자부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -11.89f,66.91f,8.f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -11.38f,66.91f,8.39f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -10.84f,66.91f,8.7f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -10.35f,66.91f,9.11f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.74f,66.91f,9.51f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -9.34f,66.91f,9.85f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.87f,66.91f,10.29f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.36f,66.91f,10.89f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -8.14f,66.91f,11.25f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 27 아래강가 한칸부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -15.98f,66.91f,14.34f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.68f,66.91f,14.22f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.22f,66.91f,14.93f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -16.84f,66.91f,14.8f };
+	bushGroup->bushList.push_back(bush);
+
+	////////////////////////// 28 바텀 강가부쉬
+	bushGroup = new BushGroup;
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -31.42f,66.91f,24.63f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.18f,66.91f,24.45f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.36f,66.91f,25.12f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.57f,66.91f,25.67f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.7f,66.91f,26.3f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.84f,66.91f,27.f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.09f,66.91f,26.37f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -31.86f,66.91f,25.89f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -31.59f,66.91f,25.48f };
+	bushGroup->bushList.push_back(bush);
+	bush = (Bush*)SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
+	bush->transform->position = { -32.29f,66.91f,26.97f };
+	bushGroup->bushList.push_back(bush);
+
+
+	/*obj = SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.98f,67.71f,29.14f };
 	obj = SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 8.90f, 67.71f, 29.87f };
@@ -228,7 +865,7 @@ void TestScene::CreateEnvironment()
 	obj = SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
 	obj->transform->position = { 6.83f, 67.71f, 28.54f };
 	obj = SceneManager::GetCurrentScene()->CreateObject<Bush>(Layer::Bush);
-	obj->transform->position = { 6.99f, 67.71f, 28.18f };
+	obj->transform->position = { 6.99f, 67.71f, 28.18f };*/
 }
 
 void TestScene::CreateBuilding()

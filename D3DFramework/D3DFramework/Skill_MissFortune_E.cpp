@@ -10,7 +10,7 @@
 Skill_MissFortune_E::Skill_MissFortune_E(Unit* _hostUnit)
 {
 	maxLevel = 5;
-	coolTime = 2.f;
+	coolTime = 7.f;
 	coolTimeTick = coolTime;
 	host = _hostUnit;
 	range = 7.f;

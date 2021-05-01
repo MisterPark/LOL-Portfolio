@@ -92,5 +92,6 @@ void Missfortune::OnHit(Unit* target, Skill* mySkill)
 void Missfortune::Die()
 {
 	Champion::Die();
-	SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneDie1.ogg", SoundChannel::EFFECT);
+	if (skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos()))
+		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_MissfortuneDie1.ogg", SoundChannel::EFFECT);
 }
