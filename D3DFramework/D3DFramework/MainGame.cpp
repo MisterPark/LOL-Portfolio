@@ -314,6 +314,9 @@ void Engine::MainGame::LoadUISprite()
 	// itemshop
 	LoadAllTextureInFolder(L"Resource\\UI\\itemshop\\", L"*.png");
 
+	// killlog
+	LoadAllTextureInFolder(L"Resource\\UI\\killcallout\\", L"*.dds");
+
 	// buff
 	LoadAllTextureInFolder(L"Resource\\UI\\buff\\", L"*.dds");
 

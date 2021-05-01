@@ -56,6 +56,7 @@ void Engine::UIRenderer::Render()
 	effect->SetMatrix("g_mViewProj", &matViewProj);
 	effect->SetMatrix("g_mWorld", &matWorld);
 	effect->SetTexture("g_texture", mesh->GetSubsetTexture(0));
+	effect->SetFloat("g_alpha", alpha);
 
 	if (pass == 0 || pass == 1 || pass == 2) {
 		effect->SetVector("g_uvRatioStart", &vecUVStart);
@@ -110,6 +111,12 @@ void Engine::UIRenderer::SetPass(int _pass)
 void Engine::UIRenderer::SetMultipleColor(unsigned char _a, unsigned char _r, unsigned char _g, unsigned char _b)
 {
 	multipleColor = { (FLOAT)_r / 256, (FLOAT)_g / 256, (FLOAT)_b / 256, (FLOAT)_a / 256 };
+}
+
+void Engine::UIRenderer::SetAlpha(float _alpha)
+{
+	alpha = _alpha;
+
 }
 
 void Engine::UIRenderer::BringToTop()

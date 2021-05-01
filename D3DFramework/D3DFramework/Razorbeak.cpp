@@ -22,8 +22,14 @@ Razorbeak::Razorbeak()
 	//Buff_GarenWReduction* testBuff = new Buff_GarenWReduction(this, 999.f, 0.5f);
 	//stat->AddBuff(testBuff);
 	//
-
+	
 	stat->SetBaseValue(StatType::MinionKilled, 2.f);
+	hitSound.push_back(L"RazobeakAttack1.ogg");
+	hitSound.push_back(L"RazobeakAttack2.ogg");
+	hitSound.push_back(L"RazobeakAttack3.ogg");
+	hitSound.push_back(L"RazobeakAttack4.ogg");
+	hitSound.push_back(L"RazobeakAttack5.ogg");
+	hitSound.push_back(L"RazobeakAttack6.ogg");
 }
 
 Razorbeak::~Razorbeak()

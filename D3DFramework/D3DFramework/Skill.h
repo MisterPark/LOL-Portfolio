@@ -38,7 +38,7 @@ public:
 	//스킬로 공격중일때, 대상들을 처음 떄릴마다 [장비아이템 스킬]에서 호출 // Ex) 굶주린 히드라
 	virtual void OnTargetFirstHit(Unit* target, Skill* mySkill);
 
-	bool PlayerToDistanceCompare(Vector3 _pos, float _distance = 10.f);
+	bool PlayerToDistanceCompare(Vector3 _pos, float _distance = 18.f);
 
 	void SetActive(bool _active) { active = _active; }
 	bool IsActive();

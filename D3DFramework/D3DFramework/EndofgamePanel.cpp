@@ -135,7 +135,7 @@ void EndofgamePanel::ShowVictory()
     defeatBack->Show(false);
     btnContinue->Show(false);
 
-    for (int i = 0; i < backeffect.size(); ++i) {
+    for (size_t i = 0; i < backeffect.size(); ++i) {
 
         backeffect[i]->GetComponent<UIRenderer>()->SetGradientMapIndex(1);
         backeffect[i]->Show(false);
@@ -158,7 +158,7 @@ void EndofgamePanel::ShowDefeat()
     defeatBack->Show(false);
     btnContinue->Show(false);
 
-    for (int i = 0; i < backeffect.size(); ++i) {
+    for (size_t i = 0; i < backeffect.size(); ++i) {
 
         backeffect[i]->GetComponent<UIRenderer>()->SetGradientMapIndex(2);
         backeffect[i]->Show(false);

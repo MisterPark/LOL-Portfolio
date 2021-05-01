@@ -4,6 +4,7 @@
 #include "Champion.h"
 #include "UIRenderer.h"
 #include "TestScene.h"
+#include "Minion.h"
 
 MinimapPanel* self = nullptr;
 
@@ -149,6 +150,8 @@ void MinimapPanel::Update()
 {
     Panel::Update();
     
+    if (!IsVisible()) return;
+
     // 맵 크기
     //Vector2 lb{ 50, 47 };
     //Vector2 rt{ -42, -45 };
@@ -158,8 +161,7 @@ void MinimapPanel::Update()
     // minimap
     Vector2 minimapSize = minimap->GetSize();
 
-
-    // turret
+    // Unit
     auto unitMap = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene())->unitMap;
 
     for (int i = 0; i < (INT)UnitID::END; ++i)
@@ -206,6 +208,61 @@ void MinimapPanel::Update()
         }
     }
     
+    // Minion
+    size_t minionNum = Minion::minionList.size();
+    size_t minionUINum = mapiconMinion.size();
+    if (minionNum > minionUINum) // 생성
+    {
+        for (size_t i = 0; i < minionNum - minionUINum; ++i)
+        {
+            auto minionUI = minimap->AddChild<UI>(L"minion", new UI(L"minionmapcircle", Vector2(0, 0)));
+            minionUI->transform->scale = { 2.f, 2.f, 1.f };
+
+            auto renderer = dynamic_cast<UIRenderer*>(minionUI->GetComponent(L"renderer"));
+            renderer->SetPass(3);
+
+            mapiconMinion.push_back(minionUI);
+        }
+    }
+    // 삭제는 굳이X
+    list<UI*>::iterator iter = mapiconMinion.begin();
+    int i = 0;
+    for (auto minion : Minion::minionList)
+    {
+        if (minion->IsDead()) (*iter)->Hide();
+
+        (*iter)->Show();
+
+        Vector3 pos = minion->transform->position;
+        
+        pos.x = ((pos.x - lb.x) * -1) / ((rt.x - lb.x) * -1) * minimapSize.x;
+        pos.z = ((pos.z - rt.y) *  1) / ((lb.y - rt.y) *  1) * minimapSize.y;
+        pos.x += (*iter)->GetSize().x * 0.5f;
+        pos.z += (*iter)->GetSize().y * 0.5f;
+        (*iter)->SetLocation(Vector2(pos.x, pos.z));
+
+        
+
+        // Team Color
+        auto renderer = dynamic_cast<UIRenderer*>((*iter)->GetComponent(L"renderer"));
+        auto team = minion->GetTeam();
+        switch (team)
+        {
+        case Team::RED:  renderer->SetMultipleColor(255, 231, 72, 47);
+            break;
+        case Team::BLUE: renderer->SetMultipleColor(255, 86, 144, 206);
+            break;
+        default:         renderer->SetMultipleColor(255, 231, 158, 49);
+            break;
+        }
+
+        ++iter;
+        ++i;
+    }
+    for (;iter != mapiconMinion.end(); ++iter)
+    {
+        (*iter)->Hide();
+    }
 }
 
 void MinimapPanel::TestFunc()

@@ -29,7 +29,7 @@ void Scuttleracer::SetAI(ScuttlePos _scuttlePos)
 		ai->wayPoint.emplace_back(Vector3{ 9.63f, 66.91f, -7.1f });
 		ai->wayPoint.emplace_back(Vector3{ 15.06f, 66.91f, -9.49f });
 		ai->wayPoint.emplace_back(Vector3{ 19.92f, 66.91f, -14.5f });
-		ai->wayPoint.emplace_back(Vector3{ 15.06f, 66.91f, -9.49 });
+		ai->wayPoint.emplace_back(Vector3{ 15.06f, 66.91f, -9.49f });
 		ai->nextPoint = Vector3{ 9.63f, 66.91f, -7.1f };
 	}
 	else if (_scuttlePos == ScuttlePos::South) {

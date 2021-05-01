@@ -14,6 +14,8 @@ RedMonster::RedMonster()
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
+
+	hitSound.push_back(L"RedAttack1.ogg");
 }
 
 RedMonster::~RedMonster()

@@ -14,6 +14,8 @@ Gromp::Gromp()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
+
+	hitSound.push_back(L"GrompAttack1.ogg");
 }
 
 Gromp::~Gromp()
