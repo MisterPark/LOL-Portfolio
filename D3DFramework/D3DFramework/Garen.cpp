@@ -34,7 +34,7 @@ Garen::Garen()
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	Engine::FogOfWarRenderer* fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 12.f);
 	renderer->SetMesh(dmesh);
-	renderer->EnableRimLight(Vector3{ 1.f, 0.f, 0.f });
+	
 	AddComponent(L"renderer", renderer);
 	AddComponent(L"fogRenderer", fogOfWarRenderer);
 

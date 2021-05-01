@@ -29,6 +29,7 @@ bool g_grayscale;
 float g_gradientmapMaxCnt;
 float g_gradientmapIndex;
 float4 g_multipleColor;
+float g_alpha;
 
 sampler TextureSampler = sampler_state
 {
@@ -106,6 +107,8 @@ float4 ps_main(PS_IN input) :COLOR0
 	//vAlbedo.rgb = (vAlbedo.rgb * (1.f - g_timerColor.a)) + (g_timerColor.rgb * g_timerColor.a * timer);
 	vAlbedo.rgb = (vAlbedo.rgb * (1.f - g_timerColor.a * (!timer))) + (g_timerColor.rgb * g_timerColor.a * (!timer));
 
+	vAlbedo.a *= g_alpha;
+
 	return vAlbedo;
 }
 float4 ps_sight_main(PS_IN input) :COLOR0
@@ -128,6 +131,9 @@ float4 ps_sight_main(PS_IN input) :COLOR0
 	sightTex += 0.5f;
 	float sight = tex2D(SightMapTextureSampler, sightTex).r;
 	vAlbedo.rgb = vAlbedo.rgb* (sight * 0.5f + 0.5f);
+
+	vAlbedo.a *= g_alpha;
+
 	return vAlbedo;
 }
 
@@ -146,6 +152,9 @@ float4 ps_timer_main(PS_IN input) :COLOR0
 		vAlbedo.rgb = (vAlbedo.r + vAlbedo.g + vAlbedo.b) / 3;
 	}
 	vAlbedo.rgb *= timer * 0.5f + 0.5f;
+
+	vAlbedo.a *= g_alpha;
+
 	return vAlbedo;
 }
 
@@ -154,6 +163,9 @@ float4 ps_multiple_main(PS_IN input) :COLOR0
 	float2 vTex = input.vTex;
 	float4 vAlbedo = tex2D(TextureSampler, input.vTex);
 	vAlbedo.rgb = (g_multipleColor.rgb * vAlbedo.rgb) / 1;
+	
+	vAlbedo.a *= g_alpha;
+
 	return vAlbedo;
 }
 

@@ -14,6 +14,7 @@
 #include "FloatingBar.h"
 #include "Minion.h"
 #include "FogOfWarRenderSystem.h"
+#include "FogOfWarRenderer.h"
 #include "Turret.h"
 #include "Inhibitor.h"
 #include "AnnouncerPanel.h"
@@ -104,7 +105,7 @@ void Unit::PreUpdate()
 	GameObject::PreUpdate();
 	Matrix matrix = transform->GetWorldMatrix();
 	Vector3 worldPos = *((Vector3*)&matrix._41);
-	bool isInSight = FogOfWarRenderSystem::IsInSight(worldPos);
+	bool isInSight = FogOfWarRenderSystem::IsInSight(worldPos) || (unitID == 0);
 	Show(isInSight);
 
 	if (IsDead())
@@ -123,16 +124,12 @@ void Unit::Update()
 
 	GameObject::Update();
 
-	//attackIndicator->Update();
-
 	for (int i = 0; i < (int)SkillIndex::END; i++)
 	{
 		if (skillList[i] == NULL)
 			continue;
 		skillList[i]->Passive();
 	}
-
-	
 }
 
 
@@ -203,6 +200,11 @@ void Unit::UpdateSpawn()
 
 		}
 	}
+}
+
+void Unit::UpdateEvent()
+{
+
 }
 
 void Unit::LookRotation(Vector3 _direction)
@@ -294,6 +296,43 @@ void Unit::OnAttackEnd()
 	}
 }
 
+void Unit::OnHover()
+{
+	GameObject::OnHover();
+
+	Vector3 color = { 0,1,1 };
+	if (team != Team::BLUE)
+	{
+		color = Vector3(1, 0, 0);
+	}
+	SkinnedMeshRenderer* renderer = GetComponent<SkinnedMeshRenderer>();
+	if (renderer != nullptr)
+	{
+		renderer->EnableRimLight(color);
+	}
+	DeferredStaticMeshRenderer* deferredRenderer = GetComponent<DeferredStaticMeshRenderer>();
+	if (deferredRenderer != nullptr)
+	{
+		deferredRenderer->EnableRimLight(color);
+	}
+}
+
+void Unit::OnLeave()
+{
+	GameObject::OnLeave();
+
+	SkinnedMeshRenderer* renderer = GetComponent<SkinnedMeshRenderer>();
+	if (renderer != nullptr)
+	{
+		renderer->DisableRimLight();
+	}
+	DeferredStaticMeshRenderer* deferredRenderer = GetComponent<DeferredStaticMeshRenderer>();
+	if (deferredRenderer != nullptr)
+	{
+		deferredRenderer->DisableRimLight();
+	}
+}
+
 void Unit::Attack()
 {
 	if (skillList[(int)SkillIndex::Attack] == nullptr) return;
@@ -339,6 +378,16 @@ void Unit::Spell6()
 void Unit::Die()
 {
 	isDead = true;
+
+	for (auto& unit : unitList)
+	{
+		if (unit->attackTarget == this)
+			unit->attackTarget = nullptr;
+
+		if (unit->lastAttacker == this)
+			unit->lastAttacker = nullptr;
+	}
+
 	for (auto& hitInfo : hitList)
 	{
 		hitInfo.unit->OnKilled(this);
@@ -620,6 +669,22 @@ State Unit::GetState()
 void Unit::SetTeam(Team _team)
 {
 	team = _team;
+
+	Engine::FogOfWarRenderer* fogOfWarRenderer = GetComponent<FogOfWarRenderer>();
+
+	if (_team == Team::BLUE) {
+
+		if (fogOfWarRenderer == nullptr) {
+			fogOfWarRenderer = new Engine::FogOfWarRenderer(this, 12.f);
+			AddComponent(L"fogRenderer", fogOfWarRenderer);
+		}
+	}
+	else {
+		if (fogOfWarRenderer != nullptr) {
+			DeleteComponent(fogOfWarRenderer);
+		}
+	}
+
 }
 Team Unit::GetTeam()
 {

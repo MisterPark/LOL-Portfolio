@@ -6,6 +6,7 @@
 #include "LoadingScene.h"
 #include "TestLoadingScene.h"
 #include "RenderSystem.h"
+#include "EventSystem.h"
 #include <io.h>
 
 using namespace Engine;
@@ -78,6 +79,7 @@ void Engine::MainGame::Initialize(int screenW, int screenH)
 	UIManager::GetInstance();
 
 	ItemManager::GetInstance()->Initialize();
+	EventSystem::GetInstance();
 
 	// 씬로드
 	SceneManager::LoadScene<TestLoadingScene>();
@@ -90,8 +92,10 @@ void Engine::MainGame::Update()
 	// 1. 인풋 먼저
 	Input::Update();
 
-	UI::SetPointerOverUI(false);
+	EventSystem::Clear();
+
 	SceneManager::PreUpdate();
+	EventSystem::Update();
 	SceneManager::Update();
 
 	Cursor::GetInstance()->Update();
@@ -131,6 +135,7 @@ void Engine::MainGame::Release()
 	Frustum::Destroy();
 	NavNodeManager::Destroy();
 	ItemManager::Destroy();
+	EventSystem::Destroy();
 }
 
 void Engine::MainGame::Pause()
@@ -308,6 +313,9 @@ void Engine::MainGame::LoadUISprite()
 
 	// itemshop
 	LoadAllTextureInFolder(L"Resource\\UI\\itemshop\\", L"*.png");
+
+	// killlog
+	LoadAllTextureInFolder(L"Resource\\UI\\killcallout\\", L"*.dds");
 
 	// buff
 	LoadAllTextureInFolder(L"Resource\\UI\\buff\\", L"*.dds");

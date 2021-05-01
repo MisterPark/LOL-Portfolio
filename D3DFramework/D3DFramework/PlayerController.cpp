@@ -52,10 +52,6 @@ void PlayerController::Update()
         agent->Stop();
         unit->SetAttackTarget(nullptr);
     }
-    if (Input::GetKeyDown('D'))
-    {
-
-    }
 
     if (Input::GetKey(VK_CONTROL))
     {
@@ -220,7 +216,7 @@ void PlayerController::Update()
     }
     else if (Input::GetMouseRButtonDown())
     {
-        if (!UI::IsPointerOverUI()) {
+        if (!EventSystem::IsPointerOverGameObject()) {
 
             Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
             RaycastHit hit;

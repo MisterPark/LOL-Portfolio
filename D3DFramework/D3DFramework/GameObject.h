@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Layer.h"
+#include "EventSystem.h"
 
 using namespace Engine;
 
@@ -25,10 +26,14 @@ namespace Engine
 		virtual void PreUpdate();
 		virtual void Update() = 0;
 		virtual void PostUpdate();
-
 		virtual void Destroy();
+		
+		virtual void UpdateEvent() {};
 
 		virtual void OnCollisionEnter(Collider* target);
+		// 이벤트 리스너
+		virtual void OnHover();
+		virtual void OnLeave();
 
 		// 방향으로 이동
 		// 내부에서 정규화 해줌.
@@ -71,7 +76,8 @@ namespace Engine
 		Transform* GetTransform() const { return transform; } // 수정
 		Layer GetLayer() { return this->layer; }
 		bool IsVisible();
-
+		bool IsHover();
+		bool IsLeave();
 		// setter
 		bool SetLayer(Layer _layer);
 		void SetParent(GameObject* _parent);
@@ -84,6 +90,8 @@ namespace Engine
 		template<class T>
 		T* AddChild(const wstring& _tag, T* _child);
 		GameObject* RemoveChild(const wstring& _tag);
+		template<class T>
+		T* RemoveChild(T* _child);
 		template<class T>
 		T* CreateChild(const wstring& _key);
 		void DeleteChild(const wstring& _tag);
@@ -107,12 +115,21 @@ namespace Engine
 
 		map<wstring, Engine::IComponent*> components;
 		std::set<Engine::EventBase*> events;
+
+		Event<MouseEventArg> Hover;
+		Event<MouseEventArg> Leave;
 	protected:
 		bool destroyFlag = false;
 		bool removeFlag = false;
+	protected:
+		// 이벤트 관련 
+		bool isHover = false;
+		bool isLeave = true;
 	private:
 		Layer layer = Layer::Default;
 		map<wstring, int> childKeyCount;
+	public:
+		static list<GameObject*> gameObjects;
 	};
 
 	template<class T>
@@ -173,6 +190,19 @@ namespace Engine
 		children.emplace(_child->tag, _child);
 		_child->SetParent(this);
 		return _child;
+	}
+	template<class T>
+	inline T* GameObject::RemoveChild(T* _child)
+	{
+		for (auto child : children)
+		{
+			if (child.second == _child) {
+				children.erase(child.first);
+				return dynamic_cast<T*>(child.second);
+			}
+		}
+
+		return nullptr;
 	}
 	template<class T>
 	inline T* GameObject::CreateChild(const wstring& _tag)

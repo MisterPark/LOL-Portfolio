@@ -77,7 +77,7 @@ IDirect3DTexture9* Engine::StaticMesh::GetSubsetTexture(int index)
 void Engine::StaticMesh::SetSubsetTexture(int index, const wstring& textureKey)
 {
 	if (index < 0) return;
-	if (index >= subsetCount) return;
+	if (index >= (int)subsetCount) return;
 
 	Texture* texture = RenderManager::GetTexture(textureKey);
 	if (texture == nullptr)
@@ -356,15 +356,15 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 				if (elemCount == 0)
 				{
-					pos[vertexIndex].x = atof(v.c_str());
+					pos[vertexIndex].x = (float)atof(v.c_str());
 				}
 				else if (elemCount == 1)
 				{
-					pos[vertexIndex].y = atof(v.c_str());
+					pos[vertexIndex].y = (float)atof(v.c_str());
 				}
 				else if (elemCount == 2)
 				{
-					pos[vertexIndex].z = atof(v.c_str());
+					pos[vertexIndex].z = (float)atof(v.c_str());
 				}
 			}
 			
@@ -387,11 +387,11 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 				if (elemCount == 0)
 				{
-					texCoords[texIndex].x = atof(vt.c_str());
+					texCoords[texIndex].x = (float)atof(vt.c_str());
 				}
 				else if (elemCount == 1)
 				{
-					texCoords[texIndex].y = atof(vt.c_str());
+					texCoords[texIndex].y = (float)atof(vt.c_str());
 				}
 			}
 
@@ -486,7 +486,7 @@ HRESULT Engine::StaticMesh::LoadMeshOBJ(const WCHAR* pFilePath, const WCHAR* pFi
 
 	for (int i = 0; i < idxCount; i++)
 	{
-		pI[i] = indices[i];
+		pI[i] = (WORD)indices[i];
 	}
 
 	pOriginMesh->UnlockIndexBuffer();

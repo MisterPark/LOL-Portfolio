@@ -49,7 +49,7 @@ void Effect_Garen_R_Dome::Update()
 
 	visible = true;
 
-	scale += 0.02 * Time::DeltaTime();
+	scale += 0.02f * Time::DeltaTime();
 	transform->scale = { scale, scale, scale };
 
 	if (tick < 0.9) return;

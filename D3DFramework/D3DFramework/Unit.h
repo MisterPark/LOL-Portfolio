@@ -134,6 +134,7 @@ public:
 
 	void UpdateHit(); // 피격 업데이트
 	virtual void UpdateSpawn(); // 스폰 업데이트
+	virtual void UpdateEvent() override; // 이벤트 업데이트
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
@@ -142,6 +143,8 @@ public:
 	void ChaseTarget();
 	virtual void OnAttackBegin();
 	virtual void OnAttackEnd();
+	virtual void OnHover() override;
+	virtual void OnLeave() override;
 	void Attack();
 	void Spell1();
 	void Spell2();
@@ -318,8 +321,10 @@ protected:
 	// 네트워크 관련
 	INT unitID = -1;
 
+
 public:
 	Event<EventArgs> RespawnEvent;
+	
 
 	wstring faceCircleTexkey;
 	wstring faceSquareTexkey;

@@ -26,5 +26,6 @@ private:
     vector<Champion*> champ[2];
     vector<UI*> champFace[2];
     map<INT, UI*> mapicon;
+    list<UI*> mapiconMinion;
 };
 
