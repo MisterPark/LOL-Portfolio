@@ -271,6 +271,10 @@ void PlayerController::Update()
             }
            
         }
+        else
+        {
+            unit->SetAttackTarget(attackTarget);
+        }
     }
     
 }
