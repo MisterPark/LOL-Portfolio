@@ -240,10 +240,10 @@ void Unit::SetDestination(Vector3 _target)
 	}
 }
 
-void Unit::Move(Vector3 _target)
+void Unit::Move(float _stoppingDistance, Vector3 _target)
 {
 	SetAttackTarget(nullptr);
-	agent->SetStoppingDistance(0.03f);
+	agent->SetStoppingDistance(_stoppingDistance);
 	SetDestination(_target);
 }
 

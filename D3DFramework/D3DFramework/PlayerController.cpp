@@ -197,9 +197,8 @@ void PlayerController::Update()
                 }
                 else
                 {
-                    unit->SetAttackTarget(nullptr);
-                    agent->SetStoppingDistance(0.1f);
-                    unit->SetDestination(hit.point);
+                    unit->Move(0.1f, hit.point);
+
                     unit->SetAttackPoint(Vector3{ hit.point.x, hit.point.y, hit.point.z });
                     if(((TargetingSkill*)unit->nextSkillReady)->GetGroundClick())
                         targetCheck = true;
@@ -224,10 +223,7 @@ void PlayerController::Update()
             int mask = LayerMask::GetMask(Layer::Ground);
             if (Physics::Raycast(ray, &hit, INFINITY, mask))
             {
-
-                unit->SetAttackTarget(nullptr);
-                agent->SetStoppingDistance(0.1f);
-                unit->SetDestination(hit.point);
+                unit->Move(0.1f, hit.point);
 
                 ArrowPointer::GetInstance()->transform->position = hit.point;
                 ArrowPointer::GetInstance()->Show();

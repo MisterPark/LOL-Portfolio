@@ -138,7 +138,7 @@ public:
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
-	void Move(Vector3 _target);
+	void Move(float _stoppingDistance, Vector3 _target);
 	virtual void Chase(Vector3 _target);
 	void ChaseTarget();
 	virtual void OnAttackBegin();
