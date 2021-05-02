@@ -8,7 +8,7 @@ Engine::Scene::~Scene()
 
 void Engine::Scene::PreUpdate()
 {
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{
@@ -23,7 +23,7 @@ void Engine::Scene::PreUpdate()
 
 void Engine::Scene::Update()
 {
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{
@@ -103,7 +103,7 @@ bool Engine::Scene::DeleteObject(GameObject* _target)
 
 void Engine::Scene::DeleteAllObject()
 {
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{
@@ -122,7 +122,7 @@ void Engine::Scene::DeleteAllObject()
 
 void Engine::Scene::DestroyAll()
 {
-	auto objTable = objectTable;
+	auto& objTable = objectTable;
 	constexpr int layerCount = MaxOfEnum<Layer>();
 	for (int i = 0; i < layerCount; i++)
 	{

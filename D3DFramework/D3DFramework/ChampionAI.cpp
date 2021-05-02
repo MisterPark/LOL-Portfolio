@@ -122,10 +122,7 @@ void ChampionAI::Update()
         if (moveTick > moveDelay)
         {
             moveTick = 0.f;
-            unit->SetAttackTarget(nullptr);
-            unit->agent->SetStoppingDistance(1.f);
-            //unit->SetDestination(nextPoint);
-            unit->SetDestination(nextPoint);
+            unit->Move(1.f, nextPoint);
         }
     }
     
