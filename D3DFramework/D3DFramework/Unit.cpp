@@ -19,6 +19,7 @@
 #include "Inhibitor.h"
 #include "AnnouncerPanel.h"
 #include "TestScene.h"
+#include "KillCalloutPanel.h"
 
 list<Unit*> Unit::unitList;
 
@@ -470,6 +471,7 @@ void Unit::OnRespawn()
 
 void Unit::OnDeathBegin(Unit* _lastAttacker)
 {
+	
 }
 
 void Unit::OnDeathEnd()

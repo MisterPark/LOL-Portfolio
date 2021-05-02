@@ -12,6 +12,7 @@
 #include "ScorePanel.h"
 #include "TestScene.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 Turret::Turret()
 {
@@ -91,6 +92,9 @@ void Turret::OnDeathBegin(Unit* _lastAttacker)
 	{
 		AnnouncerPanel::GetInstance()->AddAnnouncer(L"포탑이 파괴되었습니다.", Team::RED, L"포탑이파괴되었습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
 	}
+
+	Team color = (team == Team::BLUE) ? Team::RED : Team::BLUE;
+	KillCalloutPanel::GetInstance()->AddKillCallout(_lastAttacker->faceSquareTexkey, faceSquareTexkey, color);
 }
 
 

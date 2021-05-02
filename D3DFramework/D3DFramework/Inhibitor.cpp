@@ -6,6 +6,7 @@
 #include "MinionSpawner.h"
 #include "TestScene.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 Inhibitor::Inhibitor()
 {
@@ -48,6 +49,9 @@ void Inhibitor::OnDeathBegin(Unit* _lastAttacker)
 	{
 		AnnouncerPanel::GetInstance()->AddAnnouncer(L"이제 슈퍼 미니언이 생성됩니다", Team::RED, L"억제기가파괴되었습니다.wav");
 	}
+
+	Team color = (team == Team::BLUE) ? Team::RED : Team::BLUE;
+	KillCalloutPanel::GetInstance()->AddKillCallout(_lastAttacker->faceSquareTexkey, faceSquareTexkey, color);
 }
 
 void Inhibitor::SetTeam(Team _team)
