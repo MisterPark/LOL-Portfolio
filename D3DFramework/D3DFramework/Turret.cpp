@@ -119,7 +119,8 @@ void Turret::Die()
 		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamTurretKillScore);
 	else if (team == Team::RED)
 		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::BlueTeamTurretKillScore);
-	SoundManager::GetInstance()->PlayOverlapSound(L"TurretDie1.ogg", SoundChannel::PLAYER);
+	if (Skill::PlayerToDistanceCompare(transform->GetPos()))
+		SoundManager::GetInstance()->PlayOverlapSound(L"TurretDie1.ogg", SoundChannel::PLAYER);
 
 	//TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
 	//if (scene != nullptr)
@@ -170,7 +171,8 @@ void Turret::AttackAction()
 		missile->SetAttackTarget(attackTarget);
 		//missile->BillboardYaw();
 
-		SoundManager::GetInstance()->PlayOverlapSound(L"TurretAttack1.ogg", SoundChannel::EFFECT);
+		if (Skill::PlayerToDistanceCompare(transform->GetPos()))
+			SoundManager::GetInstance()->PlayOverlapSound(L"TurretAttack1.ogg", SoundChannel::EFFECT);
 	}
 
 

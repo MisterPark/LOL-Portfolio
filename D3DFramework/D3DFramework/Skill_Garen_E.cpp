@@ -45,7 +45,7 @@ void Skill_Garen_E::Start()
 	DamageObject_Garen_E* damageObj = (DamageObject_Garen_E*)SceneManager::GetCurrentScene()->CreateObject<DamageObject_Garen_E>(Layer::Unit);
 	float attackDamage = (4.f * level) + host->stat->GetValue(StatType::AttackDamage) * (0.3f + level * 0.02f);
 	float attackInterval = 3.f / 7.f;// + TODO: 아이템과 레벨업으로 인한 추가공격횟수 추가해줘야함
-	damageObj->Set_DamageObject(host, this, host->transform->GetPos(), 3.25f, host->team, attackDamage, duration, attackInterval);
+	damageObj->Set_DamageObject(host, this, host->transform->GetPos(), 3.f, host->team, attackDamage, duration, attackInterval);
 	damageObj->Set_ObjectFollow(host);
 	//제일처음에 Basic만 잘 입혀줄것
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AD));

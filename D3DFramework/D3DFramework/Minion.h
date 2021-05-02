@@ -15,7 +15,8 @@ public:
 
     virtual void OnDeathEnd() override;
     void OnCollisionEnter(Collider* target);
-
+    virtual void Die() override;
+    void TakeExp();
 
 public:
     MinionAI* ai = nullptr;
