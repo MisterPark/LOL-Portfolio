@@ -186,17 +186,7 @@ void Unit::UpdateSpawn()
 		{
 			spawnFlag = false;
 			spawnTick = 0.f;
-			attackTarget = nullptr;
-			lastAttacker = nullptr;
-			collider->enable = true;
-			float maxHP = stat->GetValue(StatType::MaxHealth);
-			float maxMP = stat->GetValue(StatType::MaxMana);
-			stat->SetBaseValue(StatType::Health,maxHP);
-			stat->SetBaseValue(StatType::Mana, maxMP);
-			transform->position = spawnPosition;
-			isDead = false;
-			anim->Resume();
-			Show();
+			
 			OnRespawn();
 
 		}
@@ -437,12 +427,11 @@ void Unit::OnKilled(Unit* target)
 
 void Unit::OnHit(Unit* target, Skill* mySkill)
 {
-	//if(hitSound.compare(L""))
-		//SoundManager::GetInstance()->PlayOverlapSound(hitSound.c_str(), SoundChannel::EFFECT);
 	if (hitSound.size() != 0) {
 		if (skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos())) {
 			int random = Random::Value(hitSound.size());
-			SoundManager::GetInstance()->PlayOverlapSound(hitSound[random].c_str(), SoundChannel::EFFECT, 0.7f);
+
+			PlaySoundAccordingCameraPosition(hitSound[random].c_str(), SoundChannel::EFFECT);
 		}
 	}
 }
@@ -463,6 +452,19 @@ void Unit::OnRespawn()
 {
 	EventArgs args;
 	RespawnEvent.Invoke(this, args);
+
+	attackTarget = nullptr;
+	lastAttacker = nullptr;
+	collider->enable = true;
+	float maxHP = stat->GetValue(StatType::MaxHealth);
+	float maxMP = stat->GetValue(StatType::MaxMana);
+	stat->SetBaseValue(StatType::Health, maxHP);
+	stat->SetBaseValue(StatType::Mana, maxMP);
+	transform->position = spawnPosition;
+	isDead = false;
+	SetState(State::IDLE1);
+	anim->Resume();
+	Show();
 
 	if (bar != nullptr)
 	{
@@ -619,7 +621,7 @@ bool Unit::BehaviorTreeSkillSet()
 {
 	bool isActive;
 	isActive = false;
-	for (int i = 1; i < (int)SkillIndex::END; i++)
+	for (int i = 0; i < (int)SkillIndex::END; i++)
 	{
 		isActive = skillList[i]->IsActive();
 		if (isActive) {
@@ -926,7 +928,8 @@ void Unit::SkillLevelUp(SkillIndex skillIndex)
 	//	return;
 	stat->DecreaseBaseValue(StatType::SkillPoint, 1.f);
 	skill->AddLevel();
-	SoundManager::GetInstance()->PlayOverlapSound(L"ChampionSkillLevelUp1.ogg", SoundChannel::PLAYER);
+
+	PlaySoundAccordingCameraPosition(L"ChampionSkillLevelUp1.ogg", SoundChannel::PLAYER);
 }
 
 Skill_Attack* Unit::GetSkillAttack()

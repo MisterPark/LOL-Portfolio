@@ -51,10 +51,10 @@ void Skill_Garen_W::Start()
 	host->stat->AddBuff(attackBuff);
 
 	if (Random::Value(2) == 0)
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenW1.ogg", SoundChannel::PLAYER);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenW1.ogg", SoundChannel::PLAYER);
 	else
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenW2.ogg", SoundChannel::PLAYER);
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenW1.ogg", SoundChannel::PLAYER_EFFECT);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenW2.ogg", SoundChannel::PLAYER);
+	host->PlaySoundAccordingCameraPosition(L"GarenW1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_W::Passive()

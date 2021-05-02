@@ -35,7 +35,6 @@ void Button::OnHover()
 
 	mesh->SetTexture(hoverTexture);
 	SetSizeByTexture();
-	//SoundManager::PlayOverlapSound(L"ButtonOver.wav", SoundChannel::EFFECT, 0.5f);
 }
 
 void Button::OnLeave()
@@ -64,7 +63,6 @@ void Button::OnClick()
 {
 	UI::OnClick();
 
-	//SoundManager::PlayOverlapSound(L"Select.wav", SoundChannel::EFFECT, 0.5f);
 }
 
 void Button::OnEnabledChanged()

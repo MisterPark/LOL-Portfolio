@@ -42,6 +42,8 @@ namespace Engine
 		Matrix GetLocalMatrix();
 		Matrix GetWorldMatrix();
 
+		Vector3 GetWorldPosition();
+
 	public:
 		Vector3 position{ 0.f,0.f,0.f };
 		// 라디안

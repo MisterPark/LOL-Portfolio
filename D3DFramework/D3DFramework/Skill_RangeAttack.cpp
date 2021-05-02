@@ -87,8 +87,8 @@ void Skill_RangeAttack::Active()
 			missile->transform->position = host->transform->position;
 
 			if (host->attackBeginSound.compare(L"")) {
-				if (PlayerToDistanceCompare(host->transform->GetPos()))
-				SoundManager::GetInstance()->PlayOverlapSound(host->attackBeginSound.c_str(), SoundChannel::EFFECT, 0.6f);
+
+				host->PlaySoundAccordingCameraPosition(host->attackBeginSound.c_str(), SoundChannel::EFFECT);
 			}
 		}
 	}

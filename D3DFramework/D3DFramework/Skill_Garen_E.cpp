@@ -7,6 +7,7 @@
 #include "Buff_GarenEDamage.h"
 #include "Buff.h"
 #include "Effect_Garen_E.h"
+#include "Skill_Attack.h"
 
 Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 {
@@ -32,7 +33,8 @@ void Skill_Garen_E::Start()
 		host->SetState(State::IDLE1);
 		return;
 	}
-
+	
+	host->GetSkillAttack()->Cancle();
 	
 	Skill::Start();
 	host->OnOtherSkillStart(this);
@@ -58,10 +60,10 @@ void Skill_Garen_E::Start()
 	host->nextSkill = nullptr;
 
 	if (Random::Value(2) == 0)
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE1.ogg", SoundChannel::PLAYER);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenE1.ogg", SoundChannel::PLAYER);
 	else
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE2.ogg", SoundChannel::PLAYER);
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenE1.ogg", SoundChannel::PLAYER_EFFECT);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenE2.ogg", SoundChannel::PLAYER);
+	host->PlaySoundAccordingCameraPosition(L"GarenE1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_E::Passive()
@@ -99,4 +101,5 @@ void Skill_Garen_E::End()
 {
 	Skill::End();
 	host->moveState = State::RUN;
+	host->SetState(State::IDLE1);
 }
