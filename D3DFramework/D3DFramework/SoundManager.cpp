@@ -182,7 +182,6 @@ void Engine::SoundManager::SetVolume(SoundChannel channel, float per)
 	FMOD_Channel_SetVolume(pSoundManager->channels[channel], per);
 }
 
-
 void Engine::SoundManager::LoadSoundFile()
 {
 	_finddata_t fd; 

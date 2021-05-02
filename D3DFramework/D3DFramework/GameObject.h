@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Layer.h"
 #include "EventSystem.h"
+#include "SoundManager.h"
 
 using namespace Engine;
 
@@ -101,6 +102,7 @@ namespace Engine
 		void OnEventDelete(Engine::EventBase* evt);
 
 		void Freeze();
+		void PlaySoundAccordingCameraPosition(const TCHAR* pSoundKey, SoundChannel eID);
 	public:
 		wstring name;
 		wstring tag;

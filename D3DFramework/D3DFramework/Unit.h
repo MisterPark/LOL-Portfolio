@@ -245,6 +245,7 @@ public:
 	virtual void Show();
 	virtual void Show(bool _visible);
 	virtual void Hide();
+
 public:
 	static void StopAll();
 	

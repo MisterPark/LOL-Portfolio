@@ -8,6 +8,7 @@
 #include "MiniScorePanel.h"
 #include "TestScene.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 Champion::Champion()
 {
@@ -82,6 +83,9 @@ void Champion::OnDeathBegin(Unit* _lastAttacker)
 	{
 		AnnouncerPanel::GetInstance()->AddAnnouncer(L"처치 당했습니다", Team::RED, L"적에게당했습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
 	}
+
+	Team color = (team == Team::BLUE) ? Team::RED : Team::BLUE;
+	KillCalloutPanel::GetInstance()->AddKillCallout(_lastAttacker->faceSquareTexkey, faceSquareTexkey, color);
 }
 
 void Champion::SetTeam(Team _team)

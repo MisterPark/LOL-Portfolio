@@ -7,6 +7,7 @@
 #include "Skill_Attack.h"
 
 #include "MinionSpawner.h"
+#include "Champion.h"
 
 list<Minion*> Minion::minionList;
 
@@ -28,6 +29,7 @@ Minion::Minion()
 	bt->SetRoot(subTree);
 
 	Hide();
+	stat->SetBaseValue(StatType::Experience, 20.f);
 }
 
 Minion::~Minion()
@@ -54,5 +56,39 @@ void Minion::OnCollisionEnter(Collider* target)
 			unit->PushedOut(this);
 		}
 
+	}
+}
+
+void Minion::Die()
+{
+	Unit::Die();
+	TakeExp();
+}
+
+void Minion::TakeExp()
+{
+	float targetDist = 10.f;
+	Vector3 myPos = transform->GetPos();
+
+	list<Unit*> championList;
+	for (Unit* iter : unitList)
+	{
+		if (iter->IsDead()) continue;
+		if (iter->team == team || iter->team == Team::NEUTRAL) continue;
+		if (dynamic_cast<Champion*>(iter) != nullptr)
+		{
+			Vector3 to = iter->transform->position - myPos;
+			float dist = to.Length();
+			if (dist < targetDist)
+			{
+				championList.emplace_back(iter);
+			}
+		}
+	}
+
+	float exp = stat->GetBaseValue(StatType::Experience) / championList.size();
+	for (auto& champion : championList)
+	{
+		champion->stat->IncreaseBaseValue(StatType::Experience, exp);
 	}
 }

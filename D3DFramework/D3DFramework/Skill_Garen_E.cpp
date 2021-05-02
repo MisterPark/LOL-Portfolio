@@ -7,6 +7,7 @@
 #include "Buff_GarenEDamage.h"
 #include "Buff.h"
 #include "Effect_Garen_E.h"
+#include "Skill_Attack.h"
 
 Skill_Garen_E::Skill_Garen_E(Unit* _hostUnit)
 {
@@ -32,7 +33,8 @@ void Skill_Garen_E::Start()
 		host->SetState(State::IDLE1);
 		return;
 	}
-
+	
+	host->GetSkillAttack()->Cancle();
 	
 	Skill::Start();
 	host->OnOtherSkillStart(this);
@@ -45,7 +47,7 @@ void Skill_Garen_E::Start()
 	DamageObject_Garen_E* damageObj = (DamageObject_Garen_E*)SceneManager::GetCurrentScene()->CreateObject<DamageObject_Garen_E>(Layer::Unit);
 	float attackDamage = (4.f * level) + host->stat->GetValue(StatType::AttackDamage) * (0.3f + level * 0.02f);
 	float attackInterval = 3.f / 7.f;// + TODO: 아이템과 레벨업으로 인한 추가공격횟수 추가해줘야함
-	damageObj->Set_DamageObject(host, this, host->transform->GetPos(), 3.25f, host->team, attackDamage, duration, attackInterval);
+	damageObj->Set_DamageObject(host, this, host->transform->GetPos(), 3.f, host->team, attackDamage, duration, attackInterval);
 	damageObj->Set_ObjectFollow(host);
 	//제일처음에 Basic만 잘 입혀줄것
 	damageObj->Add_DamageCalc(DamageCalc_Basic::CreateCalc(DamageKind::AD));
@@ -58,10 +60,10 @@ void Skill_Garen_E::Start()
 	host->nextSkill = nullptr;
 
 	if (Random::Value(2) == 0)
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE1.ogg", SoundChannel::PLAYER);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenE1.ogg", SoundChannel::PLAYER);
 	else
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenE2.ogg", SoundChannel::PLAYER);
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenE1.ogg", SoundChannel::PLAYER_EFFECT);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenE2.ogg", SoundChannel::PLAYER);
+	host->PlaySoundAccordingCameraPosition(L"GarenE1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_E::Passive()
@@ -99,4 +101,5 @@ void Skill_Garen_E::End()
 {
 	Skill::End();
 	host->moveState = State::RUN;
+	host->SetState(State::IDLE1);
 }

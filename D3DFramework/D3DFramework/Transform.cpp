@@ -180,3 +180,10 @@ Matrix Engine::Transform::GetWorldMatrix()
 	
 	return worldMatrix;
 }
+
+Vector3 Engine::Transform::GetWorldPosition()
+{
+	Matrix worldMat = GetWorldMatrix();
+
+	return Vector3(worldMat._41, worldMat._42, worldMat._43);
+}

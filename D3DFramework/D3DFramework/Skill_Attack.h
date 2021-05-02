@@ -12,7 +12,9 @@ public:
     virtual void End() override;
 
     void AttackCancleToAttack();
+    void Cancle();
 protected:
     //bool attackFlag = false;
+    Vector3 lastTargetPosition;
 };
 

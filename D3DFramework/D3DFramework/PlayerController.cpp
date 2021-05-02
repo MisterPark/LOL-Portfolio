@@ -192,6 +192,7 @@ void PlayerController::Update()
                     target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {
+                    unit->GetSkillAttack()->Cancle();
                     unit->SetAttackTarget(target);
                     targetCheck = true;
                 }
@@ -235,6 +236,33 @@ void PlayerController::Update()
 
     auto monoRenderer = dynamic_cast<MonoRenderer*>(unit->GetComponent(L"monoRenderer"));
     if (monoRenderer) monoRenderer->enable = unit->IsDead();
+
+    // 자동공격
+    if (unit->IsDead() == false)
+    {
+        Unit* attackTarget = unit->GetAttackTarget();
+        Skill* nextSkill = unit->nextSkillReady;
+
+        if (attackTarget == nullptr)
+        {
+            float attackRange = unit->stat->GetValue(StatType::Range);
+            Unit* attackTarget = unit->GetNearestEnemy(transform->position, attackRange);
+        }
+        
+        if (attackTarget != nullptr)
+        {
+            if (attackTarget->IsDead())
+            {
+                unit->SetAttackTarget(nullptr);
+
+            }
+            else
+            {
+                unit->GetSkillAttack()->Start();
+            }
+           
+        }
+    }
     
 }
 

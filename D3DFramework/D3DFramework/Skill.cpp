@@ -93,7 +93,7 @@ bool Skill::PlayerToDistanceCompare(Vector3 _pos, float _distance)
 		Vector3 direction = _pos - player->transform->position;
 		float dist = direction.Length();
 		float targetRadius = player->collider->GetRadius();
-		if (dist <= range + targetRadius)
+		if (dist <= _distance + targetRadius)
 		{
 			return true;
 		}
