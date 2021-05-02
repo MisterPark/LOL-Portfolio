@@ -440,8 +440,10 @@ void Unit::OnHit(Unit* target, Skill* mySkill)
 	//if(hitSound.compare(L""))
 		//SoundManager::GetInstance()->PlayOverlapSound(hitSound.c_str(), SoundChannel::EFFECT);
 	if (hitSound.size() != 0) {
-		int random = Random::Value(hitSound.size());
-		SoundManager::GetInstance()->PlayOverlapSound(hitSound[random].c_str(), SoundChannel::EFFECT, 0.8f);
+		if (skillList[(int)SkillIndex::Attack]->PlayerToDistanceCompare(transform->GetPos())) {
+			int random = Random::Value(hitSound.size());
+			SoundManager::GetInstance()->PlayOverlapSound(hitSound[random].c_str(), SoundChannel::EFFECT, 0.7f);
+		}
 	}
 }
 

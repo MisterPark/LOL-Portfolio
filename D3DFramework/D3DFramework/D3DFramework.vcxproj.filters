@@ -1277,6 +1277,9 @@
     <ClInclude Include="KillCalloutUI.h">
       <Filter>GameObject\UI\KillCalloutPanel</Filter>
     </ClInclude>
+    <ClInclude Include="BushGroup.h">
+      <Filter>GameObject\Unit\Bush</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionManager.cpp">
@@ -2192,6 +2195,9 @@
     </ClCompile>
     <ClCompile Include="KillCalloutUI.cpp">
       <Filter>GameObject\UI\KillCalloutPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="BushGroup.cpp">
+      <Filter>GameObject\Unit\Bush</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

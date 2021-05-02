@@ -107,6 +107,7 @@ void MinionSpawner::Update()
 			int laneCount = MaxOfEnum<SpawnLane>();
 			for (int i = 0; i < laneCount; i++)
 			{
+				if (!(i == (int)SpawnLane::BlueMid || i == (int)SpawnLane::RedMid)) continue;
 				Team team = (i < (int)SpawnLane::RedTop) ? Team::BLUE : Team::RED;
 			
 				PhaseType phaseType = self->spawnPhase[i];
