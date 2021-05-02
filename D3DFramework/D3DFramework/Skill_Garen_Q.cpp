@@ -44,7 +44,8 @@ void Skill_Garen_Q::Start()
 	host->attackTick = 0.f;
 	host->attackFlag = false;
 	
-	host->GetSkillAttack();
+	host->skillList[(int)SkillIndex::Attack]->Cancel();
+	host->skillList[(int)SkillIndex::Attack]->Start();
 
 	host->PlaySoundAccordingCameraPosition(L"Voice_GarenQ1.ogg", SoundChannel::PLAYER);
 	host->PlaySoundAccordingCameraPosition(L"GarenQ1.ogg", SoundChannel::PLAYER_EFFECT);

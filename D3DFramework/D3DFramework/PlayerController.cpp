@@ -188,11 +188,11 @@ void PlayerController::Update()
             if (targetMode)
             {
                 Unit* target = nullptr;
-                if(((Unit*)gameObject)->skillList[(int)SkillIndex::Attack] == unit->nextSkillReady)
+                if(unit->skillList[(int)SkillIndex::Attack] == unit->nextSkillReady)
                     target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {
-                    unit->GetSkillAttack()->Cancle();
+                    unit->skillList[(int)SkillIndex::Attack]->Cancel();
                     unit->SetAttackTarget(target);
                     targetCheck = true;
                 }
@@ -237,36 +237,6 @@ void PlayerController::Update()
     auto monoRenderer = dynamic_cast<MonoRenderer*>(unit->GetComponent(L"monoRenderer"));
     if (monoRenderer) monoRenderer->enable = unit->IsDead();
 
-    // 자동공격
-    if (unit->IsDead() == false)
-    {
-        Unit* attackTarget = unit->GetAttackTarget();
-        Skill* nextSkill = unit->nextSkillReady;
-
-        if (attackTarget == nullptr)
-        {
-            float attackRange = unit->stat->GetValue(StatType::Range);
-            Unit* attackTarget = unit->GetNearestEnemy(transform->position, attackRange);
-        }
-        
-        if (attackTarget != nullptr)
-        {
-            if (attackTarget->IsDead())
-            {
-                unit->SetAttackTarget(nullptr);
-
-            }
-            else
-            {
-                unit->GetSkillAttack()->Start();
-            }
-           
-        }
-        else
-        {
-            unit->SetAttackTarget(attackTarget);
-        }
-    }
     
 }
 

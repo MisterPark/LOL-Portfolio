@@ -11,8 +11,8 @@ public:
     virtual void Active() override;
     virtual void End() override;
 
-    void AttackCancleToAttack();
-    void Cancle();
+    void AttackCancelToAttack();
+    virtual void Cancel() override;
 protected:
     //bool attackFlag = false;
     Vector3 lastTargetPosition;

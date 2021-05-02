@@ -34,7 +34,7 @@ void Skill_Garen_E::Start()
 		return;
 	}
 	
-	host->GetSkillAttack()->Cancle();
+	host->skillList[(int)SkillIndex::Attack]->Cancel();
 	
 	Skill::Start();
 	host->OnOtherSkillStart(this);

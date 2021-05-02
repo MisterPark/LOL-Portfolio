@@ -103,7 +103,7 @@ void Skill_RangeAttack::End()
 	beginAttackFlag = false;
 }
 
-void Skill_RangeAttack::AttackCancleToAttack()
+void Skill_RangeAttack::AttackCancelToAttack()
 {
 	Start();
 	tick = 0.f;

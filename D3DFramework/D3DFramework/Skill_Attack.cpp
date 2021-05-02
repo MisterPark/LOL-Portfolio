@@ -116,13 +116,13 @@ void Skill_Attack::End()
 		host->attackState = State::ATTACK1;
 }
 
-void Skill_Attack::AttackCancleToAttack()
+void Skill_Attack::AttackCancelToAttack()
 {
 	Start();
 	tick = 0.f;
 }
 
-void Skill_Attack::Cancle()
+void Skill_Attack::Cancel()
 {
 	End();
 }

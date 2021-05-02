@@ -21,6 +21,7 @@ public:
 	virtual void Passive() = 0;
 	virtual void Active() = 0;
 	virtual void End() = 0;
+	virtual void Cancel() {};
 	virtual bool InRange();
 
 	virtual Skill* Clone();

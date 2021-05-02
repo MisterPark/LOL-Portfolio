@@ -110,7 +110,7 @@ enum class State
 	END
 };
 
-enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F, END };
+enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F,  END };
 
 
 class Unit : public GameObject
@@ -226,7 +226,6 @@ public:
 	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
-	Skill_Attack* GetSkillAttack();
 	template<class T>
 	Unit::HitInfo GetLastHitInfo();
 	

@@ -39,7 +39,7 @@ void Skill_Garen_R::Start()
 	if (level == 0 || GetCooltime() > 0.f)
 		return;
 
-	host->GetSkillAttack()->Cancle();
+	host->skillList[(int)SkillIndex::Attack]->Cancel();
 
 	Skill::Start();
 	host->OnOtherSkillStart(this);

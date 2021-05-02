@@ -233,6 +233,7 @@ void Unit::SetDestination(Vector3 _target)
 
 void Unit::Move(float _stoppingDistance, Vector3 _target)
 {
+	skillList[(int)SkillIndex::Attack]->Cancel();
 	SetAttackTarget(nullptr);
 	agent->SetStoppingDistance(_stoppingDistance);
 	SetDestination(_target);
@@ -621,7 +622,7 @@ bool Unit::BehaviorTreeSkillSet()
 {
 	bool isActive;
 	isActive = false;
-	for (int i = 0; i < (int)SkillIndex::END; i++)
+	for (int i = 1; i < (int)SkillIndex::END; i++)
 	{
 		isActive = skillList[i]->IsActive();
 		if (isActive) {
@@ -930,11 +931,6 @@ void Unit::SkillLevelUp(SkillIndex skillIndex)
 	skill->AddLevel();
 
 	PlaySoundAccordingCameraPosition(L"ChampionSkillLevelUp1.ogg", SoundChannel::PLAYER);
-}
-
-Skill_Attack* Unit::GetSkillAttack()
-{
-	return dynamic_cast<Skill_Attack*>(skillList[(int)SkillIndex::Attack]);
 }
 
 void Unit::ReqMove(Vector3 _dest, bool _noSearch)
