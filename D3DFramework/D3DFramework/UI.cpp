@@ -260,7 +260,7 @@ void UI::SetSize(int w, int h)
 
 void Engine::UI::SetSizeByTexture()
 {
-	if (texture == nullptr)return;
+	if (texture == nullptr)return;	
 	SetSize(texture->GetSpriteWidth(), texture->GetSpriteHeight());
 }
 
