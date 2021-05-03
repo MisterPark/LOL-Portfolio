@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Diana.h"
+#include "Skill_Attack.h"
+#include "ChampionSubTree.h"
+
 Diana::Diana()
 {
 	transform->scale = { 0.015f, 0.015f, 0.015f, };
@@ -33,6 +36,11 @@ Diana::Diana()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.45f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Diana::~Diana()

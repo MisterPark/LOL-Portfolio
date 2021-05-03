@@ -18,6 +18,7 @@ public:
 	virtual void Update();
 
 	virtual void Show();
+	virtual void Show(bool _visible);
 	virtual void Hide();
 
 	static void ToggleVisible(GameObject* sender, MouseEventArg* arg);

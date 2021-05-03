@@ -28,5 +28,7 @@ public:
     
     bool targetMode = false;
     TargetingSkill* targetingSkill = nullptr;
+private:
+    bool scoreVisible = false;
 };
 

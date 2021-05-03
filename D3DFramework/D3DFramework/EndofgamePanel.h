@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Panel.h"
+#include "EventSystem.h"
 
 class Button;
 class EndofgamePanel :
@@ -16,6 +17,8 @@ public:
 
     void ShowVictory();
     void ShowDefeat();
+
+    void Shutdown(GameObject* sender, MouseEventArg* arg);
 
 private:
     UI* victoryBack = nullptr;

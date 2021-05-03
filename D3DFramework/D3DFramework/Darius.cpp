@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Darius.h"
+#include "Skill_Attack.h"
+#include "ChampionSubTree.h"
+
 using namespace Engine;
 
 Darius::Darius()
@@ -13,8 +16,6 @@ Darius::Darius()
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
-
-	anim->SetLoop((int)State::IDLE1, true);
 
 	faceCircleTexkey = L"darius_circle";
 	faceSquareTexkey = L"darius_square";
@@ -37,6 +38,11 @@ Darius::Darius()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.75f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.4f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Darius::~Darius()

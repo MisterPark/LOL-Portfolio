@@ -61,7 +61,7 @@ EndofgamePanel::EndofgamePanel()
     btnContinue->SetTextureHover(L"eog_btn_hover");
     btnContinue->SetTexturePressed(L"eog_btn_pressed");
     btnContinue->SetTextureDisable(L"eog_btn_disabled");
-    //btnContinue->Click += Engine::Handler(this, &씬전환함수);
+    btnContinue->Click += Engine::Handler(this, &EndofgamePanel::Shutdown);
 
 }
 
@@ -167,4 +167,9 @@ void EndofgamePanel::ShowDefeat()
 
     backeffect[0]->Show(true);
     backeffect[0]->GetComponent<Animation2D>()->SetPlay(true);
+}
+
+void EndofgamePanel::Shutdown(GameObject* sender, MouseEventArg* arg)
+{
+    MainGame::Shutdown();
 }

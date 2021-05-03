@@ -52,6 +52,7 @@ void Minion::OnCollisionEnter(Collider* target)
 {
 	if (dynamic_cast<Unit*>(target->gameObject))
 	{
+		if (dynamic_cast<Champion*>(target->gameObject)) return;
 		Unit* unit = (Unit*)target->gameObject;
 		if (unit->GetState() == State::RUN)
 		{

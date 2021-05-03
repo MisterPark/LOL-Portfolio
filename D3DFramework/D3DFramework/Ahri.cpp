@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Ahri.h"
+#include "ChampionSubTree.h"
+#include "Skill_RangeAttack.h"
 
 Ahri::Ahri()
 {
@@ -36,6 +38,11 @@ Ahri::Ahri()
 	stat->SetBaseValue(StatType::MagicResistance, 30.f);
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.3f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_RangeAttack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Ahri::~Ahri()

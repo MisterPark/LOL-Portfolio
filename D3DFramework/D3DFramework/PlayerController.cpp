@@ -12,6 +12,8 @@
 #include "Skill_RangeAttack.h"
 #include "MonoRenderer.h"
 #include "ArrowPointer.h"
+#include "ItemshopPanel.h"
+#include "ScorePanel.h"
 
 PlayerController::PlayerController(GameObject* owner)
     :IComponent(owner)
@@ -136,6 +138,16 @@ void PlayerController::Update()
             unit->inventory.GetItem(6)->skillList.front()->Use();
     }
     
+    if (Input::GetKey(VK_TAB))
+    {
+        scoreVisible = true;
+    }
+    else
+    {
+        scoreVisible = false;
+    }
+
+    ScorePanel::GetInstance()->Show(scoreVisible);
 
     if (Input::GetMouseWheelUp())
     {

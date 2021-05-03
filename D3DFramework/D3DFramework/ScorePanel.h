@@ -61,6 +61,7 @@ public:
 	int GetPublicScore(PublicScoreID _id) { return publicScore[(int)_id]; }
 
 	virtual void Show();
+	virtual void Show(bool _visible);
 	virtual void Hide();
 	
 protected:

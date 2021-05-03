@@ -473,6 +473,18 @@ void ScorePanel::Show()
 	}
 }
 
+void ScorePanel::Show(bool _visible)
+{
+	if (_visible)
+	{
+		this->Show();
+	}
+	else
+	{
+		this->Hide();
+	}
+}
+
 void ScorePanel::Hide()
 {
 	GameObject::Hide();

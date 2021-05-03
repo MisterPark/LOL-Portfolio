@@ -280,7 +280,7 @@ private:
 public:
 	list<HitInfo> hitList;
 	// 스킬 관련
-	Skill* skillList[MaxOfEnum<SkillIndex>()];
+	Skill* skillList[MaxOfEnum<SkillIndex>()] = {};
 	Skill* nextSkill = nullptr;
 	Skill* nextSkillReady = nullptr;
 	Skill* behaviorTreeSkill = nullptr;

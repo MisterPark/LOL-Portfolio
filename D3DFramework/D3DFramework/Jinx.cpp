@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Jinx.h"
+#include "Skill_RangeAttack.h"
+#include "ChampionSubTree.h"
+
 Jinx::Jinx()
 {
 	transform->scale = { 0.014f, 0.014f, 0.014f, };
@@ -33,6 +36,11 @@ Jinx::Jinx()
 	stat->SetBaseValue(StatType::MagicResistance, 30.f);
 	stat->SetBaseValue(StatType::Range, 5.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_RangeAttack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Jinx::~Jinx()

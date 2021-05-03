@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Leona.h"
+#include "Skill_Attack.h"
+#include "ChampionSubTree.h"
 
 Leona::Leona()
 {
@@ -34,6 +36,11 @@ Leona::Leona()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Leona::~Leona()

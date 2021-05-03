@@ -209,6 +209,8 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotPassive->icon->transform->scale = { 0.71f, 0.71f, 0 };
     slotSummoner1->icon->transform->scale = { 0.71f, 0.71f, 0 };
     slotSummoner2->icon->transform->scale = { 0.71f, 0.71f, 0 };
+	slotSummoner1->icon->SetTexture(L"summoner_haste");
+	slotSummoner2->icon->SetTexture(L"summoner_heal");
 
 	Label* QLabel = mainPanel->AddChild<Label>(L"QLabel", new Label(18));
 	Label* WLabel = mainPanel->AddChild<Label>(L"WLabel", new Label(18));

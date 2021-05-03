@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Leesin.h"
+#include "ChampionSubTree.h"
+#include "Skill_Attack.h"
 
 Leesin::Leesin()
 {
@@ -34,6 +36,11 @@ Leesin::Leesin()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.45f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Leesin::~Leesin()
