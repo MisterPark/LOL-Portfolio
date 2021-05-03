@@ -70,6 +70,7 @@ void TestLoadingScene::OnLoaded()
 
 	CreateChampPanel(borderW, borderH, padding);
 	SetChampPanel();
+	SetSpell();
 	LoadResources();
 }
 
@@ -242,26 +243,41 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		screens[i]->border->SetTexture(texKey);
 		screens[i]->border->SetSize(borderW, borderH);
 		screens[i]->border->SetLocation(borderX, borderY);
-		screens[i]->champ->SetTexture(L"Empty");
-		screens[i]->champ->SetSize(borderW, borderH);
+
+		screens[i]->champ->SetTexture(L"emptyloadscreen");
 		screens[i]->champ->SetLocation(borderX, borderY);
+		auto champTex = RenderManager::GetTexture(L"emptyloadscreen");
+		auto champW = champTex->GetSpriteWidth();
+		auto champH = champTex->GetSpriteHeight();
+		screens[i]->champ->transform->scale = { (float)borderW / champW, (float)borderH / champH, 1.f };
+
 		screens[i]->mask->SetSize(borderW, borderH);
 		screens[i]->mask->SetLocation(borderX, borderY);
-		screens[i]->spell1->SetTexture(L"Empty");
-		screens[i]->spell1->SetSize(spellW, spellH);
+
+		auto summonerTex = RenderManager::GetTexture(L"summoner_empty");
+		auto summonerW = summonerTex->GetSpriteWidth();
+		auto summonerH = summonerTex->GetSpriteHeight();
+
+		screens[i]->spell1->SetTexture(L"summoner_empty");
 		screens[i]->spell1->SetLocation(borderX + spell1offsetX, borderY + spelloffsetY);
-		screens[i]->spell2->SetTexture(L"Empty");
-		screens[i]->spell2->SetSize(spellW, spellH);
+		screens[i]->spell1->transform->scale = { (float)spellW / summonerW, (float)spellW / summonerH, 1.f };
+
+		screens[i]->spell2->SetTexture(L"summoner_empty");
 		screens[i]->spell2->SetLocation(borderX + spell2offsetX, borderY + spelloffsetY);
+		screens[i]->spell2->transform->scale = { (float)spellW / summonerW, (float)spellW / summonerH, 1.f };
+
 		screens[i]->champName->SetText(L"");
 		screens[i]->champName->transform->position = { float(borderX + nameOffsetX), float(borderY + champNameOffsetY),0.f };
 		screens[i]->champName->align = Label::Align::Center;
+		
 		screens[i]->nickName->SetText(L"");
 		screens[i]->nickName->transform->position = { float(borderX + nameOffsetX), float(borderY + nickNameOffsetY),0.f };
 		screens[i]->nickName->align = Label::Align::Center;
+		
 		screens[i]->progressLabel->SetText(L"0%%");
 		screens[i]->progressLabel->transform->position = { float(borderX + progressOffsetX), float(borderY + progressOffsetY),0.f };
 		screens[i]->progressLabel->align = Label::Align::Left;
+		
 		borderX = borderX + borderW + padding;
 		//screens[i]->visible = false;
 	}
@@ -276,15 +292,15 @@ void TestLoadingScene::SetChampPanel()
 		switch (i)
 		{
 		case 0: champ = ChampionType::Garen; break;
-		case 1: champ = ChampionType::Darius; break;
-		case 2: champ = ChampionType::Garen; break;
-		case 3: champ = ChampionType::Garen; break;
-		case 4: champ = ChampionType::Garen; break;
-		case 5: champ = ChampionType::Garen; break;
-		case 6: champ = ChampionType::Garen; break;
-		case 7: champ = ChampionType::Garen; break;
-		case 8: champ = ChampionType::Garen; break;
-		case 9: champ = ChampionType::Garen; break;
+		case 1: champ = ChampionType::Jax; break;
+		case 2: champ = ChampionType::Ahri; break;
+		case 3: champ = ChampionType::Jinx; break;
+		case 4: champ = ChampionType::Blitzcrank; break;
+		case 5: champ = ChampionType::Darius; break;
+		case 6: champ = ChampionType::Leesin; break;
+		case 7: champ = ChampionType::Diana; break;
+		case 8: champ = ChampionType::Missfortune; break;
+		case 9: champ = ChampionType::Leona; break;
 		
 		default:
 			break;
@@ -292,4 +308,37 @@ void TestLoadingScene::SetChampPanel()
 
 		screens[i]->SetChampion(champ);
 	}
+}
+
+void TestLoadingScene::SetSpell()
+{
+	screens[0]->SetSpell1(SpellType::Haste);
+	screens[0]->SetSpell2(SpellType::Heal);
+
+	screens[1]->SetSpell1(SpellType::Ignite);
+	screens[1]->SetSpell2(SpellType::Flash);
+
+	screens[2]->SetSpell1(SpellType::Ignite);
+	screens[2]->SetSpell2(SpellType::Flash);
+
+	screens[3]->SetSpell1(SpellType::Ignite);
+	screens[3]->SetSpell2(SpellType::Flash);
+
+	screens[4]->SetSpell1(SpellType::Ignite);
+	screens[4]->SetSpell2(SpellType::Flash);
+
+	screens[5]->SetSpell1(SpellType::Ignite);
+	screens[5]->SetSpell2(SpellType::Flash);
+
+	screens[6]->SetSpell1(SpellType::Ignite);
+	screens[6]->SetSpell2(SpellType::Flash);
+
+	screens[7]->SetSpell1(SpellType::Ignite);
+	screens[7]->SetSpell2(SpellType::Flash);
+
+	screens[8]->SetSpell1(SpellType::Ignite);
+	screens[8]->SetSpell2(SpellType::Flash);
+
+	screens[9]->SetSpell1(SpellType::Ignite);
+	screens[9]->SetSpell2(SpellType::Flash);
 }

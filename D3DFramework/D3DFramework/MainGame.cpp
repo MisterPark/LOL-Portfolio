@@ -180,6 +180,7 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadingFrameRed.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"loadScreen.png");
 
+	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"emptyloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"ahriloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"amumuloadscreen.dds");
 	RenderManager::LoadSprite(L"Resource\\UI\\loading\\", L"blitzcrankloadscreen.dds");
@@ -202,6 +203,7 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_mana.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_smite.dds");
 	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_teleport.dds");
+	RenderManager::LoadSprite(L"Resource\\Spell\\icon\\", L"summoner_empty.dds");
 	
 	// 인게임
 	RenderManager::LoadSprite(L"Resource\\UI\\HUD\\", L"bar_big1.png");
@@ -361,18 +363,6 @@ void Engine::MainGame::LoadUISprite()
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_dragon_elder.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_baron.png");
 	RenderManager::LoadSprite(L"Resource\\UI\\scoreboard\\", L"scoreboard_simbol_riftherald.png");
-
-	// summoner spell
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_boost.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_exhaust.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_flash.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_haste.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_heal.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_smite.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summoner_teleport.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerbarrier.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonerignite.png");
-	RenderManager::LoadSprite(L"Resource\\UI\\summoner\\", L"summonermana.png");
 
 	// tooltip
 	LoadAllTextureInFolder(L"Resource\\UI\\tooltip\\", L"*.png");
