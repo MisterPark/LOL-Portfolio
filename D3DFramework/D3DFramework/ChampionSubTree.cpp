@@ -43,22 +43,15 @@ ChampionSubTree::ChampionSubTree(Champion* owner)
 	ActionNode<Skill>* skillAction = new ActionNode<Skill>();
 	skillAction->SetAction((Skill**)&champ->behaviorTreeSkill, &Skill::Active);
 	skillsCondition->SetChild(skillAction);
-	//
-
-	SelectorNode* attackSelector = new SelectorNode();
-	this->AddChild(attackSelector);
 
 	ConditionNode<Unit>* attackCondition = new ConditionNode<Unit>();
 	attackCondition->SetCondition((Unit**)&champ, &Unit::HasAttackTarget);
-	attackSelector->AddChild(attackCondition);
-
-	ConditionNode<Skill>* attackRangeCondition = new ConditionNode<Skill>();
-	attackRangeCondition->SetCondition((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::InRange);
-	attackCondition->SetChild(attackRangeCondition);
+	this->AddChild(attackCondition);
 
 	ActionNode<Skill>* attackAction = new ActionNode<Skill>();
 	attackAction->SetAction((Skill**)&champ->skillList[(int)SkillIndex::Attack], &Skill::Active);
-	attackRangeCondition->SetChild(attackAction);
+	attackCondition->SetChild(attackAction);
+	
 
 	ConditionNode<NavMeshAgent>* moveCondition = new ConditionNode<NavMeshAgent>();
 	moveCondition->SetCondition((NavMeshAgent**)&champ->agent, &NavMeshAgent::IsPathRemain);

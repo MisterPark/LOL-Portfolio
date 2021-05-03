@@ -42,15 +42,14 @@ void Skill_Attack::Active()
 	range = host->stat->GetValue(StatType::Range);
 
 	Unit* attackTarget = host->GetAttackTarget();
-	if (attackTarget == nullptr || attackTarget->IsDead())
+	if (attackTarget != nullptr)
 	{
-		End();
-		return;
+		lastTargetPosition = attackTarget->transform->position;
 	}
 	float dt = Time::DeltaTime();
 	
 
-	Vector3 direction = attackTarget->transform->position - host->transform->position;
+	Vector3 direction = lastTargetPosition - host->transform->position;
 	host->agent->Stop();
 	host->LookRotation(direction.Normalized());
 	host->SetState(host->attackState);
@@ -69,6 +68,8 @@ void Skill_Attack::Active()
 		if (host->attackFlag == false)
 		{
 			host->attackFlag = true;
+
+			if (attackTarget == nullptr) return;
 
 			attackTarget->SetLastAttacker(host);
 			float finalDamage = host->stat->GetValue(StatType::AttackDamage);
@@ -107,7 +108,7 @@ void Skill_Attack::Active()
 
 void Skill_Attack::End()
 {
-	active = true;
+	active = false;
 	tick = 0.f;
 	host->OnAttackEnd();
 	host->attackFlag = false;
@@ -115,8 +116,13 @@ void Skill_Attack::End()
 		host->attackState = State::ATTACK1;
 }
 
-void Skill_Attack::AttackCancleToAttack()
+void Skill_Attack::AttackCancelToAttack()
 {
 	Start();
 	tick = 0.f;
+}
+
+void Skill_Attack::Cancel()
+{
+	End();
 }

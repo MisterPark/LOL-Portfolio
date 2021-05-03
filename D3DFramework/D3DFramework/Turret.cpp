@@ -12,6 +12,7 @@
 #include "ScorePanel.h"
 #include "TestScene.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 Turret::Turret()
 {
@@ -91,6 +92,9 @@ void Turret::OnDeathBegin(Unit* _lastAttacker)
 	{
 		AnnouncerPanel::GetInstance()->AddAnnouncer(L"포탑이 파괴되었습니다.", Team::RED, L"포탑이파괴되었습니다.wav", _lastAttacker->faceCircleTexkey, faceCircleTexkey);
 	}
+
+	Team color = (team == Team::BLUE) ? Team::RED : Team::BLUE;
+	KillCalloutPanel::GetInstance()->AddKillCallout(_lastAttacker->faceSquareTexkey, faceSquareTexkey, color);
 }
 
 
@@ -119,18 +123,9 @@ void Turret::Die()
 		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::RedTeamTurretKillScore);
 	else if (team == Team::RED)
 		ScorePanel::GetInstance()->AddPublicScore(PublicScoreID::BlueTeamTurretKillScore);
-	if (Skill::PlayerToDistanceCompare(transform->GetPos()))
-		SoundManager::GetInstance()->PlayOverlapSound(L"TurretDie1.ogg", SoundChannel::PLAYER);
 
-	//TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
-	//if (scene != nullptr)
-	//{
-	//	Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
-	//	if(player->team == team)
-	//		SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴되었습니다.wav", SoundChannel::PLAYER);
-	//	else
-	//		SoundManager::GetInstance()->PlayOverlapSound(L"포탑을파괴했습니다.wav", SoundChannel::PLAYER);
-	//}
+	PlaySoundAccordingCameraPosition(L"TurretDie1.ogg", SoundChannel::PLAYER);
+
 }
 
 void Turret::DeadAction()
@@ -171,8 +166,7 @@ void Turret::AttackAction()
 		missile->SetAttackTarget(attackTarget);
 		//missile->BillboardYaw();
 
-		if (Skill::PlayerToDistanceCompare(transform->GetPos()))
-			SoundManager::GetInstance()->PlayOverlapSound(L"TurretAttack1.ogg", SoundChannel::EFFECT);
+		PlaySoundAccordingCameraPosition(L"TurretAttack1.ogg", SoundChannel::EFFECT);
 	}
 
 

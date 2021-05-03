@@ -188,18 +188,18 @@ void PlayerController::Update()
             if (targetMode)
             {
                 Unit* target = nullptr;
-                if(((Unit*)gameObject)->skillList[(int)SkillIndex::Attack] == unit->nextSkillReady)
+                if(unit->skillList[(int)SkillIndex::Attack] == unit->nextSkillReady)
                     target = unit->GetNearestEnemy(hit.point, 5.f);
                 if (target != nullptr)
                 {
+                    unit->skillList[(int)SkillIndex::Attack]->Cancel();
                     unit->SetAttackTarget(target);
                     targetCheck = true;
                 }
                 else
                 {
-                    unit->SetAttackTarget(nullptr);
-                    agent->SetStoppingDistance(0.1f);
-                    unit->SetDestination(hit.point);
+                    unit->Move(0.1f, hit.point);
+
                     unit->SetAttackPoint(Vector3{ hit.point.x, hit.point.y, hit.point.z });
                     if(((TargetingSkill*)unit->nextSkillReady)->GetGroundClick())
                         targetCheck = true;
@@ -224,10 +224,7 @@ void PlayerController::Update()
             int mask = LayerMask::GetMask(Layer::Ground);
             if (Physics::Raycast(ray, &hit, INFINITY, mask))
             {
-
-                unit->SetAttackTarget(nullptr);
-                agent->SetStoppingDistance(0.1f);
-                unit->SetDestination(hit.point);
+                unit->Move(0.1f, hit.point);
 
                 ArrowPointer::GetInstance()->transform->position = hit.point;
                 ArrowPointer::GetInstance()->Show();
@@ -239,6 +236,7 @@ void PlayerController::Update()
 
     auto monoRenderer = dynamic_cast<MonoRenderer*>(unit->GetComponent(L"monoRenderer"));
     if (monoRenderer) monoRenderer->enable = unit->IsDead();
+
     
 }
 

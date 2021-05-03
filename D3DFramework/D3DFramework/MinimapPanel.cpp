@@ -272,7 +272,53 @@ void MinimapPanel::TestFunc()
 
 void MinimapPanel::Minimap_MouseClick(GameObject* sender, MouseEventArg* arg)
 {
-    Debug::PrintLine("테스트1");
+    Debug::PrintLine("Minimap_MouseClick");
+
+    Vector2 lb{ 45, 49 };
+    Vector2 rt{ -50, -45 };
+
+    // 실제위치 -> 미니맵위치
+    //
+    //Vector3 pos = minion->transform->position;
+    //
+    //pos.x = ((pos.x - lb.x) * -1) / ((rt.x - lb.x) * -1) * minimapSize.x;
+    //pos.z = ((pos.z - rt.y) *  1) / ((lb.y - rt.y) *  1) * minimapSize.y;
+    //pos.x += (*iter)->GetSize().x * 0.5f;
+    //pos.z += (*iter)->GetSize().y * 0.5f;
+    //(*iter)->SetLocation(Vector2(pos.x, pos.z));
+
+    // 미니맵위치 -> 실제위치
+    Vector2 uiSize = minimap->GetSize();
+
+    Vector3 cursorPos = Cursor::GetMousePos();
+    Vector3 pos = { minimap->GetLocation().x, minimap->GetLocation().y, 0.f };
+    pos.x = cursorPos.x - pos.x;
+    pos.y = cursorPos.y - pos.y;
+
+    pos.x = (((pos.x / uiSize.x) * ((rt.x - lb.x) * -1)) * -1) + lb.x;
+    pos.y = (((pos.y / uiSize.y) * ((lb.y - rt.y) *  1)) *  1) + rt.y;
+
+    auto testScene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+    if (testScene == nullptr) return;
+
+    auto unit = testScene->unitMap[(UINT)UnitID::Champ0];
+    if (unit == nullptr) return;
+    
+    Vector3 dir = Vector3(0.f, -1.f, 0.f);
+    Vector3::Normalize(&dir);
+
+    Ray ray;
+    ray.origin = Vector3(pos.x, 100.f, pos.y);
+    ray.direction = dir;
+
+    RaycastHit hit;
+    int mask = LayerMask::GetMask(Layer::Ground);
+    if (Physics::Raycast(ray, &hit, INFINITY, mask))
+    {
+        unit->Move(0.1f, hit.point);
+    }
+
+    Debug::PrintLine("pos: %d, %d", (int)pos.x, (int)pos.y);
 
 }
 

@@ -5,6 +5,7 @@
 #include "StaticMesh.h"
 #include "Collider.h"
 
+
 using namespace Engine;
 
 list<GameObject*> GameObject::gameObjects;
@@ -334,6 +335,17 @@ void Engine::GameObject::Freeze()
 	{
 		child.second->Freeze();
 	}
+}
+
+void Engine::GameObject::PlaySoundAccordingCameraPosition(const TCHAR* pSoundKey, SoundChannel eID)
+{
+	Vector3 to = transform->GetWorldPosition() - Camera::main->transform->position;
+	float volume = 5.f / to.Length();
+	if (volume < 0.2f)
+	{
+		return;
+	}
+	SoundManager::GetInstance()->PlayOverlapSound(pSoundKey, eID, volume);
 }
 
 IComponent* Engine::GameObject::AddComponent(const wstring& _key, IComponent* _component)

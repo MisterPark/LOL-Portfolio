@@ -44,10 +44,11 @@ void Skill_Garen_Q::Start()
 	host->attackTick = 0.f;
 	host->attackFlag = false;
 	
-	host->GetSkillAttack()->AttackCancleToAttack();
+	host->skillList[(int)SkillIndex::Attack]->Cancel();
+	host->skillList[(int)SkillIndex::Attack]->Start();
 
-	SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenQ1.ogg", SoundChannel::PLAYER);
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenQ1.ogg", SoundChannel::PLAYER_EFFECT);
+	host->PlaySoundAccordingCameraPosition(L"Voice_GarenQ1.ogg", SoundChannel::PLAYER);
+	host->PlaySoundAccordingCameraPosition(L"GarenQ1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_Q::Passive()
@@ -68,6 +69,7 @@ void Skill_Garen_Q::Active()
 void Skill_Garen_Q::End()
 {
 	Skill::End();
+	host->SetState(State::IDLE1);
 }
 
 void Skill_Garen_Q::OnHit(Unit* target, Skill* mySkill)

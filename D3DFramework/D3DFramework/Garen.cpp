@@ -137,7 +137,6 @@ void Garen::OnHit(Unit* target, Skill* mySkill)
 void Garen::Die()
 {
 	Champion::Die();
-	//SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenDie1.ogg", SoundChannel::EFFECT);
 }
 
 void Garen::SkillQAction()

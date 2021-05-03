@@ -25,7 +25,7 @@ private:
     Engine::Plane* mesh = nullptr;
 
     Unit* attackTarget = nullptr;
-    float movementSpeed = 5.f;
+    float movementSpeed = 10.f;
 
     float angle = 0.f;
 };

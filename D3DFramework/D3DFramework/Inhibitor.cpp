@@ -6,6 +6,7 @@
 #include "MinionSpawner.h"
 #include "TestScene.h"
 #include "AnnouncerPanel.h"
+#include "KillCalloutPanel.h"
 
 Inhibitor::Inhibitor()
 {
@@ -48,6 +49,9 @@ void Inhibitor::OnDeathBegin(Unit* _lastAttacker)
 	{
 		AnnouncerPanel::GetInstance()->AddAnnouncer(L"이제 슈퍼 미니언이 생성됩니다", Team::RED, L"억제기가파괴되었습니다.wav");
 	}
+
+	Team color = (team == Team::BLUE) ? Team::RED : Team::BLUE;
+	KillCalloutPanel::GetInstance()->AddKillCallout(_lastAttacker->faceSquareTexkey, faceSquareTexkey, color);
 }
 
 void Inhibitor::SetTeam(Team _team)
@@ -102,80 +106,55 @@ void Inhibitor::Die()
 		}
 	}
 
-	//TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
-	//if (scene != nullptr)
-	//{
-	//	Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
-	//	if (player->team == team)
-	//		SoundManager::GetInstance()->PlayOverlapSound(L"억제기가파괴되었습니다.wav", SoundChannel::PLAYER);
-	//	else
-	//		SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기를파괴했습니다.wav", SoundChannel::PLAYER);
-	//}
 	
 }
 
-void Inhibitor::UpdateSpawn()
+void Inhibitor::OnRespawn()
 {
-	float dt = Time::DeltaTime();
-	if (spawnFlag)
+	Building::OnRespawn();
+
+	TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
+	if (scene != nullptr)
 	{
-		spawnTick += dt;
-		if (spawnTick > spawnDelay)
+		Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
+		if (player->team == team)
 		{
-			if (isDead) {
-				TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetCurrentScene());
-				if (scene != nullptr)
-				{
-					Unit* player = scene->unitMap.find((int)UnitID::Champ0)->second;
-					if (player->team == team)
-						SoundManager::GetInstance()->PlayOverlapSound(L"억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
-					else
-						SoundManager::GetInstance()->PlayOverlapSound(L"적의억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
-				}
-			}
-			spawnFlag = false;
-			spawnTick = 0.f;
-			attackTarget = nullptr;
-			lastAttacker = nullptr;
-			collider->enable = true;
-			float maxHP = stat->GetValue(StatType::MaxHealth);
-			stat->SetBaseValue(StatType::Health, maxHP);
-			transform->position = spawnPosition;
-			isDead = false;
-			anim->Resume();
-			Show();
-			OnRespawn();
+			PlaySoundAccordingCameraPosition(L"억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
+		}
+		else
+		{
+			PlaySoundAccordingCameraPosition(L"적의억제기가재생성되었습니다.wav", SoundChannel::PLAYER);
+		}
 
-			if (team == Team::BLUE) {
-				PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueBot);
-				if (botPhase == PhaseType::SSMMMCCC) {
-					MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
-					MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
-					MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SMMMCCC);
-				}
-			}
-			else if (team == Team::RED) {
-				PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedBot);
-				if (botPhase == PhaseType::SSMMMCCC) {
-					MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
-					MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SMMMCCC);
-					MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SMMMCCC);
-				}
-			}
-
-			if (unitID == (int)UnitID::InhibitorBlueBot)
-				MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::MMMCCC);
-			else if (unitID == (int)UnitID::InhibitorBlueMid)
-				MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::MMMCCC);
-			else if (unitID == (int)UnitID::InhibitorBlueTop)
-				MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::MMMCCC);
-			else if (unitID == (int)UnitID::InhibitorRedBot)
-				MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
-			else if (unitID == (int)UnitID::InhibitorRedMid)
-				MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::MMMCCC);
-			else if (unitID == (int)UnitID::InhibitorRedBot)
-				MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
-
+	}
+	
+	if (team == Team::BLUE) {
+		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueBot);
+		if (botPhase == PhaseType::SSMMMCCC) {
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SMMMCCC);
 		}
 	}
+	else if (team == Team::RED) {
+		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedBot);
+		if (botPhase == PhaseType::SSMMMCCC) {
+			MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SMMMCCC);
+			MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SMMMCCC);
+		}
+	}
+
+	if (unitID == (int)UnitID::InhibitorBlueBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::MMMCCC);
+	else if (unitID == (int)UnitID::InhibitorBlueMid)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::MMMCCC);
+	else if (unitID == (int)UnitID::InhibitorBlueTop)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::MMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedMid)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::MMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::MMMCCC);
 }

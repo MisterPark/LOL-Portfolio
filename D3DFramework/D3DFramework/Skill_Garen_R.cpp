@@ -13,6 +13,7 @@
 #include "Effect_Garen_R_GroundImpact.h"
 #include "Effect_Garen_R_Dome.h"
 #include "Effect_Garen_R_Distortion.h"
+#include "Skill_Attack.h"
 
 Skill_Garen_R::Skill_Garen_R(Unit* _hostUnit)
 {
@@ -38,6 +39,7 @@ void Skill_Garen_R::Start()
 	if (level == 0 || GetCooltime() > 0.f)
 		return;
 
+	host->skillList[(int)SkillIndex::Attack]->Cancel();
 
 	Skill::Start();
 	host->OnOtherSkillStart(this);
@@ -66,16 +68,22 @@ void Skill_Garen_R::Start()
 	effDist->SetTarget(host->attackTarget);
 	effDist->SetDuration(1.5f);
 
-	Ray ray = Camera::main->ScreenPointToRay(Input::GetMousePosition());
+	Unit* attackTarget = host->GetAttackTarget();
+	if (attackTarget != nullptr)
+	{
+		Vector3 direction = attackTarget->transform->position - host->transform->position;
+		host->LookRotation(direction.Normalized());
+	}
+	
 
 
 	Calc_TakeDamege(baseDamage);
 
 	if (Random::Value(2) == 0)
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenR1.ogg", SoundChannel::PLAYER);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenR1.ogg", SoundChannel::PLAYER);
 	else
-		SoundManager::GetInstance()->PlayOverlapSound(L"Voice_GarenR2.ogg", SoundChannel::PLAYER);
-	SoundManager::GetInstance()->PlayOverlapSound(L"GarenR1.ogg", SoundChannel::PLAYER_EFFECT);
+		host->PlaySoundAccordingCameraPosition(L"Voice_GarenR2.ogg", SoundChannel::PLAYER);
+	host->PlaySoundAccordingCameraPosition(L"GarenR1.ogg", SoundChannel::PLAYER_EFFECT);
 }
 
 void Skill_Garen_R::Passive()

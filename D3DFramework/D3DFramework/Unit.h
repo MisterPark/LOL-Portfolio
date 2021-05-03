@@ -110,7 +110,7 @@ enum class State
 	END
 };
 
-enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F, END };
+enum class SkillIndex { Attack, Passive, Q, W, E, R, D, F,  END };
 
 
 class Unit : public GameObject
@@ -138,7 +138,7 @@ public:
 
 	void LookRotation(Vector3 _direction);
 	void SetDestination(Vector3 _target);
-	void Move(Vector3 _target);
+	void Move(float _stoppingDistance, Vector3 _target);
 	virtual void Chase(Vector3 _target);
 	void ChaseTarget();
 	virtual void OnAttackBegin();
@@ -226,7 +226,6 @@ public:
 	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
-	Skill_Attack* GetSkillAttack();
 	template<class T>
 	Unit::HitInfo GetLastHitInfo();
 	
@@ -245,6 +244,7 @@ public:
 	virtual void Show();
 	virtual void Show(bool _visible);
 	virtual void Hide();
+
 public:
 	static void StopAll();
 	

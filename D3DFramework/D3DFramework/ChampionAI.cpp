@@ -53,14 +53,24 @@ void ChampionAI::Update()
     float dt = Time::DeltaTime();
 
     // 타겟 검색
+    //if (unit->GetAttackTarget() == nullptr)
+    //{
+    //    unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 5.5f));
+
+    //    if (unit->GetAttackTarget() == nullptr)
+    //    {
+    //        
+    //        unit->SetAttackTarget(unit->GetLastAttacker());
+    //    }
+    //}
     if (unit->GetAttackTarget() == nullptr)
     {
-        unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 5.5f));
+        unit->SetAttackTarget(unit->GetLastAttacker());
 
         if (unit->GetAttackTarget() == nullptr)
         {
-            
-            unit->SetAttackTarget(unit->GetLastAttacker());
+            unit->SetAttackTarget(unit->GetNearestEnemy(unit->transform->position, 5.5f));
+            unit->SetNextSkill(unit->skillList[(int)SkillIndex::Attack]);
         }
     }
     
@@ -112,10 +122,7 @@ void ChampionAI::Update()
         if (moveTick > moveDelay)
         {
             moveTick = 0.f;
-            unit->SetAttackTarget(nullptr);
-            unit->agent->SetStoppingDistance(1.f);
-            //unit->SetDestination(nextPoint);
-            unit->SetDestination(nextPoint);
+            unit->Move(1.f, nextPoint);
         }
     }
     

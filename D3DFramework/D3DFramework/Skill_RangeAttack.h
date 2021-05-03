@@ -11,7 +11,7 @@ public:
     virtual void Active() override;
     virtual void End() override;
 
-    void AttackCancleToAttack();
+    void AttackCancelToAttack();
     void SetTexture(const wstring& _key);
 
 private:
