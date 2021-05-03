@@ -69,19 +69,19 @@ void Inhibitor::Die()
 	Unit::Die();
 	SetSpawnFlag(true);
 	if(unitID == (int)UnitID::InhibitorBlueBot)
-		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
+		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
 	else if (unitID == (int)UnitID::InhibitorBlueMid)
-		MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
-	else if (unitID == (int)UnitID::InhibitorBlueTop)
-		MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SMMMCCC);
-	else if (unitID == (int)UnitID::InhibitorRedBot)
-		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
-	else if (unitID == (int)UnitID::InhibitorRedMid)
 		MinionSpawner::SetMinionPhase(SpawnLane::RedMid, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorBlueTop)
+		MinionSpawner::SetMinionPhase(SpawnLane::RedTop, PhaseType::SMMMCCC);
 	else if (unitID == (int)UnitID::InhibitorRedBot)
-		MinionSpawner::SetMinionPhase(SpawnLane::RedBot, PhaseType::SMMMCCC);
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedMid)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueMid, PhaseType::SMMMCCC);
+	else if (unitID == (int)UnitID::InhibitorRedBot)
+		MinionSpawner::SetMinionPhase(SpawnLane::BlueBot, PhaseType::SMMMCCC);
 
-	if (team == Team::BLUE) {
+	if (team == Team::RED) {
 		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueBot);
 		PhaseType midPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueMid);
 		PhaseType topPhase = MinionSpawner::GetSpawnPhase(SpawnLane::BlueTop);
@@ -91,7 +91,7 @@ void Inhibitor::Die()
 			MinionSpawner::SetMinionPhase(SpawnLane::BlueTop, PhaseType::SSMMMCCC);
 		}
 	}
-	else if (team == Team::RED) {
+	else if (team == Team::BLUE) {
 		PhaseType botPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedBot);
 		PhaseType midPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedMid);
 		PhaseType topPhase = MinionSpawner::GetSpawnPhase(SpawnLane::RedTop);
