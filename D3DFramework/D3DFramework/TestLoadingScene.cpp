@@ -69,7 +69,7 @@ void TestLoadingScene::OnLoaded()
 #endif
 
 	CreateChampPanel(borderW, borderH, padding);
-
+	SetChampPanel();
 	LoadResources();
 }
 
@@ -266,4 +266,30 @@ void TestLoadingScene::CreateChampPanel(int borderW, int borderH, int padding)
 		//screens[i]->visible = false;
 	}
 	
+}
+
+void TestLoadingScene::SetChampPanel()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		ChampionType champ = ChampionType::Garen;
+		switch (i)
+		{
+		case 0: champ = ChampionType::Garen; break;
+		case 1: champ = ChampionType::Darius; break;
+		case 2: champ = ChampionType::Garen; break;
+		case 3: champ = ChampionType::Garen; break;
+		case 4: champ = ChampionType::Garen; break;
+		case 5: champ = ChampionType::Garen; break;
+		case 6: champ = ChampionType::Garen; break;
+		case 7: champ = ChampionType::Garen; break;
+		case 8: champ = ChampionType::Garen; break;
+		case 9: champ = ChampionType::Garen; break;
+		
+		default:
+			break;
+		}
+
+		screens[i]->SetChampion(champ);
+	}
 }

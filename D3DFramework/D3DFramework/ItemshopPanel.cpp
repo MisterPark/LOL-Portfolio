@@ -206,6 +206,19 @@ void ItemshopPanel::Show()
         selectedSlot->selected = true;
 }
 
+void ItemshopPanel::Show(bool _visible)
+{
+    if (_visible)
+    {
+        this->Show();
+    }
+    else
+    {
+        this->Hide();
+    }
+    
+}
+
 void ItemshopPanel::Hide()
 {
     GameObject::Hide();
