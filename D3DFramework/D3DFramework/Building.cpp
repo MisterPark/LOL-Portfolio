@@ -24,6 +24,11 @@ void Building::OnCollisionEnter(Collider* target)
 
 void Building::OnDamaged(Unit* target, Skill* targetSkill, float* damage)
 {
+	if (target->skillList[(int)SkillIndex::Attack] != targetSkill) {
+		*damage = 0.f;
+		return;
+	}
+
 	bool invinCheck = false;
 
 	for (auto& building : frontBuildingList)

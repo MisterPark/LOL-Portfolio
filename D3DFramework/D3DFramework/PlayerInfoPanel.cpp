@@ -441,7 +441,8 @@ void PlayerInfoPanel::Update()
 	else {
 		for (int i = 0; i < 4; ++i) {
 			if (champion->skillList[(UINT)spellNum[i]]->GetLevel() >=
-				champion->skillList[(UINT)spellNum[i]]->GetMaxLevel()) {
+				champion->skillList[(UINT)spellNum[i]]->GetMaxLevel()
+				|| !champion->GetSkillLevelUpPossible(spellNum[i])) {
 				spellLevelUpButton[i]->enable = false;
 			}
 			else {

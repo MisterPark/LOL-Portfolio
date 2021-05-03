@@ -157,6 +157,8 @@ void Stat::PostUpdate()
         baseValues[(int)StatType::SkillPoint] += 1.f;
         if(unit->GetID() == (int)UnitID::Champ0)
             SoundManager::GetInstance()->PlaySoundW(L"ChampionLevelUp1.ogg", SoundChannel::PLAYER);
+        if (baseValues[(int)StatType::Level] >= 18.f)
+            baseValues[(int)StatType::MaxExperience] = 9999.f;
     }
 }
 

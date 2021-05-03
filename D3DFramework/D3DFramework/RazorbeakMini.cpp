@@ -16,7 +16,7 @@ RazorbeakMini::RazorbeakMini()
 	anim->SetLoop((int)State::IDLE1, true);
 
 	stat->SetBaseValue(StatType::MinionKilled, 0.4f);
-
+	stat->SetBaseValue(StatType::Experience, 8.f);
 	hitSound.push_back(L"RazobeakAttack1.ogg");
 	hitSound.push_back(L"RazobeakAttack3.ogg");
 	hitSound.push_back(L"RazobeakAttack6.ogg");

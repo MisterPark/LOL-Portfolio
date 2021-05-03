@@ -14,7 +14,7 @@ KrugMini::KrugMini()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
-
+	stat->SetBaseValue(StatType::Experience, 15.f);
 	hitSound.push_back(L"KrugAttack3.ogg");
 }
 

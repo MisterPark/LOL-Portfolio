@@ -24,6 +24,7 @@ Razorbeak::Razorbeak()
 	//
 	
 	stat->SetBaseValue(StatType::MinionKilled, 2.f);
+	stat->SetBaseValue(StatType::Experience, 30.f);
 	hitSound.push_back(L"RazobeakAttack1.ogg");
 	hitSound.push_back(L"RazobeakAttack2.ogg");
 	hitSound.push_back(L"RazobeakAttack3.ogg");
