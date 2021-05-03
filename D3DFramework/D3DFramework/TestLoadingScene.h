@@ -23,6 +23,7 @@ class TestLoadingScene :
 
     void CreateChampPanel(int borderW, int borderH, int padding);
     void SetChampPanel();
+    void SetSpell();
 
     LoadingChampScreen* screens[10] = {};
 };
