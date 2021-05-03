@@ -14,7 +14,7 @@ Gromp::Gromp()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
-
+	stat->SetBaseValue(StatType::Experience, 60.f);
 	hitSound.push_back(L"GrompAttack1.ogg");
 }
 

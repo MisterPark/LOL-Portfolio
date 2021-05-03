@@ -27,7 +27,7 @@ Monster::Monster()
 	stat->SetBaseValue(StatType::AttackSpeed, 0.525f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.35f);
-	stat->SetBaseValue(StatType::Experience, 40.f);
+	//stat->SetBaseValue(StatType::Experience, 40.f);
 	stat->SetBaseValue(StatType::MaxExperience, INFINITY);
 	stat->SetBaseValue(StatType::MinionKilled, 4.f);
 	stat->SetBaseValue(StatType::Bounty, 20.f);

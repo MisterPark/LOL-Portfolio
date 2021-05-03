@@ -13,7 +13,7 @@ BlueMonster::BlueMonster()
 	AddComponent(L"renderer", renderer);
 
 	anim->SetLoop((int)State::IDLE1, true);
-
+	stat->SetBaseValue(StatType::Experience, 70.f);
 	hitSound.push_back(L"KrugAttack1.ogg");
 }
 

@@ -11,7 +11,7 @@ Scuttleracer::Scuttleracer()
 	anim->AttachToDynamicMesh(dmesh);
 
 	anim->SetLoop((int)State::IDLE1, true);
-
+	stat->SetBaseValue(StatType::Experience, 70.f);
 	Engine::SkinnedMeshRenderer* renderer = new Engine::SkinnedMeshRenderer(this);
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);

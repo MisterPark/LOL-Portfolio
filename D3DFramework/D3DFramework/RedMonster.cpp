@@ -15,6 +15,7 @@ RedMonster::RedMonster()
 	renderer->SetMesh(dmesh);
 	AddComponent(L"renderer", renderer);
 
+	stat->SetBaseValue(StatType::Experience, 70.f);
 	hitSound.push_back(L"RedAttack1.ogg");
 }
 

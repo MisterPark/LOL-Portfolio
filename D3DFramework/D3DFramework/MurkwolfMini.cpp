@@ -15,6 +15,7 @@ MurkwolfMini::MurkwolfMini()
 
 	anim->SetLoop((int)State::IDLE1, true);
 
+	stat->SetBaseValue(StatType::Experience, 40.f);
 	hitSound.push_back(L"WolfAttack1.ogg");
 	hitSound.push_back(L"WolfAttack2.ogg");
 	hitSound.push_back(L"WolfAttack3.ogg");

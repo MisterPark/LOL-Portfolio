@@ -31,7 +31,7 @@ Minion::Minion()
 	bt->SetRoot(subTree);
 
 	Hide();
-	stat->SetBaseValue(StatType::Experience, 20.f);
+	stat->SetBaseValue(StatType::Experience, 12.f);
 }
 
 Minion::~Minion()

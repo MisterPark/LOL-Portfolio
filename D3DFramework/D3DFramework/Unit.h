@@ -226,6 +226,7 @@ public:
 	bool IsTargetInAttackRange();
 	void SetAttackState(State _attackState) { attackState = _attackState; }
 	void SkillLevelUp(SkillIndex skillIndex);
+	bool GetSkillLevelUpPossible(SkillIndex skillIndex);
 	template<class T>
 	Unit::HitInfo GetLastHitInfo();
 	
