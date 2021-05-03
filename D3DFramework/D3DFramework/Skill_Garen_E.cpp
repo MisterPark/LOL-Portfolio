@@ -30,6 +30,7 @@ void Skill_Garen_E::Start()
 		realCoolTimeTick += duration - tick;
 		tick = duration;
 		damageBuff->tick = damageBuff->duration;
+		host->moveState = State::RUN;
 		host->SetState(State::IDLE1);
 		return;
 	}
