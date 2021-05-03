@@ -3,6 +3,8 @@
 
 class Unit;
 
+enum class Lane { BlueTop, BlueMid, BlueBot, RedTop, RedMid, RedBot, END };
+
 class ChampionAI : public IComponent
 {
 public:
@@ -12,6 +14,8 @@ public:
 
     virtual void Update() override;
     virtual IComponent* Clone() override;
+
+    void SetLane(Lane _lane);
 
 private:
     Unit* unit = nullptr;
@@ -28,5 +32,8 @@ private:
 
     float chaseTick = 0.f;
     float chaseDelay = 1.f;
+
+    Lane lane = Lane::BlueTop;
+    list<Vector3> wayPoints[MaxOfEnum<Lane>()];
 };
 

@@ -1,6 +1,9 @@
 ﻿#include "stdafx.h"
 #include "Jax.h"
 #include "SkinnedMeshRenderer.h"
+#include "Skill_Attack.h"
+#include "ChampionSubTree.h"
+
 Jax::Jax()
 {
 	transform->scale = { 0.016f, 0.016f, 0.016f, };
@@ -34,6 +37,11 @@ Jax::Jax()
 	stat->SetBaseValue(StatType::MagicResistance, 31.25f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.5f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Jax::~Jax()

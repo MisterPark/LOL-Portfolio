@@ -37,14 +37,12 @@ Missfortune::Missfortune()
 	stat->SetBaseValue(StatType::MaxMana, 325.84f);
 	stat->SetBaseValue(StatType::Mana, 325.84f);
 	stat->SetBaseValue(StatType::ManaRegen, 8.f);
-	stat->SetBaseValue(StatType::AttackDamage, 52.f);
+	stat->SetBaseValue(StatType::AttackDamage, 42.f);
 	stat->SetBaseValue(StatType::AttackSpeed, 0.656f);
 	stat->SetBaseValue(StatType::Armor, 28.f);
 	stat->SetBaseValue(StatType::MagicResistance, 30.f);
 	stat->SetBaseValue(StatType::Range, 5.5f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
-	//Test
-	stat->SetBaseValue(StatType::LifeSteal, 0.5f);
 
 	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD, true));
 	damageCalcList.emplace_back(DamageCalc_Critical::CreateCalc());

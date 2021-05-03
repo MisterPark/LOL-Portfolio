@@ -624,6 +624,7 @@ bool Unit::BehaviorTreeSkillSet()
 	isActive = false;
 	for (int i = 1; i < (int)SkillIndex::END; i++)
 	{
+		if (skillList[i] == nullptr) continue;
 		isActive = skillList[i]->IsActive();
 		if (isActive) {
 			behaviorTreeSkill = skillList[i];

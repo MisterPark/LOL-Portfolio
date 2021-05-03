@@ -64,26 +64,179 @@ void TestScene::OnLoaded()
 	// 플레이어
 	Unit* unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Garen>(Layer::Unit);
 	unitMap[0] = unit;
-	unit->transform->position = { 41.f, 68.48f, 46.f };
-	//unit->transform->position = { 15.68f, 66.91f, -11.16f };
-	unit->SetSpawnPosition(Vector3(41.f, 68.48f, 46.f));
+	unit->transform->position = { 41.74f, 68.57f, 46.30f };
+	unit->SetSpawnPosition(unit->transform->position);
 	unit->SetTeam(Team::BLUE);
 	unit->AddComponent<PlayerController>(L"PlayerController");
 	Camera::GetInstance()->SetTarget(unit);
 	Champion* champ = (Champion*)unit;
 	champ->SetNickname(L"테스트닉네임");
 	champ->SetID((UINT)0);
-	//champ->AddItem(3742);
 
-	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Missfortune>(Layer::Unit);
+	ScorePanel::GetInstance()->AddChampion(champ, true);
+	MinimapPanel::GetInstance()->AddChampion(champ);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Jax>(Layer::Unit);
+	unitMap[1] = unit;
+	unit->transform->position = { 39.85f, 68.57f, 46.63f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::BLUE);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ChampionAI* ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::BlueTop);
+	}
+	Champion* champ2 = (Champion*)unit;
+	champ2->SetNickname(L"잭스");
+	champ2->SetID((UINT)1);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Ahri>(Layer::Unit);
+	unitMap[2] = unit;
+	unit->transform->position = { 39.60f, 68.59f, 48.72f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::BLUE);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::BlueTop);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"아리");
+	champ2->SetID((UINT)2);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Jinx>(Layer::Unit);
+	unitMap[3] = unit;
+	unit->transform->position = { 41.30f, 68.58f, 49.42f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::BLUE);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::BlueBot);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"징크스");
+	champ2->SetID((UINT)3);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Blitzcrank>(Layer::Unit);
+	unitMap[4] = unit;
+	unit->transform->position = { 42.58f, 68.59f, 47.91f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::BLUE);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::BlueBot);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"블리츠크랭크");
+	champ2->SetID((UINT)4);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Darius>(Layer::Unit);
 	unitMap[5] = unit;
-	unit->transform->position = { -47.48f,68.48f,-41.34f };
+	unit->transform->position = { -47.68f, 68.48f, -43.10f };
 	unit->SetSpawnPosition(unit->transform->position);
 	unit->SetTeam(Team::RED);
 	unit->AddComponent<ChampionAI>(L"AI");
-	Champion* champ2 = (Champion*)unit;
-	champ2->SetNickname(L"미스포츈");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::RedMid);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"다리우스");
 	champ2->SetID((UINT)5);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Leesin>(Layer::Unit);
+	unitMap[6] = unit;
+	unit->transform->position = { -49.23f, 68.48f, -41.54f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::RED);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::RedTop);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"리신");
+	champ2->SetID((UINT)6);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Diana>(Layer::Unit);
+	unitMap[7] = unit;
+	unit->transform->position = { -48.35f, 68.49f, -39.51f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::RED);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::RedTop);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"다이애나");
+	champ2->SetID((UINT)7);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Missfortune>(Layer::Unit);
+	unitMap[8] = unit;
+	unit->transform->position = { -46.34f, 68.48f, -39.96f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::RED);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::RedBot);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"미스포츈");
+	champ2->SetID((UINT)8);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
+
+	unit = (Unit*)SceneManager::GetCurrentScene()->CreateObject<Leona>(Layer::Unit);
+	unitMap[9] = unit;
+	unit->transform->position = { -46.01f, 68.48f, -41.93f };
+	unit->SetSpawnPosition(unit->transform->position);
+	unit->SetTeam(Team::RED);
+	unit->AddComponent<ChampionAI>(L"AI");
+	ai = unit->GetComponent<ChampionAI>();
+	if (ai)
+	{
+		ai->SetLane(Lane::RedBot);
+	}
+	champ2 = (Champion*)unit;
+	champ2->SetNickname(L"레오나");
+	champ2->SetID((UINT)9);
+
+	ScorePanel::GetInstance()->AddChampion(champ2);
+	MinimapPanel::GetInstance()->AddChampion(champ2);
 
 	//trail = (Effect_Trail*)SceneManager::GetCurrentScene()->CreateObject<Effect_Trail>(Layer::Effect);
 	//trail->transform->position = { 36.f,69.f,46.f };
@@ -113,10 +266,8 @@ void TestScene::OnLoaded()
 
 	PlayerInfoPanel::GetInstance()->SetTarget(champ);
 	ItemshopPanel::GetInstance()->SetTarget(champ);
-	ScorePanel::GetInstance()->AddChampion(champ, true);
-	ScorePanel::GetInstance()->AddChampion(champ2);
-	MinimapPanel::GetInstance()->AddChampion(champ);
-	MinimapPanel::GetInstance()->AddChampion(champ2);
+	
+	
 
 	EndofgamePanel::GetInstance()->Hide();
 	SoundManager::PlayBGM(L"Background1.ogg");

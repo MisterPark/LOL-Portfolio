@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Blitzcrank.h"
+#include "Skill_Attack.h"
+#include "ChampionSubTree.h"
+
 Blitzcrank::Blitzcrank()
 {
 	transform->scale = { 0.015f, 0.015f, 0.015f, };
@@ -33,6 +36,11 @@ Blitzcrank::Blitzcrank()
 	stat->SetBaseValue(StatType::MagicResistance, 32.1f);
 	stat->SetBaseValue(StatType::Range, 1.25f);
 	stat->SetBaseValue(StatType::MovementSpeed, 3.25f);
+
+	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
+
+	ChampionSubTree* subTree = new ChampionSubTree(this);
+	bt->SetRoot(subTree);
 }
 
 Blitzcrank::~Blitzcrank()

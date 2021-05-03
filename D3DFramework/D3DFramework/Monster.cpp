@@ -13,6 +13,7 @@
 
 Monster::Monster()
 {
+	spawnDelay = 60.f;
 	bar = (MinionFloatingBar*)SceneManager::GetCurrentScene()->CreateObject<MinionFloatingBar>(Layer::UI);
 	bar->SetTarget(this);
 	if(dynamic_cast<Scuttleracer*>(this) == nullptr)
