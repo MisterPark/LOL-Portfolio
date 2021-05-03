@@ -8,6 +8,7 @@
 
 #include "MinionSpawner.h"
 #include "Champion.h"
+#include "DamageCalc_Basic.h"
 
 list<Minion*> Minion::minionList;
 
@@ -22,6 +23,7 @@ Minion::Minion()
 
 	ai =(MinionAI*)AddComponent<MinionAI>(L"AI");
 
+	damageCalcList.emplace_back(DamageCalc_Basic::CreateCalc(DamageKind::AD));
 	// 스킬
 	skillList[(int)SkillIndex::Attack] = new Skill_Attack(this);
 
