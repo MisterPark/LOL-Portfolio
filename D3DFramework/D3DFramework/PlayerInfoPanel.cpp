@@ -207,10 +207,19 @@ PlayerInfoPanel::PlayerInfoPanel()
     slotSummoner1 = mainPanel->AddChild<OutlinedSlot>(L"SpellS1", new OutlinedSlot(L"border_skill (2)", Vector2(432, 30)));
     slotSummoner2 = mainPanel->AddChild<OutlinedSlot>(L"SpellS2", new OutlinedSlot(L"border_skill (2)", Vector2(488, 30)));
     slotPassive->icon->transform->scale = { 0.71f, 0.71f, 0 };
-    slotSummoner1->icon->transform->scale = { 0.71f, 0.71f, 0 };
-    slotSummoner2->icon->transform->scale = { 0.71f, 0.71f, 0 };
+    slotSummoner1->transform->scale = { 0.71f, 0.71f, 0 };
+    slotSummoner2->transform->scale = { 0.71f, 0.71f, 0 };
+	
 	slotSummoner1->icon->SetTexture(L"summoner_haste");
 	slotSummoner2->icon->SetTexture(L"summoner_heal");
+	summoner1TimeLabel = slotSummoner1->AddChild<Label>(L"SummonerTimeLabel", new Label(27));
+	summoner1TimeLabel->SetLocation(43, 38);
+	summoner1TimeLabel->align = Label::Align::Center;
+	summoner1TimeLabel->valign = Label::VAlign::Middle;
+	summoner2TimeLabel = slotSummoner2->AddChild<Label>(L"SummonerTimeLabel", new Label(27));
+	summoner2TimeLabel->SetLocation(43, 38);
+	summoner2TimeLabel->align = Label::Align::Center;
+	summoner2TimeLabel->valign = Label::VAlign::Middle;
 
 	Label* QLabel = mainPanel->AddChild<Label>(L"QLabel", new Label(18));
 	Label* WLabel = mainPanel->AddChild<Label>(L"WLabel", new Label(18));
@@ -483,7 +492,38 @@ void PlayerInfoPanel::Update()
 			if ((j + 1) <= skilllevel) spellLevelUI[i][j]->SetTexture(L"skilllevel_on");
 			else                       spellLevelUI[i][j]->SetTexture(L"skilllevel_off");
 		}
+	}
 
+	cooltime = champion->skillList[(int)SkillIndex::D]->GetCooltime();
+	cooltimeinit = champion->skillList[(int)SkillIndex::D]->GetCooltime_Init();
+	slotSummoner1->SetCooltime(cooltime, cooltimeinit);
+	if (cooltime <= 0) {
+		summoner1TimeLabel->Hide();
+		slotSummoner1->icon->grayscale = false;
+		slotSummoner1->outline->SetTexture(L"border_skill (1)");
+	}
+	else {
+		summoner1TimeLabel->Show();
+		slotSummoner1->icon->grayscale = true;
+		slotSummoner1->outline->SetTexture(L"border_skill (3)");
+		if (cooltime >= 1)	summoner1TimeLabel->SetText(L"%d", (int)cooltime);
+		else				summoner1TimeLabel->SetText(L"%.1f", cooltime);
+	}
+
+	cooltime = champion->skillList[(int)SkillIndex::F]->GetCooltime();
+	cooltimeinit = champion->skillList[(int)SkillIndex::F]->GetCooltime_Init();
+	slotSummoner2->SetCooltime(cooltime, cooltimeinit);
+	if (cooltime <= 0) {
+		summoner2TimeLabel->Hide();
+		slotSummoner2->icon->grayscale = false;
+		slotSummoner2->outline->SetTexture(L"border_skill (1)");
+	}
+	else {
+		summoner2TimeLabel->Show();
+		slotSummoner2->icon->grayscale = true;
+		slotSummoner2->outline->SetTexture(L"border_skill (3)");
+		if (cooltime >= 1)	summoner2TimeLabel->SetText(L"%d", (int)cooltime);
+		else				summoner2TimeLabel->SetText(L"%.1f", cooltime);
 	}
 
 	// Item

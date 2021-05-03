@@ -101,6 +101,9 @@ private:
 	OutlinedSlot* slotPassive = nullptr;
 	OutlinedSlot* slotSummoner1 = nullptr;
 	OutlinedSlot* slotSummoner2 = nullptr;
+	Label* summoner1TimeLabel = nullptr;
+	Label* summoner2TimeLabel = nullptr;
+
 
 	// Item
 	OutlinedSlot* slotItem[INVENTORY_MAX] = { nullptr, };

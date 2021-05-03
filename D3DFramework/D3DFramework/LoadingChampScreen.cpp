@@ -8,9 +8,9 @@
 
 LoadingChampScreen::LoadingChampScreen()
 {
-	border = new LoadingBorder;
 	champ = new LoadingChampPanel;
 	mask = new LoadingPanel;
+	border = new LoadingBorder;
 	spell1 = new UI_Spell;
 	spell2 = new UI_Spell;
 	champName = new Label(20);
